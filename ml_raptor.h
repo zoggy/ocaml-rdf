@@ -11,7 +11,7 @@
 value Val_raptor_world(raptor_world* val);
 
 #define Val_option_raptor_world(val) Val_option(val, Val_raptor_world)
-
+#define Raptor_world_option_val(val) Option_val(val, Raptor_world_val, NULL)
 
 
 #endif
