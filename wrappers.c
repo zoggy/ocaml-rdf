@@ -155,3 +155,7 @@ CAMLexport value  Val_long(intnat x) { return (value)((x << 1) + 1); }
 CAMLexport int Is_long(value x)   { return ((intnat)(x) & 1) != 0; }
 CAMLexport int Is_block(value x)  { return ((intnat)(x) & 1) == 0; }
 #endif
+
+CAMLprim value ml_pointer_of_custom (value val) {
+  return (caml_copy_nativeint (Field(val,1)));
+  }

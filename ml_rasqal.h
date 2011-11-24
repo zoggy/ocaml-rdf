@@ -9,4 +9,8 @@
 
 #define Rasqal_world_val(val) (rasqal_world*) Pointer_val(val)
 value Val_rasqal_world(rasqal_world* val);
+
+#define Val_option_rasqal_world(val) Val_option(val, Val_rasqal_world)
+
+
 #endif

@@ -34,7 +34,9 @@ SYSLIBS_BYTE=
 LIB_C_FILES=wrappers.c \
 	ml_raptor.c \
 	ml_rasqal.c \
-	ml_init.c
+	ml_init.c \
+	ml_storage.c \
+	ml_model.c
 
 LIB_O_FILES=$(LIB_C_FILES:.c=.o)
 
@@ -42,7 +44,9 @@ LIB_CMXFILES= \
 	rdf_misc.cmx \
 	rdf_raptor.cmx \
 	rdf_rasqal.cmx \
-	rdf_init.cmx
+	rdf_init.cmx \
+	rdf_storage.cmx \
+	rdf_model.cmx
 
 LIB_CMOFILES=$(LIB_CMXFILES:.cmx=.cmo)
 LIB_CMIFILES=$(LIB_CMXFILES:.cmx=.cmi)
