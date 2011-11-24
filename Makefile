@@ -35,6 +35,8 @@ LIB_C_FILES=wrappers.c \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \
+	ml_node.c \
+	ml_statement.c \
 	ml_storage.c \
 	ml_model.c
 
@@ -45,6 +47,8 @@ LIB_CMXFILES= \
 	rdf_raptor.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx \
+	rdf_node.cmx \
+	rdf_statement.cmx \
 	rdf_storage.cmx \
 	rdf_model.cmx
 

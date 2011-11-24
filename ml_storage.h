@@ -2,7 +2,7 @@
 #include <librdf.h>
 
 #include "wrappers.h"
-
+#include "ml_init.h"
 
 #ifndef ML_STORAGE
 #define ML_STORAGE

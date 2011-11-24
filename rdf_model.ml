@@ -1,8 +1,9 @@
 (** *)
 
 type model
+type model_factory
 
-external new_model : Rdf_init.world -> Rdf_storage.storage -> string -> model = "ml_librdf_new_model"
+external new_model : Rdf_init.world -> Rdf_storage.storage -> string -> model option = "ml_librdf_new_model"
 external free_model : model -> unit = "ml_librdf_free_model"
 external new_model_from_model : model -> model = "ml_librdf_new_model_from_model"
 
@@ -16,7 +17,7 @@ let (add_model, incr_model, decr_model) =
 
 let new_model ?(options="") world storage =
   let m = new_model world storage options in
-  add_model m;
+  Rdf_misc.do_opt add_model m;
   m
 ;;
 
