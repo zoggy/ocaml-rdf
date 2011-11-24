@@ -7,7 +7,6 @@
 #ifndef ML_RASQAL
 #define ML_RASQAL
 
-rasqal_world* rasqal_world_val(value val);
-value val_rasqal_world_copy(value val);
-
+#define Rasqal_world_val(val) (rasqal_world*) Pointer_val(val)
+value Val_rasqal_world(rasqal_world* val);
 #endif

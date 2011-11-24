@@ -1,0 +1,7 @@
+*.cm*
+*.o
+*.a
+*.annot
+example
+*.so
+

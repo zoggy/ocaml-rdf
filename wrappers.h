@@ -269,6 +269,7 @@ CAMLprim value Val_##type (type *p) \
   ret = alloc_custom (&ml_custom_##type, sizeof(value), adv, 1000); \
   initialize (&Field(ret,1), (value) p); init(p); return ret; }
 
+/*
 typedef struct { int* cpt ; void* data ; } refcount_pointer;
 
 #define Make_Val_refcount_pointer(type, init, final, adv) \
@@ -307,7 +308,7 @@ CAMLprim value val_##type##_copy (value val) \
  ret = alloc_custom (&ml_custom_##type, sizeof(value), adv, 1000); \
  initialize (&Field(ret,1), (value) s); init(p); return ret; \
 }
-
+*/
 
 
 #define Make_Val_final_pointer_ext(type, ext, init, final, adv) \

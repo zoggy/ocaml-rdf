@@ -39,6 +39,7 @@ LIB_C_FILES=wrappers.c \
 LIB_O_FILES=$(LIB_C_FILES:.c=.o)
 
 LIB_CMXFILES= \
+	rdf_misc.cmx \
 	rdf_raptor.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx
@@ -64,7 +65,7 @@ lib_byte: $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMOFILES)
 	$(LIB_LINKFLAGS)
 
 example: $(LIB) example.ml
-	$(OCAMLOPT) -verbose -o $@ $^
+	$(OCAMLOPT) -verbose -o $@ unix.cmxa $^
 
 
 
