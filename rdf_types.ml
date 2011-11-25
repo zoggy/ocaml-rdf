@@ -8,3 +8,4 @@ type raptor_world
 type rasqal_world
 type statement
 type storage
+type uri

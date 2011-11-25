@@ -230,16 +230,21 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 #define Unit(x) ((x), Val_unit)
 #define Id(x) x
 #define Val_char Val_int
+#define Val_ustring(s) Val_string((char *) s)
+#define Val_option_string(s) Val_option(s,Val_string)
+#define Val_option_ustring(s) Val_option(s,Val_ustring)
 
 /* parameter conversion */
 #define Bool_ptr(x) ((long) x - 1)
 #define Char_val Int_val
 #define Float_val(x) ((float)Double_val(x))
 #define SizedString_val(x) String_val(x), string_length(x)
+#define UString_val(s) (unsigned char *)(String_val(s))
 
 #define Option_val(val,unwrap,default) \
 ((long)val-1 ? unwrap(Field(val,0)) : default)
 #define String_option_val(s) Option_val(s,String_val,NULL)
+#define UString_option_val(s) Option_val(s,UString_val,NULL)
 
 /* Strings are not always old, so they may move around... */
 /* problems with alloca on Linux

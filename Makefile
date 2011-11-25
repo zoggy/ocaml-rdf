@@ -31,21 +31,27 @@ MKDIR=mkdir -p
 SYSLIBS=
 SYSLIBS_BYTE=
 
-LIB_C_FILES=wrappers.c \
+LIB_C_FILES= \
+	wrappers.c \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \
+	ml_uri.c \
 	ml_node.c \
 	ml_statement.c \
 	ml_storage.c \
 	ml_model.c
 
+
 LIB_O_FILES=$(LIB_C_FILES:.c=.o)
 
 LIB_CMXFILES= \
+	rdf_pointer.cmx \
+	rdf_enums.cmx \
 	rdf_types.cmx \
 	rdf_misc.cmx \
 	rdf_raptor.cmx \
+	rdf_uri.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx \
 	rdf_node.cmx \
@@ -65,11 +71,13 @@ all: opt byte
 opt: lib
 byte: lib_byte
 
-lib: $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMXFILES)
+enums: ml_enums.c ml_enums.h rdf_enums.ml
+
+lib: enums $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMXFILES)
 	$(OCAMLMKLIB) -o $(LIB_NAME) $(LIB_O_FILES) $(LIB_CMXFILES) \
 	$(LIB_LINKFLAGS)
 
-lib_byte: $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMOFILES)
+lib_byte: enums $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMOFILES)
 	$(OCAMLMKLIB) -o $(LIB_NAME) $(LIB_O_FILES) $(LIB_CMOFILES) \
 	$(LIB_LINKFLAGS)
 
@@ -77,9 +85,16 @@ example: $(LIB) example.ml
 	$(OCAMLOPT) -verbose -o $@ unix.cmxa $^
 
 
+varcc: varcc.ml4
+	$(OCAMLC) -o $@ -pp "$(CAMLP4O) -impl" -impl $<
 
+ml_enums.c ml_enums.h rdf_enums.ml: ml_enums.var varcc
+	./varcc $<
+
+############
 clean:
 	$(RM) *.o *.cm* .annot *.a *.so
+	$(RM) varcc rdf_enums.ml ml_enums.c ml_enums.h
 
 #############
 .SUFFIXES: .mli .ml .cmi .cmo .cmx .cmxs .mll .mly .o .c
