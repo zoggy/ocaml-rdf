@@ -5,7 +5,7 @@
 example
 *.so
 .chamo*
-depend
+.depend
 dump.odoc
 log
 ml_enums.c
