@@ -33,6 +33,7 @@ SYSLIBS_BYTE=
 
 LIB_C_FILES= \
 	wrappers.c \
+	ml_types.c \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \

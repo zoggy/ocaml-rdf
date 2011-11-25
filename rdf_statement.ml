@@ -4,10 +4,10 @@ open Rdf_types;;
 
 external new_statement : world -> statement option = "ml_librdf_new_statement"
 external free_statement : statement -> unit = "ml_librdf_free_statement"
-external new_statement_from_statement : statement -> statement option = "ml_librdf_statement_from_statement"
+external new_statement_from_statement : statement -> statement option = "ml_librdf_new_statement_from_statement"
 
 external new_statement_from_nodes :
-  world -> node -> node -> node -> statement option = "ml_librdf_statement_from_nodes"
+  world -> node -> node -> node -> statement option = "ml_librdf_new_statement_from_nodes"
 
 external statement_init : world -> statement -> unit = "ml_librdf_statement_init"
 external statement_clear : statement -> unit = "ml_librdf_statement_clear"

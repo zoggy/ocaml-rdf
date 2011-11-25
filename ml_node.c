@@ -60,7 +60,7 @@ ML_1 (librdf_node_get_literal_value_is_wf_xml, Librdf_node_val, Val_bool)
 ML_1 (librdf_node_get_literal_value_language, Librdf_node_val, Val_option_string)
 ML_1 (librdf_node_get_type, Librdf_node_val, Val_librdf_node_type)
 ML_1 (librdf_node_get_uri, Librdf_node_val, Val_option_librdf_uri)
-ML_1 ( librdf_node_is_blank, Librdf_node_val, Val_bool)
+ML_1 (librdf_node_is_blank, Librdf_node_val, Val_bool)
 ML_1 ( librdf_node_is_literal, Librdf_node_val, Val_bool)
 ML_1 ( librdf_node_is_resource, Librdf_node_val, Val_bool)
 /*
