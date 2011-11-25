@@ -40,15 +40,11 @@ statement=RDF.Statement(RDF.Uri("http://www.dajobe.org/"),
 if statement is None:
   raise Exception("new RDF.Statement failed")
 *)
-let unopt = function None -> fatal "None" | Some x -> x;;
 let statement =
-  match Rdf_statement.new_statement_from_nodes world
-    (unopt (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/"))
-    (unopt (Rdf_node.new_node_from_uri_string world "http://purl.org/dc/elements/1.1/creator"))
-    (unopt (Rdf_node.new_node_from_literal world "Dave Beckett"))
-  with
-    None -> fatal "Failed to create statement"
-  | Some s -> s
+  Rdf_statement.new_statement_from_nodes world
+    (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/")
+    (Rdf_node.new_node_from_uri_string world "http://purl.org/dc/elements/1.1/creator")
+    (Rdf_node.new_node_from_literal world "Dave Beckett")
 ;;
 
 

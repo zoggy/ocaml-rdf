@@ -33,3 +33,4 @@ let create_pointer_counter id pointer_of free =
 ;;
 
 let do_opt f = function None -> ()| Some x -> f x;;
+let map_opt f = function None -> None | Some x -> Some (f x);;
