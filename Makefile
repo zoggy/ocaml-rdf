@@ -43,6 +43,7 @@ LIB_C_FILES=wrappers.c \
 LIB_O_FILES=$(LIB_C_FILES:.c=.o)
 
 LIB_CMXFILES= \
+	rdf_types.cmx \
 	rdf_misc.cmx \
 	rdf_raptor.cmx \
 	rdf_rasqal.cmx \

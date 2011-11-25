@@ -1,8 +1,8 @@
 (** *)
 
-type storage
+open Rdf_types;;
 
-external new_storage : Rdf_init.world ->
+external new_storage : world ->
   string -> string -> string -> storage option = "ml_librdf_new_storage"
 external free_storage : storage -> unit = "ml_librdf_free_storage"
 

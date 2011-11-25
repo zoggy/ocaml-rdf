@@ -1,8 +1,8 @@
 (** *)
 
-type node
+open Rdf_types;;
 
-external new_node : Rdf_init.world -> node option = "ml_librdf_new_node"
+external new_node : world -> node option = "ml_librdf_new_node"
 external free_node : node -> unit = "ml_librdf_free_node"
 
 external pointer_of_node : node -> Nativeint.t = "ml_pointer_of_custom"

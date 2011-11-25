@@ -1,8 +1,8 @@
 (** *)
 
-type statement
+open Rdf_types;;
 
-external new_statement : Rdf_init.world -> statement option = "ml_librdf_new_statement"
+external new_statement : world -> statement option = "ml_librdf_new_statement"
 external free_statement : statement -> unit = "ml_librdf_free_statement"
 
 external pointer_of_statement : statement -> Nativeint.t = "ml_pointer_of_custom"

@@ -1,12 +1,12 @@
 (** *)
 
-type world
+open Rdf_types;;
 
 external new_world : unit -> world = "ml_librdf_new_world"
 external free_world : world -> unit = "ml_librdf_free_world"
 external world_open : world -> unit = "ml_librdf_world_open"
-external world_set_rasqal : world -> Rdf_rasqal.world option -> unit = "ml_librdf_world_set_rasqal"
-external world_get_rasqal : world -> Rdf_rasqal.world option = "ml_librdf_world_get_rasqal"
+external world_set_rasqal : world -> rasqal_world option -> unit = "ml_librdf_world_set_rasqal"
+external world_get_rasqal : world -> rasqal_world option = "ml_librdf_world_get_rasqal"
 external world_init_mutex : world -> unit = "ml_librdf_world_init_mutex"
 external world_set_digest : world -> string -> unit = "ml_librdf_world_set_digest"
 

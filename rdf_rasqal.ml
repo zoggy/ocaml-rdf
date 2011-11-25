@@ -1,13 +1,13 @@
 (** *)
 
-type world
+open Rdf_types;;
 
-external new_world : unit -> world = "ml_rasqal_new_world"
-external free_world : world -> unit = "ml_rasqal_free_world"
-external world_open : world -> int = "ml_rasqal_world_open"
-external world_set_raptor : world -> Rdf_raptor.world option -> unit = "ml_rasqal_world_set_raptor"
-external world_get_raptor : world -> Rdf_raptor.world option = "ml_rasqal_world_get_raptor"
-external pointer_of_world : world -> Nativeint.t = "ml_pointer_of_custom"
+external new_world : unit -> rasqal_world = "ml_rasqal_new_world"
+external free_world : rasqal_world -> unit = "ml_rasqal_free_world"
+external world_open : rasqal_world -> int = "ml_rasqal_world_open"
+external world_set_raptor : rasqal_world -> raptor_world option -> unit = "ml_rasqal_world_set_raptor"
+external world_get_raptor : rasqal_world -> raptor_world option = "ml_rasqal_world_get_raptor"
+external pointer_of_world : rasqal_world -> Nativeint.t = "ml_pointer_of_custom"
 
 (** @todo decr raptor counter when freeing world *)
 

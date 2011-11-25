@@ -1,9 +1,8 @@
 (** *)
 
-type model
-type model_factory
+open Rdf_types
 
-external new_model : Rdf_init.world -> Rdf_storage.storage -> string -> model option = "ml_librdf_new_model"
+external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
 external free_model : model -> unit = "ml_librdf_free_model"
 external new_model_from_model : model -> model = "ml_librdf_new_model_from_model"
 
