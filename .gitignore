@@ -4,4 +4,14 @@
 *.annot
 example
 *.so
-
+.chamo*
+depend
+dump.odoc
+log
+ml_enums.c
+ml_enums.h
+ocamldoc/
+rdf_enums.ml
+redland.png
+tests/example_from_python
+varcc
