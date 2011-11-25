@@ -2,40 +2,26 @@
 
 open Rdf_types;;
 
-external new_world : unit -> rasqal_world = "ml_rasqal_new_world"
-external free_world : rasqal_world -> unit = "ml_rasqal_free_world"
-external world_open : rasqal_world -> int = "ml_rasqal_world_open"
-external world_set_raptor : rasqal_world -> raptor_world option -> unit = "ml_rasqal_world_set_raptor"
-external world_get_raptor : rasqal_world -> raptor_world option = "ml_rasqal_world_get_raptor"
-external pointer_of_world : rasqal_world -> Nativeint.t = "ml_pointer_of_custom"
+module Raw =
+  struct
+    external new_world : unit -> rasqal_world option = "ml_rasqal_new_world"
+    external free_world : rasqal_world -> unit = "ml_rasqal_free_world"
+    external world_open : rasqal_world -> int = "ml_rasqal_world_open"
+    external world_set_raptor : rasqal_world -> raptor_world option -> unit = "ml_rasqal_world_set_raptor"
+    external world_get_raptor : rasqal_world -> raptor_world option = "ml_rasqal_world_get_raptor"
+    external pointer_of_world : rasqal_world -> Nativeint.t = "ml_pointer_of_custom"
+  end
 
-(** @todo decr raptor counter when freeing world *)
+let world_to_finalise v =();;(* Gc.finalise Raw.free_world v;;*)
 
+exception Rasqal_world_creation_failed of string;;
 
-let free_world w =
-  Rdf_misc.do_opt
-  (fun r -> Rdf_raptor.decr_world r ; world_set_raptor w None)
-  (world_get_raptor w)
+let on_new_world fun_name = function
+  None -> raise (Rasqal_world_creation_failed fun_name)
+| Some n -> world_to_finalise n; n
 ;;
 
-let (add_world, incr_world, decr_world) =
-  Rdf_misc.create_pointer_counter "rasqal_world"
-  pointer_of_world free_world;;
-
-let new_world () =
-  let w = new_world () in
-  add_world w;
-  w
-;;
-
-let world_set_raptor w r =
-  Rdf_misc.do_opt Rdf_raptor.decr_world (world_get_raptor w);
-  Rdf_misc.do_opt Rdf_raptor.incr_world r;
-  world_set_raptor w r
-;;
-
-let world_get_raptor w =
-  let r = world_get_raptor w in
-  Rdf_misc.do_opt Rdf_raptor.add_world r;
-  r
-;;
+let new_world () = on_new_world "" (Raw.new_world ());;
+let world_open = Raw.world_open;;
+let world_set_raptor = Raw.world_set_raptor;;
+let world_get_raptor = Raw.world_get_raptor;;

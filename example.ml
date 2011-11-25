@@ -10,7 +10,8 @@ let x =
   let rasqal = Rdf_rasqal.new_world () in
   let _ =
     let raptor = Rdf_raptor.new_world () in
-    prerr_endline (Printf.sprintf "raptor address: %s" (Nativeint.to_string (Rdf_raptor.pointer_of_world raptor)));
+    prerr_endline (Printf.sprintf "raptor address: %s"
+     (Nativeint.to_string (Rdf_raptor.Raw.pointer_of_world raptor)));
     Rdf_rasqal.world_set_raptor rasqal (Some raptor) ;
     loop();
     ignore(raptor);
@@ -19,6 +20,13 @@ let x =
     Rdf_init.world_set_rasqal world (Some rasqal);
     Rdf_init.world_init_mutex world;
     Rdf_init.world_set_digest world "hello";
+    let statement =
+      Rdf_statement.new_statement_from_nodes world
+      (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/")
+      (Rdf_node.new_node_from_uri_string world "http://purl.org/dc/elements/1.1/creator")
+      (Rdf_node.new_node_from_literal world "Dave Beckett")
+    in
+    ()
   in
   let foo =
     let raptor = Rdf_rasqal.world_get_raptor rasqal in
@@ -27,7 +35,7 @@ let x =
     | Some r ->
         prerr_endline
         (Printf.sprintf "OK: there is a raptor; address is %s"
-         (Nativeint.to_string (Rdf_raptor.pointer_of_world r))
+         (Nativeint.to_string (Rdf_raptor.Raw.pointer_of_world r))
         );
   in
   ()

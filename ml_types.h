@@ -17,6 +17,8 @@ value Val_raptor_world(raptor_world* val);
 value Val_rasqal_world(rasqal_world* val);
 
 #define Librdf_world_val(val) (librdf_world*) Pointer_val(val)
+#define Val_option_librdf_world(val) Val_option(val, Val_librdf_world)
+value Val_librdf_world(librdf_world* val);
 
 #define Librdf_model_val(val) (librdf_model*) Pointer_val(val)
 #define Val_option_librdf_model(val) Val_option(val, Val_librdf_model)

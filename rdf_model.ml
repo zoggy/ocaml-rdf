@@ -2,21 +2,25 @@
 
 open Rdf_types
 
-external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
-external free_model : model -> unit = "ml_librdf_free_model"
-external new_model_from_model : model -> model = "ml_librdf_new_model_from_model"
+module Raw =
+  struct
+    external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
+    external free_model : model -> unit = "ml_librdf_free_model"
+    external new_model_from_model : model -> model = "ml_librdf_new_model_from_model"
 
-external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
+    external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
+end
 
-(** @todo decr raptor counter when freeing world *)
+let model_to_finalise v = Gc.finalise Raw.free_model v;;
 
-let (add_model, incr_model, decr_model) =
-  Rdf_misc.create_pointer_counter "model"
-  pointer_of_model free_model;;
+exception Model_creation_failed of string;;
+
+let on_new_model fun_name = function
+  None -> raise (Model_creation_failed fun_name)
+| Some n -> model_to_finalise n; n
+;;
 
 let new_model ?(options="") world storage =
-  let m = new_model world storage options in
-  Rdf_misc.do_opt add_model m;
-  m
+  on_new_model "" (Raw.new_model world storage options)
 ;;
 

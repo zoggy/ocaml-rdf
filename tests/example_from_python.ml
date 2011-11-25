@@ -13,12 +13,9 @@ if storage is None:
 *)
 
 let storage =
-  match Rdf_storage.new_storage
+  Rdf_storage.new_storage
     ~factory: "hashes" ~name: "test"
     ~options: "new='yes',hash-type='memory',dir='.'" world
-  with
-    None -> fatal "failed to create storage"
-  | Some s -> s
 ;;
 
 (*
@@ -28,9 +25,7 @@ if model is None:
 *)
 
 let model =
-  match Rdf_model.new_model world storage with
-    None -> fatal "Failed to create model"
-  | Some m -> m
+  Rdf_model.new_model world storage
 ;;
 
 (*
