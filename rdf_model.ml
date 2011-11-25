@@ -2,6 +2,7 @@
 
 open Rdf_types
 
+(**/**)
 module Raw =
   struct
     external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
@@ -12,6 +13,7 @@ module Raw =
 end
 
 let model_to_finalise v = Gc.finalise Raw.free_model v;;
+(**/**)
 
 exception Model_creation_failed of string;;
 

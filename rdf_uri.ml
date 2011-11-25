@@ -2,6 +2,7 @@
 
 open Rdf_types;;
 
+(**/**)
 module Raw =
   struct
     external new_uri : world -> string -> uri option = "ml_librdf_new_uri"
@@ -35,6 +36,7 @@ module Raw =
 ;;
 
 let uri_to_finalise v = Gc.finalise Raw.free_uri v;;
+(**/**)
 
 exception Uri_creation_failed of string;;
 

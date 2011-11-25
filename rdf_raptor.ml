@@ -2,6 +2,7 @@
 
 open Rdf_types;;
 
+(**/**)
 module Raw =
   struct
     external new_world : unit -> raptor_world option = "ml_raptor_new_world"
@@ -11,6 +12,7 @@ module Raw =
   end
 
 let world_to_finalise v = () (*Gc.finalise Raw.free_world v;;*)
+(**/**)
 
 exception Raptor_world_creation_failed of string;;
 

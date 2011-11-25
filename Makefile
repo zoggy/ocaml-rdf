@@ -93,6 +93,14 @@ ml_enums.c ml_enums.h rdf_enums.ml: ml_enums.var varcc
 	./varcc $<
 
 ############
+doc: dump.odoc
+	$(MKDIR) ocamldoc
+	$(OCAMLDOC) -load $< -d ocamldoc -html
+
+dump.odoc: rdf*.ml
+	$(OCAMLDOC) $(INCLUDES) rdf*.ml -dump $@
+
+############
 clean:
 	$(RM) *.o *.cm* .annot *.a *.so
 	$(RM) varcc rdf_enums.ml ml_enums.c ml_enums.h

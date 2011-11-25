@@ -2,6 +2,7 @@
 
 open Rdf_types;;
 
+(**/**)
 module Raw =
   struct
     external new_storage : world ->
@@ -12,6 +13,7 @@ module Raw =
    end
 
 let storage_to_finalise v = Gc.finalise Raw.free_storage v;;
+(**/**)
 
 exception Storage_creation_failed of string;;
 

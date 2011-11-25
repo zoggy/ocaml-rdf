@@ -2,6 +2,7 @@
 
 open Rdf_types;;
 
+(**/**)
 module Raw =
   struct
     external free_node : node -> unit = "ml_librdf_free_node"
@@ -59,6 +60,7 @@ module Raw =
   end
 
 let node_to_finalise v = Gc.finalise Raw.free_node v;;
+(**/**)
 
 exception Node_creation_failed of string;;
 
