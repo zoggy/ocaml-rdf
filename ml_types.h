@@ -23,6 +23,7 @@ value Val_rasqal_world(rasqal_world* val);
 
 #define Librdf_node_val(val) (librdf_node*) Pointer_val(val)
 #define Val_option_librdf_node(val) Val_option(val, Val_librdf_node)
+value Val_librdf_node(librdf_node* val);
 
 #define Val_librdf_node_type Val_node_type
 #define Librdf_node_type_val Node_type_val
