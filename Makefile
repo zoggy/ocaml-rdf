@@ -37,6 +37,7 @@ LIB_C_FILES= \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \
+	ml_stream.c \
 	ml_hash.c \
 	ml_uri.c \
 	ml_node.c \
@@ -56,6 +57,7 @@ LIB_CMXFILES= \
 	rdf_uri.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx \
+	rdf_stream.cmx \
 	rdf_hash.cmx \
 	rdf_node.cmx \
 	rdf_statement.cmx \

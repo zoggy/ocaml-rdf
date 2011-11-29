@@ -27,9 +27,10 @@ module Raw =
 
     external hash_from_string : hash -> string -> bool =
       "ml_librdf_hash_from_string"
+(*
     external hash_to_string : hash -> int -> string =
       "ml_librdf_hash_to_string"
-
+*)
     external pointer_of_hash : hash -> Nativeint.t = "ml_pointer_of_custom"
    end
 
@@ -82,6 +83,7 @@ let hash_from_string hash s =
   if not (Raw.  hash_from_string hash s) then
     failwith "hash_from_string"
 ;;
-
+(*
 let hash_to_string hash = Raw.hash_to_string hash 0
 ;;
+*)

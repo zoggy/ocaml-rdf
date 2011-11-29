@@ -18,7 +18,9 @@ ML_2 (librdf_hash_get_del, Librdf_hash_val, String_val, Val_string_free)
 ML_3 (librdf_hash_put_strings, Librdf_hash_val, String_val, String_val, Val_bool)
 ML_4 (librdf_hash_interpret_template, UString_val, Librdf_hash_val, UString_val, UString_val, Val_ustring)
 ML_2 (librdf_hash_from_string, Librdf_hash_val, String_val, Val_bool)
-ML_2 (librdf_hash_to_string, Librdf_hash_val, Int_val, Val_string_free)
+/*
+ML_2 (librdf_hash_to_string, Librdf_hash_val, ???, Val_string_free)
+*/
 /*
 void                librdf_hash_print                   (librdf_hash *hash,
                                                          FILE *fh);

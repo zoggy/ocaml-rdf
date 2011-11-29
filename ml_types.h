@@ -41,9 +41,16 @@ value Val_librdf_hash(librdf_hash* val);
 #define Librdf_storage_val(val) (librdf_storage*) Pointer_val(val)
 #define Val_option_librdf_storage(val) Val_option(val, Val_librdf_storage)
 
+#define Librdf_storage_factory_val(val) (librdf_storage_factory*) Pointer_val(val)
+#define Val_option_librdf_storage_factory(val) Val_option(val, Val_librdf_storage_factory)
+
 #define Librdf_uri_val(val) (librdf_uri*) Pointer_val(val)
 #define Val_option_librdf_uri(val) Val_option(val, Val_librdf_uri)
 #define Librdf_uri_option_val(val) Option_val(val, Librdf_uri_val, NULL)
 value Val_librdf_uri(librdf_uri* val);
+
+#define Librdf_stream_val(val) (librdf_stream*) Pointer_val(val)
+#define Val_option_librdf_stream(val) Val_option(val, Val_librdf_stream)
+
 
 #endif
