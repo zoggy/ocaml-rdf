@@ -1,6 +1,7 @@
 (** *)
 
 type world
+type hash
 type model
 type model_factory
 type node

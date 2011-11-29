@@ -30,6 +30,11 @@ value Val_librdf_node(librdf_node* val);
 #define Val_librdf_node_type Val_node_type
 #define Librdf_node_type_val Node_type_val
 
+#define Librdf_hash_val(val) (librdf_hash*) Pointer_val(val)
+#define Val_option_librdf_hash(val) Val_option(val, Val_librdf_hash)
+value Val_librdf_hash(librdf_hash* val);
+
+
 #define Librdf_statement_val(val) (librdf_statement*) Pointer_val(val)
 #define Val_option_librdf_statement(val) Val_option(val, Val_librdf_statement)
 

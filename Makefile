@@ -37,6 +37,7 @@ LIB_C_FILES= \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \
+	ml_hash.c \
 	ml_uri.c \
 	ml_node.c \
 	ml_statement.c \
@@ -55,6 +56,7 @@ LIB_CMXFILES= \
 	rdf_uri.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx \
+	rdf_hash.cmx \
 	rdf_node.cmx \
 	rdf_statement.cmx \
 	rdf_storage.cmx \
@@ -102,7 +104,7 @@ dump.odoc: rdf*.ml
 
 ############
 clean:
-	$(RM) *.o *.cm* .annot *.a *.so
+	$(RM) *.o *.cm* *.annot *.a *.so
 	$(RM) varcc rdf_enums.ml ml_enums.c ml_enums.h
 
 #############

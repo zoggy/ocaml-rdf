@@ -89,9 +89,25 @@ CAMLprim value copy_string_check (const char*str)
     return copy_string ((char*) str);
 }
 
+CAMLprim value copy_string_check_and_free (char*str)
+{
+    value ret ;
+    if (!str) ml_raise_null_pointer ();
+    ret = copy_string ((char*) str);
+    free(str);
+    return ret;
+}
+
 value copy_string_or_null (const char*str)
 {
     return copy_string (str ? (char*) str : "");
+}
+
+value copy_string_or_null_and_free (char*str)
+{
+    value ret = copy_string (str ? (char*) str : "");
+    if (str) { free(str) ; }
+    return ret;
 }
 
 CAMLprim value *ml_global_root_new (value v)

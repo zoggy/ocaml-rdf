@@ -44,7 +44,9 @@ value ml_cons (value, value);
 CAMLexport void ml_raise_null_pointer (void) Noreturn;
 CAMLexport value Val_pointer (void *);
 CAMLprim value copy_string_check (const char*);
+CAMLprim value copy_string_check_and_free (char*);
 value copy_string_or_null (const char *);
+value copy_string_or_null_and_free (char *);
 
 value string_list_of_strv (const char * const *v);
 value string_list_of_strv2 (char **v);
@@ -231,8 +233,11 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 #define Id(x) x
 #define Val_char Val_int
 #define Val_ustring(s) Val_string((char *) s)
+#define Val_ustring_free(s) Val_string_free((char *) s)
 #define Val_option_string(s) Val_option(s,Val_string)
+#define Val_option_string_free(s) Val_option(s,Val_string_free)
 #define Val_option_ustring(s) Val_option(s,Val_ustring)
+#define Val_option_ustring_free(s) Val_option(s,Val_ustring_free)
 
 /* parameter conversion */
 #define Bool_ptr(x) ((long) x - 1)
@@ -384,7 +389,11 @@ CAMLprim int OptFlags_##conv (value list) \
 
 #define Val_copy(val) copy_memblock_indirected (&val, sizeof(val))
 #define Val_string copy_string_check
+#define Val_string_free copy_string_check_and_free
+
 #define Val_optstring copy_string_or_null
+#define Val_optstring_free copy_string_or_null_and_free
+
 #define Optstring_val(v) (string_length(v) ? String_val(v) : (char*)NULL)
 #define Val_option(v,f) (v ? ml_some(f(v)) : Val_unit)
 
