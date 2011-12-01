@@ -112,6 +112,6 @@ let storage_contains_statement storage statement =
 ;;
 
 let storage_serialize storage =
-  Rdf_stream.on_new_stream (Raw.storage_serialize storage)
+  Rdf_stream.on_new_stream "storage_serialize" (Raw.storage_serialize storage)
 ;;
   

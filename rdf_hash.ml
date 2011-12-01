@@ -19,13 +19,13 @@ module Raw =
     external hash_get_as_long : hash -> string -> int = "ml_librdf_hash_get_as_long"
     external hash_get_del : hash -> string -> string option = "ml_librdf_hash_get_del"
 
-    external hash_put_string : hash -> string -> string -> bool =
+    external hash_put_strings : hash -> string -> string -> int =
       "ml_librdf_hash_put_strings"
 
     external hash_interpret_template : string -> hash -> string -> string -> string =
       "ml_librdf_hash_interpret_template"
 
-    external hash_from_string : hash -> string -> bool =
+    external hash_from_string : hash -> string -> int =
       "ml_librdf_hash_from_string"
 (*
     external hash_to_string : hash -> int -> string =
@@ -57,6 +57,8 @@ let new_hash_from_string world ~name ~string =
   on_new_hash "from_string" (Raw.new_hash_from_string world name string)
 ;;
 
+let hash_get = Raw.hash_get;;
+
 let has_get_as_boolean hash string =
   let n = Raw.hash_get_as_boolean hash string in
   if n < 0 then raise Not_found;
@@ -69,10 +71,10 @@ let has_get_as_long hash string =
   n
 ;;
 
-let hash_put_string hash ~key ~value =
-  match Raw.hash_put_string hash key value with
-    false -> failwith "hash_put_strings"
-  | true -> ()
+let hash_put_strings hash ~key ~value =
+  match Raw.hash_put_strings hash key value with
+  | 0 -> ()
+  | _ -> failwith "hash_put_strings"
 ;;
 
 let hash_interpret_template hash ~template ~prefix ~suffix =
@@ -80,8 +82,9 @@ let hash_interpret_template hash ~template ~prefix ~suffix =
 ;;
 
 let hash_from_string hash s =
-  if not (Raw.  hash_from_string hash s) then
-    failwith "hash_from_string"
+  match Raw.hash_from_string hash s with
+    0 -> ()
+  | _ -> failwith "hash_from_string"
 ;;
 (*
 let hash_to_string hash = Raw.hash_to_string hash 0

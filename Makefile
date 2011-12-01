@@ -83,11 +83,14 @@ lib: enums $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMXFILES)
 	$(LIB_LINKFLAGS)
 
 lib_byte: enums $(LIB_O_FILES) $(LIB_CMIFILES) $(LIB_CMOFILES)
-	$(OCAMLMKLIB) -o $(LIB_NAME) $(LIB_O_FILES) $(LIB_CMOFILES) \
+	$(OCAMLMKLIB) -custom -o $(LIB_NAME) $(LIB_O_FILES) $(LIB_CMOFILES) \
 	$(LIB_LINKFLAGS)
 
 example: $(LIB) example.ml
 	$(OCAMLOPT) -verbose -o $@ unix.cmxa $^
+
+example.byte: $(LIB_BYTE) example.ml
+	$(OCAMLC) -verbose -o $@ unix.cma $^
 
 
 varcc: varcc.ml4

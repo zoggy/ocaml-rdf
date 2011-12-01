@@ -1,9 +1,18 @@
 (** Example *)
 
+
 let loop () =
   prerr_endline "loop";
   for i = 0 to 100000 do ignore(Unix.stat "/tmp")done;
   prerr_endline "end of loop"
+;;
+
+let test_hash world =
+  let hash = Rdf_hash.new_hash_from_string world ~name: "memory" ~string: "y='1'" in
+  Rdf_hash.hash_put_strings hash ~key: "x" ~value: "2";
+  match Rdf_hash.hash_get hash "y" with
+    None -> prerr_endline "NULL"
+  | Some s -> prerr_endline (Printf.sprintf "y=%s" s)
 ;;
 
 let x =
@@ -20,6 +29,7 @@ let x =
     Rdf_init.world_set_rasqal world (Some rasqal);
     Rdf_init.world_init_mutex world;
     Rdf_init.world_set_digest world "hello";
+    test_hash world;
     let statement =
       Rdf_statement.new_statement_from_nodes world
       (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/")
