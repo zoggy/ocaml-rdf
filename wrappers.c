@@ -175,3 +175,9 @@ CAMLexport int Is_block(value x)  { return ((intnat)(x) & 1) == 0; }
 CAMLprim value ml_pointer_of_custom (value val) {
   return (caml_copy_nativeint (Field(val,1)));
   }
+
+CAMLprim FILE* FILE_val (value v) {
+/*  FILE* fd = fdopen (caml_channel_descriptor (v), "a");
+  if (! fd ) { fprintf(stderr, "fdopen failed") ; }*/
+  return (stdout);
+}

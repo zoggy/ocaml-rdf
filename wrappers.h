@@ -29,6 +29,7 @@
 #define CAML_EXN_LOG(name) g_critical("%s: callback raised an exception", name)
 #define CAML_EXN_LOG_VERBOSE(name,exn) g_critical("%s: callback raised exception %s", name, format_caml_exception(Extract_exception(exn)))
 
+#include <stdio.h>
 #include <caml/misc.h>
 #include <caml/mlvalues.h>
 #include <caml/fail.h>
@@ -250,6 +251,9 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 ((long)val-1 ? unwrap(Field(val,0)) : default)
 #define String_option_val(s) Option_val(s,String_val,NULL)
 #define UString_option_val(s) Option_val(s,UString_val,NULL)
+
+CAMLprim value caml_channel_descriptor(value vchannel);
+CAMLprim FILE* FILE_val (value vchannel);
 
 /* Strings are not always old, so they may move around... */
 /* problems with alloca on Linux

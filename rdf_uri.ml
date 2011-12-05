@@ -65,3 +65,5 @@ let new_uri_from_filename world string =
   on_new_uri "from_filename"
   (Raw.new_uri_from_filename world string)
 ;;
+
+let uri_as_string = Raw.uri_as_string;;

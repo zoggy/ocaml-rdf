@@ -8,8 +8,8 @@ module Raw =
     external new_storage : world ->
       string -> string -> string -> storage option = "ml_librdf_new_storage"
 
-    external new_storage_from_options : world ->
-      string -> string -> hash -> storage option = "ml_librdf_new_storage_from_options"
+    external new_storage_with_options : world ->
+      string -> string -> hash -> storage option = "ml_librdf_new_storage_with_options"
 
     external new_storage_from_storage : storage -> storage option =
       "ml_librdf_new_storage_from_storage"
@@ -64,9 +64,9 @@ module Raw =
       "ml_librdf_storage_get_arcs_out"
 
     external storage_has_arc_in : storage -> node -> node -> bool =
-      "ml_librdf_storage_hash_arc_in"
+      "ml_librdf_storage_has_arc_in"
     external storage_has_arc_out : storage -> node -> node -> bool =
-      "ml_librdf_storage_hash_arc_out"
+      "ml_librdf_storage_has_arc_out"
 
     external storage_context_add_statement : storage -> node -> statement -> int =
       "ml_librdf_storage_context_add_statement"
@@ -127,8 +127,8 @@ let new_storage ?(options="") world ~factory ~name =
   on_new_storage "" (Raw.new_storage world factory name options)
 ;;
 
-let new_storage_from_options world ~factory ~name hash =
- on_new_storage "from_options" (Raw.new_storage_from_options world factory name hash)
+let new_storage_with_options world ~factory ~name hash =
+ on_new_storage "with_options" (Raw.new_storage_with_options world factory name hash)
 ;;
 
 let copy_storage storage =
