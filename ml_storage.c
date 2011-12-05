@@ -15,8 +15,8 @@ ML_4 (librdf_new_storage_from_factory, Librdf_world_val,
 ML_2 (librdf_storage_open, Librdf_storage_val, Librdf_model_val, Val_bool)
 ML_1 (librdf_storage_close, Librdf_storage_val, Val_bool)
 ML_2 (librdf_storage_add_statement, Librdf_storage_val, Librdf_statement_val, Val_int)
-ML_2 (librdf_storage_add_statements, Librdf_storage_val, Librdf_stream_val, Val_bool)
-ML_2 (librdf_storage_remove_statement, Librdf_storage_val, Librdf_statement_val, Val_bool)
+ML_2 (librdf_storage_add_statements, Librdf_storage_val, Librdf_stream_val, Val_int)
+ML_2 (librdf_storage_remove_statement, Librdf_storage_val, Librdf_statement_val, Val_int)
 ML_2 (librdf_storage_contains_statement, Librdf_storage_val, Librdf_statement_val, Val_int)
 /*
 
@@ -29,3 +29,24 @@ int                 librdf_storage_register_factory     (librdf_world *world,
                                                          const char *label,
                                                          void (*factory) (librdf_storage_factory*));
 */
+ML_1 (librdf_storage_serialise, Librdf_storage_val, Val_option_librdf_stream)
+ML_2 (librdf_storage_find_statements, Librdf_storage_val, Librdf_statement_val, Val_option_librdf_stream)
+ML_4 (librdf_storage_find_statements_with_options, Librdf_storage_val,
+      Librdf_statement_val, Librdf_node_option_val, Librdf_hash_option_val, Val_option_librdf_stream)
+ML_3 (librdf_storage_get_sources, Librdf_storage_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+ML_3 (librdf_storage_get_arcs, Librdf_storage_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+ML_3 (librdf_storage_get_targets, Librdf_storage_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+
+ML_2 (librdf_storage_get_arcs_in, Librdf_storage_val, Librdf_node_val, Val_option_librdf_iterator)
+ML_2 (librdf_storage_get_arcs_out, Librdf_storage_val, Librdf_node_val, Val_option_librdf_iterator)
+
+ML_3 (librdf_storage_has_arc_in, Librdf_storage_val, Librdf_node_val, Librdf_node_val, Val_bool)
+ML_3 (librdf_storage_has_arc_out, Librdf_storage_val, Librdf_node_val, Librdf_node_val, Val_bool)
+
+ML_3 (librdf_storage_context_add_statement, Librdf_storage_val, Librdf_node_val, Librdf_statement_val, Val_int)
+ML_3 (librdf_storage_context_add_statements, Librdf_storage_val, Librdf_node_val, Librdf_stream_val, Val_int)
+ML_3 (librdf_storage_context_remove_statement, Librdf_storage_val, Librdf_node_val, Librdf_statement_val, Val_int)
+ML_2 (librdf_storage_context_as_stream, Librdf_storage_val, Librdf_node_val, Val_option_librdf_stream)

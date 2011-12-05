@@ -2,6 +2,7 @@
 
 type world
 type hash
+type 'a iterator
 type model
 type model_factory
 type node

@@ -26,6 +26,7 @@ value Val_librdf_world(librdf_world* val);
 #define Librdf_node_val(val) (librdf_node*) Pointer_val(val)
 #define Val_option_librdf_node(val) Val_option(val, Val_librdf_node)
 value Val_librdf_node(librdf_node* val);
+#define Librdf_node_option_val(val) Option_val(val, Librdf_node_val, NULL)
 
 #define Val_librdf_node_type Val_node_type
 #define Librdf_node_type_val Node_type_val
@@ -33,7 +34,12 @@ value Val_librdf_node(librdf_node* val);
 #define Librdf_hash_val(val) (librdf_hash*) Pointer_val(val)
 #define Val_option_librdf_hash(val) Val_option(val, Val_librdf_hash)
 value Val_librdf_hash(librdf_hash* val);
+#define Librdf_hash_option_val(val) Option_val(val, Librdf_hash_val, NULL)
 
+#define Librdf_iterator_val(val) (librdf_iterator*) Pointer_val(val)
+#define Val_option_librdf_iterator(val) Val_option(val, Val_librdf_iterator)
+value Val_librdf_iterator(librdf_iterator* val);
+#define Librdf_iterator_option_val(val) Option_val(val, Librdf_iterator_val, NULL)
 
 #define Librdf_statement_val(val) (librdf_statement*) Pointer_val(val)
 #define Val_option_librdf_statement(val) Val_option(val, Val_librdf_statement)
@@ -51,6 +57,7 @@ value Val_librdf_uri(librdf_uri* val);
 
 #define Librdf_stream_val(val) (librdf_stream*) Pointer_val(val)
 #define Val_option_librdf_stream(val) Val_option(val, Val_librdf_stream)
+value Val_librdf_stream(librdf_stream* val);
 
 
 #endif
