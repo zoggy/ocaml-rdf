@@ -43,6 +43,8 @@ LIB_C_FILES= \
 	ml_node.c \
 	ml_statement.c \
 	ml_iterator.c \
+	ml_query_results.c \
+	ml_query.c \
 	ml_storage.c \
 	ml_model.c
 
@@ -63,6 +65,8 @@ LIB_CMXFILES= \
 	rdf_node.cmx \
 	rdf_statement.cmx \
 	rdf_iterator.cmx \
+	rdf_query_results.cmx \
+	rdf_query.cmx \
 	rdf_storage.cmx \
 	rdf_model.cmx
 

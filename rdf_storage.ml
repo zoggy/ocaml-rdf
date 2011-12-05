@@ -78,6 +78,36 @@ module Raw =
     external storage_context_as_stream : storage -> node -> statement stream option =
       "ml_librdf_storage_context_as_stream"
 
+    external storage_supports_query : storage -> query -> bool =
+      "ml_librdf_storage_supports_query"
+
+    external storage_query_execute : storage -> query -> query_results option =
+      "ml_librdf_storage_query_execute"
+
+    external storage_sync : storage -> int = "ml_librdf_storage_sync"
+
+    external storage_find_statements_in_context :
+      storage -> statement -> node option -> statement stream option =
+      "ml_librdf_storage_find_statements_in_context"
+
+    external storage_get_contexts : storage -> node iterator option =
+      "ml_librdf_storage_get_contexts"
+
+    external storage_get_feature : storage -> uri -> node option =
+      "ml_librdf_storage_get_feature"
+
+    external storage_set_feature : storage -> uri -> node -> int =
+      "ml_librdf_storage_set_feature"
+
+    external storage_transaction_commit : storage -> int = "ml_librdf_storage_transaction_commit"
+    external storage_transaction_get_handle : storage -> 'a = "ml_librdf_storage_transaction_get_handle"
+    external storage_transaction_rollback : storage -> int = "ml_librdf_storage_transaction_rollback"
+    external storage_transaction_start : storage -> int = "ml_librdf_storage_transaction_start"
+    external storage_transaction_start_with_handle :
+      storage -> 'a -> int = "ml_librdf_storage_transaction_start_with_handle"
+
+    external storage_get_world : storage -> world = "ml_librdf_storage_get_world"
+
     external pointer_of_storage : storage -> Nativeint.t = "ml_pointer_of_custom"
    end
 
@@ -86,6 +116,7 @@ let storage_to_finalise v = Gc.finalise Raw.free_storage v;;
 
 exception Storage_creation_failed of string;;
 exception Illegal_statement
+exception No_such_feature of uri;;
 
 let on_new_storage fun_name = function
   None -> raise (Storage_creation_failed fun_name)
@@ -168,11 +199,14 @@ let storage_serialise ?context storage =
   Rdf_stream.on_new_stream "storage_serialise" s
 ;;
 
-let storage_find_statements_with_options storage ?context ?hash statement =
+let storage_find_statements storage ?context ?hash statement =
   match context, hash with
-    None, None ->
+    Some _, None ->
+      Rdf_stream.on_new_stream "storage_find_statements_in_context"
+        (Raw.storage_find_statements_in_context storage statement context)
+  | None, None ->
       Rdf_stream.on_new_stream "storage_find_statements"
-        (Raw.storage_find_statements storage statement)
+      (Raw.storage_find_statements storage statement)
   | _ ->
       Rdf_stream.on_new_stream "storage_find_statements_with_options"
          (Raw.storage_find_statements_with_options
@@ -206,5 +240,62 @@ let storage_get_arcs_out storage node =
 
 let storage_has_arc_in storage ~node ~property =
   Raw.storage_has_arc_in storage node property;;
+
 let storage_has_arc_out storage ~node ~property =
   Raw.storage_has_arc_in storage node property;;
+
+let storage_supports_query = Raw.storage_supports_query;;
+
+let storage_query_execute storage query =
+  Rdf_query_results.on_new_query_results "storage_query_execute"
+    (Raw.storage_query_execute storage query)
+;;
+
+let storage_sync storage =
+  if Raw.storage_sync storage <> 0 then failwith "storage_sync"
+;;
+
+let storage_get_contexts storage =
+  Rdf_iterator.on_new_iterator "storage_get_contexts"
+    (Raw.storage_get_contexts storage)
+;;
+
+let storage_get_feature storage uri =
+  match Raw.storage_get_feature storage uri with
+    None -> None
+  | n -> Some (Rdf_node.on_new_node "" n)
+;;
+
+let storage_set_feature storage uri value =
+  let n = Raw.storage_set_feature storage uri value in
+  if n < 0 then raise (No_such_feature uri);
+  if n > 0 then failwith "storage_set_feature"
+;;
+
+let storage_transaction_commit storage =
+  let n = Raw.storage_transaction_commit storage in
+  if n <> 0 then failwith "storage_transaction_commit"
+;;
+
+let storage_transaction_get_handle storage =
+  Raw.storage_transaction_get_handle storage
+;;
+
+let storage_transaction_rollback storage =
+  let n = Raw.storage_transaction_rollback storage in
+  if n <> 0 then failwith "storage_transaction_rollback"
+;;
+
+let storage_transaction_start storage =
+  let n = Raw.storage_transaction_start storage in
+  if n <> 0 then failwith "storage_transaction_start"
+;;
+
+let storage_transaction_start_with_handle storage h =
+  let n = Raw.storage_transaction_start_with_handle storage h in
+  if n <> 0 then failwith "storage_transaction_start_with_handle"
+;;
+
+let storage_get_world storage =
+  Rdf_init.on_new_world "storage_get_world" (Some (Raw.storage_get_world storage))
+;;

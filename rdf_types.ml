@@ -6,6 +6,8 @@ type 'a iterator
 type model
 type model_factory
 type node
+type query
+type query_results
 type raptor_world
 type rasqal_world
 type statement

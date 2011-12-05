@@ -6,6 +6,9 @@
 #define ML_TYPES
 #include "ml_enums.h"
 
+#define Voidstar_val(val) (void*)Pointer_val(val)
+value Val_voidstar(void * val);
+
 #define Raptor_world_val(val) (raptor_world*) Pointer_val(val)
 #define Val_option_raptor_world(val) Val_option(val, Val_raptor_world)
 #define Raptor_world_option_val(val) Option_val(val, Raptor_world_val, NULL)
@@ -35,6 +38,16 @@ value Val_librdf_node(librdf_node* val);
 #define Val_option_librdf_hash(val) Val_option(val, Val_librdf_hash)
 value Val_librdf_hash(librdf_hash* val);
 #define Librdf_hash_option_val(val) Option_val(val, Librdf_hash_val, NULL)
+
+#define Librdf_query_val(val) (librdf_query*) Pointer_val(val)
+#define Val_option_librdf_query(val) Val_option(val, Val_librdf_query)
+value Val_librdf_query(librdf_query* val);
+#define Librdf_query_option_val(val) Option_val(val, Librdf_query_val, NULL)
+
+#define Librdf_query_results_val(val) (librdf_query_results*) Pointer_val(val)
+#define Val_option_librdf_query_results(val) Val_option(val, Val_librdf_query_results)
+value Val_librdf_query_results(librdf_query_results* val);
+#define Librdf_query_results_option_val(val) Option_val(val, Librdf_query_results_val, NULL)
 
 #define Librdf_iterator_val(val) (librdf_iterator*) Pointer_val(val)
 #define Val_option_librdf_iterator(val) Val_option(val, Val_librdf_iterator)

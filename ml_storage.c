@@ -50,3 +50,25 @@ ML_3 (librdf_storage_context_add_statement, Librdf_storage_val, Librdf_node_val,
 ML_3 (librdf_storage_context_add_statements, Librdf_storage_val, Librdf_node_val, Librdf_stream_val, Val_int)
 ML_3 (librdf_storage_context_remove_statement, Librdf_storage_val, Librdf_node_val, Librdf_statement_val, Val_int)
 ML_2 (librdf_storage_context_as_stream, Librdf_storage_val, Librdf_node_val, Val_option_librdf_stream)
+
+ML_2 (librdf_storage_supports_query, Librdf_storage_val, Librdf_query_val, Val_bool)
+ML_2 (librdf_storage_query_execute, Librdf_storage_val, Librdf_query_val, Val_option_librdf_query_results)
+
+ML_1 (librdf_storage_sync, Librdf_storage_val, Val_int)
+
+ML_3 (librdf_storage_find_statements_in_context, Librdf_storage_val,
+      Librdf_statement_val, Librdf_node_option_val, Val_option_librdf_stream)
+
+ML_1 (librdf_storage_get_contexts, Librdf_storage_val, Val_option_librdf_iterator)
+
+ML_2 (librdf_storage_get_feature, Librdf_storage_val, Librdf_uri_val, Val_option_librdf_node)
+ML_3 (librdf_storage_set_feature, Librdf_storage_val, Librdf_uri_val, Librdf_node_val, Val_int)
+
+ML_1 (librdf_storage_transaction_commit, Librdf_storage_val, Val_int)
+ML_1 (librdf_storage_transaction_get_handle, Librdf_storage_val,  Val_voidstar)
+ML_1 (librdf_storage_transaction_rollback, Librdf_storage_val, Val_int)
+ML_1 (librdf_storage_transaction_start, Librdf_storage_val, Val_int)
+ML_2 (librdf_storage_transaction_start_with_handle, Librdf_storage_val, Voidstar_val, Val_int)
+
+ML_1 (librdf_storage_get_world, Librdf_storage_val, Val_librdf_world)
+
