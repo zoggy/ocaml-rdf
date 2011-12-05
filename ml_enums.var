@@ -2,3 +2,6 @@ package "rdf"
 
 type node_type = "LIBRDF_NODE_TYPE_"
   [ `UNKNOWN | `RESOURCE | `LITERAL | `BLANK | `LAST ]
+
+type get_method_flags = "LIBRDF_ITERATOR_GET_METHOD_"
+  [ `GET_OBJECT | `GET_CONTEXT | `GET_KEY | `GET_VALUE ]

@@ -2,6 +2,8 @@
 
 open Rdf_types
 
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_model" "ORDF_MODEL";;
+
 (**/**)
 module Raw =
   struct
@@ -15,13 +17,26 @@ module Raw =
     external model_find_statements : model -> statement -> statement stream option =
       "ml_librdf_model_find_statements"
 
+    external model_get_sources : model -> node -> node -> node iterator option =
+      "ml_librdf_model_get_sources"
+    external model_get_arcs : model -> node -> node -> node iterator option =
+      "ml_librdf_model_get_arcs"
+    external model_get_targets : model -> node -> node -> node iterator option =
+      "ml_librdf_model_get_targets"
+
     external model_write : model -> raptor_iostream -> int =
       "ml_librdf_model_write"
 
     external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
 end
 
-let model_to_finalise v = Gc.finalise Raw.free_model v;;
+let free_model v =
+  dbg (fun () -> Printf.sprintf "Freeing model %s"
+   (Nativeint.to_string (Raw.pointer_of_model v)));
+  Raw.free_model v
+;;
+
+let model_to_finalise v = Gc.finalise free_model v;;
 (**/**)
 
 exception Model_creation_failed of string;;
@@ -53,6 +68,21 @@ let model_find_statements model ?context ?hash statement =
       (*Rdf_stream.on_new_stream "model_find_statements_with_options"
          (Raw.model_find_statements_with_options
             model statement context hash)*)
+;;
+
+let model_get_sources model ~arc ~target =
+  Rdf_iterator.on_new_iterator "model_get_sources"
+    (Raw.model_get_sources model arc target)
+;;
+
+let model_get_arcs model ~source ~target =
+  Rdf_iterator.on_new_iterator "model_get_arcs"
+    (Raw.model_get_arcs model source target)
+;;
+
+let model_get_targets model ~source ~arc =
+  Rdf_iterator.on_new_iterator "model_get_targets"
+    (Raw.model_get_targets model source arc)
 ;;
 
 let model_write model iostream =

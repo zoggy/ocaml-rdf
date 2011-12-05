@@ -25,10 +25,8 @@ ML_1 (librdf_statement_get_object, Librdf_statement_val, Val_librdf_node)
 ML_2 (librdf_statement_set_object, Librdf_statement_val, Librdf_node_val, Unit)
 
 ML_1 (librdf_statement_is_complete, Librdf_statement_val, Val_bool)
-/*
-void                librdf_statement_print              (librdf_statement *statement,
-                                                         FILE *fh);
-*/
+ML_2 (librdf_statement_print, Librdf_statement_val, FILE_val, Unit)
+
 ML_2 (librdf_statement_equals, Librdf_statement_val, Librdf_statement_val, Val_bool)
 ML_2 (librdf_statement_match, Librdf_statement_val, Librdf_statement_val, Val_bool)
 /*

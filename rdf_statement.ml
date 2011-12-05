@@ -2,6 +2,8 @@
 
 open Rdf_types;;
 
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_statement" "ORDF_STATEMENT";;
+
 (**/**)
 module Raw =
   struct
@@ -28,10 +30,19 @@ module Raw =
     external statemet_equals : statement -> statement -> bool = "ml_librdf_statement_equals"
     external statemet_match : statement -> statement -> bool = "ml_librdf_statement_match"
 
+
+    external statement_print : statement -> out_channel -> unit =
+      "ml_librdf_statement_print"
+
     external pointer_of_statement : statement -> Nativeint.t = "ml_pointer_of_custom"
 end;;
 
-let statement_to_finalise v = Gc.finalise Raw.free_statement v;;
+let free_statement v =
+  dbg (fun () -> Printf.sprintf "Freeing statement %s"
+   (Nativeint.to_string (Raw.pointer_of_statement v)));
+  Raw.free_statement v
+;;
+let statement_to_finalise v = Gc.finalise free_statement v;;
 (**/**)
 
 exception Statement_creation_failed of string;;
@@ -71,4 +82,6 @@ let statement_get_object st =
 let statement_set_object st n =
   Raw.statement_set_object st (Rdf_node.copy_node n)
 ;;
+let statement_print statement outch =
+  Raw.statement_print statement outch;;
 

@@ -182,8 +182,27 @@ let main () =
 *)
   print_endline (Printf.sprintf "%s: Trying to find_statements" Sys.argv.(0));
   let stream = Rdf_model.model_find_statements model partial_statement in
-  ()
-
+  let rec iter count =
+    if Rdf_stream.stream_end stream then
+      count
+    else
+      begin
+        (
+         match Rdf_stream.stream_get_object stream with
+           None ->
+             Printf.printf "%s: stream_get_object returned None\n" Sys.argv.(0)
+         | Some statement ->
+             print_string "  Matched statement: ";
+             flush stdout;
+             Rdf_statement.statement_print statement stdout;
+             print_endline ""
+        );
+        ignore(Rdf_stream.stream_next stream);
+        iter (count+1)
+      end
+  in
+  let count = iter 0 in
+  Printf.printf "%s: got %d matching statements\n" Sys.argv.(0) count;
 (*
   /* QUERY TEST 2 - use get_targets to do match */
   fprintf(stdout, "%s: Trying to get targets\n", program);
@@ -192,7 +211,11 @@ let main () =
     fprintf(stderr, "%s: librdf_model_get_targets failed to return iterator for searching\n", program);
     return(1);
   }
+*)
+  print_endline (Printf.sprintf "%s: Trying to get targets" Sys.argv.(0));
+  let iterator = Rdf_model.model_get_targets model subject predicate in
 
+(*
   count=0;
   while(!librdf_iterator_end(iterator)) {
     librdf_node *target;
@@ -212,7 +235,38 @@ let main () =
   }
   librdf_free_iterator(iterator);
   fprintf(stderr, "%s: got %d target nodes\n", program, count);
-
+*)
+  let rec iter count =
+    if Rdf_iterator.iterator_end iterator then
+      count
+    else
+      begin
+        (
+         match Rdf_iterator.iterator_get_object iterator Rdf_node.copy_node with
+           None ->
+             Printf.printf "%s: iterator_get_object returned None" Sys.argv.(0)
+         | Some target ->
+         Printf.printf "  Matched target: ";
+         Rdf_node.node_print target stdout ;
+         print_endline "";
+        );
+        ignore (Rdf_iterator.iterator_next iterator);
+        iter (count + 1)
+      end
+  in
+  let count = iter 0 in
+  Printf.printf "%s: got %d target nodes\n" Sys.argv.(0) count;
+  loop();
+  let () =
+    let statement2 = Rdf_statement.new_statement_from_nodes world
+      (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/")
+      (Rdf_node.new_node_from_uri_string world "http://purl.org/dc/elements/1.1/title")
+      (Rdf_node.new_node_from_literal world "My home page2")
+    in
+    Rdf_model.model_add_statement model statement2
+  in
+  loop ()
+(*
   librdf_free_statement(partial_statement);
   /* the above does this since they are still attached */
   /* librdf_free_node(predicate); */

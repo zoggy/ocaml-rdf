@@ -56,6 +56,8 @@ module Raw =
     external node_is_literal : node -> bool = "ml_librdf_node_is_literal"
     external node_is_resource : node -> bool = "ml_librdf_node_is_resource"
 
+    external node_print : node -> out_channel -> unit = "ml_librdf_node_print"
+
     external pointer_of_node : node -> Nativeint.t = "ml_pointer_of_custom"
   end
 
@@ -119,4 +121,7 @@ let node_get_literal_value_datatype_uri node =
   Rdf_misc.map_opt Rdf_uri.copy_uri
   (Raw.node_get_literal_value_datatype_uri node)
 ;;
+
+let node_print = Raw.node_print;;
+
   

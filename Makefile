@@ -61,11 +61,11 @@ LIB_CMXFILES= \
 	rdf_uri.cmx \
 	rdf_rasqal.cmx \
 	rdf_init.cmx \
-	rdf_stream.cmx \
 	rdf_parser.cmx \
 	rdf_hash.cmx \
 	rdf_node.cmx \
 	rdf_statement.cmx \
+	rdf_stream.cmx \
 	rdf_iterator.cmx \
 	rdf_query_results.cmx \
 	rdf_query.cmx \

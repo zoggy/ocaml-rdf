@@ -16,7 +16,7 @@ module Raw =
     external pointer_of_world : world -> Nativeint.t = "ml_pointer_of_custom"
 end
 
-let world_to_finalise v = Gc.finalise Raw.free_world v;;
+let world_to_finalise v = () (*Gc.finalise Raw.free_world v;;*)
 (**/**)
 
 exception World_creation_failed of string;;

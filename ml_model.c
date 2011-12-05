@@ -12,4 +12,12 @@ ML_1 (librdf_free_model, Librdf_model_val, Unit)
 
 ML_2 (librdf_model_add_statement, Librdf_model_val, Librdf_statement_val, Val_int)
 ML_2 (librdf_model_find_statements, Librdf_model_val, Librdf_statement_val, Val_option_librdf_stream)
+
+ML_3 (librdf_model_get_sources, Librdf_model_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+ML_3 (librdf_model_get_arcs, Librdf_model_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+ML_3 (librdf_model_get_targets, Librdf_model_val, Librdf_node_val, Librdf_node_val,
+      Val_option_librdf_iterator)
+
 ML_2 (librdf_model_write, Librdf_model_val, Raptor_iostream_val, Val_int)

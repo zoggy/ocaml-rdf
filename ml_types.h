@@ -9,6 +9,9 @@
 #define Voidstar_val(val) (void*)Pointer_val(val)
 value Val_void(void * val);
 #define Val_voidstar Val_void
+#define Val_option_voidstar(val) Val_option(val, Val_voidstar)
+#define Voidstar_option_val(val) Option_val(val, Voidstar_val, NULL)
+
 
 #define Raptor_world_val(val) (raptor_world*) Pointer_val(val)
 #define Val_option_raptor_world(val) Val_option(val, Val_raptor_world)
@@ -68,6 +71,7 @@ value Val_librdf_iterator(librdf_iterator* val);
 
 #define Librdf_statement_val(val) (librdf_statement*) Pointer_val(val)
 #define Val_option_librdf_statement(val) Val_option(val, Val_librdf_statement)
+value Val_librdf_statement(librdf_statement* val);
 
 #define Librdf_storage_val(val) (librdf_storage*) Pointer_val(val)
 #define Val_option_librdf_storage(val) Val_option(val, Val_librdf_storage)
