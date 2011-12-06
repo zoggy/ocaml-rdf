@@ -15,3 +15,6 @@ rdf_enums.ml
 redland.png
 tests/example_from_python
 varcc
+example.byte
+examples/example1
+

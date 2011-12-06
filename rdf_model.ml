@@ -8,84 +8,84 @@ let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_model" "ORDF_MODEL";;
 module Raw =
   struct
     external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
-    external free_model : model -> unit = "ml_librdf_free_model"
-    external new_model_from_model : model -> model = "ml_librdf_new_model_from_model"
+    external free : model -> unit = "ml_librdf_free_model"
+    external new_from_model : model -> model = "ml_librdf_new_model_from_model"
 
-    external model_add_statement : model -> statement -> int =
+    external add_statement : model -> statement -> int =
       "ml_librdf_model_add_statement"
 
-    external model_find_statements : model -> statement -> statement stream option =
+    external find_statements : model -> statement -> statement stream option =
       "ml_librdf_model_find_statements"
 
-    external model_get_sources : model -> node -> node -> node iterator option =
+    external get_sources : model -> node -> node -> node iterator option =
       "ml_librdf_model_get_sources"
-    external model_get_arcs : model -> node -> node -> node iterator option =
+    external get_arcs : model -> node -> node -> node iterator option =
       "ml_librdf_model_get_arcs"
-    external model_get_targets : model -> node -> node -> node iterator option =
+    external get_targets : model -> node -> node -> node iterator option =
       "ml_librdf_model_get_targets"
 
-    external model_write : model -> raptor_iostream -> int =
+    external write : model -> raptor_iostream -> int =
       "ml_librdf_model_write"
 
     external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
 end
 
-let free_model v =
+let free v =
   dbg (fun () -> Printf.sprintf "Freeing model %s"
    (Nativeint.to_string (Raw.pointer_of_model v)));
-  Raw.free_model v
+  Raw.free v
 ;;
 
-let model_to_finalise v = Gc.finalise free_model v;;
+let to_finalise v = Gc.finalise free v;;
 (**/**)
 
 exception Model_creation_failed of string;;
 
 let on_new_model fun_name = function
   None -> raise (Model_creation_failed fun_name)
-| Some n -> model_to_finalise n; n
+| Some n -> to_finalise n; n
 ;;
 
 let new_model ?(options="") world storage =
   on_new_model "" (Raw.new_model world storage options)
 ;;
 
-let model_add_statement model statement =
-  let n = Raw.model_add_statement model statement in
+let add_statement model statement =
+  let n = Raw.add_statement model statement in
   if n <> 0 then failwith "model_add_statement"
 ;;
 
-let model_find_statements model ?context ?hash statement =
+let find_statements model ?context ?hash statement =
   match context, hash with
     Some _, None ->
       assert false (*Rdf_stream.on_new_stream "model_find_statements_in_context"
-        (Raw.model_find_statements_in_context model statement context)*)
+        (Raw.find_statements_in_context model statement context)*)
   | None, None ->
       Rdf_stream.on_new_stream "model_find_statements"
-      (Raw.model_find_statements model statement)
+      (Raw.find_statements model statement)
   | _ ->
       assert false
       (*Rdf_stream.on_new_stream "model_find_statements_with_options"
-         (Raw.model_find_statements_with_options
+         (Raw.find_statements_with_options
             model statement context hash)*)
 ;;
 
-let model_get_sources model ~arc ~target =
+let get_sources model ~arc ~target =
   Rdf_iterator.on_new_iterator "model_get_sources"
-    (Raw.model_get_sources model arc target)
+    (Raw.get_sources model arc target)
 ;;
 
-let model_get_arcs model ~source ~target =
+let get_arcs model ~source ~target =
   Rdf_iterator.on_new_iterator "model_get_arcs"
-    (Raw.model_get_arcs model source target)
+    (Raw.get_arcs model source target)
 ;;
 
-let model_get_targets model ~source ~arc =
+let get_targets model ~source ~arc =
   Rdf_iterator.on_new_iterator "model_get_targets"
-    (Raw.model_get_targets model source arc)
+    (Raw.get_targets model source arc)
 ;;
 
-let model_write model iostream =
-  let n = Raw.model_write model iostream in
+let write model iostream =
+  let n = Raw.write model iostream in
   if n <> 0 then failwith "model_write"
 ;;

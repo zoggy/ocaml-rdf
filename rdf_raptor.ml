@@ -11,7 +11,7 @@ module Raw =
 
 
     external free_iostream : raptor_iostream -> unit = "ml_raptor_free_iostream"
-    external raptor_new_iostream_to_file_handle : raptor_world -> out_channel -> raptor_iostream option =
+    external new_iostream_to_file_handle : raptor_world -> out_channel -> raptor_iostream option =
       "ml_raptor_new_iostream_to_file_handle"
 
     external pointer_of_world : raptor_world -> Nativeint.t = "ml_pointer_of_custom"
@@ -36,7 +36,7 @@ let on_new_iostream fun_name = function
 
 let new_world () = on_new_world "" (Raw.new_world ());;
 
-let raptor_new_iostream_to_file_handle w fh =
+let new_iostream_to_file_handle w fh =
   on_new_iostream "to_file_handle"
-  (Raw.raptor_new_iostream_to_file_handle w fh)
+  (Raw.new_iostream_to_file_handle w fh)
 ;;

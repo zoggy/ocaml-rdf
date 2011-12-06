@@ -8,9 +8,9 @@ let loop () =
 ;;
 
 let test_hash world =
-  let hash = Rdf_hash.new_hash_from_string world ~name: "memory" ~string: "y='1'" in
-  Rdf_hash.hash_put_strings hash ~key: "x" ~value: "2";
-  match Rdf_hash.hash_get hash "y" with
+  let hash = Rdf_hash.new_from_string world ~name: "memory" ~string: "y='1'" in
+  Rdf_hash.put_strings hash ~key: "x" ~value: "2";
+  match Rdf_hash.get hash "y" with
     None -> prerr_endline "NULL"
   | Some s -> prerr_endline (Printf.sprintf "y=%s" s)
 ;;
@@ -25,16 +25,16 @@ let x =
     loop();
     ignore(raptor);
     let world = Rdf_init.new_world () in
-    Rdf_init.world_open world;
-    Rdf_init.world_set_rasqal world (Some rasqal);
-    Rdf_init.world_init_mutex world;
-    Rdf_init.world_set_digest world "hello";
+    Rdf_init.open_world world;
+    Rdf_init.set_rasqal world (Some rasqal);
+    Rdf_init.init_mutex world;
+    Rdf_init.set_digest world "hello";
     test_hash world;
     let statement =
-      Rdf_statement.new_statement_from_nodes world
-      (Rdf_node.new_node_from_uri_string world "http://www.dajobe.org/")
-      (Rdf_node.new_node_from_uri_string world "http://purl.org/dc/elements/1.1/creator")
-      (Rdf_node.new_node_from_literal world "Dave Beckett")
+      Rdf_statement.new_from_nodes world
+      (Rdf_node.new_from_uri_string world "http://www.dajobe.org/")
+      (Rdf_node.new_from_uri_string world "http://purl.org/dc/elements/1.1/creator")
+      (Rdf_node.new_from_literal world "Dave Beckett")
     in
     ()
   in

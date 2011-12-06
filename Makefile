@@ -12,9 +12,9 @@ OCAMLMKLIB=ocamlmklib
 
 GCC=gcc
 
-C_INCLUDES=-I /usr/include -I /usr/include/rasqal -I /usr/include/raptor2 -I $(OCAMLLIB)/caml
+C_INCLUDES=-I /opt/librdf/include -I /usr/include -I /usr/include/rasqal -I /usr/include/raptor2 -I $(OCAMLLIB)/caml
 C_COMPFLAGS=$(C_INCLUDES)
-LIB_LINKFLAGS= -cclib -lrdf -cclib -lrasqal -cclib -lraptor2
+LIB_LINKFLAGS= -ccopt -L/opt/librdf/lib -cclib -lrdf -cclib -lrasqal -cclib -lraptor2
 INCLUDES=
 COMPFLAGS=$(INCLUDES) -annot
 OCAMLPP=
