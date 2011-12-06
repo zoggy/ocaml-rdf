@@ -1,10 +1,13 @@
-(** *)
+(** Nodes (RDF terms).
+  @rdfmod redland-node.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_node" "ORDF_NODE";;
 
-(**/**)
 module Raw =
   struct
     external free : node -> unit = "ml_librdf_free_node"
@@ -78,57 +81,69 @@ let on_new_node fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_node *)
 let new_node world = on_new_node "" (Raw.new_node world);;
 
+(** @rdf new_node_from_node *)
 let copy_node node =
   on_new_node "from_node" (Raw.new_from_node node)
 ;;
 
+(** @rdf new_node_from_blank_identifier *)
 let new_from_blank_identifier ?string world =
   on_new_node "from_blank_identifier"
   (Raw.new_from_blank_identifier world string)
 ;;
 
+(** @rdf new_node_from_literal *)
 let new_from_literal world ?xml_language ?(is_wf_xml=false) string =
   on_new_node "from_literal"
   (Raw.new_from_literal world string xml_language is_wf_xml)
 ;;
 
+(** @rdf new_node_from_normalised_uri_string *)
 let new_from_normalised_uri_string world ~uri ~source ~base =
   on_new_node "from_normalised_uri_string"
   (Raw.new_from_normalised_uri_string world uri source base)
 ;;
 
+(** @rdf new_node_from_typed_literal *)
 let new_from_typed_literal world ?xml_language ?datatype value =
   on_new_node "from_typed_literal"
   (Raw.new_from_typed_literal world value xml_language datatype)
 ;;
 
+(** @rdf new_node_from_uri *)
 let new_from_uri world uri =
   on_new_node "from_uri"
   (Raw.new_from_uri world uri)
 ;;
 
+(** @rdf new_node_from_uri_local_name *)
 let new_from_uri_local_name world uri name =
   on_new_node "from_uri_local_name"
   (Raw.new_from_uri_local_name world uri name)
 ;;
 
+(** @rdf new_node_from_uri_string *)
 let new_from_uri_string world string =
   on_new_node "from_uri_string"
   (Raw.new_from_uri_string world string)
 ;;
 
+(** @rdf node_get_uri *)
 let get_uri node =
   Rdf_misc.map_opt Rdf_uri.copy_uri (Raw.get_uri node)
 ;;
 
 
+(** @rdf node_get_literal_value_datatype *)
 let get_literal_value_datatype_uri node =
   Rdf_misc.map_opt Rdf_uri.copy_uri
   (Raw.get_literal_value_datatype_uri node)
 ;;
 
+(** @rdf node_print *)
 let print = Raw.print;;
 
 

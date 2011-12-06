@@ -1,10 +1,13 @@
-(** *)
+(** URIs.
+@rdfmod redland-uri.html
+@rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_uri" "ORDF_URI";;
 
-(**/**)
 module Raw =
   struct
     external new_uri : world -> string -> uri option = "ml_librdf_new_uri"
@@ -52,25 +55,51 @@ let on_new_uri fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_uri *)
 let new_uri world string = on_new_uri "" (Raw.new_uri world string);;
+
+(** @rdf new_uri2 *)
 let new_uri2 world string n = on_new_uri "2" (Raw.new_uri2 world string n);;
+
+(** @rdf new_uri_from_uri *)
 let copy_uri uri = on_new_uri "from_uri" (Raw.new_from_uri uri);;
+
+(** @rdf new_uri_from_local_name *)
 let new_from_uri_local_name uri name =
   on_new_uri "from_uri_local_name"
   (Raw.new_from_uri_local_name uri name)
 ;;
 
+(** @rdf new_uri_normalised_to_base *)
 let new_normalised_to_base string ~source ~base =
   on_new_uri "normalised_to_base"
   (Raw.new_normalised_to_base string source base)
 ;;
+
+(** @rdf new_uri_relative_to_base *)
 let new_relative_to_base base string =
   on_new_uri "relative_to_base"
   (Raw.new_relative_to_base base string)
 ;;
+
+(** @rdf new_uri_from_filename *)
 let new_from_filename world string =
   on_new_uri "from_filename"
   (Raw.new_from_filename world string)
 ;;
 
+(** @rdf new_uri_as_string *)
 let as_string = Raw.as_string;;
+
+(** @rdf uri_equals *)
+let equals = Raw.equals;;
+
+(** @rdf uri_compare *)
+let compare = Raw.compare;;
+
+(** @rdf uri_is_file *)
+let is_file = Raw.is_file;;
+
+(** @rdf uri_to_filename *)
+let to_filename = Raw.to_filename
+

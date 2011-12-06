@@ -1,10 +1,13 @@
-(** *)
+(** Streams.
+@rdfmod redland-stream.html
+@rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_stream" "ORDF_STREAM";;
 
-(**/**)
 module Raw =
   struct
     external free : 'a stream -> unit = "ml_librdf_free_stream"
@@ -32,21 +35,19 @@ let on_new_stream fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf stream_end *)
 let is_at_end = Raw.is_at_end;;
+
+(** @rdf stream_next *)
 let next = Raw.next;;
+
+(** @rdf stream_get_object *)
 let get_object str =
   Rdf_misc.map_opt Rdf_statement.copy_statement (Raw.get_object str)
 ;;
+
+(** @rdf stream_get_context2 *)
 let get_context2 str =
   Rdf_misc.map_opt Rdf_node.copy_node (Raw.get_context2 str)
 ;;
 
-(*
-let new_stream world name =
-  on_new_stream "" (Raw.new_stream world name)
-;;
-
-let copy_stream stream =
-  on_new_stream "from_stream" (Raw.new_from_stream stream)
-;;
-*)

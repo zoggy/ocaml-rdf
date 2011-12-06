@@ -158,6 +158,6 @@ clean:
 .PHONY: clean depend
 
 .depend depend:
-	ocamldep -pp $(CAMLP4O) *.ml > .depend
+	ocamldep *.ml > .depend
 
 include .depend

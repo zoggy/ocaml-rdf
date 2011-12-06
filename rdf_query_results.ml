@@ -1,10 +1,13 @@
-(** *)
+(** Query results.
+  @rdfmod redland-query-results.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_query_results" "ORDF_QUERY_RESULTS";;
 
-(**/**)
 module Raw =
   struct
     external free : query_results -> unit = "ml_librdf_free_query_results"

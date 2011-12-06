@@ -1,10 +1,13 @@
-(** *)
+(** Model (RDF graph).
+  @rdfmod redland-model.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_model" "ORDF_MODEL";;
 
-(**/**)
 module Raw =
   struct
     external new_model : world -> storage -> string -> model option = "ml_librdf_new_model"
@@ -86,15 +89,19 @@ let on_new_model fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_model *)
 let new_model ?(options="") world storage =
   on_new_model "" (Raw.new_model world storage options)
 ;;
 
+(** @rdf model_add_statement *)
 let add_statement model statement =
   let n = Raw.add_statement model statement in
   if n <> 0 then failwith "model_add_statement"
 ;;
 
+(** @rdf model_add_statement
+*)
 let add_statements model ?context stream =
   let n =
     match context with
@@ -105,6 +112,7 @@ let add_statements model ?context stream =
    failwith "model_add_statements"
 ;;
 
+(** @rdf model_remove_statement *)
 let remove_statement model ?context statement =
   let n =
     match context with
@@ -115,12 +123,15 @@ let remove_statement model ?context statement =
    failwith "model_remove_statement"
 ;;
 
+(** @rdf model_contains_statement *)
 let contains_statement model statement =
   let n = Raw.contains_statement model statement in
   if n > 0 then raise Rdf_storage.Illegal_statement;
   (n <> 0)
 ;;
 
+(** @rdf model_find_statements
+*)
 let find_statements model ?context ?hash statement =
   match context, hash with
     Some _, None ->
@@ -135,62 +146,74 @@ let find_statements model ?context ?hash statement =
             model statement context hash)
 ;;
 
+(** @rdf model_get_sources *)
 let get_sources model ~arc ~target =
   Rdf_iterator.on_new_iterator "model_get_sources"
     (Raw.get_sources model arc target)
 ;;
 
+(** @rdf model_get_arcs *)
 let get_arcs model ~source ~target =
   Rdf_iterator.on_new_iterator "model_get_arcs"
     (Raw.get_arcs model source target)
 ;;
 
+(** @rdf model_get_targets *)
 let get_targets model ~source ~arc =
   Rdf_iterator.on_new_iterator "model_get_targets"
     (Raw.get_targets model source arc)
 ;;
 
+(** @rdf model_write *)
 let write model iostream =
   let n = Raw.write model iostream in
   if n <> 0 then failwith "model_write"
 ;;
 
+(** @rdf model_get_contexts *)
 let get_contexts model =
   Rdf_iterator.on_new_iterator "model_get_contexts"
     (Raw.get_contexts model)
 ;;
 
+(** @rdf model_get_feature *)
 let get_feature model uri =
   match Raw.get_feature model uri with
     None -> None
   | n -> Some (Rdf_node.on_new_node "" n)
 ;;
 
+(** @rdf model_set_feature *)
 let set_feature model uri value =
   let n = Raw.set_feature model uri value in
   if n < 0 then raise (Rdf_storage.No_such_feature uri);
   if n > 0 then failwith "model_set_feature"
 ;;
 
+(** @rdf model_transaction_commit *)
 let transaction_commit model =
   let n = Raw.transaction_commit model in
   if n <> 0 then failwith "model_transaction_commit"
 ;;
 
+(** @rdf model_transaction_get_handle *)
 let transaction_get_handle model =
   Raw.transaction_get_handle model
 ;;
 
+(** @rdf model_transaction_rollback *)
 let transaction_rollback model =
   let n = Raw.transaction_rollback model in
   if n <> 0 then failwith "model_transaction_rollback"
 ;;
 
+(** @rdf model_transaction_start *)
 let transaction_start model =
   let n = Raw.transaction_start model in
   if n <> 0 then failwith "model_transaction_start"
 ;;
 
+(** @rdf model_transaction_start_with_handle *)
 let transaction_start_with_handle model h =
   let n = Raw.transaction_start_with_handle model h in
   if n <> 0 then failwith "model_transaction_start_with_handle"

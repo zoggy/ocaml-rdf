@@ -24,7 +24,15 @@ a:active {color : Red; text-decoration : underline; }
 .code { color : #465F91 ; font-size: 80%; font-family: sans-serif; }
 
 h1 { font-size : 20pt ; text-align: center; }
-h2 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90BDFF ;padding: 2px; }
+h2 { font-size : 16pt ;
+     border-width: 0 0 1px 0;
+     border-style: dashed ;
+     border-color: #884488 ;
+     color: #884488 ;
+     margin-top: 5px;
+     margin-bottom: 2px;
+     padding: 2px;
+     }
 h3 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90DDFF ;padding: 2px; }
 h4 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90EDFF ;padding: 2px; }
 h5 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90FDFF ;padding: 2px; }

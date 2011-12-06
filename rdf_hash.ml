@@ -1,10 +1,13 @@
-(** *)
+(** Hashes.
+  @rdfmod redland-hash.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_hash" "ORDF_HASH";;
 
-(**/**)
 module Raw =
   struct
 (*
@@ -56,38 +59,47 @@ let new_hash world name =
   on_new_hash "" (Raw.new_hash world name)
 ;;
 *)
+
+(** @rdf new_hash_from_hash *)
 let copy_hash hash =
   on_new_hash "from_hash" (Raw.new_from_hash hash)
 ;;
 
+(** @rdf new_hash_from_string *)
 let new_from_string world ~name ~string =
   on_new_hash "from_string" (Raw.new_from_string world name string)
 ;;
 
+(** @rdf hash_get *)
 let get = Raw.get;;
 
+(** @rdf hash_get_as_boolean *)
 let has_get_as_boolean hash string =
   let n = Raw.get_as_boolean hash string in
   if n < 0 then raise Not_found;
   n > 0
 ;;
 
+(** @rdf hash_get_as_long_hash *)
 let has_get_as_long hash string =
   let n = Raw.get_as_long hash string in
   if n < 0 then raise Not_found;
   n
 ;;
 
+(** @rdf hash_put_strings *)
 let put_strings hash ~key ~value =
   match Raw.put_strings hash key value with
   | 0 -> ()
   | _ -> failwith "hash_put_strings"
 ;;
 
+(** @rdf hash_interpret_template *)
 let interpret_template hash ~template ~prefix ~suffix =
   Raw.interpret_template template hash prefix suffix
 ;;
 
+(** @rdf hash_from_string *)
 let from_string hash s =
   match Raw.from_string hash s with
     0 -> ()

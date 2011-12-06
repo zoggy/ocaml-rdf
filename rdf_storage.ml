@@ -1,4 +1,5 @@
-(** @rdfmod redland-storage.html
+(** Triple stores.
+  @rdfmod redland-storage.html
   @rdfprefix librdf_
 *)
 

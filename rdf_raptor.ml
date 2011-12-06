@@ -1,4 +1,8 @@
-(** *)
+(** RDF syntax library.
+  Interface to Raptor2.
+
+  @rdfmod index.html
+*)
 
 open Rdf_types;;
 
@@ -24,19 +28,32 @@ let iostream_to_finalise v = Gc.finalise Raw.free_iostream v;;
 exception Raptor_world_creation_failed of string;;
 exception Raptor_iostream_failed of string;;
 
+(** {2 World}
+  {rdfmod raptor2-section-world.html}
+  {rdfprefix raptor_}
+*)
+
 let on_new_world fun_name = function
   None -> raise (Raptor_world_creation_failed fun_name)
 | Some n -> world_to_finalise n; n
 ;;
+
+(** @rdf new_world *)
+let new_world () = on_new_world "" (Raw.new_world ());;
+
+(** {2 I/O streams}
+  {rdfmod raptor2-section-iostream.html}
+*)
 
 let on_new_iostream fun_name = function
   None -> raise (Raptor_iostream_failed fun_name)
 | Some n -> iostream_to_finalise n; n
 ;;
 
-let new_world () = on_new_world "" (Raw.new_world ());;
-
+(** @rdf new_iostream_to_file_handle *)
 let new_iostream_to_file_handle w fh =
   on_new_iostream "to_file_handle"
   (Raw.new_iostream_to_file_handle w fh)
 ;;
+
+(** {rdfprefix raptor_iostream_} *)

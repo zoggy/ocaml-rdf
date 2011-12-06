@@ -1,10 +1,13 @@
-(** *)
+(** Queries.
+  @rdfmod redland-query.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_query" "ORDF_QUERY";;
 
-(**/**)
 module Raw =
   struct
     external new_query : world ->
@@ -32,10 +35,12 @@ let on_new_query fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_query *)
 let new_query world ~name ?uri ?base ~query =
   on_new_query "" (Raw.new_query world name uri query base)
 ;;
 
+(** @rdf new_query_from_query *)
 let copy_query query =
   on_new_query "from_query" (Raw.new_from_query query)
 ;;

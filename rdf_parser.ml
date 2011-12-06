@@ -1,10 +1,13 @@
-(** *)
+(** RDF Parsers.
+  @rdfmod redland-parser.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_parser" "ORDF_PARSER";;
 
-(**/**)
 module Raw =
   struct
     external new_parser : world ->
@@ -36,15 +39,18 @@ let on_new_parser fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_parser *)
 let new_parser ?name ?mimetype ?uri world =
   on_new_parser "" (Raw.new_parser world name mimetype uri)
 ;;
 
+(** @rdf parser_parse_into_model *)
 let parse_into_model parser ?base uri model =
   let n = Raw.parse_into_model parser uri base model in
   if n <> 0 then failwith "parser_parse_into_model"
 ;;
 
+(** @rdf parser_parse_string_into_model *)
 let parse_string_into_model parser ?base string model =
   let n = Raw.parse_string_into_model parser string base model in
   if n <> 0 then failwith "parser_parse_string_into_model"

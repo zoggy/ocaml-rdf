@@ -1,9 +1,13 @@
-(** *)
+(** Iterators.
+  @rdfmod redland-iterator.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_iterator" "ORDF_ITERATOR";;
 (**/**)
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_iterator" "ORDF_ITERATOR";;
+
 module Raw =
   struct
     external free : 'a iterator -> unit = "ml_librdf_free_iterator"
@@ -32,10 +36,17 @@ let on_new_iterator fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf iterator_end *)
 let is_at_end = Raw.is_at_end ;;
+
+(** @rdf iterator_next *)
 let next = Raw.next ;;
+
+(** @rdf iterator_get_object *)
 let get_object it copy =
   Rdf_misc.map_opt copy (Raw.get_object it);;
+
+(** @rdf iterator_get_context *)
 let get_context ?(copy=(fun x -> x)) it =
   Rdf_misc.map_opt copy (Raw.get_context it)
 ;;

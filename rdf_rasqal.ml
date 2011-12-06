@@ -1,4 +1,9 @@
-(** *)
+(** RDF query library.
+  Interface to Raptor2.
+
+  @rdfmod index.html
+*)
+
 
 open Rdf_types;;
 
@@ -18,12 +23,24 @@ let world_to_finalise v =();;(* Gc.finalise Raw.free_world v;;*)
 
 exception Rasqal_world_creation_failed of string;;
 
+(** {2 General}
+ {rdfmod rasqal-section-general.html}
+ {rdfprefix rasqal_}
+*)
+
 let on_new_world fun_name = function
   None -> raise (Rasqal_world_creation_failed fun_name)
 | Some n -> world_to_finalise n; n
 ;;
 
+(** @rdf new_world *)
 let new_world () = on_new_world "" (Raw.new_world ());;
+
+(** @rdf world_open *)
 let world_open = Raw.world_open;;
+
+(** @rdf world_set_raptor *)
 let world_set_raptor = Raw.world_set_raptor;;
+
+(** @rdf world_get_raptor *)
 let world_get_raptor = Raw.world_get_raptor;;
