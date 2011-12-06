@@ -24,11 +24,11 @@ a:active {color : Red; text-decoration : underline; }
 .code { color : #465F91 ; font-size: 80%; font-family: sans-serif; }
 
 h1 { font-size : 20pt ; text-align: center; }
-h2 { font-size : 16pt ;
+h2 { font-size : 14pt ;
      border-width: 0 0 1px 0;
      border-style: dashed ;
-     border-color: #884488 ;
-     color: #884488 ;
+     border-color: #444444 ;
+     color: #444444 ;
      margin-top: 5px;
      margin-bottom: 2px;
      padding: 2px;
