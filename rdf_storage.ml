@@ -1,10 +1,12 @@
-(** *)
+(** @rdfmod redland-storage.html
+  @rdfprefix librdf_
+*)
 
 open Rdf_types;;
 
+(**/**)
 let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_storage" "ORDF_STORAGE";;
 
-(**/**)
 module Raw =
   struct
     external new_storage : world ->
@@ -130,37 +132,45 @@ let on_new_storage fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+(** @rdf new_storage *)
 let new_storage ?(options="") world ~factory ~name =
   on_new_storage "" (Raw.new_storage world factory name options)
 ;;
 
+(** @rdf new_storage_with_options *)
 let new_with_options world ~factory ~name hash =
  on_new_storage "with_options" (Raw.new_with_options world factory name hash)
 ;;
 
+(** @rdf new_storage_from_storage *)
 let copy_storage storage =
   on_new_storage "from_storage" (Raw.new_from_storage storage)
 ;;
 
+(** @rdf new_storage_from_factory *)
 let new_from_factory world factory ~name hash =
  on_new_storage "from_factory" (Raw.new_from_factory world factory name hash)
 ;;
 
+(** @rdf storage_open *)
 let open_storage storage model =
   if not (Raw.open_storage storage model) then
     failwith "storage_open"
 ;;
 
+(** @rdf storage_close *)
 let close storage =
   if not (Raw.close storage) then
     failwith "storage_close"
 ;;
 
+(** @rdf storage_size *)
 let size storage =
   let n = Raw.size storage in
   if n < 0 then None else Some n
 ;;
 
+(** @rdf storage_add_statement *)
 let add_statement storage ?context statement =
   let n =
     match context with
@@ -171,6 +181,7 @@ let add_statement storage ?context statement =
   if n > 0 then raise Illegal_statement
 ;;
 
+(** @rdf storage_add_statements *)
 let add_statements storage ?context stream =
   let n =
     match context with
@@ -181,6 +192,7 @@ let add_statements storage ?context stream =
    failwith "storage_add_statements"
 ;;
 
+(** @rdf storage_remove_statement *)
 let remove_statement storage ?context statement =
   let n =
     match context with
@@ -191,12 +203,14 @@ let remove_statement storage ?context statement =
    failwith "storage_remove_statement"
 ;;
 
+(** @rdf storage_contains_statement *)
 let contains_statement storage statement =
   let n = Raw.contains_statement storage statement in
   if n > 0 then raise Illegal_statement;
   (n <> 0)
 ;;
 
+(** @rdf storage_serialise *)
 let serialise ?context storage =
   let s =
     match context with
@@ -206,6 +220,7 @@ let serialise ?context storage =
   Rdf_stream.on_new_stream "storage_serialise" s
 ;;
 
+(** @rdf storage_find_statements *)
 let find_statements storage ?context ?hash statement =
   match context, hash with
     Some _, None ->
@@ -220,89 +235,108 @@ let find_statements storage ?context ?hash statement =
             storage statement context hash)
 ;;
 
+(** @rdf storage_get_sources *)
 let get_sources storage ~arc ~target =
   Rdf_iterator.on_new_iterator "storage_get_sources"
     (Raw.get_sources storage arc target)
 ;;
 
+(** @rdf storage_get_arcs *)
 let get_arcs storage ~source ~target =
   Rdf_iterator.on_new_iterator "storage_get_arcs"
     (Raw.get_arcs storage source target)
 ;;
 
+(** @rdf storage_get_targets *)
 let get_targets storage ~source ~arc =
   Rdf_iterator.on_new_iterator "storage_get_targets"
     (Raw.get_targets storage source arc)
 ;;
 
+(** @rdf storage_get_arcs_in *)
 let get_arcs_in storage node =
   Rdf_iterator.on_new_iterator "storage_get_arcs_in"
     (Raw.get_arcs_in storage node)
 ;;
 
+(** @rdf storage_get_arcs_out *)
 let get_arcs_out storage node =
   Rdf_iterator.on_new_iterator "storage_get_arcs_out"
     (Raw.get_arcs_out storage node)
 ;;
 
+(** @rdf storage_has_arcs_in *)
 let has_arc_in storage ~node ~property =
   Raw.has_arc_in storage node property;;
 
+(** @rdf storage_has_arcs_out *)
 let has_arc_out storage ~node ~property =
   Raw.has_arc_in storage node property;;
 
+(** @rdf storage_supports_query *)
 let supports_query = Raw.supports_query;;
 
+(** @rdf storage_query_execute *)
 let query_execute storage query =
   Rdf_query_results.on_new_query_results "storage_query_execute"
     (Raw.query_execute storage query)
 ;;
 
+(** @rdf storage_sync *)
 let sync storage =
   if Raw.sync storage <> 0 then failwith "storage_sync"
 ;;
 
+(** @rdf storage_get_contexts *)
 let get_contexts storage =
   Rdf_iterator.on_new_iterator "storage_get_contexts"
     (Raw.get_contexts storage)
 ;;
 
+(** @rdf storage_get_feature *)
 let get_feature storage uri =
   match Raw.get_feature storage uri with
     None -> None
   | n -> Some (Rdf_node.on_new_node "" n)
 ;;
 
+(** @rdf storage_set_feature *)
 let set_feature storage uri value =
   let n = Raw.set_feature storage uri value in
   if n < 0 then raise (No_such_feature uri);
   if n > 0 then failwith "storage_set_feature"
 ;;
 
+(** @rdf storage_transaction_commit *)
 let transaction_commit storage =
   let n = Raw.transaction_commit storage in
   if n <> 0 then failwith "storage_transaction_commit"
 ;;
 
+(** @rdf storage_transaction_get_handle *)
 let transaction_get_handle storage =
   Raw.transaction_get_handle storage
 ;;
 
+(** @rdf storage_transaction_rollback *)
 let transaction_rollback storage =
   let n = Raw.transaction_rollback storage in
   if n <> 0 then failwith "storage_transaction_rollback"
 ;;
 
+(** @rdf storage_transaction_start *)
 let transaction_start storage =
   let n = Raw.transaction_start storage in
   if n <> 0 then failwith "storage_transaction_start"
 ;;
 
+(** @rdf storage_transaction_start_with_handle *)
 let transaction_start_with_handle storage h =
   let n = Raw.transaction_start_with_handle storage h in
   if n <> 0 then failwith "storage_transaction_start_with_handle"
 ;;
 
+(** @rdf storage_get_world *)
 let get_world storage =
   Rdf_init.on_new_world "storage_get_world" (Some (Raw.get_world storage))
 ;;

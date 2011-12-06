@@ -15,7 +15,7 @@ GCC=gcc
 C_INCLUDES=-I /opt/librdf/include -I /usr/include -I /usr/include/rasqal -I /usr/include/raptor2 -I $(OCAMLLIB)/caml
 C_COMPFLAGS=$(C_INCLUDES)
 LIB_LINKFLAGS= -ccopt -L/opt/librdf/lib -cclib -lrdf -cclib -lrasqal -cclib -lraptor2
-INCLUDES=
+INCLUDES=-I +ocamldoc
 COMPFLAGS=$(INCLUDES) -annot
 OCAMLPP=
 
@@ -108,9 +108,10 @@ ml_enums.c ml_enums.h rdf_enums.ml: ml_enums.var varcc
 	./varcc $<
 
 ############
-doc: dump.odoc
+doc: dump.odoc odoc_librdf.cmo
 	$(MKDIR) ocamldoc
-	$(OCAMLDOC) -load $< -d ocamldoc -html
+	$(OCAMLDOC) -load $< -g odoc_librdf.cmo -d ocamldoc -t OCaml-RDF
+	$(CP) style.css rdf.png ocamldoc/
 
 dump.odoc: rdf*.ml
 	$(OCAMLDOC) $(INCLUDES) rdf*.ml -dump $@
