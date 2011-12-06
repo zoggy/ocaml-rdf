@@ -14,8 +14,28 @@ module Raw =
     external add_statement : model -> statement -> int =
       "ml_librdf_model_add_statement"
 
+    external add_statements : model -> statement stream -> int =
+      "ml_librdf_model_add_statements"
+
+    external remove_statement : model -> statement -> int =
+      "ml_librdf_model_remove_statement"
+
+    external contains_statement : model -> statement -> int =
+      "ml_librdf_model_contains_statement"
+
     external find_statements : model -> statement -> statement stream option =
       "ml_librdf_model_find_statements"
+
+    external find_statements_with_options :
+      model -> statement -> node option -> hash option -> statement stream option =
+      "ml_librdf_model_find_statements_with_options"
+
+    external context_add_statement : model -> node -> statement -> int =
+      "ml_librdf_model_context_add_statement"
+    external context_add_statements : model -> node -> statement stream -> int =
+      "ml_librdf_model_context_add_statements"
+    external context_remove_statement : model -> node -> statement -> int =
+      "ml_librdf_model_context_remove_statement"
 
     external get_sources : model -> node -> node -> node iterator option =
       "ml_librdf_model_get_sources"
@@ -26,6 +46,26 @@ module Raw =
 
     external write : model -> raptor_iostream -> int =
       "ml_librdf_model_write"
+
+    external find_statements_in_context :
+      model -> statement -> node option -> statement stream option =
+      "ml_librdf_model_find_statements_in_context"
+
+    external get_contexts : model -> node iterator option =
+      "ml_librdf_model_get_contexts"
+
+    external get_feature : model -> uri -> node option =
+      "ml_librdf_model_get_feature"
+
+    external set_feature : model -> uri -> node -> int =
+      "ml_librdf_model_set_feature"
+
+    external transaction_commit : model -> int = "ml_librdf_model_transaction_commit"
+    external transaction_get_handle : model -> 'a = "ml_librdf_model_transaction_get_handle"
+    external transaction_rollback : model -> int = "ml_librdf_model_transaction_rollback"
+    external transaction_start : model -> int = "ml_librdf_model_transaction_start"
+    external transaction_start_with_handle :
+      model -> 'a -> int = "ml_librdf_model_transaction_start_with_handle"
 
     external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
 end
@@ -55,19 +95,45 @@ let add_statement model statement =
   if n <> 0 then failwith "model_add_statement"
 ;;
 
+let add_statements model ?context stream =
+  let n =
+    match context with
+      None -> Raw.add_statements model stream
+    | Some node -> Raw.context_add_statements model node stream
+  in
+  if n <> 0 then
+   failwith "model_add_statements"
+;;
+
+let remove_statement model ?context statement =
+  let n =
+    match context with
+     None -> Raw.remove_statement model statement
+   | Some node -> Raw.context_remove_statement model node statement
+  in
+  if n <> 0 then
+   failwith "model_remove_statement"
+;;
+
+let contains_statement model statement =
+  let n = Raw.contains_statement model statement in
+  prerr_endline (Printf.sprintf "contains_statement returned %d" n);
+  if n > 0 then raise Rdf_storage.Illegal_statement;
+  (n <> 0)
+;;
+
 let find_statements model ?context ?hash statement =
   match context, hash with
     Some _, None ->
-      assert false (*Rdf_stream.on_new_stream "model_find_statements_in_context"
-        (Raw.find_statements_in_context model statement context)*)
+      Rdf_stream.on_new_stream "model_find_statements_in_context"
+        (Raw.find_statements_in_context model statement context)
   | None, None ->
       Rdf_stream.on_new_stream "model_find_statements"
       (Raw.find_statements model statement)
   | _ ->
-      assert false
-      (*Rdf_stream.on_new_stream "model_find_statements_with_options"
+      Rdf_stream.on_new_stream "model_find_statements_with_options"
          (Raw.find_statements_with_options
-            model statement context hash)*)
+            model statement context hash)
 ;;
 
 let get_sources model ~arc ~target =
@@ -89,3 +155,45 @@ let write model iostream =
   let n = Raw.write model iostream in
   if n <> 0 then failwith "model_write"
 ;;
+
+let get_contexts model =
+  Rdf_iterator.on_new_iterator "model_get_contexts"
+    (Raw.get_contexts model)
+;;
+
+let get_feature model uri =
+  match Raw.get_feature model uri with
+    None -> None
+  | n -> Some (Rdf_node.on_new_node "" n)
+;;
+
+let set_feature model uri value =
+  let n = Raw.set_feature model uri value in
+  if n < 0 then raise (Rdf_storage.No_such_feature uri);
+  if n > 0 then failwith "model_set_feature"
+;;
+
+let transaction_commit model =
+  let n = Raw.transaction_commit model in
+  if n <> 0 then failwith "model_transaction_commit"
+;;
+
+let transaction_get_handle model =
+  Raw.transaction_get_handle model
+;;
+
+let transaction_rollback model =
+  let n = Raw.transaction_rollback model in
+  if n <> 0 then failwith "model_transaction_rollback"
+;;
+
+let transaction_start model =
+  let n = Raw.transaction_start model in
+  if n <> 0 then failwith "model_transaction_start"
+;;
+
+let transaction_start_with_handle model h =
+  let n = Raw.transaction_start_with_handle model h in
+  if n <> 0 then failwith "model_transaction_start_with_handle"
+;;
+

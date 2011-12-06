@@ -45,7 +45,7 @@ let parse_into_model parser ?base uri model =
   if n <> 0 then failwith "parser_parse_into_model"
 ;;
 
-let parse_into_model parser ?base string model =
+let parse_string_into_model parser ?base string model =
   let n = Raw.parse_string_into_model parser string base model in
   if n <> 0 then failwith "parser_parse_string_into_model"
 ;;

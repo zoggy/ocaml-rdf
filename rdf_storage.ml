@@ -194,7 +194,7 @@ let remove_statement storage ?context statement =
 let contains_statement storage statement =
   let n = Raw.contains_statement storage statement in
   if n > 0 then raise Illegal_statement;
-  (n = 0)
+  (n <> 0)
 ;;
 
 let serialise ?context storage =

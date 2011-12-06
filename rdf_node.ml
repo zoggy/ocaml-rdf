@@ -89,7 +89,7 @@ let new_from_blank_identifier ?string world =
   (Raw.new_from_blank_identifier world string)
 ;;
 
-let new_from_literal world ?xml_language ?(is_wf_xml=true) string =
+let new_from_literal world ?xml_language ?(is_wf_xml=false) string =
   on_new_node "from_literal"
   (Raw.new_from_literal world string xml_language is_wf_xml)
 ;;

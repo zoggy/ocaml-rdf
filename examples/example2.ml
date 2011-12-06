@@ -7,16 +7,17 @@
 
 
 let rdfxml_content=
-"<?xml version=\"1.0\"?>\
-<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\
-     xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\
-  <rdf:Description rdf:about=\"http://www.dajobe.org/\">\
-    <dc:title>Dave Beckett's Home Page</dc:title>\
-    <dc:creator>Dave Beckett</dc:creator>\
-    <dc:description>The generic home page of Dave Beckett.</dc:description>\
-  </rdf:Description> \
-</rdf:RDF>\
+"<?xml version=\"1.0\"?>
+<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"
+     xmlns:dc=\"http://purl.org/dc/elements/1.1/\">
+  <rdf:Description rdf:about=\"http://www.dajobe.org/\">
+    <dc:title>Dave Beckett's Home Page</dc:title>
+    <dc:creator>Dave Beckett</dc:creator>
+    <dc:description>The generic home page of Dave Beckett.</dc:description>
+  </rdf:Description>
+</rdf:RDF>
 ";;
+
 
 let main () =
   let program = Sys.argv.(0) in
@@ -86,8 +87,7 @@ main(int argc, char *argv[])
 
   librdf_free_parser(parser); parser=NULL;
 *)
-   Rdf_parser.parse_string_into_model parser rdfxml_content ~base: uri model;
-
+  Rdf_parser.parse_string_into_model parser rdfxml_content ~base: uri model;
 (*
   librdf_free_uri(uri); uri=NULL;
 
@@ -117,7 +117,9 @@ main(int argc, char *argv[])
     (Rdf_node.new_from_uri_string world "http://example.org/pred1");
   Rdf_statement.set_object statement
     (Rdf_node.new_from_literal world "object");
+
   Rdf_model.add_statement model statement;
+
 (*
   fprintf(stdout, "%s: Resulting model is:\n", program);
   iostr = raptor_new_iostream_to_file_handle(raptor_world_ptr, stdout);
@@ -138,8 +140,14 @@ main(int argc, char *argv[])
   } else
     fprintf(stdout, "%s: Model contains the statement\n", program);
 *)
-  if Rdf_model.model_contains_statement model statement then
-    Printf.printf "%s: Model contains the statement\n", program;
+  (
+    try
+     if Rdf_model.contains_statement model statement then
+       Printf.printf "%s: Model contains the statement\n" program;
+   with
+     Rdf_storage.Illegal_statement _ ->
+       Printf.printf "Illegal statement, same as in original example\n"
+  );
 (*
   fprintf(stdout, "%s: Removing the statement\n", program);
   librdf_model_remove_statement(model, statement);
