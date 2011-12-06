@@ -5,7 +5,7 @@
 #    et en Automatique. All rights reserved.                                    #
 #                                                                               #
 #    This program is free software; you can redistribute it and/or modify       #
-#    it under the terms of the GNU Library General Public License version       #
+#    it under the terms of the GNU Lesser General Public License version        #
 #    2.1 or later as published by the Free Software Foundation.                 #
 #                                                                               #
 #    This program is distributed in the hope that it will be useful,            #
@@ -13,7 +13,7 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
 #    GNU Library General Public License for more details.                       #
 #                                                                               #
-#    You should have received a copy of the GNU Library General Public          #
+#    You should have received a copy of the GNU Lesser General Public           #
 #    License along with this program; if not, write to the Free Software        #
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   #
 #    02111-1307  USA                                                            #
@@ -34,6 +34,7 @@ CAMLP4O=camlp4o
 OCAMLLIB:=`$(OCAMLC) -where`
 OCAMLMKLIB=ocamlmklib
 
+INSTALL_DIR=$(DEST_DIR)$(OCAMLLIB)/$(LIB_NAME)
 GCC=gcc
 
 C_INCLUDES=-I /opt/librdf/include -I /usr/include -I /usr/include/rasqal -I /usr/include/raptor2 -I $(OCAMLLIB)/caml
@@ -139,6 +140,12 @@ doc: dump.odoc odoc_librdf.cmo
 
 dump.odoc: rdf*.ml
 	$(OCAMLDOC) $(INCLUDES) rdf*.ml -dump $@
+
+############
+install:
+	$(MKDIR) $(INSTALL_DIR)
+	$(CP) $(LIB) $(LIB_BYTE) libocamlrdf.a ocamlrdf.a dllocamlrdf.so rdf*.cmi \
+	$(INSTALL_DIR)
 
 ############
 clean:
