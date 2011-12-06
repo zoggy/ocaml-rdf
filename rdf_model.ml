@@ -117,7 +117,6 @@ let remove_statement model ?context statement =
 
 let contains_statement model statement =
   let n = Raw.contains_statement model statement in
-  prerr_endline (Printf.sprintf "contains_statement returned %d" n);
   if n > 0 then raise Rdf_storage.Illegal_statement;
   (n <> 0)
 ;;
