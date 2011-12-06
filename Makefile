@@ -75,7 +75,7 @@ LIB_CMXFILES= \
 LIB_CMOFILES=$(LIB_CMXFILES:.cmx=.cmo)
 LIB_CMIFILES=$(LIB_CMXFILES:.cmx=.cmi)
 
-LIB_NAME=ordf
+LIB_NAME=ocamlrdf
 LIB=$(LIB_NAME).cmxa
 LIB_BYTE=$(LIB:.cmxa=.cma)
 
@@ -111,7 +111,7 @@ ml_enums.c ml_enums.h rdf_enums.ml: ml_enums.var varcc
 doc: dump.odoc odoc_librdf.cmo
 	$(MKDIR) ocamldoc
 	$(OCAMLDOC) -load $< -g odoc_librdf.cmo -d ocamldoc -t OCaml-RDF
-	$(CP) style.css rdf.png ocamldoc/
+	$(CP) web/style.css rdf.png ocamldoc/
 
 dump.odoc: rdf*.ml
 	$(OCAMLDOC) $(INCLUDES) rdf*.ml -dump $@
@@ -120,6 +120,18 @@ dump.odoc: rdf*.ml
 clean:
 	$(RM) *.o *.cm* *.annot *.a *.so
 	$(RM) varcc rdf_enums.ml ml_enums.c ml_enums.h
+
+# headers :
+###########
+HEADFILES= Makefile *.ml *.c examples/*.ml
+
+headers: dummy
+	echo $(HEADFILES)
+	headache -h header -c .headache_config `ls $(HEADFILES) `
+
+noheaders: dummy
+	headache -r -c .headache_config `ls $(HEADFILES) `
+
 
 #############
 .SUFFIXES: .mli .ml .cmi .cmo .cmx .cmxs .mll .mly .o .c

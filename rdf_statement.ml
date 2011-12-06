@@ -100,6 +100,15 @@ let set_object st n =
   Raw.set_object st (Rdf_node.copy_node n)
 ;;
 
+(** @rdf statement_is_complete *)
+let is_complete = Raw.is_complete
+
+(** @rdf statement_equals *)
+let equals = Raw.equals
+
+(** @rdf statement_match *)
+let matches = Raw.matches
+
 (** @rdf statement_print *)
 let print statement fd =
   Raw.print statement fd;;

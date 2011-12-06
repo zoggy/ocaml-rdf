@@ -9,6 +9,10 @@ all: $(EXAMPLES)
 .SUFFIXES: .ml
 
 %: %.ml
-	ocamlopt -I .. -o $@ unix.cmxa ../ordf.cmxa $<
+	ocamlopt -I .. -o $@ unix.cmxa ../ocamlrdf.cmxa $<
+
+clean:
+	rm -f *.cm* *.o $(EXAMPLES) test*.db
+
 
 	

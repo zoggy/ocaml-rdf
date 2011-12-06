@@ -38,7 +38,7 @@ module Raw =
       "ml_librdf_new_node_from_uri_string"
 
     external equals : node -> node -> bool = "ml_librdf_node_equals"
-    external get_blank_identifier : node -> string = "ml_librdf_node_get_blank_identifier"
+    external get_blank_identifier : node -> string option = "ml_librdf_node_get_blank_identifier"
     external get_li_ordinal : node -> int = "ml_librdf_node_get_li_ordinal"
 
     external get_literal_value : node -> string option = "ml_librdf_node_get_literal_value"
@@ -146,5 +146,44 @@ let get_literal_value_datatype_uri node =
 (** @rdf node_print *)
 let print = Raw.print;;
 
+(** @rdf node_equals *)
+let equals = Raw.equals
 
-  
+(** @rdf node_get_blank_identifier *)
+let get_blank_identifier = Raw.get_blank_identifier
+
+(** @rdf node_get_li_ordinal *)
+let get_li_ordinal node =
+  let n = Raw.get_li_ordinal node in
+  if n < 1 then failwith "node_get_li_ordinal";
+  n
+;;
+
+(** @rdf node_get_literal_value *)
+let get_literal_value = Raw.get_literal_value;;
+
+(** @rdf node_get_literal_value_as_latin1 *)
+let get_literal_value_as_latin1 = Raw.get_literal_value_as_latin1;;
+
+(** @rdf node_get_literal_value_datatype_uri *)
+let get_literal_value_datatype_uri node =
+  Rdf_misc.map_opt Rdf_uri.copy_uri
+   (Raw.get_literal_value_datatype_uri node);;
+
+(** @rdf node_get_literal_value_is_wf_xml *)
+let get_literal_value_is_wf_xml = Raw.get_literal_value_is_wf_xml;;
+
+(** @rdf node_get_literal_value_language *)
+let get_literal_value_language = Raw.get_literal_value_language;;
+
+(** @rdf node_get_type *)
+let get_type = Raw.get_type;;
+
+(** @rdf node_is_blank *)
+let is_blank = Raw.is_blank;;
+
+(** @rdf node_is_literal *)
+let is_literal = Raw.is_literal;;
+
+(** @rdf node_is_resource *)
+let is_resource = Raw.is_resource;;
