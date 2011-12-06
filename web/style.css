@@ -84,3 +84,29 @@ div.navbar {
   }
 div.navbar a { color: white; }
 
+div#commits {
+  margin-left: -2em;
+}
+
+ul.RVHFEED {
+}
+ul.RVHFEED_class li {
+  list-style-type: none;
+  padding-left: 0;
+  padding-bottom: 0.8em;
+}
+
+ul.RVHFEED_class sub {
+  float: left ;
+  font-weight: bold;
+  padding-right: 0.5em;
+}
+
+ul.RVHFEED_class a {
+
+}
+
+ul.RVHFEED_class li div {
+  margin-left: 2.5em;
+  font-style: italic ;
+}

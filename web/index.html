@@ -5,13 +5,15 @@
 <title>OCaml-RDF</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 <link href="style.css" type="text/css" rel="stylesheet" title="Default"/>
+<link rel="alternate" type="application/rss+xml"
+    title="John Bokma RSS" href="/index.rss">
 </head>
 <body>
 <h1>OCaml-RDF</h1>
 
 <h2>What is OCaml-RDF ?</h2>
 <p>
-OCaml-RDF are OCaml bindings to <a href="http://www.librdf.org">Redland's Librdf</a>,
+OCaml-RDF is the OCaml bindings to <a href="http://www.librdf.org">Redland's Librdf</a>,
 <a href="http://librdf.org/raptor/">Raptor 2</a> and
 <a href="http://librdf.org/rasqal/">Rasqal</a>.
 These are libraries to parse, print, load, store, manipulate and query
@@ -21,6 +23,11 @@ applications.
 <p>
 OCaml-RDF is
 <a href="http://forge.ocamlcore.org/projects/ocaml-rdf">hosted on the OCaml forge</a>
+</p>
+<p>
+The development started in late november 2011. Examples 1-3 of the librdf
+are ported to OCaml-rdf and included in the <tt>examples/</tt> directory.
+A lot of functions remain to be bound.
 </p>
 
 <h2>License</h2>
@@ -45,7 +52,6 @@ distributions, you will need the following packages:<br/>
 <p>
 On other distributions or if you installed these libraries another way,
 edit the <tt>Makefile</tt> and adapt the <tt>C_INCLUDES</tt> variable.
-
 </p>
 <p>
 Then just type
@@ -53,10 +59,26 @@ Then just type
 <pre># make
 # make install
 </pre>
+<p>
+The library is installed under <tt>`ocamlc -g -where`/ocamlrdf</tt>.
+</p>
 
 <h2>Documentation</h2>
+<p>
+You can browse <a href="ocamldoc/index.html">the reference documentation</a>.
+It contains links to the documentation of librdf, raptor and rasqal.
+</p>
 
+<h2>Latest commits</h2>
+<div id="commits">
+<script type='text/javascript' charset='utf-8' src='http://scripts.hashemian.com/jss/feed.js?print=yes&numlinks=5&summarylen=100&seedate=yes&popwin=no&url=http:%2F%2Fgitorious.org%2Focaml-rdf%2Focaml-rdf.atom'></script>
+</div>
+<!--https://gitorious.org/ocaml-rdf/ocaml-rdf.atom-->
 
-<h2>Author</h2>
+<h2>Author and contact</h2>
+<p>
+Maxence Guesdon <tt>&lt;Maxence 'DOT' Guesdon 'AT' inria 'DOT' fr&gt;</tt>
+</p>
+
 </body>
 </html>

@@ -147,6 +147,12 @@ install:
 	$(CP) $(LIB) $(LIB_BYTE) libocamlrdf.a ocamlrdf.a dllocamlrdf.so rdf*.cmi \
 	$(INSTALL_DIR)
 
+###########
+installweb: doc
+	(cd web && scp index.html style.css zoggy@ocamlcore.org:/home/groups/ocaml-rdf/htdocs/)
+	scp -r ocamldoc zoggy@ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
+
+
 ############
 clean:
 	$(RM) *.o *.cm* *.annot *.a *.so
