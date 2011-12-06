@@ -1,7 +1,8 @@
 
 EXAMPLES= \
 	example1 \
-	example2
+	example2 \
+	example3
 
 all: $(EXAMPLES)
 

@@ -18,4 +18,5 @@ varcc
 example.byte
 examples/example1
 examples/example2
-
+examples/example3
+examples/test*.db
