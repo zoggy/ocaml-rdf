@@ -22,6 +22,7 @@
 
 /* $Id$ */
 
+#include <errno.h>
 #include <string.h>
 #include <caml/mlvalues.h>
 #include <caml/alloc.h>
@@ -176,8 +177,8 @@ CAMLprim value ml_pointer_of_custom (value val) {
   return (caml_copy_nativeint (Field(val,1)));
   }
 
-CAMLprim FILE* FILE_val (value v) {
-/*  FILE* fd = fdopen (caml_channel_descriptor (v), "a");
-  if (! fd ) { fprintf(stderr, "fdopen failed") ; }*/
-  return (stdout);
+CAMLprim FILE* File_val (value fd) {
+  FILE* f = fdopen (Int_val(fd), "w");
+  if (! f ) { fprintf (stderr, "fd=%d", Int_val(fd)); perror ("fdopen failed"); }
+  return f;
 }

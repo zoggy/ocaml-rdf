@@ -252,8 +252,7 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 #define String_option_val(s) Option_val(s,String_val,NULL)
 #define UString_option_val(s) Option_val(s,UString_val,NULL)
 
-CAMLprim value caml_channel_descriptor(value vchannel);
-CAMLprim FILE* FILE_val (value vchannel);
+CAMLprim FILE* File_val (value fd);
 
 /* Strings are not always old, so they may move around... */
 /* problems with alloca on Linux

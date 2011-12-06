@@ -30,7 +30,7 @@ module Raw =
     external equals : statement -> statement -> bool = "ml_librdf_statement_equals"
     external matches : statement -> statement -> bool = "ml_librdf_statement_match"
 
-    external print : statement -> out_channel -> unit =
+    external print : statement -> Unix.file_descr -> unit =
       "ml_librdf_statement_print"
 
     external pointer_of_statement : statement -> Nativeint.t = "ml_pointer_of_custom"

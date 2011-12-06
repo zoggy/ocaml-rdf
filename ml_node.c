@@ -70,7 +70,7 @@ librdf_iterator *   librdf_node_new_static_node_iterator
                                                          int size);
 */
 
-ML_2 (librdf_node_print, Librdf_node_val, FILE_val, Unit)
+ML_2 (librdf_node_print, Librdf_node_val, File_val, Unit)
 /*
 int                 librdf_node_write                   (librdf_node *node,
                                                          raptor_iostream *iostr);

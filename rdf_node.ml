@@ -58,7 +58,7 @@ module Raw =
     external is_literal : node -> bool = "ml_librdf_node_is_literal"
     external is_resource : node -> bool = "ml_librdf_node_is_resource"
 
-    external print : node -> out_channel -> unit = "ml_librdf_node_print"
+    external print : node -> Unix.file_descr -> unit = "ml_librdf_node_print"
 
     external pointer_of_node : node -> Nativeint.t = "ml_pointer_of_custom"
   end

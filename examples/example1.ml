@@ -46,7 +46,7 @@ let main () =
   (* Print out the model *)
   print_endline (Printf.sprintf "%s: Resulting model is:" Sys.argv.(0));
   let () =
-    let iostream = Rdf_raptor.new_iostream_to_file_handle raptor_world stdout in
+    let iostream = Rdf_raptor.new_iostream_to_file_handle raptor_world Unix.stdout in
     Rdf_model.write model iostream
   in
   (*
@@ -74,7 +74,7 @@ let main () =
          | Some statement ->
              print_string "  Matched statement: ";
              flush stdout;
-             Rdf_statement.print statement stdout;
+             Rdf_statement.print statement (Unix.stdout);
              print_endline ""
         );
         ignore(Rdf_stream.next stream);
@@ -99,7 +99,7 @@ let main () =
              Printf.printf "%s: iterator_get_object returned None" Sys.argv.(0)
          | Some target ->
          Printf.printf "  Matched target: ";
-         Rdf_node.print target stdout ;
+         Rdf_node.print target Unix.stdout ;
          print_endline "";
         );
         ignore (Rdf_iterator.next iterator);
@@ -109,7 +109,7 @@ let main () =
   let count = iter 0 in
   Printf.printf "%s: got %d target nodes\n" Sys.argv.(0) count;
   flush stdout;
-  loop();
-}
+  loop()
+;;
 
 let () = main ();;
