@@ -1,6 +1,7 @@
 
 EXAMPLES= \
-	example1
+	example1 \
+	example2
 
 all: $(EXAMPLES)
 

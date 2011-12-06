@@ -11,3 +11,5 @@ ML_4 (librdf_new_parser, Librdf_world_val,
 ML_1 (librdf_free_parser, Librdf_parser_val, Unit)
 ML_4 (librdf_parser_parse_into_model, Librdf_parser_val,
        Librdf_uri_val, Librdf_uri_option_val, Librdf_model_val, Val_int)
+ML_4 (librdf_parser_parse_string_into_model, Librdf_parser_val,
+       String_val, Librdf_uri_option_val, Librdf_model_val, Val_int)       

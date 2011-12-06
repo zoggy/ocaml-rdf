@@ -15,6 +15,9 @@ module Raw =
     external parse_into_model : parser -> uri -> uri option -> model -> int =
       "ml_librdf_parser_parse_into_model"
 
+    external parse_string_into_model : parser -> string -> uri option -> model -> int =
+      "ml_librdf_parser_parse_string_into_model"
+
     external pointer_of_parser : parser -> Nativeint.t = "ml_pointer_of_custom"
    end
 
@@ -40,4 +43,9 @@ let new_parser ?name ?mimetype ?uri world =
 let parse_into_model parser ?base uri model =
   let n = Raw.parse_into_model parser uri base model in
   if n <> 0 then failwith "parser_parse_into_model"
+;;
+
+let parse_into_model parser ?base string model =
+  let n = Raw.parse_string_into_model parser string base model in
+  if n <> 0 then failwith "parser_parse_string_into_model"
 ;;
