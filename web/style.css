@@ -110,3 +110,5 @@ ul.RVHFEED_class li div {
   margin-left: 2.5em;
   font-style: italic ;
 }
+
+p.tiny { color: #ACACAC ; text-align: right ; font-size: 50%; }
