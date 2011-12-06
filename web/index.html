@@ -10,12 +10,49 @@
 <h1>OCaml-RDF</h1>
 
 <h2>What is OCaml-RDF ?</h2>
+<p>
+OCaml-RDF are OCaml bindings to <a href="http://www.librdf.org">Redland's Librdf</a>,
+<a href="http://librdf.org/raptor/">Raptor 2</a> and
+<a href="http://librdf.org/rasqal/">Rasqal</a>.
+These are libraries to parse, print, load, store, manipulate and query
+<a href="http://www.w3.org/RDF/">RDF</a> graphs, used in semantic web
+applications.
+</p>
+<p>
+OCaml-RDF is
+<a href="http://forge.ocamlcore.org/projects/ocaml-rdf">hosted on the OCaml forge</a>
+</p>
 
 <h2>License</h2>
+<p>
+OCaml-RDF is distributed under the
+<a href="http://www.gnu.org/licenses/lgpl.html">GNU LGPL version 2.1 or later</a>.
+</p>
 
 <h2>Download</h2>
+<p>
+The code is available on
+<a href="https://gitorious.org/ocaml-rdf/ocaml-rdf">Gitorious</a>.
+</p>
+<p>There is no release yet, as the development has just begun.</p>
 
 <h2>Installation</h2>
+<p>
+Make sure you installed OCaml, librdf, raptor2 and rasqal. On debian
+distributions, you will need the following packages:<br/>
+<tt>ocaml librdf0-dev libraptor2-dev librasqal3-dev</tt>
+</p>
+<p>
+On other distributions or if you installed these libraries another way,
+edit the <tt>Makefile</tt> and adapt the <tt>C_INCLUDES</tt> variable.
+
+</p>
+<p>
+Then just type
+</p>
+<pre># make
+# make install
+</pre>
 
 <h2>Documentation</h2>
 

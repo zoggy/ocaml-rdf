@@ -23,8 +23,8 @@ a:active {color : Red; text-decoration : underline; }
   }
 .code { color : #465F91 ; font-size: 80%; font-family: sans-serif; }
 
-h1 { font-size : 20pt ; text-align: center; }
-h2 { font-size : 14pt ;
+h1 { font-size : 18pt ; text-align: center; }
+h2 { font-size : 13pt ;
      border-width: 0 0 1px 0;
      border-style: dashed ;
      border-color: #444444 ;
