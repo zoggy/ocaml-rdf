@@ -160,7 +160,7 @@ clean:
 
 # headers :
 ###########
-HEADFILES= Makefile *.ml *.c examples/*.ml
+HEADFILES= Makefile *.ml *.c *.h examples/*.ml
 
 headers: dummy
 	echo $(HEADFILES)
