@@ -19,4 +19,6 @@ example.byte
 examples/example1
 examples/example2
 examples/example3
+examples/example5
+examples/example*.out
 examples/test*.db

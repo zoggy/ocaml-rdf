@@ -60,6 +60,8 @@ ML_3 (librdf_model_find_statements_in_context, Librdf_model_val,
 
 ML_1 (librdf_model_get_contexts, Librdf_model_val, Val_option_librdf_iterator)
 
+ML_2 (librdf_model_query_execute, Librdf_model_val, Librdf_query_val, Val_option_librdf_query_results)
+
 ML_2 (librdf_model_get_feature, Librdf_model_val, Librdf_uri_val, Val_option_librdf_node)
 ML_3 (librdf_model_set_feature, Librdf_model_val, Librdf_uri_val, Librdf_node_val, Val_int)
 

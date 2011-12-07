@@ -23,9 +23,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(* This example is a translation from the example1.c of the librdf
+(* This example is a translation from the example3.c of the librdf
   distribution:
-  https://github.com/dajobe/librdf/blob/master/examples/example2.c
+  https://github.com/dajobe/librdf/blob/master/examples/example3.c
 
   Redland example code creating model, statement and storing it in 10 lines.
 *)

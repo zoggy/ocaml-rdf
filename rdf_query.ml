@@ -61,7 +61,7 @@ let on_new_query fun_name = function
 ;;
 
 (** @rdf new_query *)
-let new_query world ~name ?uri ?base ~query =
+let new_query ~name ?uri ?base ~query world =
   on_new_query "" (Raw.new_query world name uri query base)
 ;;
 

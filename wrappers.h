@@ -1,27 +1,24 @@
-/*********************************************************************************/
-/*                OCaml-RDF                                                      */
-/*                                                                               */
-/*    Copyright (C) 2011 Institut National de Recherche en Informatique          */
-/*    et en Automatique. All rights reserved.                                    */
-/*                                                                               */
-/*    This program is free software; you can redistribute it and/or modify       */
-/*    it under the terms of the GNU Lesser General Public License version        */
-/*    2.1 or later as published by the Free Software Foundation.                 */
-/*                                                                               */
-/*    This program is distributed in the hope that it will be useful,            */
-/*    but WITHOUT ANY WARRANTY; without even the implied warranty of             */
-/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              */
-/*    GNU Library General Public License for more details.                       */
-/*                                                                               */
-/*    You should have received a copy of the GNU Lesser General Public           */
-/*    License along with this program; if not, write to the Free Software        */
-/*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   */
-/*    02111-1307  USA                                                            */
-/*                                                                               */
-/*    Contact: Maxence.Guesdon@inria.fr                                          */
-/*                                                                               */
-/*                                                                               */
-/*********************************************************************************/
+/**************************************************************************/
+/*                Lablgtk                                                 */
+/*                                                                        */
+/*    This program is free software; you can redistribute it              */
+/*    and/or modify it under the terms of the GNU Library General         */
+/*    Public License as published by the Free Software Foundation         */
+/*    version 2, with the exception described in file COPYING which       */
+/*    comes with the library.                                             */
+/*                                                                        */
+/*    This program is distributed in the hope that it will be useful,     */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of      */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the       */
+/*    GNU Library General Public License for more details.                */
+/*                                                                        */
+/*    You should have received a copy of the GNU Library General          */
+/*    Public License along with this program; if not, write to the        */
+/*    Free Software Foundation, Inc., 59 Temple Place, Suite 330,         */
+/*    Boston, MA 02111-1307  USA                                          */
+/*                                                                        */
+/*                                                                        */
+/**************************************************************************/
 
 /* $Id$ */
 
@@ -38,6 +35,7 @@
 #include <caml/fail.h>
 #include <caml/custom.h>
 #include <caml/memory.h>
+#include <caml/alloc.h>
 
 CAMLextern char *young_start, *young_end; /* from minor_gc.h */
 
@@ -247,8 +245,13 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 #define Bool_ptr(x) ((long) x - 1)
 #define Char_val Int_val
 #define Float_val(x) ((float)Double_val(x))
-#define SizedString_val(x) String_val(x), string_length(x)
 #define UString_val(s) (unsigned char *)(String_val(s))
+
+#define SizedString_val(x) String_val(x), string_length(x)
+#define SizedUString_val(x) UString_val(x), string_length(x)
+
+#define SizedString_option_val(x) String_option_val(x), (string_length(x)
+#define SizedUString_option_val(x) UString_option_val(x), Option_val(x,string_length,0)
 
 #define Option_val(val,unwrap,default) \
 ((long)val-1 ? unwrap(Field(val,0)) : default)

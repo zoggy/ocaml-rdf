@@ -23,7 +23,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(* This example is a translation from the example1.c of the librdf
+(* This example is a translation from the example2.c of the librdf
   distribution:
   https://github.com/dajobe/librdf/blob/master/examples/example2.c
 

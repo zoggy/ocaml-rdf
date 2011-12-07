@@ -36,6 +36,15 @@ ML_1 (raptor_free_world, Raptor_world_val, Unit)
 
 ML_1 (raptor_world_open, Raptor_world_val, Val_int)
 
+ML_5 (raptor_world_guess_parser_name, Raptor_world_val,
+       Librdf_uri_option_val,
+       String_option_val,
+       SizedUString_option_val,
+       UString_option_val,
+       Val_option_string)
+
+
+
 ML_1 (raptor_free_iostream, Raptor_iostream_val, Unit)
 ML_2 (raptor_new_iostream_to_file_handle,
       Raptor_world_val, File_val, Val_option_raptor_iostream)

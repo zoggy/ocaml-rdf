@@ -32,12 +32,16 @@
 open Rdf_types;;
 
 (**/**)
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_raptor" "ORDF_RAPTOR";
+
 module Raw =
   struct
     external new_world : unit -> raptor_world option = "ml_raptor_new_world"
     external free_world : raptor_world -> unit = "ml_raptor_free_world"
-    external world_open : raptor_world -> int = "ml_raptor_world_open"
-
+    external open_world : raptor_world -> int = "ml_raptor_world_open"
+    external guess_parser_name : raptor_world ->
+      uri option -> string option -> string option -> string option ->
+      string option = "ml_raptor_world_guess_parser_name"
 
     external free_iostream : raptor_iostream -> unit = "ml_raptor_free_iostream"
     external new_iostream_to_file_handle : raptor_world -> Unix.file_descr -> raptor_iostream option =
@@ -65,6 +69,24 @@ let on_new_world fun_name = function
 
 (** @rdf new_world *)
 let new_world () = on_new_world "" (Raw.new_world ());;
+
+(** @rdf world_open *)
+let open_world w =
+  let n = Raw.open_world w in
+  if n <> 0 then failwith "raptor_world_open"
+;;
+
+(** @rdf world_guess_parser_name *)
+let guess_parser_name ?uri ?mimetype ?contents ?ident world =
+  dbg ~level:2
+    (fun () ->
+      let s = function None -> "None" | Some _ -> "Some _" in
+      let s2 = function None -> "None" | Some s -> "Some "^s in
+      Printf.sprintf "Rdf_raptor.guess_parser_name uri=%s mimetype=%s contents=%s ident=%s"
+        (s uri) (s2 mimetype) (s2 contents) (s2 ident)
+    );
+  Raw.guess_parser_name world uri mimetype contents ident
+;;
 
 (** {2 I/O streams}
   {rdfmod raptor2-section-iostream.html}

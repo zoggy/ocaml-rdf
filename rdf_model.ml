@@ -82,6 +82,9 @@ module Raw =
     external get_contexts : model -> node iterator option =
       "ml_librdf_model_get_contexts"
 
+    external query_execute : model -> query -> query_results option =
+      "ml_librdf_model_query_execute"
+
     external get_feature : model -> uri -> node option =
       "ml_librdf_model_get_feature"
 
@@ -199,6 +202,12 @@ let write model iostream =
 let get_contexts model =
   Rdf_iterator.on_new_iterator "model_get_contexts"
     (Raw.get_contexts model)
+;;
+
+(** @rdf model_query_execute *)
+let query_execute model query =
+  Rdf_query_results.on_new_query_results "model_query_execute"
+    (Raw.query_execute model query)
 ;;
 
 (** @rdf model_get_feature *)

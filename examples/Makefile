@@ -2,9 +2,13 @@
 EXAMPLES= \
 	example1 \
 	example2 \
-	example3
+	example3 \
+	example5
 
 all: $(EXAMPLES)
+
+run:
+	for i in $(EXAMPLES); do ./run.sh $$i; done
 
 .SUFFIXES: .ml
 
@@ -12,7 +16,7 @@ all: $(EXAMPLES)
 	ocamlopt -I .. -o $@ unix.cmxa ../ocamlrdf.cmxa $<
 
 clean:
-	rm -f *.cm* *.o $(EXAMPLES) test*.db
+	rm -f *.cm* *.o *.out $(EXAMPLES) test*.db
 
 
 	
