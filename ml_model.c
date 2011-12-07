@@ -70,3 +70,9 @@ ML_1 (librdf_model_transaction_get_handle, Librdf_model_val,  Val_voidstar)
 ML_1 (librdf_model_transaction_rollback, Librdf_model_val, Val_int)
 ML_1 (librdf_model_transaction_start, Librdf_model_val, Val_int)
 ML_2 (librdf_model_transaction_start_with_handle, Librdf_model_val, Voidstar_val, Val_int)
+
+ML_5 (librdf_model_load, Librdf_model_val, Librdf_uri_val,
+      String_option_val, String_option_val, Librdf_uri_option_val, Val_int)
+
+ML_5 (librdf_model_to_string, Librdf_model_val, Librdf_uri_option_val,
+      String_option_val, String_option_val, Librdf_uri_option_val, Val_option_string)

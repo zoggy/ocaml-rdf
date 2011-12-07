@@ -159,7 +159,7 @@ let on_new_storage fun_name = function
 ;;
 
 (** @rdf new_storage *)
-let new_storage ?(options="") world ~factory ~name =
+let new_storage ?(options="") ?(name="") world ~factory =
   on_new_storage "" (Raw.new_storage world factory name options)
 ;;
 

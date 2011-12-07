@@ -10,47 +10,21 @@ let usage = Printf.sprintf
 
 let fatal msg = prerr_endline msg ; exit 1;;
 
-let main () =
-(*
-  char *program=argv[0];
-  librdf_world* world;
-  librdf_storage *storage;
-  librdf_model* model;
-  const char *parser_name;
-  librdf_parser* parser;
-  librdf_query* query;
-  librdf_query_results* results;
-  librdf_uri *uri;
-  const unsigned char *query_string=NULL;
-  raptor_world *raptor_world_ptr;
+let loop () =
+  prerr_endline "loop";
+  for i = 0 to 100000 do ignore(Unix.stat "/tmp")done;
+  prerr_endline "end of loop"
+;;
 
-  world=librdf_new_world();
-  librdf_world_open(world);
-  raptor_world_ptr = librdf_world_get_raptor(world);
-*)
+let main () =
   let program = Sys.argv.(0) in
   let world = Rdf_init.new_world () in
   Rdf_init.open_world world;
   let raptor_world = Rdf_raptor.new_world () in
   Rdf_raptor.open_world raptor_world;
-(*
-  if(argc !=3) {
-    fprintf(stderr, "USAGE: %s CONTENT-URI QUERY-STRING\n", program);
-    return 1;
-  }
-*)
+
   if Array.length Sys.argv <> 3 then fatal usage;
 
-(*
-  uri=librdf_new_uri(world, (const unsigned char* )argv[1]);
-  query_string=(const unsigned char* )argv[2];
-
-  model=librdf_new_model(world, storage=librdf_new_storage(world, "hashes", "test", "new='yes',hash-type='bdb',dir='.'"), NULL);
-  if(!model || !storage) {
-    fprintf(stderr, "%s: Failed to make model or storage\n", program);
-    return 1;
-  }
-*)
   let uri = Rdf_uri.new_uri world Sys.argv.(1) in
   let query_string = Sys.argv.(2) in
   let model = Rdf_model.new_model world
@@ -69,7 +43,7 @@ let main () =
   let query = Rdf_query.new_query ~name: "sparql" ~query: query_string world in
   let results = Rdf_model.query_execute model query in
   print_endline "Query execute OK";
-
+  loop();
 (*
   begin
     match Rdf_query_results.to_string2 results with
@@ -87,7 +61,9 @@ let main () =
         None -> "Not a literal"
       | Some s -> s
   in
+  prerr_endline "Entering while loop";
   while not (Rdf_query_results.finished results) do
+    prerr_endline "Got a result";
     match Rdf_query_results.get_bindings results with
       None -> prerr_endline "no bindings"
     | Some (names, nodes) ->
@@ -111,5 +87,7 @@ let main () =
   done;
   Printf.printf "%s: Query returns %d results\n" program
     (Rdf_query_results.get_count results);
+  loop();
+(*  ignore(Rdf_model.to_string model);*)
 ;;
 let () = main ();;

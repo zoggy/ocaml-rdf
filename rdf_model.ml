@@ -98,6 +98,14 @@ module Raw =
     external transaction_start_with_handle :
       model -> 'a -> int = "ml_librdf_model_transaction_start_with_handle"
 
+    external load : model ->
+      uri -> string option -> string option -> uri option -> int =
+      "ml_librdf_model_load"
+
+    external to_string : model ->
+      uri option -> string option -> string option -> uri option -> string option =
+      "ml_librdf_model_to_string"
+
     external pointer_of_model : model -> Nativeint.t = "ml_pointer_of_custom"
 end
 
@@ -251,5 +259,16 @@ let transaction_start model =
 let transaction_start_with_handle model h =
   let n = Raw.transaction_start_with_handle model h in
   if n <> 0 then failwith "model_transaction_start_with_handle"
+;;
+
+(** @rdf model_load *)
+let load model ?name ?mimetype ?typ uri =
+  let n = Raw.load model uri name mimetype typ in
+  if n <> 0 then failwith "model_load"
+;;
+
+(** @rdf model_to_string *)
+let to_string ?name ?mimetype ?typ ?uri model =
+  Raw.to_string model uri name mimetype typ
 ;;
 
