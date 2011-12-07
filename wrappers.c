@@ -102,6 +102,15 @@ CAMLprim value copy_string_check_and_free (char*str)
     return ret;
 }
 
+CAMLprim value copy_string_check_and_free_memory (char*str)
+{
+    value ret ;
+    if (!str) ml_raise_null_pointer ();
+    ret = copy_string ((char*) str);
+    librdf_free_memory(str);
+    return ret;
+}
+
 value copy_string_or_null (const char*str)
 {
     return copy_string (str ? (char*) str : "");

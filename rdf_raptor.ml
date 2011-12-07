@@ -47,6 +47,9 @@ module Raw =
     external new_iostream_to_file_handle : raptor_world -> Unix.file_descr -> raptor_iostream option =
       "ml_raptor_new_iostream_to_file_handle"
 
+    external iostream_write_end : raptor_iostream -> int =
+      "ml_raptor_iostream_write_end"
+
     external pointer_of_world : raptor_world -> Nativeint.t = "ml_pointer_of_custom"
   end
 
@@ -104,3 +107,10 @@ let new_iostream_to_file_handle w fh =
 ;;
 
 (** {rdfprefix raptor_iostream_} *)
+
+(** @rdf write_end *)
+let iostream_write_end s =
+  let n = Raw.iostream_write_end s in
+  if n <> 0 then failwith "raptor_iostream_write_end"
+;;
+

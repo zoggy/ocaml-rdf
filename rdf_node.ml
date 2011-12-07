@@ -106,6 +106,11 @@ let on_new_node fun_name = function
 | Some n -> to_finalise n; n
 ;;
 
+let on_new_node_opt fun_name = function
+  None -> None
+| Some n -> to_finalise n; Some n
+;;
+
 (** @rdf new_node *)
 let new_node world = on_new_node "" (Raw.new_node world);;
 
@@ -160,7 +165,6 @@ let new_from_uri_string world string =
 let get_uri node =
   Rdf_misc.map_opt Rdf_uri.copy_uri (Raw.get_uri node)
 ;;
-
 
 (** @rdf node_get_literal_value_datatype *)
 let get_literal_value_datatype_uri node =

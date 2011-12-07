@@ -37,6 +37,7 @@ ML_1 (librdf_query_results_as_stream, QR_val, Val_option_librdf_stream)
 ML_1 (librdf_query_results_get_count, QR_val, Val_int)
 ML_1 (librdf_query_results_next, QR_val, Val_bool)
 ML_1 (librdf_query_results_finished, QR_val, Val_bool)
+ML_1 (librdf_query_results_get_bindings_count, QR_val, Val_int)
 
 CAMLprim value val_option_node (char const * n) {
   return (Val_option_librdf_node((librdf_node* )n));
@@ -59,3 +60,21 @@ value ml_librdf_query_results_get_bindings (value v) {
     CAMLreturn(ml_some(tuple));
   }
 }
+
+ML_2 (librdf_query_results_get_binding_value, QR_val, Int_val, Val_option_librdf_node)
+ML_2 (librdf_query_results_get_binding_name, QR_val, Int_val, Val_option_string)
+ML_2 (librdf_query_results_get_binding_value_by_name, QR_val, String_val, Val_option_librdf_node)
+ML_5 (librdf_query_results_to_string2,  QR_val,
+      String_option_val, String_option_val, Librdf_uri_option_val, Librdf_uri_option_val,
+      Val_option_ustring_free_memory)
+
+ML_6 (librdf_query_results_to_file_handle2, QR_val,
+      File_val, String_option_val, String_option_val,
+      Librdf_uri_option_val, Librdf_uri_option_val, Val_int)
+ML_bc6 (ml_librdf_query_results_to_file_handle2)
+
+ML_1 (librdf_query_results_is_bindings, QR_val, Val_bool)
+ML_1 (librdf_query_results_is_boolean, QR_val, Val_bool)
+ML_1 (librdf_query_results_is_graph, QR_val, Val_bool)
+ML_1 (librdf_query_results_is_syntax, QR_val, Val_bool)
+ML_1 (librdf_query_results_get_boolean, QR_val, Val_int)

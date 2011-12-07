@@ -48,4 +48,4 @@ ML_5 (raptor_world_guess_parser_name, Raptor_world_val,
 ML_1 (raptor_free_iostream, Raptor_iostream_val, Unit)
 ML_2 (raptor_new_iostream_to_file_handle,
       Raptor_world_val, File_val, Val_option_raptor_iostream)
-
+ML_1 (raptor_iostream_write_end, Raptor_iostream_val, Val_int)

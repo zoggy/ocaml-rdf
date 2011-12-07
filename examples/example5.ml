@@ -70,25 +70,46 @@ let main () =
   let results = Rdf_model.query_execute model query in
   print_endline "Query execute OK";
 
+(*
+  begin
+    match Rdf_query_results.to_string2 results with
+      None -> prerr_endline "to_string2 failed"
+    | Some s -> prerr_endline s
+  end;
+*)
+(*
+  Rdf_query_results.to_file_handle2 results Unix.stdout ;
+*)
+  let string_of_node = function
+    None -> "NONE"
+  | Some node ->
+      match Rdf_node.get_literal_value node with
+        None -> "Not a literal"
+      | Some s -> s
+  in
   while not (Rdf_query_results.finished results) do
     match Rdf_query_results.get_bindings results with
       None -> prerr_endline "no bindings"
     | Some (names, nodes) ->
         print_string "results: ["; flush stdout;
-        for i = 0 to Array.length names - 1 do
-          Printf.printf "%s=" names.(i);
-          flush stdout;
-          (
-           match nodes.(i) with
-             None -> print_string ""
-           | Some node -> Rdf_node.print node Unix.stdout
-          );
-          if i < Array.length names then print_string ", ";
+        let count =
+          match Rdf_query_results.get_bindings_count results with
+            None -> 0
+          | Some n -> n
+        in
+        for i = 0 to count - 1 do
+          let node_string = string_of_node nodes.(i) in
+          let node_string2 = string_of_node (Rdf_query_results.get_binding_value results i) in
+          Printf.printf "%s (%s)=%s (%s)"
+           names.(i)
+           (match Rdf_query_results.get_binding_name results i with None -> "NONE" | Some s -> s)
+           node_string node_string2;
+          if i < count - 1 then print_string ", ";
         done;
         print_endline "]";
         ignore(Rdf_query_results.next results);
   done;
   Printf.printf "%s: Query returns %d results\n" program
-    (Rdf_query_results.get_count results)
+    (Rdf_query_results.get_count results);
 ;;
 let () = main ();;
