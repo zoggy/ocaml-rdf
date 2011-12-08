@@ -98,6 +98,9 @@ module Raw =
     external transaction_start_with_handle :
       model -> 'a -> int = "ml_librdf_model_transaction_start_with_handle"
 
+    external get_storage : model -> storage option =
+      "ml_librdf_model_get_storage"
+
     external load : model ->
       uri -> string option -> string option -> uri option -> int =
       "ml_librdf_model_load"
@@ -266,6 +269,9 @@ let load model ?name ?mimetype ?typ uri =
   let n = Raw.load model uri name mimetype typ in
   if n <> 0 then failwith "model_load"
 ;;
+
+(** @rdf model_get_storage *)
+let get_storage = Raw.get_storage;;
 
 (** @rdf model_to_string *)
 let to_string ?name ?mimetype ?typ ?uri model =

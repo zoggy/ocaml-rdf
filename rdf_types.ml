@@ -33,7 +33,6 @@ type node
 type parser
 type query
 type query_results
-
 type raptor_iostream
 type raptor_world
 
