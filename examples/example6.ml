@@ -12,7 +12,6 @@ let loop () =
 ;;
 
 let main () =
- let program = Sys.argv.(0) in
   let world = Rdf_init.new_world () in
   Rdf_init.open_world world;
 
