@@ -92,7 +92,11 @@ let copy_statement st =
 (** @rdf new_statement_from_nodes *)
 let new_from_nodes world ~sub ~pred ~obj =
   on_new_statement "from_nodes"
-  (Raw.new_from_nodes world sub pred obj)
+  (Raw.new_from_nodes world
+    (Rdf_node.copy_node sub)
+    (Rdf_node.copy_node pred)
+    (Rdf_node.copy_node obj)
+  )
 ;;
 
 (** @rdf statement_get_subject *)
