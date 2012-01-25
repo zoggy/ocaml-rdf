@@ -37,7 +37,7 @@ module Raw =
   struct
     external new_world : unit -> rasqal_world option = "ml_rasqal_new_world"
     external free_world : rasqal_world -> unit = "ml_rasqal_free_world"
-    external world_open : rasqal_world -> int = "ml_rasqal_world_open"
+    external open_world : rasqal_world -> int = "ml_rasqal_world_open"
     external world_set_raptor : rasqal_world -> raptor_world option -> unit = "ml_rasqal_world_set_raptor"
     external world_get_raptor : rasqal_world -> raptor_world option = "ml_rasqal_world_get_raptor"
     external pointer_of_world : rasqal_world -> Nativeint.t = "ml_pointer_of_custom"
@@ -61,8 +61,11 @@ let on_new_world fun_name = function
 (** @rdf new_world *)
 let new_world () = on_new_world "" (Raw.new_world ());;
 
-(** @rdf world_open *)
-let world_open = Raw.world_open;;
+(** @raise Failure if an error occurs.
+    @rdf world_open *)
+let open_world w =
+  if Raw.open_world w <> 0 then failwith "Rasqal open_world failed"
+;;
 
 (** @rdf world_set_raptor *)
 let world_set_raptor = Raw.world_set_raptor;;

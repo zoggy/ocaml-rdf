@@ -59,6 +59,7 @@ SYSLIBS_BYTE=
 LIB_C_FILES= \
 	wrappers.c \
 	ml_types.c \
+	ml_unicode.c \
 	ml_raptor.c \
 	ml_rasqal.c \
 	ml_init.c \
@@ -81,6 +82,7 @@ LIB_CMXFILES= \
 	rdf_pointer.cmx \
 	rdf_enums.cmx \
 	rdf_types.cmx \
+	rdf_unicode.cmx \
 	rdf_misc.cmx \
 	rdf_raptor.cmx \
 	rdf_uri.cmx \
