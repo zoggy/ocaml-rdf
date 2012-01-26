@@ -76,3 +76,18 @@ let get_context ?(copy=(fun x -> x)) it =
   Rdf_misc.map_opt copy (Raw.get_context it)
 ;;
 
+let fold_objects iterator copy f =
+  let rec iter acc =
+    if is_at_end iterator then
+       acc
+    else
+      (
+        match get_object iterator copy with
+          None -> iter acc
+        | Some o -> iter (f acc o)
+      )
+  in
+  iter []
+;;
+
+
