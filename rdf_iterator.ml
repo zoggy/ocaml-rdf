@@ -82,9 +82,13 @@ let fold_objects iterator copy f =
        acc
     else
       (
+        let acc =
         match get_object iterator copy with
-          None -> iter acc
-        | Some o -> iter (f acc o)
+          None -> acc
+        | Some o -> f acc o
+        in
+        ignore(next iterator) ;
+        iter acc
       )
   in
   iter []
