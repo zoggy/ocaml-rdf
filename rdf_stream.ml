@@ -76,3 +76,15 @@ let get_context2 str =
   Rdf_misc.map_opt Rdf_node.copy_node (Raw.get_context2 str)
 ;;
 
+
+let iter f (stream : Rdf_types.statement Rdf_types.stream) =
+  while not (is_at_end stream) do
+    begin
+      match get_object stream with
+        None -> ()
+      | Some statement -> f statement
+    end;
+    ignore(next stream);
+  done
+;;
+
