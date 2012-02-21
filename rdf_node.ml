@@ -190,7 +190,7 @@ let get_blank_identifier = Raw.get_blank_identifier
 (** @rdf node_get_li_ordinal *)
 let get_li_ordinal node =
   let n = Raw.get_li_ordinal node in
-  if n < 0 then failwith "node_get_li_ordinal";
+  if n < 1 then failwith "node_get_li_ordinal";
   n
 ;;
 
