@@ -142,3 +142,13 @@ let matches = Raw.matches
 let print statement fd =
   Raw.print statement fd;;
 
+(** [to_string statement] returns a string to represent the statement.
+  This is not a binding to the deprecated [librdf_statement_to_string] function,
+  but a new one which can be used to debug, based on {!Rdf_node.to_string}. *)
+let to_string st =
+  Printf.sprintf "%s %s %s"
+    (Rdf_node.to_string (get_subject st))
+    (Rdf_node.to_string (get_predicate st))
+    (Rdf_node.to_string (get_object st))
+;;
+

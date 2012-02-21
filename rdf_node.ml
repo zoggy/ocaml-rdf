@@ -101,6 +101,12 @@ let to_finalise v = Gc.finalise free v;;
 
 exception Node_creation_failed of string;;
 
+type contents =
+  | Uri of uri
+  | Literal of string
+  | Blank of string
+;;
+
 let on_new_node fun_name = function
   None -> raise (Node_creation_failed fun_name)
 | Some n -> to_finalise n; n
@@ -216,3 +222,32 @@ let is_literal = Raw.is_literal;;
 
 (** @rdf node_is_resource *)
 let is_resource = Raw.is_resource;;
+
+(** [kind node] returns a [contents] or raise [Failure] in
+  case of error. *)
+let kind node =
+  if is_resource node then
+    match get_uri node with
+      None -> failwith "Node is resource but could not get uri"
+    | Some uri -> Uri uri
+  else
+    if is_blank node then
+      match get_blank_identifier node with
+        None -> failwith "Node is blank but could not get identifier"
+      | Some s -> Blank s
+    else
+      if is_literal node then
+        match get_literal_value node with
+          None -> failwith "Node is literal but could not get value"
+        | Some s -> Literal s
+      else
+        failwith "Node is not a ressource, not a blank, nor a literal"
+;;
+
+let to_string node =
+  match kind node with
+    Uri uri -> Printf.sprintf "<%s>" (Rdf_uri.as_string uri)
+  | Literal s -> s
+  | Blank s -> Printf.sprintf "_:%s" s
+;;
+
