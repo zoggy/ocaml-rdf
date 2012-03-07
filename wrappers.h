@@ -239,12 +239,6 @@ CAMLprim value cname##_bc (value *argv, int argn) \
 #define Val_ustring_free(s) Val_string_free((char *) s)
 #define Val_ustring_free_memory(s) Val_string_free_memory((char *) s)
 
-#define Val_option_string(s) Val_option(s,Val_string)
-#define Val_option_string_free(s) Val_option(s,Val_string_free)
-#define Val_option_string_free_memory(s) Val_option(s,Val_string_free_memory)
-#define Val_option_ustring(s) Val_option(s,Val_ustring)
-#define Val_option_ustring_free(s) Val_option(s,Val_ustring_free)
-#define Val_option_ustring_free_memory(s) Val_option(s,Val_ustring_free_memory)
 
 /* parameter conversion */
 #define Bool_ptr(x) ((long) x - 1)
@@ -411,6 +405,47 @@ CAMLprim int OptFlags_##conv (value list) \
 
 #define Optstring_val(v) (string_length(v) ? String_val(v) : (char*)NULL)
 #define Val_option(v,f) (v ? ml_some(f(v)) : Val_unit)
+
+#define Make_Val_option(T) \
+value Val_option_##T(T* v) { return Val_option(v,Val_##T); }
+
+#define Make_Val_option_h(T) \
+value Val_option_##T(T* v) ;
+
+#define Make_Val_option2(name,T) \
+value Val_option_##name(T* v) { return Val_option(v,Val_##name); }
+
+#define Make_Val_option2_h(name,T) \
+value Val_option_##name(T* v) ;
+
+#define Make_Val_option2_conv(name,conv,T, T2) \
+value Val_option_##name(T* v) { return Val_option((T2*)v,Val_##conv); }
+
+
+/*
+#define Val_option_string(s) Val_option(s,Val_string)
+#define Val_option_string_free(s) Val_option(s,Val_string_free)
+#define Val_option_string_free_memory(s) Val_option(s,Val_string_free_memory)
+#define Val_option_ustring(s) Val_option(s,Val_ustring)
+#define Val_option_ustring_free(s) Val_option(s,Val_ustring_free)
+#define Val_option_ustring_free_memory(s) Val_option(s,Val_ustring_free_memory)
+*/
+Make_Val_option2_h(string,char)
+Make_Val_option2_h(string_free, char)
+Make_Val_option2_h(string_free_memory, char)
+
+Make_Val_option2_h(const_string,const char)
+Make_Val_option2_h(const_string_free, const char)
+Make_Val_option2_h(const_string_free_memory, const char)
+
+Make_Val_option2_h(ustring,unsigned char)
+Make_Val_option2_h(ustring_free, unsigned char)
+Make_Val_option2_h(ustring_free_memory, unsigned char)
+
+
+
+
+
 
 #define Check_null(v) (v ? v : (ml_raise_null_pointer (), v))
 

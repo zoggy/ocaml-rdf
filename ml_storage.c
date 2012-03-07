@@ -30,6 +30,7 @@
 
 
 Make_Val_final_pointer(librdf_storage, Ignore, Ignore, 0)
+Make_Val_final_pointer(librdf_storage_factory, Ignore, Ignore, 0)
 
 ML_4 (librdf_new_storage, Librdf_world_val, String_val, String_val, String_val, Val_option_librdf_storage)
 ML_4 (librdf_new_storage_with_options, Librdf_world_val, String_val, String_val, Librdf_hash_val, Val_option_librdf_storage)
@@ -91,10 +92,10 @@ ML_2 (librdf_storage_get_feature, Librdf_storage_val, Librdf_uri_val, Val_option
 ML_3 (librdf_storage_set_feature, Librdf_storage_val, Librdf_uri_val, Librdf_node_val, Val_int)
 
 ML_1 (librdf_storage_transaction_commit, Librdf_storage_val, Val_int)
-ML_1 (librdf_storage_transaction_get_handle, Librdf_storage_val,  Val_voidstar)
+ML_1 (librdf_storage_transaction_get_handle, Librdf_storage_val,  Val_void)
 ML_1 (librdf_storage_transaction_rollback, Librdf_storage_val, Val_int)
 ML_1 (librdf_storage_transaction_start, Librdf_storage_val, Val_int)
-ML_2 (librdf_storage_transaction_start_with_handle, Librdf_storage_val, Voidstar_val, Val_int)
+ML_2 (librdf_storage_transaction_start_with_handle, Librdf_storage_val, Void_val, Val_int)
 
 ML_1 (librdf_storage_get_world, Librdf_storage_val, Val_librdf_world)
 

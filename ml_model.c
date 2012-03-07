@@ -66,14 +66,14 @@ ML_2 (librdf_model_get_feature, Librdf_model_val, Librdf_uri_val, Val_option_lib
 ML_3 (librdf_model_set_feature, Librdf_model_val, Librdf_uri_val, Librdf_node_val, Val_int)
 
 ML_1 (librdf_model_transaction_commit, Librdf_model_val, Val_int)
-ML_1 (librdf_model_transaction_get_handle, Librdf_model_val,  Val_voidstar)
+ML_1 (librdf_model_transaction_get_handle, Librdf_model_val,  Val_void)
 ML_1 (librdf_model_transaction_rollback, Librdf_model_val, Val_int)
 ML_1 (librdf_model_transaction_start, Librdf_model_val, Val_int)
-ML_2 (librdf_model_transaction_start_with_handle, Librdf_model_val, Voidstar_val, Val_int)
+ML_2 (librdf_model_transaction_start_with_handle, Librdf_model_val, Void_val, Val_int)
 
 ML_1 (librdf_model_get_storage, Librdf_model_val, Val_option_librdf_storage)
 ML_5 (librdf_model_load, Librdf_model_val, Librdf_uri_val,
       String_option_val, String_option_val, Librdf_uri_option_val, Val_int)
 
 ML_5 (librdf_model_to_string, Librdf_model_val, Librdf_uri_option_val,
-      String_option_val, String_option_val, Librdf_uri_option_val, Val_option_string)
+      String_option_val, String_option_val, Librdf_uri_option_val, Val_option_ustring)

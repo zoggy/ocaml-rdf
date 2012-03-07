@@ -62,7 +62,7 @@ value ml_librdf_query_results_get_bindings (value v) {
 }
 
 ML_2 (librdf_query_results_get_binding_value, QR_val, Int_val, Val_option_librdf_node)
-ML_2 (librdf_query_results_get_binding_name, QR_val, Int_val, Val_option_string)
+ML_2 (librdf_query_results_get_binding_name, QR_val, Int_val, Val_option_const_string)
 ML_2 (librdf_query_results_get_binding_value_by_name, QR_val, String_val, Val_option_librdf_node)
 ML_5 (librdf_query_results_to_string2,  QR_val,
       String_option_val, String_option_val, Librdf_uri_option_val, Librdf_uri_option_val,

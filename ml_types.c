@@ -27,3 +27,21 @@
 #include "ml_enums.c"
 
 Make_Val_final_pointer(void, Ignore, Ignore, 0)
+
+Make_Val_option(void)
+Make_Val_option(raptor_world)
+Make_Val_option(raptor_iostream)
+Make_Val_option(rasqal_world)
+Make_Val_option(librdf_parser)
+Make_Val_option(librdf_world)
+Make_Val_option(librdf_model)
+Make_Val_option(librdf_node)
+Make_Val_option(librdf_hash)
+Make_Val_option(librdf_query)
+Make_Val_option(librdf_query_results)
+Make_Val_option(librdf_iterator)
+Make_Val_option(librdf_statement)
+Make_Val_option(librdf_storage)
+Make_Val_option(librdf_storage_factory)
+Make_Val_option(librdf_uri)
+Make_Val_option(librdf_stream)

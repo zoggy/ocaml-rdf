@@ -41,7 +41,7 @@ ML_5 (raptor_world_guess_parser_name, Raptor_world_val,
        String_option_val,
        SizedUString_option_val,
        UString_option_val,
-       Val_option_string)
+       Val_option_const_string)
 
 
 

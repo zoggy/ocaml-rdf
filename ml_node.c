@@ -79,7 +79,7 @@ unsigned char *     librdf_node_get_literal_value_as_counted_string
                                                         (librdf_node *node,
                                                          size_t *len_p);
 */
-ML_1 (librdf_node_get_literal_value_as_latin1, Librdf_node_val, Val_option_ustring_free)
+ML_1 (librdf_node_get_literal_value_as_latin1, Librdf_node_val, Val_option_string_free)
 ML_1 (librdf_node_get_literal_value_datatype_uri, Librdf_node_val, Val_option_librdf_uri)
 ML_1 (librdf_node_get_literal_value_is_wf_xml, Librdf_node_val, Val_bool)
 ML_1 (librdf_node_get_literal_value_language, Librdf_node_val, Val_option_string)

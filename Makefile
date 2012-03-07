@@ -196,7 +196,7 @@ dummy:
 	$(OCAMLOPT) -shared -o $@ $(OCAMLPP) $(COMPFLAGS) $<
 
 %.o: %.c
-	$(OCAMLOPT) $(COMPFLAGS) -c $< && $(MV) `basename $@` `dirname $@`
+	$(OCAMLOPT) -ccopt  -finstrument-functions $(COMPFLAGS) -c $< && $(MV) `basename $@` `dirname $@`
 
 %.ml:%.mll
 	$(OCAMLLEX) $<

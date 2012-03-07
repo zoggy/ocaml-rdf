@@ -42,7 +42,7 @@ ML_1 (librdf_uri_as_string, Librdf_uri_val, Val_ustring)
 
 ML_2 (librdf_uri_equals, Librdf_uri_val, Librdf_uri_val, Val_bool)
 ML_1 (librdf_uri_is_file_uri, Librdf_uri_val, Val_bool)
-ML_1 (librdf_uri_to_filename, Librdf_uri_val, Val_option_string)
+ML_1 (librdf_uri_to_filename, Librdf_uri_val, Val_option_const_string)
 
 ML_3 (librdf_new_uri_normalised_to_base,
       UString_val, Librdf_uri_val, Librdf_uri_val, Val_option_librdf_uri)

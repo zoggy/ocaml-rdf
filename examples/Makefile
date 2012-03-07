@@ -14,7 +14,7 @@ run:
 .SUFFIXES: .ml
 
 %: %.ml
-	ocamlopt -I .. -o $@ unix.cmxa ../ocamlrdf.cmxa $<
+	ocamlopt -g -I .. -o $@ unix.cmxa ../ocamlrdf.cmxa $<
 
 clean:
 	rm -f *.cm* *.o *.out $(EXAMPLES) test*.db

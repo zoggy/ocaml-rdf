@@ -194,3 +194,16 @@ CAMLprim FILE* File_val (value fd) {
   if (! f ) { fprintf (stderr, "fd=%d", Int_val(fd)); perror ("fdopen failed"); }
   return f;
 }
+
+Make_Val_option2(string,char)
+Make_Val_option2(string_free, char)
+Make_Val_option2(string_free_memory, char)
+
+Make_Val_option2_conv(const_string, string, const char, char)
+Make_Val_option2_conv(const_string_free, string_free, const char, char)
+Make_Val_option2_conv(const_string_free_memory, string_free_memory, const char, char)
+
+
+Make_Val_option2(ustring,unsigned char)
+Make_Val_option2(ustring_free, unsigned char)
+Make_Val_option2(ustring_free_memory, unsigned char)

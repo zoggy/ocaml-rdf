@@ -153,7 +153,8 @@ exception Storage_creation_failed of string;;
 exception Illegal_statement
 exception No_such_feature of uri;;
 
-let on_new_storage fun_name = function
+let on_new_storage fun_name x =
+  match x with
   None -> raise (Storage_creation_failed fun_name)
 | Some n -> to_finalise n; n
 ;;
