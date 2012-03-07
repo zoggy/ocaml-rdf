@@ -44,6 +44,7 @@ module Raw =
     external pointer_of_stream : 'a stream -> Nativeint.t = "ml_pointer_of_custom"
    end
 
+let () = dbg (fun () -> Printf.sprintf "Rdf_stream module! (pid=%d)" (Unix.getpid()));;
 let free v =
   dbg (fun () -> Printf.sprintf "Freeing stream %s"
    (Nativeint.to_string (Raw.pointer_of_stream v)));

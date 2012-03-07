@@ -178,8 +178,8 @@ let find_statements model ?context ?hash statement =
       Rdf_stream.on_new_stream "model_find_statements_in_context"
         (Raw.find_statements_in_context model statement context)
   | None, None ->
-      Rdf_stream.on_new_stream "model_find_statements"
-      (Raw.find_statements model statement)
+      let stream = Raw.find_statements model statement in
+      Rdf_stream.on_new_stream "model_find_statements" stream
   | _ ->
       Rdf_stream.on_new_stream "model_find_statements_with_options"
          (Raw.find_statements_with_options

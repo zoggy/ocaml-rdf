@@ -187,7 +187,7 @@ let open_storage storage model =
 
 (** @rdf storage_close *)
 let close storage =
-  if not (Raw.close storage) then
+  if Raw.close storage then
     failwith "storage_close"
 ;;
 
