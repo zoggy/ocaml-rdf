@@ -152,7 +152,7 @@ let new_from_typed_literal world ?xml_language ?datatype value =
 (** @rdf new_node_from_uri *)
 let new_from_uri world uri =
   on_new_node "from_uri"
-  (Raw.new_from_uri world uri)
+  (Raw.new_from_uri world (Rdf_uri.copy_uri uri))
 ;;
 
 (** @rdf new_node_from_uri_local_name *)
