@@ -31,7 +31,7 @@
 open Rdf_types;;
 
 (**/**)
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_iterator" "ORDF_ITERATOR";;
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_iterator" "ORDF_ITERATOR_DEBUG_LEVEL";;
 
 module Raw =
   struct

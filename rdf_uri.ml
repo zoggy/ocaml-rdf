@@ -31,7 +31,7 @@
 open Rdf_types;;
 
 (**/**)
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_uri" "ORDF_URI";;
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_uri" "ORDF_URI_DEBUG_LEVEL";;
 
 module Raw =
   struct
@@ -77,7 +77,11 @@ exception Uri_creation_failed of string;;
 
 let on_new_uri fun_name = function
   None -> raise (Uri_creation_failed fun_name)
-| Some n -> to_finalise n; n
+| Some n ->
+   dbg (fun () ->  Printf.sprintf "Creating uri %s"
+     (Nativeint.to_string (Raw.pointer_of_uri n)));
+   to_finalise n;
+   n
 ;;
 
 (** @rdf new_uri *)

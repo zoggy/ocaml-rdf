@@ -31,7 +31,7 @@
 open Rdf_types;;
 
 (**/**)
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_query_results" "ORDF_QUERY_RESULTS";;
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_query_results" "ORDF_QUERY_RESULTS_DEBUG_LEVEL";;
 
 module Raw =
   struct

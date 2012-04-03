@@ -32,7 +32,7 @@
 open Rdf_types;;
 
 (**/**)
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_raptor" "ORDF_RAPTOR";
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_raptor" "ORDF_RAPTOR_DEBUG_LEVEL";
 
 module Raw =
   struct

@@ -31,7 +31,7 @@
 open Rdf_types;;
 
 (**/**)
-let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_hash" "ORDF_HASH";;
+let dbg = Rdf_misc.create_log_fun ~prefix: "Rdf_hash" "ORDF_HASH_DEBUG_LEVEL";;
 
 module Raw =
   struct
