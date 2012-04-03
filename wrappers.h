@@ -37,6 +37,8 @@
 #include <caml/memory.h>
 #include <caml/alloc.h>
 
+#include <librdf.h>
+
 CAMLextern char *young_start, *young_end; /* from minor_gc.h */
 
 CAMLexport value copy_memblock_indirected (void *src, asize_t size);

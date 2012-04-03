@@ -109,7 +109,10 @@ type contents =
 
 let on_new_node fun_name = function
   None -> raise (Node_creation_failed fun_name)
-| Some n -> to_finalise n; n
+| Some n ->
+    dbg (fun () ->  Printf.sprintf "Creating node %s"
+     (Nativeint.to_string (Raw.pointer_of_node n)));
+    to_finalise n; n
 ;;
 
 let on_new_node_opt fun_name = function
