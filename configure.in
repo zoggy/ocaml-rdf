@@ -26,7 +26,7 @@
 AC_INIT(master.Makefile.in)
 
 VERSION=2.0
-PACKAGE=dbforge
+PACKAGE=rdf
 
 # The root directory where we will compile
 ROOT=`pwd`
@@ -44,9 +44,6 @@ fi
 if test "$datadir" = "\${prefix}/share" ; then
         datadir=$prefix/share
 fi
-
-GLADEDIR=$datadir/glade
-DTDDIR=$datadir/dtds
 
 ##########################
 # debugging
@@ -73,29 +70,21 @@ AC_SUBST(OCAMLLIB)
 AC_SUBST(OCAMLBIN)
 AC_SUBST(OCAMLDOC)
 AC_SUBST(OCAMLFIND)
-AC_SUBST(LABLGLADECC)
 AC_SUBST(EXEC_PREFIX)
 AC_SUBST(ROOT)
-AC_SUBST(DTDDIR)
-AC_SUBST(GLADEDIR)
-AC_SUBST(XMLLIGHT_INCLUDES)
 AC_SUBST(DEBUG_LEVEL)
 AC_SUBST(VERSION)
 AC_SUBST(PACKAGE)
 
 # Finally create the master.Makefile.in
-ACFILES="master.Makefile src/dbf/META src/sqml/META src/dbf/dbf_installation.ml"
+ACFILES="master.Makefile src/META"
 AC_OUTPUT($ACFILES)
 chmod a-w master.Makefile
-chmod a-w src/dbf/META
-chmod a-w src/sqml/META
-chmod a-w src/dbf/dbf_installation.ml
+chmod a-w src/META
 
 cat << EOF
 ====
 The following packages will be installed with findlib:
-  $PACKAGE, $PACKAGE.sql $PACKAGE.mysql, $PACKAGE.gtk, sqml
+  $PACKAGE, $PACKAGE.mysql
 
-DTD file will be installed in $DTDDIR
-Glade file will be installed in $GLADEDIR
 EOF

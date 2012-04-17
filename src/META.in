@@ -1,0 +1,13 @@
+version = "@VERSION@"
+description = "Handling RDF graphs"
+requires = ""
+archive(byte) = "rdf.cma"
+archive(native) = "rdf.cmxa"
+package "mysql" (
+  version = "@VERSION@"
+  description = "MySQL interface"
+  requires = "mysql,rdf"
+  archive(byte) = "rdf_mysql.cma"
+  archive(native) = "rdf_mysql.cmxa"
+
+)
