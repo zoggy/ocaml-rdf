@@ -74,6 +74,8 @@ $(LIB_MYSQL): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMXFILES)
 $(LIB_MYSQL_BYTE): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_MYSQL_CMOFILES)
 
+test_mysql: $(LIBS) rdf_test_mysql.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB) $(LIB_MYSQL) rdf_test_mysql.cmx
 
 # Documentation :
 #################

@@ -1,7 +1,11 @@
 (** *)
 
 type uri = string
-type literal = string * uri option
+type literal = {
+    lit_value : string ;
+    lit_language : string option ;
+    lit_type : uri option ;
+  }
 type blank_id = string
 
 type node =
@@ -12,9 +16,16 @@ type node =
 
 type triple = node * node * node
 
+let string_of_uri uri = uri;;
+let uri_of_string str = str;;
 
 let node_of_uri_string s = Uri s;;
-let node_of_literal_string ?typ s = Literal (s, typ)
+let mk_literal ?typ ?lang v =
+  { lit_value = v ; lit_language = lang ; lit_type = typ ; }
+;;
+let node_of_literal_string ?typ ?lang v =
+  Literal (mk_literal ?typ ?lang v)
+;;
 
 type options = (string * string) list
 let get_option ?def name l =
@@ -24,4 +35,5 @@ let get_option ?def name l =
         None -> failwith (Printf.sprintf "Missing option %S" name)
       | Some v -> v
 ;;
+
 

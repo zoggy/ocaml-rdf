@@ -67,3 +67,57 @@ module Make (S : Storage) =
     let predicates = embed S.predicates
     let objects = embed S.objects
   end
+
+module type Graph =
+  sig
+    type g
+
+    val open_graph : ?options: (string * string) list -> uri -> g
+    val graph_name : g -> uri
+
+    val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
+    val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
+
+    val add_triple_t : g -> triple -> unit
+    val rem_triple_t : g -> triple -> unit
+
+    val subjects_of : g -> pred: node -> obj: node -> node list
+    val predicates_of : g -> sub: node -> obj: node -> node list
+    val objects_of : g -> sub: node -> pred: node -> node list
+
+    val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
+    val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
+    val exists_t : triple -> g -> bool
+
+    val subjects : g -> node list
+    val predicates : g -> node list
+    val objects : g -> node list
+  end
+
+let storages = ref [];;
+let add_storage m =
+  let module P = (val m : Storage) in
+  let module M = Make (P) in
+  storages := (P.name, (module M : Graph)) :: !storages
+;;
+
+type graph =
+  {
+    name : unit -> uri ;
+    add_triple : sub: node -> pred: node -> obj: node -> unit ;
+    rem_triple : sub: node -> pred: node -> obj: node -> unit ;
+  }
+
+let open_graph ?(options=[]) name =
+  let kind = Rdf_types.get_option ~def: "memory" "storage" options in
+  let storage =
+    try List.assoc kind !storages
+    with Not_found -> failwith (Printf.sprintf "Unknown storage %S" kind)
+  in
+  let module S = (val storage) in
+  let g = S.open_graph ~options name in
+  { name = (fun () -> S.graph_name g) ;
+    add_triple = S.add_triple g ;
+    rem_triple = S.rem_triple g ;
+  }
+;;
