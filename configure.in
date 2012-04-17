@@ -1,0 +1,101 @@
+#################################################################################
+#                OCaml-RDF                                                      #
+#                                                                               #
+#    Copyright (C) 2012 Institut National de Recherche en Informatique          #
+#    et en Automatique. All rights reserved.                                    #
+#                                                                               #
+#    This program is free software; you can redistribute it and/or modify       #
+#    it under the terms of the GNU Lesser General Public License version        #
+#    3 as published by the Free Software Foundation.                            #
+#                                                                               #
+#    This program is distributed in the hope that it will be useful,            #
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
+#    GNU General Public License for more details.                               #
+#                                                                               #
+#    You should have received a copy of the GNU General Public License          #
+#    along with this program; if not, write to the Free Software                #
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   #
+#    02111-1307  USA                                                            #
+#                                                                               #
+#    Contact: Maxence.Guesdon@inria.fr                                          #
+#                                                                               #
+#################################################################################
+
+# check for one particular file of the sources
+AC_INIT(master.Makefile.in)
+
+VERSION=2.0
+PACKAGE=dbforge
+
+# The root directory where we will compile
+ROOT=`pwd`
+
+ocaml unix.cma str.cma checkocaml.ml ocaml_config.sh || exit 1
+. ./ocaml_config.sh
+
+if test "$prefix" = "NONE" ; then
+  prefix=`dirname $OCAMLBIN`
+fi
+
+if test "$datadir" = "\${datarootdir}" ; then
+        datadir=${prefix}/share
+fi
+if test "$datadir" = "\${prefix}/share" ; then
+        datadir=$prefix/share
+fi
+
+GLADEDIR=$datadir/glade
+DTDDIR=$datadir/dtds
+
+##########################
+# debugging
+##########################
+
+DEBUG_LEVEL=0
+AC_ARG_WITH(debug-level,
+[  --with-debug-level=n   Set debug level to n [[default=0]]
+],
+[ DEBUG_LEVEL="$withval"])
+
+echo Debug level is set to $DEBUG_LEVEL
+
+#############################
+# substitutions to perform
+AC_SUBST(OCAMLC)
+AC_SUBST(OCAMLOPT)
+AC_SUBST(OCAMLDEP)
+AC_SUBST(OCAMLLEX)
+AC_SUBST(OCAMLYACC)
+AC_SUBST(OCAMLBEST)
+AC_SUBST(OCAMLVERSION)
+AC_SUBST(OCAMLLIB)
+AC_SUBST(OCAMLBIN)
+AC_SUBST(OCAMLDOC)
+AC_SUBST(OCAMLFIND)
+AC_SUBST(LABLGLADECC)
+AC_SUBST(EXEC_PREFIX)
+AC_SUBST(ROOT)
+AC_SUBST(DTDDIR)
+AC_SUBST(GLADEDIR)
+AC_SUBST(XMLLIGHT_INCLUDES)
+AC_SUBST(DEBUG_LEVEL)
+AC_SUBST(VERSION)
+AC_SUBST(PACKAGE)
+
+# Finally create the master.Makefile.in
+ACFILES="master.Makefile src/dbf/META src/sqml/META src/dbf/dbf_installation.ml"
+AC_OUTPUT($ACFILES)
+chmod a-w master.Makefile
+chmod a-w src/dbf/META
+chmod a-w src/sqml/META
+chmod a-w src/dbf/dbf_installation.ml
+
+cat << EOF
+====
+The following packages will be installed with findlib:
+  $PACKAGE, $PACKAGE.sql $PACKAGE.mysql, $PACKAGE.gtk, sqml
+
+DTD file will be installed in $DTDDIR
+Glade file will be installed in $GLADEDIR
+EOF

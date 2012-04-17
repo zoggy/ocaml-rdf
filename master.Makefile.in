@@ -1,0 +1,112 @@
+#################################################################################
+#                OCaml-RDF                                                      #
+#                                                                               #
+#    Copyright (C) 2012 Institut National de Recherche en Informatique          #
+#    et en Automatique. All rights reserved.                                    #
+#                                                                               #
+#    This program is free software; you can redistribute it and/or modify       #
+#    it under the terms of the GNU Lesser General Public License version        #
+#    3 as published by the Free Software Foundation.                            #
+#                                                                               #
+#    This program is distributed in the hope that it will be useful,            #
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
+#    GNU General Public License for more details.                               #
+#                                                                               #
+#    You should have received a copy of the GNU General Public License          #
+#    along with this program; if not, write to the Free Software                #
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   #
+#    02111-1307  USA                                                            #
+#                                                                               #
+#    Contact: Maxence.Guesdon@inria.fr                                          #
+#                                                                               #
+#################################################################################
+
+# Various commands and dir
+##########################
+OCAMLBIN= @OCAMLBIN@
+OCAMLC   = @OCAMLC@ -warn-error F
+OCAMLOPT = @OCAMLOPT@ -warn-error F
+OCAMLDEP = @OCAMLDEP@
+OCAMLLEX = @OCAMLLEX@
+OCAMLYACC= @OCAMLYACC@
+OCAMLLIB = @OCAMLLIB@
+OCAMLFIND = @OCAMLFIND@
+OCAMLDOCDIR= $(OCAMLLIB)/ocamldoc
+OCAMLBEST= @OCAMLBEST@
+OCAMLVERSION = @OCAMLVERSION@
+EXTRAC_CRC = $(OCAMLLIB)/extract_crc
+OCAMLDOC= @OCAMLDOC@
+LABLGLADECC=@LABLGLADECC@
+OCAMLPP=
+LATEX=TEXINPUTS=$(ROOT)/doc: latex
+HEVEA=hevea -fix -I $(ROOT)/doc -exec xxdate.exe
+HACHA=hacha
+DVIPS=dvips
+DVIPDF=dvipdf
+BIBTEX=bibtex
+
+# For installation
+##############
+MKDIR=mkdir -p
+CP=cp -f
+RM=rm -f
+
+DESTDIR=   # For debian packagers
+DTDDIR=$(DESTDIR)@DTDDIR@
+GLADEDIR=$(DESTDIR)@GLADEDIR@
+
+# Compilation
+#############
+XMLLIGHT_INCLUDES=@XMLLIGHT_INCLUDES@
+
+ROOT=@ROOT@
+VERSION=@VERSION@
+PACKAGE=@PACKAGE@
+
+# generic rules :
+#################
+.SUFFIXES: .mli .ml .cmi .cmo .cmx .mll .mly .tex .dvi .ps .pdf
+
+%.cmi:%.mli
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
+
+%.cmo:%.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
+
+%.cmi %.cmo:%.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
+
+%.cmx %.o:%.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
+
+%.ml:%.mll
+	$(OCAMLLEX) $<
+
+%.mli %.ml:%.mly
+	$(OCAMLYACC) -v $<
+
+%.dvi: %.tex
+	$(LATEX) $<
+	$(BIBTEX) `basename $< .tex`
+	$(LATEX) $<
+	$(LATEX) $<
+
+%.ps: %.dvi
+	$(DVIPS) -o $@ $<
+
+%.pdf: %.dvi
+	$(DVIPDF) $< $@
+
+%.html: %.tex
+	$(HEVEA) $<
+	$(HACHA) $@
+	rpl '<META name="GENERATOR" content="hevea 1.06">' \
+	'<link href="file://$(ROOT)/doc/style.css" rel="stylesheet" type="text/css"> <META name="GENERATOR" content="hevea 1.06">' \
+	*.html
+
+# some common targets :
+#######################
+first:all
+cleandoc:
+	$(RM) *.ps *.dvi *.html *.pdf *.log *.aux *.toc *.bbl *.blg
