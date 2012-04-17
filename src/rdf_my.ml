@@ -100,9 +100,9 @@ let table_options = " ENGINE=InnoDB DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
+    "CREATE TABLE IF NOT EXISTS bnodes (id bigint  PRIMARY KEY NOT NULL, name text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS resources (id bigint  PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS literals (id bigint  PRIMARY KEY NOT NULL, value longtext NOT NULL,
                                           language text NOT NULL, datatype text NOT NULL)" ;
   ]
 ;;
@@ -134,8 +134,8 @@ let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   let query = Printf.sprintf
     "CREATE TABLE IF NOT EXISTS %s (\
-     subject bigint(20) unsigned NOT NULL, predicate bigint(20) unsigned NOT NULL, \
-     object bigint(20) unsigned NOT NULL)%s"
+     subject bigint  NOT NULL, predicate bigint  NOT NULL, \
+     object bigint  NOT NULL)%s"
      table table_options
   in
   ignore(exec_query dbd query);

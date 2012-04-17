@@ -50,7 +50,7 @@ module Make (S : Storage) =
     let open_graph ?options name = embed (S.open_graph ?options) name
     let graph_name = embed S.graph_name
 
-    let add_triple g ~sub ~pred ~obj = embed (fun b -> S.add_triple g ~sub ~pred ~obj) g
+    let add_triple g ~sub ~pred ~obj = embed (fun g -> S.add_triple g ~sub ~pred ~obj) g
     let rem_triple g ~sub ~pred ~obj = embed (fun g -> S.rem_triple g ~sub ~pred ~obj) g
 (*
     let add_triple_t g = embed (S.add_triple_t g)

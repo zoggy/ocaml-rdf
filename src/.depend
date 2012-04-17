@@ -4,8 +4,10 @@ rdf_graph.cmo : rdf_types.cmo
 rdf_graph.cmx : rdf_types.cmx
 rdf_misc.cmo : rdf_misc.cmi
 rdf_misc.cmx : rdf_misc.cmi
-rdf_my.cmo : rdf_types.cmo rdf_misc.cmi
-rdf_my.cmx : rdf_types.cmx rdf_misc.cmx
+rdf_my.cmo : rdf_types.cmo rdf_misc.cmi rdf_graph.cmo
+rdf_my.cmx : rdf_types.cmx rdf_misc.cmx rdf_graph.cmx
+rdf_test_mysql.cmo : rdf_types.cmo rdf_graph.cmo
+rdf_test_mysql.cmx : rdf_types.cmx rdf_graph.cmx
 rdf_types.cmo :
 rdf_types.cmx :
 rdf_utf8.cmo :
