@@ -41,7 +41,7 @@ doc: dummy
 
 # myself
 
-master.Makefile: master.Makefile.in config.status
+master.Makefile: master.Makefile.in config.status src/rdf_config.ml.in
 	./config.status
 
 config.status: configure
@@ -56,7 +56,7 @@ configure: configure.in
 distclean: clean
 	cd src && $(MAKE) distclean
 	$(RM) config.cache config.log config.status master.Makefile \
-	src/META
+	src/rdf_config.ml src/META
 
 clean:: dummy
 	$(RM) *~ \#*\#
@@ -72,7 +72,7 @@ dummy:
 ###########
 HEADFILES=configure.in configure \
 	master.Makefile.in Makefile src/Makefile checkocaml.ml \
-	src/*/*.ml src/*/*.mli
+	src/*/ml src/*.mli src/rdf_config.ml.in
 
 headers: dummy
 	headache -h header -c ~/.headache_config $(HEADFILES)

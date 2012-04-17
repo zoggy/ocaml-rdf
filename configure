@@ -1720,7 +1720,7 @@ echo Debug level is set to $DEBUG_LEVEL
 
 
 # Finally create the master.Makefile.in
-ACFILES="master.Makefile src/META"
+ACFILES="master.Makefile src/META src/rdf_config.ml"
 ac_config_files="$ac_config_files $ACFILES"
 
 cat >confcache <<\_ACEOF
@@ -2892,6 +2892,7 @@ fi
 
 chmod a-w master.Makefile
 chmod a-w src/META
+chmod a-w src/rdf_config.ml
 
 cat << EOF
 ====
