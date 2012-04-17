@@ -45,6 +45,7 @@ LIB_RDF_CMOFILES= \
 	rdf_config.cmo \
 	rdf_utf8.cmo \
 	rdf_types.cmo \
+	rdf_misc.cmo \
 	rdf_graph.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
