@@ -43,6 +43,9 @@ LIB_MYSQL_BYTE=$(LIB_MYSQL:.cmxa=.cma)
 
 LIB_RDF_CMOFILES= \
 	rdf_config.cmo \
+	rdf_utf8.cmo \
+	rdf_types.cmo \
+	rdf_graph.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
