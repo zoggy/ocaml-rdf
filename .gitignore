@@ -6,6 +6,7 @@ config_check.log
 autom4te.cache
 ocaml_config.sh
 master.Makefile
+src/rdf_config.ml
 src/*.cm*
 src/*.a
 src/*.o
