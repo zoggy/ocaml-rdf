@@ -20,7 +20,7 @@ module type Storage =
 
     val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
     val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
-
+(*
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
@@ -35,6 +35,7 @@ module type Storage =
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
+*)
   end
 
 module Make (S : Storage) =
@@ -51,7 +52,7 @@ module Make (S : Storage) =
 
     let add_triple g ~sub ~pred ~obj = embed (fun b -> S.add_triple g ~sub ~pred ~obj) g
     let rem_triple g ~sub ~pred ~obj = embed (fun g -> S.rem_triple g ~sub ~pred ~obj) g
-
+(*
     let add_triple_t g = embed (S.add_triple_t g)
     let rem_triple_t g = embed (S.rem_triple_t g)
 
@@ -66,6 +67,7 @@ module Make (S : Storage) =
     let subjects = embed S.subjects
     let predicates = embed S.predicates
     let objects = embed S.objects
+*)
   end
 
 module type Graph =
@@ -77,7 +79,7 @@ module type Graph =
 
     val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
     val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
-
+(*
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
@@ -92,6 +94,7 @@ module type Graph =
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
+*)
   end
 
 let storages = ref [];;

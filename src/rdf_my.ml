@@ -2,6 +2,11 @@
 
 open Rdf_types;;
 
+let dbg = Rdf_misc.create_log_fun
+  ~prefix: "Rdf_mysql"
+    "RDF_MYSQL_DEBUG_LEVEL"
+;;
+
 type t =
   { g_name : uri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
@@ -11,6 +16,16 @@ type t =
 type error = string
 exception Error = Mysql.Error
 let string_of_error s = s;;
+
+let exec_query dbd q =
+  dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
+  let res = Mysql.exec dbd q in
+  match Mysql.status dbd with
+    Mysql.StatusOK | Mysql.StatusEmpty -> res
+  | Mysql.StatusError _ ->
+      let msg = Rdf_misc.string_of_opt (Mysql.errmsg dbd) in
+      raise (Error msg)
+;;
 
 let db_of_options options =
   let dbhost = Rdf_misc.opt_of_string
@@ -23,7 +38,7 @@ let db_of_options options =
     (Rdf_misc.opt_of_string (Rdf_types.get_option ~def: "" "port" options))
   in
   let dbpwd  = Rdf_misc.opt_of_string
-    (Rdf_types.get_option "password" options)
+    (Rdf_types.get_option ~def: "" "password" options)
   in
   let dbuser  = Rdf_misc.opt_of_string
     (Rdf_types.get_option "user" options)
@@ -54,18 +69,37 @@ let node_hash = function
 | Blank_ id -> int64_hash (Printf.sprintf "B%s" id)
 ;;
 
-let exec_query dbd q =
-  let res = Mysql.exec dbd q in
-  match Mysql.status dbd with
-    Mysql.StatusOK | Mysql.StatusEmpty -> res
-  | Mysql.StatusError _ ->
-      let msg = Rdf_misc.string_of_opt (Mysql.errmsg dbd) in
-      raise (Error msg)
+let node_id dbd ~add node =
+  let hash = node_hash node in
+  if add then
+    begin
+      let pre_query =
+        match node with
+          Uri uri ->
+            Printf.sprintf "resources (id, uri) values (%Ld, %S)" hash uri
+        | Literal lit ->
+            Printf.sprintf
+            "literals (id, value, language, datatype) \
+             values (%Ld, %S, %S, %S)"
+            hash
+            lit.lit_value
+            (Rdf_misc.string_of_opt lit.lit_language)
+            (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type))
+        | Blank_ id ->
+            Printf.sprintf "bnodes (id, name) values (%Ld, %S)" hash id
+        | Blank -> assert false
+      in
+      let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
+      ignore(exec_query dbd query)
+    end;
+  hash
 ;;
 
+
+let table_options = " ENGINE=InnoDB DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
-    "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT NOT NULL, name text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, name text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
@@ -75,7 +109,8 @@ let creation_queries =
 
 let init_db db =
   let dbd = Mysql.connect db in
-  List.iter (fun q -> ignore (exec_query dbd q)) creation_queries;
+  List.iter
+  (fun q -> ignore (exec_query dbd (q^table_options))) creation_queries;
   dbd
 ;;
 
@@ -90,7 +125,7 @@ let rec graph_table_of_graph_name ?(first=true) dbd name =
       let msg = Printf.sprintf "Could not get table name for graph %S" name in
       raise (Error msg)
   | _ ->
-      let query = Printf.sprintf "INSERT INTO graphs COLUMNS (name) VALUES (%S)" name in
+      let query = Printf.sprintf "INSERT INTO graphs (name) VALUES (%S)" name in
       ignore(exec_query dbd query);
       graph_table_of_graph_name ~first: false dbd name
 ;;
@@ -99,9 +134,13 @@ let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   let query = Printf.sprintf
     "CREATE TABLE IF NOT EXISTS %s (\
-     SUBJECT bigint(20) unsigned NOT NULL, PREDICATE bigint(20) unsigned NOT NULL, \
-     OBJECT bigint(20) unsigned NOT NULL)"
-     table
+     subject bigint(20) unsigned NOT NULL, predicate bigint(20) unsigned NOT NULL, \
+     object bigint(20) unsigned NOT NULL)%s"
+     table table_options
+  in
+  ignore(exec_query dbd query);
+  let query = Printf.sprintf
+     "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
   in
   ignore(exec_query dbd query);
   table
@@ -117,6 +156,28 @@ let open_graph ?(options=[]) name =
   }
 ;;
 
+let add_triple g ~sub ~pred ~obj =
+  let sub = node_id g.g_dbd ~add:true sub in
+  let pred = node_id g.g_dbd ~add:true pred in
+  let obj = node_id g.g_dbd ~add:true obj in
+  let query = Printf.sprintf
+    "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+    g.g_table sub pred obj
+  in
+  ignore(exec_query g.g_dbd query)
+;;
+
+let rem_triple g ~sub ~pred ~obj =
+  let sub = node_id g.g_dbd ~add:false sub in
+  let pred = node_id g.g_dbd ~add:false pred in
+  let obj = node_id g.g_dbd ~add:false obj in
+  let query = Printf.sprintf
+    "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld)"
+    g.g_table sub pred obj
+  in
+  ignore(exec_query g.g_dbd query)
+;;
+
 module Mysql =
   struct
     let name = "mysql"
@@ -128,6 +189,9 @@ module Mysql =
     let graph_name g = g.g_name
 
     let open_graph = open_graph
+
+    let add_triple = add_triple
+    let rem_triple = rem_triple
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;
