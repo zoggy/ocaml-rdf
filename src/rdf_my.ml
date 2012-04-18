@@ -69,7 +69,7 @@ let node_hash = function
 | Blank_ id -> int64_hash (Printf.sprintf "B%s" id)
 ;;
 
-let node_id dbd ?(add=false) node =
+let hash_of_node dbd ?(add=false) node =
   let hash = node_hash node in
   if add then
     begin
@@ -103,7 +103,7 @@ let creation_queries =
     "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, name text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
-                                          language text NOT NULL, datatype text NOT NULL)" ;
+                                          language text, datatype text)" ;
   ]
 ;;
 
@@ -179,7 +179,10 @@ let node_of_hash dbd hash =
             | [| None ; Some uri ; None ; None ; None |] ->
                 Rdf_types.node_of_uri_string uri
             | [| None ; None ; Some value ; lang ; typ |] ->
-                Rdf_types.node_of_literal_string ?lang ?typ value
+                Rdf_types.node_of_literal_string
+                ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
+                ?typ: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
+                value
             | _ ->
                 let msg = Printf.sprintf "Bad result for node with hash \"%Ld\"" hash in
                 raise (Error msg)
@@ -198,7 +201,24 @@ let query_node_list g field where_clause =
   | [| Some hash |] ->
       prerr_endline hash;
       node_of_hash g.g_dbd (Mysql.int642ml hash)
-  | _ -> raise (Error "Invalid result: NULL id or too many fields")
+  | _ -> raise (Error "Invalid result: NULL hash or too many fields")
+  in
+  Mysql.map res ~f
+;;
+
+let query_triple_list g where_clause =
+  let query = Printf.sprintf
+    "SELECT subject, predicate, object FROM %s where %s"
+    g.g_table where_clause
+  in
+  let res = exec_query g.g_dbd query in
+  let f = function
+  | [| Some sub ; Some pred ; Some obj |] ->
+      (node_of_hash g.g_dbd (Mysql.int642ml sub),
+       node_of_hash g.g_dbd (Mysql.int642ml pred),
+       node_of_hash g.g_dbd (Mysql.int642ml obj)
+      )
+  | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
   in
   Mysql.map res ~f
 ;;
@@ -214,9 +234,9 @@ let open_graph ?(options=[]) name =
 ;;
 
 let add_triple g ~sub ~pred ~obj =
-  let sub = node_id g.g_dbd ~add:true sub in
-  let pred = node_id g.g_dbd ~add:true pred in
-  let obj = node_id g.g_dbd ~add:true obj in
+  let sub = hash_of_node g.g_dbd ~add:true sub in
+  let pred = hash_of_node g.g_dbd ~add:true pred in
+  let obj = hash_of_node g.g_dbd ~add:true obj in
   let query = Printf.sprintf
     "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
     g.g_table sub pred obj
@@ -225,14 +245,66 @@ let add_triple g ~sub ~pred ~obj =
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
-  let sub = node_id g.g_dbd ~add:false sub in
-  let pred = node_id g.g_dbd ~add:false pred in
-  let obj = node_id g.g_dbd ~add:false obj in
+  let sub = hash_of_node g.g_dbd ~add:false sub in
+  let pred = hash_of_node g.g_dbd ~add:false pred in
+  let obj = hash_of_node g.g_dbd ~add:false obj in
   let query = Printf.sprintf
     "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
     g.g_table sub pred obj
   in
   ignore(exec_query g.g_dbd query)
+;;
+
+let subjects_of g ~pred ~obj =
+  query_node_list g "subject"
+  (Printf.sprintf "predicate=%Ld AND object=%Ld"
+   (hash_of_node g.g_dbd pred) (hash_of_node g.g_dbd obj))
+;;
+
+let predicates_of g ~sub ~obj =
+  query_node_list g "predicate"
+  (Printf.sprintf "subject=%Ld AND object=%Ld"
+   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd obj))
+;;
+
+let objects_of g ~sub ~pred =
+  query_node_list g "object"
+  (Printf.sprintf "subject=%Ld AND predicate=%Ld"
+   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd pred))
+;;
+
+let mk_where_clause ?sub ?pred ?obj g =
+  let mk_cond field = function
+    None -> []
+  | Some node ->
+      [Printf.sprintf "%s=%Ld" field (hash_of_node g.g_dbd node)]
+  in
+  match sub, pred, obj with
+    None, None, None -> "TRUE"
+  | _ ->
+      let l =
+        (mk_cond "subject" sub) @
+        (mk_cond "predicate" pred) @
+        (mk_cond "object" obj)
+      in
+      String.concat " AND " l
+;;
+
+let find ?sub ?pred ?obj g =
+  let clause = mk_where_clause ?sub ?pred ?obj g in
+  query_triple_list g clause
+;;
+
+let exists ?sub ?pred ?obj g =
+  let query = Printf.sprintf "SELECT COUNT(*) FROM %s where %s"
+    g.g_table (mk_where_clause ?sub ?pred ?obj g)
+  in
+  let res = exec_query g.g_dbd query in
+  match Mysql.fetch res with
+    Some [| Some n |] -> int_of_string n > 0
+  | _ ->
+    let msg = Printf.sprintf "Bad result for query: %s" query in
+    raise (Error msg)
 ;;
 
 module Mysql =
@@ -253,20 +325,14 @@ module Mysql =
     let add_triple_t g (sub, pred, obj) = add_triple g ~sub ~pred ~obj
     let rem_triple_t g (sub, pred, obj) = rem_triple g ~sub ~pred ~obj
 
-    let subjects_of g ~pred ~obj =
-      query_node_list g "subject"
-      (Printf.sprintf "predicate=%Ld AND object=%Ld"
-       (node_id g.g_dbd pred) (node_id g.g_dbd obj))
+    let subjects_of = subjects_of
+    let predicates_of = predicates_of
+    let objects_of = objects_of
 
-    let predicates_of g ~sub ~obj =
-      query_node_list g "predicate"
-      (Printf.sprintf "subject=%Ld AND object=%Ld"
-       (node_id g.g_dbd sub) (node_id g.g_dbd obj))
+    let find = find
+    let exists = exists
+    let exists_t (sub, pred, obj) g = exists ~sub ~pred ~obj g
 
-    let objects_of g ~sub ~pred =
-      query_node_list g "object"
-      (Printf.sprintf "subject=%Ld AND predicate=%Ld"
-       (node_id g.g_dbd sub) (node_id g.g_dbd pred))
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;

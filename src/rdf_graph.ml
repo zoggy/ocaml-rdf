@@ -27,11 +27,11 @@ module type Storage =
     val subjects_of : g -> pred: node -> obj: node -> node list
     val predicates_of : g -> sub: node -> obj: node -> node list
     val objects_of : g -> sub: node -> pred: node -> node list
-(*
+
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
-
+(*
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
@@ -59,11 +59,11 @@ module Make (S : Storage) =
     let subjects_of g ~pred ~obj = embed (fun g -> S.subjects_of g ~pred ~obj) g
     let predicates_of g ~sub ~obj = embed (fun g -> S.predicates_of g ~sub ~obj) g
     let objects_of g ~sub ~pred = embed (fun g -> S.objects_of g ~sub ~pred) g
-(*
+
     let find ?sub ?pred ?obj = embed (S.find ?sub ?pred ?obj)
     let exists ?sub ?pred ?obj = embed (S.exists ?sub ?pred ?obj)
     let exists_t triple = embed (S.exists_t triple)
-
+(*
     let subjects = embed S.subjects
     let predicates = embed S.predicates
     let objects = embed S.objects
@@ -86,11 +86,11 @@ module type Graph =
     val subjects_of : g -> pred: node -> obj: node -> node list
     val predicates_of : g -> sub: node -> obj: node -> node list
     val objects_of : g -> sub: node -> pred: node -> node list
-(*
+
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
-
+(*
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
@@ -114,6 +114,9 @@ type graph =
     subjects_of : pred: node -> obj: node -> node list ;
     predicates_of : sub: node -> obj: node -> node list ;
     objects_of : sub: node -> pred: node -> node list ;
+    find : ?sub: node -> ?pred: node -> ?obj: node -> unit -> triple list ;
+    exists : ?sub: node -> ?pred: node -> ?obj: node -> unit -> bool ;
+    exists_t : triple -> bool ;
   }
 
 let open_graph ?(options=[]) name =
@@ -132,5 +135,8 @@ let open_graph ?(options=[]) name =
     subjects_of = S.subjects_of g ;
     predicates_of = S.predicates_of g ;
     objects_of = S.objects_of g ;
+    find = (fun ?sub ?pred ?obj () -> S.find ?sub ?pred ?obj g) ;
+    exists = (fun ?sub ?pred ?obj () -> S.exists ?sub ?pred ?obj g) ;
+    exists_t = (fun t -> S.exists_t t g) ;
   }
 ;;
