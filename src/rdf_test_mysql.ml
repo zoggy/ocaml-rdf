@@ -48,6 +48,6 @@ let main () =
   g.rem_triple ~sub: sub4 ~pred ~obj;
   assert (not (g.exists_t (sub4, pred, obj)));
   g.transaction_rollback ();
-  assert (g.exists_t (sub4, pred, obj));
+  assert (g.exists_t (sub4, pred, obj))
 ;;
 let () = main();;

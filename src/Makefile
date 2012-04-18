@@ -118,8 +118,8 @@ include .depend
 #################
 install: all
 	$(OCAMLFIND) install $(PACKAGE) META \
-		$(LIB_RDF) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) \
-		$(LIB_MYSQL) $(LIB_MYSQL:.cmxa=.cmi) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL:.cmxa=.mli)
+		$(LIB_RDF) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_BYTE) \
+		$(LIB_MYSQL) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE)
 
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
