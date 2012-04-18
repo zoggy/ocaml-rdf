@@ -24,7 +24,7 @@
 
 include ../master.Makefile
 
-PACKAGES=mysql
+PACKAGES=mysql,netstring
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
