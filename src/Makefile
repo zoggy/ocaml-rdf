@@ -105,6 +105,7 @@ clean:: dummy
 	$(RM) *~ \#*\#
 	$(RM) *.cm* *.a *.o *.annot
 	$(RM) dump.odoc
+	$(RM) test_mysql
 
 .depend depend:
 	$(RM) .depend
