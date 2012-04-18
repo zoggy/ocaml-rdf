@@ -31,11 +31,10 @@ module type Storage =
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
-(*
+
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
-*)
   end
 
 module Make (S : Storage) =
@@ -63,11 +62,11 @@ module Make (S : Storage) =
     let find ?sub ?pred ?obj = embed (S.find ?sub ?pred ?obj)
     let exists ?sub ?pred ?obj = embed (S.exists ?sub ?pred ?obj)
     let exists_t triple = embed (S.exists_t triple)
-(*
+
     let subjects = embed S.subjects
     let predicates = embed S.predicates
     let objects = embed S.objects
-*)
+
   end
 
 module type Graph =
@@ -90,11 +89,11 @@ module type Graph =
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
-(*
+
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
-*)
+
   end
 
 let storages = ref [];;
@@ -117,6 +116,9 @@ type graph =
     find : ?sub: node -> ?pred: node -> ?obj: node -> unit -> triple list ;
     exists : ?sub: node -> ?pred: node -> ?obj: node -> unit -> bool ;
     exists_t : triple -> bool ;
+    subjects : unit -> node list ;
+    predicates : unit -> node list ;
+    objects : unit -> node list ;
   }
 
 let open_graph ?(options=[]) name =
@@ -138,5 +140,8 @@ let open_graph ?(options=[]) name =
     find = (fun ?sub ?pred ?obj () -> S.find ?sub ?pred ?obj g) ;
     exists = (fun ?sub ?pred ?obj () -> S.exists ?sub ?pred ?obj g) ;
     exists_t = (fun t -> S.exists_t t g) ;
+    subjects = (fun () -> S.subjects g) ;
+    predicates = (fun () -> S.predicates g) ;
+    objects = (fun () -> S.objects g) ;
   }
 ;;

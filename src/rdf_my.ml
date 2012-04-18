@@ -307,6 +307,10 @@ let exists ?sub ?pred ?obj g =
     raise (Error msg)
 ;;
 
+let subjects g = query_node_list g "subject" "TRUE";;
+let predicates g = query_node_list g "predicate" "TRUE";;
+let objects g = query_node_list g "object" "TRUE";;
+
 module Mysql =
   struct
     let name = "mysql"
@@ -333,6 +337,9 @@ module Mysql =
     let exists = exists
     let exists_t (sub, pred, obj) g = exists ~sub ~pred ~obj g
 
+    let subjects = subjects
+    let predicates = predicates
+    let objects = objects
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;
