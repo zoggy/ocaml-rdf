@@ -16,7 +16,7 @@ let main () =
       "user", "guesdon" ;
     ]
   in
-  let g = Rdf_graph.open_graph ~options "http://hello.fr" in
+  let g = Rdf_graph.open_graph ~options (Rdf_types.uri_of_string "http://hello.fr") in
   let pred = Rdf_types.node_of_uri_string "http://dis-bonjour.org" in
   let obj = Rdf_types.node_of_literal_string "youpi" in
   let sub = Rdf_types.node_of_uri_string "http://coucou0.net" in

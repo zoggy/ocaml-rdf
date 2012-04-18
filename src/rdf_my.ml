@@ -67,7 +67,7 @@ let node_hash = function
      (Rdf_misc.string_of_opt lit.lit_language)
      (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type)))
 | Blank -> assert false
-| Blank_ id -> int64_hash (Printf.sprintf "B%s" id)
+| Blank_ id -> int64_hash (Printf.sprintf "B%s" (Rdf_types.string_of_blank_id id))
 ;;
 
 let hash_of_node dbd ?(add=false) node =
@@ -77,7 +77,8 @@ let hash_of_node dbd ?(add=false) node =
       let pre_query =
         match node with
           Uri uri ->
-            Printf.sprintf "resources (id, uri) values (%Ld, %S)" hash uri
+            Printf.sprintf "resources (id, uri) values (%Ld, %S)"
+              hash (Rdf_types.string_of_uri uri)
         | Literal lit ->
             Printf.sprintf
             "literals (id, value, language, datatype) \
@@ -87,7 +88,8 @@ let hash_of_node dbd ?(add=false) node =
             (Rdf_misc.string_of_opt lit.lit_language)
             (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type))
         | Blank_ id ->
-            Printf.sprintf "bnodes (id, name) values (%Ld, %S)" hash id
+            Printf.sprintf "bnodes (id, name) values (%Ld, %S)"
+              hash (Rdf_types.string_of_blank_id id)
         | Blank -> assert false
       in
       let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
@@ -117,7 +119,8 @@ let init_db db =
 
 let graph_table_of_id id = Printf.sprintf "graph%d" id;;
 
-let rec graph_table_of_graph_name ?(first=true) dbd name =
+let rec graph_table_of_graph_name ?(first=true) dbd uri =
+  let name = Rdf_types.string_of_uri uri in
   let query = Printf.sprintf "SELECT id FROM graphs WHERE name = %S" name in
   let res = exec_query dbd query in
   match Mysql.fetch res with
@@ -128,7 +131,7 @@ let rec graph_table_of_graph_name ?(first=true) dbd name =
   | _ ->
       let query = Printf.sprintf "INSERT INTO graphs (name) VALUES (%S)" name in
       ignore(exec_query dbd query);
-      graph_table_of_graph_name ~first: false dbd name
+      graph_table_of_graph_name ~first: false dbd uri
 ;;
 
 let table_exists dbd table =
@@ -176,14 +179,17 @@ let node_of_hash dbd hash =
         | Some t ->
             match t with
               [| Some name ; None ; None ; None ; None |] ->
-                Blank_ name
+                Blank_ (Rdf_types.blank_id_of_string name)
             | [| None ; Some uri ; None ; None ; None |] ->
                 Rdf_types.node_of_uri_string uri
             | [| None ; None ; Some value ; lang ; typ |] ->
+                let typ = Rdf_misc.map_opt
+                  Rdf_types.uri_of_string
+                  (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
+                in
                 Rdf_types.node_of_literal_string
                 ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
-                ?typ: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
-                value
+                ?typ value
             | _ ->
                 let msg = Printf.sprintf "Bad result for node with hash \"%Ld\"" hash in
                 raise (Error msg)

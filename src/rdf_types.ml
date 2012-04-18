@@ -18,8 +18,10 @@ type triple = node * node * node
 
 let string_of_uri uri = uri;;
 let uri_of_string str = str;;
+let string_of_blank_id id = id;;
+let blank_id_of_string str = str;;
 
-let node_of_uri_string s = Uri s;;
+let node_of_uri_string s = Uri (uri_of_string s);;
 let mk_literal ?typ ?lang v =
   { lit_value = v ; lit_language = lang ; lit_type = typ ; }
 ;;
