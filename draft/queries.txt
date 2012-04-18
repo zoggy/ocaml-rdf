@@ -1,0 +1,3 @@
+SELECT name, NULL, NULL, NULL, NULL from bnodes where id=14287194693284167070 UNION
+SELECT NULL, uri, NULL, NULL, NULL from resources where id=14287194693284167070 UNION
+SELECT NULL, NULL, value, language, datatype from literals  where id=14287194693284167070;
