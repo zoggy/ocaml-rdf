@@ -1,6 +1,6 @@
 (** MySQL storage. *)
 
-open Rdf_types;;
+open Rdf_node;;
 
 let dbg = Rdf_misc.create_log_fun
   ~prefix: "Rdf_mysql"
@@ -8,7 +8,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : uri ; (* graph name *)
+  { g_name : Rdf_uri.uri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
@@ -30,19 +30,19 @@ let exec_query dbd q =
 
 let db_of_options options =
   let dbhost = Rdf_misc.opt_of_string
-    (Rdf_types.get_option ~def: "" "host" options)
+    (Rdf_graph.get_option ~def: "" "host" options)
   in
   let dbname  = Rdf_misc.opt_of_string
-    (Rdf_types.get_option "database" options)
+    (Rdf_graph.get_option "database" options)
   in
   let dbport  = Rdf_misc.map_opt int_of_string
-    (Rdf_misc.opt_of_string (Rdf_types.get_option ~def: "" "port" options))
+    (Rdf_misc.opt_of_string (Rdf_graph.get_option ~def: "" "port" options))
   in
   let dbpwd  = Rdf_misc.opt_of_string
-    (Rdf_types.get_option ~def: "" "password" options)
+    (Rdf_graph.get_option ~def: "" "password" options)
   in
   let dbuser  = Rdf_misc.opt_of_string
-    (Rdf_types.get_option "user" options)
+    (Rdf_graph.get_option "user" options)
   in
   { Mysql.dbhost = dbhost ; dbname ; dbport ; dbpwd ; dbuser }
 
@@ -60,14 +60,14 @@ let int64_hash str =
 ;;
 
 let node_hash = function
-  Uri uri -> int64_hash (Printf.sprintf "R%s" (Rdf_types.string_of_uri uri))
+  Uri uri -> int64_hash (Printf.sprintf "R%s" (Rdf_uri.string uri))
 | Literal lit ->
     int64_hash (Printf.sprintf "L%s<%s>%s"
      lit.lit_value
      (Rdf_misc.string_of_opt lit.lit_language)
-     (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type)))
+     (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type)))
 | Blank -> assert false
-| Blank_ id -> int64_hash (Printf.sprintf "B%s" (Rdf_types.string_of_blank_id id))
+| Blank_ id -> int64_hash (Printf.sprintf "B%s" (Rdf_node.string_of_blank_id id))
 ;;
 
 let hash_of_node dbd ?(add=false) node =
@@ -78,7 +78,7 @@ let hash_of_node dbd ?(add=false) node =
         match node with
           Uri uri ->
             Printf.sprintf "resources (id, uri) values (%Ld, %S)"
-              hash (Rdf_types.string_of_uri uri)
+              hash (Rdf_uri.string uri)
         | Literal lit ->
             Printf.sprintf
             "literals (id, value, language, datatype) \
@@ -86,10 +86,10 @@ let hash_of_node dbd ?(add=false) node =
             hash
             lit.lit_value
             (Rdf_misc.string_of_opt lit.lit_language)
-            (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type))
+            (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
         | Blank_ id ->
             Printf.sprintf "bnodes (id, name) values (%Ld, %S)"
-              hash (Rdf_types.string_of_blank_id id)
+              hash (Rdf_node.string_of_blank_id id)
         | Blank -> assert false
       in
       let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
@@ -120,7 +120,7 @@ let init_db db =
 let graph_table_of_id id = Printf.sprintf "graph%d" id;;
 
 let rec graph_table_of_graph_name ?(first=true) dbd uri =
-  let name = Rdf_types.string_of_uri uri in
+  let name = Rdf_uri.string uri in
   let query = Printf.sprintf "SELECT id FROM graphs WHERE name = %S" name in
   let res = exec_query dbd query in
   match Mysql.fetch res with
@@ -179,15 +179,15 @@ let node_of_hash dbd hash =
         | Some t ->
             match t with
               [| Some name ; None ; None ; None ; None |] ->
-                Blank_ (Rdf_types.blank_id_of_string name)
+                Blank_ (Rdf_node.blank_id_of_string name)
             | [| None ; Some uri ; None ; None ; None |] ->
-                Rdf_types.node_of_uri_string uri
+                Rdf_node.node_of_uri_string uri
             | [| None ; None ; Some value ; lang ; typ |] ->
                 let typ = Rdf_misc.map_opt
-                  Rdf_types.uri_of_string
+                  Rdf_uri.uri
                   (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
                 in
-                Rdf_types.node_of_literal_string
+                Rdf_node.node_of_literal_string
                 ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
                 ?typ value
             | _ ->

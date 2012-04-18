@@ -4,7 +4,7 @@
 type literal = {
     lit_value : string ;
     lit_language : string option ;
-    lit_type : uri option ;
+    lit_type : Rdf_uri.uri option ;
   }
 type blank_id = string
 

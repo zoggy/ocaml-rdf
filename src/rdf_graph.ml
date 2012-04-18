@@ -1,6 +1,16 @@
 (** *)
 
-open Rdf_types;;
+open Rdf_uri;;
+open Rdf_node;;
+
+type options = (string * string) list
+let get_option ?def name l =
+  try List.assoc name l
+  with Not_found ->
+    match def with
+        None -> failwith (Printf.sprintf "Missing option %S" name)
+      | Some v -> v
+;;
 
 (** Storage name * message * original exception *)
 exception Storage_error of string * string * exn
@@ -136,7 +146,7 @@ type graph =
   }
 
 let open_graph ?(options=[]) name =
-  let kind = Rdf_types.get_option ~def: "memory" "storage" options in
+  let kind = get_option ~def: "memory" "storage" options in
   let storage =
     try List.assoc kind !storages
     with Not_found -> failwith (Printf.sprintf "Unknown storage %S" kind)
