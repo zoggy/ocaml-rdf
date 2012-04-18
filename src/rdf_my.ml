@@ -76,17 +76,17 @@ let node_id dbd ~add node =
       let pre_query =
         match node with
           Uri uri ->
-            Printf.sprintf "resources (id, uri) values (%Ld, %S)" hash uri
+            Printf.sprintf "resources (id, uri) values (%Lu, %S)" hash uri
         | Literal lit ->
             Printf.sprintf
             "literals (id, value, language, datatype) \
-             values (%Ld, %S, %S, %S)"
+             values (%Lu, %S, %S, %S)"
             hash
             lit.lit_value
             (Rdf_misc.string_of_opt lit.lit_language)
             (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type))
         | Blank_ id ->
-            Printf.sprintf "bnodes (id, name) values (%Ld, %S)" hash id
+            Printf.sprintf "bnodes (id, name) values (%Lu, %S)" hash id
         | Blank -> assert false
       in
       let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
@@ -100,9 +100,9 @@ let table_options = " ENGINE=InnoDB DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint  PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint  PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS literals (id bigint  PRIMARY KEY NOT NULL, value longtext NOT NULL,
+    "CREATE TABLE IF NOT EXISTS bnodes (id bigint unsigned PRIMARY KEY NOT NULL, name text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS resources (id bigint unsigned PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS literals (id bigint unsigned PRIMARY KEY NOT NULL, value longtext NOT NULL,
                                           language text NOT NULL, datatype text NOT NULL)" ;
   ]
 ;;
@@ -134,8 +134,8 @@ let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   let query = Printf.sprintf
     "CREATE TABLE IF NOT EXISTS %s (\
-     subject bigint  NOT NULL, predicate bigint  NOT NULL, \
-     object bigint  NOT NULL)%s"
+     subject bigint unsigned NOT NULL, predicate bigint unsigned NOT NULL, \
+     object bigint unsigned NOT NULL)%s"
      table table_options
   in
   ignore(exec_query dbd query);
@@ -161,7 +161,7 @@ let add_triple g ~sub ~pred ~obj =
   let pred = node_id g.g_dbd ~add:true pred in
   let obj = node_id g.g_dbd ~add:true obj in
   let query = Printf.sprintf
-    "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+    "INSERT INTO %s (subject, predicate, object) VALUES (%Lu, %Lu, %Lu) ON DUPLICATE KEY UPDATE subject=subject"
     g.g_table sub pred obj
   in
   ignore(exec_query g.g_dbd query)
@@ -172,7 +172,7 @@ let rem_triple g ~sub ~pred ~obj =
   let pred = node_id g.g_dbd ~add:false pred in
   let obj = node_id g.g_dbd ~add:false obj in
   let query = Printf.sprintf
-    "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld)"
+    "DELETE FROM %s WHERE subject=%Lu AND predicate=%Lu AND object=%Lu"
     g.g_table sub pred obj
   in
   ignore(exec_query g.g_dbd query)
