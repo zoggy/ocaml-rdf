@@ -25,7 +25,7 @@
 # check for one particular file of the sources
 AC_INIT(master.Makefile.in)
 
-VERSION=2.0
+VERSION=0.2
 PACKAGE=rdf
 
 # The root directory where we will compile
