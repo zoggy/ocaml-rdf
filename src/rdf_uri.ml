@@ -21,8 +21,20 @@ let parent uri =
   let path =
     match List.rev path with
       [] -> []
-    | _ :: q ->
-        List.rev path
+    | _ :: q -> List.rev q
   in
   Neturl.modify_url ~path uri
 ;;
+
+let set_fragment uri fragment =
+  Neturl.modify_url ~fragment uri
+;;
+
+let path uri = Neturl.url_path uri;;
+
+let compare uri1 uri2 = Pervasives.compare (string uri1) (string uri2);;
+let equal u1 u2 = compare u1 u2 = 0;;
+
+let neturl uri = uri;;
+
+  
