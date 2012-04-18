@@ -38,6 +38,9 @@ let main () =
   let b = not (g.exists ~obj: (Rdf_types.node_of_uri_string "http://") ()) in
   assert b;
   let triples = g.find () in
-  List.iter (fun t -> print_endline (string_of_triple t)) triples
+  List.iter (fun t -> print_endline (string_of_triple t)) triples;
+
+  let subjects = g.subjects () in
+  List.iter (fun node -> print_endline (Rdf_types.string_of_node node)) subjects;
 ;;
 let () = main();;

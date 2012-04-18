@@ -199,7 +199,6 @@ let query_node_list g field where_clause =
   let res = exec_query g.g_dbd query in
   let f = function
   | [| Some hash |] ->
-      prerr_endline hash;
       node_of_hash g.g_dbd (Mysql.int642ml hash)
   | _ -> raise (Error "Invalid result: NULL hash or too many fields")
   in
