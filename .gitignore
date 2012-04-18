@@ -13,4 +13,5 @@ src/*.o
 src/*.annot
 src/ocamldoc
 src/dump.odoc
+src/test_mysql
 
