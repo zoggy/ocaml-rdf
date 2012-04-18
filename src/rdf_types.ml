@@ -27,6 +27,22 @@ let node_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
+let string_of_node = function
+| Uri uri -> Printf.sprintf "<%s>" uri
+| Literal lit ->
+    Printf.sprintf "%S%s%s"
+    lit.lit_value
+    (match lit.lit_language with
+       None -> ""
+     | Some l -> Printf.sprintf "@%s" l)
+    (match lit.lit_type with
+       None -> ""
+     | Some t -> Printf.sprintf "^^%s" t)
+| Blank -> "_"
+| Blank_ id -> Printf.sprintf "_:%s" id
+;;
+
+
 type options = (string * string) list
 let get_option ?def name l =
   try List.assoc name l

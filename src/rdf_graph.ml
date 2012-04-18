@@ -20,14 +20,14 @@ module type Storage =
 
     val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
     val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
-(*
+
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
     val subjects_of : g -> pred: node -> obj: node -> node list
     val predicates_of : g -> sub: node -> obj: node -> node list
     val objects_of : g -> sub: node -> pred: node -> node list
-
+(*
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
@@ -52,14 +52,14 @@ module Make (S : Storage) =
 
     let add_triple g ~sub ~pred ~obj = embed (fun g -> S.add_triple g ~sub ~pred ~obj) g
     let rem_triple g ~sub ~pred ~obj = embed (fun g -> S.rem_triple g ~sub ~pred ~obj) g
-(*
+
     let add_triple_t g = embed (S.add_triple_t g)
     let rem_triple_t g = embed (S.rem_triple_t g)
 
     let subjects_of g ~pred ~obj = embed (fun g -> S.subjects_of g ~pred ~obj) g
     let predicates_of g ~sub ~obj = embed (fun g -> S.predicates_of g ~sub ~obj) g
     let objects_of g ~sub ~pred = embed (fun g -> S.objects_of g ~sub ~pred) g
-
+(*
     let find ?sub ?pred ?obj = embed (S.find ?sub ?pred ?obj)
     let exists ?sub ?pred ?obj = embed (S.exists ?sub ?pred ?obj)
     let exists_t triple = embed (S.exists_t triple)
@@ -79,14 +79,14 @@ module type Graph =
 
     val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
     val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
-(*
+
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
     val subjects_of : g -> pred: node -> obj: node -> node list
     val predicates_of : g -> sub: node -> obj: node -> node list
     val objects_of : g -> sub: node -> pred: node -> node list
-
+(*
     val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
     val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
     val exists_t : triple -> g -> bool
@@ -109,6 +109,11 @@ type graph =
     name : unit -> uri ;
     add_triple : sub: node -> pred: node -> obj: node -> unit ;
     rem_triple : sub: node -> pred: node -> obj: node -> unit ;
+    add_triple_t : (node * node * node) -> unit ;
+    rem_triple_t : (node * node * node) -> unit ;
+    subjects_of : pred: node -> obj: node -> node list ;
+    predicates_of : sub: node -> obj: node -> node list ;
+    objects_of : sub: node -> pred: node -> node list ;
   }
 
 let open_graph ?(options=[]) name =
@@ -122,5 +127,10 @@ let open_graph ?(options=[]) name =
   { name = (fun () -> S.graph_name g) ;
     add_triple = S.add_triple g ;
     rem_triple = S.rem_triple g ;
+    add_triple_t = S.add_triple_t g ;
+    rem_triple_t = S.rem_triple_t g ;
+    subjects_of = S.subjects_of g ;
+    predicates_of = S.predicates_of g ;
+    objects_of = S.objects_of g ;
   }
 ;;

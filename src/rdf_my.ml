@@ -69,24 +69,24 @@ let node_hash = function
 | Blank_ id -> int64_hash (Printf.sprintf "B%s" id)
 ;;
 
-let node_id dbd ~add node =
+let node_id dbd ?(add=false) node =
   let hash = node_hash node in
   if add then
     begin
       let pre_query =
         match node with
           Uri uri ->
-            Printf.sprintf "resources (id, uri) values (%Lu, %S)" hash uri
+            Printf.sprintf "resources (id, uri) values (%Ld, %S)" hash uri
         | Literal lit ->
             Printf.sprintf
             "literals (id, value, language, datatype) \
-             values (%Lu, %S, %S, %S)"
+             values (%Ld, %S, %S, %S)"
             hash
             lit.lit_value
             (Rdf_misc.string_of_opt lit.lit_language)
             (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_types.string_of_uri lit.lit_type))
         | Blank_ id ->
-            Printf.sprintf "bnodes (id, name) values (%Lu, %S)" hash id
+            Printf.sprintf "bnodes (id, name) values (%Ld, %S)" hash id
         | Blank -> assert false
       in
       let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
@@ -100,9 +100,9 @@ let table_options = " ENGINE=InnoDB DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint unsigned PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint unsigned PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS literals (id bigint unsigned PRIMARY KEY NOT NULL, value longtext NOT NULL,
+    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, name text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
                                           language text NOT NULL, datatype text NOT NULL)" ;
   ]
 ;;
@@ -130,20 +130,77 @@ let rec graph_table_of_graph_name ?(first=true) dbd name =
       graph_table_of_graph_name ~first: false dbd name
 ;;
 
+let table_exists dbd table =
+  let query = Printf.sprintf "SELECT 1 FROM %s" table in
+  try ignore(exec_query dbd query); true
+  with Error _ -> false
+;;
+
 let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
-  let query = Printf.sprintf
-    "CREATE TABLE IF NOT EXISTS %s (\
-     subject bigint unsigned NOT NULL, predicate bigint unsigned NOT NULL, \
-     object bigint unsigned NOT NULL)%s"
-     table table_options
-  in
-  ignore(exec_query dbd query);
-  let query = Printf.sprintf
-     "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
-  in
-  ignore(exec_query dbd query);
+  if not (table_exists dbd table) then
+    begin
+      let query = Printf.sprintf
+        "CREATE TABLE IF NOT EXISTS %s (\
+         subject bigint NOT NULL, predicate bigint NOT NULL, \
+         object bigint NOT NULL)%s"
+        table table_options
+      in
+      ignore(exec_query dbd query);
+      let query = Printf.sprintf
+        "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
+      in
+      ignore(exec_query dbd query)
+    end;
   table
+;;
+
+let node_of_hash dbd hash =
+  let query = Printf.sprintf
+    "SELECT NULL, uri, NULL, NULL, NULL FROM resources where id=%Ld UNION \
+     SELECT NULL, NULL, value, language, datatype FROM literals where id=%Ld UNION \
+     SELECT name, NULL, NULL, NULL, NULL FROM bnodes where id=%Ld"
+    hash hash hash
+  in
+  let res = exec_query dbd query in
+  let size = Mysql.size res in
+  match Int64.compare size Int64.one with
+    n when n > 0 ->
+      let msg = Printf.sprintf "No node with hash \"%Ld\"" hash in
+      raise (Error msg)
+  | 0 ->
+      begin
+        match Mysql.fetch res with
+          None -> assert false (* already tested: there is at least one row *)
+        | Some t ->
+            match t with
+              [| Some name ; None ; None ; None ; None |] ->
+                Blank_ name
+            | [| None ; Some uri ; None ; None ; None |] ->
+                Rdf_types.node_of_uri_string uri
+            | [| None ; None ; Some value ; lang ; typ |] ->
+                Rdf_types.node_of_literal_string ?lang ?typ value
+            | _ ->
+                let msg = Printf.sprintf "Bad result for node with hash \"%Ld\"" hash in
+                raise (Error msg)
+      end
+  | _ ->
+      let msg = Printf.sprintf "More than one node found with hash \"%Ld\"" hash in
+      raise (Error msg)
+;;
+
+let query_node_list g field where_clause =
+  let query = Printf.sprintf "SELECT %s FROM %s where %s"
+    field g.g_table where_clause
+  in
+  let res = exec_query g.g_dbd query in
+  let f = function
+  | [| Some hash |] ->
+      prerr_endline hash;
+      node_of_hash g.g_dbd (Mysql.int642ml hash)
+  | _ -> raise (Error "Invalid result: NULL id or too many fields")
+  in
+  Mysql.map res ~f
 ;;
 
 let open_graph ?(options=[]) name =
@@ -161,7 +218,7 @@ let add_triple g ~sub ~pred ~obj =
   let pred = node_id g.g_dbd ~add:true pred in
   let obj = node_id g.g_dbd ~add:true obj in
   let query = Printf.sprintf
-    "INSERT INTO %s (subject, predicate, object) VALUES (%Lu, %Lu, %Lu) ON DUPLICATE KEY UPDATE subject=subject"
+    "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
     g.g_table sub pred obj
   in
   ignore(exec_query g.g_dbd query)
@@ -172,7 +229,7 @@ let rem_triple g ~sub ~pred ~obj =
   let pred = node_id g.g_dbd ~add:false pred in
   let obj = node_id g.g_dbd ~add:false obj in
   let query = Printf.sprintf
-    "DELETE FROM %s WHERE subject=%Lu AND predicate=%Lu AND object=%Lu"
+    "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
     g.g_table sub pred obj
   in
   ignore(exec_query g.g_dbd query)
@@ -192,6 +249,24 @@ module Mysql =
 
     let add_triple = add_triple
     let rem_triple = rem_triple
+
+    let add_triple_t g (sub, pred, obj) = add_triple g ~sub ~pred ~obj
+    let rem_triple_t g (sub, pred, obj) = rem_triple g ~sub ~pred ~obj
+
+    let subjects_of g ~pred ~obj =
+      query_node_list g "subject"
+      (Printf.sprintf "predicate=%Ld AND object=%Ld"
+       (node_id g.g_dbd pred) (node_id g.g_dbd obj))
+
+    let predicates_of g ~sub ~obj =
+      query_node_list g "predicate"
+      (Printf.sprintf "subject=%Ld AND object=%Ld"
+       (node_id g.g_dbd sub) (node_id g.g_dbd obj))
+
+    let objects_of g ~sub ~pred =
+      query_node_list g "object"
+      (Printf.sprintf "subject=%Ld AND predicate=%Ld"
+       (node_id g.g_dbd sub) (node_id g.g_dbd pred))
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;

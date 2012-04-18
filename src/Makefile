@@ -28,7 +28,7 @@ PACKAGES=mysql
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
-COMPFLAGS=$(INCLUDES) -annot
+COMPFLAGS=$(INCLUDES) -annot -g
 LINKFLAGS=$(INCLUDES)
 
 # The executables and libraries to produce
