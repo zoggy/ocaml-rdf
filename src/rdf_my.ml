@@ -11,6 +11,7 @@ type t =
   { g_name : uri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
+    mutable g_in_transaction : bool ;
   }
 
 type error = string
@@ -229,6 +230,7 @@ let open_graph ?(options=[]) name =
   { g_name = name ;
     g_table = table_name ;
     g_dbd = dbd ;
+    g_in_transaction = false ;
   }
 ;;
 
@@ -310,6 +312,27 @@ let subjects g = query_node_list g "subject" "TRUE";;
 let predicates g = query_node_list g "predicate" "TRUE";;
 let objects g = query_node_list g "object" "TRUE";;
 
+let transaction_start g =
+  if g.g_in_transaction then
+    raise (Error "Already in a transaction. Nested transactions not allowed.");
+  ignore(exec_query g.g_dbd "START TRANSACTION");
+  g.g_in_transaction <- true
+;;
+
+let transaction_commit g =
+ if not g.g_in_transaction then
+    raise (Error "Not in a transaction.");
+  ignore(exec_query g.g_dbd "COMMIT");
+  g.g_in_transaction <- false
+;;
+
+let transaction_rollback g =
+ if not g.g_in_transaction then
+    raise (Error "Not in a transaction.");
+  ignore(exec_query g.g_dbd "ROLLBACK");
+  g.g_in_transaction <- false
+;;
+
 module Mysql =
   struct
     let name = "mysql"
@@ -339,6 +362,10 @@ module Mysql =
     let subjects = subjects
     let predicates = predicates
     let objects = objects
+
+    let transaction_start = transaction_start
+    let transaction_commit = transaction_commit
+    let transaction_rollback = transaction_rollback
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;

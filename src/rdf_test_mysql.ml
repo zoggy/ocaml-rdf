@@ -42,5 +42,12 @@ let main () =
 
   let subjects = g.subjects () in
   List.iter (fun node -> print_endline (Rdf_types.string_of_node node)) subjects;
+
+  let sub4 = Rdf_types.node_of_uri_string "http://coucou4.net" in
+  g.transaction_start ();
+  g.rem_triple ~sub: sub4 ~pred ~obj;
+  assert (not (g.exists_t (sub4, pred, obj)));
+  g.transaction_rollback ();
+  assert (g.exists_t (sub4, pred, obj));
 ;;
 let () = main();;

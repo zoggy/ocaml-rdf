@@ -35,6 +35,10 @@ module type Storage =
     val subjects : g -> node list
     val predicates : g -> node list
     val objects : g -> node list
+
+    val transaction_start : g -> unit
+    val transaction_commit : g -> unit
+    val transaction_rollback : g -> unit
   end
 
 module Make (S : Storage) =
@@ -67,6 +71,10 @@ module Make (S : Storage) =
     let predicates = embed S.predicates
     let objects = embed S.objects
 
+    let transaction_start = embed S.transaction_start
+    let transaction_commit = embed S.transaction_commit
+    let transaction_rollback = embed S.transaction_rollback
+
   end
 
 module type Graph =
@@ -94,6 +102,9 @@ module type Graph =
     val predicates : g -> node list
     val objects : g -> node list
 
+    val transaction_start : g -> unit
+    val transaction_commit : g -> unit
+    val transaction_rollback : g -> unit
   end
 
 let storages = ref [];;
@@ -119,6 +130,9 @@ type graph =
     subjects : unit -> node list ;
     predicates : unit -> node list ;
     objects : unit -> node list ;
+    transaction_start : unit -> unit ;
+    transaction_commit : unit -> unit ;
+    transaction_rollback : unit -> unit ;
   }
 
 let open_graph ?(options=[]) name =
@@ -143,5 +157,8 @@ let open_graph ?(options=[]) name =
     subjects = (fun () -> S.subjects g) ;
     predicates = (fun () -> S.predicates g) ;
     objects = (fun () -> S.objects g) ;
+    transaction_start = (fun () -> S.transaction_start g) ;
+    transaction_commit = (fun () -> S.transaction_commit g) ;
+    transaction_rollback = (fun () -> S.transaction_rollback g) ;
   }
 ;;

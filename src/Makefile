@@ -81,7 +81,7 @@ test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
 #################
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) -package mysql $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
-	`ls $^ | grep -v example`
+	`ls $^ | grep -v example | grep -v test `
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc
@@ -103,6 +103,7 @@ distclean: clean
 clean:: dummy
 	$(RM) *~ \#*\#
 	$(RM) *.cm* *.a *.o *.annot
+	$(RM) dump.odoc
 
 .depend depend:
 	$(RM) .depend
