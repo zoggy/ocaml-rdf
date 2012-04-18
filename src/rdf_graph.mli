@@ -12,7 +12,11 @@ let options =
     "user", "john" ;
   ]
 in
-let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
+let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
+graph.add_triple
+  ~sub: (Rdf_node.node_of_uri_string "http://john.net")
+  ~pred: (Rdf_node.node_of_uri_string "http://relations.org/hasMailbox")
+  ~obj: (Rdf_node.node_of_literal_string "john\@john.net");
 ...
 ]}
 *)
@@ -31,7 +35,9 @@ type options = (string * string) list
 *)
 val get_option : ?def:string -> string -> options -> string
 
-(** {2 The storage interface} *)
+(** {2 Creating storages}
+
+This is useful only to create your own storage. *)
 
 (** A storage is a module with this interface. *)
 module type Storage =
@@ -134,7 +140,18 @@ module type Storage =
     val transaction_rollback : g -> unit
   end
 
-(** Storage name * message * original exception *)
+(** This is the exception raised by the module we get when applying
+  {!Make} on a storage.
+
+  Each call to a {!Storage} function is embedded so that the
+  {!Storage_error} exception is raised when an error occurs in
+  a storage function.
+  The exception provides the name of the storage, the error message
+  (obtained with {!Storage.string_of_error}) and the original exception.
+
+  Refer to the documentation of {!Storage} for information about
+  the functions provided by the resulting module.
+*)
 exception Storage_error of string * string * exn
 
 module type Graph =
@@ -172,8 +189,16 @@ module type Graph =
   end
 module Make : functor (S : Storage) -> Graph with type g = S.g
 
-val storages : (string * (module Graph)) list ref
+(** {2 Registering storages} *)
+
+(** Add a storage to the list of registered storages. *)
 val add_storage : (module Storage) -> unit
+
+(** This is the structure returned by {!open_graph}. It contains
+  the same functions as in {!Graph}, except the graph data is hidden,
+  like in a class interface.
+  Refer to the documentation of {!Storage} for information about
+  the functions in the fields.*)
 type graph = {
   name : unit -> Rdf_uri.uri;
   add_triple :
@@ -200,4 +225,18 @@ type graph = {
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
 }
+
+(** {2 Graph creation} *)
+
+(** [open_graph ~options uri_name] creates a new graph. The storage used
+  is specified by the "storage" option. For example, having [("storage", "mysql")]
+  in the options indicates to use the storage "mysql".
+
+  If the specified storage is not registered, the function raises [Failure].
+  Other options may be used by each storage.
+
+  To make sure the storage you want to use is registered, beware of linking the
+  corresponding module in your executable, either by using the [-linkall] option
+  or by adding a reference to the module in your code.
+*)
 val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> graph
