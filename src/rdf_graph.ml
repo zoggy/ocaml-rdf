@@ -12,9 +12,6 @@ let get_option ?def name l =
       | Some v -> v
 ;;
 
-(** Storage name * message * original exception *)
-exception Storage_error of string * string * exn
-
 module type Storage =
   sig
     val name : string
@@ -51,6 +48,7 @@ module type Storage =
     val transaction_rollback : g -> unit
   end
 
+exception Storage_error of string * string * exn
 module Make (S : Storage) =
   struct
     type g = S.g
