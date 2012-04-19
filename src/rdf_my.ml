@@ -200,7 +200,7 @@ let node_of_hash dbd hash =
 ;;
 
 let query_node_list g field where_clause =
-  let query = Printf.sprintf "SELECT %s FROM %s where %s"
+  let query = Printf.sprintf "SELECT DISTINCT %s FROM %s where %s"
     field g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
@@ -214,7 +214,7 @@ let query_node_list g field where_clause =
 
 let query_triple_list g where_clause =
   let query = Printf.sprintf
-    "SELECT subject, predicate, object FROM %s where %s"
+    "SELECT DISTINCT subject, predicate, object FROM %s where %s"
     g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
