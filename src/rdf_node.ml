@@ -27,6 +27,18 @@ let node_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
+let mk_literal_datetime ?(d=Unix.time()) () =
+  let v = Netdate.mk_internet_date d in
+  mk_literal ~typ: (Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#dateTime") v
+;;
+
+let node_of_datetime ?d () =
+  Literal (mk_literal_datetime ?d ())
+;;
+
+let datetime_of_literal lit = Netdate.parse lit.lit_value;;
+
+
 let string_of_node = function
 | Uri uri -> Printf.sprintf "<%s>" (Rdf_uri.string uri)
 | Literal lit ->

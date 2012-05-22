@@ -1,19 +1,20 @@
 rdf_config.cmo :
 rdf_config.cmx :
-rdf_graph.cmo : rdf_uri.cmi rdf_node.cmi
-rdf_graph.cmx : rdf_uri.cmx rdf_node.cmx
+rdf_graph.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
+rdf_graph.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmi
 rdf_misc.cmo : rdf_misc.cmi
 rdf_misc.cmx : rdf_misc.cmi
-rdf_my.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmo
+rdf_my.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_my.cmx : rdf_uri.cmx rdf_node.cmx rdf_misc.cmx rdf_graph.cmx
 rdf_node.cmo : rdf_uri.cmi rdf_node.cmi
 rdf_node.cmx : rdf_uri.cmx rdf_node.cmi
-rdf_test_mysql.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmo
+rdf_test_mysql.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmx
 rdf_uri.cmo : rdf_uri.cmi
 rdf_uri.cmx : rdf_uri.cmi
 rdf_utf8.cmo :
 rdf_utf8.cmx :
+rdf_graph.cmi : rdf_uri.cmi rdf_node.cmi
 rdf_misc.cmi :
 rdf_node.cmi : rdf_uri.cmi
 rdf_uri.cmi :
