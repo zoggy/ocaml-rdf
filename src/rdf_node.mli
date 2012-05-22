@@ -32,6 +32,7 @@ val node_of_uri_string : string -> node
 (** Creation of a literal. *)
 val mk_literal : ?typ:Rdf_uri.uri -> ?lang:string -> string -> literal
 
+
 (** Create a datetime literal with type uri from the given datetime [d].
   If no date is given, [Unix.time()] is used.*)
 val mk_literal_datetime : ?d:float -> unit -> literal
@@ -39,11 +40,23 @@ val mk_literal_datetime : ?d:float -> unit -> literal
 (** Create a literal node from the given datetime. (see {!mk_literal_datetime}). *)
 val node_of_datetime : ?d:float -> unit -> node
 
+(** Parse a literal to get a datetime. *)
+val datetime_of_literal : literal -> Netdate.t
+
+
+(** Create a boolean literal with type uri from the given boolean. *)
+val mk_literal_bool : bool -> literal
+
+(** Create a literal node from the given boolean. (see {!mk_literal_bool}). *)
+val node_of_bool : bool -> node
+
+(** Parse a literal to get a boolean. *)
+val bool_of_literal : literal -> bool
+
+
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
 val node_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> node
 
-(** Parse a literal to get a datetime. *)
-val datetime_of_literal : literal -> Netdate.t
 
 (** Create a string for the given node, using RDF turtle syntax conventions.
   @see <http://www.w3.org/TeamSubmission/turtle/#language> the description of turtle language. *)

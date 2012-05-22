@@ -38,6 +38,19 @@ let node_of_datetime ?d () =
 
 let datetime_of_literal lit = Netdate.parse lit.lit_value;;
 
+let mk_literal_bool b =
+  let v = if b then "1" else "0" in
+  mk_literal ~typ: (Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#boolean") v
+;;
+
+let node_of_bool b = Literal (mk_literal_bool b);;
+
+let bool_of_literal lit =
+  match lit.lit_value with
+    "1" | "true" -> true
+  | _ -> false
+;;
+
 
 let string_of_node = function
 | Uri uri -> Printf.sprintf "<%s>" (Rdf_uri.string uri)
