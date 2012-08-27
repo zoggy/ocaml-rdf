@@ -45,8 +45,8 @@ LIB_RDF_CMOFILES= \
 	rdf_config.cmo \
 	rdf_utf8.cmo \
 	rdf_uri.cmo \
-	rdf_node.cmo \
 	rdf_misc.cmo \
+	rdf_node.cmo \
 	rdf_graph.cmo \
 	rdf_mem.cmo
 
