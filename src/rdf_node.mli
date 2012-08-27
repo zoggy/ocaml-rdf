@@ -61,3 +61,6 @@ val node_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> node
 (** Create a string for the given node, using RDF turtle syntax conventions.
   @see <http://www.w3.org/TeamSubmission/turtle/#language> the description of turtle language. *)
 val string_of_node : node -> string
+
+(** [node_hash node] returns an int64 identifiying (hopefully unically)) a given node. *)
+val node_hash : node -> int64
