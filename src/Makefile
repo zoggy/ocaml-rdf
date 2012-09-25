@@ -24,7 +24,7 @@
 
 include ../master.Makefile
 
-PACKAGES=mysql,netstring
+PACKAGES=mysql,netstring,xmlm
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
@@ -48,7 +48,8 @@ LIB_RDF_CMOFILES= \
 	rdf_misc.cmo \
 	rdf_node.cmo \
 	rdf_graph.cmo \
-	rdf_mem.cmo
+	rdf_mem.cmo \
+	rdf_xml.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
