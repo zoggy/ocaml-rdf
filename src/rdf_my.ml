@@ -317,6 +317,18 @@ let transaction_rollback g =
   g.g_in_transaction <- false
 ;;
 
+let new_blank_id g =
+  let cardinal =
+    let query = Printf.sprintf "SELECT COUNT(*) FROM %s" g.g_table in
+    let res = exec_query g.g_dbd query in
+    match Mysql.fetch res with
+      Some [|Some s|] -> int_of_string s
+    | _ -> 0
+  in
+  Rdf_node.blank_id_of_string
+  (Printf.sprintf "%d-%d" cardinal (Random.int max_int))
+;;
+
 module Mysql =
   struct
     let name = "mysql"
@@ -350,6 +362,8 @@ module Mysql =
     let transaction_start = transaction_start
     let transaction_commit = transaction_commit
     let transaction_rollback = transaction_rollback
+
+    let new_blank_id = new_blank_id
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;

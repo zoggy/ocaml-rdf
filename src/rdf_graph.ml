@@ -46,6 +46,8 @@ module type Storage =
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
+
+    val new_blank_id : g -> Rdf_node.blank_id
   end
 
 exception Storage_error of string * string * exn
@@ -83,6 +85,7 @@ module Make (S : Storage) =
     let transaction_commit = embed S.transaction_commit
     let transaction_rollback = embed S.transaction_rollback
 
+    let new_blank_id = embed S.new_blank_id
   end
 
 module type Graph =
@@ -113,6 +116,8 @@ module type Graph =
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
+
+    val new_blank_id : g -> Rdf_node.blank_id
   end
 
 let storages = ref [];;
@@ -141,6 +146,7 @@ type graph =
     transaction_start : unit -> unit ;
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
+    new_blank_id : unit -> Rdf_node.blank_id ;
   }
 
 let open_graph ?(options=[]) name =
@@ -168,5 +174,6 @@ let open_graph ?(options=[]) name =
     transaction_start = (fun () -> S.transaction_start g) ;
     transaction_commit = (fun () -> S.transaction_commit g) ;
     transaction_rollback = (fun () -> S.transaction_rollback g) ;
+    new_blank_id = (fun () -> S.new_blank_id g) ;
   }
 ;;

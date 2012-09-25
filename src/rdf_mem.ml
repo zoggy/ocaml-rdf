@@ -173,6 +173,11 @@ let transaction_rollback g =
       g.g_in_transaction <- old.g_in_transaction
 ;;
 
+let new_blank_id g =
+  Rdf_node.blank_id_of_string
+  (Printf.sprintf "%d-%d" (Triples.Map.cardinal g.g_set_sub) (Random.int max_int))
+;;
+
 module Mem =
   struct
     let name = "mem"
@@ -206,6 +211,8 @@ module Mem =
     let transaction_start = transaction_start
     let transaction_commit = transaction_commit
     let transaction_rollback = transaction_rollback
+
+    let new_blank_id = new_blank_id
   end;;
 
 Rdf_graph.add_storage (module Mem : Rdf_graph.Storage);;

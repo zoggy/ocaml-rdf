@@ -138,6 +138,9 @@ module type Storage =
 
     (** Rollback. *)
     val transaction_rollback : g -> unit
+
+    (** Forging a new, unique blank node id. *)
+    val new_blank_id : g -> Rdf_node.blank_id
   end
 
 (** This is the exception raised by the module we get when applying
@@ -186,6 +189,7 @@ module type Graph =
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
+    val new_blank_id : g -> Rdf_node.blank_id
   end
 module Make : functor (S : Storage) -> Graph with type g = S.g
 
@@ -224,6 +228,7 @@ type graph = {
   transaction_start : unit -> unit;
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
+  new_blank_id : unit -> Rdf_node.blank_id ;
 }
 
 (** {2 Graph creation} *)
