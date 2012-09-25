@@ -1,4 +1,4 @@
-(** Reading and writing RDF/XML. *)
+(** *)
 
 open Rdf_graph;;
 open Rdf_node;;
