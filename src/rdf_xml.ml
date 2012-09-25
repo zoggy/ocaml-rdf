@@ -192,6 +192,8 @@ let rec input_node g state gstate t =
       List.fold_left (input_prop g state) gstate children
 
 (* FIXME: handle rdf:li *)
+(* FIXME: handle rdf:ID *)
+(* FIXME: handle parseType=Collection *)
 and input_prop g state gstate t =
   let state = update_state state t in
   match t with
