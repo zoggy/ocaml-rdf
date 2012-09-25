@@ -133,7 +133,7 @@ let update_state state t = set_xml_lang (set_xml_base state t) t;;
 let get_blank_node g gstate id =
   try (Blank_ (SMap.find id gstate.blanks), gstate)
   with Not_found ->
-    prerr_endline (Printf.sprintf "blank_id for %s not found, forging one" id);
+    (*prerr_endline (Printf.sprintf "blank_id for %s not found, forging one" id);*)
     let bid = g.new_blank_id () in
     let gstate = { (*gstate with*) blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
