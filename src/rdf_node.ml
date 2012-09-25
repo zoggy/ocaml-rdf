@@ -1,5 +1,6 @@
 (** *)
 
+let () = Random.self_init();;
 
 type literal = {
     lit_value : string ;

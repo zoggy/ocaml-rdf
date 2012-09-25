@@ -325,6 +325,7 @@ let new_blank_id g =
       Some [|Some s|] -> int_of_string s
     | _ -> 0
   in
+  let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   Rdf_node.blank_id_of_string
   (Printf.sprintf "%d-%d" cardinal (Random.int max_int))
 ;;

@@ -48,6 +48,7 @@ LIB_RDF_CMOFILES= \
 	rdf_misc.cmo \
 	rdf_node.cmo \
 	rdf_graph.cmo \
+	rdf_dot.cmo \
 	rdf_mem.cmo \
 	rdf_xml.cmo
 
@@ -80,6 +81,8 @@ $(LIB_MYSQL_BYTE): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMOFILES)
 test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall rdf_test_mysql.cmx
 
+test_xml: $(LIB_RDF) test_xml.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall test_xml.cmx
 # Documentation :
 #################
 dump.odoc: *.mli *.ml

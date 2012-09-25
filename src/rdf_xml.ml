@@ -156,7 +156,7 @@ let rec input_node g state gstate t =
           Some s -> (Uri (Rdf_uri.uri s), gstate)
         | None ->
             match get_att_uri rdf_ID atts with
-              Some id -> (Uri (Rdf_uri.concat state.xml_base ("#"^id)), gstate)
+              Some id -> (Uri (Rdf_uri.uri ((Rdf_uri.string state.xml_base)^"#"^id)), gstate)
             | None ->
                 match get_att_uri rdf_nodeID atts with
                   Some id -> get_blank_node g gstate id
@@ -172,14 +172,14 @@ let rec input_node g state gstate t =
       (* add a type arc if the node is not introduced with rdf:Description *)
       if not (is_element rdf_Description (pref,s)) then
         begin
-          let type_uri = Rdf_uri.concat (Rdf_uri.uri pref) s in
+          let type_uri = Rdf_uri.uri (pref^s) in
           g.add_triple ~sub: node ~pred: (Uri rdf_type) ~obj: (Uri type_uri)
         end;
       (* all remaining attributes define triples with literal object values *)
       let f ((pref, s), v) =
         if pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns then
           begin
-            let uri_prop = Rdf_uri.concat (Rdf_uri.uri pref) s in
+            let uri_prop = Rdf_uri.uri (pref^s) in
             if not (List.exists (Rdf_uri.equal uri_prop) [ rdf_about ; rdf_ID ; rdf_nodeID ]) then
               begin
                 let obj = Rdf_node.node_of_literal_string ?lang: state.xml_lang v in
@@ -200,7 +200,7 @@ and input_prop g state gstate t =
       error msg
   | E (((pref,s),atts),children) ->
       let sub = match state.subject with None -> assert false | Some sub -> sub in
-      let prop_uri = Rdf_uri.concat (Rdf_uri.uri pref) s in
+      let prop_uri = Rdf_uri.uri (pref^s) in
       match get_att_uri rdf_resource atts with
         Some s ->
           let obj = Uri (Rdf_uri.uri s) in
@@ -246,14 +246,11 @@ and input_prop g state gstate t =
                       g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: node ;
                       let f ((pref,s),lit) =
                         let obj = Rdf_node.node_of_literal_string ?lang: state.xml_lang lit in
-                        let uri_prop = Rdf_uri.concat (Rdf_uri.uri pref) s in
+                        let uri_prop = Rdf_uri.uri (pref^s) in
                         g.add_triple ~sub: node ~pred: (Uri uri_prop) ~obj
                       in
                       List.iter f l;
                       gstate
-
-
-
 ;;
 
 let input g ~base t =
@@ -269,6 +266,9 @@ let input g ~base t =
     match t with
       D _ -> assert false
     | E ((e,_),children) when is_element rdf_RDF e ->
+        (*let xml = string_of_xmls children in
+        prerr_endline xml;*)
+
         List.fold_left (input_node g state) gstate children
     | t -> input_node g state gstate t
   in
@@ -277,11 +277,12 @@ let input g ~base t =
 
 let input_file g ~base file =
   let ic = open_in file in
-  let i = Xmlm.make_input (`Channel ic) in
+  let i = Xmlm.make_input ~strip: true (`Channel ic) in
   let (_,tree) =
     try let t = in_tree i in close_in ic; t
     with e -> close_in ic; raise e
   in
+
   input g ~base tree
 ;;
 
