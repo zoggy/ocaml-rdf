@@ -213,15 +213,26 @@ and input_prop g state gstate t =
               let obj = Rdf_node.node_of_literal_string ~typ: rdf_XMLLiteral xml in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
               gstate
-          | Some "Resource" -> failwith "rdf:Resource not handled"
+          | Some "Resource" ->
+              begin
+                 let node = Blank_ (g.new_blank_id ()) in
+                 g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: node ;
+                 let state = { state with subject = Some node ; predicate = None } in
+                 List.fold_left (input_prop g state) gstate children
+              end
           | Some s -> error (Printf.sprintf "Unknown parseType %S" s)
           | None ->
               match get_att_uri rdf_datatype atts, children with
-                Some s, [D lit] ->
+              | Some s, [D lit] ->
                   let typ = Rdf_uri.uri s in
                   let obj = Rdf_node.node_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
                   gstate
+              | Some s, _ ->
+                  let msg = Printf.sprintf "Property %S with datatype %S but no data"
+                    (Rdf_uri.string prop_uri) s
+                  in
+                  error msg
               | None, _ ->
                   (* if we have other attributes than the ones filtered above, they
                     are property relations, with ommited blank nodes *)
