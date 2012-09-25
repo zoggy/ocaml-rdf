@@ -22,10 +22,11 @@ let out_tree o t =
   in
   Xmlm.output_doc_tree frag o t
 
-let string_of_xmls trees =
+let string_of_xmls namespaces trees =
   try
     let b = Buffer.create 256 in
-    let output = Xmlm.make_output ~decl: false (`Buffer b) in
+    let ns_prefix s = Some s in
+    let output = Xmlm.make_output ~ns_prefix ~decl: false (`Buffer b) in
     let frag = function
     | E (tag, childs) -> `El (tag, childs)
     | D d -> `Data d
@@ -93,6 +94,7 @@ type state =
     xml_base : Rdf_uri.uri ;
     xml_lang : string option ;
     datatype : Rdf_uri.uri option ;
+    namespaces : (string * Rdf_uri.uri) list ;
   }
 
 module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
@@ -127,11 +129,24 @@ let set_xml_lang state = function
     match get_att (Xmlm.ns_xml, "lang") atts with
       None -> state
     | Some s ->
-        prerr_endline ("setting lang to "^s);
+        (*prerr_endline ("setting lang to "^s);*)
         { state with xml_lang = Some s }
 ;;
+let set_namespaces state = function
+  D _ -> state
+| E ((_,atts),_) ->
+    let f acc ((pref,s),v) =
+      if pref = Xmlm.ns_xmlns then
+        (s, Rdf_uri.uri v) :: acc
+      else
+        acc
+    in
+    { state with namespaces = List.fold_left f state.namespaces atts }
+;;
 
-let update_state state t = set_xml_lang (set_xml_base state t) t;;
+let update_state state t =
+  set_namespaces (set_xml_lang (set_xml_base state t) t) t;;
+
 let get_blank_node g gstate id =
   try (Blank_ (SMap.find id gstate.blanks), gstate)
   with Not_found ->
@@ -219,7 +234,7 @@ and input_prop g state gstate t =
           | None ->
           match get_att_uri rdf_parseType atts with
             Some "Literal" ->
-              let xml = string_of_xmls children in
+              let xml = string_of_xmls state.namespaces children in
               let obj = Rdf_node.node_of_literal_string ~typ: rdf_XMLLiteral xml in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
               gstate
@@ -267,7 +282,7 @@ let input g ~base t =
   let state = {
       subject = None ; predicate = None ;
       xml_base = base ; xml_lang = None ;
-      datatype = None ;
+      datatype = None ; namespaces = [] ;
     }
   in
   let state = update_state state t in
