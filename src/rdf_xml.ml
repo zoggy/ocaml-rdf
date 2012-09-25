@@ -133,6 +133,7 @@ let update_state state t = set_xml_lang (set_xml_base state t) t;;
 let get_blank_node g gstate id =
   try (Blank_ (SMap.find id gstate.blanks), gstate)
   with Not_found ->
+    prerr_endline (Printf.sprintf "blank_id for %s not found, forging one" id);
     let bid = g.new_blank_id () in
     let gstate = { (*gstate with*) blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
@@ -190,7 +191,6 @@ let rec input_node g state gstate t =
       List.iter f atts;
       List.fold_left (input_prop g state) gstate children
 
-(* FIXME: handle rdf:nodeID *)
 (* FIXME: handle rdf:li *)
 and input_prop g state gstate t =
   let state = update_state state t in
@@ -207,6 +207,12 @@ and input_prop g state gstate t =
           g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
           gstate
       | None ->
+          match get_att_uri rdf_nodeID atts with
+            Some id ->
+              let (obj, gstate) = get_blank_node g gstate id in
+              g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
+              gstate
+          | None ->
           match get_att_uri rdf_parseType atts with
             Some "Literal" ->
               let xml = string_of_xmls children in
