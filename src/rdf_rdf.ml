@@ -1,4 +1,4 @@
-(** Rdf element, as defined in
+(** Rdf elements, as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
 
 let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
