@@ -95,14 +95,13 @@ uninstall: dummy
 ###########
 # web site
 ###########
-webdoc:
-	cp web/index.html web/style.css ../dbforge-gh-pages/
-
+installweb:
+	scp -r web/index.html web/style.css src/ocamldoc zoggy@forge.ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
 ###########
 # archive
 ###########
 archive:
-	git archive --prefix=dbforge-$(VERSION)/ HEAD | gzip > ../dbforge-gh-pages/dbforge-$(VERSION).tar.gz
+#	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > ../dbforge-gh-pages/dbforge-$(VERSION).tar.gz
 
 ###########################
 # additional dependencies
