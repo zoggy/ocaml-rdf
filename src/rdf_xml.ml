@@ -117,16 +117,18 @@ let get_att_uri =
 let set_xml_base state = function
   D _ -> state
 | E ((_,atts),_) ->
-    match get_att ("xml", "base") atts with
+    match get_att (Xmlm.ns_xml, "base") atts with
       None -> state
     | Some s -> { state with xml_base = Rdf_uri.uri s }
 ;;
 let set_xml_lang state = function
   D _ -> state
 | E ((_,atts),_) ->
-    match get_att ("xml", "lang") atts with
+    match get_att (Xmlm.ns_xml, "lang") atts with
       None -> state
-    | Some s -> { state with xml_lang = Some s }
+    | Some s ->
+        prerr_endline ("setting lang to "^s);
+        { state with xml_lang = Some s }
 ;;
 
 let update_state state t = set_xml_lang (set_xml_base state t) t;;

@@ -48,8 +48,8 @@ LIB_RDF_CMOFILES= \
 	rdf_misc.cmo \
 	rdf_node.cmo \
 	rdf_graph.cmo \
-	rdf_dot.cmo \
 	rdf_mem.cmo \
+	rdf_dot.cmo \
 	rdf_xml.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
