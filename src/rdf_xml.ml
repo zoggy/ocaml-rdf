@@ -13,7 +13,14 @@ type tree = E of Xmlm.tag * tree list | D of string
 let in_tree i =
   let el tag childs = E (tag, childs)  in
   let data d = D d in
-  Xmlm.input_doc_tree ~el ~data i
+  try
+    Xmlm.input_doc_tree ~el ~data i
+  with
+    Xmlm.Error ((line, col), error) ->
+      let msg = Printf.sprintf "Line %d, column %d: %s"
+        line col (Xmlm.error_message error)
+      in
+      failwith msg
 
 let out_tree o t =
   let frag = function
@@ -41,50 +48,11 @@ let string_of_xmls namespaces trees =
       failwith msg
 ;;
 
-
-(** {2 Constants defined in
-  {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. } *)
-
-let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
-
-(** {3 Syntax names} *)
-let rdf_about = rdf_"about";;
-let rdf_datatype = rdf_"datatype";;
-let rdf_Description = rdf_"Description";;
-let rdf_ID = rdf_"ID";;
-let rdf_li = rdf_"li";;
-let rdf_nodeID = rdf_"nodeID";;
-let rdf_RDF = rdf_"RDF";;
-let rdf_parseType = rdf_"parseType";;
-let rdf_resource = rdf_"resource";;
-
-(** {3 Class names} *)
-let rdf_Alt = rdf_"Alt";;
-let rdf_Bag = rdf_"Bag";;
-let rdf_List = rdf_"List";;
-let rdf_Property = rdf_"Property";;
-let rdf_Seq = rdf_"Seq";;
-let rdf_Statement = rdf_"Statement";;
-let rdf_XMLLiteral = rdf_"XMLLiteral";;
-
-(** {3 Property names} *)
-
-let rdf_subject = rdf_"subject";;
-let rdf_predicate = rdf_"predicate";;
-let rdf_object = rdf_"object";;
-let rdf_type = rdf_"type";;
-let rdf_value = rdf_"value";;
-let rdf_first = rdf_"first";;
-let rdf_rest = rdf_"rest";;
-let rdf_n n = rdf_("_"^(string_of_int n));;
-
 let is_element uri (pref,loc) =
   let uri2 = Rdf_uri.uri (pref^loc) in
   Rdf_uri.compare uri uri2 = 0
 ;;
 
-(** {3 Resource names} *)
-let rdf_nil = rdf_"nil"
 
 (** {2 Input} *)
 
@@ -170,13 +138,13 @@ let rec input_node g state gstate t =
       gstate
   | E (((pref,s), atts), children) ->
       let (node, gstate) =
-        match get_att_uri rdf_about atts with
+        match get_att_uri Rdf_rdf.rdf_about atts with
           Some s -> (Uri (Rdf_uri.uri s), gstate)
         | None ->
-            match get_att_uri rdf_ID atts with
+            match get_att_uri Rdf_rdf.rdf_ID atts with
               Some id -> (Uri (Rdf_uri.uri ((Rdf_uri.string state.xml_base)^"#"^id)), gstate)
             | None ->
-                match get_att_uri rdf_nodeID atts with
+                match get_att_uri Rdf_rdf.rdf_nodeID atts with
                   Some id -> get_blank_node g gstate id
                 | None -> (Blank_ (g.new_blank_id ()), gstate)
       in
@@ -188,17 +156,17 @@ let rec input_node g state gstate t =
       end;
       let state = { state with subject = Some node ; predicate = None } in
       (* add a type arc if the node is not introduced with rdf:Description *)
-      if not (is_element rdf_Description (pref,s)) then
+      if not (is_element Rdf_rdf.rdf_Description (pref,s)) then
         begin
           let type_uri = Rdf_uri.uri (pref^s) in
-          g.add_triple ~sub: node ~pred: (Uri rdf_type) ~obj: (Uri type_uri)
+          g.add_triple ~sub: node ~pred: (Uri Rdf_rdf.rdf_type) ~obj: (Uri type_uri)
         end;
       (* all remaining attributes define triples with literal object values *)
       let f ((pref, s), v) =
         if pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns then
           begin
             let uri_prop = Rdf_uri.uri (pref^s) in
-            if not (List.exists (Rdf_uri.equal uri_prop) [ rdf_about ; rdf_ID ; rdf_nodeID ]) then
+            if not (List.exists (Rdf_uri.equal uri_prop) [ Rdf_rdf.rdf_about ; Rdf_rdf.rdf_ID ; Rdf_rdf.rdf_nodeID ]) then
               begin
                 let obj = Rdf_node.node_of_literal_string ?lang: state.xml_lang v in
                 g.add_triple ~sub: node ~pred: (Uri uri_prop) ~obj
@@ -220,22 +188,22 @@ and input_prop g state gstate t =
   | E (((pref,s),atts),children) ->
       let sub = match state.subject with None -> assert false | Some sub -> sub in
       let prop_uri = Rdf_uri.uri (pref^s) in
-      match get_att_uri rdf_resource atts with
+      match get_att_uri Rdf_rdf.rdf_resource atts with
         Some s ->
           let obj = Uri (Rdf_uri.uri s) in
           g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
           gstate
       | None ->
-          match get_att_uri rdf_nodeID atts with
+          match get_att_uri Rdf_rdf.rdf_nodeID atts with
             Some id ->
               let (obj, gstate) = get_blank_node g gstate id in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
               gstate
           | None ->
-          match get_att_uri rdf_parseType atts with
+          match get_att_uri Rdf_rdf.rdf_parseType atts with
             Some "Literal" ->
               let xml = string_of_xmls state.namespaces children in
-              let obj = Rdf_node.node_of_literal_string ~typ: rdf_XMLLiteral xml in
+              let obj = Rdf_node.node_of_literal_string ~typ: Rdf_rdf.rdf_XMLLiteral xml in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
               gstate
           | Some "Resource" ->
@@ -247,7 +215,7 @@ and input_prop g state gstate t =
               end
           | Some s -> error (Printf.sprintf "Unknown parseType %S" s)
           | None ->
-              match get_att_uri rdf_datatype atts, children with
+              match get_att_uri Rdf_rdf.rdf_datatype atts, children with
               | Some s, [D lit] ->
                   let typ = Rdf_uri.uri s in
                   let obj = Rdf_node.node_of_literal_string ~typ ?lang: state.xml_lang lit in
@@ -278,7 +246,7 @@ and input_prop g state gstate t =
                       gstate
 ;;
 
-let input g ~base t =
+let input_tree g ~base t =
   let state = {
       subject = None ; predicate = None ;
       xml_base = base ; xml_lang = None ;
@@ -290,7 +258,7 @@ let input g ~base t =
   let gstate =
     match t with
       D _ -> assert false
-    | E ((e,_),children) when is_element rdf_RDF e ->
+    | E ((e,_),children) when is_element Rdf_rdf.rdf_RDF e ->
         (*let xml = string_of_xmls children in
         prerr_endline xml;*)
 
@@ -300,6 +268,12 @@ let input g ~base t =
   ignore(gstate)
 ;;
 
+let input_string g ~base s =
+  let i = Xmlm.make_input ~strip: true (`String (0, s)) in
+  let (_,tree) = in_tree i in
+  input_tree g ~base tree
+;;
+
 let input_file g ~base file =
   let ic = open_in file in
   let i = Xmlm.make_input ~strip: true (`Channel ic) in
@@ -307,10 +281,100 @@ let input_file g ~base file =
     try let t = in_tree i in close_in ic; t
     with e -> close_in ic; raise e
   in
-
-  input g ~base tree
+  input_tree g ~base tree
 ;;
 
 (** {2 Output} *)
 
-let output g = failwith "Not implemented";;
+let apply_namespaces namespaces uri =
+  let len_uri = String.length uri in
+  let rec iter = function
+    [] -> ("",uri)
+  | (pref,ns) :: q ->
+      let len = String.length ns in
+      if len <= len_uri && String.sub uri 0 len = ns then
+        (pref, String.sub uri len (len_uri - len))
+      else
+        iter q
+  in
+  iter namespaces
+;;
+
+(* FIXME: handle XMLLiterate *)
+(* FIXME: graph should contain known namespaces *)
+let output ns g =
+  let xml_prop pred obj =
+    let pred_uri = match pred with Uri uri -> uri | _ -> assert false in
+    let (atts, children) =
+      match obj with
+      | Uri uri -> ([("", Rdf_uri.string Rdf_rdf.rdf_resource), Rdf_uri.string uri], [])
+      | Blank_ id -> ([("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_node.string_of_blank_id id], [])
+      | Blank -> assert false
+      | Literal lit ->
+          let atts =
+            match lit.lit_type with
+              None -> []
+            | Some uri -> [("",Rdf_uri.string Rdf_rdf.rdf_datatype), Rdf_uri.string uri]
+          in
+          let atts = atts @
+            (match lit.lit_language with
+               None -> []
+             | Some lang -> [(Xmlm.ns_xml, "lang"), lang])
+          in
+          let sub = D lit.lit_value in
+          (atts, [sub])
+    in
+    E ((("",Rdf_uri.string pred_uri),atts),children)
+  in
+  let f_triple (sub, pred, obj) =
+    let atts =
+      match sub with
+        Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
+      | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_node.string_of_blank_id id]
+      | Blank -> assert false
+      | Literal _ -> assert false
+    in
+    let xml_prop = xml_prop pred obj in
+    E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop])
+  in
+  let xmls = List.map f_triple (g.find ()) in
+  let atts = List.map (fun (pref,uri) -> ((Xmlm.ns_xmlns, pref), uri)) ns in
+  E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),atts), xmls)
+
+
+let output_file g ?(namespaces=[]) file =
+  let namespaces = ("rdf", Rdf_rdf.rdf_"") :: namespaces in
+  let ns = List.map (fun (s, uri) -> (s, Rdf_uri.string uri)) namespaces in
+  let oc = open_out file in
+  let map (pref, s) =
+    match pref with
+      "" -> apply_namespaces ns s
+    | _ -> (pref, s)
+  in
+  try
+    try
+      let tree = output ns g in
+      let ns_prefix s = Some s in
+      let output = Xmlm.make_output ~ns_prefix ~decl: false (`Channel oc) in
+      let frag = function
+      | D d -> `Data d
+      | E (((pref,s),atts), childs) ->
+          let (pref, s) = map (pref, s) in
+          let atts = List.map
+            (fun ((pref,s),v) -> (map (pref, s), v)) atts
+          in
+          `El (((pref,s),atts), childs)
+      in
+      Xmlm.output_doc_tree frag output (None, tree);
+      close_out oc
+    with
+      Xmlm.Error ((line, col), error) ->
+      let msg = Printf.sprintf "Line %d, column %d: %s"
+          line col (Xmlm.error_message error)
+        in
+        failwith msg
+  with e ->
+      close_out oc ; raise e
+;;
+
+

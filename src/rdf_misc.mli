@@ -31,3 +31,4 @@ val create_log_fun_with_set :
   ?print:(string -> unit) -> string ->
   (?loc: string -> ?level:int -> (unit -> string) -> unit) *
   (int -> unit)
+

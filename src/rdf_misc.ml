@@ -35,3 +35,4 @@ let create_log_fun_with_set ?prefix ?(print=prerr_endline) env_var =
 
 let create_log_fun ?prefix ?print env_var =
   fst (create_log_fun_with_set ?prefix ?print env_var);;
+
