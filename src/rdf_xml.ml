@@ -29,21 +29,87 @@ let out_tree o t =
   in
   Xmlm.output_doc_tree frag o t
 
+let apply_namespaces namespaces uri =
+  let len_uri = String.length uri in
+  let rec iter = function
+    [] -> ("",uri)
+  | (pref,ns) :: q ->
+      let len = String.length ns in
+      if len <= len_uri && String.sub uri 0 len = ns then
+        (pref, String.sub uri len (len_uri - len))
+      else
+        iter q
+  in
+  iter namespaces
+;;
+
+let output_doc_tree ns ?(decl=true) dest tree =
+  prerr_endline
+    (Printf.sprintf "output_doc_tree: namespaces=\n%s"
+      (String.concat "\n"
+        (List.map (fun (uri,pref) -> Printf.sprintf "%s => %s" uri pref) ns)));
+  let map (pref, s) =
+    match pref with
+      "" -> apply_namespaces ns s
+    | _ -> (pref, s)
+  in
+  let tree =
+    match tree with
+      D _ -> tree
+    | E ((tag,atts),subs) ->
+        let atts = List.fold_left
+          (fun acc (((pref,s),v) as att) ->
+             if pref = Xmlm.ns_xmlns then acc else att :: acc
+          )
+          []
+          atts
+        in
+        let ns_atts = List.map (fun (pref,uri) -> ((Xmlm.ns_xmlns, pref), uri)) ns in
+        E ((tag, ns_atts @ atts), subs)
+  in
+  let ns_prefix s = Some s in
+  let output = Xmlm.make_output ~ns_prefix ~decl dest in
+  let frag = function
+  | D d -> `Data d
+  | E (((pref,s),atts), childs) ->
+      let (pref, s) = map (pref, s) in
+      let atts = List.map
+        (fun ((pref,s),v) -> (map (pref, s), v)) atts
+      in
+      `El (((pref,s),atts), childs)
+  in
+  Xmlm.output_doc_tree frag output (None, tree);
+;;
+
 let string_of_xmls namespaces trees =
   try
     let b = Buffer.create 256 in
-    let ns_prefix s = Some s in
-    let output = Xmlm.make_output ~ns_prefix ~decl: false (`Buffer b) in
-    let frag = function
-    | E (tag, childs) -> `El (tag, childs)
-    | D d -> `Data d
-    in
-    List.iter (fun tree -> Xmlm.output_doc_tree frag output (None, tree)) trees;
+    List.iter (output_doc_tree namespaces ~decl: false (`Buffer b)) trees;
     Buffer.contents b
   with
     Xmlm.Error ((line, col), error) ->
       let msg = Printf.sprintf "Line %d, column %d: %s"
         line col (Xmlm.error_message error)
+      in
+      failwith msg
+;;
+
+
+let xmls_of_string str =
+  prerr_endline "xmls_of_string";
+  let str = Printf.sprintf "<foo__>%s</foo__>" str in
+  prerr_endline str;
+  try
+    let i = Xmlm.make_input ~strip: true (`String (0, str)) in
+    let (_,tree) = in_tree i in
+    prerr_endline "parse ok";
+    match tree with
+      E ((("","foo__"),_),subs) -> subs
+    | _ -> assert false
+  with
+    Xmlm.Error ((line, col), error) ->
+      let msg = Printf.sprintf "Line %d, column %d: %s\n%s"
+        line col (Xmlm.error_message error) str
       in
       failwith msg
 ;;
@@ -56,19 +122,19 @@ let is_element uri (pref,loc) =
 
 (** {2 Input} *)
 
+module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
+module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
+module Urimap =
+  Map.Make (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end);;
+
 type state =
   { subject : Rdf_node.node option ;
     predicate : Rdf_uri.uri option ;
     xml_base : Rdf_uri.uri ;
     xml_lang : string option ;
     datatype : Rdf_uri.uri option ;
-    namespaces : (string * Rdf_uri.uri) list ;
+    namespaces : string Urimap.t ;
   }
-
-module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
-module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
-module Urimap =
-  Map.Make (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end);;
 
 type global_state =
   {
@@ -108,18 +174,18 @@ let set_xml_lang state = function
 let set_namespaces gstate state = function
   D _ -> (gstate, state)
 | E ((_,atts),_) ->
-    let f (gstate, acc) ((pref,s),v) =
+    let f (gstate, state) ((pref,s),v) =
       if pref = Xmlm.ns_xmlns then
         begin
           let uri = Rdf_uri.uri v in
           let gstate = { gstate with gnamespaces = Urimap.add uri s gstate.gnamespaces } in
-          (gstate, (s, uri ) :: acc)
+          let state = { state with namespaces = Urimap.add uri s state.namespaces } in
+          (gstate, state)
         end
       else
-        (gstate, acc)
+        (gstate, state)
     in
-    let (gstate, l) = List.fold_left f (gstate, state.namespaces) atts in
-    (gstate, { state with namespaces = l })
+    List.fold_left f (gstate, state) atts
 ;;
 
 let update_state gstate state t =
@@ -222,7 +288,10 @@ and input_prop g state (gstate, li) t =
           | None ->
           match get_att_uri Rdf_rdf.rdf_parseType atts with
             Some "Literal" ->
-              let xml = string_of_xmls state.namespaces children in
+              let xml = string_of_xmls
+                (Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) state.namespaces [])
+                children
+              in
               let obj = Rdf_node.node_of_literal_string ~typ: Rdf_rdf.rdf_XMLLiteral xml in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
               (gstate, li)
@@ -303,7 +372,7 @@ let input_tree g ~base t =
   let state = {
       subject = None ; predicate = None ;
       xml_base = base ; xml_lang = None ;
-      datatype = None ; namespaces = [] ;
+      datatype = None ; namespaces = Urimap.empty ;
     }
   in
   let gstate = { gnamespaces = Urimap.empty ; blanks = SMap.empty } in
@@ -346,23 +415,10 @@ let input_file g ~base file =
 
 (** {2 Output} *)
 
-let apply_namespaces namespaces uri =
-  let len_uri = String.length uri in
-  let rec iter = function
-    [] -> ("",uri)
-  | (pref,ns) :: q ->
-      let len = String.length ns in
-      if len <= len_uri && String.sub uri 0 len = ns then
-        (pref, String.sub uri len (len_uri - len))
-      else
-        iter q
-  in
-  iter namespaces
-;;
+
 
 (* FIXME: handle XMLLiterate *)
-(* FIXME: graph should contain known namespaces *)
-let output ns g =
+let output g =
   let xml_prop pred obj =
     let pred_uri = match pred with Uri uri -> uri | _ -> assert false in
     let (atts, children) =
@@ -371,18 +427,27 @@ let output ns g =
       | Blank_ id -> ([("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_node.string_of_blank_id id], [])
       | Blank -> assert false
       | Literal lit ->
-          let atts =
+          let (atts, subs) =
             match lit.lit_type with
-              None -> []
-            | Some uri -> [("",Rdf_uri.string Rdf_rdf.rdf_datatype), Rdf_uri.string uri]
+              None -> ([], [D lit.lit_value])
+            | Some uri when Rdf_uri.equal uri Rdf_rdf.rdf_XMLLiteral ->
+                let subs = xmls_of_string lit.lit_value in
+                (
+                 [("",Rdf_uri.string Rdf_rdf.rdf_parseType), "Literal"],
+                 subs
+                )
+            | Some uri ->
+                (
+                 [("",Rdf_uri.string Rdf_rdf.rdf_datatype), Rdf_uri.string uri],
+                 [D lit.lit_value]
+                )
           in
           let atts = atts @
             (match lit.lit_language with
                None -> []
              | Some lang -> [(Xmlm.ns_xml, "lang"), lang])
           in
-          let sub = D lit.lit_value in
-          (atts, [sub])
+          (atts, subs)
     in
     E ((("",Rdf_uri.string pred_uri),atts),children)
   in
@@ -401,8 +466,7 @@ let output ns g =
         (E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
   in
   let xmls = List.fold_left f_triple [] (g.find ()) in
-  let atts = List.map (fun (pref,uri) -> ((Xmlm.ns_xmlns, pref), uri)) ns in
-  E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),atts), xmls)
+  E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),[]), xmls)
 
 
 let output_file g ?(namespaces=[]) file =
@@ -427,26 +491,10 @@ let output_file g ?(namespaces=[]) file =
     Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
   in
   let oc = open_out file in
-  let map (pref, s) =
-    match pref with
-      "" -> apply_namespaces namespaces s
-    | _ -> (pref, s)
-  in
   try
     try
-      let tree = output namespaces g in
-      let ns_prefix s = Some s in
-      let output = Xmlm.make_output ~ns_prefix ~decl: false (`Channel oc) in
-      let frag = function
-      | D d -> `Data d
-      | E (((pref,s),atts), childs) ->
-          let (pref, s) = map (pref, s) in
-          let atts = List.map
-            (fun ((pref,s),v) -> (map (pref, s), v)) atts
-          in
-          `El (((pref,s),atts), childs)
-      in
-      Xmlm.output_doc_tree frag output (None, tree);
+      let tree = output g in
+      output_doc_tree namespaces ~decl: true (`Channel oc) tree;
       close_out oc
     with
       Xmlm.Error ((line, col), error) ->
