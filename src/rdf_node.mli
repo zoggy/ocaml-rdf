@@ -17,6 +17,8 @@ type node =
   | Blank
   | Blank_ of blank_id
 
+module Ord_type : sig type t = node val compare : node -> node -> int end
+
 (** A RDF triple is just ... a triple of nodes. *)
 type triple = node * node * node
 

@@ -66,9 +66,14 @@ type state =
   }
 
 module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
+module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
+module Urimap =
+  Map.Make (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end);;
+
 type global_state =
   {
     blanks : Rdf_node.blank_id SMap.t ;
+    gnamespaces : string Urimap.t ;
   }
 
 exception Invalid_rdf of string
@@ -100,27 +105,32 @@ let set_xml_lang state = function
         (*prerr_endline ("setting lang to "^s);*)
         { state with xml_lang = Some s }
 ;;
-let set_namespaces state = function
-  D _ -> state
+let set_namespaces gstate state = function
+  D _ -> (gstate, state)
 | E ((_,atts),_) ->
-    let f acc ((pref,s),v) =
+    let f (gstate, acc) ((pref,s),v) =
       if pref = Xmlm.ns_xmlns then
-        (s, Rdf_uri.uri v) :: acc
+        begin
+          let uri = Rdf_uri.uri v in
+          let gstate = { gstate with gnamespaces = Urimap.add uri s gstate.gnamespaces } in
+          (gstate, (s, uri ) :: acc)
+        end
       else
-        acc
+        (gstate, acc)
     in
-    { state with namespaces = List.fold_left f state.namespaces atts }
+    let (gstate, l) = List.fold_left f (gstate, state.namespaces) atts in
+    (gstate, { state with namespaces = l })
 ;;
 
-let update_state state t =
-  set_namespaces (set_xml_lang (set_xml_base state t) t) t;;
+let update_state gstate state t =
+  set_namespaces gstate (set_xml_lang (set_xml_base state t) t) t;;
 
 let get_blank_node g gstate id =
   try (Blank_ (SMap.find id gstate.blanks), gstate)
   with Not_found ->
     (*prerr_endline (Printf.sprintf "blank_id for %s not found, forging one" id);*)
     let bid = g.new_blank_id () in
-    let gstate = { (*gstate with*) blanks = SMap.add id bid gstate.blanks } in
+    let gstate = { gstate with blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
 let abs_uri state uri =
@@ -130,7 +140,7 @@ let abs_uri state uri =
 ;;
 
 let rec input_node g state gstate t =
-  let state = update_state state t in
+  let (gstate, state) = update_state gstate state t in
   match t with
     D s when state.predicate = None ->
       let msg = Printf.sprintf "Found (Data %S) with no current predicate." s in
@@ -184,7 +194,7 @@ let rec input_node g state gstate t =
 
 (* FIXME: handle rdf:ID *)
 and input_prop g state (gstate, li) t =
-  let state = update_state state t in
+  let (gstate, state) = update_state gstate state t in
   match t with
     D s ->
       let msg = Printf.sprintf "Found (Data %S) but expected a property node." s in
@@ -296,8 +306,8 @@ let input_tree g ~base t =
       datatype = None ; namespaces = [] ;
     }
   in
-  let state = update_state state t in
-  let gstate = { blanks = SMap.empty } in
+  let gstate = { gnamespaces = Urimap.empty ; blanks = SMap.empty } in
+  let (gstate, state) = update_state gstate state t in
   let gstate =
     match t with
       D _ -> assert false
@@ -308,7 +318,14 @@ let input_tree g ~base t =
         List.fold_left (input_node g state) gstate children
     | t -> input_node g state gstate t
   in
-  ignore(gstate)
+  (* add namespaces *)
+  let add_ns uri prefix =
+    let sub = Uri uri in
+    let pred = Uri Rdf_rdf.ordf_ns in
+    let obj = Rdf_node.node_of_literal_string prefix in
+    g.add_triple ~sub ~pred ~obj
+  in
+  Urimap.iter add_ns gstate.gnamespaces
 ;;
 
 let input_string g ~base s =
@@ -369,34 +386,55 @@ let output ns g =
     in
     E ((("",Rdf_uri.string pred_uri),atts),children)
   in
-  let f_triple (sub, pred, obj) =
-    let atts =
-      match sub with
-        Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
-      | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_node.string_of_blank_id id]
-      | Blank -> assert false
-      | Literal _ -> assert false
-    in
-    let xml_prop = xml_prop pred obj in
-    E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop])
+  let f_triple acc (sub, pred, obj) =
+    match Rdf_node.Ord_type.compare pred (Uri Rdf_rdf.ordf_ns) with
+      0 -> acc
+    | _ ->
+        let atts =
+          match sub with
+            Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
+          | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_node.string_of_blank_id id]
+          | Blank -> assert false
+          | Literal _ -> assert false
+        in
+        let xml_prop = xml_prop pred obj in
+        (E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
   in
-  let xmls = List.map f_triple (g.find ()) in
+  let xmls = List.fold_left f_triple [] (g.find ()) in
   let atts = List.map (fun (pref,uri) -> ((Xmlm.ns_xmlns, pref), uri)) ns in
   E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),atts), xmls)
 
 
 let output_file g ?(namespaces=[]) file =
-  let namespaces = ("rdf", Rdf_rdf.rdf_"") :: namespaces in
-  let ns = List.map (fun (s, uri) -> (s, Rdf_uri.string uri)) namespaces in
+  let namespaces =
+    let l = (Rdf_rdf.rdf_"", "rdf") :: (g.Rdf_graph.namespaces ()) @ namespaces in
+    let f (map, set) (uri, pref) =
+      try
+        ignore(Urimap.find uri map);
+        (* this uri already has a prefix, ignore this association *)
+        (map, set)
+      with Not_found ->
+          if SSet.mem pref set then
+            failwith (Printf.sprintf "%S is already the prefix of another namespace." pref)
+          else
+            (
+             let map = Urimap.add uri pref map in
+             let set = SSet.add pref set in
+             (map, set)
+            )
+    in
+    let (map, _) = List.fold_left f (Urimap.empty, SSet.empty) l in
+    Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
+  in
   let oc = open_out file in
   let map (pref, s) =
     match pref with
-      "" -> apply_namespaces ns s
+      "" -> apply_namespaces namespaces s
     | _ -> (pref, s)
   in
   try
     try
-      let tree = output ns g in
+      let tree = output namespaces g in
       let ns_prefix s = Some s in
       let output = Xmlm.make_output ~ns_prefix ~decl: false (`Channel oc) in
       let frag = function

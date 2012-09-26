@@ -1,5 +1,12 @@
-(** Rdf elements, as defined in
+(** Rdf constants
+  One to keep namespaces in a graph.
+
+  The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
+
+(** This is the uri used as predicate to store namespaces in a graph.
+  Having the namespaces in useful when generating rdf/xml. *)
+let ordf_ns = Rdf_uri.uri "http://ocaml-rdf.forge.ocamlcore.org/ocamlrdf.rdf#namespace"
 
 let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
 

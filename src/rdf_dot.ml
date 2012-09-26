@@ -2,7 +2,7 @@
 
 open Rdf_node;;
 
-module Node_set = Set.Make(Rdf_mem.Node_ord_type)
+module Node_set = Set.Make(Rdf_node.Ord_type)
 
 let dot_of_graph g =
   let b = Buffer.create 256 in
@@ -31,8 +31,11 @@ let dot_of_graph g =
     Printf.sprintf "N%s" (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
-    Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label pred);
-    Node_set.add sub (Node_set.add obj set)
+    match Rdf_node.Ord_type.compare pred (Uri Rdf_rdf.ordf_ns) with
+      0 -> set
+    | _ ->
+        Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label pred);
+        Node_set.add sub (Node_set.add obj set)
   in
   let set = List.fold_left f Node_set.empty triples in
   let f_node node =

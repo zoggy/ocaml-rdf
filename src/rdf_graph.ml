@@ -147,7 +147,9 @@ type graph =
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
     new_blank_id : unit -> Rdf_node.blank_id ;
+    namespaces : unit -> (uri * string) list ;
   }
+
 
 let open_graph ?(options=[]) name =
   let kind = get_option ~def: "memory" "storage" options in
@@ -157,6 +159,21 @@ let open_graph ?(options=[]) name =
   in
   let module S = (val storage) in
   let g = S.open_graph ~options name in
+  let namespaces () =
+    let triples = S.find ~pred: (Uri Rdf_rdf.ordf_ns) g in
+    let f  (sub, _ , obj) =
+      let uri = match sub with
+        | Uri uri -> uri
+        | _ -> failwith "Invalid namespace uri"
+      in
+      let prefix = match obj with
+        | Literal lit -> lit.lit_value
+        | _ -> failwith "Invalid namespace prefix"
+      in
+      (uri, prefix)
+    in
+    List.map f triples
+  in
   { name = (fun () -> S.graph_name g) ;
     add_triple = S.add_triple g ;
     rem_triple = S.rem_triple g ;
@@ -175,5 +192,6 @@ let open_graph ?(options=[]) name =
     transaction_commit = (fun () -> S.transaction_commit g) ;
     transaction_rollback = (fun () -> S.transaction_rollback g) ;
     new_blank_id = (fun () -> S.new_blank_id g) ;
+    namespaces = namespaces ;
   }
 ;;

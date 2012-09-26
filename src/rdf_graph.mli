@@ -229,6 +229,7 @@ type graph = {
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
   new_blank_id : unit -> Rdf_node.blank_id ;
+  namespaces : unit -> (Rdf_uri.uri * string) list ;
 }
 
 (** {2 Graph creation} *)
