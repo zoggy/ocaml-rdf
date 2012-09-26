@@ -1,6 +1,6 @@
 (** Nodes. *)
 
-(** Literal nodes contain a value, a optional language and an option data type URI. *)
+(** Literal nodes contain a value, a optional language and an optional data type URI. *)
 type literal = {
   lit_value : string;
   lit_language : string option;

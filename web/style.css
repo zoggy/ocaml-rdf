@@ -2,38 +2,48 @@ a:visited {color : #217B66; text-decoration : none; }
 a:link {color : #217B66; text-decoration : none;}
 a:hover {color : Red; text-decoration : none; background-color: #217B66; color: white;}
 a:active {color : Red; text-decoration : underline; }
-.keyword { font-weight : bold ; color : Red }
-.keywordsign { color : /*#C04600*/#444444 }
-.superscript { font-size : 4 }
-.subscript { font-size : 4 }
-.comment { color : Green }
-.constructor { color : Blue }
-.type { color : #884488 /*#5C6585*/; }
-.string { color : Maroon }
+.keyword { font-weight : bold ; color : Red ; font-size: 10pt;}
+.keywordsign { color : /*#C04600*/#444444 ; font-size: 10pt;}
+.superscript { font-size : 6pt }
+.subscript { font-size : 6pt }
+.comment { color : Green ; font-size: 10pt;}
+.constructor { color : Blue ; font-size: 10pt;}
+.type { color : #884488 /*#5C6585*/; ; font-size: 10pt;}
+.string { color : Maroon ; font-size: 10pt;}
 .warning { color : Red ; font-weight : bold }
 .info {
-  margin-left : 3em;
-  margin-right : 3em ;
+  font-size: 11pt;
+  margin-left : 1.5em;
+  margin-right : 1.5em ;
+  margin-top: 0.3em;
   padding-bottom: 0.3em;
 }
 .param_info {
+  font-size: 11pt;
   margin-top: 4px;
-  margin-left : 3em;
-  margin-right : 3em ;
+  margin-left : 1.5em;
+  margin-right : 1.5em ;
   }
-.code { color : #465F91 ; font-size: 80%; font-family: sans-serif; }
+.code { color : #465F91 ; font-size: 10pt; font-family: sans-serif; }
 
 h1 { font-size : 18pt ; text-align: center; }
 h2 { font-size : 13pt ;
+/*
      border-width: 0 0 1px 0;
      border-style: dashed ;
      border-color: #444444 ;
+*/
      color: #444444 ;
-     margin-top: 5px;
+     margin-top: 1em;
      margin-bottom: 2px;
      padding: 2px;
      }
-h3 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90DDFF ;padding: 2px; }
+h3 { font-size : 12pt ;
+     /*border: 1px solid #000000; */
+     margin-top: 1em;
+     margin-bottom: 2px;
+     padding: 2px;
+     }
 h4 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90EDFF ;padding: 2px; }
 h5 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #90FDFF ;padding: 2px; }
 h6 { font-size : 20pt ; border: 1px solid #000000; margin-top: 5px; margin-bottom: 2px;text-align: center; background-color: #C0FFFF ; padding: 2px; }
@@ -57,21 +67,18 @@ body {
   padding-top: 0.5em;
   padding-bottom: 1.5em;
   color: #444444 ;
-  font: normal normal 10pt serif /*Arial, Tahoma, Helvetica, FreeSans, sans-serif;*/;
+  font: normal normal 12pt serif /*Arial, Tahoma, Helvetica, FreeSans, sans-serif;*/;
 
   }
-html { background-color: #EFEFEF ; }
 
+html { background-color: #EFEFEF ; }
 tr { background-color : White }
 td.typefieldcomment { background-color : #FFFFFF ; font-size: smaller ;}
 pre {
-   margin-bottom: 4px ;
-   background-color: #F2F2F2;
-   padding: 0.5em;
+  font-size: 10pt;
+   margin-bottom: 0px ;
+   /*background-color: #F2F2F2;*/
    padding-top: 0.1em;
-   border-style: solid ;
-   border-width: 0 0 0 1px;
-   border-color: #444444;
    }
 div.sig_block {margin-left: 2em}
 *:target { background: yellow; }

@@ -1,6 +1,6 @@
-(** Rdf constants
-  One to keep namespaces in a graph.
+(** Rdf constants.
 
+  One to keep namespaces in a graph.
   The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
 
@@ -11,6 +11,7 @@ let ordf_ns = Rdf_uri.uri "http://ocaml-rdf.forge.ocamlcore.org/ocamlrdf.rdf#nam
 let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
 
 (** {3 Syntax names} *)
+
 let rdf_about = rdf_"about";;
 let rdf_datatype = rdf_"datatype";;
 let rdf_Description = rdf_"Description";;
@@ -22,6 +23,7 @@ let rdf_parseType = rdf_"parseType";;
 let rdf_resource = rdf_"resource";;
 
 (** {3 Class names} *)
+
 let rdf_Alt = rdf_"Alt";;
 let rdf_Bag = rdf_"Bag";;
 let rdf_List = rdf_"List";;
@@ -42,4 +44,5 @@ let rdf_rest = rdf_"rest";;
 let rdf_n n = rdf_("_"^(string_of_int n));;
 
 (** {3 Resource names} *)
+
 let rdf_nil = rdf_"nil"

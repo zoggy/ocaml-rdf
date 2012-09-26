@@ -93,8 +93,18 @@ dump.odoc: *.mli *.ml
 doc: dump.odoc
 	$(MKDIR) ocamldoc
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) \
+	-t OCaml-RDF \
 	-load $^ \
 	-d ocamldoc -html
+	$(CP) ../web/style.css ocamldoc/
+
+docg: dump.odoc
+	$(MKDIR) ocamldoc
+	ocamldoc $(OCAMLPP) \
+	-t OCaml-RDF \
+	-load $^ \
+	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 500
+	$(CP) ../web/style.css ocamldoc/
 
 dot: dep.dot
 dep.dot: dump.odoc
