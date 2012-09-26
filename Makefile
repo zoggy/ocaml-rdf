@@ -72,7 +72,7 @@ dummy:
 ###########
 HEADFILES=configure.in configure \
 	master.Makefile.in Makefile src/Makefile checkocaml.ml \
-	src/*/ml src/*.mli src/rdf_config.ml.in
+	src/*.ml src/*.mli src/rdf_config.ml.in
 
 headers: dummy
 	headache -h header -c ~/.headache_config $(HEADFILES)
