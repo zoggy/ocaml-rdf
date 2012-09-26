@@ -36,5 +36,4 @@ let compare uri1 uri2 = Pervasives.compare (string uri1) (string uri2);;
 let equal u1 u2 = compare u1 u2 = 0;;
 
 let neturl uri = uri;;
-
-  
+let of_neturl uri = uri;;

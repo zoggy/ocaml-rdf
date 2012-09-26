@@ -1,5 +1,7 @@
 rdf_config.cmo :
 rdf_config.cmx :
+rdf_dot.cmo : rdf_uri.cmi rdf_node.cmi rdf_mem.cmo rdf_graph.cmi
+rdf_dot.cmx : rdf_uri.cmx rdf_node.cmx rdf_mem.cmx rdf_graph.cmx
 rdf_graph.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_graph.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmi
 rdf_mem.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
@@ -10,13 +12,20 @@ rdf_my.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_my.cmx : rdf_uri.cmx rdf_node.cmx rdf_misc.cmx rdf_graph.cmx
 rdf_node.cmo : rdf_uri.cmi rdf_misc.cmi rdf_node.cmi
 rdf_node.cmx : rdf_uri.cmx rdf_misc.cmx rdf_node.cmi
+rdf_rdf.cmo : rdf_uri.cmi
+rdf_rdf.cmx : rdf_uri.cmx
 rdf_test_mysql.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmx
 rdf_uri.cmo : rdf_uri.cmi
 rdf_uri.cmx : rdf_uri.cmi
 rdf_utf8.cmo :
 rdf_utf8.cmx :
+rdf_xml.cmo : rdf_uri.cmi rdf_rdf.cmo rdf_node.cmi rdf_graph.cmi rdf_xml.cmi
+rdf_xml.cmx : rdf_uri.cmx rdf_rdf.cmx rdf_node.cmx rdf_graph.cmx rdf_xml.cmi
+test_xml.cmo : rdf_xml.cmi rdf_uri.cmi rdf_graph.cmi rdf_dot.cmo
+test_xml.cmx : rdf_xml.cmx rdf_uri.cmx rdf_graph.cmx rdf_dot.cmx
 rdf_graph.cmi : rdf_uri.cmi rdf_node.cmi
 rdf_misc.cmi :
 rdf_node.cmi : rdf_uri.cmi
 rdf_uri.cmi :
+rdf_xml.cmi : rdf_uri.cmi rdf_graph.cmi

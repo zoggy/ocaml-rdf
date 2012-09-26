@@ -32,3 +32,6 @@ val equal : uri -> uri -> bool
 (** Get a {!Neturl.url} from the given URI. ([Neturl.url]
   is the underlying represention of URIs). *)
 val neturl : uri -> Neturl.url
+
+(** Get a {!uri} from the given {!Neturl.url}. *)
+val of_neturl : Neturl.url -> uri

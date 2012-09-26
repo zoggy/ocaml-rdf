@@ -123,6 +123,11 @@ let get_blank_node g gstate id =
     let gstate = { (*gstate with*) blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
+let abs_uri state uri =
+  let neturl = Rdf_uri.neturl uri in
+  let base = Rdf_uri.neturl state.xml_base in
+  Rdf_uri.of_neturl (Neturl.ensure_absolute_url ~base neturl)
+;;
 
 let rec input_node g state gstate t =
   let state = update_state state t in
@@ -139,7 +144,7 @@ let rec input_node g state gstate t =
   | E (((pref,s), atts), children) ->
       let (node, gstate) =
         match get_att_uri Rdf_rdf.rdf_about atts with
-          Some s -> (Uri (Rdf_uri.uri s), gstate)
+          Some s -> (Uri (abs_uri state (Rdf_uri.uri s)), gstate)
         | None ->
             match get_att_uri Rdf_rdf.rdf_ID atts with
               Some id -> (Uri (Rdf_uri.uri ((Rdf_uri.string state.xml_base)^"#"^id)), gstate)
@@ -196,7 +201,7 @@ and input_prop g state (gstate, li) t =
       in
       match get_att_uri Rdf_rdf.rdf_resource atts with
         Some s ->
-          let obj = Uri (Rdf_uri.uri s) in
+          let obj = Uri (abs_uri state (Rdf_uri.uri s)) in
           g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
           (gstate, li)
       | None ->
@@ -223,7 +228,7 @@ and input_prop g state (gstate, li) t =
           | None ->
               match get_att_uri Rdf_rdf.rdf_datatype atts, children with
               | Some s, [D lit] ->
-                  let typ = Rdf_uri.uri s in
+                  let typ = abs_uri state (Rdf_uri.uri s) in
                   let obj = Rdf_node.node_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
                   (gstate, li)
