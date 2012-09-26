@@ -415,9 +415,6 @@ let input_file g ~base file =
 
 (** {2 Output} *)
 
-
-
-(* FIXME: handle XMLLiterate *)
 let output g =
   let xml_prop pred obj =
     let pred_uri = match pred with Uri uri -> uri | _ -> assert false in
