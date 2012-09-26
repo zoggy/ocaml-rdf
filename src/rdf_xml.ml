@@ -174,12 +174,12 @@ let rec input_node g state gstate t =
           end
       in
       List.iter f atts;
-      List.fold_left (input_prop g state) gstate children
+      let (gstate, _) = List.fold_left (input_prop g state) (gstate, 1) children in
+      gstate
 
-(* FIXME: handle rdf:li *)
 (* FIXME: handle rdf:ID *)
 (* FIXME: handle parseType=Collection *)
-and input_prop g state gstate t =
+and input_prop g state (gstate, li) t =
   let state = update_state state t in
   match t with
     D s ->
@@ -188,30 +188,36 @@ and input_prop g state gstate t =
   | E (((pref,s),atts),children) ->
       let sub = match state.subject with None -> assert false | Some sub -> sub in
       let prop_uri = Rdf_uri.uri (pref^s) in
+      let (prop_uri, li) =
+        if Rdf_uri.equal prop_uri Rdf_rdf.rdf_li then
+          (Rdf_rdf.rdf_n li, li + 1)
+        else
+          (prop_uri, li)
+      in
       match get_att_uri Rdf_rdf.rdf_resource atts with
         Some s ->
           let obj = Uri (Rdf_uri.uri s) in
           g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
-          gstate
+          (gstate, li)
       | None ->
           match get_att_uri Rdf_rdf.rdf_nodeID atts with
             Some id ->
               let (obj, gstate) = get_blank_node g gstate id in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj ;
-              gstate
+              (gstate, li)
           | None ->
           match get_att_uri Rdf_rdf.rdf_parseType atts with
             Some "Literal" ->
               let xml = string_of_xmls state.namespaces children in
               let obj = Rdf_node.node_of_literal_string ~typ: Rdf_rdf.rdf_XMLLiteral xml in
               g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
-              gstate
+              (gstate, li)
           | Some "Resource" ->
               begin
                  let node = Blank_ (g.new_blank_id ()) in
                  g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: node ;
                  let state = { state with subject = Some node ; predicate = None } in
-                 List.fold_left (input_prop g state) gstate children
+                 List.fold_left (input_prop g state) (gstate, 1) children
               end
           | Some s -> error (Printf.sprintf "Unknown parseType %S" s)
           | None ->
@@ -220,7 +226,7 @@ and input_prop g state gstate t =
                   let typ = Rdf_uri.uri s in
                   let obj = Rdf_node.node_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: (Uri prop_uri) ~obj;
-                  gstate
+                  (gstate, li)
               | Some s, _ ->
                   let msg = Printf.sprintf "Property %S with datatype %S but no data"
                     (Rdf_uri.string prop_uri) s
@@ -233,7 +239,8 @@ and input_prop g state gstate t =
                   match List.filter pred atts with
                     [] ->
                       let state = { state with predicate = Some prop_uri } in
-                      List.fold_left (input_node g state) gstate children
+                      let gstate = List.fold_left (input_node g state) gstate children in
+                      (gstate, li)
                   | l ->
                       let node = Blank_ (g.new_blank_id ()) in
                       g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: node ;
@@ -243,7 +250,7 @@ and input_prop g state gstate t =
                         g.add_triple ~sub: node ~pred: (Uri uri_prop) ~obj
                       in
                       List.iter f l;
-                      gstate
+                      (gstate, li)
 ;;
 
 let input_tree g ~base t =
