@@ -397,13 +397,13 @@ let input_tree g ~base t =
   Urimap.iter add_ns gstate.gnamespaces
 ;;
 
-let input_string g ~base s =
+let from_string g ~base s =
   let i = Xmlm.make_input ~strip: true (`String (0, s)) in
   let (_,tree) = in_tree i in
   input_tree g ~base tree
 ;;
 
-let input_file g ~base file =
+let from_file g ~base file =
   let ic = open_in file in
   let i = Xmlm.make_input ~strip: true (`Channel ic) in
   let (_,tree) =
@@ -466,7 +466,7 @@ let output g =
   E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),[]), xmls)
 
 
-let output_file g ?(namespaces=[]) file =
+let to_ ?(namespaces=[]) g dest =
   let namespaces =
     let l = (Rdf_rdf.rdf_"", "rdf") :: (g.Rdf_graph.namespaces ()) @ namespaces in
     let f (map, set) (uri, pref) =
@@ -487,18 +487,29 @@ let output_file g ?(namespaces=[]) file =
     let (map, _) = List.fold_left f (Urimap.empty, SSet.empty) l in
     Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
   in
+  try
+    let tree = output g in
+    output_doc_tree namespaces ~decl: true dest tree
+  with
+    Xmlm.Error ((line, col), error) ->
+      let msg = Printf.sprintf "Line %d, column %d: %s"
+        line col (Xmlm.error_message error)
+      in
+      failwith msg
+;;
+
+let to_string ?namespaces g =
+  let buf = Buffer.create 256 in
+  let dest = `Buffer buf in
+  to_ ?namespaces g dest;
+  Buffer.contents buf
+;;
+
+let to_file ?namespaces g file =
   let oc = open_out file in
   try
-    try
-      let tree = output g in
-      output_doc_tree namespaces ~decl: true (`Channel oc) tree;
-      close_out oc
-    with
-      Xmlm.Error ((line, col), error) ->
-      let msg = Printf.sprintf "Line %d, column %d: %s"
-          line col (Xmlm.error_message error)
-        in
-        failwith msg
+    to_ ?namespaces g (`Channel oc);
+    close_out oc
   with e ->
       close_out oc ; raise e
 ;;
