@@ -68,10 +68,6 @@ let apply_namespaces namespaces uri =
 ;;
 
 let output_doc_tree ns ?(decl=true) dest tree =
-  prerr_endline
-    (Printf.sprintf "output_doc_tree: namespaces=\n%s"
-      (String.concat "\n"
-        (List.map (fun (uri,pref) -> Printf.sprintf "%s => %s" uri pref) ns)));
   let map (pref, s) =
     match pref with
       "" -> apply_namespaces ns s
