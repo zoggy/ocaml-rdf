@@ -103,7 +103,6 @@ installweb:
 ###########
 archive:
 	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > /tmp/ocaml-rdf-$(VERSION).tar.gz
-	scp /tmp/ocaml-rdf-$(VERSION).tar.gz $(WEBDEST)
 
 ###########################
 # additional dependencies
