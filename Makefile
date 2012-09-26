@@ -95,13 +95,15 @@ uninstall: dummy
 ###########
 # web site
 ###########
+WEBDEST=zoggy@forge.ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
 installweb:
-	scp -r web/index.html web/style.css src/ocamldoc zoggy@forge.ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
+	scp -r web/index.html web/style.css src/ocamldoc $(WEBDEST)
 ###########
 # archive
 ###########
 archive:
-#	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > ../dbforge-gh-pages/dbforge-$(VERSION).tar.gz
+	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > /tmp/ocaml-rdf-$(VERSION).tar.gz
+	scp /tmp/ocaml-rdf-$(VERSION).tar.gz $(WEBDEST)
 
 ###########################
 # additional dependencies

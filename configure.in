@@ -25,7 +25,7 @@
 # check for one particular file of the sources
 AC_INIT(master.Makefile.in)
 
-VERSION=0.2
+VERSION=0.1
 PACKAGE=rdf
 
 # The root directory where we will compile
@@ -45,18 +45,6 @@ if test "$datadir" = "\${prefix}/share" ; then
         datadir=$prefix/share
 fi
 
-##########################
-# debugging
-##########################
-
-DEBUG_LEVEL=0
-AC_ARG_WITH(debug-level,
-[  --with-debug-level=n   Set debug level to n [[default=0]]
-],
-[ DEBUG_LEVEL="$withval"])
-
-echo Debug level is set to $DEBUG_LEVEL
-
 #############################
 # substitutions to perform
 AC_SUBST(OCAMLC)
@@ -72,7 +60,6 @@ AC_SUBST(OCAMLDOC)
 AC_SUBST(OCAMLFIND)
 AC_SUBST(EXEC_PREFIX)
 AC_SUBST(ROOT)
-AC_SUBST(DEBUG_LEVEL)
 AC_SUBST(VERSION)
 AC_SUBST(PACKAGE)
 

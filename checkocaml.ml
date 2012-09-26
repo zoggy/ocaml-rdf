@@ -892,9 +892,9 @@ let _ =
     !print msg; exit 1
 
 let _ = !print "\n### checking required tools and libraries ###\n"
-let _ = check_ocamlfind_package conf "config-file";;
 let _ = check_ocamlfind_package conf "netstring";;
 let _ = check_ocamlfind_package conf "mysql";;
+let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
 
 let _ = !print "\n###\n"
 
