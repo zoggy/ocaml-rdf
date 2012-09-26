@@ -183,7 +183,6 @@ let rec input_node g state gstate t =
       gstate
 
 (* FIXME: handle rdf:ID *)
-(* FIXME: handle parseType=Collection *)
 and input_prop g state (gstate, li) t =
   let state = update_state state t in
   match t with
@@ -223,6 +222,35 @@ and input_prop g state (gstate, li) t =
                  g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: node ;
                  let state = { state with subject = Some node ; predicate = None } in
                  List.fold_left (input_prop g state) (gstate, 1) children
+              end
+          | Some "Collection" ->
+              begin
+                let rec f (gstate, previous) = function
+                  [] -> assert false
+                | first :: rest ->
+                   let state = { state with
+                     subject = Some previous ;
+                     predicate = Some Rdf_rdf.rdf_first }
+                   in
+                   let gstate = input_node g state gstate first in
+                   match rest with
+                     [] -> g.add_triple ~sub: previous
+                        ~pred: (Uri Rdf_rdf.rdf_rest) ~obj: (Uri Rdf_rdf.rdf_nil);
+                        (gstate, previous)
+                   | _ ->
+                      let blank = Rdf_node.Blank_ (g.new_blank_id ()) in
+                      g.add_triple ~sub: previous ~pred: (Uri Rdf_rdf.rdf_rest) ~obj: blank;
+                      f (gstate, blank) rest
+                in
+                let gstate =
+                  match children with
+                    [] -> gstate
+                  | _ ->
+                    let blank = Rdf_node.Blank_ (g.new_blank_id ()) in
+                    g.add_triple ~sub ~pred: (Uri prop_uri) ~obj: blank;
+                    fst (f (gstate, blank) children)
+                in
+                (gstate, li)
               end
           | Some s -> error (Printf.sprintf "Unknown parseType %S" s)
           | None ->
