@@ -268,7 +268,10 @@ and input_prop g state (gstate, li) t =
               | None, _ ->
                   (* if we have other attributes than the ones filtered above, they
                     are property relations, with ommited blank nodes *)
-                  let pred ((pref,s),v) = pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns in
+                  let pred ((pref,s),v) =
+                    pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns &&
+                    (let uri = Rdf_uri.uri (pref^s) in not (Rdf_uri.equal uri Rdf_rdf.rdf_ID))
+                  in
                   match List.filter pred atts with
                     [] ->
                       let state = { state with predicate = Some prop_uri } in
