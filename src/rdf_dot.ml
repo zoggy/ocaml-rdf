@@ -27,14 +27,59 @@
 open Rdf_node;;
 
 module Node_set = Set.Make(Rdf_node.Ord_type)
+module Urimap = Rdf_uri.Urimap;;
+module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
 
-let dot_of_graph g =
+let apply_namespaces namespaces uri =
+  let len_uri = String.length uri in
+  let rec iter = function
+    [] -> ("",uri)
+  | (pref,ns) :: q ->
+      let len = String.length ns in
+      if len <= len_uri && String.sub uri 0 len = ns then
+        (pref, String.sub uri len (len_uri - len))
+      else
+        iter q
+  in
+  iter namespaces
+;;
+
+let build_namespaces ?(namespaces=[]) g =
+  let l = (Rdf_rdf.rdf_"", "rdf") :: (g.Rdf_graph.namespaces ()) @ namespaces in
+  let f (map, set) (uri, pref) =
+    try
+      ignore(Urimap.find uri map);
+      (* this uri already has a prefix, ignore this association *)
+      (map, set)
+    with Not_found ->
+        if SSet.mem pref set then
+          failwith (Printf.sprintf "%S is already the prefix of another namespace." pref)
+        else
+          (
+           let map = Urimap.add uri pref map in
+           let set = SSet.add pref set in
+           (map, set)
+          )
+  in
+  let (map, _) = List.fold_left f (Urimap.empty, SSet.empty) l in
+  Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
+;;
+
+let dot_of_graph ?namespaces g =
+  let namespaces = build_namespaces ?namespaces g in
   let b = Buffer.create 256 in
   Buffer.add_string b "digraph g {\nrankdir=LR;\nfontsize=10;\n";
   let triples = g.Rdf_graph.find () in
   let label node =
     match node with
-      Uri uri -> Rdf_uri.string uri
+      Uri uri ->
+         let uri = Rdf_uri.string uri in
+         let (pref,s) = apply_namespaces namespaces uri in
+         begin
+          match pref with
+            "" -> s
+          | _ -> pref ^ ":" ^ s
+         end
     | Literal lit ->
         Printf.sprintf "%s%s%s" lit.lit_value
             (match lit.lit_language with None -> "" | Some s -> "^"^s)

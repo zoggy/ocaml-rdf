@@ -59,3 +59,5 @@ val neturl : uri -> Neturl.url
 
 (** Get a {!uri} from the given {!Neturl.url}. *)
 val of_neturl : Neturl.url -> uri
+
+module Urimap : Map.S with type key = uri

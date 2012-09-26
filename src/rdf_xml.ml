@@ -53,19 +53,7 @@ let out_tree o t =
   in
   Xmlm.output_doc_tree frag o t
 
-let apply_namespaces namespaces uri =
-  let len_uri = String.length uri in
-  let rec iter = function
-    [] -> ("",uri)
-  | (pref,ns) :: q ->
-      let len = String.length ns in
-      if len <= len_uri && String.sub uri 0 len = ns then
-        (pref, String.sub uri len (len_uri - len))
-      else
-        iter q
-  in
-  iter namespaces
-;;
+let apply_namespaces = Rdf_dot.apply_namespaces;;
 
 let output_doc_tree ns ?(decl=true) dest tree =
   let map (pref, s) =
@@ -143,9 +131,7 @@ let is_element uri (pref,loc) =
 (** {2 Input} *)
 
 module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
-module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
-module Urimap =
-  Map.Make (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end);;
+module Urimap = Rdf_uri.Urimap;;
 
 type state =
   { subject : Rdf_node.node option ;
@@ -486,27 +472,8 @@ let output g =
   E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),[]), xmls)
 
 
-let to_ ?(namespaces=[]) g dest =
-  let namespaces =
-    let l = (Rdf_rdf.rdf_"", "rdf") :: (g.Rdf_graph.namespaces ()) @ namespaces in
-    let f (map, set) (uri, pref) =
-      try
-        ignore(Urimap.find uri map);
-        (* this uri already has a prefix, ignore this association *)
-        (map, set)
-      with Not_found ->
-          if SSet.mem pref set then
-            failwith (Printf.sprintf "%S is already the prefix of another namespace." pref)
-          else
-            (
-             let map = Urimap.add uri pref map in
-             let set = SSet.add pref set in
-             (map, set)
-            )
-    in
-    let (map, _) = List.fold_left f (Urimap.empty, SSet.empty) l in
-    Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
-  in
+let to_ ?namespaces g dest =
+  let namespaces = Rdf_dot.build_namespaces ?namespaces g in
   try
     let tree = output g in
     output_doc_tree namespaces ~decl: true dest tree

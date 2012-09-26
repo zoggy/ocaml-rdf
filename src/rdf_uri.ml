@@ -61,3 +61,5 @@ let equal u1 u2 = compare u1 u2 = 0;;
 
 let neturl uri = uri;;
 let of_neturl uri = uri;;
+
+module Urimap = Map.Make (struct type t = uri let compare = compare end);;
