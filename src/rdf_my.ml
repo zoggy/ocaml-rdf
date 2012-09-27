@@ -76,39 +76,51 @@ let hash_of_node dbd ?(add=false) node =
   let hash = Rdf_node.node_hash node in
   if add then
     begin
-      let pre_query =
-        match node with
-          Uri uri ->
-            Printf.sprintf "resources (id, uri) values (%Ld, %S)"
-              hash (Rdf_uri.string uri)
-        | Literal lit ->
-            Printf.sprintf
-            "literals (id, value, language, datatype) \
-             values (%Ld, %S, %S, %S)"
-            hash
-            lit.lit_value
-            (Rdf_misc.string_of_opt lit.lit_language)
-            (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
-        | Blank_ id ->
-            Printf.sprintf "bnodes (id, name) values (%Ld, %S)"
-              hash (Rdf_node.string_of_blank_id id)
-        | Blank -> assert false
+      let test_query = Printf.sprintf
+        "SELECT COUNT(*) FROM %s WHERE id=%Ld"
+        (match node with
+           Uri _ -> "resources"
+         | Literal _ -> "literals"
+         | Blank_ _ | Blank -> "bnodes"
+        )
+        hash
       in
-      let query = Printf.sprintf "INSERT INTO %s ON DUPLICATE KEY UPDATE id=id" pre_query in
-      ignore(exec_query dbd query)
+      match Mysql.fetch (exec_query dbd test_query) with
+        Some [| Some s |] when int_of_string s = 0 ->
+          let pre_query =
+            match node with
+              Uri uri ->
+                Printf.sprintf "resources (id, value) values (%Ld, %S)"
+                hash (Rdf_uri.string uri)
+            | Literal lit ->
+                Printf.sprintf
+                "literals (id, value, language, datatype) \
+             values (%Ld, %S, %S, %S)"
+                hash
+                lit.lit_value
+                (Rdf_misc.string_of_opt lit.lit_language)
+                (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
+            | Blank_ id ->
+                Printf.sprintf "bnodes (id, value) values (%Ld, %S)"
+                hash (Rdf_node.string_of_blank_id id)
+            | Blank -> assert false
+          in
+          let query = Printf.sprintf "INSERT INTO %s" pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
+          ignore(exec_query dbd query)
+      | _ -> ()
     end;
   hash
 ;;
 
 
-let table_options = " ENGINE=InnoDB DEFAULT CHARSET=UTF8";;
+let table_options = " ENGINE=InnoDB DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, uri text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=33" ;
+    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=80";
     "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
-                                          language text, datatype text)" ;
+                                          language text, datatype text)  AVG_ROW_LENGTH=50" ;
   ]
 ;;
 
@@ -149,23 +161,29 @@ let init_graph dbd name =
       let query = Printf.sprintf
         "CREATE TABLE IF NOT EXISTS %s (\
          subject bigint NOT NULL, predicate bigint NOT NULL, \
-         object bigint NOT NULL)%s"
+         object bigint NOT NULL,\
+         KEY SubjectPredicate (subject,predicate),\
+         KEY PredicateObject (predicate,object),\
+         KEY ObjectSubject (object,subject)\
+        ) %s AVG_ROW_LENGTH=59"
         table table_options
       in
       ignore(exec_query dbd query);
+(*
       let query = Printf.sprintf
         "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
       in
       ignore(exec_query dbd query)
+*)
     end;
   table
 ;;
 
 let node_of_hash dbd hash =
   let query = Printf.sprintf
-    "SELECT NULL, uri, NULL, NULL, NULL FROM resources where id=%Ld UNION \
+    "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=%Ld UNION \
      SELECT NULL, NULL, value, language, datatype FROM literals where id=%Ld UNION \
-     SELECT name, NULL, NULL, NULL, NULL FROM bnodes where id=%Ld"
+     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=%Ld"
     hash hash hash
   in
   let res = exec_query dbd query in
@@ -202,7 +220,7 @@ let node_of_hash dbd hash =
 ;;
 
 let query_node_list g field where_clause =
-  let query = Printf.sprintf "SELECT DISTINCT %s FROM %s where %s"
+  let query = Printf.sprintf "SELECT  %s FROM %s where %s" (* removed DISTINCT *)
     field g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
@@ -216,7 +234,7 @@ let query_node_list g field where_clause =
 
 let query_triple_list g where_clause =
   let query = Printf.sprintf
-    "SELECT DISTINCT subject, predicate, object FROM %s where %s"
+    "SELECT subject, predicate, object FROM %s where %s" (* removed DISTINCT *)
     g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
@@ -246,11 +264,19 @@ let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_node g.g_dbd ~add:true sub in
   let pred = hash_of_node g.g_dbd ~add:true pred in
   let obj = hash_of_node g.g_dbd ~add:true obj in
+  (* do not insert if already present *)
   let query = Printf.sprintf
-    "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+    "SELECT COUNT(*) FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
     g.g_table sub pred obj
   in
-  ignore(exec_query g.g_dbd query)
+  match Mysql.fetch (exec_query g.g_dbd query) with
+    Some [| Some s |] when int_of_string s = 0 ->
+      let query = Printf.sprintf
+        "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+        g.g_table sub pred obj
+      in
+      ignore(exec_query g.g_dbd query)
+  | _ -> ()
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
