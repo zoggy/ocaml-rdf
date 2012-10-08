@@ -196,6 +196,73 @@ let prepared_node_of_hash = "node_of_hash";;
 let prepared_count_triples = "count_triples";;
 let prepared_insert_triple = "insert_triple";;
 let prepared_delete_triple = "delete_triple";;
+let prepared_subjects_of = "subjects_of";;
+let prepared_predicates_of = "predicates_of";;
+let prepared_objects_of = "objects_of";;
+let prepared_subject = "subject" ;;
+let prepared_predicate = "predicate";;
+let prepared_object = "object";;
+
+let make_select_node_list table col clause =
+  Printf.sprintf "SELECT %s FROM %s where %s" col table clause
+;;
+
+let prepare_query dbd name query =
+  let q = Printf.sprintf "PREPARE %s AS %s" name query in
+   ignore(exec_query dbd q)
+;;
+
+let prepare_queries dbd table =
+  let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION \
+     SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION \
+     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3"
+  in
+  prepare_query dbd prepared_node_of_hash query;
+
+  let query = Printf.sprintf
+    "SELECT COUNT(*) FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3" table
+  in
+  prepare_query dbd prepared_count_triples query;
+
+  let query = Printf.sprintf
+    "INSERT INTO %s (subject, predicate, object) VALUES ($1, $2, $3)" table
+  in
+  prepare_query dbd prepared_insert_triple query;
+
+  let query = Printf.sprintf
+    "DELETE FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3" table
+  in
+  prepare_query dbd prepared_delete_triple query;
+
+  let query =
+    let clause = Printf.sprintf "predicate=$1 AND object=$2" in
+    make_select_node_list table "subject" clause
+  in
+  prepare_query dbd prepared_subjects_of query;
+
+  let query =
+    let clause = Printf.sprintf "subject=$1 AND object=$2" in
+    make_select_node_list table "predicate" clause
+  in
+  prepare_query dbd prepared_predicates_of query;
+
+  let query =
+    let clause = Printf.sprintf "subject=$1 AND predicate=$2" in
+    make_select_node_list table "object" clause
+  in
+  prepare_query dbd prepared_objects_of query;
+
+  let query = Printf.sprintf "SELECT subject from %s" table in
+  prepare_query dbd prepared_subject query;
+
+  let query = Printf.sprintf "SELECT predicate from %s" table in
+  prepare_query dbd prepared_predicate query;
+
+  let query = Printf.sprintf "SELECT object from %s" table in
+  prepare_query dbd prepared_object query;
+
+
+;;
 
 let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
@@ -219,28 +286,7 @@ let init_graph dbd name =
       ignore(exec_query dbd query)
 *)
     end;
-  let query = Printf.sprintf
-    "PREPARE %s AS SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION \
-     SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION \
-     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3"
-     prepared_node_of_hash
-  in
-  ignore(exec_query dbd query);
-  let query = Printf.sprintf
-     "PREPARE %s AS SELECT COUNT(*) FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3"
-     prepared_count_triples table
-  in
-  ignore(exec_query dbd query);
-  let query = Printf.sprintf
-    "PREPARE %s AS INSERT INTO %s (subject, predicate, object) VALUES ($1, $2, $3)"
-    prepared_insert_triple table
-  in
-  ignore(exec_query dbd query);
-  let query = Printf.sprintf
-    "PREPARE %s AS DELETE FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3"
-    prepared_delete_triple table
-  in
-  ignore(exec_query dbd query);
+  prepare_queries dbd table;
   table
 ;;
 
@@ -279,11 +325,8 @@ let node_of_hash dbd hash =
       raise (Error msg)
 ;;
 
-let query_node_list g field where_clause =
-  let query = Printf.sprintf "SELECT %s FROM %s where %s" (* removed DISTINCT *)
-    field g.g_table where_clause
-  in
-  let res = exec_query g.g_dbd query in
+let query_node_list g stmt params =
+  let res = exec_prepared g.g_dbd stmt params in
   let size = res#ntuples in
   let rec iter n acc =
     if n < size then
@@ -360,21 +403,21 @@ let rem_triple g ~sub ~pred ~obj =
 ;;
 
 let subjects_of g ~pred ~obj =
-  query_node_list g "subject"
-  (Printf.sprintf "predicate=%Ld AND object=%Ld"
-   (hash_of_node g.g_dbd pred) (hash_of_node g.g_dbd obj))
+  query_node_list g prepared_subjects_of
+  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd pred) ;
+    Printf.sprintf "%Ld" (hash_of_node g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  query_node_list g "predicate"
-  (Printf.sprintf "subject=%Ld AND object=%Ld"
-   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd obj))
+  query_node_list g prepared_predicates_of
+  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd sub) ;
+    Printf.sprintf "%Ld" (hash_of_node g.g_dbd obj) ]
 ;;
 
 let objects_of g ~sub ~pred =
-  query_node_list g "object"
-  (Printf.sprintf "subject=%Ld AND predicate=%Ld"
-   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd pred))
+  query_node_list g prepared_objects_of
+  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd sub) ;
+    Printf.sprintf "%Ld" (hash_of_node g.g_dbd pred) ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
@@ -408,9 +451,9 @@ let exists ?sub ?pred ?obj g =
   size > 0
 ;;
 
-let subjects g = query_node_list g "subject" "TRUE";;
-let predicates g = query_node_list g "predicate" "TRUE";;
-let objects g = query_node_list g "object" "TRUE";;
+let subjects g = query_node_list g prepared_subject [];;
+let predicates g = query_node_list g prepared_predicate [];;
+let objects g = query_node_list g prepared_object [];;
 
 let transaction_start g =
   if g.g_in_transaction then
