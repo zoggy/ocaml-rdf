@@ -24,7 +24,7 @@
 
 include ../master.Makefile
 
-PACKAGES=mysql,netstring,xmlm
+PACKAGES=mysql,postgresql,netstring,xmlm
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
@@ -37,6 +37,9 @@ LIB_RDF_BYTE=$(LIB_RDF:.cmxa=.cma)
 
 LIB_MYSQL=rdf_mysql.cmxa
 LIB_MYSQL_BYTE=$(LIB_MYSQL:.cmxa=.cma)
+
+LIB_POSTGRESQL=rdf_postgresql.cmxa
+LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 
 # Compilation
 #############
@@ -60,8 +63,12 @@ LIB_MYSQL_CMOFILES=rdf_my.cmo
 LIB_MYSQL_CMIFILES=$(LIB_MYSQL_CMOFILES:.cmo=.cmi)
 LIB_MYSQL_CMXFILES=$(LIB_MYSQL_CMOFILES:.cmo=.cmx)
 
-RDF_LIBS=$(LIB_RDF) $(LIB_MYSQL)
-RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE)
+LIB_POSTGRESQL_CMOFILES=rdf_pg.cmo
+LIB_POSTGRESQL_CMIFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmi)
+LIB_POSTGRESQL_CMXFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmx)
+
+RDF_LIBS=$(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL)
+RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) $(LIB_POSTGRESQL_BYTE)
 
 all: opt byte
 opt: $(RDF_LIBS)
@@ -79,6 +86,12 @@ $(LIB_MYSQL): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMXFILES)
 $(LIB_MYSQL_BYTE): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_MYSQL_CMOFILES)
 
+$(LIB_POSTGRESQL): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMXFILES)
+	$(OCAMLFIND) ocamlopt -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMXFILES)
+
+$(LIB_POSTGRESQL_BYTE): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMOFILES)
+	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMOFILES)
+
 test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall rdf_test_mysql.cmx
 
@@ -87,7 +100,7 @@ test_xml: $(LIB_RDF) test_xml.cmx
 # Documentation :
 #################
 dump.odoc: *.mli *.ml
-	$(OCAMLFIND) ocamldoc $(OF_FLAGS) -package mysql $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
 	`ls $^ | grep -v example | grep -v test `
 
 doc: dump.odoc
@@ -137,7 +150,8 @@ include .depend
 install: all
 	$(OCAMLFIND) install $(PACKAGE) META \
 		$(LIB_RDF) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_BYTE) \
-		$(LIB_MYSQL) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE)
+		$(LIB_MYSQL) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE) \
+		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE)
 
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)

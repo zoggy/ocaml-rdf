@@ -73,6 +73,6 @@ chmod a-w src/rdf_config.ml
 cat << EOF
 ====
 The following packages will be installed with findlib:
-  $PACKAGE, $PACKAGE.mysql
+  $PACKAGE, $PACKAGE.mysql, $PACKAGE.postgresql
 
 EOF

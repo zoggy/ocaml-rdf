@@ -22,54 +22,58 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** MySQL storage. *)
+(** Postgresql storage. *)
+
+module PG = Postgresql;;
 
 open Rdf_node;;
 
 let dbg = Rdf_misc.create_log_fun
-  ~prefix: "Rdf_my"
-    "RDF_MY_DEBUG_LEVEL"
+  ~prefix: "Rdf_pg"
+    "RDF_PG_DEBUG_LEVEL"
 ;;
 
 type t =
   { g_name : Rdf_uri.uri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
-    g_dbd : Mysql.dbd ;
+    g_dbd : PG.connection ;
     mutable g_in_transaction : bool ;
   }
 
 type error = string
-exception Error = Mysql.Error
+exception Error of string
 let string_of_error s = s;;
 
-let exec_query dbd q =
+let exec_query (dbd : PG.connection) q =
   dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
-  let res = Mysql.exec dbd q in
-  match Mysql.status dbd with
-    Mysql.StatusOK | Mysql.StatusEmpty -> res
-  | Mysql.StatusError _ ->
-      let msg = Rdf_misc.string_of_opt (Mysql.errmsg dbd) in
-      raise (Error msg)
+  let res = dbd#exec q in
+  match res#status with
+  | PG.Command_ok
+  | PG.Tuples_ok -> res
+  | PG.Copy_out | PG.Copy_in -> assert false
+  | _ -> raise (Error res#error)
 ;;
 
-let db_of_options options =
-  let dbhost = Rdf_misc.opt_of_string
+let connect options =
+  let host = Rdf_misc.opt_of_string
     (Rdf_graph.get_option ~def: "" "host" options)
   in
   let dbname  = Rdf_misc.opt_of_string
     (Rdf_graph.get_option "database" options)
   in
-  let dbport  = Rdf_misc.map_opt int_of_string
-    (Rdf_misc.opt_of_string (Rdf_graph.get_option ~def: "" "port" options))
+  let port  = Rdf_misc.opt_of_string
+    (Rdf_graph.get_option ~def: "" "port" options)
   in
-  let dbpwd  = Rdf_misc.opt_of_string
+  let password  = Rdf_misc.opt_of_string
     (Rdf_graph.get_option ~def: "" "password" options)
   in
-  let dbuser  = Rdf_misc.opt_of_string
+  let user  = Rdf_misc.opt_of_string
     (Rdf_graph.get_option "user" options)
   in
-  { Mysql.dbhost = dbhost ; dbname ; dbport ; dbpwd ; dbuser ; dbsocket = None }
-
+  let c = new PG.connection ?host ?port ?dbname ?user ?password () in
+  match c#status with
+    PG.Ok -> c
+  | PG.Bad -> raise (Error "Connexion error")
 ;;
 
 let hash_of_node dbd ?(add=false) node =
@@ -85,8 +89,9 @@ let hash_of_node dbd ?(add=false) node =
         )
         hash
       in
-      match Mysql.fetch (exec_query dbd test_query) with
-        Some [| Some s |] when int_of_string s = 0 ->
+      let res = exec_query dbd test_query in
+      match res#getvalue 0 0 with
+        s when int_of_string s = 0 ->
           let pre_query =
             match node with
               Uri uri ->
@@ -95,7 +100,7 @@ let hash_of_node dbd ?(add=false) node =
             | Literal lit ->
                 Printf.sprintf
                 "literals (id, value, language, datatype) \
-             values (%Ld, %S, %S, %S)"
+                 values (%Ld, %S, %S, %S)"
                 hash
                 lit.lit_value
                 (Rdf_misc.string_of_opt lit.lit_language)
@@ -113,19 +118,19 @@ let hash_of_node dbd ?(add=false) node =
 ;;
 
 
-let table_options = " ENGINE=InnoDB DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
+let table_options = "";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=33" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=80";
+    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) " ;
+    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) ";
     "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
-                                          language text, datatype text)  AVG_ROW_LENGTH=50" ;
+                                          language text, datatype text) " ;
   ]
 ;;
 
-let init_db db =
-  let dbd = Mysql.connect db in
+let init_db options =
+  let dbd = connect options in
   List.iter
   (fun q -> ignore (exec_query dbd (q^table_options))) creation_queries;
   dbd
@@ -133,19 +138,22 @@ let init_db db =
 
 let graph_table_of_id id = Printf.sprintf "graph%d" id;;
 
+(* FIXME: cache this using a Urimap ? *)
 let rec graph_table_of_graph_name ?(first=true) dbd uri =
   let name = Rdf_uri.string uri in
   let query = Printf.sprintf "SELECT id FROM graphs WHERE name = %S" name in
   let res = exec_query dbd query in
-  match Mysql.fetch res with
-    Some [| Some id |] -> graph_table_of_id (int_of_string id)
-  | _ when not first ->
+  match res#ntuples with
+  | 0 when not first ->
       let msg = Printf.sprintf "Could not get table name for graph %S" name in
       raise (Error msg)
-  | _ ->
+  | 0 ->
       let query = Printf.sprintf "INSERT INTO graphs (name) VALUES (%S)" name in
       ignore(exec_query dbd query);
       graph_table_of_graph_name ~first: false dbd uri
+  | n ->
+      let id = res#getvalue 0 0 in
+      graph_table_of_id (int_of_string id)
 ;;
 
 let table_exists dbd table =
@@ -187,33 +195,33 @@ let node_of_hash dbd hash =
     hash hash hash
   in
   let res = exec_query dbd query in
-  let size = Mysql.size res in
-  match Int64.compare size Int64.one with
-    n when n > 0 ->
+  match res#ntuples with
+  | 1 ->
+      begin
+        match res#getisnull 0 0 with
+          false ->
+            let name = res#getvalue 0 0 in
+            Blank_ (Rdf_node.blank_id_of_string name)
+        | true ->
+            match res#getisnull 0 1 with
+              false ->
+                let uri = res#getvalue 0 1 in
+                Rdf_node.node_of_uri_string uri
+            | true ->
+               match res#get_tuple 0 with
+                 [| _ ; _ ; value ; lang ; typ |] ->
+                   let typ = Rdf_misc.map_opt
+                      Rdf_uri.uri (Rdf_misc.opt_of_string typ)
+                    in
+                    Rdf_node.node_of_literal_string
+                    ?lang: (Rdf_misc.opt_of_string lang)
+                    ?typ value
+                | _ ->
+                    raise (Error "Bad field number in results")
+      end
+  | n when n < 1 ->
       let msg = Printf.sprintf "No node with hash \"%Ld\"" hash in
       raise (Error msg)
-  | 0 ->
-      begin
-        match Mysql.fetch res with
-          None -> assert false (* already tested: there is at least one row *)
-        | Some t ->
-            match t with
-              [| Some name ; None ; None ; None ; None |] ->
-                Blank_ (Rdf_node.blank_id_of_string name)
-            | [| None ; Some uri ; None ; None ; None |] ->
-                Rdf_node.node_of_uri_string uri
-            | [| None ; None ; Some value ; lang ; typ |] ->
-                let typ = Rdf_misc.map_opt
-                  Rdf_uri.uri
-                  (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
-                in
-                Rdf_node.node_of_literal_string
-                ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
-                ?typ value
-            | _ ->
-                let msg = Printf.sprintf "Bad result for node with hash \"%Ld\"" hash in
-                raise (Error msg)
-      end
   | _ ->
       let msg = Printf.sprintf "More than one node found with hash \"%Ld\"" hash in
       raise (Error msg)
@@ -224,12 +232,15 @@ let query_node_list g field where_clause =
     field g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
-  let f = function
-  | [| Some hash |] ->
-      node_of_hash g.g_dbd (Mysql.int642ml hash)
-  | _ -> raise (Error "Invalid result: NULL hash or too many fields")
+  let size = res#ntuples in
+  let rec iter n acc =
+    if n < size then
+      let acc = (node_of_hash g.g_dbd (Int64.of_string (res#getvalue n 0))) :: acc in
+      iter (n+1) acc
+    else
+      acc
   in
-  Mysql.map res ~f
+  iter 0 []
 ;;
 
 let query_triple_list g where_clause =
@@ -238,20 +249,26 @@ let query_triple_list g where_clause =
     g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
-  let f = function
-  | [| Some sub ; Some pred ; Some obj |] ->
-      (node_of_hash g.g_dbd (Mysql.int642ml sub),
-       node_of_hash g.g_dbd (Mysql.int642ml pred),
-       node_of_hash g.g_dbd (Mysql.int642ml obj)
-      )
-  | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
+  let size = res#ntuples in
+  let rec iter n acc =
+    if n < size then
+      match res#get_tuple n with
+        [| sub ; pred ; obj |] ->
+          let acc =
+            (node_of_hash g.g_dbd (Int64.of_string sub),
+             node_of_hash g.g_dbd (Int64.of_string pred),
+             node_of_hash g.g_dbd (Int64.of_string obj)) :: acc
+          in
+          iter (n+1) acc
+      | _ -> raise (Error "Invalid result: bad number of fields")
+    else
+      acc
   in
-  Mysql.map res ~f
+  iter 0 []
 ;;
 
 let open_graph ?(options=[]) name =
-  let db = db_of_options options in
-  let dbd = init_db db in
+  let dbd = init_db options in
   let table_name = init_graph dbd name in
   { g_name = name ;
     g_table = table_name ;
@@ -269,14 +286,16 @@ let add_triple g ~sub ~pred ~obj =
     "SELECT COUNT(*) FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
     g.g_table sub pred obj
   in
-  match Mysql.fetch (exec_query g.g_dbd query) with
-    Some [| Some s |] when int_of_string s = 0 ->
-      let query = Printf.sprintf
-        "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
-        g.g_table sub pred obj
-      in
-      ignore(exec_query g.g_dbd query)
-  | _ -> ()
+  let res = exec_query g.g_dbd query in
+  let s = res#getvalue 0 0 in
+  if int_of_string s <= 0 then
+    (
+     let query = Printf.sprintf
+       "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+       g.g_table sub pred obj
+     in
+     ignore(exec_query g.g_dbd query)
+    )
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
@@ -335,11 +354,8 @@ let exists ?sub ?pred ?obj g =
     g.g_table (mk_where_clause ?sub ?pred ?obj g)
   in
   let res = exec_query g.g_dbd query in
-  match Mysql.fetch res with
-    Some [| Some n |] -> int_of_string n > 0
-  | _ ->
-    let msg = Printf.sprintf "Bad result for query: %s" query in
-    raise (Error msg)
+  let size = int_of_string (res#getvalue 0 0) in
+  size > 0
 ;;
 
 let subjects g = query_node_list g "subject" "TRUE";;
@@ -371,18 +387,16 @@ let new_blank_id g =
   let cardinal =
     let query = Printf.sprintf "SELECT COUNT(*) FROM %s" g.g_table in
     let res = exec_query g.g_dbd query in
-    match Mysql.fetch res with
-      Some [|Some s|] -> int_of_string s
-    | _ -> 0
+    int_of_string (res#getvalue 0 0)
   in
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   Rdf_node.blank_id_of_string
   (Printf.sprintf "%d-%d" cardinal (Random.int max_int))
 ;;
 
-module Mysql =
+module Postgresql =
   struct
-    let name = "mysql"
+    let name = "postgresql"
     type g = t
     type error = string
     exception Error = Error
@@ -417,7 +431,7 @@ module Mysql =
     let new_blank_id = new_blank_id
   end;;
 
-Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;
+Rdf_graph.add_storage (module Postgresql : Rdf_graph.Storage);;
 
 
 
