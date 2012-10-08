@@ -44,9 +44,27 @@ type error = string
 exception Error of string
 let string_of_error s = s;;
 
+let getvalue res t c =
+  try res#getvalue t c
+  with PG.Error e -> raise (Error (PG.string_of_error e))
+;;
+
+let getisnull res t c =
+  try res#getisnull t c
+  with PG.Error e -> raise (Error (PG.string_of_error e))
+;;
+
+let get_tuple res t =
+  try res#get_tuple t
+  with PG.Error e -> raise (Error (PG.string_of_error e))
+;;
+
 let exec_query (dbd : PG.connection) q =
   dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
-  let res = dbd#exec q in
+  let res =
+    try dbd#exec q
+    with PG.Error e -> raise (Error (PG.string_of_error e))
+  in
   match res#status with
   | PG.Command_ok
   | PG.Tuples_ok -> res
@@ -70,7 +88,10 @@ let connect options =
   let user  = Rdf_misc.opt_of_string
     (Rdf_graph.get_option "user" options)
   in
-  let c = new PG.connection ?host ?port ?dbname ?user ?password () in
+  let c =
+    try new PG.connection ?host ?port ?dbname ?user ?password ()
+    with PG.Error e -> raise (Error (PG.string_of_error e))
+  in
   match c#status with
     PG.Ok -> c
   | PG.Bad -> raise (Error "Connexion error")
@@ -90,24 +111,24 @@ let hash_of_node dbd ?(add=false) node =
         hash
       in
       let res = exec_query dbd test_query in
-      match res#getvalue 0 0 with
+      match getvalue res 0 0 with
         s when int_of_string s = 0 ->
           let pre_query =
             match node with
               Uri uri ->
-                Printf.sprintf "resources (id, value) values (%Ld, %S)"
-                hash (Rdf_uri.string uri)
+                Printf.sprintf "resources (id, value) values (%Ld, '%s')"
+                hash (dbd#escape_string (Rdf_uri.string uri))
             | Literal lit ->
                 Printf.sprintf
                 "literals (id, value, language, datatype) \
-                 values (%Ld, %S, %S, %S)"
+                 values (%Ld, '%s', '%s', '%s')"
                 hash
-                lit.lit_value
-                (Rdf_misc.string_of_opt lit.lit_language)
-                (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
+                (dbd#escape_string lit.lit_value)
+                (dbd#escape_string (Rdf_misc.string_of_opt lit.lit_language))
+                (dbd#escape_string (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type)))
             | Blank_ id ->
-                Printf.sprintf "bnodes (id, value) values (%Ld, %S)"
-                hash (Rdf_node.string_of_blank_id id)
+                Printf.sprintf "bnodes (id, value) values (%Ld, '%s')"
+                hash (dbd#escape_string (Rdf_node.string_of_blank_id id))
             | Blank -> assert false
           in
           let query = Printf.sprintf "INSERT INTO %s" pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
@@ -121,10 +142,10 @@ let hash_of_node dbd ?(add=false) node =
 let table_options = "";;
 let creation_queries =
   [
-    "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
+    "CREATE TABLE IF NOT EXISTS graphs (id SERIAL, name text NOT NULL)" ;
     "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) " ;
     "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) ";
-    "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
+    "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value text NOT NULL,
                                           language text, datatype text) " ;
   ]
 ;;
@@ -139,20 +160,20 @@ let init_db options =
 let graph_table_of_id id = Printf.sprintf "graph%d" id;;
 
 (* FIXME: cache this using a Urimap ? *)
-let rec graph_table_of_graph_name ?(first=true) dbd uri =
+let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) uri =
   let name = Rdf_uri.string uri in
-  let query = Printf.sprintf "SELECT id FROM graphs WHERE name = %S" name in
+  let query = Printf.sprintf "SELECT id FROM graphs WHERE name = '%s'" (dbd#escape_string name) in
   let res = exec_query dbd query in
   match res#ntuples with
   | 0 when not first ->
-      let msg = Printf.sprintf "Could not get table name for graph %S" name in
+      let msg = Printf.sprintf "Could not get table name for graph '%s'" (dbd#escape_string name) in
       raise (Error msg)
   | 0 ->
-      let query = Printf.sprintf "INSERT INTO graphs (name) VALUES (%S)" name in
+      let query = Printf.sprintf "INSERT INTO graphs (name) VALUES ('%s')" (dbd#escape_string name) in
       ignore(exec_query dbd query);
       graph_table_of_graph_name ~first: false dbd uri
   | n ->
-      let id = res#getvalue 0 0 in
+      let id = getvalue res 0 0 in
       graph_table_of_id (int_of_string id)
 ;;
 
@@ -169,11 +190,7 @@ let init_graph dbd name =
       let query = Printf.sprintf
         "CREATE TABLE IF NOT EXISTS %s (\
          subject bigint NOT NULL, predicate bigint NOT NULL, \
-         object bigint NOT NULL,\
-         KEY SubjectPredicate (subject,predicate),\
-         KEY PredicateObject (predicate,object),\
-         KEY ObjectSubject (object,subject)\
-        ) %s AVG_ROW_LENGTH=59"
+         object bigint NOT NULL) %s"
         table table_options
       in
       ignore(exec_query dbd query);
@@ -198,17 +215,17 @@ let node_of_hash dbd hash =
   match res#ntuples with
   | 1 ->
       begin
-        match res#getisnull 0 0 with
+        match getisnull res 0 0 with
           false ->
-            let name = res#getvalue 0 0 in
+            let name = getvalue res 0 0 in
             Blank_ (Rdf_node.blank_id_of_string name)
         | true ->
-            match res#getisnull 0 1 with
+            match getisnull res 0 1 with
               false ->
-                let uri = res#getvalue 0 1 in
+                let uri = getvalue res 0 1 in
                 Rdf_node.node_of_uri_string uri
             | true ->
-               match res#get_tuple 0 with
+               match get_tuple res 0 with
                  [| _ ; _ ; value ; lang ; typ |] ->
                    let typ = Rdf_misc.map_opt
                       Rdf_uri.uri (Rdf_misc.opt_of_string typ)
@@ -235,7 +252,7 @@ let query_node_list g field where_clause =
   let size = res#ntuples in
   let rec iter n acc =
     if n < size then
-      let acc = (node_of_hash g.g_dbd (Int64.of_string (res#getvalue n 0))) :: acc in
+      let acc = (node_of_hash g.g_dbd (Int64.of_string (getvalue res n 0))) :: acc in
       iter (n+1) acc
     else
       acc
@@ -252,7 +269,7 @@ let query_triple_list g where_clause =
   let size = res#ntuples in
   let rec iter n acc =
     if n < size then
-      match res#get_tuple n with
+      match get_tuple res n with
         [| sub ; pred ; obj |] ->
           let acc =
             (node_of_hash g.g_dbd (Int64.of_string sub),
@@ -287,11 +304,11 @@ let add_triple g ~sub ~pred ~obj =
     g.g_table sub pred obj
   in
   let res = exec_query g.g_dbd query in
-  let s = res#getvalue 0 0 in
+  let s = getvalue res 0 0 in
   if int_of_string s <= 0 then
     (
      let query = Printf.sprintf
-       "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
+       "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld)"
        g.g_table sub pred obj
      in
      ignore(exec_query g.g_dbd query)
@@ -354,7 +371,7 @@ let exists ?sub ?pred ?obj g =
     g.g_table (mk_where_clause ?sub ?pred ?obj g)
   in
   let res = exec_query g.g_dbd query in
-  let size = int_of_string (res#getvalue 0 0) in
+  let size = int_of_string (getvalue res 0 0) in
   size > 0
 ;;
 
@@ -387,7 +404,7 @@ let new_blank_id g =
   let cardinal =
     let query = Printf.sprintf "SELECT COUNT(*) FROM %s" g.g_table in
     let res = exec_query g.g_dbd query in
-    int_of_string (res#getvalue 0 0)
+    int_of_string (getvalue res 0 0)
   in
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   Rdf_node.blank_id_of_string

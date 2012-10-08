@@ -14,7 +14,7 @@ package "mysql" (
 package "postgresql" (
   version = "@VERSION@"
   description = "Postgresql interface"
-  requires = "postgres,rdf"
+  requires = "postgresql,rdf"
   archive(byte) = "rdf_postgresql.cma"
   archive(native) = "rdf_postgresql.cmxa"
 
