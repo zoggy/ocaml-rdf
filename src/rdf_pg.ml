@@ -72,6 +72,16 @@ let exec_query (dbd : PG.connection) q =
   | _ -> raise (Error res#error)
 ;;
 
+let exec_prepared (dbd : PG.connection) stmt params =
+  dbg ~level: 2 (fun () -> Printf.sprintf "exec_prepared: %s" stmt);
+  let query = Printf.sprintf "EXECUTE %s %s" stmt
+    (match params with
+       [] -> ""
+     | _ -> Printf.sprintf "(%s)" (String.concat ", " params))
+  in
+  exec_query dbd query
+;;
+
 let connect options =
   let host = Rdf_misc.opt_of_string
     (Rdf_graph.get_option ~def: "" "host" options)
@@ -139,7 +149,7 @@ let hash_of_node dbd ?(add=false) node =
 ;;
 
 
-let table_options = "";;
+let table_options = "WITHOUT OIDS";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id SERIAL, name text NOT NULL)" ;
@@ -159,7 +169,6 @@ let init_db options =
 
 let graph_table_of_id id = Printf.sprintf "graph%d" id;;
 
-(* FIXME: cache this using a Urimap ? *)
 let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) uri =
   let name = Rdf_uri.string uri in
   let query = Printf.sprintf "SELECT id FROM graphs WHERE name = '%s'" (dbd#escape_string name) in
@@ -183,6 +192,11 @@ let table_exists dbd table =
   with Error _ -> false
 ;;
 
+let prepared_node_of_hash = "node_of_hash";;
+let prepared_count_triples = "count_triples";;
+let prepared_insert_triple = "insert_triple";;
+let prepared_delete_triple = "delete_triple";;
+
 let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   if not (table_exists dbd table) then
@@ -194,6 +208,10 @@ let init_graph dbd name =
         table table_options
       in
       ignore(exec_query dbd query);
+      let query = Printf.sprintf
+        "CREATE INDEX ON %s (subject, predicate, object)" table
+      in
+      ignore(exec_query dbd query);
 (*
       let query = Printf.sprintf
         "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
@@ -201,17 +219,34 @@ let init_graph dbd name =
       ignore(exec_query dbd query)
 *)
     end;
+  let query = Printf.sprintf
+    "PREPARE %s AS SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION \
+     SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION \
+     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3"
+     prepared_node_of_hash
+  in
+  ignore(exec_query dbd query);
+  let query = Printf.sprintf
+     "PREPARE %s AS SELECT COUNT(*) FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3"
+     prepared_count_triples table
+  in
+  ignore(exec_query dbd query);
+  let query = Printf.sprintf
+    "PREPARE %s AS INSERT INTO %s (subject, predicate, object) VALUES ($1, $2, $3)"
+    prepared_insert_triple table
+  in
+  ignore(exec_query dbd query);
+  let query = Printf.sprintf
+    "PREPARE %s AS DELETE FROM %s WHERE subject=$1 AND predicate=$2 AND object=$3"
+    prepared_delete_triple table
+  in
+  ignore(exec_query dbd query);
   table
 ;;
 
 let node_of_hash dbd hash =
-  let query = Printf.sprintf
-    "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=%Ld UNION \
-     SELECT NULL, NULL, value, language, datatype FROM literals where id=%Ld UNION \
-     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=%Ld"
-    hash hash hash
-  in
-  let res = exec_query dbd query in
+  let s_hash = Int64.to_string hash in
+  let res = exec_prepared dbd "node_of_hash" [ s_hash ; s_hash ; s_hash ] in
   match res#ntuples with
   | 1 ->
       begin
@@ -245,7 +280,7 @@ let node_of_hash dbd hash =
 ;;
 
 let query_node_list g field where_clause =
-  let query = Printf.sprintf "SELECT  %s FROM %s where %s" (* removed DISTINCT *)
+  let query = Printf.sprintf "SELECT %s FROM %s where %s" (* removed DISTINCT *)
     field g.g_table where_clause
   in
   let res = exec_query g.g_dbd query in
@@ -299,17 +334,15 @@ let add_triple g ~sub ~pred ~obj =
   let pred = hash_of_node g.g_dbd ~add:true pred in
   let obj = hash_of_node g.g_dbd ~add:true obj in
   (* do not insert if already present *)
-  let query = Printf.sprintf
-    "SELECT COUNT(*) FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
-    g.g_table sub pred obj
+  let query = Printf.sprintf "EXECUTE %s (%Ld,%Ld,%Ld)"
+    prepared_count_triples sub pred obj
   in
   let res = exec_query g.g_dbd query in
   let s = getvalue res 0 0 in
   if int_of_string s <= 0 then
     (
-     let query = Printf.sprintf
-       "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld)"
-       g.g_table sub pred obj
+     let query = Printf.sprintf "EXECUTE %s (%Ld, %Ld, %Ld)"
+       prepared_insert_triple sub pred obj
      in
      ignore(exec_query g.g_dbd query)
     )
@@ -320,8 +353,8 @@ let rem_triple g ~sub ~pred ~obj =
   let pred = hash_of_node g.g_dbd ~add:false pred in
   let obj = hash_of_node g.g_dbd ~add:false obj in
   let query = Printf.sprintf
-    "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
-    g.g_table sub pred obj
+    "EXECUTE %s (%Ld, %Ld, %Ld)"
+    prepared_delete_triple sub pred obj
   in
   ignore(exec_query g.g_dbd query)
 ;;
