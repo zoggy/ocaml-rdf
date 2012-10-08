@@ -60,7 +60,7 @@ let get_tuple res t =
 ;;
 
 let exec_query (dbd : PG.connection) q =
-  dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
+  dbg ~level: 3 (fun () -> Printf.sprintf "exec_query: %s" q);
   let res =
     try dbd#exec q
     with PG.Error e -> raise (Error (PG.string_of_error e))
@@ -213,6 +213,7 @@ let prepare_query dbd name query =
 ;;
 
 let prepare_queries dbd table =
+  dbg ~level: 1 (fun () -> "Preparing queries...");
   let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION \
      SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION \
      SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3"
@@ -260,8 +261,7 @@ let prepare_queries dbd table =
 
   let query = Printf.sprintf "SELECT object from %s" table in
   prepare_query dbd prepared_object query;
-
-
+  dbg ~level: 1 (fun () -> "done")
 ;;
 
 let init_graph dbd name =
@@ -456,6 +456,7 @@ let predicates g = query_node_list g prepared_predicate [];;
 let objects g = query_node_list g prepared_object [];;
 
 let transaction_start g =
+  dbg ~level: 1 (fun () -> "Start transaction");
   if g.g_in_transaction then
     raise (Error "Already in a transaction. Nested transactions not allowed.");
   ignore(exec_query g.g_dbd "START TRANSACTION");
@@ -463,13 +464,15 @@ let transaction_start g =
 ;;
 
 let transaction_commit g =
- if not g.g_in_transaction then
+  dbg ~level: 1 (fun () -> "Commit");
+  if not g.g_in_transaction then
     raise (Error "Not in a transaction.");
   ignore(exec_query g.g_dbd "COMMIT");
   g.g_in_transaction <- false
 ;;
 
 let transaction_rollback g =
+ dbg ~level: 1 (fun () -> "Rollback");
  if not g.g_in_transaction then
     raise (Error "Not in a transaction.");
   ignore(exec_query g.g_dbd "ROLLBACK");
