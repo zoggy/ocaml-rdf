@@ -214,9 +214,9 @@ let prepare_query dbd name query =
 
 let prepare_queries dbd table =
   dbg ~level: 1 (fun () -> "Preparing queries...");
-  let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION \
-     SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION \
-     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3"
+  let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=$1 UNION ALL \
+     SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION ALL \
+     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3 LIMIT 1"
   in
   prepare_query dbd prepared_node_of_hash query;
 
