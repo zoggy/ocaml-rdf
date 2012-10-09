@@ -292,7 +292,7 @@ let init_graph dbd name =
 
 let node_of_hash dbd hash =
   let s_hash = Int64.to_string hash in
-  let res = exec_prepared dbd "node_of_hash" [ s_hash ; s_hash ; s_hash ] in
+  let res = exec_prepared dbd prepared_node_of_hash [ s_hash ; s_hash ; s_hash ] in
   match res#ntuples with
   | 1 ->
       begin
@@ -376,48 +376,40 @@ let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_node g.g_dbd ~add:true sub in
   let pred = hash_of_node g.g_dbd ~add:true pred in
   let obj = hash_of_node g.g_dbd ~add:true obj in
+  let params = [ Int64.to_string sub ; Int64.to_string pred; Int64.to_string obj] in
   (* do not insert if already present *)
-  let query = Printf.sprintf "EXECUTE %s (%Ld,%Ld,%Ld)"
-    prepared_count_triples sub pred obj
-  in
-  let res = exec_query g.g_dbd query in
+  let res = exec_prepared g.g_dbd prepared_count_triples params in
   let s = getvalue res 0 0 in
   if int_of_string s <= 0 then
-    (
-     let query = Printf.sprintf "EXECUTE %s (%Ld, %Ld, %Ld)"
-       prepared_insert_triple sub pred obj
-     in
-     ignore(exec_query g.g_dbd query)
-    )
+    ignore(exec_prepared g.g_dbd prepared_insert_triple params)
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_node g.g_dbd ~add:false sub in
   let pred = hash_of_node g.g_dbd ~add:false pred in
   let obj = hash_of_node g.g_dbd ~add:false obj in
-  let query = Printf.sprintf
-    "EXECUTE %s (%Ld, %Ld, %Ld)"
-    prepared_delete_triple sub pred obj
-  in
-  ignore(exec_query g.g_dbd query)
+  ignore(exec_prepared g.g_dbd
+   prepared_delete_triple
+   [ Int64.to_string sub; Int64.to_string pred; Int64.to_string obj]
+  )
 ;;
 
 let subjects_of g ~pred ~obj =
   query_node_list g prepared_subjects_of
-  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd pred) ;
-    Printf.sprintf "%Ld" (hash_of_node g.g_dbd obj) ]
+  [ Int64.to_string (hash_of_node g.g_dbd pred) ;
+    Int64.to_string (hash_of_node g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
   query_node_list g prepared_predicates_of
-  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd sub) ;
-    Printf.sprintf "%Ld" (hash_of_node g.g_dbd obj) ]
+  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
+    Int64.to_string (hash_of_node g.g_dbd obj) ]
 ;;
 
 let objects_of g ~sub ~pred =
   query_node_list g prepared_objects_of
-  [ Printf.sprintf "%Ld" (hash_of_node g.g_dbd sub) ;
-    Printf.sprintf "%Ld" (hash_of_node g.g_dbd pred) ]
+  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
+    Int64.to_string (hash_of_node g.g_dbd pred) ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
