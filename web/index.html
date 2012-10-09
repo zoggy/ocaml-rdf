@@ -27,7 +27,7 @@ RDF graphs. It is still in early development stage.
 Implemented features:
 </p>
 <ul>
-<li>Two storages available: in memory or in a MySQL database,</li>
+<li>Three storages available: in memory, in a MySQL or in a Postgresql database,</li>
 <li>Ability to define your own storages,</li>
 <li>Transactions,</li>
 <li>Importing from and exporting to
@@ -54,6 +54,9 @@ The code is available on
 </p>
 <p>Releases:</p>
 <ul>
+<li><strong><a href="https://forge.ocamlcore.org/frs/download.php/1036/ocaml-rdf-0.2.tar.gz">0.2</a></strong>
+[2012-10-09]: Improve performance by using prepared queries. New backend: Postgresql.</li>
+
 <li><strong><a href="https://forge.ocamlcore.org/frs/download.php/1017/ocaml-rdf-0.1.tar.gz">0.1</a></strong>
 [2012-09-26]: Initial release.</li>
 </ul>
@@ -64,8 +67,8 @@ The code is available on
 <ul>
 <li><a href="http://caml.inria.fr/">OCaml &gt;= 4.0.0</a> (not tested with prior versions),</li>
 <li><a href="http://raevnos.pennmush.org/code/ocaml-mysql/">OCaml-MySQL &gt;= 1.0.4</a> (not tested with prior versions) for MySQL backend,</li>
-<li><a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</a> (not tested with prior versions) for MySQL backend for Postgresql backend,</li>
-<li><a href="http://projects.camlcity.org/projects/ocamlnet.html">OCamlnet &gt;= 3.6</a>(not tested with prior versions),</li>
+<li><a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</a> (not tested with prior versions) for Postgresql backend,</li>
+<li><a href="http://projects.camlcity.org/projects/ocamlnet.html">OCamlnet &gt;= 3.6</a> (not tested with prior versions),</li>
 <li><a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.0</a>.</li>
 </ul>
 <p>
@@ -76,7 +79,7 @@ Just type
 # make install
 </pre>
 <p>
-This will install the packages rdf and rdf.mysql with ocamlfind.
+This will install the packages rdf, rdf.mysql and rdf.postgresql with ocamlfind.
 </p>
 
 <h2>Documentation</h2>
