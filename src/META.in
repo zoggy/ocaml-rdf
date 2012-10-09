@@ -4,6 +4,7 @@ requires = "netstring,xmlm"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
 package "mysql" (
+  exists_if = "rdf_mysql.cma"
   version = "@VERSION@"
   description = "MySQL interface"
   requires = "mysql,rdf"
@@ -12,6 +13,7 @@ package "mysql" (
 
 )
 package "postgresql" (
+  exists_if = "rdf_postgresql.cma"
   version = "@VERSION@"
   description = "Postgresql interface"
   requires = "postgresql,rdf"

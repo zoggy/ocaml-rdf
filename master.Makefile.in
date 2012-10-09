@@ -60,6 +60,10 @@ ROOT=@ROOT@
 VERSION=@VERSION@
 PACKAGE=@PACKAGE@
 
+PACKAGES=@PACKAGES@
+LIB_MYSQL=@LIB_MYSQL@
+LIB_POSTGRESQL=@LIB_POSTGRESQL@
+
 # generic rules :
 #################
 .SUFFIXES: .mli .ml .cmi .cmo .cmx .mll .mly .tex .dvi .ps .pdf

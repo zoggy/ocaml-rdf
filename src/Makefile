@@ -24,7 +24,6 @@
 
 include ../master.Makefile
 
-PACKAGES=mysql,postgresql,netstring,xmlm
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
@@ -35,10 +34,8 @@ LINKFLAGS=$(INCLUDES)
 LIB_RDF=rdf.cmxa
 LIB_RDF_BYTE=$(LIB_RDF:.cmxa=.cma)
 
-LIB_MYSQL=rdf_mysql.cmxa
 LIB_MYSQL_BYTE=$(LIB_MYSQL:.cmxa=.cma)
 
-LIB_POSTGRESQL=rdf_postgresql.cmxa
 LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 
 # Compilation

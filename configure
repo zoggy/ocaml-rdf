@@ -584,6 +584,9 @@ PACKAGE_URL=
 ac_unique_file="master.Makefile.in"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+PACKAGES
+LIB_POSTGRESQL
+LIB_MYSQL
 PACKAGE
 VERSION
 ROOT
@@ -1676,7 +1679,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-VERSION=0.1
+VERSION=0.2
 PACKAGE=rdf
 
 # The root directory where we will compile
@@ -1713,6 +1716,14 @@ fi
 
 
 
+
+
+
+
+RDF_PACKAGES=$PACKAGE
+PACKAGES=netstring,xmlm
+if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
+if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
 
 # Finally create the master.Makefile.in
 ACFILES="master.Makefile src/META src/rdf_config.ml"
@@ -2877,9 +2888,10 @@ chmod a-w master.Makefile
 chmod a-w src/META
 chmod a-w src/rdf_config.ml
 
+
 cat << EOF
 ====
 The following packages will be installed with findlib:
-  $PACKAGE, $PACKAGE.mysql, $PACKAGE.postgresql
+  $RDF_PACKAGES
 
 EOF
