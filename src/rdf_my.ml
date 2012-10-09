@@ -42,14 +42,65 @@ type error = string
 exception Error = Mysql.Error
 let string_of_error s = s;;
 
+module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
+
+(*
+let prep_times = ref SMap.empty;;
+let q_times = ref SMap.empty;;
+let get_time () = Unix.gettimeofday ();;
+
+let add_query_time map q t =
+  let (old, cpt) =
+    try SMap.find q !map
+    with Not_found -> (0., 0)
+  in
+  let t = old +. t in
+  map := SMap.add q (t, cpt+1) !map
+;;
+*)
+
 let exec_query dbd q =
   dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
+(*
+  let t_start = get_time () in
+*)
   let res = Mysql.exec dbd q in
   match Mysql.status dbd with
-    Mysql.StatusOK | Mysql.StatusEmpty -> res
+    Mysql.StatusOK | Mysql.StatusEmpty ->
+(*
+      let t_stop = get_time () in
+      add_query_time q_times (String.sub q 0 (min (String.length q) 40)) (t_stop -. t_start);
+*)
+      res
   | Mysql.StatusError _ ->
       let msg = Rdf_misc.string_of_opt (Mysql.errmsg dbd) in
       raise (Error msg)
+;;
+
+let exec_prepared dbd stmt params =
+  dbg ~level: 2 (fun () -> Printf.sprintf "exec_prepared: %s" stmt);
+  let params = List.mapi
+    (fun n p ->
+      let v = "@p"^(string_of_int n) in
+      let q = Printf.sprintf "SET %s = %s" v p in
+      ignore(exec_query dbd q);
+      v)
+    params
+  in
+(*
+  let t_start = get_time () in
+*)
+  let query = Printf.sprintf "EXECUTE %s%s" stmt
+    (match params with
+       [] -> ""
+     | _ -> Printf.sprintf " USING %s" (String.concat ", " params))
+  in
+  let res = exec_query dbd query in
+(*
+  let t_stop = get_time () in
+  add_query_time prep_times stmt (t_stop -. t_start);
+*)
+  res
 ;;
 
 let db_of_options options =
@@ -154,6 +205,77 @@ let table_exists dbd table =
   with Error _ -> false
 ;;
 
+let prepared_node_of_hash = "node_of_hash";;
+let prepared_count_triples = "count_triples";;
+let prepared_insert_triple = "insert_triple";;
+let prepared_delete_triple = "delete_triple";;
+let prepared_subjects_of = "subjects_of";;
+let prepared_predicates_of = "predicates_of";;
+let prepared_objects_of = "objects_of";;
+let prepared_subject = "subject" ;;
+let prepared_predicate = "predicate";;
+let prepared_object = "object";;
+
+let make_select_node_list table col clause =
+  Printf.sprintf "SELECT %s FROM %s where %s" col table clause
+;;
+
+let prepare_query dbd name query =
+  let q = Printf.sprintf "PREPARE %s FROM %S" name query in
+   ignore(exec_query dbd q)
+;;
+
+let prepare_queries dbd table =
+  dbg ~level: 1 (fun () -> "Preparing queries...");
+  let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=? LIMIT 1 UNION ALL \
+     SELECT NULL, NULL, value, language, datatype FROM literals where id=? LIMIT 1 UNION ALL \
+     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=? LIMIT 1"
+  in
+  prepare_query dbd prepared_node_of_hash query;
+
+  let query = Printf.sprintf
+    "SELECT COUNT(*) FROM %s WHERE subject=? AND predicate=? AND object=?" table
+  in
+  prepare_query dbd prepared_count_triples query;
+
+  let query = Printf.sprintf
+    "INSERT INTO %s (subject, predicate, object) VALUES (?, ?, ?)" table
+  in
+  prepare_query dbd prepared_insert_triple query;
+
+  let query = Printf.sprintf
+    "DELETE FROM %s WHERE subject=? AND predicate=? AND object=?" table
+  in
+  prepare_query dbd prepared_delete_triple query;
+
+  let query =
+    let clause = Printf.sprintf "predicate=? AND object=?" in
+    make_select_node_list table "subject" clause
+  in
+  prepare_query dbd prepared_subjects_of query;
+
+  let query =
+    let clause = Printf.sprintf "subject=? AND object=?" in
+    make_select_node_list table "predicate" clause
+  in
+  prepare_query dbd prepared_predicates_of query;
+
+  let query =
+    let clause = Printf.sprintf "subject=? AND predicate=?" in
+    make_select_node_list table "object" clause
+  in
+  prepare_query dbd prepared_objects_of query;
+
+  let query = Printf.sprintf "SELECT subject from %s" table in
+  prepare_query dbd prepared_subject query;
+
+  let query = Printf.sprintf "SELECT predicate from %s" table in
+  prepare_query dbd prepared_predicate query;
+
+  let query = Printf.sprintf "SELECT object from %s" table in
+  prepare_query dbd prepared_object query;
+  dbg ~level: 1 (fun () -> "done")
+;;
 let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   if not (table_exists dbd table) then
@@ -164,7 +286,7 @@ let init_graph dbd name =
          object bigint NOT NULL,\
          KEY SubjectPredicate (subject,predicate),\
          KEY PredicateObject (predicate,object),\
-         KEY ObjectSubject (object,subject)\
+         KEY SubjectObject (subject,object)\
         ) %s AVG_ROW_LENGTH=59"
         table table_options
       in
@@ -176,17 +298,13 @@ let init_graph dbd name =
       ignore(exec_query dbd query)
 *)
     end;
+  prepare_queries dbd table;
   table
 ;;
 
 let node_of_hash dbd hash =
-  let query = Printf.sprintf
-    "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=%Ld UNION \
-     SELECT NULL, NULL, value, language, datatype FROM literals where id=%Ld UNION \
-     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=%Ld"
-    hash hash hash
-  in
-  let res = exec_query dbd query in
+  let s_hash = Int64.to_string hash in
+  let res = exec_prepared dbd prepared_node_of_hash [ s_hash ; s_hash ; s_hash ] in
   let size = Mysql.size res in
   match Int64.compare size Int64.one with
     n when n > 0 ->
@@ -219,11 +337,8 @@ let node_of_hash dbd hash =
       raise (Error msg)
 ;;
 
-let query_node_list g field where_clause =
-  let query = Printf.sprintf "SELECT  %s FROM %s where %s" (* removed DISTINCT *)
-    field g.g_table where_clause
-  in
-  let res = exec_query g.g_dbd query in
+let query_node_list g stmt params =
+  let res = exec_prepared g.g_dbd stmt params in
   let f = function
   | [| Some hash |] ->
       node_of_hash g.g_dbd (Mysql.int642ml hash)
@@ -264,18 +379,12 @@ let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_node g.g_dbd ~add:true sub in
   let pred = hash_of_node g.g_dbd ~add:true pred in
   let obj = hash_of_node g.g_dbd ~add:true obj in
+  let params = [ Int64.to_string sub ; Int64.to_string pred ; Int64.to_string obj] in
   (* do not insert if already present *)
-  let query = Printf.sprintf
-    "SELECT COUNT(*) FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
-    g.g_table sub pred obj
-  in
-  match Mysql.fetch (exec_query g.g_dbd query) with
+  let res = exec_prepared g.g_dbd prepared_count_triples params in
+  match Mysql.fetch res with
     Some [| Some s |] when int_of_string s = 0 ->
-      let query = Printf.sprintf
-        "INSERT INTO %s (subject, predicate, object) VALUES (%Ld, %Ld, %Ld) ON DUPLICATE KEY UPDATE subject=subject"
-        g.g_table sub pred obj
-      in
-      ignore(exec_query g.g_dbd query)
+      ignore(exec_prepared g.g_dbd prepared_insert_triple params)
   | _ -> ()
 ;;
 
@@ -283,29 +392,28 @@ let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_node g.g_dbd ~add:false sub in
   let pred = hash_of_node g.g_dbd ~add:false pred in
   let obj = hash_of_node g.g_dbd ~add:false obj in
-  let query = Printf.sprintf
-    "DELETE FROM %s WHERE subject=%Ld AND predicate=%Ld AND object=%Ld"
-    g.g_table sub pred obj
-  in
-  ignore(exec_query g.g_dbd query)
+  ignore(exec_prepared g.g_dbd
+   prepared_delete_triple
+   [ Int64.to_string sub; Int64.to_string pred; Int64.to_string obj]
+  )
 ;;
 
 let subjects_of g ~pred ~obj =
-  query_node_list g "subject"
-  (Printf.sprintf "predicate=%Ld AND object=%Ld"
-   (hash_of_node g.g_dbd pred) (hash_of_node g.g_dbd obj))
+  query_node_list g prepared_subjects_of
+  [ Int64.to_string (hash_of_node g.g_dbd pred) ;
+    Int64.to_string (hash_of_node g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  query_node_list g "predicate"
-  (Printf.sprintf "subject=%Ld AND object=%Ld"
-   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd obj))
+  query_node_list g prepared_predicates_of
+  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
+    Int64.to_string (hash_of_node g.g_dbd obj) ]
 ;;
 
 let objects_of g ~sub ~pred =
-  query_node_list g "object"
-  (Printf.sprintf "subject=%Ld AND predicate=%Ld"
-   (hash_of_node g.g_dbd sub) (hash_of_node g.g_dbd pred))
+  query_node_list g prepared_objects_of
+  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
+    Int64.to_string (hash_of_node g.g_dbd pred) ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
@@ -342,9 +450,9 @@ let exists ?sub ?pred ?obj g =
     raise (Error msg)
 ;;
 
-let subjects g = query_node_list g "subject" "TRUE";;
-let predicates g = query_node_list g "predicate" "TRUE";;
-let objects g = query_node_list g "object" "TRUE";;
+let subjects g = query_node_list g prepared_subject [];;
+let predicates g = query_node_list g prepared_predicate [];;
+let objects g = query_node_list g prepared_object [];;
 
 let transaction_start g =
   if g.g_in_transaction then
@@ -419,5 +527,25 @@ module Mysql =
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;
 
+(*
+let output_times file map =
+  let oc = open_out file in
+  let total = SMap.fold
+  (fun q (t,cpt) acc ->
+     Printf.fprintf oc "%f;%f;%d;%s\n"
+     (t /. (float cpt)) t cpt q;
+     t +. acc
+    )
+    map 0.
+  in
+  Printf.fprintf oc "Total=%f\n" total;
+  close_out oc
+;;
 
-
+let _ = Pervasives.at_exit
+  (fun () ->
+     output_times "rdf_my_prep_times.log" !prep_times;
+     output_times "rdf_my_q_times.log" !q_times
+  )
+;;
+*)
