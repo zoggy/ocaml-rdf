@@ -176,7 +176,7 @@ type graph =
 
 
 let open_graph ?(options=[]) name =
-  let kind = get_option ~def: "memory" "storage" options in
+  let kind = get_option ~def: "mem" "storage" options in
   let storage =
     try List.assoc kind !storages
     with Not_found -> failwith (Printf.sprintf "Unknown storage %S" kind)
