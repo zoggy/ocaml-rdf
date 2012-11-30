@@ -26,6 +26,34 @@
 
 exception Invalid_rdf of string
 
+module SMap : Map.S with type key = string
+
+(** The type of XML tree walked through to fill the graph. *)
+type tree = E of Xmlm.tag * tree list | D of string
+
+(** Type of current state when walking through the xml tree. *)
+type state =
+  { subject : Rdf_node.node option ;
+    predicate : Rdf_uri.uri option ;
+    xml_base : Rdf_uri.uri ;
+    xml_lang : string option ;
+    datatype : Rdf_uri.uri option ;
+    namespaces : string Rdf_uri.Urimap.t ;
+  }
+
+(** Global state of the analysis. *)
+type global_state =
+  {
+    blanks : Rdf_node.blank_id SMap.t ;
+    gnamespaces : string Rdf_uri.Urimap.t ;
+  }
+
+val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
+
+(** Fill a graph from a current state, a pair (global state, li counter),
+  and a property node. *)
+val input_prop : Rdf_graph.graph -> state -> (global_state * int) -> tree -> (global_state * int)
+
 val from_string : Rdf_graph.graph -> base: Rdf_uri.uri -> string -> unit
 val from_file : Rdf_graph.graph -> base: Rdf_uri.uri -> string -> unit
 
