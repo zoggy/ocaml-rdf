@@ -219,3 +219,40 @@ let open_graph ?(options=[]) name =
     namespaces = namespaces ;
   }
 ;;
+
+module Bid_map = Map.Make
+  (struct
+     type t = Rdf_node.blank_id
+     let compare id1 id2 =
+       Pervasives.compare
+         (Rdf_node.string_of_blank_id id1)
+         (Rdf_node.string_of_blank_id id2)
+   end
+  );;
+
+let merge g1 g2 =
+  let map bid_map x =
+    match x with
+      Rdf_node.Uri _
+    | Rdf_node.Literal _
+    | Blank -> (bid_map, x)
+    | Blank_ id ->
+        let (id2, bid_map) =
+          try (Bid_map.find id bid_map, bid_map)
+          with Not_found ->
+              let id2 = g1.new_blank_id () in
+              let bid_map = Bid_map.add id id2 bid_map in
+              (id2, bid_map)
+        in
+        (bid_map, Blank_ id2)
+  in
+  let f bid_map (sub,pred,obj) =
+    let (bid_map, sub) = map bid_map sub in
+    let (bid_map, pred) = map bid_map pred in
+    let (bid_map, obj) = map bid_map obj in
+    g1.add_triple ~sub ~pred ~obj;
+    bid_map
+  in
+  let triples = g2.find () in
+  ignore(List.fold_left f Bid_map.empty triples)
+;;

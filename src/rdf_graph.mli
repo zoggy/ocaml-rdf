@@ -270,3 +270,6 @@ type graph = {
   or by adding a reference to the module in your code.
 *)
 val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> graph
+
+(** [merge g1 g2] add triples from [g2] to [g1].*)
+val merge : graph -> graph -> unit
