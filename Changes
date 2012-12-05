@@ -1,2 +1,3 @@
 Next release:
   * fix: change default graph kind: memory -> mem; linkall option
+  * add: Rdf_graph.merge
