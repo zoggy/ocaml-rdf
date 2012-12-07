@@ -72,10 +72,10 @@ opt: $(RDF_LIBS)
 byte: $(RDF_LIBS_BYTE)
 
 $(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -a -linkall -o $@ $(LIB_RDF_CMXFILES)
+	$(OCAMLFIND) ocamlopt -a -linkall -o $@ $(LIB_RDF_CMXFILES)
 
 $(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) -a -linkall -o $@ $(LIB_RDF_CMOFILES)
+	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
 
 $(LIB_MYSQL): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMXFILES)
 	$(OCAMLFIND) ocamlopt -a -o $@ $(COMPFLAGS) $(LIB_MYSQL_CMXFILES)
