@@ -64,6 +64,8 @@ PACKAGES=@PACKAGES@
 LIB_MYSQL=@LIB_MYSQL@
 LIB_POSTGRESQL=@LIB_POSTGRESQL@
 
+MT_FLAGS=@MT_FLAGS@
+
 # generic rules :
 #################
 .SUFFIXES: .mli .ml .cmi .cmo .cmx .mll .mly .tex .dvi .ps .pdf

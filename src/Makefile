@@ -27,7 +27,7 @@ include ../master.Makefile
 OF_FLAGS=-package $(PACKAGES)
 INCLUDES=
 
-COMPFLAGS=$(INCLUDES) -annot -g
+COMPFLAGS=$(INCLUDES) -annot -g $(MT_FLAGS)
 LINKFLAGS=$(INCLUDES)
 
 # The executables and libraries to produce

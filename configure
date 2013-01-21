@@ -585,6 +585,7 @@ ac_unique_file="master.Makefile.in"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 PACKAGES
+MT_FLAGS
 LIB_POSTGRESQL
 LIB_MYSQL
 PACKAGE
@@ -1701,6 +1702,7 @@ fi
 
 #############################
 # substitutions to perform
+
 
 
 

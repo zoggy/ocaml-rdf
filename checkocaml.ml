@@ -900,7 +900,9 @@ let _ =
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "postgresql" with
-    true -> add_subst "LIB_POSTGRESQL" "rdf_postgresql.cmxa"
+    true ->
+      add_subst "LIB_POSTGRESQL" "rdf_postgresql.cmxa";
+      add_subst "MT_FLAGS" "-thread"
   | _ -> ();;
 
 let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
