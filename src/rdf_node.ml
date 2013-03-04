@@ -78,20 +78,22 @@ let bool_of_literal lit =
   | _ -> false
 ;;
 
+let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;
 
 let string_of_node = function
-| Uri uri -> Printf.sprintf "<%s>" (Rdf_uri.string uri)
+| Uri uri -> "<" ^ (Rdf_uri.string uri) ^ ">"
 | Literal lit ->
-    Printf.sprintf "%S%s%s"
-    lit.lit_value
-    (match lit.lit_language with
-       None -> ""
-     | Some l -> Printf.sprintf "@%s" l)
-    (match lit.lit_type with
-       None -> ""
-     | Some t -> Printf.sprintf "^^%s" (Rdf_uri.string t))
+      (quote_str lit.lit_value) ^
+      (match lit.lit_language with
+         None -> ""
+       | Some l -> "@" ^ l
+      ) ^
+      (match lit.lit_type with
+         None -> ""
+       | Some t -> "^^<" ^ (Rdf_uri.string t) ^ ">"
+      )
 | Blank -> "_"
-| Blank_ id -> Printf.sprintf "_:%s" (string_of_blank_id id)
+| Blank_ id ->  "_:" ^ (string_of_blank_id id)
 ;;
 
 let int64_hash str =
@@ -106,14 +108,16 @@ let int64_hash str =
 ;;
 
 let node_hash = function
-  Uri uri -> int64_hash (Printf.sprintf "R%s" (Rdf_uri.string uri))
+  Uri uri -> int64_hash ("R" ^ (Rdf_uri.string uri))
 | Literal lit ->
-    int64_hash (Printf.sprintf "L%s<%s>%s"
-     lit.lit_value
-     (Rdf_misc.string_of_opt lit.lit_language)
-     (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type)))
+    int64_hash (
+     "L" ^
+       lit.lit_value ^ "<" ^
+       (Rdf_misc.string_of_opt lit.lit_language) ^ ">" ^
+       (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
+    )
 | Blank -> assert false
-| Blank_ id -> int64_hash (Printf.sprintf "B%s" (string_of_blank_id id))
+| Blank_ id -> int64_hash ("B" ^ (string_of_blank_id id))
 ;;
 
 

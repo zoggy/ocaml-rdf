@@ -105,7 +105,7 @@ let string_of_xmls namespaces trees =
 
 let xmls_of_string str =
   prerr_endline "xmls_of_string";
-  let str = Printf.sprintf "<foo__>%s</foo__>" str in
+  let str = "<foo__>"^str^"</foo__>" in
   prerr_endline str;
   try
     let i = Xmlm.make_input ~strip: true (`String (0, str)) in

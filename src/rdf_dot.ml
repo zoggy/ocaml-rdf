@@ -81,9 +81,9 @@ let dot_of_graph ?namespaces g =
           | _ -> pref ^ ":" ^ s
          end
     | Literal lit ->
-        Printf.sprintf "%s%s%s" lit.lit_value
-            (match lit.lit_language with None -> "" | Some s -> "^"^s)
-            (match lit.lit_type with None -> "" | Some uri -> "@"^(Rdf_uri.string uri))
+        lit.lit_value
+          ^ (match lit.lit_language with None -> "" | Some s -> "^"^s)
+          ^ (match lit.lit_type with None -> "" | Some uri -> "@"^(Rdf_uri.string uri))
     | Blank_ _ | Blank -> ""
   in
   let id node =
@@ -92,12 +92,12 @@ let dot_of_graph ?namespaces g =
         Uri uri -> Rdf_uri.string uri
       | Blank_ id -> "b"^(string_of_blank_id id)
       | Literal lit ->
-          Printf.sprintf "%s^%s@%s" lit.lit_value
-            (match lit.lit_language with None -> "" | Some s -> s)
-            (match lit.lit_type with None -> "" | Some uri -> Rdf_uri.string uri)
+          lit.lit_value
+            ^ "^" ^ (match lit.lit_language with None -> "" | Some s -> s)
+            ^ "@" ^ (match lit.lit_type with None -> "" | Some uri -> Rdf_uri.string uri)
       | Blank -> assert false
     in
-    Printf.sprintf "N%s" (Digest.to_hex (Digest.string s))
+    "N" ^ (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
     match Rdf_node.Ord_type.compare pred (Uri Rdf_rdf.ordf_ns) with

@@ -37,7 +37,7 @@ let create_log_fun_with_set ?prefix ?(print=prerr_endline) env_var =
   let pref =
     match prefix with
       None -> ""
-    | Some s -> Printf.sprintf "[%s]" s
+    | Some s -> "[" ^ s ^ "]"
   in
   (fun ?loc ?(level=1) f ->
     if !log_level >= level then
@@ -45,12 +45,10 @@ let create_log_fun_with_set ?prefix ?(print=prerr_endline) env_var =
          let loc =
            match loc with
              None -> ""
-           | Some s -> Printf.sprintf "[%s]" s
+           | Some s -> "[" ^ s ^ "]"
          in
          let sep = match pref, loc with "", "" -> "" | _ -> " " in
-         let s = Printf.sprintf "%s%s%s%s"
-           pref loc sep (f())
-         in
+         let s = pref ^ loc ^ sep ^ (f()) in
          print s
        end
   ),

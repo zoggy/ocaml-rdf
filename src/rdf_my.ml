@@ -60,7 +60,7 @@ let add_query_time map q t =
 *)
 
 let exec_query dbd q =
-  dbg ~level: 2 (fun () -> Printf.sprintf "exec_query: %s" q);
+  dbg ~level: 2 (fun () -> "exec_query: " ^ q);
 (*
   let t_start = get_time () in
 *)
@@ -78,11 +78,11 @@ let exec_query dbd q =
 ;;
 
 let exec_prepared dbd stmt params =
-  dbg ~level: 2 (fun () -> Printf.sprintf "exec_prepared: %s" stmt);
+  dbg ~level: 2 (fun () -> "exec_prepared: " ^ stmt);
   let params = List.mapi
     (fun n p ->
       let v = "@p"^(string_of_int n) in
-      let q = Printf.sprintf "SET %s = %s" v p in
+      let q = "SET " ^ v ^ " = " ^ p in
       ignore(exec_query dbd q);
       v)
     params
@@ -90,10 +90,14 @@ let exec_prepared dbd stmt params =
 (*
   let t_start = get_time () in
 *)
-  let query = Printf.sprintf "EXECUTE %s%s" stmt
-    (match params with
-       [] -> ""
-     | _ -> Printf.sprintf " USING %s" (String.concat ", " params))
+  let query =
+    "EXECUTE "
+      ^ stmt
+      ^
+      (match params with
+         [] -> ""
+       | _ -> " USING " ^ (String.concat ", " params)
+      )
   in
   let res = exec_query dbd query in
 (*
@@ -122,41 +126,43 @@ let db_of_options options =
   { Mysql.dbhost = dbhost ; dbname ; dbport ; dbpwd ; dbuser ; dbsocket = None }
 
 ;;
+let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;
 
 let hash_of_node dbd ?(add=false) node =
   let hash = Rdf_node.node_hash node in
   if add then
     begin
-      let test_query = Printf.sprintf
-        "SELECT COUNT(*) FROM %s WHERE id=%Ld"
-        (match node with
-           Uri _ -> "resources"
-         | Literal _ -> "literals"
-         | Blank_ _ | Blank -> "bnodes"
-        )
-        hash
+      let test_query =
+        "SELECT COUNT(*) FROM " ^
+          (match node with
+             Uri _ -> "resources"
+           | Literal _ -> "literals"
+           | Blank_ _ | Blank -> "bnodes"
+          ) ^
+          " WHERE id=" ^
+          (Int64.to_string hash)
       in
       match Mysql.fetch (exec_query dbd test_query) with
         Some [| Some s |] when int_of_string s = 0 ->
           let pre_query =
             match node with
               Uri uri ->
-                Printf.sprintf "resources (id, value) values (%Ld, %S)"
-                hash (Rdf_uri.string uri)
+                "resources (id, value) values ("^
+                  (Int64.to_string hash) ^
+                  ", " ^ (quote_str (Rdf_uri.string uri)) ^ ")"
             | Literal lit ->
-                Printf.sprintf
-                "literals (id, value, language, datatype) \
-             values (%Ld, %S, %S, %S)"
-                hash
-                lit.lit_value
-                (Rdf_misc.string_of_opt lit.lit_language)
-                (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
+                "literals (id, value, language, datatype) values (" ^
+                  (Int64.to_string hash) ^ ", " ^
+                  (quote_str lit.lit_value) ^ ", " ^
+                  (quote_str (Rdf_misc.string_of_opt lit.lit_language)) ^ ", " ^
+                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))) ^ ")"
             | Blank_ id ->
-                Printf.sprintf "bnodes (id, value) values (%Ld, %S)"
-                hash (Rdf_node.string_of_blank_id id)
+                "bnodes (id, value) values (" ^
+                (Int64.to_string hash) ^ ", " ^
+                  (quote_str (Rdf_node.string_of_blank_id id)) ^ ")"
             | Blank -> assert false
           in
-          let query = Printf.sprintf "INSERT INTO %s" pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
+          let query = "INSERT INTO " ^ pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
           ignore(exec_query dbd query)
       | _ -> ()
     end;
@@ -182,11 +188,11 @@ let init_db db =
   dbd
 ;;
 
-let graph_table_of_id id = Printf.sprintf "graph%d" id;;
+let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
 let rec graph_table_of_graph_name ?(first=true) dbd uri =
   let name = Rdf_uri.string uri in
-  let query = Printf.sprintf "SELECT id FROM graphs WHERE name = %S" name in
+  let query = "SELECT id FROM graphs WHERE name = " ^(quote_str name) in
   let res = exec_query dbd query in
   match Mysql.fetch res with
     Some [| Some id |] -> graph_table_of_id (int_of_string id)
@@ -194,13 +200,13 @@ let rec graph_table_of_graph_name ?(first=true) dbd uri =
       let msg = Printf.sprintf "Could not get table name for graph %S" name in
       raise (Error msg)
   | _ ->
-      let query = Printf.sprintf "INSERT INTO graphs (name) VALUES (%S)" name in
+      let query = "INSERT INTO graphs (name) VALUES (" ^ (quote_str name) ^ ")" in
       ignore(exec_query dbd query);
       graph_table_of_graph_name ~first: false dbd uri
 ;;
 
 let table_exists dbd table =
-  let query = Printf.sprintf "SELECT 1 FROM %s" table in
+  let query = "SELECT 1 FROM " ^ table in
   try ignore(exec_query dbd query); true
   with Error _ -> false
 ;;
@@ -217,11 +223,11 @@ let prepared_predicate = "predicate";;
 let prepared_object = "object";;
 
 let make_select_node_list table col clause =
-  Printf.sprintf "SELECT %s FROM %s where %s" col table clause
+  "SELECT "^col^" FROM "^table^" where "^clause
 ;;
 
 let prepare_query dbd name query =
-  let q = Printf.sprintf "PREPARE %s FROM %S" name query in
+  let q = "PREPARE "^name^" FROM " ^ (quote_str query) in
    ignore(exec_query dbd q)
 ;;
 
@@ -233,46 +239,46 @@ let prepare_queries dbd table =
   in
   prepare_query dbd prepared_node_of_hash query;
 
-  let query = Printf.sprintf
-    "SELECT COUNT(*) FROM %s WHERE subject=? AND predicate=? AND object=?" table
+  let query =
+    "SELECT COUNT(*) FROM "^table^" WHERE subject=? AND predicate=? AND object=?"
   in
   prepare_query dbd prepared_count_triples query;
 
-  let query = Printf.sprintf
-    "INSERT INTO %s (subject, predicate, object) VALUES (?, ?, ?)" table
+  let query =
+    "INSERT INTO "^table^" (subject, predicate, object) VALUES (?, ?, ?)"
   in
   prepare_query dbd prepared_insert_triple query;
 
-  let query = Printf.sprintf
-    "DELETE FROM %s WHERE subject=? AND predicate=? AND object=?" table
+  let query =
+    "DELETE FROM "^table^" WHERE subject=? AND predicate=? AND object=?"
   in
   prepare_query dbd prepared_delete_triple query;
 
   let query =
-    let clause = Printf.sprintf "predicate=? AND object=?" in
+    let clause = "predicate=? AND object=?" in
     make_select_node_list table "subject" clause
   in
   prepare_query dbd prepared_subjects_of query;
 
   let query =
-    let clause = Printf.sprintf "subject=? AND object=?" in
+    let clause = "subject=? AND object=?" in
     make_select_node_list table "predicate" clause
   in
   prepare_query dbd prepared_predicates_of query;
 
   let query =
-    let clause = Printf.sprintf "subject=? AND predicate=?" in
+    let clause = "subject=? AND predicate=?" in
     make_select_node_list table "object" clause
   in
   prepare_query dbd prepared_objects_of query;
 
-  let query = Printf.sprintf "SELECT subject from %s" table in
+  let query = "SELECT subject from " ^ table in
   prepare_query dbd prepared_subject query;
 
-  let query = Printf.sprintf "SELECT predicate from %s" table in
+  let query = "SELECT predicate from " ^ table in
   prepare_query dbd prepared_predicate query;
 
-  let query = Printf.sprintf "SELECT object from %s" table in
+  let query = "SELECT object from " ^ table in
   prepare_query dbd prepared_object query;
   dbg ~level: 1 (fun () -> "done")
 ;;
@@ -280,15 +286,14 @@ let init_graph dbd name =
   let table = graph_table_of_graph_name dbd name in
   if not (table_exists dbd table) then
     begin
-      let query = Printf.sprintf
-        "CREATE TABLE IF NOT EXISTS %s (\
+      let query =
+        "CREATE TABLE IF NOT EXISTS "^table^" (\
          subject bigint NOT NULL, predicate bigint NOT NULL, \
          object bigint NOT NULL,\
          KEY SubjectPredicate (subject,predicate),\
          KEY PredicateObject (predicate,object),\
          KEY SubjectObject (subject,object)\
-        ) %s AVG_ROW_LENGTH=59"
-        table table_options
+        ) "^table_options^" AVG_ROW_LENGTH=59"
       in
       ignore(exec_query dbd query);
 (*
@@ -308,7 +313,7 @@ let node_of_hash dbd hash =
   let size = Mysql.size res in
   match Int64.compare size Int64.one with
     n when n > 0 ->
-      let msg = Printf.sprintf "No node with hash \"%Ld\"" hash in
+      let msg = "No node with hash \"" ^(Int64.to_string hash)^ "\"" in
       raise (Error msg)
   | 0 ->
       begin
@@ -329,11 +334,11 @@ let node_of_hash dbd hash =
                 ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
                 ?typ value
             | _ ->
-                let msg = Printf.sprintf "Bad result for node with hash \"%Ld\"" hash in
+                let msg = "Bad result for node with hash \"" ^ (Int64.to_string hash) ^"\"" in
                 raise (Error msg)
       end
   | _ ->
-      let msg = Printf.sprintf "More than one node found with hash \"%Ld\"" hash in
+      let msg = "More than one node found with hash \"" ^ (Int64.to_string hash) ^ "\"" in
       raise (Error msg)
 ;;
 
@@ -348,9 +353,8 @@ let query_node_list g stmt params =
 ;;
 
 let query_triple_list g where_clause =
-  let query = Printf.sprintf
-    "SELECT subject, predicate, object FROM %s where %s" (* removed DISTINCT *)
-    g.g_table where_clause
+  let query =
+    "SELECT subject, predicate, object FROM "^g.g_table^" where " ^ where_clause (* removed DISTINCT *)
   in
   let res = exec_query g.g_dbd query in
   let f = function
@@ -420,7 +424,7 @@ let mk_where_clause ?sub ?pred ?obj g =
   let mk_cond field = function
     None -> []
   | Some node ->
-      [Printf.sprintf "%s=%Ld" field (hash_of_node g.g_dbd node)]
+      [field ^"="^(Int64.to_string (hash_of_node g.g_dbd node))]
   in
   match sub, pred, obj with
     None, None, None -> "TRUE"
@@ -439,14 +443,14 @@ let find ?sub ?pred ?obj g =
 ;;
 
 let exists ?sub ?pred ?obj g =
-  let query = Printf.sprintf "SELECT COUNT(*) FROM %s where %s"
-    g.g_table (mk_where_clause ?sub ?pred ?obj g)
+  let query = "SELECT COUNT(*) FROM " ^ g.g_table ^
+    " where "^ (mk_where_clause ?sub ?pred ?obj g)
   in
   let res = exec_query g.g_dbd query in
   match Mysql.fetch res with
     Some [| Some n |] -> int_of_string n > 0
   | _ ->
-    let msg = Printf.sprintf "Bad result for query: %s" query in
+    let msg = "Bad result for query: " ^ query in
     raise (Error msg)
 ;;
 
@@ -477,7 +481,7 @@ let transaction_rollback g =
 
 let new_blank_id g =
   let cardinal =
-    let query = Printf.sprintf "SELECT COUNT(*) FROM %s" g.g_table in
+    let query = "SELECT COUNT(*) FROM " ^ g.g_table in
     let res = exec_query g.g_dbd query in
     match Mysql.fetch res with
       Some [|Some s|] -> int_of_string s
@@ -485,7 +489,7 @@ let new_blank_id g =
   in
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   Rdf_node.blank_id_of_string
-  (Printf.sprintf "%d-%d" cardinal (Random.int max_int))
+    ((string_of_int cardinal) ^"-" ^ (string_of_int (Random.int max_int)))
 ;;
 
 module Mysql =

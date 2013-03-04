@@ -199,8 +199,12 @@ let transaction_rollback g =
 
 let new_blank_id g =
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
-  Rdf_node.blank_id_of_string
-  (Printf.sprintf "%d-%d" (Triples.Map.cardinal g.g_set_sub) (Random.int max_int))
+  let s =
+    (string_of_int (Triples.Map.cardinal g.g_set_sub))
+      ^ "-" ^
+      (string_of_int (Random.int max_int))
+  in
+  Rdf_node.blank_id_of_string s
 ;;
 
 module Mem =
