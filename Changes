@@ -1,3 +1,4 @@
 Next release:
+  * use string concatenation instead of sprintf
   * fix: change default graph kind: memory -> mem; linkall option
   * add: Rdf_graph.merge
