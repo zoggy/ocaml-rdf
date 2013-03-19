@@ -1680,7 +1680,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-VERSION=0.3
+VERSION=0.4
 PACKAGE=rdf
 
 # The root directory where we will compile

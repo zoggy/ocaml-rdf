@@ -3,6 +3,7 @@ description = "Handling RDF graphs"
 requires = "netstring,xmlm"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
+archive(native,plugin) = "rdf.cmxs"
 package "mysql" (
   exists_if = "rdf_mysql.cma"
   version = "@VERSION@"
@@ -10,6 +11,7 @@ package "mysql" (
   requires = "mysql,rdf"
   archive(byte) = "rdf_mysql.cma"
   archive(native) = "rdf_mysql.cmxa"
+  archive(native,plugin) = "rdf_mysql.cmxs"
 
 )
 package "postgresql" (
@@ -19,5 +21,5 @@ package "postgresql" (
   requires = "postgresql,rdf"
   archive(byte) = "rdf_postgresql.cma"
   archive(native) = "rdf_postgresql.cmxa"
-
+  archive(native,plugin) = "rdf_postgresql.cmxs"
 )
