@@ -67,9 +67,12 @@ LIB_POSTGRESQL_CMXFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmx)
 RDF_LIBS=$(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL)
 RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) $(LIB_POSTGRESQL_BYTE)
 
+TOOLS=rdf_to_svgs
+
 all: opt byte
 opt: $(RDF_LIBS)
 byte: $(RDF_LIBS_BYTE)
+tools:$(TOOLS)
 
 $(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
 	$(OCAMLFIND) ocamlopt -a -linkall -o $@ $(LIB_RDF_CMXFILES)
@@ -94,6 +97,10 @@ test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
 
 test_xml: $(LIB_RDF) test_xml.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall test_xml.cmx
+
+rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
+	$(OCAMLFIND) ocamlopt -package netstring,xmlm -linkpkg -linkall -o $@ $^
+
 # Documentation :
 #################
 dump.odoc: *.mli *.ml

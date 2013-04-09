@@ -65,11 +65,19 @@ let build_namespaces ?(namespaces=[]) g =
   Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
 ;;
 
-let dot_of_graph ?namespaces g =
+let dot_of_graph ?namespaces ?href ?uri g =
   let namespaces = build_namespaces ?namespaces g in
   let b = Buffer.create 256 in
   Buffer.add_string b "digraph g {\nrankdir=LR;\nfontsize=10;\n";
-  let triples = g.Rdf_graph.find () in
+  let triples =
+    match uri with
+      None -> g.Rdf_graph.find ()
+    | Some uri ->
+        let node = Rdf_node.Uri uri in
+        let to_uri = g.Rdf_graph.find ~sub: node () in
+        let from_uri = g.Rdf_graph.find ~obj: node () in
+        to_uri @ from_uri
+  in
   let label node =
     match node with
       Uri uri ->
@@ -108,9 +116,19 @@ let dot_of_graph ?namespaces g =
   in
   let set = List.fold_left f Node_set.empty triples in
   let f_node node =
-    Printf.bprintf b "%s [ label=%S ];\n" (id node) (label node)
+    Printf.bprintf b "%s [ label=%S %s];\n" (id node) (label node)
+      (match href with
+         None -> ""
+       | Some f ->
+           match f node with
+             None -> ""
+           | Some s -> ", href=\""^s^"\""
+      )
   in
   Node_set.iter f_node set;
   Buffer.add_string b "}\n";
   Buffer.contents b
 ;;
+
+let dot_of_uri ?namespaces ?href g uri = dot_of_graph ?namespaces ?href ~uri g;;
+let dot_of_graph ?namespaces ?href g = dot_of_graph ?namespaces ?href g;;
