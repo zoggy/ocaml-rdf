@@ -1,2 +1,6 @@
 test_xml
+rdf_to_svgs
+tools/*.cm*
+tools/*.o
+tools/*.annot
 *.dot
