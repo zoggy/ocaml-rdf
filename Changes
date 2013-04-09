@@ -1,3 +1,8 @@
+Next release:
+  * add: Rdf_dot.dot_of_uri
+  * add: ?href parameter to Rdf_dot.dot_of_graph
+  * add: tools/rdf_to_svgs
+
 Release 0.4:
   * use string concatenation instead of sprintf
   * fix: change default graph kind: memory -> mem; linkall option
