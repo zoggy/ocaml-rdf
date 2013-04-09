@@ -49,7 +49,6 @@ let main () =
   let subjects = g.Rdf_graph.subjects () in
   let href = function
     Rdf_node.Uri uri ->
-      prerr_endline ("href for "^(Rdf_uri.string uri));
       let hex = Digest.to_hex (Digest.string (Rdf_uri.string uri)) in
       let svg_file = hex^".svg" in
       if Filename.is_relative outdir then
