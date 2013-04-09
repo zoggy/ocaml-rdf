@@ -67,8 +67,7 @@ let main () =
       let oc = open_out dot_file in
       output_string oc dot;
       close_out oc;
-      prerr_endline dot;
-      let com = "dot -Tsvg -o " ^ (Filename.quote svg_file) ^ " " ^ (Filename.quote dot_file) in
+      let com = "dot -Grankdir=TB -Tsvg -o " ^ (Filename.quote svg_file) ^ " " ^ (Filename.quote dot_file) in
       ignore(Sys.command com);
       print_endline ((Rdf_uri.string uri)^ " graph output to " ^ svg_file)
   | _ -> ()
