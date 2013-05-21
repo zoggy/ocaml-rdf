@@ -48,6 +48,8 @@ type global_state =
     gnamespaces : string Rdf_uri.Urimap.t ;
   }
 
+val get_blank_node : Rdf_graph.graph -> global_state -> SMap.key -> Rdf_node.node * global_state
+
 val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
 
 (** Fill a graph from a current state, a pair (global state, li counter),

@@ -25,7 +25,9 @@
 (** Testing Turtle parser. *)
 
 let fatal s = prerr_endline s ; exit 1 ;;
-let usage = Printf.sprintf "Usage: %s file.ttl" Sys.argv.(0);;
+let usage = Printf.sprintf "Usage: %s [options] files.ttl\nwhere options are:" Sys.argv.(0);;
+
+let base = ref None
 
 (*c==v=[Misc.safe_main]=1.0====*)
 let safe_main main =
@@ -38,16 +40,27 @@ let safe_main main =
 (*/c==v=[Misc.safe_main]=1.0====*)
 
 let main () =
-  let file =
-    if Array.length Sys.argv < 2 then fatal usage;
-    Sys.argv.(1)
-  in
+  let args = ref [] in
+  Arg.parse
+    [ "-b", Arg.String (fun s -> base := Some s), "<url> set base url" ; ]
+    (fun s -> args := s :: !args)
+    usage;
+
+  let files = List.rev !args in
   let options = [ "storage", "mem" ] in
   let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
-  Rdf_ttl.from_file g (Rdf_uri.uri file) file;
+  let g = List.fold_left
+    (fun g file ->
+      let base = match !base with None -> Rdf_uri.uri file | Some s -> Rdf_uri.uri s in
+       Rdf_ttl.from_file g ~base file
+    ) g files
+  in
   let dot = Rdf_dot.dot_of_graph g in
   (*print_string dot;*)
-  Rdf_xml.to_file g "/tmp/foo.rdf"
+  Rdf_xml.to_file g "/tmp/foo.rdf";
+  let oc = open_out "/tmp/foo.dot" in
+  output_string oc dot;
+  close_out oc
 
 ;;
 
