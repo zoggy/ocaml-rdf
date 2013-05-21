@@ -51,8 +51,11 @@ let main () =
   let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
   let g = List.fold_left
     (fun g file ->
-      let base = match !base with None -> Rdf_uri.uri file | Some s -> Rdf_uri.uri s in
-       Rdf_ttl.from_file g ~base file
+       let base = match !base with None -> Rdf_uri.uri file | Some s -> Rdf_uri.uri s in
+       try Rdf_ttl.from_file g ~base file
+       with Rdf_ttl.Error e ->
+         prerr_endline ("File "^file^": "^(Rdf_ttl.string_of_error e));
+         exit 1
     ) g files
   in
   let dot = Rdf_dot.dot_of_graph g in

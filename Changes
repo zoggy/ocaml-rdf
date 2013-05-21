@@ -1,4 +1,6 @@
 Next release:
+  * add: turtle parser
+  * mod: Rdf_uri.uri raises Rdf_uri.Invalid_url instead of Neturl.Malformed_URL
   * add: Rdf_dot.dot_of_uri
   * add: ?href parameter to Rdf_dot.dot_of_graph
   * add: tools/rdf_to_svgs
