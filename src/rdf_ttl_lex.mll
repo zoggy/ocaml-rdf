@@ -75,7 +75,7 @@ let rec main = lexer
       Uriref_ (String.sub s 1 (String.length s - 2))
 | prefixName? ':' ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      prerr_endline (Printf.sprintf "prefixName %s" s);
+      (*prerr_endline (Printf.sprintf "prefixName %s" s);*)
       Identifier (String.sub s 0 (String.length s - 1))
 | nodeid ->
   let s = Ulexing.utf8_lexeme lexbuf in
