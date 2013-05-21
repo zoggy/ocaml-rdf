@@ -164,3 +164,33 @@ let from_file g ~base file =
       close_in ic;
       raise e
 ;;
+
+let string_of_triple ~sub ~pred ~obj =
+  (Rdf_node.string_of_node sub)^" "^
+  (Rdf_node.string_of_node pred)^" "^
+  (Rdf_node.string_of_node obj)^" ."
+;;
+
+let to_ print g =
+  List.iter (fun (sub, pred, obj) -> print (string_of_triple ~sub ~pred ~obj)) (g.find ())
+
+let to_string g =
+  let b = Buffer.create 256 in
+  let print s = Buffer.add_string b (s^"\n") in
+  to_ print g;
+  Buffer.contents b
+;;
+
+
+let to_file g file =
+  let oc = open_out file in
+  try
+    let print s = output_string oc (s^"\n") in
+    to_ print g;
+    close_out oc
+  with e ->
+      close_out oc;
+      raise e
+;;
+
+

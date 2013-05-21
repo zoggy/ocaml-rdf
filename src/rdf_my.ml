@@ -489,7 +489,7 @@ let new_blank_id g =
   in
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   Rdf_node.blank_id_of_string
-    ((string_of_int cardinal) ^"-" ^ (string_of_int (Random.int max_int)))
+    ("genid"^(string_of_int cardinal) ^"-" ^ (string_of_int (Random.int max_int)))
 ;;
 
 module Mysql =

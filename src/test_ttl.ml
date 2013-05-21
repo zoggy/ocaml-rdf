@@ -60,7 +60,7 @@ let main () =
   in
   let dot = Rdf_dot.dot_of_graph g in
   (*print_string dot;*)
-  Rdf_xml.to_file g "/tmp/foo.rdf";
+  Rdf_ttl.to_file g "/tmp/foo.ttl";
   let oc = open_out "/tmp/foo.dot" in
   output_string oc dot;
   close_out oc

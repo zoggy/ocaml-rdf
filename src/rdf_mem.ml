@@ -200,7 +200,8 @@ let transaction_rollback g =
 let new_blank_id g =
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   let s =
-    (string_of_int (Triples.Map.cardinal g.g_set_sub))
+    "genid"^
+      (string_of_int (Triples.Map.cardinal g.g_set_sub))
       ^ "-" ^
       (string_of_int (Random.int max_int))
   in
