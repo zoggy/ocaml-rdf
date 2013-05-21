@@ -33,6 +33,7 @@
 let ordf_ns = Rdf_uri.uri "http://ocaml-rdf.forge.ocamlcore.org/ocamlrdf.rdf#namespace"
 
 let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
+let xsd_ s = Rdf_uri.uri ("http://www.w3.org/2001/XMLSchema#"^s);;
 
 (** {3 Syntax names} *)
 
@@ -70,3 +71,10 @@ let rdf_n n = rdf_("_"^(string_of_int n));;
 (** {3 Resource names} *)
 
 let rdf_nil = rdf_"nil"
+
+(** {3 XML Schema datatypes} *)
+
+let xsd_integer = xsd_"integer";;
+let xsd_double = xsd_"double";;
+let xsd_decimal = xsd_"decimal";;
+let xsd_boolean = xsd_"boolean";;

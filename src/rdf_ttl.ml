@@ -80,7 +80,14 @@ and mk_collection ctx g node = function
 and mk_object_node ctx g = function
   | Obj_res res -> (Rdf_node.Uri (uri_of_resource ctx res), ctx, g)
   | Obj_blank b -> mk_blank ctx g b
-  | Obj_literal lit -> assert false
+  | Obj_literal (String (s, lang, typ)) ->
+       let typ =
+         match typ with
+           None -> None
+         | Some r -> Some (uri_of_resource ctx r)
+       in
+       let lit = Rdf_node.mk_literal ?typ ?lang s in
+       (Rdf_node.Literal lit, ctx, g)
 
 and insert_pred sub pred (ctx, g) obj =
   let (obj, ctx, g) = mk_object_node ctx g obj in
@@ -123,13 +130,13 @@ let apply_statements ctx g l =
 ;;
 
 let from_lexbuf g ~base lexbuf =
-  let gstate = { 
-      Rdf_xml.blanks = SMap.empty ; 
+  let gstate = {
+      Rdf_xml.blanks = SMap.empty ;
       gnamespaces = Rdf_uri.Urimap.empty ;
     }
   in
-  let ctx = { 
-      base = base ; 
+  let ctx = {
+      base = base ;
       prefixes = Rdf_ttl_types.SMap.empty ;
       gstate }
   in

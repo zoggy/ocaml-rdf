@@ -23,10 +23,6 @@ type language = string
 
 type literal =
   | String of string * language option * resource option
-  | Integer of int
-  | Decimal of string
-  | Double of string
-  | Boolean of bool
 
 type object_ =
   | Obj_res of resource

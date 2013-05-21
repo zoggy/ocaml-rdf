@@ -33,8 +33,13 @@ let regexp qname = prefixName? ':' name?
 let regexp nodeid = "_:" name
 
 let regexp comment = '#' ( [^0xA 0xD] )*
-
 let regexp ws = 0x20 | 0x9 | 0xD | 0xA
+
+let regexp integer = ('-' | '+') ? ['0'-'9']+
+let regexp exponent = ['e' 'E'] ('-' | '+')? ['0'-'9']+
+let regexp double = ('-' | '+') ? ( ['0'-'9']+ '.' ['0'-'9']* exponent | '.' (['0'-'9'])+ exponent | (['0'-'9'])+ exponent )
+let regexp decimal = ('-' | '+')? ( ['0'-'9']+ '.' ['0'-'9']* | '.' (['0'-'9'])+ | (['0'-'9'])+ )
+let regexp boolean = "true" | "false"
 
 let rec main = lexer
 | 'a' -> A
@@ -53,6 +58,18 @@ let rec main = lexer
 | "@base" -> AT_BASE
 | '@' -> AT
 | "^^" -> HATHAT
+| boolean ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      Boolean s
+| integer ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      Integer s
+| decimal ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      Decimal s
+| double ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      Double s
 | uriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
       Uriref_ (String.sub s 1 (String.length s - 2))

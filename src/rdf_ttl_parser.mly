@@ -18,6 +18,10 @@ open Rdf_ttl_types
 %token <string option * string option> Qname_
 %token <string> Bname
 %token <string> String_
+%token <string> Integer
+%token <string> Decimal
+%token <string> Double
+%token <string> Boolean
 
 %start <Rdf_ttl_types.turtle> main
 
@@ -91,6 +95,10 @@ object_:
 
 literal:
 | String_ lang=option(at_identifier) dt=option(datatype) { String ($1, lang, dt) }
+| Integer { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_integer))) }
+| Decimal { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_decimal))) }
+| Double { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_double))) }
+| Boolean { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_boolean))) }
 ;
 
 at_identifier: AT Identifier { $2 }
