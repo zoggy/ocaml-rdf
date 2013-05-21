@@ -1,0 +1,3 @@
+- handle quads instead of triples (add a context)
+- turtle parser
+- sparql parser + interpreter
