@@ -52,9 +52,11 @@ LIB_RDF_CMOFILES= \
 	rdf_mem.cmo \
 	rdf_dot.cmo \
 	rdf_xml.cmo \
+	rdf_ulex.cmo \
 	rdf_ttl_types.cmo \
 	rdf_ttl_parser.cmo \
 	rdf_ttl_lex.cmo \
+	rdf_ttl.cmo \
 	rdf_sparql_parser.cmo \
 	rdf_sparql_lex.cmo
 
@@ -169,20 +171,19 @@ uninstall: dummy
 # additional dependencies
 ###########################
 
-rdf_ttl_lex.cmo: rdf_ttl_lex.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
+rdf_ttl_lex.ml: rdf_ttl_lex.mll
+	camlp4o -printer Camlp4OCamlPrinter.cmo \
+	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
 
-rdf_ttl_lex.cmx: rdf_ttl_lex.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
+#rdf_ttl_lex.cmx: rdf_ttl_lex.ml
+#	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
 
 rdf_ttl_parser.ml rdf_ttl_parser.mli: rdf_ttl_parser.mly
 	$(MENHIR) --explain --base rdf_ttl_parser $^
 
-rdf_sparql_lex.cmo: rdf_sparql_lex.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
-
-rdf_sparql_lex.cmx: rdf_sparql_lex.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
+rdf_sparql_lex.ml: rdf_sparql_lex.mll
+	camlp4o -printer Camlp4OCamlPrinter.cmo \
+	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 	$(MENHIR) --explain --base rdf_sparql_parser $^

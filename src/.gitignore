@@ -6,4 +6,6 @@ tools/*.annot
 *.dot
 rdf_*parser.ml
 rdf_*parser.mli
-
+rdf_ttl_lex.ml
+rdf_sparql_lex.ml
+*.conflicts

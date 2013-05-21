@@ -12,7 +12,7 @@ open Rdf_ttl_types
 %token LEFT_PAR RIGHT_PAR
 %token LEFT_BRACKET RIGHT_BRACKET
 
-%token <string> Iriref
+%token <string> Uriref_
 %token <string> Identifier
 %token <string option * string option> Qname_
 %token <string> Bname
@@ -94,5 +94,5 @@ at_identifier: AT Identifier { $2 }
 datatype: HATHAT resource { $2 }
 ;
 
-uriref: uri=Iriref { uri }
+uriref: uri=Uriref_ { uri }
 ;
