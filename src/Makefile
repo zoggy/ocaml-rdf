@@ -51,7 +51,9 @@ LIB_RDF_CMOFILES= \
 	rdf_graph.cmo \
 	rdf_mem.cmo \
 	rdf_dot.cmo \
-	rdf_xml.cmo
+	rdf_xml.cmo \
+	rdf_parser.cmo \
+	rdf_lex.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
@@ -163,3 +165,12 @@ uninstall: dummy
 ###########################
 # additional dependencies
 ###########################
+
+rdf_lex.cmo: rdf_lex.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
+
+rdf_lex.cmx: rdf_lex.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
+
+rdf_parser.ml rdf_parser.mli: rdf_parser.mly
+	$(MENHIR) --explain --base rdf_parser $^

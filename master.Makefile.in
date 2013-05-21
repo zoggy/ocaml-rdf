@@ -45,6 +45,7 @@ HACHA=hacha
 DVIPS=dvips
 DVIPDF=dvipdf
 BIBTEX=bibtex
+MENHIR=@MENHIR@
 
 # For installation
 ##############
@@ -68,7 +69,7 @@ MT_FLAGS=@MT_FLAGS@
 
 # generic rules :
 #################
-.SUFFIXES: .mli .ml .cmi .cmo .cmx .mll .mly .tex .dvi .ps .pdf
+.SUFFIXES: .mli .ml .cmi .cmo .cmx .tex .dvi .ps .pdf
 
 %.cmi:%.mli
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
@@ -81,12 +82,6 @@ MT_FLAGS=@MT_FLAGS@
 
 %.cmx %.o:%.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -c $<
-
-%.ml:%.mll
-	$(OCAMLLEX) $<
-
-%.mli %.ml:%.mly
-	$(OCAMLYACC) -v $<
 
 %.dvi: %.tex
 	$(LATEX) $<
