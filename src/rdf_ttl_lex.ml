@@ -24,5 +24,6 @@ let regexp prefixName = ( nameStartChar_nounderscore ) nameChar*
 let regexp name = nameStartChar nameChar*
 
 let main = lexer
+| 'a' -> A
 | _ -> assert false
 ;;

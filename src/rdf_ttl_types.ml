@@ -1,5 +1,11 @@
 (** *)
 
+module SMap = Rdf_xml.SMap;;
+
+type context =
+  { base : Rdf_uri.uri ;
+    prefixes : Rdf_uri.uri SMap.t ;
+  }
 type uriref = string
 
 type directive =
@@ -15,8 +21,7 @@ type resource =
 type language = string
 
 type literal =
-  | String of string * language option
-  | Datatype_string of string * resource
+  | String of string * language option * resource option
   | Integer of int
   | Decimal of string
   | Double of string
@@ -46,3 +51,25 @@ type statement =
 | Triples of subject * predobj list
 
 type turtle = statement list
+
+let uri_of_uriref ctx s =
+  let url = Rdf_uri.neturl (Rdf_uri.uri s) in
+  let url = Neturl.ensure_absolute_url ~base: (Rdf_uri.neturl ctx.base) url in
+  Rdf_uri.of_neturl url
+;;
+
+let insert_sub_predobjs ctx g sub l = (ctx, g)
+
+let apply_statement ctx g = function
+  Directive (Prefix (s_opt, uri)) ->
+    let s = match s_opt with None -> "" | Some s -> s in
+    let uri = uri_of_uriref ctx s in
+    let ctx = { ctx with prefixes = SMap.add s uri ctx.prefixes } in
+    (ctx, g)
+| Directive (Base uri) ->
+    let uri = uri_of_uriref ctx uri in
+    let ctx = { ctx with base = uri } in
+    (ctx, g)
+| Triples (subject, predobjs) ->
+    insert_sub_predobjs ctx g subject predobjs
+;;
