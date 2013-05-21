@@ -4,7 +4,7 @@
 open Rdf_ttl_types
 
 %}
-%token SEMICOLON COMMA COLON DOT HATHAT AT
+%token SEMICOLON COMMA DOT HATHAT AT
 %token AT_PREFIX AT_BASE
 %token EMPTY_BRACKETS
 %token A
@@ -36,7 +36,7 @@ directive:
 ;
 
 prefixID:
-  AT_PREFIX n=option(Identifier) COLON uri=uriref
+  AT_PREFIX n=option(Identifier) uri=uriref
     { Prefix (n, uri) }
 base:
 | AT_BASE uri=uriref
@@ -66,6 +66,10 @@ verb:
 resource:
 | uriref { Uriref $1 }
 | Qname_ { let (a, b) = $1 in Qname (a, b) }
+| Identifier {
+    let p = match $1 with "" -> None | s -> Some s in
+    Qname (p, None)
+  }
 ;
 
 blank:

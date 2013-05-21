@@ -48,7 +48,6 @@ let rec main = lexer
 | ']' -> RIGHT_BRACKET
 | ',' -> COMMA
 | ';' -> SEMICOLON
-| ':' -> COLON
 | '.' -> DOT
 | "@prefix" -> AT_PREFIX
 | "@base" -> AT_BASE
@@ -57,6 +56,10 @@ let rec main = lexer
 | uriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
       Uriref_ (String.sub s 1 (String.length s - 2))
+| prefixName? ':' ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      prerr_endline (Printf.sprintf "prefixName %s" s);
+      Identifier (String.sub s 0 (String.length s - 1))
 | nodeid ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let id = String.sub s 2 (String.length s - 2) in
@@ -78,9 +81,6 @@ let rec main = lexer
   in
   Qname_ (s1, s2)
 
-| prefixName ->
-      let s = Ulexing.utf8_lexeme lexbuf in
-      Identifier s
 | langtag ->
       let s = Ulexing.utf8_lexeme lexbuf in
       Identifier s
