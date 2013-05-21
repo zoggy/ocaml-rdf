@@ -32,8 +32,13 @@ let syntax =
 
 type uri = Neturl.url;;
 
+exception Invalid_url of string
+
 let string uri = Neturl.string_of_url uri;;
-let uri = Neturl.url_of_string syntax;;
+let uri s =
+  try Neturl.url_of_string syntax s
+  with Neturl.Malformed_URL ->
+    raise (Invalid_url s)
 
 let concat uri s =
   let path = (Neturl.url_path uri)@[s] in

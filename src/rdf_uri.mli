@@ -29,10 +29,14 @@
   functional values. Use {!equal} or {!compare}. *)
 type uri
 
+exception Invalid_url of string
+
 (** Create a string from a URI. *)
 val string : uri -> string
 
-(** Create a URI from a string. *)
+(** Create a URI from a string.
+     @raise Invalid_url in case the string does not represent a valid URL.
+*)
 val uri : string -> uri
 
 (** Add the given string to the path of the given URI, using '/' as separator. *)
