@@ -1,7 +1,7 @@
 #################################################################################
 #                OCaml-RDF                                                      #
 #                                                                               #
-#    Copyright (C) 2012 Institut National de Recherche en Informatique          #
+#    Copyright (C) 2012-2013 Institut National de Recherche en Informatique     #
 #    et en Automatique. All rights reserved.                                    #
 #                                                                               #
 #    This program is free software; you can redistribute it and/or modify       #
