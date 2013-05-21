@@ -17,6 +17,9 @@ let string_of_error = function
 ;;
 
 let uri_of_uriref ctx s =
+  (*prerr_endline (Printf.sprintf "uri_of_uriref base=%s s=%S"
+    (Rdf_uri.string ctx.base) s);
+  *)
   let url = Rdf_uri.neturl (Rdf_uri.uri s) in
   let url = Neturl.ensure_absolute_url ~base: (Rdf_uri.neturl ctx.base) url in
   Rdf_uri.of_neturl url
@@ -25,6 +28,12 @@ let uri_of_uriref ctx s =
 let uri_of_resource ctx = function
   Uriref uri -> uri_of_uriref ctx uri
 | Qname (p, n) ->
+    (*prerr_endline
+      (Printf.sprintf "Qname(%S, %S)"
+       (match p with None -> "" | Some s -> s)
+         (match n with None -> "" | Some s -> s)
+      );
+    *)
     let p = match p with None -> "" | Some s -> s in
     begin
       let base =
@@ -35,9 +44,8 @@ let uri_of_resource ctx = function
       match n with
         None -> base
       | Some n ->
-        let base = Rdf_uri.neturl base in
-          let url = Rdf_uri.neturl (Rdf_uri.uri n) in
-          Rdf_uri.of_neturl (Neturl.ensure_absolute_url ~base url)
+          let uri = (Rdf_uri.string base)^n in
+          Rdf_uri.uri uri
     end
 ;;
 
@@ -114,7 +122,9 @@ and insert_sub_predobjs ctx g sub l =
 let apply_statement (ctx, g) = function
   Directive (Prefix (s_opt, uri)) ->
     let s = match s_opt with None -> "" | Some s -> s in
-    let uri = uri_of_uriref ctx s in
+    (*prerr_endline (Printf.sprintf "Directive (Prefix (%S, %s))" s uri);*)
+    let uri = uri_of_uriref ctx uri in
+    (*prerr_endline (Printf.sprintf "uri=%s" (Rdf_uri.string uri));*)
     let ctx = { ctx with prefixes = SMap.add s uri ctx.prefixes } in
     (ctx, g)
 | Directive (Base uri) ->
