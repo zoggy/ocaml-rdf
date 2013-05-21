@@ -584,6 +584,7 @@ PACKAGE_URL=
 ac_unique_file="master.Makefile.in"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+MENHIR
 PACKAGES
 MT_FLAGS
 LIB_POSTGRESQL
@@ -1722,8 +1723,9 @@ fi
 
 
 
+
 RDF_PACKAGES=$PACKAGE
-PACKAGES=netstring,xmlm
+PACKAGES=netstring,xmlm,ulex,menhirLib
 if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
 if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
 

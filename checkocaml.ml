@@ -892,7 +892,13 @@ let _ =
     !print msg; exit 1
 
 let _ = !print "\n### checking required tools and libraries ###\n"
+
+let menhir = ocaml_prog "menhir";;
+let _ = add_subst "MENHIR" menhir;;
+
 let _ = check_ocamlfind_package conf "netstring";;
+let _ = check_ocamlfind_package conf "ulex";;
+
 let _ =
   match check_ocamlfind_package conf ~fail: false "mysql" with
     true -> add_subst "LIB_MYSQL" "rdf_mysql.cmxa"
