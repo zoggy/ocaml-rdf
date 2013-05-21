@@ -4,6 +4,6 @@ tools/*.cm*
 tools/*.o
 tools/*.annot
 *.dot
-rdf_parser.ml
-rdf_parser.mli
+rdf_*parser.ml
+rdf_*parser.mli
 

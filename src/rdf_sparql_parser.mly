@@ -3,7 +3,7 @@
 %{
 
 %}
-%token Foo
+%token <string>Iriref
 
 %start <string> main
 
