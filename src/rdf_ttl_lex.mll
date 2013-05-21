@@ -106,7 +106,7 @@ let rec main = lexer
    String_ (String.sub s 3 (String.length s - 6))
 | string ->
    let s = Ulexing.utf8_lexeme lexbuf in
-   String_ (String.sub s 1 (String.length s - 1))
+   String_ (String.sub s 1 (String.length s - 2))
 | eof -> EOF
 | _ ->
   let s = Ulexing.utf8_lexeme lexbuf in
