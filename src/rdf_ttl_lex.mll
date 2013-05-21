@@ -32,11 +32,14 @@ let regexp qname = prefixName? ':' name?
 
 let regexp nodeid = "_:" name
 
+let regexp comment = '#' ( [^0xA 0xD] )*
+
 let regexp ws = 0x20 | 0x9 | 0xD | 0xA
 
 let rec main = lexer
 | 'a' -> A
 | "\r\n" | '\r' | '\n' -> main lexbuf
+| comment -> main lexbuf
 | ws -> main lexbuf
 | '(' -> LEFT_PAR
 | ')' -> RIGHT_PAR
@@ -87,5 +90,8 @@ let rec main = lexer
 | string ->
    let s = Ulexing.utf8_lexeme lexbuf in
    String_ (String.sub s 1 (String.length s - 1))
-| _ -> assert false
+| eof -> EOF
+| _ ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  failwith (Printf.sprintf "Lexeme %S not handled" s)
 ;;

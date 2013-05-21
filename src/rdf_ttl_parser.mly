@@ -8,6 +8,7 @@ open Rdf_ttl_types
 %token AT_PREFIX AT_BASE
 %token EMPTY_BRACKETS
 %token A
+%token EOF
 
 %token LEFT_PAR RIGHT_PAR
 %token LEFT_BRACKET RIGHT_BRACKET
@@ -18,11 +19,11 @@ open Rdf_ttl_types
 %token <string> Bname
 %token <string> String_
 
-%start <unit> main
+%start <Rdf_ttl_types.turtle> main
 
 %%
 
-%public main : list(statement) { $1 }
+%public main : list(statement) EOF { $1 }
 
 statement:
   directive DOT { Directive $1 }

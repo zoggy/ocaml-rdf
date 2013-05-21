@@ -100,10 +100,13 @@ $(LIB_POSTGRESQL_BYTE): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMOFILES)
 
 test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall rdf_test_mysql.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall $(COMPFLAGS) rdf_test_mysql.cmx
 
 test_xml: $(LIB_RDF) test_xml.cmx
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall test_xml.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_xml.cmx
+
+test_ttl: $(LIB_RDF) test_ttl.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_ttl.cmx
 
 rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
 	$(OCAMLFIND) ocamlopt -package netstring,xmlm -linkpkg -linkall -o $@ $^
