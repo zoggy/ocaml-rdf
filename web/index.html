@@ -3,10 +3,10 @@
 <html>
 <head>
 <title>OCaml-RDF</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <link href="style.css" type="text/css" rel="stylesheet" title="Default"/>
-<link rel="alternate" type="application/rss+xml"
-    title="John Bokma RSS" href="/index.rss">
+<!--<link rel="alternate" type="application/rss+xml"
+    title="OCaml-RDF news" href="/index.rss">-->
 </head>
 <body>
 <h1>OCaml-RDF</h1>
@@ -31,7 +31,8 @@ Implemented features:
 <li>Ability to define your own storages,</li>
 <li>Transactions,</li>
 <li>Importing from and exporting to
-<a href="http://www.w3.org/TR/rdf-syntax-grammar">RDF/XML</a> format.</li>
+<a href="http://www.w3.org/TR/rdf-syntax-grammar">RDF/XML</a> and
+<a href="http://www.w3.org/TeamSubmission/turtle/">Turtle</a> formats.</li>
 </ul>
 <p>
 OCaml-RDF is
@@ -54,6 +55,15 @@ The code is available on
 </p>
 <p>Releases:</p>
 <ul>
+<li><strong><a href="https://forge.ocamlcore.org/frs/download.php/1131/ocaml-rdf-0.5.tar.gz">0.5</a></strong>
+[2013-05-22]:
+  <ul>
+    <li>Add Turtle parser,</li>
+    <li><code>Rdf_uri.uri</code> now raises <code>Rdf_uri.Invalid_url</code> instead of <code>Neturl.Malformed_URL</code>,</li>
+    <li>See <a href="http://gitorious.org/ocaml-rdf/ocaml-rdf/blobs/master/Changes">the complete list</a>.</li>
+  </ul>
+</li>
+
 <li><strong><a href="https://forge.ocamlcore.org/frs/download.php/1131/ocaml-rdf-0.4.tar.gz">0.4</a></strong>
 [2013-03-19]: use string concatenation instead of sprintf; change default graph kind: memory -> mem; linkall option.
 </li>
@@ -76,7 +86,9 @@ The code is available on
 <li><a href="http://raevnos.pennmush.org/code/ocaml-mysql/">OCaml-MySQL &gt;= 1.0.4</a> (not tested with prior versions) for MySQL backend,</li>
 <li><a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</a> (not tested with prior versions) for Postgresql backend,</li>
 <li><a href="http://projects.camlcity.org/projects/ocamlnet.html">OCamlnet &gt;= 3.6</a> (not tested with prior versions),</li>
-<li><a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.0</a>.</li>
+<li><a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.0</a>,</li>
+<li><a href="http://alain.frisch.fr/soft.html#ulex">ulex &gt;= 1.1</a> (not tested with prior versions),</li>
+<li><a href="http://gallium.inria.fr/~fpottier/menhir">Menhir &gt;= 20120123</a> (not tested with prior versions).</li>
 </ul>
 <p>
 Just type
