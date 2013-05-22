@@ -20,4 +20,5 @@ bad:
 	done
 
 
-	
+clean:
+	rm -f *.mine *-sorted
