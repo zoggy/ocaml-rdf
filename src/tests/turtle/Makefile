@@ -7,7 +7,11 @@ all: good bad
 
 good:
 	for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30; do \
-		(../../test_ttl -b $(BASE) test-$${i}.ttl > test-$${i}.mine && /bin/echo -e $(OK) "$$i" ) || /bin/echo -e $(KO) "$$i"; \
+		(../../test_ttl -b $(BASE) test-$${i}.ttl > test-$${i}.mine && \
+		grep -v "_:" test-$${i}.out | sort > test-$${i}.out-sorted && \
+		grep -v "_:" test-$${i}.mine | sort > test-$${i}.mine-sorted && \
+		diff test-$${i}.out-sorted test-$${i}.mine-sorted \
+		&& /bin/echo -e $(OK) "$$i" ) || /bin/echo -e $(KO) "$$i"; \
 	done
 
 bad:

@@ -8,11 +8,10 @@ let regexp character_noquotes = "\\u" hex hex hex hex | "\\U" hex hex hex hex he
 let regexp character_nogt = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x3D] | [0x3F-0x5B] | [0x5D-0x10FFFF]
 let regexp echaracter = character | '\t' | '\n' | '\r'
 let regexp echaracter_noquotes = character_noquotes | '\t' | '\n' | '\r'
-let regexp lcharacter = echaracter | '\"' | 0x9 | 0xA | 0xD
+let regexp lcharacter = echaracter | "\\\"" | 0x9 | 0xA | 0xD
 let regexp scharacter = echaracter_noquotes | "\\\""
-let regexp longstring = 0x22 0x22 0x22 lcharacter* 0x22 0x22 0x22
+let regexp longstring_delim = 0x22 0x22 0x22
 let regexp string = 0x22 scharacter* 0x22
-let regexp quoted_string = string | longstring
 
 let regexp ucharacter = ( character_nogt) | "\\>"
 let regexp relativeURI = ucharacter*
@@ -40,6 +39,29 @@ let regexp exponent = ['e' 'E'] ('-' | '+')? ['0'-'9']+
 let regexp double = ('-' | '+') ? ( ['0'-'9']+ '.' ['0'-'9']* exponent | '.' (['0'-'9'])+ exponent | (['0'-'9'])+ exponent )
 let regexp decimal = ('-' | '+')? ( ['0'-'9']+ '.' ['0'-'9']* | '.' (['0'-'9'])+ | (['0'-'9'])+ )
 let regexp boolean = "true" | "false"
+
+let rec longstring b = lexer
+| longstring_delim ->
+    String_ (Buffer.contents b)
+| '\\' character ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    (* unescape some characters *)
+    (match s.[1] with
+       'n' -> Buffer.add_char b '\n'
+     | 'r' -> Buffer.add_char b '\r'
+     | 't' -> Buffer.add_char b '\t'
+     | '\\' -> Buffer.add_char b '\\'
+     | '"' -> Buffer.add_char b '"'
+     | _ -> Buffer.add_string b s
+    );
+    longstring b lexbuf
+| ('"' | ( [^'"' '\\'] | '\n')* ) ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    longstring b lexbuf
+| eof ->
+   failwith "Unterminated long string"
+;;
 
 let rec main = lexer
 | 'a' -> A
@@ -101,9 +123,7 @@ let rec main = lexer
 | langtag ->
       let s = Ulexing.utf8_lexeme lexbuf in
       Identifier s
-| longstring ->
-   let s = Ulexing.utf8_lexeme lexbuf in
-   String_ (String.sub s 3 (String.length s - 6))
+| longstring_delim -> longstring (Buffer.create 256) lexbuf
 | string ->
    let s = Ulexing.utf8_lexeme lexbuf in
    String_ (String.sub s 1 (String.length s - 2))
@@ -112,3 +132,4 @@ let rec main = lexer
   let s = Ulexing.utf8_lexeme lexbuf in
   failwith (Printf.sprintf "Lexeme %S not handled" s)
 ;;
+

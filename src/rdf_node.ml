@@ -78,7 +78,33 @@ let bool_of_literal lit =
   | _ -> false
 ;;
 
-let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;
+(** We must not escape \u sequences used to encode UTF-8 characters.
+  Since String.escaped escapes all '\\', then unescape "\\u" back to "\u".
+*)
+let unescape_backslash_u s =
+  let len = String.length s in
+  let b = Buffer.create len in
+  let rec iter p =
+    if p < len - 3 then
+      match s.[p], s.[p+1], s.[p+2] with
+        '\\', '\\', 'u' -> Buffer.add_string b "\\u" ; iter (p+3)
+      | '\\', '\\', 'U' -> Buffer.add_string b "\\U" ; iter (p+3)
+      | c, _, _ -> Buffer.add_char b c; iter (p+1)
+    else if p < len then
+        (
+         Buffer.add_char b s.[p] ;
+         iter (p+1)
+        )
+  in
+  iter 0;
+  Buffer.contents b
+;;
+
+let quote_str s =
+  let s = String.escaped s in
+  let s = unescape_backslash_u s in
+  "\"" ^ s ^ "\""
+;;
 
 let string_of_node = function
 | Uri uri -> "<" ^ (Rdf_uri.string uri) ^ ">"
