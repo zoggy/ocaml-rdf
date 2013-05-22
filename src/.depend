@@ -24,14 +24,18 @@ rdf_sparql_parser.cmo : rdf_sparql_parser.cmi
 rdf_sparql_parser.cmx : rdf_sparql_parser.cmi
 rdf_test_mysql.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmx
-rdf_ttl.cmo : rdf_ulex.cmo rdf_ttl_types.cmo rdf_ttl_parser.cmi \
-    rdf_ttl_lex.cmi
-rdf_ttl.cmx : rdf_ulex.cmx rdf_ttl_types.cmx rdf_ttl_parser.cmx \
-    rdf_ttl_lex.cmx
+rdf_ttl.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ulex.cmo rdf_ttl_types.cmo \
+    rdf_ttl_parser.cmi rdf_ttl_lex.cmi rdf_rdf.cmo rdf_node.cmi rdf_graph.cmi \
+    rdf_ttl.cmi
+rdf_ttl.cmx : rdf_xml.cmx rdf_uri.cmx rdf_ulex.cmx rdf_ttl_types.cmx \
+    rdf_ttl_parser.cmx rdf_ttl_lex.cmx rdf_rdf.cmx rdf_node.cmx rdf_graph.cmx \
+    rdf_ttl.cmi
 rdf_ttl_lex.cmo : rdf_ttl_parser.cmi rdf_ttl_lex.cmi
 rdf_ttl_lex.cmx : rdf_ttl_parser.cmx rdf_ttl_lex.cmi
-rdf_ttl_parser.cmo : rdf_ttl_types.cmo rdf_ttl_parser.cmi
-rdf_ttl_parser.cmx : rdf_ttl_types.cmx rdf_ttl_parser.cmi
+rdf_ttl_parser.cmo : rdf_uri.cmi rdf_ttl_types.cmo rdf_rdf.cmo \
+    rdf_ttl_parser.cmi
+rdf_ttl_parser.cmx : rdf_uri.cmx rdf_ttl_types.cmx rdf_rdf.cmx \
+    rdf_ttl_parser.cmi
 rdf_ttl_types.cmo : rdf_xml.cmi rdf_uri.cmi
 rdf_ttl_types.cmx : rdf_xml.cmx rdf_uri.cmx
 rdf_ulex.cmo :
@@ -44,7 +48,7 @@ rdf_xml.cmo : rdf_uri.cmi rdf_rdf.cmo rdf_node.cmi rdf_graph.cmi rdf_dot.cmo \
     rdf_xml.cmi
 rdf_xml.cmx : rdf_uri.cmx rdf_rdf.cmx rdf_node.cmx rdf_graph.cmx rdf_dot.cmx \
     rdf_xml.cmi
-test_ttl.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ttl.cmo rdf_graph.cmi rdf_dot.cmo
+test_ttl.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ttl.cmi rdf_graph.cmi rdf_dot.cmo
 test_ttl.cmx : rdf_xml.cmx rdf_uri.cmx rdf_ttl.cmx rdf_graph.cmx rdf_dot.cmx
 test_xml.cmo : rdf_xml.cmi rdf_uri.cmi rdf_graph.cmi rdf_dot.cmo
 test_xml.cmx : rdf_xml.cmx rdf_uri.cmx rdf_graph.cmx rdf_dot.cmx
@@ -55,6 +59,7 @@ rdf_node.cmi : rdf_uri.cmi
 rdf_parser.cmi :
 rdf_sparql_lex.cmi :
 rdf_sparql_parser.cmi :
+rdf_ttl.cmi : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_ttl_lex.cmi : rdf_ttl_parser.cmi
 rdf_ttl_parser.cmi : rdf_ttl_types.cmo
 rdf_uri.cmi :

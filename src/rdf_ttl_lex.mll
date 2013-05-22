@@ -4,7 +4,7 @@ open Rdf_ttl_parser;;
 
 let regexp hex = [0x30-0x39] | [0x41-0x46]
 let regexp character = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x5B] | [0x5D-0x10FFFF]
-let regexp character_noquotes = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x21] | [0x23-0x5B] | [0x5D-0x10FFFF]
+let regexp character_noquotes = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' character | [0x20-0x21] | [0x23-0x5B] | [0x5D-0x10FFFF]
 let regexp character_nogt = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x3D] | [0x3F-0x5B] | [0x5D-0x10FFFF]
 
 (*let regexp echaracter = character | '\t' | '\n' | '\r'*)
