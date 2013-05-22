@@ -1,3 +1,6 @@
+Next release:
+  * fix: add ulex and menhirLib in META dependencies
+
 Release 0.5:
   * add: turtle parser
   * mod: Rdf_uri.uri raises Rdf_uri.Invalid_url instead of Neturl.Malformed_URL
