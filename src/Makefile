@@ -115,7 +115,7 @@ rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
 #################
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
-	`ls $^ | grep -v example | grep -v test `
+	`ls $^ | grep -v example | grep -v test | grep -v sparql | grep -v rdf_utf8`
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc
@@ -130,7 +130,7 @@ docg: dump.odoc
 	ocamldoc $(OCAMLPP) \
 	-t OCaml-RDF \
 	-load $^ \
-	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 500
+	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
 	$(CP) ../web/style.css ocamldoc/
 
 dot: dep.dot
