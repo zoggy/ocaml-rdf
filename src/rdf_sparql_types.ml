@@ -57,15 +57,28 @@ type data_block_value =
   | DataBlockValueUndef
 ;;
 
+type data_full_block_value =
+  | Nil
+  | Value of data_block_value list
+;;
+
 type inline_data_one_var =
   { idov_pos : pos ;
     idov_var : var ;
-    idov_data : data_block_value ;
+    idov_data : data_block_value list ;
   }
+;;
+
+type inline_data_full =
+  { idf_pos : pos ;
+    idf_vars : var list ;
+    idf_values : data_full_block_value list ;
+  }
+;;
 
 type datablock =
-  | InLineDataOneVar
-  | InLineDataFull
+  | InLineDataOneVar of inline_data_one_var
+  | InLineDataFull of inline_data_full
 
 type values_clause = datablock option;;
 
