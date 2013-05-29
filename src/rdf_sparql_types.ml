@@ -156,11 +156,104 @@ type solution_modifier =
 
 type graph_pattern_not_triples = unit
 
-type triples = unit
+type blank_node =
+  { bnode_pos : pos ;
+    bnode_label : string option ;
+  }
+;;
+
+type graph_term =
+  | GraphTermIri of iri
+  | GraphTermLit of rdf_literal
+  | GraphTermNumeric of rdf_literal
+  | GraphTermBoolean of rdf_literal
+  | GraphTermBlank of blank_node
+  | GraphTermNil
+;;
+
+type path_mod = Optional | List | OneOrMore ;;
+
+type var_or_term =
+  | Var of var
+  | GraphTerm of graph_term
+;;
+
+type path_one_in_prop_set =
+  | PathOneInIri of iri
+  | PathOneInA
+  | PathOneInNotIri of iri
+  | PathOneInNotA
+
+and path_primary =
+  | PathIri of iri
+  | PathA
+  | PathNegPropSet of path_one_in_prop_set list
+  | Path of path
+
+and path_elt = {
+    pelt_pos : pos ;
+    pelt_primary : path_primary ;
+    pelt_mod : path_mod option ;
+  }
+
+and path_elt_or_inverse =
+  | Elt of path_elt
+  | Inv of path_elt
+
+and path_alternative = path_elt_or_inverse list
+
+and path = path_alternative list
+
+type verb =
+  | VerbPath of path
+  | VerbSimple of var
+;;
+
+type triples_node =
+  | TNodeCollection of graph_node list
+  | TNodeBlank of prop_object_list list
+
+and graph_node =
+  | GraphNodeVT of var_or_term
+  | GraphNodeTriples of triples_node
+
+and triples_node_path =
+  | TNodeGraphCollection of graph_node_path list
+  | TNodeGraphTriples of property_list_path
+
+and graph_node_path =
+  | GraphNodePathVT of var_or_term
+  | GraphNodePathTriples of triples_node_path
+
+and object_ = graph_node
+and object_path = graph_node_path
+
+and prop_object_list =
+  { propol_pos : pos ;
+    propol_verb : verb ;
+    propol_objects : object_ list ;
+  }
+
+and property_list_path =
+  { proplp_pos : pos ;
+    proplp_verb : verb ;
+    proplp_objects : object_path list ;
+    proplp_more : prop_object_list list ;
+  }
+;;
+
+type triples_path =
+  { tpath_pos : pos ;
+    tpath_subject : var_or_term ;
+    tpath_path : property_list_path ;
+  }
+
+type triples_same_subject_path =
+  Triples1 of triples_path
 
 type triples_block =
   { triples_pos : pos ;
-    triples : triples list ;
+    triples : triples_same_subject_path list ;
   }
 
 type ggp_sub = {
