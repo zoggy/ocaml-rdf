@@ -154,7 +154,12 @@ type solution_modifier =
   }
 ;;
 
-type graph_pattern_not_triples = unit
+type path_mod = ModOptional | ModList | ModOneOrMore ;;
+
+type var_or_iri =
+  | VIVar of var
+  | VIIri of iri
+;;
 
 type blank_node =
   { bnode_pos : pos ;
@@ -162,23 +167,49 @@ type blank_node =
   }
 ;;
 
-type graph_term =
+type bind =
+  { bind_pos : pos ;
+    bind_expr : expression ;
+    bind_var : var ;
+  }
+;;
+
+type service_graph_pattern =
+  { servgp_pos : pos ;
+    servgp_silent : bool ;
+    servgp_name : var_or_iri ;
+    servgp_pat : group_graph_pattern ;
+  }
+
+and graph_graph_pattern =
+  { graphgp_pos : pos ;
+    graphgp_name : var_or_iri ;
+    graphgp_pat : group_graph_pattern ;
+  }
+
+and graph_pattern_not_triples =
+  | Union of group_graph_pattern list
+  | Optional of group_graph_pattern
+  | Minus of group_graph_pattern
+  | GGP of graph_graph_pattern
+  | Service of service_graph_pattern
+  | Filter of constraint_
+  | Bind of bind
+  | InlineData of datablock
+
+and graph_term =
   | GraphTermIri of iri
   | GraphTermLit of rdf_literal
   | GraphTermNumeric of rdf_literal
   | GraphTermBoolean of rdf_literal
   | GraphTermBlank of blank_node
   | GraphTermNil
-;;
 
-type path_mod = Optional | List | OneOrMore ;;
-
-type var_or_term =
+and var_or_term =
   | Var of var
   | GraphTerm of graph_term
-;;
 
-type path_one_in_prop_set =
+and path_one_in_prop_set =
   | PathOneInIri of iri
   | PathOneInA
   | PathOneInNotIri of iri
@@ -204,12 +235,11 @@ and path_alternative = path_elt_or_inverse list
 
 and path = path_alternative list
 
-type verb =
+and verb =
   | VerbPath of path
   | VerbSimple of var
-;;
 
-type triples_node =
+and triples_node =
   | TNodeCollection of graph_node list
   | TNodeBlank of prop_object_list list
 
@@ -240,29 +270,28 @@ and property_list_path =
     proplp_objects : object_path list ;
     proplp_more : prop_object_list list ;
   }
-;;
 
-type triples_path =
+and triples_path =
   { tpath_pos : pos ;
     tpath_subject : var_or_term ;
     tpath_path : property_list_path ;
   }
 
-type triples_same_subject_path =
+and triples_same_subject_path =
   Triples1 of triples_path
 
-type triples_block =
+and triples_block =
   { triples_pos : pos ;
     triples : triples_same_subject_path list ;
   }
 
-type ggp_sub = {
+and ggp_sub = {
   ggp_sub_pos : pos ;
   ggp_sub_triples : triples_block option ;
   ggp_sub_rest : (graph_pattern_not_triples * triples_block option) list ;
   }
 
-type group_graph_pattern =
+and group_graph_pattern =
   | SubSelect of sub_select
   | GGPSub of ggp_sub
 
