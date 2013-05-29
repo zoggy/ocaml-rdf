@@ -65,13 +65,21 @@ let regexp anon = '[' ws* ']';;
 
 let keywords = [
     "AS", AS ;
+    "ASC", ASC ;
     "ASK", ASK ;
     "BASE", BASE ;
+    "BY", BY ;
     "CONSTRUCT", CONSTRUCT ;
+    "DESC", DESC ;
     "DESCRIBE", DESCRIBE ;
     "DISTINCT", DISTINCT ;
     "FROM", FROM ;
+    "GROUP", GROUP ;
+    "HAVING", HAVING ;
+    "LIMIT", LIMIT ;
     "NAMED", NAMED ;
+    "OFFSET", OFFSET ;
+    "ORDER", ORDER ;
     "PREFIX", PREFIX ;
     "REDUCED", REDUCED ;
     "SELECT", SELECT ;
@@ -82,6 +90,15 @@ let keywords = [
 let main = lexer
 | '*' -> STAR
 | ':' -> COLON
+| '(' -> LPAR
+| ')' -> RPAR
+| ',' -> COMMA
+
+| '(' ws* ')' -> NIL
+
+| integer ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  Integer (int_of_string s)
 
 | pname_ns ->
   let s = Ulexing.utf8_lexeme lexbuf in

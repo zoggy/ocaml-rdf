@@ -13,20 +13,21 @@ let mk_loc start stop =
 %token <Rdf_sparql_types.var>Var_
 %token <Rdf_sparql_types.prefixed_name> Pname_ln
 %token <Rdf_sparql_types.pname_ns> Pname_ns
+%token <int> Integer
 
 %token AS
 %token BASE PREFIX
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
-%token VALUES FROM NAMED
-%token STAR COLON
+%token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET
+%token STAR COLON LPAR RPAR NIL COMMA
 
 %start <Rdf_sparql_types.query> query
 
 %%
 
 %public query:
-  p=prologue k=query_kind v=values_clause
+  p=prologue k=query_kind v=option(values_clause)
   {
     { q_prolog = p ;
       q_kind = k ;
@@ -46,10 +47,8 @@ query_kind:
 | s=select_clause ds=list(dataset_clause) w=where_clause m=solution_modifier
   {
     Select {
-      select_select = s ;
-      select_dataset = ds ;
-      select_where = w ;
-      select_modifier = m ;
+      select_select = s ; select_dataset = ds ;
+      select_where = w ; select_modifier = m ;
     }
   }
 | CONSTRUCT
@@ -117,8 +116,7 @@ prefixed_name:
 ;
 
 values_clause:
-| { None }
-| VALUES d=datablock { Some d }
+| VALUES d=datablock { d }
 ;
 
 datablock:
@@ -126,11 +124,110 @@ datablock:
 ;
 
 solution_modifier:
-| { assert false }
+| g=option(group_clause) h=option(having_clause) o=option(order_clause) lo=option(limit_offset_clause)
+  {
+    let loc = mk_loc $startpos(g) $endpos(lo) in
+    { solmod_loc = loc ;
+      solmod_group = (match g with None -> [] | Some l -> l) ;
+      solmod_having = (match h with None -> [] | Some l -> l) ;
+      solmod_order = o ;
+      solmod_limoff = lo ;
+    }
+  }
+;
+
+group_clause:
+| GROUP BY l=nonempty_list(group_condition)
+  { l }
+;
+
+group_condition:
+| builtin_call { GroupBuiltInCall $1 }
+| function_call { GroupFunctionCall $1 }
+| group_var { GroupVar $1 }
+;
+
+group_var:
+| v=Var_ {
+    let loc = mk_loc $startpos(v) $endpos(v) in
+    { grpvar_loc = loc ; grpvar_expr = None ; grpvar = Some v }
+  }
+| e=expression AS v=Var_ {
+    let loc = mk_loc $startpos(e) $endpos(v) in
+    { grpvar_loc = loc ; grpvar_expr = Some e ; grpvar = Some v }
+  }
+| e=expression {
+    let loc = mk_loc $startpos(e) $endpos(e) in
+    { grpvar_loc = loc ; grpvar_expr = Some e ; grpvar = None }
+  }
+;
+
+limit_offset_clause:
+| l=limit_clause o=option(offset_clause)
+  {
+    let loc = mk_loc $startpos(l) $endpos(o) in
+    { limoff_loc = loc ; limoff_limit = Some l ; limoff_offset = o }
+  }
+| o=offset_clause l=option(limit_clause)
+  {
+    let loc = mk_loc $startpos(o) $endpos(l) in
+    { limoff_loc = loc ; limoff_limit = l ; limoff_offset = Some o }
+  }
+;
+
+limit_clause: LIMIT Integer { $2 };
+offset_clause: OFFSET Integer { $2 };
+
+order_clause:
+| ORDER BY l=nonempty_list(order_condition) { l }
+;
+
+order_condition:
+| ASC bracketted_expression { OrderAsc $2 }
+| DESC bracketted_expression { OrderDesc $2 }
+| constraint_ { OrderConstr $1 }
+| Var_ { OrderVar $1 }
+;
+
+having_clause:
+| HAVING l=nonempty_list(having_condition) { l }
+;
+
+having_condition: constraint_ { $1 }
+;
+
+bracketted_expression: LPAR expression RPAR { $2 };
+
+constraint_:
+| bracketted_expression { ConstrExpr $1 }
+| builtin_call { ConstrBuiltInCall $1 }
+| function_call { ConstrFunctionCall $1 }
 ;
 
 where_clause:
 | { assert false }
 ;
 
-expression: { () };
+builtin_call: Integer { () };
+
+function_call:
+| i=iri a=arg_list
+  {
+    let loc = mk_loc $startpos(i) $endpos(a) in
+    { func_loc = loc ; func_iri = i ; func_args = a }
+  }
+;
+
+arg_list:
+| NIL {
+    let loc = mk_loc $startpos($1) $endpos($1) in
+    { argl_loc = loc ; argl_distinct = false ; argl = [] }
+  }
+| LPAR o=option(DISTINCT) l=separated_nonempty_list(COMMA, expression) RPAR
+  {
+    let loc = mk_loc $startpos($1) $endpos($4) in
+    { argl_loc = loc ; argl_distinct = o <> None ; argl = l }
+  }
+;
+
+expression: GROUP { () };

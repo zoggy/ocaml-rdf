@@ -139,7 +139,7 @@ type group_condition =
 ;;
 
 type constraint_ =
-  | ConstrBuildIntCall of built_in_call
+  | ConstrBuiltInCall of built_in_call
   | ConstrFunctionCall of function_call
   | ConstrExpr of expression
 ;;
@@ -147,7 +147,6 @@ type constraint_ =
 type having_condition = constraint_ ;;
 
 type order_condition =
-  | OrderExpr of expression
   | OrderAsc of expression
   | OrderDesc of expression
   | OrderConstr of constraint_
@@ -166,7 +165,7 @@ type solution_modifier =
     solmod_group : group_condition list;
     solmod_having : having_condition list ;
     solmod_order : order_condition list option ;
-    solmod_offsets : limit_offset_clause option ;
+    solmod_limoff : limit_offset_clause option ;
   }
 ;;
 
