@@ -3,9 +3,7 @@
 open Rdf_ttl_parser;;
 
 let regexp hex = [0x30-0x39] | [0x41-0x46]
-let regexp codepoint_u = "\\u" hex hex hex hex
-let regexp codepoint_U = "\\U" hex hex hex hex hex hex hex hex
-let regexp codepoint_any = [0x00-0x10FFFF]
+
 
 let regexp character = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x5B] | [0x5D-0x10FFFF]
 let regexp character_noquotes = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' character | [0x20-0x21] | [0x23-0x5B] | [0x5D-0x10FFFF]
@@ -138,43 +136,4 @@ let rec main = lexer
   failwith (Printf.sprintf "Lexeme %S not handled" s)
 ;;
 
-let int_of_hex c =
-  match c with
-  | '0'..'9' -> (Char.code c) - 48
-  | 'a'..'f' -> (Char.code c) - 87
-  | 'A'..'F' -> (Char.code c) - 55
-  | _ -> failwith (Printf.sprintf "Invalid hex character %C" c)
-;;
 
-let int_of_hexcp s =
-  let rec iter f acc p =
-    if p < 0 then
-      acc
-    else
-      (
-       let acc = acc + (int_of_hex s.[p]) * f in
-       iter (f * 16) acc (p-1)
-      )
-  in
-  iter 1 0 (String.length s - 1)
-;;
-
-let rec codepoint b = lexer
-| codepoint_u
-| codepoint_U ->
-    let lexeme = Ulexing.utf8_lexeme lexbuf in
-    let cp = int_of_hexcp lexeme in
-    Buffer.add_string b (Rdf_utf8.utf8_char_of_code cp);
-    codepoint b lexbuf
-| codepoint_any ->
-    let lexeme = Ulexing.utf8_lexeme lexbuf in
-    Buffer.add_string b lexeme;
-    codepoint b lexbuf
-| eof -> Buffer.contents b
-;;
-
-let unescape_codepoints s =
-  let lexbuf = Ulexing.from_utf8_string s in
-  let b = Buffer.create 256 in
-  codepoint b lexbuf
-;;

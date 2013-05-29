@@ -111,6 +111,9 @@ test_ttl: $(LIB_RDF) test_ttl.cmx
 rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
 	$(OCAMLFIND) ocamlopt -package netstring,xmlm -linkpkg -linkall -o $@ $^
 
+test_uncodepoint: rdf_utf8.cmx rdf_sparql_lex.cmx test_uncodepoint.ml
+	$(OCAMLFIND) ocamlopt -package ulex -linkpkg -linkall -o $@ $^
+
 # Documentation :
 #################
 dump.odoc: *.mli *.ml

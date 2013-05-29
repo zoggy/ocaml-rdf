@@ -24,3 +24,4 @@
 
 (** Unicode lexer *)
 
+val unescape_codepoints : string -> string
