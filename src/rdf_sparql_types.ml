@@ -1,30 +1,33 @@
 (** *)
 
-type pos = Lexing.position ;;
+type loc =
+  { loc_start : Lexing.position ;
+    loc_end : Lexing.position ;
+  }
 
 type pname_ns = {
-    pname_ns_pos : pos ;
-    pname_ns_name : string option ;
+    pname_ns_loc : loc ;
+    pname_ns_name : string ;
   }
 ;;
 
 type pname_local = {
-    pname_local_pos : pos ;
+    pname_local_loc : loc ;
     pname_local_name : string ;
   }
 
 type var = {
-  var_pos : pos ;
+  var_loc : loc ;
   var_name : string ;
   }
 
 type iriref =
-  { ir_loc : pos ;
+  { ir_loc : loc ;
     ir_iri : Rdf_uri.uri ;
   }
 
 type prefixed_name =
-  { pname_pos : pos ;
+  { pname_loc : loc ;
     pname_ns : pname_ns ;
     pname_local : pname_local option ;
   }
@@ -44,7 +47,7 @@ type query_prolog_decl =
 type query_prolog = query_prolog_decl list ;;
 
 type rdf_literal =
-  { rdf_lit_pos : pos ;
+  { rdf_lit_loc : loc ;
     rdf_lit : Rdf_node.literal ;
   }
 ;;
@@ -63,14 +66,14 @@ type data_full_block_value =
 ;;
 
 type inline_data_one_var =
-  { idov_pos : pos ;
+  { idov_loc : loc ;
     idov_var : var ;
     idov_data : data_block_value list ;
   }
 ;;
 
 type inline_data_full =
-  { idf_pos : pos ;
+  { idf_loc : loc ;
     idf_vars : var list ;
     idf_values : data_full_block_value list ;
   }
@@ -87,7 +90,7 @@ type expression = unit ;;
 type select_clause_flag = Distinct | Reduced ;;
 
 type select_var =
-  { sel_var_pos : pos ;
+  { sel_var_loc : loc ;
     sel_var_expr : expression option ;
     sel_var : var ;
   }
@@ -107,12 +110,12 @@ type source_selector = iri
 type built_in_call = unit
 
 type arg_list =
-  { argl_pos : pos ;
+  { argl_loc : loc ;
     argl_distinct : bool ;
     argl : expression list ;
   }
 type function_call =
-  { func_pos : pos ;
+  { func_loc : loc ;
     func_iri : iri ;
     func_args : arg_list ;
   }
@@ -124,7 +127,7 @@ type dataset_clause =
 ;;
 
 type group_var =
-  { grpvar_pos : pos ;
+  { grpvar_loc : loc ;
     grpvar_expr : expression option ;
     grpvar : var option ;
   }
@@ -152,14 +155,14 @@ type order_condition =
 ;;
 
 type limit_offset_clause =
-  { limoff_pos : pos ;
+  { limoff_loc : loc ;
     limoff_offset : int option ;
     limoff_limit : int option ;
   }
 ;;
 
 type solution_modifier =
-  { solmod_pos : pos ;
+  { solmod_loc : loc ;
     solmod_group : group_condition list;
     solmod_having : having_condition list ;
     solmod_order : order_condition list option ;
@@ -175,27 +178,27 @@ type var_or_iri =
 ;;
 
 type blank_node =
-  { bnode_pos : pos ;
+  { bnode_loc : loc ;
     bnode_label : string option ;
   }
 ;;
 
 type bind =
-  { bind_pos : pos ;
+  { bind_loc : loc ;
     bind_expr : expression ;
     bind_var : var ;
   }
 ;;
 
 type service_graph_pattern =
-  { servgp_pos : pos ;
+  { servgp_loc : loc ;
     servgp_silent : bool ;
     servgp_name : var_or_iri ;
     servgp_pat : group_graph_pattern ;
   }
 
 and graph_graph_pattern =
-  { graphgp_pos : pos ;
+  { graphgp_loc : loc ;
     graphgp_name : var_or_iri ;
     graphgp_pat : group_graph_pattern ;
   }
@@ -235,7 +238,7 @@ and path_primary =
   | Path of path
 
 and path_elt = {
-    pelt_pos : pos ;
+    pelt_loc : loc ;
     pelt_primary : path_primary ;
     pelt_mod : path_mod option ;
   }
@@ -272,26 +275,26 @@ and object_ = graph_node
 and object_path = graph_node_path
 
 and prop_object_list =
-  { propol_pos : pos ;
+  { propol_loc : loc ;
     propol_verb : verb ;
     propol_objects : object_ list ;
   }
 
 and property_list_path =
-  { proplp_pos : pos ;
+  { proplp_loc : loc ;
     proplp_verb : verb ;
     proplp_objects : object_path list ;
     proplp_more : prop_object_list list ;
   }
 
 and triples_var_or_term_props =
-  { tvtp_pos : pos ;
+  { tvtp_loc : loc ;
     tvtp_subject : var_or_term ;
     tvtp_path : property_list_path ;
   }
 
 and triples_node_path_props =
-  { tnpp_pos : pos ;
+  { tnpp_loc : loc ;
     tnpp_path : triples_node_path ;
     tnpp_props : property_list_path list ;
   }
@@ -301,12 +304,12 @@ and triples_same_subject_path =
   | TriplesNodePath of triples_node_path_props
 
 and triples_block =
-  { triples_pos : pos ;
+  { triples_loc : loc ;
     triples : triples_same_subject_path list ;
   }
 
 and ggp_sub = {
-  ggp_sub_pos : pos ;
+  ggp_sub_loc : loc ;
   ggp_sub_triples : triples_block option ;
   ggp_sub_rest : (graph_pattern_not_triples * triples_block option) list ;
   }
@@ -316,7 +319,7 @@ and group_graph_pattern =
   | GGPSub of ggp_sub
 
 and sub_select =
-  { subsel_pos : pos ;
+  { subsel_loc : loc ;
     subsel_select : select_clause ;
     subsel_where : group_graph_pattern ;
     subsel_modifier : solution_modifier ;

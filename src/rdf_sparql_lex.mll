@@ -1,7 +1,26 @@
 (** *)
 
+open Rdf_sparql_types;;
 open Rdf_sparql_parser;;
 
+let mk_loc lb =
+  let start =
+    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = Ulexing.lexeme_start lb; pos_fname = "" }
+  in
+  let stop =
+    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = Ulexing.lexeme_end lb ; pos_fname = "" }
+  in
+  { Rdf_sparql_types.loc_start = start ; loc_end = stop }
+;;
+
+let utf8_find_char t c =
+  let len = Array.length t in
+  let rec iter p =
+    if p >= len then raise Not_found ;
+    if t.(p) = c then p else iter (p+1)
+  in
+  iter 0
+;;
 let regexp hex = ['0'-'9'] | ['A'-'F'] | ['a'-'f']
 let regexp codepoint_u = "\\u" hex hex hex hex
 let regexp codepoint_U = "\\U" hex hex hex hex hex hex hex hex
@@ -42,12 +61,70 @@ let regexp string_literal_long1 = "'''" ( ( "'" | "''" )? ( [^'\'' '\\'] | echar
 let regexp string_literal_long2 = "\"\"\"" ( ( '"' | "\"\"" )? ( [^'"' '\\'] | echar ) )* "\"\"\""
 let regexp ws = 0x20 | 0x9 | 0xD | 0xA
 let regexp nil = '(' ws* ')'
-let regexp anon = '[' ws* ']'
+let regexp anon = '[' ws* ']';;
+
+let keywords = [
+    "AS", AS ;
+    "ASK", ASK ;
+    "BASE", BASE ;
+    "CONSTRUCT", CONSTRUCT ;
+    "DESCRIBE", DESCRIBE ;
+    "DISTINCT", DISTINCT ;
+    "FROM", FROM ;
+    "NAMED", NAMED ;
+    "PREFIX", PREFIX ;
+    "REDUCED", REDUCED ;
+    "SELECT", SELECT ;
+    "VALUES", VALUES ;
+  ]
+;;
 
 let main = lexer
-  iriref ->
+| '*' -> STAR
+| ':' -> COLON
+
+| pname_ns ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let t =
+    { Rdf_sparql_types.pname_ns_loc = mk_loc lexbuf ;
+      pname_ns_name = String.sub s 0 (String.length s - 1) ; (* remove final ':' *)
+    }
+  in
+  Pname_ns t
+
+| pname_ln ->
+  let t = Ulexing.lexeme lexbuf in
+  let p =
+    try utf8_find_char t (Char.code ':')
+    with Not_found -> assert false
+  in
+  let ns = Ulexing.utf8_sub_lexeme lexbuf 0 p in
+  let ln =
+    let len = Array.length t in
+    if len > p + 1 then
+      Ulexing.utf8_sub_lexeme lexbuf (p+1) ((len - p) - 1)
+    else
+      ""
+  in
+  let loc = mk_loc lexbuf in
+  let pl =
+    match ln with
+      "" -> None
+    | _ ->
+        Some { pname_local_loc = loc ; pname_local_name = ln }
+  in
+  Pname_ln
+    {
+      pname_loc = loc ;
+      pname_ns = { pname_ns_loc = loc ; pname_ns_name = ns } ;
+      pname_local = pl ;
+    }
+
+| iriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Iriref (String.sub s 1 (String.length s - 2))
+      let s = String.sub s 1 (String.length s - 2) in
+      let loc = mk_loc lexbuf in
+      Iriref_ { ir_loc = loc ; ir_iri = Rdf_uri.uri s }
 | _ -> assert false
 ;;
 
