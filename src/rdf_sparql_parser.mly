@@ -1,12 +1,13 @@
 (** *)
 
 %{
+open Rdf_sparql_types;;
 
 %}
 %token <string>Iriref
 
-%start <string> main
+%start <Rdf_sparql_types.query> query
 
 %%
 
-%public main:  { "" }
+%public query:  { assert false }
