@@ -271,14 +271,21 @@ and property_list_path =
     proplp_more : prop_object_list list ;
   }
 
-and triples_path =
-  { tpath_pos : pos ;
-    tpath_subject : var_or_term ;
-    tpath_path : property_list_path ;
+and triples_var_or_term_props =
+  { tvtp_pos : pos ;
+    tvtp_subject : var_or_term ;
+    tvtp_path : property_list_path ;
+  }
+
+and triples_node_path_props =
+  { tnpp_pos : pos ;
+    tnpp_path : triples_node_path ;
+    tnpp_props : property_list_path list ;
   }
 
 and triples_same_subject_path =
-  Triples1 of triples_path
+  | TriplesVar of triples_var_or_term_props
+  | TriplesNodePath of triples_node_path_props
 
 and triples_block =
   { triples_pos : pos ;
