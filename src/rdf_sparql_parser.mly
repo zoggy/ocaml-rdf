@@ -10,7 +10,8 @@ let mk_loc start stop =
 ;;
 %}
 %token <Rdf_sparql_types.iriref>Iriref_
-%token <Rdf_sparql_types.var>Var_
+%token <string>Var1
+%token <string>Var2
 %token <Rdf_sparql_types.prefixed_name> Pname_ln
 %token <Rdf_sparql_types.pname_ns> Pname_ns
 %token <string> Blank_node_label
@@ -82,13 +83,13 @@ select_vars:
 ;
 
 select_var:
-| Var_ {
+| var {
     { sel_var_loc = mk_loc $startpos($1) $endpos($1) ;
       sel_var_expr = None ;
       sel_var = $1 ;
     }
   }
-| e=expression AS v=Var_ {
+| e=expression AS v=var {
     { sel_var_loc = mk_loc $startpos(e) $endpos(v) ;
       sel_var_expr = Some e ;
       sel_var = v ;
@@ -154,11 +155,11 @@ group_condition:
 ;
 
 group_var:
-| v=Var_ {
+| v=var {
     let loc = mk_loc $startpos(v) $endpos(v) in
     { grpvar_loc = loc ; grpvar_expr = None ; grpvar = Some v }
   }
-| e=expression AS v=Var_ {
+| e=expression AS v=var {
     let loc = mk_loc $startpos(e) $endpos(v) in
     { grpvar_loc = loc ; grpvar_expr = Some e ; grpvar = Some v }
   }
@@ -192,7 +193,7 @@ order_condition:
 | ASC bracketted_expression { OrderAsc $2 }
 | DESC bracketted_expression { OrderDesc $2 }
 | constraint_ { OrderConstr $1 }
-| Var_ { OrderVar $1 }
+| var { OrderVar $1 }
 ;
 
 having_clause:
@@ -333,7 +334,7 @@ object_: graph_node { $1 }
 
 verb_path_or_simple:
 | path { VerbPath $1 }
-| Var_ { VerbSimple $1 }
+| var { VerbSimple $1 }
 ;
 
 graph_node:
@@ -396,13 +397,26 @@ verb:
 ;
 
 var_or_iri:
-| Var_ { VIVar $1 }
+| var { VIVar $1 }
 | iri { VIIri $1 }
 ;
 
 var_or_term:
-| Var_ { Var $1 }
+| var { Var $1 }
 | graph_term { GraphTerm $1 }
+;
+
+var:
+| s=Var1
+  {
+    let loc = mk_loc $startpos(s) $endpos(s) in
+    { var_loc = loc ; var_name = s }
+  }
+| s=Var2
+  {
+    let loc = mk_loc $startpos(s) $endpos(s) in
+    { var_loc = loc ; var_name = s }
+  }
 ;
 
 graph_term:

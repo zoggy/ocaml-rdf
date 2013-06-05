@@ -110,6 +110,20 @@ let main = lexer
 
 | '(' ws* ')' -> NIL
 
+| var1 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  (* remove beginning ? *)
+  let label = String.sub s 1 (len - 1) in
+  Var1 label
+
+| var2 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  (* remove beginning $ *)
+  let label = String.sub s 1 (len - 1) in
+  Var2 label
+
 | blank_node_label ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let len = String.length s in
