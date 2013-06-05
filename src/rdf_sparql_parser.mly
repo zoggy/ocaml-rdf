@@ -8,6 +8,18 @@ let mk_loc start stop =
     loc_end = stop ;
   }
 ;;
+
+let mk_lit = Rdf_node.mk_literal ;;
+let xsd_integer = Rdf_rdf.xsd_integer;;
+let xsd_double = Rdf_rdf.xsd_double;;
+let xsd_decimal = Rdf_rdf.xsd_decimal;;
+let xsd_boolean = Rdf_rdf.xsd_boolean;;
+
+let mk_integer = mk_lit ~typ: xsd_integer;;
+let mk_decimal = mk_lit ~typ: xsd_decimal;;
+let mk_double = mk_lit ~typ: xsd_double;;
+let mk_boolean = mk_lit ~typ: xsd_boolean;;
+
 %}
 %token <Rdf_sparql_types.iriref>Iriref_
 %token <string>Var1
@@ -15,7 +27,6 @@ let mk_loc start stop =
 %token <Rdf_sparql_types.prefixed_name> Pname_ln
 %token <Rdf_sparql_types.pname_ns> Pname_ns
 %token <string> Blank_node_label
-%token <int> Integer
 
 %token EOF
 %token A
@@ -31,7 +42,18 @@ let mk_loc start stop =
 %token LBRACKET RBRACKET
 %token UNDEF
 %token UNION OPTIONAL GRAPH SERVICE SILENT BIND MINUS FILTER
+%token AMPAMP PIPEPIPE
 
+%token <string>Integer
+%token <string>Decimal
+%token <string>Double
+%token <string>Integer_positive
+%token <string>Decimal_positive
+%token <string>Double_positive
+%token <string>Integer_negative
+%token <string>Decimal_negative
+%token <string>Double_negative
+%token <string>Boolean
 
 %start <Rdf_sparql_types.query> query
 
@@ -230,8 +252,8 @@ limit_offset_clause:
   }
 ;
 
-limit_clause: LIMIT Integer { $2 };
-offset_clause: OFFSET Integer { $2 };
+limit_clause: LIMIT Integer { int_of_string $2 };
+offset_clause: OFFSET Integer { int_of_string $2 };
 
 order_clause:
 | ORDER BY l=nonempty_list(order_condition) { l }
@@ -676,14 +698,76 @@ arg_list:
   }
 ;
 
-expression: GROUP { () };
+expression: l=conditional_or_expression {
+    let loc = mk_loc $startpos(l) $endpos(l) in
+    { expr_loc = loc ; expr_or_exprs = l }
+  }
+;
+
+conditional_or_expression:
+  separated_nonempty_list(PIPEPIPE, conditional_and_expression) { $1 }
+;
+
+conditional_and_expression:
+  l=separated_nonempty_list(AMPAMP, value_logical)
+  { l }
+;
+
+value_logical: rational_expression { $1 }
+;
+
+rational_expression:
+| unary_expression { assert false }
+| binary_expression { assert false }
+;
+
+unary_expression: RBRACE { assert false }
+;
+
+binary_expression: LBRACE { assert false }
+;
 
 numeric_literal:
-| DOT { assert false }
+  numeric_literal_
+  {
+    let loc = mk_loc $startpos($1) $endpos($1) in
+    { rdf_lit_loc = loc ;
+      rdf_lit = $1 ;
+    }
+  }
+;
+
+numeric_literal_:
+| numeric_literal_unsigned { $1 }
+| numeric_literal_positive { $1 }
+| numeric_literal_negative { $1 }
+;
+
+numeric_literal_unsigned:
+| Integer { mk_integer $1 }
+| Decimal { mk_decimal $1 }
+| Double { mk_double $1 }
+;
+
+numeric_literal_positive:
+| Integer_positive { mk_integer $1 }
+| Decimal_positive { mk_decimal $1 }
+| Double_positive { mk_double $1 }
+;
+
+numeric_literal_negative:
+| Integer_negative { mk_integer $1 }
+| Decimal_negative { mk_decimal $1 }
+| Double_negative { mk_double $1 }
 ;
 
 boolean_literal:
-| LPAR { assert false }
+| Boolean {
+    let loc = mk_loc $startpos($1) $endpos($1) in
+    { rdf_lit_loc = loc ;
+      rdf_lit = mk_boolean $1 ;
+    }
+  }
 ;
 
 rdf_literal:

@@ -54,6 +54,7 @@ let regexp double_positive = '+'double
 let regexp integer_negative = '-'integer
 let regexp decimal_negative = '-'decimal
 let regexp double_negative = '-'double
+let regexp boolean = "true" | "false"
 let regexp echar = '\\' ['t' 'b' 'n' 'r' 'f' '"' '\'']
 let regexp string_literal1 = "'" ( ([^0x27 0x5C 0xA 0xD]) | echar )* "'"
 let regexp string_literal2 = '"' ( ([^0x22 0x5C 0xA 0xD]) | echar )* '"'
@@ -84,6 +85,7 @@ let rec main = lexer
 | '.' -> DOT
 | 'a' -> A
 | '|' -> PIPE
+| "||" -> PIPEPIPE
 | '/' -> SLASH
 | '^' -> HAT
 | '!' -> BANG
@@ -92,10 +94,23 @@ let rec main = lexer
 | '[' -> LBRACKET
 | ']' -> RBRACKET
 | ';' -> SEMICOLON
+| "&&" -> AMPAMP
 
 | '(' ws* ')' -> NIL
 
 | ws -> main lexbuf
+
+| integer -> Integer (Ulexing.utf8_lexeme lexbuf)
+| decimal -> Decimal (Ulexing.utf8_lexeme lexbuf)
+| double -> Double (Ulexing.utf8_lexeme lexbuf)
+| integer_positive -> Integer_positive (Ulexing.utf8_lexeme lexbuf)
+| decimal_positive -> Decimal_positive (Ulexing.utf8_lexeme lexbuf)
+| double_positive -> Double_positive (Ulexing.utf8_lexeme lexbuf)
+| integer_negative -> Integer_negative (Ulexing.utf8_lexeme lexbuf)
+| decimal_negative -> Decimal_negative (Ulexing.utf8_lexeme lexbuf)
+| double_negative -> Double_negative (Ulexing.utf8_lexeme lexbuf)
+
+| boolean -> Boolean (Ulexing.utf8_lexeme lexbuf)
 
 | ('a'|'A') ('s'|'S')  -> AS
 | ('a'|'A') ('s'|'S') ('c'|'C')  -> ASC
@@ -151,11 +166,6 @@ let rec main = lexer
 
 | anon ->
   ANON
-
-| integer ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  Integer (int_of_string s)
-
 
 | pname_ln ->
   let t = Ulexing.lexeme lexbuf in

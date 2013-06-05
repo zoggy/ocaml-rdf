@@ -85,7 +85,64 @@ type datablock =
 
 type values_clause = datablock option;;
 
-type expression = unit ;;
+type built_in_call = unit
+
+type arg_list =
+  { argl_loc : loc ;
+    argl_distinct : bool ;
+    argl : expression list ;
+  }
+and function_call =
+  { func_loc : loc ;
+    func_iri : iri ;
+    func_args : arg_list ;
+  }
+
+and rational_expression =
+  | Numexp of numeric_expression
+  | Equal of numeric_expression * numeric_expression
+  | NotEqual of numeric_expression * numeric_expression
+  | Lt of numeric_expression * numeric_expression
+  | GT of numeric_expression * numeric_expression
+  | Lte of numeric_expression * numeric_expression
+  | Gte of numeric_expression * numeric_expression
+  | In of numeric_expression * expression list
+  | NotIn of numeric_expression * expression list
+
+and numeric_expression = add_expression
+and add_expression = mult_expression * add_expression2 list
+and add_expression2 =
+  | ExpPlus of mult_expression
+  | ExpMinus of mult_expression
+  | ExpPosNumeric of rdf_literal * ([`Mult | `Div] * unary_expression) list
+  | ExpNegNumeric of rdf_literal * ([`Mult | `Div] * unary_expression) list
+
+and mult_expression =
+  | Unary of unary_expression
+  | Mult of unary_expression * unary_expression
+  | Div of unary_expression * unary_expression
+
+and unary_expression =
+  | Primary of primary_expression
+  | PrimNot of primary_expression
+  | PrimPlus of primary_expression
+  | PrimMinus of primary_expression
+
+and primary_expression =
+  | PrimExpr of expression
+  | PrimBuiltInCall of built_in_call
+  | PrimFun of function_call
+  | PrimLit of rdf_literal
+  | PrimNumeric of rdf_literal
+  | PrimBoolean of rdf_literal
+  | PrimVar of var
+
+and expression =
+  { expr_loc : loc ;
+    expr_or_exprs : and_expression list ; (* exp1 or exp2 ... *)
+  }
+and and_expression = value_logical list
+and value_logical = rational_expression;;
 
 type select_clause_flag = Distinct | Reduced ;;
 
@@ -107,19 +164,6 @@ type select_clause = {
 
 type source_selector = iri
 
-type built_in_call = unit
-
-type arg_list =
-  { argl_loc : loc ;
-    argl_distinct : bool ;
-    argl : expression list ;
-  }
-type function_call =
-  { func_loc : loc ;
-    func_iri : iri ;
-    func_args : arg_list ;
-  }
-;;
 
 type dataset_clause =
   | DefaultGraphClause of source_selector
