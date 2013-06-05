@@ -28,6 +28,9 @@ let mk_loc start stop =
 %token LPAR RPAR
 %token LBRACE RBRACE
 %token LBRA RBRA
+%token UNDEF
+%token UNION OPTIONAL GRAPH SERVICE SILENT BIND MINUS FILTER
+
 
 %start <Rdf_sparql_types.query> query
 
@@ -123,11 +126,53 @@ prefixed_name:
 ;
 
 values_clause:
-| VALUES d=datablock { d }
+| VALUES d=option(datablock) { d }
 ;
 
 datablock:
-| LPAR { assert false }
+| inline_data_one_var { InLineDataOneVar $1 }
+| inline_data_full { InLineDataFull $1 }
+;
+
+inline_data_one_var:
+v=var LBRA l=list(data_block_value) RBRA
+  {
+    let loc = mk_loc $startpos(v) $endpos($4) in
+    { idov_loc = loc ;
+      idov_var = v ;
+      idov_data = l ;
+    }
+  }
+;
+
+inline_data_full:
+  vars=nil_or_var_list LBRA l=list(data_block_values_or_nil) RBRA
+  {
+    let loc = mk_loc $startpos(vars) $endpos($4) in
+    {
+      idf_loc = loc ;
+      idf_vars = vars ;
+      idf_values = l ;
+    }
+  }
+;
+
+nil_or_var_list:
+| NIL { [] }
+| LPAR l=list(var) RPAR { l }
+;
+
+data_block_values_or_nil:
+| NIL { Nil }
+| LPAR l=list(data_block_value) RPAR { Value l }
+;
+
+data_block_value:
+| iri { DataBlockValueIri $1 }
+| rdf_literal { DataBlockValueRdf $1 }
+| numeric_literal { DataBlockValueNumeric $1 }
+| boolean_literal { DataBlockValueBoolean $1 }
+| UNDEF { DataBlockValueUndef }
 ;
 
 solution_modifier:
@@ -429,7 +474,76 @@ graph_term:
 ;
 
 graph_pattern_not_triples:
-| LPAR { assert false }
+| group_of_union_graph_pattern { $1 }
+| optional_graph_pattern { $1 }
+| minus_graph_pattern { $1 }
+| graph_graph_pattern { $1 }
+| service_graph_pattern { $1 }
+| filter { $1 }
+| bind { $1 }
+| inline_data { $1 }
+;
+
+group_of_union_graph_pattern:
+  l=separated_nonempty_list(UNION, group_graph_pattern) { Union l }
+;
+
+optional_graph_pattern:
+  OPTIONAL g=group_graph_pattern { Optional g }
+;
+
+minus_graph_pattern:
+  MINUS g=group_graph_pattern { Minus g }
+;
+
+graph_graph_pattern:
+  GRAPH vi=var_or_iri g=group_graph_pattern
+  {
+    let loc = mk_loc $startpos($1) $endpos(g) in
+    let t =
+      { graphgp_loc = loc ;
+        graphgp_name = vi ;
+        graphgp_pat = g ;
+      }
+    in
+    GGP t
+  }
+;
+
+service_graph_pattern:
+  SERVICE silent=option(SILENT) vi=var_or_iri g=group_graph_pattern
+  {
+    let loc = mk_loc $startpos($1) $endpos(g) in
+    let t =
+      { servgp_loc = loc ;
+        servgp_silent = silent <> None ;
+        servgp_name = vi ;
+        servgp_pat = g ;
+      }
+    in
+    Service t
+  }
+;
+
+filter: FILTER constraint_ { Filter $2 }
+;
+
+bind:
+  BIND LPAR e=expression AS v=var RPAR
+  {
+    let loc = mk_loc $startpos($1) $endpos($6) in
+    let t =
+      { bind_loc = loc ;
+        bind_expr = e ;
+        bind_var = v ;
+      }
+    in
+    Bind t
+  }
+;
+
+inline_data:
+  VALUES datablock { InlineData $2 }
 ;
 
 object_list_path: separated_nonempty_list(COMMA, object_path) { $1 }
