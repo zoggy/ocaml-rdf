@@ -22,7 +22,12 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Unicode lexer *)
+type error =
+| Parse_error of int * int * string
 
-val unescape_codepoints : string -> string
-val main : Ulexing.lexbuf -> Rdf_sparql_parser.token
+exception Error of error
+
+val string_of_error : error -> string
+
+val parse_from_string : string -> Rdf_sparql_types.query
+val parse_from_file : string -> Rdf_sparql_types.query

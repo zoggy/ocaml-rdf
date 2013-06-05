@@ -64,7 +64,16 @@ let regexp nil = '(' ws* ')'
 let regexp anon = '[' ws* ']';;
 
 
-let main = lexer
+let rec main = lexer
+| pname_ns ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let t =
+    { Rdf_sparql_types.pname_ns_loc = mk_loc lexbuf ;
+      pname_ns_name = String.sub s 0 (String.length s - 1) ; (* remove final ':' *)
+    }
+  in
+  Pname_ns t
+
 | '*' -> STAR
 | ':' -> COLON
 | '(' -> LPAR
@@ -80,11 +89,13 @@ let main = lexer
 | '!' -> BANG
 | '?' -> QM
 | '+' -> PLUS
-| '[' -> LBRA
-| ']' -> RBRA
+| '[' -> LBRACKET
+| ']' -> RBRACKET
 | ';' -> SEMICOLON
 
 | '(' ws* ')' -> NIL
+
+| ws -> main lexbuf
 
 | ('a'|'A') ('s'|'S')  -> AS
 | ('a'|'A') ('s'|'S') ('c'|'C')  -> ASC
@@ -145,14 +156,6 @@ let main = lexer
   let s = Ulexing.utf8_lexeme lexbuf in
   Integer (int_of_string s)
 
-| pname_ns ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let t =
-    { Rdf_sparql_types.pname_ns_loc = mk_loc lexbuf ;
-      pname_ns_name = String.sub s 0 (String.length s - 1) ; (* remove final ':' *)
-    }
-  in
-  Pname_ns t
 
 | pname_ln ->
   let t = Ulexing.lexeme lexbuf in
@@ -183,11 +186,15 @@ let main = lexer
     }
 
 | iriref ->
-      let s = Ulexing.utf8_lexeme lexbuf in
-      let s = String.sub s 1 (String.length s - 2) in
-      let loc = mk_loc lexbuf in
-      Iriref_ { ir_loc = loc ; ir_iri = Rdf_uri.uri s }
-| _ -> assert false
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let s = String.sub s 1 (String.length s - 2) in
+  let loc = mk_loc lexbuf in
+  Iriref_ { ir_loc = loc ; ir_iri = Rdf_uri.uri s }
+
+| eof ->
+    EOF
+| _ ->
+  failwith (Printf.sprintf "Unexpected lexeme: %S" (Ulexing.utf8_lexeme lexbuf));
 ;;
 
 let int_of_hex c =

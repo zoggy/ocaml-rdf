@@ -17,6 +17,7 @@ let mk_loc start stop =
 %token <string> Blank_node_label
 %token <int> Integer
 
+%token EOF
 %token A
 %token ANON
 %token AS
@@ -27,7 +28,7 @@ let mk_loc start stop =
 %token STAR COLON NIL COMMA DOT PIPE SLASH HAT BANG QM PLUS SEMICOLON
 %token LPAR RPAR
 %token LBRACE RBRACE
-%token LBRA RBRA
+%token LBRACKET RBRACKET
 %token UNDEF
 %token UNION OPTIONAL GRAPH SERVICE SILENT BIND MINUS FILTER
 
@@ -37,7 +38,7 @@ let mk_loc start stop =
 %%
 
 %public query:
-  p=prologue k=query_kind v=values_clause
+  p=prologue k=query_kind v=values_clause EOF
   {
     { q_prolog = p ;
       q_kind = k ;
@@ -125,8 +126,10 @@ prefixed_name:
   }
 ;
 
-values_clause:
-| VALUES d=option(datablock) { d }
+values_clause: option(values_clause_) { $1 }
+;
+values_clause_:
+| VALUES d=datablock { d }
 ;
 
 datablock:
@@ -135,7 +138,7 @@ datablock:
 ;
 
 inline_data_one_var:
-v=var LBRA l=list(data_block_value) RBRA
+v=var LBRACE l=list(data_block_value) RBRACE
   {
     let loc = mk_loc $startpos(v) $endpos($4) in
     { idov_loc = loc ;
@@ -146,7 +149,7 @@ v=var LBRA l=list(data_block_value) RBRA
 ;
 
 inline_data_full:
-  vars=nil_or_var_list LBRA l=list(data_block_values_or_nil) RBRA
+  vars=nil_or_var_list LBRACE l=list(data_block_values_or_nil) RBRACE
   {
     let loc = mk_loc $startpos(vars) $endpos($4) in
     {
@@ -257,7 +260,7 @@ constraint_:
 ;
 
 where_clause:
-| WHERE group_graph_pattern { $2 }
+| option(WHERE) group_graph_pattern { $2 }
 ;
 
 group_graph_pattern:
@@ -280,7 +283,7 @@ subselect:
 ;
 
 group_graph_pattern_sub:
-| t=option(triples_block) l=list(gp_or_triples)
+| t=option(triples_block) l=list(gp_triples)
   {
     let loc = mk_loc $startpos(t) $endpos(l) in
     { ggp_sub_loc = loc ;
@@ -290,19 +293,32 @@ group_graph_pattern_sub:
   }
 ;
 
-gp_or_triples:
+gp_triples:
 | gp=graph_pattern_not_triples option(DOT) t=option(triples_block)
   { (gp, t) }
 ;
 
 triples_block:
-| l=separated_nonempty_list(DOT,triples_same_subject_path)
+| l=triples_block_details
   {
     let loc = mk_loc $startpos(l) $endpos(l) in
     { triples_loc = loc ;
       triples = l ;
     }
   }
+;
+triples_block_details:
+| s=triples_same_subject_path rest=option(triples_block_details2)
+  {
+    match rest with
+      None -> [s]
+    | Some l -> s :: l
+  }
+;
+
+triples_block_details2:
+| DOT t=option(triples_block_details)
+  { match t with None -> [] | Some l -> l }
 ;
 
 triples_same_subject_path:
@@ -397,7 +413,7 @@ LPAR nonempty_list(graph_node) RPAR { $2 }
 ;
 
 blank_node_property_list:
-LBRA property_list_not_empty RBRA { $2 }
+LBRACKET property_list_not_empty RBRACKET { $2 }
 ;
 
 property_list_not_empty:
@@ -567,7 +583,7 @@ LPAR nonempty_list(graph_node_path) RPAR { $2 }
 ;
 
 blank_node_property_list_path:
-LBRA property_list_path_not_empty RBRA { $2 }
+LBRACKET property_list_path_not_empty RBRACKET { $2 }
 ;
 
 path: path_alternative { $1 };

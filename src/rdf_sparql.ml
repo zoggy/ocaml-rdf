@@ -22,7 +22,37 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Unicode lexer *)
+type error =
+| Parse_error of int * int * string
 
-val unescape_codepoints : string -> string
-val main : Ulexing.lexbuf -> Rdf_sparql_parser.token
+exception Error of error
+
+let string_of_error = function
+  Parse_error (start, stop, s) ->
+    Printf.sprintf "characters %d-%d: parse error on lexeme %S" start stop s
+;;
+
+let parse_from_lexbuf lexbuf =
+  let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main in
+  let q =
+    try parse lexbuf
+    with Rdf_sparql_parser.Error ->
+        let (start, stop) = Ulexing.loc lexbuf in
+        let lexeme = Ulexing.utf8_lexeme lexbuf in
+        raise (Error (Parse_error (start, stop, lexeme)))
+  in
+  q
+
+let parse_from_string s =
+  let lexbuf = Ulexing.from_utf8_string s in
+  parse_from_lexbuf lexbuf
+;;
+
+let parse_from_file file =
+  let ic = open_in file in
+  let lexbuf = Ulexing.from_utf8_channel ic in
+  try parse_from_lexbuf lexbuf
+  with e ->
+      close_in ic;
+      raise e
+;;

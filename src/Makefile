@@ -59,7 +59,8 @@ LIB_RDF_CMOFILES= \
 	rdf_ttl.cmo \
 	rdf_sparql_types.cmo \
 	rdf_sparql_parser.cmo \
-	rdf_sparql_lex.cmo
+	rdf_sparql_lex.cmo \
+	rdf_sparql.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
@@ -108,6 +109,9 @@ test_xml: $(LIB_RDF) test_xml.cmx
 
 test_ttl: $(LIB_RDF) test_ttl.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_ttl.cmx
+
+test_sparql: $(LIB_RDF) test_sparql.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_sparql.cmx
 
 rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
 	$(OCAMLFIND) ocamlopt -package netstring,xmlm -linkpkg -linkall -o $@ $^

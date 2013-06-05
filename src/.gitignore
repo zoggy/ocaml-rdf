@@ -1,5 +1,6 @@
 test_xml
 test_ttl
+test_sparql
 test_mysql
 rdf_to_svgs
 tools/*.cm*

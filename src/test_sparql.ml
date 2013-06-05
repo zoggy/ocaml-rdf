@@ -22,7 +22,41 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Unicode lexer *)
+(** Testing Sparql parser. *)
 
-val unescape_codepoints : string -> string
-val main : Ulexing.lexbuf -> Rdf_sparql_parser.token
+let fatal s = prerr_endline s ; exit 1 ;;
+let usage = Printf.sprintf "Usage: %s [options] <queries>\nwhere options are:" Sys.argv.(0);;
+
+
+(*c==v=[Misc.safe_main]=1.0====*)
+let safe_main main =
+  try main ()
+  with
+    Failure s
+  | Sys_error s ->
+      prerr_endline s;
+      exit 1
+(*/c==v=[Misc.safe_main]=1.0====*)
+
+let parse_query s =
+  try
+    let q = Rdf_sparql.parse_from_string s in
+    ignore(q)
+  with
+  Rdf_sparql.Error e ->
+      prerr_endline (Rdf_sparql.string_of_error e)
+;;
+
+let main () =
+  let args = ref [] in
+  Arg.parse
+    []
+    (fun s -> args := s :: !args)
+    usage;
+
+  let queries = List.rev !args in
+  List.iter parse_query queries;
+;;
+
+
+let () = safe_main main;;
