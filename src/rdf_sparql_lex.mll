@@ -63,39 +63,6 @@ let regexp ws = 0x20 | 0x9 | 0xD | 0xA
 let regexp nil = '(' ws* ')'
 let regexp anon = '[' ws* ']';;
 
-let keywords = [
-    "AS", AS ;
-    "ASC", ASC ;
-    "ASK", ASK ;
-    "BASE", BASE ;
-    "BIND", BIND ;
-    "BY", BY ;
-    "CONSTRUCT", CONSTRUCT ;
-    "DESC", DESC ;
-    "DESCRIBE", DESCRIBE ;
-    "DISTINCT", DISTINCT ;
-    "FILTER", FILTER ;
-    "FROM", FROM ;
-    "GRAPH", GRAPH ;
-    "GROUP", GROUP ;
-    "HAVING", HAVING ;
-    "LIMIT", LIMIT ;
-    "MINUS", MINUS ;
-    "NAMED", NAMED ;
-    "OFFSET", OFFSET ;
-    "OPTIONAL", OPTIONAL ;
-    "ORDER", ORDER ;
-    "PREFIX", PREFIX ;
-    "REDUCED", REDUCED ;
-    "SELECT", SELECT ;
-    "SILENT", SILENT ;
-    "SERVICE", SERVICE ;
-    "UNDEF", UNDEF ;
-    "UNION", UNION ;
-    "VALUES", VALUES ;
-    "WHERE", WHERE ;
-  ]
-;;
 
 let main = lexer
 | '*' -> STAR
@@ -118,6 +85,37 @@ let main = lexer
 | ';' -> SEMICOLON
 
 | '(' ws* ')' -> NIL
+
+| ('a'|'A') ('s'|'S')  -> AS
+| ('a'|'A') ('s'|'S') ('c'|'C')  -> ASC
+| ('a'|'A') ('s'|'S') ('k'|'K')  -> ASK
+| ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')  -> BASE
+| ('b'|'B') ('i'|'I') ('n'|'N') ('d'|'D')  -> BIND
+| ('b'|'B') ('y'|'Y')  -> BY
+| ('c'|'C') ('o'|'O') ('n'|'N') ('s'|'S') ('t'|'T') ('r'|'R') ('u'|'U') ('c'|'C') ('t'|'T')  -> CONSTRUCT
+| ('d'|'D') ('e'|'E') ('s'|'S') ('c'|'C')  -> DESC
+| ('d'|'D') ('e'|'E') ('s'|'S') ('c'|'C') ('r'|'R') ('i'|'I') ('b'|'B') ('e'|'E')  -> DESCRIBE
+| ('d'|'D') ('i'|'I') ('s'|'S') ('t'|'T') ('i'|'I') ('n'|'N') ('c'|'C') ('t'|'T')  -> DISTINCT
+| ('f'|'F') ('i'|'I') ('l'|'L') ('t'|'T') ('e'|'E') ('r'|'R')  -> FILTER
+| ('f'|'F') ('r'|'R') ('o'|'O') ('m'|'M')  -> FROM
+| ('g'|'G') ('r'|'R') ('a'|'A') ('p'|'P') ('h'|'H')  -> GRAPH
+| ('g'|'G') ('r'|'R') ('o'|'O') ('u'|'U') ('p'|'P')  -> GROUP
+| ('h'|'H') ('a'|'A') ('v'|'V') ('i'|'I') ('n'|'N') ('g'|'G')  -> HAVING
+| ('l'|'L') ('i'|'I') ('m'|'M') ('i'|'I') ('t'|'T')  -> LIMIT
+| ('m'|'M') ('i'|'I') ('n'|'N') ('u'|'U') ('s'|'S')  -> MINUS
+| ('n'|'N') ('a'|'A') ('m'|'M') ('e'|'E') ('d'|'D')  -> NAMED
+| ('o'|'O') ('f'|'F') ('f'|'F') ('s'|'S') ('e'|'E') ('t'|'T')  -> OFFSET
+| ('o'|'O') ('p'|'P') ('t'|'T') ('i'|'I') ('o'|'O') ('n'|'N') ('a'|'A') ('l'|'L')  -> OPTIONAL
+| ('o'|'O') ('r'|'R') ('d'|'D') ('e'|'E') ('r'|'R')  -> ORDER
+| ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')  -> PREFIX
+| ('r'|'R') ('e'|'E') ('d'|'D') ('u'|'U') ('c'|'C') ('e'|'E') ('d'|'D')  -> REDUCED
+| ('s'|'S') ('e'|'E') ('l'|'L') ('e'|'E') ('c'|'C') ('t'|'T')  -> SELECT
+| ('s'|'S') ('i'|'I') ('l'|'L') ('e'|'E') ('n'|'N') ('t'|'T')  -> SILENT
+| ('s'|'S') ('e'|'E') ('r'|'R') ('v'|'V') ('i'|'I') ('c'|'C') ('e'|'E')  -> SERVICE
+| ('u'|'U') ('n'|'N') ('d'|'D') ('e'|'E') ('f'|'F')  -> UNDEF
+| ('u'|'U') ('n'|'N') ('i'|'I') ('o'|'O') ('n'|'N')  -> UNION
+| ('v'|'V') ('a'|'A') ('l'|'L') ('u'|'U') ('e'|'E') ('s'|'S')  -> VALUES
+| ('w'|'W') ('h'|'H') ('e'|'E') ('r'|'R') ('e'|'E')  -> WHERE
 
 | var1 ->
   let s = Ulexing.utf8_lexeme lexbuf in
