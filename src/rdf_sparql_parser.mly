@@ -13,14 +13,20 @@ let mk_loc start stop =
 %token <Rdf_sparql_types.var>Var_
 %token <Rdf_sparql_types.prefixed_name> Pname_ln
 %token <Rdf_sparql_types.pname_ns> Pname_ns
+%token <string> Blank_node_label
 %token <int> Integer
 
+%token A
+%token ANON
 %token AS
 %token BASE PREFIX
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
 %token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
-%token STAR COLON LPAR RPAR NIL COMMA LBRACE RBRACE DOT
+%token STAR COLON NIL COMMA DOT PIPE SLASH HAT BANG QM PLUS SEMICOLON
+%token LPAR RPAR
+%token LBRACE RBRACE
+%token LBRA RBRA
 
 %start <Rdf_sparql_types.query> query
 
@@ -254,11 +260,254 @@ triples_block:
 ;
 
 triples_same_subject_path:
-| DOT { assert false}
+| v=var_or_term p=property_list_path_not_empty
+  {
+    let loc = mk_loc $startpos(v) $endpos(p) in
+    let t =
+      { tvtp_loc = loc ;
+        tvtp_subject = v ;
+        tvtp_path = p ;
+      }
+    in
+    TriplesVar t
+  }
+| t=triples_node_path p=property_list_path
+  {
+    let loc = mk_loc $startpos(t) $endpos(p) in
+    let t =
+      {
+        tnpp_loc = loc ;
+        tnpp_path = t ;
+        tnpp_props = p ;
+      }
+    in
+    TriplesNodePath t
+  }
+;
+
+property_list_path: l=option(property_list_path_not_empty) { l }
+;
+
+property_list_path_not_empty:
+| v=verb_path_or_simple olp=object_list_path more=list(verbp_object_list_l)
+  {
+    let loc = mk_loc $startpos(v) $endpos(more) in
+    let more = List.fold_left
+      (fun acc -> function
+         | None -> acc
+         | Some x -> x :: acc
+      )
+      []
+      more
+    in
+    {
+      proplp_loc = loc ;
+      proplp_verb = v ;
+      proplp_objects = olp ;
+      proplp_more = List.rev more ;
+    }
+  }
+;
+
+verbp_object_list_l:
+| SEMICOLON option(verbp_object_list)
+  { $2 }
+;
+
+verbp_object_list:
+| v=verb_path_or_simple l=object_list
+  {
+    let loc = mk_loc $startpos(v) $endpos(l) in
+    { propol_loc = loc ;
+      propol_verb = v ;
+      propol_objects = l
+    }
+  }
+;
+
+object_list: separated_nonempty_list(COMMA, object_) { $1 }
+;
+
+object_: graph_node { $1 }
+;
+
+verb_path_or_simple:
+| path { VerbPath $1 }
+| Var_ { VerbSimple $1 }
+;
+
+graph_node:
+| var_or_term { GraphNodeVT $1 }
+| triples_node { GraphNodeTriples $1 }
+;
+
+triples_node:
+| collection { TNodeCollection $1 }
+| blank_node_property_list { TNodeBlank $1 }
+;
+
+collection:
+LPAR nonempty_list(graph_node) RPAR { $2 }
+;
+
+blank_node_property_list:
+LBRA property_list_not_empty RBRA { $2 }
+;
+
+property_list_not_empty:
+| v=verb_object_list l=list(verb_object_list_l)
+  {
+    let l = List.fold_left
+      (fun acc -> function
+        | None -> acc
+        | Some x -> x :: acc
+       )
+       []
+       l
+     in
+     let l = List.rev l in
+     v :: l
+  }
+;
+
+verb_object_list_l:
+| SEMICOLON option(verb_object_list)
+  { $2 }
+;
+
+verb_object_list:
+| v=verb l=object_list
+  {
+    let loc = mk_loc $startpos(v) $endpos(l) in
+    { propol_loc = loc ;
+      propol_verb = v ;
+      propol_objects = l
+    }
+  }
+;
+
+verb:
+| var_or_iri {
+  match $1 with
+    VIVar v -> VerbVar v
+  | VIIri iri -> VerbIri iri
+  }
+| A { VerbA }
+;
+
+var_or_iri:
+| Var_ { VIVar $1 }
+| iri { VIIri $1 }
+;
+
+var_or_term:
+| Var_ { Var $1 }
+| graph_term { GraphTerm $1 }
+;
+
+graph_term:
+| iri { GraphTermIri $1 }
+| rdf_literal { GraphTermLit $1 }
+| numeric_literal { GraphTermNumeric $1 }
+| boolean_literal { GraphTermBoolean $1 }
+| blank_node { GraphTermBlank $1 }
+| NIL { GraphTermNil }
 ;
 
 graph_pattern_not_triples:
 | LPAR { assert false }
+;
+
+object_list_path: separated_nonempty_list(COMMA, object_path) { $1 }
+;
+
+object_path: graph_node_path { $1 }
+;
+
+graph_node_path:
+| var_or_term { GraphNodePathVT $1 }
+| triples_node_path { GraphNodePathTriples $1 }
+;
+
+triples_node_path:
+| collection_path { TNodePathCollection $1 }
+| blank_node_property_list_path { TNodePathBlank $1 }
+;
+
+collection_path:
+LPAR nonempty_list(graph_node_path) RPAR { $2 }
+;
+
+blank_node_property_list_path:
+LBRA property_list_path_not_empty RBRA { $2 }
+;
+
+path: path_alternative { $1 };
+
+path_alternative: separated_nonempty_list(PIPE, path_sequence)
+  { $1 }
+;
+
+path_sequence: separated_nonempty_list(SLASH, path_elt_or_inverse)
+  { $1 }
+;
+
+path_elt_or_inverse:
+| path_elt { Elt $1 }
+| HAT path_elt { Inv $2 }
+;
+
+path_elt:
+| p=path_primary m=option(path_mod)
+  {
+    let loc = mk_loc $startpos(p) $endpos(m) in
+    { pelt_loc = loc ;
+      pelt_primary = p ;
+      pelt_mod = m ;
+    }
+  }
+;
+
+path_primary:
+| iri { PathIri $1 }
+| A { PathA }
+| BANG path_negated_property_list { PathNegPropSet $2 }
+| LPAR path RPAR { Path $2 }
+;
+
+path_negated_property_list:
+| path_one_in_property_set { [ $1 ] }
+| LPAR l=separated_list(PIPE, path_one_in_property_set) { l }
+;
+
+path_one_in_property_set:
+| iri { PathOneInIri $1 }
+| A { PathOneInA }
+| HAT iri { PathOneInNotIri $2 }
+| HAT A { PathOneInNotA }
+;
+
+path_mod:
+| QM { ModOptional }
+| STAR { ModList }
+| PLUS { ModOneOrMore }
+;
+
+blank_node:
+| s=Blank_node_label
+  {
+    let loc = mk_loc $startpos(s) $endpos(s) in
+    { bnode_loc = loc ;
+      bnode_label = Some s ;
+    }
+  }
+| ANON
+  {
+    let loc = mk_loc $startpos($1) $endpos($1) in
+    { bnode_loc = loc ;
+      bnode_label = None ;
+    }
+  }
 ;
 
 builtin_call: Integer { () };
@@ -284,3 +533,15 @@ arg_list:
 ;
 
 expression: GROUP { () };
+
+numeric_literal:
+| DOT { assert false }
+;
+
+boolean_literal:
+| LPAR { assert false }
+;
+
+rdf_literal:
+| RPAR { assert false }
+;

@@ -97,8 +97,28 @@ let main = lexer
 | '}' -> RBRACE
 | ',' -> COMMA
 | '.' -> DOT
+| 'a' -> A
+| '|' -> PIPE
+| '/' -> SLASH
+| '^' -> HAT
+| '!' -> BANG
+| '?' -> QM
+| '+' -> PLUS
+| '[' -> LBRA
+| ']' -> RBRA
+| ';' -> SEMICOLON
 
 | '(' ws* ')' -> NIL
+
+| blank_node_label ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  (* remove beginning _: *)
+  let label = String.sub s 2 (len - 2) in
+  Blank_node_label label
+
+| anon ->
+  ANON
 
 | integer ->
   let s = Ulexing.utf8_lexeme lexbuf in

@@ -250,21 +250,26 @@ and path_alternative = path_elt_or_inverse list
 
 and path = path_alternative list
 
-and verb =
+and verb_path =
   | VerbPath of path
   | VerbSimple of var
 
+and verb =
+  | VerbVar of var
+  | VerbIri of iri
+  | VerbA
+
 and triples_node =
   | TNodeCollection of graph_node list
-  | TNodeBlank of prop_object_list list
+  | TNodeBlank of verb prop_object_list list
 
 and graph_node =
   | GraphNodeVT of var_or_term
   | GraphNodeTriples of triples_node
 
 and triples_node_path =
-  | TNodeGraphCollection of graph_node_path list
-  | TNodeGraphTriples of property_list_path
+  | TNodePathCollection of graph_node_path list
+  | TNodePathBlank of property_list_path
 
 and graph_node_path =
   | GraphNodePathVT of var_or_term
@@ -273,17 +278,17 @@ and graph_node_path =
 and object_ = graph_node
 and object_path = graph_node_path
 
-and prop_object_list =
+and 'a prop_object_list =
   { propol_loc : loc ;
-    propol_verb : verb ;
+    propol_verb : 'a ;
     propol_objects : object_ list ;
   }
 
 and property_list_path =
   { proplp_loc : loc ;
-    proplp_verb : verb ;
+    proplp_verb : verb_path ;
     proplp_objects : object_path list ;
-    proplp_more : prop_object_list list ;
+    proplp_more : verb_path prop_object_list list ;
   }
 
 and triples_var_or_term_props =
@@ -295,7 +300,7 @@ and triples_var_or_term_props =
 and triples_node_path_props =
   { tnpp_loc : loc ;
     tnpp_path : triples_node_path ;
-    tnpp_props : property_list_path list ;
+    tnpp_props : property_list_path option;
   }
 
 and triples_same_subject_path =
