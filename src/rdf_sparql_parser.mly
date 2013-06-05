@@ -19,15 +19,15 @@ let mk_loc start stop =
 %token BASE PREFIX
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
-%token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET
-%token STAR COLON LPAR RPAR NIL COMMA
+%token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
+%token STAR COLON LPAR RPAR NIL COMMA LBRACE RBRACE DOT
 
 %start <Rdf_sparql_types.query> query
 
 %%
 
 %public query:
-  p=prologue k=query_kind v=option(values_clause)
+  p=prologue k=query_kind v=values_clause
   {
     { q_prolog = p ;
       q_kind = k ;
@@ -120,7 +120,7 @@ values_clause:
 ;
 
 datablock:
-| { assert false }
+| LPAR { assert false }
 ;
 
 solution_modifier:
@@ -205,7 +205,60 @@ constraint_:
 ;
 
 where_clause:
-| { assert false }
+| WHERE group_graph_pattern { $2 }
+;
+
+group_graph_pattern:
+| LBRACE subselect RBRACE { SubSelect $2 }
+| LBRACE group_graph_pattern_sub RBRACE { GGPSub $2 }
+;
+
+subselect:
+| sel=select_clause w=where_clause sol=solution_modifier v=values_clause
+  {
+   let loc = mk_loc $startpos(sel) $endpos(v) in
+   {
+    subsel_loc = loc ;
+    subsel_select = sel ;
+    subsel_where = w ;
+    subsel_modifier = sol ;
+    subsel_values = v ;
+   }
+  }
+;
+
+group_graph_pattern_sub:
+| t=option(triples_block) l=list(gp_or_triples)
+  {
+    let loc = mk_loc $startpos(t) $endpos(l) in
+    { ggp_sub_loc = loc ;
+      ggp_sub_triples = t ;
+      ggp_sub_rest = l;
+    }
+  }
+;
+
+gp_or_triples:
+| gp=graph_pattern_not_triples option(DOT) t=option(triples_block)
+  { (gp, t) }
+;
+
+triples_block:
+| l=separated_nonempty_list(DOT,triples_same_subject_path)
+  {
+    let loc = mk_loc $startpos(l) $endpos(l) in
+    { triples_loc = loc ;
+      triples = l ;
+    }
+  }
+;
+
+triples_same_subject_path:
+| DOT { assert false}
+;
+
+graph_pattern_not_triples:
+| LPAR { assert false }
 ;
 
 builtin_call: Integer { () };

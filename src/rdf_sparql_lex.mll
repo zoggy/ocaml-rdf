@@ -84,6 +84,7 @@ let keywords = [
     "REDUCED", REDUCED ;
     "SELECT", SELECT ;
     "VALUES", VALUES ;
+    "WHERE", WHERE ;
   ]
 ;;
 
@@ -92,7 +93,10 @@ let main = lexer
 | ':' -> COLON
 | '(' -> LPAR
 | ')' -> RPAR
+| '{' -> LBRACE
+| '}' -> RBRACE
 | ',' -> COMMA
+| '.' -> DOT
 
 | '(' ws* ')' -> NIL
 
