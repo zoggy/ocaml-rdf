@@ -1,0 +1,20 @@
+
+KO='\e[1;31m'"*KO\033[1m\033[0m"
+OK='\e[1;32m'"OK\033[1m\033[0m"
+
+all: good bad
+
+good:
+	@for i in `ls *.rq | grep -v -E "^bad-"` ; do \
+		(../../test_sparql -f $${i} \
+		&& /bin/echo -e $(OK) "$$i" ) || /bin/echo -e $(KO) "$$i"; \
+	done
+
+bad:
+	@for i in bad-*.rq ; do \
+		(../../test_sparql -f $${i} \
+		&& /bin/echo -e $(KO) "$$i" ) || /bin/echo -e $(OK) "$$i"; \
+	done
+
+
+clean:

@@ -38,24 +38,35 @@ let safe_main main =
       exit 1
 (*/c==v=[Misc.safe_main]=1.0====*)
 
-let parse_query s =
+let parse_query parse source =
   try
-    let q = Rdf_sparql.parse_from_string s in
+    let q = parse source in
     ignore(q)
   with
-  Rdf_sparql.Error e ->
-      prerr_endline (Rdf_sparql.string_of_error e)
+    Rdf_sparql.Error e ->
+      prerr_endline (Rdf_sparql.string_of_error e);
+      exit 1
 ;;
+
+let parse_query_string = parse_query Rdf_sparql.parse_from_string;;
+let parse_query_file = parse_query Rdf_sparql.parse_from_file;;
+
+let files = ref [];;
 
 let main () =
   let args = ref [] in
   Arg.parse
-    []
+    [
+      "-f", Arg.String (fun f -> files := f :: !files),
+      "<file> read query from <file>" ;
+    ]
     (fun s -> args := s :: !args)
     usage;
 
   let queries = List.rev !args in
-  List.iter parse_query queries;
+  let files = List.rev !files in
+  List.iter parse_query_string queries;
+  List.iter parse_query_file files;
 ;;
 
 
