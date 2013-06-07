@@ -994,6 +994,6 @@ agregate:
 | AVG LPAR d=option(DISTINCT) e=expression RPAR { Bic_AVG (d<>None, e) }
 | SAMPLE LPAR d=option(DISTINCT) e=expression RPAR { Bic_SAMPLE (d<>None, e) }
 | GROUP_CONCAT LPAR d=option(DISTINCT) e=expression RPAR { Bic_GROUP_CONCAT (d<>None, e, None) }
-| GROUP_CONCAT LPAR d=option(DISTINCT) e=expression RPAR SEMICOLON SEPARATOR EQUAL sep=string
+| GROUP_CONCAT LPAR d=option(DISTINCT) e=expression SEMICOLON SEPARATOR EQUAL sep=string RPAR
   { Bic_GROUP_CONCAT (d<>None, e, Some sep) }
 ;
