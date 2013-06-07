@@ -390,10 +390,10 @@ and property_list_path =
     proplp_more : verb_path prop_object_list list ;
   }
 
-and triples_var_or_term_props =
+and 'a triples_var_or_term_props =
   { tvtp_loc : loc ;
     tvtp_subject : var_or_term ;
-    tvtp_path : property_list_path ;
+    tvtp_path : 'a
   }
 
 and triples_node_path_props =
@@ -403,7 +403,7 @@ and triples_node_path_props =
   }
 
 and triples_same_subject_path =
-  | TriplesVar of triples_var_or_term_props
+  | TriplesPathVar of property_list_path triples_var_or_term_props
   | TriplesNodePath of triples_node_path_props
 
 and triples_block =
@@ -411,6 +411,11 @@ and triples_block =
     triples : triples_same_subject_path list ;
   }
 
+and triples_node_props =
+  { tnp_loc : loc ;
+    tnp_path : triples_node ;
+    tnp_props : verb prop_object_list option;
+  }
 and ggp_sub = {
   ggp_sub_loc : loc ;
   ggp_sub_triples : triples_block option ;
@@ -437,6 +442,32 @@ type select_query = {
     select_modifier : solution_modifier ;
   }
 
+type triples_same_subject =
+  | TriplesVar of verb prop_object_list triples_var_or_term_props
+  | TriplesNode of triples_node_props
+
+
+type triples_template = triples_same_subject list
+type construct_template = triples_template
+
+type construct_where =
+  | Constr_ggp of group_graph_pattern
+  | Constr_template of triples_template
+
+type construct_query  = {
+  constr_template : construct_template option ;
+  constr_dataset : dataset_clause list ;
+  constr_where : construct_where ;
+  constr_modifier : solution_modifier ;
+  }
+
+type describe_query = {
+    desc_sel : var_or_iri list ; (** empty list means "STAR" *)
+    desc_dataset : dataset_clause list ;
+    desc_where : group_graph_pattern option ;
+    desc_modifier : solution_modifier ;
+  }
+
 type ask_query = {
     ask_dataset : dataset_clause list ;
     ask_where : group_graph_pattern ;
@@ -446,7 +477,7 @@ type ask_query = {
 type query_kind =
   | Select of select_query
   | Construct
-  | Describe
+  | Describe of describe_query
   | Ask of ask_query
 ;;
 

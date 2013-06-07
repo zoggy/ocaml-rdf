@@ -98,8 +98,43 @@ query_kind:
       select_where = w ; select_modifier = m ;
     }
   }
-| CONSTRUCT
-| DESCRIBE  { assert false }
+| CONSTRUCT t=construct_template ds=list(dataset_clause) w=where_clause m=solution_modifier
+  {
+    Construct
+      { constr_template = Some t ;
+        constr_dataset = ds ;
+        constr_where = Constr_ggp w ;
+        constr_modifier = m ;
+      }
+  }
+| CONSTRUCT ds=list(dataset_clause) WHERE LBRACE l=triples_template RBRACE m=solution_modifier
+  {
+    Construct
+      { constr_template = None ;
+        constr_dataset = ds ;
+        constr_where = Constr_template l ;
+        constr_modifier = m ;
+      }
+  }
+| DESCRIBE l=nonempty_list(var_or_iri) ds=list(dataset_clause) w=option(where_clause) m=solution_modifier
+  {
+    Describe {
+      desc_sel = l;
+      desc_dataset = ds ;
+      desc_where = w ;
+      desc_modifier = m ;
+    }
+  }
+| DESCRIBE STAR ds=list(dataset_clause) w=option(where_clause) m=solution_modifier
+  {
+    Describe {
+      desc_sel = [] ;
+      desc_dataset = ds ;
+      desc_where = w ;
+      desc_modifier = m ;
+    }
+  }
+
 | ASK ds=list(dataset_clause) w=where_clause m=solution_modifier
   {
     Ask {
@@ -375,7 +410,7 @@ triples_same_subject_path:
         tvtp_path = p ;
       }
     in
-    TriplesVar t
+    TriplesPathVar t
   }
 | t=triples_node_path p=property_list_path
   {
@@ -387,7 +422,7 @@ triples_same_subject_path:
         tnpp_props = p ;
       }
     in
-    TriplesNodePath t
+    TriplesPathNode t
   }
 ;
 
