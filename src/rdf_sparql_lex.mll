@@ -88,6 +88,7 @@ let rec main = lexer
 | "||" -> PIPEPIPE
 | '/' -> SLASH
 | '^' -> HAT
+| "^^" -> HATHAT
 | '!' -> BANG
 | '?' -> QM
 | '+' -> PLUS
@@ -95,10 +96,41 @@ let rec main = lexer
 | ']' -> RBRACKET
 | ';' -> SEMICOLON
 | "&&" -> AMPAMP
+| '=' -> EQUAL
+| "!=" -> NOTEQUAL
+| '<' -> LT
+| '>' -> GT
+| "<=" -> LTE
+| ">=" -> GTE
 
 | '(' ws* ')' -> NIL
 
 | ws -> main lexbuf
+
+| langtag ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  Langtag (String.sub s 1 (len - 1))
+
+| string_literal1 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  String_literal1 (String.sub s 1 (len - 2))
+
+| string_literal2 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  String_literal2 (String.sub s 1 (len - 2))
+
+| string_literal_long1 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  String_literal1 (String.sub s 3 (len - 6))
+
+| string_literal_long2 ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  String_literal1 (String.sub s 3 (len - 6))
 
 | integer -> Integer (Ulexing.utf8_lexeme lexbuf)
 | decimal -> Decimal (Ulexing.utf8_lexeme lexbuf)
@@ -112,36 +144,100 @@ let rec main = lexer
 
 | boolean -> Boolean (Ulexing.utf8_lexeme lexbuf)
 
+| ('a'|'A') ('b'|'B') ('s'|'S')  -> ABS
 | ('a'|'A') ('s'|'S')  -> AS
 | ('a'|'A') ('s'|'S') ('c'|'C')  -> ASC
 | ('a'|'A') ('s'|'S') ('k'|'K')  -> ASK
+| ('a'|'A') ('v'|'V') ('g'|'G')  -> AVG
 | ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')  -> BASE
 | ('b'|'B') ('i'|'I') ('n'|'N') ('d'|'D')  -> BIND
+| ('b'|'B') ('n'|'N') ('o'|'O') ('d'|'D') ('e'|'E')  -> BNODE
+| ('b'|'B') ('n'|'N') ('o'|'O') ('d'|'D') ('e'|'E')  -> BNODE
+| ('b'|'B') ('o'|'O') ('u'|'U') ('n'|'N') ('d'|'D')  -> BOUND
 | ('b'|'B') ('y'|'Y')  -> BY
+| ('c'|'C') ('e'|'E') ('i'|'I') ('l'|'L')  -> CEIL
+| ('c'|'C') ('o'|'O') ('a'|'A') ('l'|'L') ('e'|'E') ('s'|'S') ('c'|'C') ('e'|'E')  -> COALESCE
+| ('c'|'C') ('o'|'O') ('n'|'N') ('c'|'C') ('a'|'A') ('t'|'T')  -> CONCAT
 | ('c'|'C') ('o'|'O') ('n'|'N') ('s'|'S') ('t'|'T') ('r'|'R') ('u'|'U') ('c'|'C') ('t'|'T')  -> CONSTRUCT
+| ('c'|'C') ('o'|'O') ('n'|'N') ('t'|'T') ('a'|'A') ('i'|'I') ('n'|'N') ('s'|'S')  -> CONTAINS
+| ('c'|'C') ('o'|'O') ('u'|'U') ('n'|'N') ('t'|'T')  -> COUNT
+| ('d'|'D') ('a'|'A') ('t'|'T') ('a'|'A') ('t'|'T') ('y'|'Y') ('p'|'P') ('e'|'E')  -> DATATYPE
+| ('d'|'D') ('a'|'A') ('y'|'Y')  -> DAY
 | ('d'|'D') ('e'|'E') ('s'|'S') ('c'|'C')  -> DESC
 | ('d'|'D') ('e'|'E') ('s'|'S') ('c'|'C') ('r'|'R') ('i'|'I') ('b'|'B') ('e'|'E')  -> DESCRIBE
 | ('d'|'D') ('i'|'I') ('s'|'S') ('t'|'T') ('i'|'I') ('n'|'N') ('c'|'C') ('t'|'T')  -> DISTINCT
+| ('e'|'E') ('n'|'N') ('c'|'C') ('o'|'O') ('d'|'D') ('e'|'E') ('_'|'_') ('f'|'F') ('o'|'O') ('r'|'R') ('_'|'_') ('u'|'U') ('r'|'R') ('i'|'I')  -> ENCODE_FOR_URI
+| ('e'|'E') ('x'|'X') ('i'|'I') ('s'|'S') ('t'|'T') ('s'|'S')  -> EXISTS
 | ('f'|'F') ('i'|'I') ('l'|'L') ('t'|'T') ('e'|'E') ('r'|'R')  -> FILTER
+| ('f'|'F') ('l'|'L') ('o'|'O') ('o'|'O') ('r'|'R')  -> FLOOR
 | ('f'|'F') ('r'|'R') ('o'|'O') ('m'|'M')  -> FROM
 | ('g'|'G') ('r'|'R') ('a'|'A') ('p'|'P') ('h'|'H')  -> GRAPH
 | ('g'|'G') ('r'|'R') ('o'|'O') ('u'|'U') ('p'|'P')  -> GROUP
+| ('g'|'G') ('r'|'R') ('o'|'O') ('u'|'U') ('p'|'P') ('_'|'_') ('c'|'C') ('o'|'O') ('n'|'N') ('c'|'C') ('a'|'A') ('t'|'T')  -> GROUP_CONCAT
 | ('h'|'H') ('a'|'A') ('v'|'V') ('i'|'I') ('n'|'N') ('g'|'G')  -> HAVING
+| ('h'|'H') ('o'|'O') ('u'|'U') ('r'|'R') ('s'|'S')  -> HOURS
+| ('i'|'I') ('f'|'F')  -> IF
+| ('i'|'I') ('n'|'N') -> IN
+| ('i'|'I') ('r'|'R') ('i'|'I')  -> IRI
+| ('i'|'I') ('s'|'S') ('b'|'B') ('l'|'L') ('a'|'A') ('n'|'N') ('k'|'K')  -> ISBLANK
+| ('i'|'I') ('s'|'S') ('i'|'I') ('r'|'R') ('i'|'I')  -> ISIRI
+| ('i'|'I') ('s'|'S') ('l'|'L') ('i'|'I') ('t'|'T') ('e'|'E') ('r'|'R') ('a'|'A') ('l'|'L')  -> ISLITERAL
+| ('i'|'I') ('s'|'S') ('n'|'N') ('u'|'U') ('m'|'M') ('e'|'E') ('r'|'R') ('i'|'I') ('c'|'C')  -> ISNUMERIC
+| ('i'|'I') ('s'|'S') ('u'|'U') ('r'|'R') ('i'|'I')  -> ISURI
+| ('l'|'L') ('a'|'A') ('n'|'N') ('g'|'G')  -> LANG
+| ('l'|'L') ('a'|'A') ('n'|'N') ('g'|'G') ('m'|'M') ('a'|'A') ('t'|'T') ('c'|'C') ('h'|'H') ('e'|'E') ('s'|'S')  -> LANGMATCHES
+| ('l'|'L') ('c'|'C') ('a'|'A') ('s'|'S') ('e'|'E')  -> LCASE
 | ('l'|'L') ('i'|'I') ('m'|'M') ('i'|'I') ('t'|'T')  -> LIMIT
+| ('m'|'M') ('a'|'A') ('x'|'X')  -> MAX
+| ('m'|'M') ('d'|'D') ('5'|'5')  -> MD5
+| ('m'|'M') ('i'|'I') ('n'|'N')  -> MIN
 | ('m'|'M') ('i'|'I') ('n'|'N') ('u'|'U') ('s'|'S')  -> MINUS
+| ('m'|'M') ('i'|'I') ('n'|'N') ('u'|'U') ('t'|'T') ('e'|'E') ('s'|'S')  -> MINUTES
+| ('m'|'M') ('o'|'O') ('n'|'N') ('t'|'T') ('h'|'H')  -> MONTH
 | ('n'|'N') ('a'|'A') ('m'|'M') ('e'|'E') ('d'|'D')  -> NAMED
+| ('n'|'N') ('o'|'O') ('t'|'T') -> NOT
+| ('n'|'N') ('o'|'O') ('w'|'W')  -> NOW
 | ('o'|'O') ('f'|'F') ('f'|'F') ('s'|'S') ('e'|'E') ('t'|'T')  -> OFFSET
 | ('o'|'O') ('p'|'P') ('t'|'T') ('i'|'I') ('o'|'O') ('n'|'N') ('a'|'A') ('l'|'L')  -> OPTIONAL
 | ('o'|'O') ('r'|'R') ('d'|'D') ('e'|'E') ('r'|'R')  -> ORDER
 | ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')  -> PREFIX
+| ('r'|'R') ('a'|'A') ('n'|'N') ('d'|'D')  -> RAND
 | ('r'|'R') ('e'|'E') ('d'|'D') ('u'|'U') ('c'|'C') ('e'|'E') ('d'|'D')  -> REDUCED
+| ('r'|'R') ('e'|'E') ('g'|'G') ('e'|'E') ('x'|'X') ('p'|'P')  -> REGEXP
+| ('r'|'R') ('e'|'E') ('p'|'P') ('l'|'L') ('a'|'A') ('c'|'C') ('e'|'E')  -> REPLACE
+| ('r'|'R') ('o'|'O') ('u'|'U') ('n'|'N') ('d'|'D')  -> ROUND
+| ('s'|'S') ('a'|'A') ('m'|'M') ('e'|'E') ('t'|'T') ('e'|'E') ('r'|'R') ('m'|'M')  -> SAMETERM
+| ('s'|'S') ('a'|'A') ('m'|'M') ('p'|'P') ('l'|'L') ('e'|'E')  -> SAMPLE
+| ('s'|'S') ('e'|'E') ('c'|'C') ('o'|'O') ('n'|'N') ('d'|'D') ('s'|'S')  -> SECONDS
 | ('s'|'S') ('e'|'E') ('l'|'L') ('e'|'E') ('c'|'C') ('t'|'T')  -> SELECT
-| ('s'|'S') ('i'|'I') ('l'|'L') ('e'|'E') ('n'|'N') ('t'|'T')  -> SILENT
+| ('s'|'S') ('e'|'E') ('p'|'P') ('a'|'A') ('r'|'R') ('a'|'A') ('t'|'T') ('o'|'O') ('r'|'R')  -> SEPARATOR
 | ('s'|'S') ('e'|'E') ('r'|'R') ('v'|'V') ('i'|'I') ('c'|'C') ('e'|'E')  -> SERVICE
+| ('s'|'S') ('h'|'H') ('a'|'A') ('1'|'1')  -> SHA1
+| ('s'|'S') ('h'|'H') ('a'|'A') ('2'|'2') ('5'|'5') ('6'|'6')  -> SHA256
+| ('s'|'S') ('h'|'H') ('a'|'A') ('3'|'3') ('8'|'8') ('4'|'4')  -> SHA384
+| ('s'|'S') ('h'|'H') ('a'|'A') ('5'|'5') ('1'|'1') ('2'|'2')  -> SHA512
+| ('s'|'S') ('i'|'I') ('l'|'L') ('e'|'E') ('n'|'N') ('t'|'T')  -> SILENT
+| ('s'|'S') ('t'|'T') ('r'|'R')  -> STR
+| ('s'|'S') ('t'|'T') ('r'|'R') ('a'|'A') ('f'|'F') ('t'|'T') ('e'|'E') ('r'|'R')  -> STRAFTER
+| ('s'|'S') ('t'|'T') ('r'|'R') ('b'|'B') ('e'|'E') ('f'|'F') ('o'|'O') ('r'|'R') ('e'|'E')  -> STRBEFORE
+| ('s'|'S') ('t'|'T') ('r'|'R') ('d'|'D') ('t'|'T')  -> STRDT
+| ('s'|'S') ('t'|'T') ('r'|'R') ('e'|'E') ('n'|'N') ('d'|'D') ('s'|'S')  -> STRENDS
+| ('s'|'S') ('t'|'T') ('r'|'R') ('l'|'L') ('a'|'A') ('n'|'N') ('g'|'G')  -> STRLANG
+| ('s'|'S') ('t'|'T') ('r'|'R') ('l'|'L') ('e'|'E') ('n'|'N')  -> STRLEN
+| ('s'|'S') ('t'|'T') ('r'|'R') ('s'|'S') ('t'|'T') ('a'|'A') ('r'|'R') ('t'|'T') ('s'|'S')  -> STRSTARTS
+| ('s'|'S') ('t'|'T') ('r'|'R') ('u'|'U') ('u'|'U') ('i'|'I') ('d'|'D')  -> STRUUID
+| ('s'|'S') ('u'|'U') ('b'|'B') ('s'|'S') ('t'|'T') ('r'|'R')  -> SUBSTR
+| ('s'|'S') ('u'|'U') ('m'|'M')  -> SUM
+| ('t'|'T') ('i'|'I') ('m'|'M') ('e'|'E') ('z'|'Z') ('o'|'O') ('n'|'N') ('e'|'E')  -> TIMEZONE
+| ('t'|'T') ('z'|'Z')  -> TZ
+| ('u'|'U') ('c'|'C') ('a'|'A') ('s'|'S') ('e'|'E')  -> UCASE
 | ('u'|'U') ('n'|'N') ('d'|'D') ('e'|'E') ('f'|'F')  -> UNDEF
 | ('u'|'U') ('n'|'N') ('i'|'I') ('o'|'O') ('n'|'N')  -> UNION
+| ('u'|'U') ('r'|'R') ('i'|'I')  -> URI
+| ('u'|'U') ('u'|'U') ('i'|'I') ('d'|'D')  -> UUID
 | ('v'|'V') ('a'|'A') ('l'|'L') ('u'|'U') ('e'|'E') ('s'|'S')  -> VALUES
 | ('w'|'W') ('h'|'H') ('e'|'E') ('r'|'R') ('e'|'E')  -> WHERE
+| ('y'|'Y') ('e'|'E') ('a'|'A') ('r'|'R')  -> YEAR
 
 | var1 ->
   let s = Ulexing.utf8_lexeme lexbuf in

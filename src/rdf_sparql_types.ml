@@ -49,6 +49,7 @@ type query_prolog = query_prolog_decl list ;;
 type rdf_literal =
   { rdf_lit_loc : loc ;
     rdf_lit : Rdf_node.literal ;
+    rdf_lit_type : iri option ; (* must be resolved after parsing *)
   }
 ;;
 
@@ -85,9 +86,42 @@ type datablock =
 
 type values_clause = datablock option;;
 
-type built_in_call = unit
+type path_mod = ModOptional | ModList | ModOneOrMore ;;
 
-type arg_list =
+type var_or_iri =
+  | VIVar of var
+  | VIIri of iri
+;;
+
+type blank_node =
+  { bnode_loc : loc ;
+    bnode_label : string option ;
+  }
+;;
+type select_clause_flag = Distinct | Reduced ;;
+
+type select_var =
+  { sel_var_loc : loc ;
+    sel_var_expr : expression option ;
+    sel_var : var ;
+  }
+
+and select_vars =
+  | SelectAll
+  | SelectVars of select_var list
+
+and select_clause = {
+  sel_flag : select_clause_flag option ;
+  sel_vars : select_vars ;
+  }
+
+and source_selector = iri
+
+and dataset_clause =
+  | DefaultGraphClause of source_selector
+  | NamedGraphClause of  source_selector
+
+and arg_list =
   { argl_loc : loc ;
     argl_distinct : bool ;
     argl : expression list ;
@@ -98,12 +132,12 @@ and function_call =
     func_args : arg_list ;
   }
 
-and rational_expression =
+and relational_expression =
   | Numexp of numeric_expression
   | Equal of numeric_expression * numeric_expression
   | NotEqual of numeric_expression * numeric_expression
   | Lt of numeric_expression * numeric_expression
-  | GT of numeric_expression * numeric_expression
+  | Gt of numeric_expression * numeric_expression
   | Lte of numeric_expression * numeric_expression
   | Gte of numeric_expression * numeric_expression
   | In of numeric_expression * expression list
@@ -112,15 +146,18 @@ and rational_expression =
 and numeric_expression = add_expression
 and add_expression = mult_expression * add_expression2 list
 and add_expression2 =
-  | ExpPlus of mult_expression
-  | ExpMinus of mult_expression
-  | ExpPosNumeric of rdf_literal * ([`Mult | `Div] * unary_expression) list
-  | ExpNegNumeric of rdf_literal * ([`Mult | `Div] * unary_expression) list
+  | ExpPlus of mult_expression * add_expression3 list
+  | ExpMinus of mult_expression * add_expression3 list
+  | ExpPosNumeric of rdf_literal * add_expression3 list
+  | ExpNegNumeric of rdf_literal * add_expression3 list
+and add_expression3 =
+   | AddMult of unary_expression
+   | AddDiv of unary_expression
 
 and mult_expression =
   | Unary of unary_expression
-  | Mult of unary_expression * unary_expression
-  | Div of unary_expression * unary_expression
+  | Mult of unary_expression * mult_expression
+  | Div of unary_expression * mult_expression
 
 and unary_expression =
   | Primary of primary_expression
@@ -142,98 +179,116 @@ and expression =
     expr_or_exprs : and_expression list ; (* exp1 or exp2 ... *)
   }
 and and_expression = value_logical list
-and value_logical = rational_expression;;
+and value_logical = relational_expression
 
-type select_clause_flag = Distinct | Reduced ;;
+and built_in_call =
+  | Bic_COUNT of bool * expression option  (** '*' or expression *)
+  | Bic_SUM of bool * expression
+  | Bic_MIN of bool * expression
+  | Bic_MAX of bool * expression
+  | Bic_AVG of bool * expression
+  | Bic_SAMPLE of bool * expression
+  | Bic_GROUP_CONCAT of bool * expression * string option (* distinct * expr * separator option *)
+  | Bic_STR of expression
+  | Bic_LANG of expression
+  | Bic_LANGMATCHES of expression * expression
+  | Bic_DATATYPE of expression
+  | Bic_BOUND of var
+  | Bic_IRI of expression
+  | Bic_URI of expression
+  | Bic_BNODE of expression option
+  | Bic_RAND
+  | Bic_ABS of expression
+  | Bic_CEIL of expression
+  | Bic_FLOOR of expression
+  | Bic_ROUND of expression
+  | Bic_CONCAT of expression list
+  | Bic_SUBSTR of expression * expression * expression option
+  | Bic_STRLEN of expression
+  | Bic_REPLACE of expression * expression * expression * expression option
+  | Bic_UCASE of expression
+  | Bic_LCASE of expression
+  | Bic_ENCODE_FOR_URI of expression
+  | Bic_CONTAINS of expression * expression
+  | Bic_STRSTARTS of expression * expression
+  | Bic_STRENDS of expression * expression
+  | Bic_STRBEFORE of expression * expression
+  | Bic_STRAFTER of expression * expression
+  | Bic_YEAR of expression
+  | Bic_MONTH of expression
+  | Bic_DAY of expression
+  | Bic_HOURS of expression
+  | Bic_MINUTES of expression
+  | Bic_SECONDS of expression
+  | Bic_TIMEZONE of expression
+  | Bic_TZ of expression
+  | Bic_NOW
+  | Bic_UUID
+  | Bic_STRUUID
+  | Bic_MD5 of expression
+  | Bic_SHA1 of expression
+  | Bic_SHA256 of expression
+  | Bic_SHA384 of expression
+  | Bic_SHA512 of expression
+  | Bic_COALESCE of expression list
+  | Bic_IF of expression * expression * expression
+  | Bic_STRLANG of expression * expression
+  | Bic_STRDT of expression * expression
+  | Bic_SAMETERM of expression * expression
+  | Bic_ISIRI of expression
+  | Bic_ISURI of expression
+  | Bic_ISBLANK of expression
+  | Bic_ISLITERAL of expression
+  | Bic_ISNUMERIC of expression
+  | Bic_REGEXP of expression * expression * expression option
+  | Bic_EXISTS of group_graph_pattern
+  | Bic_NOTEXISTS of group_graph_pattern
 
-type select_var =
-  { sel_var_loc : loc ;
-    sel_var_expr : expression option ;
-    sel_var : var ;
-  }
-
-type select_vars =
-  | SelectAll
-  | SelectVars of select_var list
-;;
-
-type select_clause = {
-  sel_flag : select_clause_flag option ;
-  sel_vars : select_vars ;
-  }
-
-type source_selector = iri
-
-
-type dataset_clause =
-  | DefaultGraphClause of source_selector
-  | NamedGraphClause of  source_selector
-;;
-
-type group_var =
+and group_var =
   { grpvar_loc : loc ;
     grpvar_expr : expression option ;
     grpvar : var option ;
   }
 
-type group_condition =
+and group_condition =
   | GroupBuiltInCall of built_in_call
   | GroupFunctionCall of function_call
   | GroupVar of group_var
-;;
 
-type constraint_ =
+and constraint_ =
   | ConstrBuiltInCall of built_in_call
   | ConstrFunctionCall of function_call
   | ConstrExpr of expression
-;;
 
-type having_condition = constraint_ ;;
+and having_condition = constraint_
 
-type order_condition =
+and order_condition =
   | OrderAsc of expression
   | OrderDesc of expression
   | OrderConstr of constraint_
   | OrderVar of var
-;;
 
-type limit_offset_clause =
+and limit_offset_clause =
   { limoff_loc : loc ;
     limoff_offset : int option ;
     limoff_limit : int option ;
   }
-;;
 
-type solution_modifier =
+and solution_modifier =
   { solmod_loc : loc ;
     solmod_group : group_condition list;
     solmod_having : having_condition list ;
     solmod_order : order_condition list option ;
     solmod_limoff : limit_offset_clause option ;
   }
-;;
 
-type path_mod = ModOptional | ModList | ModOneOrMore ;;
-
-type var_or_iri =
-  | VIVar of var
-  | VIIri of iri
-;;
-
-type blank_node =
-  { bnode_loc : loc ;
-    bnode_label : string option ;
-  }
-;;
-
-type bind =
+and bind =
   { bind_loc : loc ;
     bind_expr : expression ;
     bind_var : var ;
   }
-;;
 
-type service_graph_pattern =
+and service_graph_pattern =
   { servgp_loc : loc ;
     servgp_silent : bool ;
     servgp_name : var_or_iri ;
@@ -382,12 +437,17 @@ type select_query = {
     select_modifier : solution_modifier ;
   }
 
+type ask_query = {
+    ask_dataset : dataset_clause list ;
+    ask_where : group_graph_pattern ;
+    ask_modifier : solution_modifier ;
+  }
 
 type query_kind =
   | Select of select_query
   | Construct
   | Describe
-  | Ask
+  | Ask of ask_query
 ;;
 
 

@@ -36,13 +36,22 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
 %token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
-%token STAR COLON NIL COMMA DOT PIPE SLASH HAT BANG QM PLUS SEMICOLON
+%token STAR COLON NIL COMMA DOT PIPE SLASH HAT HATHAT BANG QM PLUS SEMICOLON
 %token LPAR RPAR
 %token LBRACE RBRACE
 %token LBRACKET RBRACKET
+%token EQUAL NOTEQUAL LT GT LTE GTE NOT IN
 %token UNDEF
 %token UNION OPTIONAL GRAPH SERVICE SILENT BIND MINUS FILTER
 %token AMPAMP PIPEPIPE
+
+%token ABS AVG BNODE BOUND CEIL COALESCE CONCAT CONTAINS COUNT
+%token DATATYPE DAY ENCODE_FOR_URI EXISTS FLOOR GROUP_CONCAT HOURS
+%token IF IRI ISBLANK ISIRI ISLITERAL ISNUMERIC ISURI LANG LANGMATCHES
+%token LCASE MAX MD5 MIN MINUTES MONTH NOW RAND REGEXP REPLACE ROUND
+%token SAMETERM SAMPLE SECONDS SEPARATOR SHA1 SHA256 SHA384 SHA512
+%token STR STRAFTER STRBEFORE STRDT STRENDS STRLANG STRLEN STRSTARTS
+%token STRUUID SUBSTR SUM TIMEZONE TZ UCASE URI UUID YEAR
 
 %token <string>Integer
 %token <string>Decimal
@@ -54,6 +63,11 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token <string>Decimal_negative
 %token <string>Double_negative
 %token <string>Boolean
+%token <string>String_literal1
+%token <string>String_literal2
+%token <string>String_literal_long1
+%token <string>String_literal_long2
+%token <string>Langtag
 
 %start <Rdf_sparql_types.query> query
 
@@ -85,8 +99,15 @@ query_kind:
     }
   }
 | CONSTRUCT
-| DESCRIBE
-| ASK { assert false }
+| DESCRIBE  { assert false }
+| ASK ds=list(dataset_clause) w=where_clause m=solution_modifier
+  {
+    Ask {
+      ask_dataset = ds ;
+      ask_where = w ;
+      ask_modifier = m ;
+    }
+  }
 ;
 
 select_clause:
@@ -150,6 +171,7 @@ prefixed_name:
 
 values_clause: option(values_clause_) { $1 }
 ;
+
 values_clause_:
 | VALUES d=datablock { d }
 ;
@@ -219,7 +241,7 @@ group_clause:
 ;
 
 group_condition:
-| builtin_call { GroupBuiltInCall $1 }
+| built_in_call { GroupBuiltInCall $1 }
 | function_call { GroupFunctionCall $1 }
 | group_var { GroupVar $1 }
 ;
@@ -277,7 +299,7 @@ bracketted_expression: LPAR expression RPAR { $2 };
 
 constraint_:
 | bracketted_expression { ConstrExpr $1 }
-| builtin_call { ConstrBuiltInCall $1 }
+| built_in_call { ConstrBuiltInCall $1 }
 | function_call { ConstrFunctionCall $1 }
 ;
 
@@ -676,15 +698,6 @@ blank_node:
   }
 ;
 
-builtin_call: Integer { () };
-
-function_call:
-| i=iri a=arg_list
-  {
-    let loc = mk_loc $startpos(i) $endpos(a) in
-    { func_loc = loc ; func_iri = i ; func_args = a }
-  }
-;
 
 arg_list:
 | NIL {
@@ -697,6 +710,33 @@ arg_list:
     { argl_loc = loc ; argl_distinct = o <> None ; argl = l }
   }
 ;
+
+iri_or_function:
+| iri=iri
+  {
+    let loc = mk_loc $startpos(iri) $endpos(iri) in
+    let arg_list =
+      {
+        argl_loc = mk_loc $endpos(iri) $endpos(iri) ;
+        argl_distinct = false ; argl = [] ;
+      }
+    in
+    { func_loc = loc ;
+      func_iri = iri ;
+      func_args = arg_list ;
+    }
+  }
+| function_call { $1 }
+;
+
+function_call:
+| i=iri a=arg_list
+  {
+    let loc = mk_loc $startpos(i) $endpos(a) in
+    { func_loc = loc ; func_iri = i ; func_args = a }
+  }
+;
+
 
 expression: l=conditional_or_expression {
     let loc = mk_loc $startpos(l) $endpos(l) in
@@ -713,18 +753,86 @@ conditional_and_expression:
   { l }
 ;
 
-value_logical: rational_expression { $1 }
+value_logical: relational_expression { $1 }
 ;
 
-rational_expression:
-| unary_expression { assert false }
-| binary_expression { assert false }
+relational_expression:
+| numexp { Numexp $1 }
+| e1=numexp EQUAL e2=numexp
+  { Equal (e1, e2) }
+| e1=numexp NOTEQUAL e2=numexp
+  { NotEqual (e1, e2) }
+| e1=numexp LT e2=numexp
+  { Lt (e1, e2) }
+| e1=numexp GT e2=numexp
+  { Gt (e1, e2) }
+| e1=numexp LTE e2=numexp
+  { Lte (e1, e2) }
+| e1=numexp GTE e2=numexp
+  { Gte (e1, e2) }
+| e=numexp IN l=expression_list
+  { In (e, l) }
+| e=numexp NOT IN l=expression_list
+  { NotIn (e, l) }
 ;
 
-unary_expression: RBRACE { assert false }
+numexp: add_expression { $1 }
 ;
 
-binary_expression: LBRACE { assert false }
+add_expression:
+| mult_exp list(add_expression2) { ($1, $2) }
+;
+
+add_expression2:
+| PLUS e=mult_exp l=list(add_expression3)
+  { ExpPlus (e, l) }
+| MINUS e=mult_exp l=list(add_expression3)
+  { ExpMinus (e, l) }
+| lit=numeric_literal_positive l=list(add_expression3)
+  {
+    let loc = mk_loc $startpos(lit) $endpos(lit) in
+    let lit = { rdf_lit_loc = loc ; rdf_lit = lit ; rdf_lit_type = None } in
+    ExpPosNumeric (lit, l)
+  }
+| lit=numeric_literal_negative l=list(add_expression3)
+  {
+    let loc = mk_loc $startpos(lit) $endpos(lit) in
+    let lit = { rdf_lit_loc = loc ; rdf_lit = lit ; rdf_lit_type = None } in
+    ExpNegNumeric (lit, l)
+  }
+;
+
+add_expression3:
+| STAR unary_expression { AddMult $2 }
+| SLASH unary_expression { AddDiv $2 }
+;
+
+mult_exp:
+| e=unary_expression { Unary e }
+| e1=unary_expression STAR e2=mult_exp { Mult (e1, e2) }
+| e1=unary_expression SLASH e2=mult_exp { Div (e1, e2) }
+;
+
+unary_expression:
+| BANG primary_expression { PrimNot $2 }
+| PLUS primary_expression { PrimPlus $2 }
+| MINUS primary_expression { PrimMinus $2 }
+| primary_expression { Primary $1 }
+;
+
+expression_list:
+| NIL { [] }
+| LPAR l=separated_nonempty_list(COMMA, expression) RPAR { l }
+;
+
+primary_expression:
+| bracketted_expression { PrimExpr $1 }
+| built_in_call { PrimBuiltInCall $1 }
+| iri_or_function { PrimFun $1 }
+| rdf_literal { PrimLit $1 }
+| numeric_literal { PrimNumeric $1 }
+| boolean_literal { PrimBoolean $1 }
+| var { PrimVar $1 }
 ;
 
 numeric_literal:
@@ -733,6 +841,7 @@ numeric_literal:
     let loc = mk_loc $startpos($1) $endpos($1) in
     { rdf_lit_loc = loc ;
       rdf_lit = $1 ;
+      rdf_lit_type = None ;
     }
   }
 ;
@@ -766,10 +875,125 @@ boolean_literal:
     let loc = mk_loc $startpos($1) $endpos($1) in
     { rdf_lit_loc = loc ;
       rdf_lit = mk_boolean $1 ;
+      rdf_lit_type = None ;
     }
   }
 ;
 
+string:
+| String_literal1 { $1 }
+| String_literal2 { $1 }
+| String_literal_long1 { $1 }
+| String_literal_long2 { $1 }
+;
+
 rdf_literal:
-| RPAR { assert false }
+| r=rdf_literal_
+  {
+    let loc = mk_loc $startpos(r) $endpos(r) in
+    let (s, lang, typ) = r in
+    { rdf_lit_loc = loc ;
+      rdf_lit = mk_lit ?lang s ;
+      rdf_lit_type = typ ;
+    }
+  }
+;
+
+rdf_literal_:
+| s=string { (s, None, None) }
+| s=string HATHAT iri=iri { (s, None, Some iri) } (* FIXME: iri can also be a prefixed name *)
+| s=string t=Langtag { (s, Some t, None) }
+;
+
+built_in_call:
+  agregate { $1 }
+| STR LPAR e=expression RPAR { Bic_STR e }
+| LANG LPAR e=expression RPAR { Bic_LANG e }
+| LANGMATCHES LPAR e1=expression COMMA e2=expression RPAR { Bic_LANGMATCHES (e1, e2) }
+| DATATYPE LPAR e=expression RPAR { Bic_DATATYPE e }
+| BOUND LPAR v=var RPAR { Bic_BOUND v }
+| IRI LPAR e=expression RPAR { Bic_IRI e }
+| URI LPAR e=expression RPAR { Bic_URI e }
+| BNODE LPAR e=expression RPAR { Bic_BNODE (Some e) }
+| BNODE NIL { Bic_BNODE None }
+| RAND NIL { Bic_RAND }
+| ABS LPAR e=expression RPAR { Bic_ABS e }
+| CEIL LPAR e=expression RPAR { Bic_CEIL e }
+| FLOOR LPAR e=expression RPAR { Bic_FLOOR e }
+| ROUND LPAR e=expression RPAR { Bic_ROUND e }
+| CONCAT e=expression_list { Bic_CONCAT e }
+| substring_expression { $1 }
+| STRLEN LPAR e=expression RPAR { Bic_STRLEN e }
+| str_replace_expression { $1 }
+| UCASE LPAR e=expression RPAR { Bic_UCASE e }
+| LCASE LPAR e=expression RPAR { Bic_LCASE e }
+| ENCODE_FOR_URI LPAR e=expression RPAR { Bic_ENCODE_FOR_URI e }
+| CONTAINS LPAR e1=expression COMMA e2=expression RPAR { Bic_CONTAINS (e1, e2) }
+| STRSTARTS LPAR e1=expression COMMA e2=expression RPAR { Bic_STRSTARTS (e1, e2) }
+| STRENDS LPAR e1=expression COMMA e2=expression RPAR { Bic_STRENDS (e1, e2) }
+| STRBEFORE LPAR e1=expression COMMA e2=expression RPAR { Bic_STRBEFORE (e1, e2) }
+| STRAFTER LPAR e1=expression COMMA e2=expression RPAR { Bic_STRAFTER (e1, e2) }
+| YEAR LPAR e=expression RPAR { Bic_YEAR e }
+| MONTH LPAR e=expression RPAR { Bic_MONTH e }
+| DAY LPAR e=expression RPAR { Bic_DAY e }
+| HOURS LPAR e=expression RPAR { Bic_HOURS e }
+| MINUTES LPAR e=expression RPAR { Bic_MINUTES e }
+| SECONDS LPAR e=expression RPAR { Bic_SECONDS e }
+| TIMEZONE LPAR e=expression RPAR { Bic_TIMEZONE e }
+| TZ LPAR e=expression RPAR { Bic_TZ e }
+| NOW NIL { Bic_NOW }
+| UUID NIL { Bic_UUID }
+| STRUUID NIL { Bic_STRUUID }
+| MD5 LPAR e=expression RPAR { Bic_MD5 e }
+| SHA1 LPAR e=expression RPAR { Bic_SHA1 e }
+| SHA256 LPAR e=expression RPAR { Bic_SHA256 e }
+| SHA384 LPAR e=expression RPAR { Bic_SHA384 e }
+| SHA512 LPAR e=expression RPAR { Bic_SHA512 e }
+| COALESCE l=expression_list { Bic_COALESCE l }
+| IF LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR { Bic_IF (e1, e2, e3) }
+| STRLANG LPAR e1=expression COMMA e2=expression RPAR { Bic_STRLANG (e1, e2) }
+| STRDT LPAR e1=expression COMMA e2=expression RPAR { Bic_STRDT (e1, e2) }
+| SAMETERM LPAR e1=expression COMMA e2=expression RPAR { Bic_SAMETERM (e1, e2) }
+| ISIRI LPAR e=expression RPAR { Bic_ISIRI e }
+| ISURI LPAR e=expression RPAR { Bic_ISURI e }
+| ISBLANK LPAR e=expression RPAR { Bic_ISBLANK e }
+| ISLITERAL LPAR e=expression RPAR { Bic_ISLITERAL e }
+| ISNUMERIC LPAR e=expression RPAR { Bic_ISNUMERIC e }
+| regexp_expression { $1 }
+| EXISTS g=group_graph_pattern { Bic_EXISTS g }
+| NOT EXISTS g=group_graph_pattern { Bic_NOTEXISTS g }
+;
+
+regexp_expression:
+| REGEXP LPAR e1=expression COMMA e2=expression RPAR
+  { Bic_REGEXP (e1, e2, None) }
+| REGEXP LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
+  { Bic_REGEXP (e1, e2, Some e3) }
+;
+
+substring_expression:
+| SUBSTR LPAR e1=expression COMMA e2=expression RPAR
+  { Bic_SUBSTR (e1, e2, None) }
+| SUBSTR LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
+  { Bic_SUBSTR (e1, e2, Some e3) }
+;
+
+str_replace_expression:
+| REPLACE LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
+  { Bic_REPLACE (e1, e2, e3, None) }
+| REPLACE LPAR e1=expression COMMA e2=expression COMMA e3=expression COMMA e4=expression RPAR
+  { Bic_REPLACE (e1, e2, e3, Some e4) }
+;
+
+agregate:
+| COUNT LPAR d=option(DISTINCT) STAR RPAR { Bic_COUNT (d<>None, None) }
+| COUNT LPAR d=option(DISTINCT) e=expression RPAR { Bic_COUNT (d<>None, Some e) }
+| SUM LPAR d=option(DISTINCT) e=expression RPAR { Bic_SUM (d<>None, e) }
+| MIN LPAR d=option(DISTINCT) e=expression RPAR { Bic_MIN (d<>None, e) }
+| MAX LPAR d=option(DISTINCT) e=expression RPAR { Bic_MAX (d<>None, e) }
+| AVG LPAR d=option(DISTINCT) e=expression RPAR { Bic_AVG (d<>None, e) }
+| SAMPLE LPAR d=option(DISTINCT) e=expression RPAR { Bic_SAMPLE (d<>None, e) }
+| GROUP_CONCAT LPAR d=option(DISTINCT) e=expression RPAR { Bic_GROUP_CONCAT (d<>None, e, None) }
+| GROUP_CONCAT LPAR d=option(DISTINCT) e=expression RPAR SEMICOLON SEPARATOR EQUAL sep=string
+  { Bic_GROUP_CONCAT (d<>None, e, Some sep) }
 ;
