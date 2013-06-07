@@ -136,7 +136,7 @@ select_var:
       sel_var = $1 ;
     }
   }
-| e=expression AS v=var {
+| LPAR e=expression AS v=var RPAR {
     { sel_var_loc = mk_loc $startpos(e) $endpos(v) ;
       sel_var_expr = Some e ;
       sel_var = v ;
