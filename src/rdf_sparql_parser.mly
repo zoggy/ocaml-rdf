@@ -21,6 +21,7 @@ let mk_double = mk_lit ~typ: xsd_double;;
 let mk_boolean = mk_lit ~typ: xsd_boolean;;
 
 %}
+
 %token <Rdf_sparql_types.iriref>Iriref_
 %token <string>Var1
 %token <string>Var2

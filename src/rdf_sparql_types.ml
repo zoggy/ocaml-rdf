@@ -5,6 +5,11 @@ type loc =
     loc_end : Lexing.position ;
   }
 
+let dummy_loc = {
+    loc_start = Lexing.dummy_pos ;
+    loc_end = Lexing.dummy_pos ;
+  }
+
 type pname_ns = {
     pname_ns_loc : loc ;
     pname_ns_name : string ;

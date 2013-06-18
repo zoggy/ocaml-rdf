@@ -150,6 +150,12 @@ let rec main = lexer
 | ('a'|'A') ('v'|'V') ('g'|'G')  -> AVG
 | ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')  -> BASE
 | ('b'|'B') ('i'|'I') ('n'|'N') ('d'|'D')  -> BIND
+
+(* support for old BINDINGS keywords, replaced by VALUES
+ see change log at the end of http://www.w3.org/TR/sparql11-federated-query/
+*)
+| ('b'|'B') ('i'|'I') ('n'|'N') ('d'|'D') ('i'|'I') ('n'|'N') ('g'|'G') ('s'|'S')  -> VALUES
+
 | ('b'|'B') ('n'|'N') ('o'|'O') ('d'|'D') ('e'|'E')  -> BNODE
 | ('b'|'B') ('n'|'N') ('o'|'O') ('d'|'D') ('e'|'E')  -> BNODE
 | ('b'|'B') ('o'|'O') ('u'|'U') ('n'|'N') ('d'|'D')  -> BOUND
