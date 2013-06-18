@@ -36,7 +36,7 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
 %token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
-%token STAR COLON NIL COMMA DOT PIPE SLASH HAT HATHAT BANG QM PLUS SEMICOLON
+%token STAR NIL COMMA DOT PIPE SLASH HAT HATHAT BANG QM PLUS SEMICOLON
 %token LPAR RPAR
 %token LBRACE RBRACE
 %token LBRACKET RBRACKET
@@ -176,6 +176,43 @@ select_var:
       sel_var_expr = Some e ;
       sel_var = v ;
     }
+  }
+;
+
+construct_template:
+ LBRACE option(construct_triples) RBRACE {
+   match $2 with None -> [] | Some l -> l
+  }
+;
+
+construct_triples:
+| triples_same_subject { [ $1 ] }
+| triples_same_subject DOT { [ $1 ] }
+| triples_same_subject DOT construct_triples { $1 :: $3 }
+;
+
+triples_template: construct_triples { $1 }
+;
+
+triples_same_subject:
+| v=var_or_term l=property_list_not_empty
+  {
+    let loc = mk_loc $startpos(v) $endpos(l) in
+    TriplesVar
+      {
+        tvtp_loc = loc ;
+        tvtp_subject = v ;
+        tvtp_path = l ;
+      }
+  }
+| t=triples_node l=property_list
+  {
+    let loc = mk_loc $startpos(t) $endpos(l) in
+    TriplesNode
+      { tnp_loc = loc ;
+        tnp_path = t ;
+        tnp_props = l ;
+      }
   }
 ;
 
@@ -422,7 +459,7 @@ triples_same_subject_path:
         tnpp_props = p ;
       }
     in
-    TriplesPathNode t
+    TriplesNodePath t
   }
 ;
 
@@ -493,6 +530,12 @@ LPAR nonempty_list(graph_node) RPAR { $2 }
 
 blank_node_property_list:
 LBRACKET property_list_not_empty RBRACKET { $2 }
+;
+
+property_list:
+  l=option(property_list_not_empty) {
+    match l with None -> [] | Some l -> l
+  }
 ;
 
 property_list_not_empty:

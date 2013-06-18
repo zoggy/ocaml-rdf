@@ -197,4 +197,4 @@ rdf_sparql_lex.ml: rdf_sparql_lex.mll
 	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
-	$(MENHIR) --explain --base rdf_sparql_parser $^
+	$(MENHIR) --explain --infer --table --base rdf_sparql_parser $^

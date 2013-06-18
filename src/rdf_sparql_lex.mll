@@ -76,7 +76,6 @@ let rec main = lexer
   Pname_ns t
 
 | '*' -> STAR
-| ':' -> COLON
 | '(' -> LPAR
 | ')' -> RPAR
 | '{' -> LBRACE

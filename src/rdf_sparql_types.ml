@@ -414,7 +414,7 @@ and triples_block =
 and triples_node_props =
   { tnp_loc : loc ;
     tnp_path : triples_node ;
-    tnp_props : verb prop_object_list option;
+    tnp_props : verb prop_object_list list;
   }
 and ggp_sub = {
   ggp_sub_loc : loc ;
@@ -443,7 +443,7 @@ type select_query = {
   }
 
 type triples_same_subject =
-  | TriplesVar of verb prop_object_list triples_var_or_term_props
+  | TriplesVar of verb prop_object_list list triples_var_or_term_props
   | TriplesNode of triples_node_props
 
 
@@ -476,7 +476,7 @@ type ask_query = {
 
 type query_kind =
   | Select of select_query
-  | Construct
+  | Construct of construct_query
   | Describe of describe_query
   | Ask of ask_query
 ;;
