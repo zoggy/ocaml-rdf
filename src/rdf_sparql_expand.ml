@@ -2,37 +2,21 @@
 
 open Rdf_sparql_types
 
+exception Unknown_prefix of pname_ns
+
 let map_opt f = function
   None -> None
 | Some x -> Some (f x)
 ;;
 
-type pname_ns = {
-    pname_ns_loc : loc ;
-    pname_ns_name : string ;
-  }
-;;
+module SMap = Rdf_xml.SMap;;
 
-type pname_local = {
-    pname_local_loc : loc ;
-    pname_local_name : string ;
+type env =
+  { base : Rdf_uri.uri ;
+    prefixes : Rdf_uri.uri SMap.t ;
   }
 
-type var = {
-  var_loc : loc ;
-  var_name : string ;
-  }
-
-type iriref =
-  { ir_loc : loc ;
-    ir_iri : Rdf_uri.uri ;
-  }
-
-type prefixed_name =
-  { pname_loc : loc ;
-    pname_ns : pname_ns ;
-    pname_local : pname_local option ;
-  }
+let create_env base = { base ; prefixes = SMap.empty }
 
 let iriref_a =
   Iriref
@@ -41,158 +25,229 @@ let iriref_a =
     }
 ;;
 
-type iri =
-  | Iriref of iriref
-  | PrefixedName of prefixed_name
+let expand_iri env = function
+  | (Iriref _) as t -> t
+  | PrefixedName pname ->
+    let base =
+      match pname.pname_ns.pname_ns_name with
+        "" -> env.base
+      | s ->
+          try SMap.find s env.prefixes
+          with Not_found ->
+              raise (Unknown_prefix pname.pname_ns)
+    in
+    let iri =
+      match pname.pname_local with
+        None -> base
+      | Some l ->
+          let s = (Rdf_uri.string base ^ l.pname_local_name) in
+          Rdf_uri.uri s
+    in
+    Iriref { ir_loc = pname.pname_loc ; ir_iri = iri }
 ;;
 
-type prefix_decl = pname_ns * iriref ;;
+let expand_query_prolog_decl (env, acc) = function
+| (BaseDecl iriref) as t
+| (PrefixDecl ({ pname_ns_name = "" }, iriref) as t) ->
+    let env = { env with base = iriref.ir_iri } in
+    (env, t :: acc)
 
-type query_prolog_decl =
-  | BaseDecl of iriref
-  | PrefixDecl of prefix_decl
+| PrefixDecl (pname_ns, iriref) as t->
+    let prefixes = SMap.add pname_ns.pname_ns_name iriref.ir_iri env.prefixes in
+    ({ env with prefixes }, t :: acc)
 ;;
 
-type query_prolog = query_prolog_decl list ;;
+let expand_query_prolog env decls =
+  let (env, l) = List.fold_left expand_query_prolog_decl (env, []) decls in
+  (env, List.rev l)
+;;
 
-type rdf_literal =
-  { rdf_lit_loc : loc ;
-    rdf_lit : Rdf_node.literal ;
-    rdf_lit_type : iri option ; (* must be resolved after parsing *)
+let expand_rdf_literal env t =
+  match t.rdf_lit_type with
+    None -> t
+  | Some iri ->
+      match expand_iri env iri with
+        PrefixedName _ -> assert false
+      | Iriref i ->
+          { rdf_lit_loc = t.rdf_lit_loc ;
+            rdf_lit = { t.rdf_lit with Rdf_node.lit_type = Some i.ir_iri } ;
+            rdf_lit_type = Some (Iriref i) ;
+          }
+;;
+
+let expand_data_block_value env = function
+  | DataBlockValueIri iri -> DataBlockValueIri (expand_iri env iri)
+  | DataBlockValueRdf lit -> DataBlockValueRdf (expand_rdf_literal env lit)
+  | DataBlockValueNumeric lit -> DataBlockValueNumeric (expand_rdf_literal env lit)
+  | DataBlockValueBoolean lit -> DataBlockValueBoolean (expand_rdf_literal env lit)
+  | DataBlockValueUndef -> DataBlockValueUndef
+;;
+
+let expand_data_full_block_value env = function
+  | Nil -> Nil
+  | Value l -> Value (List.map (expand_data_block_value env) l)
+;;
+
+let expand_inline_data_one_var env t =
+  { idov_loc = t.idov_loc ;
+    idov_var = t.idov_var ;
+    idov_data = List.map (expand_data_block_value env) t.idov_data ;
   }
 ;;
 
-type data_block_value =
-  | DataBlockValueIri of iri
-  | DataBlockValueRdf of rdf_literal
-  | DataBlockValueNumeric of rdf_literal
-  | DataBlockValueBoolean of rdf_literal
-  | DataBlockValueUndef
-;;
-
-type data_full_block_value =
-  | Nil
-  | Value of data_block_value list
-;;
-
-type inline_data_one_var =
-  { idov_loc : loc ;
-    idov_var : var ;
-    idov_data : data_block_value list ;
+let expand_inline_data_full env t =
+  { idf_loc = t.idf_loc ;
+    idf_vars = t.idf_vars ;
+    idf_values = List.map (expand_data_full_block_value env) t.idf_values ;
   }
 ;;
 
-type inline_data_full =
-  { idf_loc : loc ;
-    idf_vars : var list ;
-    idf_values : data_full_block_value list ;
-  }
+let expand_datablock env = function
+  | InLineDataOneVar i -> InLineDataOneVar (expand_inline_data_one_var env i)
+  | InLineDataFull i -> InLineDataFull (expand_inline_data_full env i)
+
+let expand_values_clause env d = map_opt (expand_datablock env) d;;
+
+let expand_var_or_iri env = function
+  | VIVar v -> VIVar v
+  | VIIri iri -> VIIri (expand_iri env iri)
 ;;
 
-type datablock =
-  | InLineDataOneVar of inline_data_one_var
-  | InLineDataFull of inline_data_full
 
-type values_clause = datablock option;;
-
-type path_mod = ModOptional | ModList | ModOneOrMore ;;
-
-type var_or_iri =
-  | VIVar of var
-  | VIIri of iri
-;;
-
-type blank_node =
-  { bnode_loc : loc ;
-    bnode_label : string option ;
-  }
-;;
-type select_clause_flag = Distinct | Reduced ;;
-
-type select_var =
-  { sel_var_loc : loc ;
-    sel_var_expr : expression option ;
-    sel_var : var ;
+let rec expand_select_var env t =
+  { sel_var_loc = t.sel_var_loc ;
+    sel_var_expr = map_opt (expand_expression env) t.sel_var_expr ;
+    sel_var = t.sel_var ;
   }
 
-and expand_select_vars =
-  | SelectAll
-  | SelectVars of select_var list
+and expand_select_vars env = function
+  | SelectAll -> SelectAll
+  | SelectVars l -> SelectVars (List.map (expand_select_var env) l)
 
-and expand_select_clause = {
-  sel_flag : select_clause_flag option ;
-  sel_vars : select_vars ;
+and expand_select_clause env t =
+  {
+    sel_flag = t.sel_flag ;
+    sel_vars = expand_select_vars env t.sel_vars ;
   }
 
-and expand_source_selector = iri
+and expand_source_selector = expand_iri
 
-and expand_dataset_clause =
-  | DefaultGraphClause of source_selector
-  | NamedGraphClause of  source_selector
+and expand_dataset_clause env = function
+  | DefaultGraphClause s ->
+    DefaultGraphClause (expand_source_selector env s)
+  | NamedGraphClause s ->
+    NamedGraphClause (expand_source_selector env s)
 
-and expand_arg_list =
-  { argl_loc : loc ;
-    argl_distinct : bool ;
-    argl : expression list ;
+and expand_arg_list env t  =
+  { argl_loc = t.argl_loc ;
+    argl_distinct = t.argl_distinct ;
+    argl = List.map (expand_expression env) t.argl ;
   }
-and expand_function_call =
-  { func_loc : loc ;
-    func_iri : iri ;
-    func_args : arg_list ;
+and expand_function_call env t =
+  { func_loc = t.func_loc ;
+    func_iri = expand_iri env t.func_iri ;
+    func_args = expand_arg_list env t.func_args ;
   }
 
-and expand_relational_expression =
-  | Numexp of numeric_expression
-  | Equal of numeric_expression * numeric_expression
-  | NotEqual of numeric_expression * numeric_expression
-  | Lt of numeric_expression * numeric_expression
-  | Gt of numeric_expression * numeric_expression
-  | Lte of numeric_expression * numeric_expression
-  | Gte of numeric_expression * numeric_expression
-  | In of numeric_expression * expression list
-  | NotIn of numeric_expression * expression list
+and expand_relational_expression env = function
+| Numexp e -> Numexp (expand_numeric_expression env e)
+| Equal (ne1, ne2) ->
+    Equal
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+| NotEqual (ne1, ne2) ->
+    NotEqual
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+| Lt (ne1, ne2) ->
+    Lt
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+  | Gt (ne1, ne2) ->
+    Gt
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+| Lte (ne1, ne2) ->
+   Lte
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+| Gte (ne1, ne2) ->
+    Gte
+      (expand_numeric_expression env ne1,
+       expand_numeric_expression env ne2)
+| In (ne, l) ->
+      In
+      (expand_numeric_expression env ne,
+       List.map (expand_expression env) l)
+| NotIn (ne, l) ->
+      NotIn
+      (expand_numeric_expression env ne,
+       List.map (expand_expression env) l)
 
-and expand_numeric_expression = add_expression
-and expand_add_expression = mult_expression * add_expression2 list
-and expand_add_expression2 =
-  | ExpPlus of mult_expression * add_expression3 list
-  | ExpMinus of mult_expression * add_expression3 list
-  | ExpPosNumeric of rdf_literal * add_expression3 list
-  | ExpNegNumeric of rdf_literal * add_expression3 list
-and expand_add_expression3 =
-   | AddMult of unary_expression
-   | AddDiv of unary_expression
 
-and expand_mult_expression =
-  | Unary of unary_expression
-  | Mult of unary_expression * mult_expression
-  | Div of unary_expression * mult_expression
+and expand_numeric_expression env t = expand_add_expression env t
+and expand_add_expression env (me, l) =
+  (expand_mult_expression env me,
+   List.map (expand_add_expression2 env) l
+  )
+and expand_add_expression2 env = function
+| ExpPlus (me, l) ->
+    ExpPlus
+      (expand_mult_expression env me,
+       List.map (expand_add_expression3 env) l
+      )
+| ExpMinus (me, l) ->
+    ExpMinus
+      (expand_mult_expression env me,
+       List.map (expand_add_expression3 env) l
+      )
+| ExpPosNumeric (lit, l) ->
+    ExpPosNumeric
+      (expand_rdf_literal env lit,
+       List.map (expand_add_expression3 env) l
+      )
+| ExpNegNumeric (lit, l) ->
+    ExpNegNumeric
+      (expand_rdf_literal env lit,
+       List.map (expand_add_expression3 env) l
+      )
 
-and expand_unary_expression =
-  | Primary of primary_expression
-  | PrimNot of primary_expression
-  | PrimPlus of primary_expression
-  | PrimMinus of primary_expression
+and expand_add_expression3 env = function
+  | AddMult e -> AddMult (expand_unary_expression env e)
+  | AddDiv e -> AddDiv (expand_unary_expression env e)
 
-and expand_primary_expression =
-  | PrimExpr of expression
-  | PrimBuiltInCall of built_in_call
-  | PrimFun of function_call
-  | PrimLit of rdf_literal
-  | PrimNumeric of rdf_literal
-  | PrimBoolean of rdf_literal
-  | PrimVar of var
+and expand_mult_expression env = function
+  | Unary e -> Unary (expand_unary_expression env e)
+  | Mult (ue, me) ->
+    Mult (expand_unary_expression env ue, expand_mult_expression env me)
+  | Div (ue, me) ->
+      Div (expand_unary_expression env ue, expand_mult_expression env me)
 
-and expand_expression =
-  { expr_loc : loc ;
-    expr_or_exprs : and_expression list ; (* exp1 or exp2 ... *)
+and expand_unary_expression env = function
+  | Primary e -> Primary (expand_primary_expression env e)
+  | PrimNot e -> PrimNot (expand_primary_expression env e)
+  | PrimPlus e -> PrimPlus (expand_primary_expression env e)
+  | PrimMinus e -> PrimMinus (expand_primary_expression env e)
+
+and expand_primary_expression env = function
+  | PrimExpr e -> PrimExpr (expand_expression env e)
+  | PrimBuiltInCall c -> PrimBuiltInCall (expand_built_in_call env c)
+  | PrimFun c -> PrimFun (expand_function_call env c)
+  | PrimLit lit -> PrimLit (expand_rdf_literal env lit)
+  | PrimNumeric lit -> PrimNumeric (expand_rdf_literal env lit)
+  | PrimBoolean lit -> PrimBoolean (expand_rdf_literal env lit)
+  | PrimVar v -> PrimVar v
+
+and expand_expression env t =
+  { expr_loc = t.expr_loc ;
+    expr_or_exprs = List.map (expand_and_expression env) t.expr_or_exprs ;
   }
-and expand_and_expression = value_logical list
-and expand_value_logical = relational_expression
+and expand_and_expression env l = List.map (expand_value_logical env) l
+and expand_value_logical env t = expand_relational_expression env t
 
 and expand_built_in_call env = function
 | Bic_COUNT (b, eopt) ->
-    Bic_COUNT (b, map_opt expand_expression env eopt)
+    Bic_COUNT (b, map_opt (expand_expression env) eopt)
 | Bic_SUM (b, e) ->
     Bic_SUM (b, expand_expression env e)
 | Bic_MIN (b, e) ->
@@ -231,7 +286,7 @@ and expand_built_in_call env = function
     Bic_ROUND (expand_expression env e)
 | Bic_CONCAT l ->
     Bic_CONCAT (List.map (expand_expression env) l)
-| Bic_SUBSTR (e1, e2, eopt)
+| Bic_SUBSTR (e1, e2, eopt) ->
       Bic_SUBSTR
       (expand_expression env e1,
        expand_expression env e2,
@@ -239,7 +294,7 @@ and expand_built_in_call env = function
       )
 | Bic_STRLEN e ->
     Bic_STRLEN (expand_expression env e)
-| Bic_REPLACE (e1, e2, e3, eopt)
+| Bic_REPLACE (e1, e2, e3, eopt) ->
       Bic_REPLACE
       (expand_expression env e1,
        expand_expression env e2,
@@ -279,7 +334,7 @@ and expand_built_in_call env = function
 | Bic_TZ e ->
     Bic_TZ (expand_expression env e)
 | Bic_NOW -> Bic_NOW
-| Bic_UUID -> Bic8UUID
+| Bic_UUID -> Bic_UUID
 | Bic_STRUUID -> Bic_STRUUID
 | Bic_MD5 e ->
     Bic_MD5 (expand_expression env e)
@@ -342,7 +397,7 @@ and expand_constraint env = function
   | ConstrFunctionCall c -> ConstrFunctionCall (expand_function_call env c)
   | ConstrExpr e -> ConstrExpr (expand_expression env e)
 
-and expand_having_condition = expand_constraint
+and expand_having_condition env t = expand_constraint env t
 
 and expand_order_condition env = function
   | OrderAsc e -> OrderAsc (expand_expression env e)
@@ -407,7 +462,7 @@ and expand_var_or_term env = function
 
 and expand_path_one_in_prop_set env = function
   | PathOneInIri iri -> PathOneInIri (expand_iri env iri)
-  | PathOneInA -> PathOneInA iriref_a
+  | PathOneInA -> PathOneInIri iriref_a
   | PathOneInNotIri iri -> PathOneInNotIri (expand_iri env iri)
   | PathOneInNotA -> PathOneInNotIri iriref_a
 
@@ -446,7 +501,7 @@ and expand_triples_node env = function
   | TNodeCollection l ->
       TNodeCollection (List.map (expand_graph_node env) l)
   | TNodeBlank l ->
-      TNodeBlank (List.map (expand_prop_object_list expand_verb env) l)
+      TNodeBlank (List.map (expand_verb_prop_object_list env) l)
 
 and expand_graph_node env = function
   | GraphNodeVT t -> GraphNodeVT (expand_var_or_term env t)
@@ -462,28 +517,47 @@ and expand_graph_node_path env = function
   | GraphNodePathVT t -> GraphNodePathVT (expand_var_or_term env t)
   | GraphNodePathTriples t -> GraphNodePathTriples (expand_triples_node_path env t)
 
-and expand_object_ = expand_graph_node
-and expand_object_path = expand_graph_node_path
+and expand_object env t = expand_graph_node env t
+and expand_object_path env t = expand_graph_node_path env t
 
-and expand_prop_object_list f env t =
-  { propol_loc = t.propol_loc ;
-    propol_verb = f env t.propol_verb ;
+and expand_prop_object_list : 'a . (env -> 'a -> 'a) -> env -> 'a prop_object_list -> 'a prop_object_list =
+      fun f env t ->
+        { propol_loc = t.propol_loc ;
+          propol_verb = f env t.propol_verb ;
+          propol_objects = List.map (expand_object env) t.propol_objects ;
+        }
+
+and expand_verb_path_prop_object_list env t =
+  expand_prop_object_list expand_verb_path env t
+(*  { propol_loc = t.propol_loc ;
+    propol_verb = expand_verb_path env t.propol_verb ;
     propol_objects = List.map (expand_object env) t.propol_objects ;
   }
+*)
+and expand_verb_prop_object_list env t =
+  expand_prop_object_list expand_verb env t
+(*
+   { propol_loc = t.propol_loc ;
+    propol_verb = expand_verb env t.propol_verb ;
+    propol_objects = List.map (expand_object env) t.propol_objects ;
+  }
+*)
 
 and expand_property_list_path env t =
   { proplp_loc = t.proplp_loc ;
     proplp_verb = expand_verb_path env t.proplp_verb ;
     proplp_objects = List.map (expand_object_path env) t.proplp_objects ;
     proplp_more = List.map
-      (expand_prop_object_list expand_verb_path env) t.proplp_more ;
+      (expand_verb_path_prop_object_list env) t.proplp_more ;
   }
 
-and expand_triples_var_or_term_props f env t =
-  { tvtp_loc = t.tvtp_loc ;
-    tvtp_subject = expand_var_or_term env t.tvtp_subject ;
-    tvtp_path = f env t.tvtp_path ;
-  }
+and expand_triples_var_or_term_props :
+  'a. (env -> 'a -> 'a) -> env -> 'a triples_var_or_term_props -> 'a triples_var_or_term_props =
+  fun f env t ->
+    { tvtp_loc = t.tvtp_loc ;
+      tvtp_subject = expand_var_or_term env t.tvtp_subject ;
+      tvtp_path = f env t.tvtp_path ;
+    }
 
 and expand_triples_node_path_props env t =
   { tnpp_loc = t.tnpp_loc ;
@@ -494,7 +568,7 @@ and expand_triples_node_path_props env t =
 and expand_triples_same_subject_path env = function
   | TriplesPathVar t ->
       TriplesPathVar
-        (expand_triples_var_or_term_props expand_property_path_list env t)
+        (expand_triples_var_or_term_props expand_property_list_path env t)
   | TriplesNodePath t ->
       TriplesNodePath (expand_triples_node_path_props env t)
 
@@ -506,13 +580,13 @@ and expand_triples_block env t =
 and expand_triples_node_props env t =
   { tnp_loc = t.tnp_loc ;
     tnp_path = expand_triples_node env t.tnp_path ;
-    tnp_props = List.map (expand_prop_object_list expand_verb env) t.tnp_props ;
+    tnp_props = List.map (expand_verb_prop_object_list env) t.tnp_props ;
   }
 
 and expand_ggp_sub =
   let f_rest env (graph_pattern_not_triples, triples_block_option) =
       (expand_graph_pattern_not_triples env graph_pattern_not_triples,
-       map_opt (expand_triples_block_option env) triples_block_option
+       map_opt (expand_triples_block env) triples_block_option
       )
   in
   fun env t ->
@@ -523,8 +597,8 @@ and expand_ggp_sub =
       }
 
 and expand_group_graph_pattern env = function
-  | SubSelect s -> expand_sub_select env s
-  | GGPSub g -> expand_ggp_sub env g
+  | SubSelect s -> SubSelect (expand_sub_select env s)
+  | GGPSub g -> GGPSub (expand_ggp_sub env g)
 
 and expand_sub_select env t =
   { subsel_loc = t.subsel_loc ;
@@ -547,12 +621,12 @@ let expand_triples_same_subject env = function
   | TriplesVar t ->
     TriplesVar
       (expand_triples_var_or_term_props
-       (fun env l -> List.map (expand_prop_object_list expand_verb env) l)
+       (fun env l -> List.map (expand_verb_prop_object_list env) l)
          env t
       )
   | TriplesNode t -> TriplesNode (expand_triples_node_props env t)
 
-let triples_template env l = List.map (triples_same_subject env) l
+let expand_triples_template env l = List.map (expand_triples_same_subject env) l
 let expand_construct_template = expand_triples_template
 
 let expand_construct_where env = function
@@ -564,7 +638,7 @@ let expand_construct_query env t =
     constr_template = map_opt (expand_construct_template env) t.constr_template ;
     constr_dataset = List.map (expand_dataset_clause env) t.constr_dataset ;
     constr_where = expand_construct_where env t.constr_where ;
-    constr_modifier = expand_solution_modifier t.constr_modifier ;
+    constr_modifier = expand_solution_modifier env t.constr_modifier ;
   }
 
 let expand_describe_query env t =
@@ -590,10 +664,10 @@ let expand_query_kind env = function
 ;;
 
 
-let expand_query q =
-  let env = () in
-  let (q_prolog, env) = expand_prolog env q.q_prolog in
-  let q_kind = expand_kind env q.q_kind in
-  let q_values = expand_values env q.q_values in
+let expand_query default_base_uri q =
+  let env = create_env default_base_uri in
+  let (env, q_prolog) = expand_query_prolog env q.q_prolog in
+  let q_kind = expand_query_kind env q.q_kind in
+  let q_values = expand_values_clause env q.q_values in
   { q_prolog ; q_kind ; q_values }
 ;;
