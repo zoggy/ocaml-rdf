@@ -350,9 +350,9 @@ and path_elt_or_inverse =
   | Elt of path_elt
   | Inv of path_elt
 
-and path_alternative = path_elt_or_inverse list
+and path_sequence = path_elt_or_inverse list
 
-and path = path_alternative list
+and path = path_sequence list
 
 and verb_path =
   | VerbPath of path

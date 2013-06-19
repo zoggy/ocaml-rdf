@@ -61,6 +61,7 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_parser.cmo \
 	rdf_sparql_lex.cmo \
 	rdf_sparql_expand.cmo \
+	rdf_sparql_print.cmo \
 	rdf_sparql.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)

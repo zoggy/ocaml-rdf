@@ -31,3 +31,5 @@ val string_of_error : error -> string
 
 val parse_from_string : string -> Rdf_sparql_types.query
 val parse_from_file : string -> Rdf_sparql_types.query
+
+val string_of_query : Rdf_sparql_types.query -> string

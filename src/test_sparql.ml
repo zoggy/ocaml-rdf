@@ -27,6 +27,7 @@
 let fatal s = prerr_endline s ; exit 1 ;;
 let usage = Printf.sprintf "Usage: %s [options] <queries>\nwhere options are:" Sys.argv.(0);;
 
+let print_queries = ref false;;
 
 (*c==v=[Misc.safe_main]=1.0====*)
 let safe_main main =
@@ -41,7 +42,10 @@ let safe_main main =
 let parse_query parse source =
   try
     let q = parse source in
-    ignore(q)
+    let base = Rdf_uri.uri "http://foo.bar/" in
+    let q = Rdf_sparql_expand.expand_query base q in
+    if !print_queries then
+      print_endline (Rdf_sparql.string_of_query q)
   with
     Rdf_sparql.Error e ->
       prerr_endline (Rdf_sparql.string_of_error e);
@@ -59,6 +63,8 @@ let main () =
     [
       "-f", Arg.String (fun f -> files := f :: !files),
       "<file> read query from <file>" ;
+
+      "-p", Arg.Set print_queries, " print back parsed queries";
     ]
     (fun s -> args := s :: !args)
     usage;

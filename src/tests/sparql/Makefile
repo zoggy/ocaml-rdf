@@ -16,5 +16,11 @@ bad:
 		&& /bin/echo -e $(KO) "$$i" ) || /bin/echo -e $(OK) "$$i"; \
 	done
 
+printer:
+	for i in *.rq; do \
+		../../test_sparql -f $${i} -p 2> /dev/null > $${i}.1 && \
+		 ((../../test_sparql -f $${i}.1 -p > $${i}.2 && /bin/echo -e $(OK) "$${i}") || /bin/echo -e $(KO) "$${i}";) \
+	done
 
 clean:
+	rm -f *.1 *.2

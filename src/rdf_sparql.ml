@@ -56,3 +56,9 @@ let parse_from_file file =
       close_in ic;
       raise e
 ;;
+
+let string_of_query q =
+  let b = Buffer.create 256 in
+  Rdf_sparql_print.print_query b q ;
+  Buffer.contents b
+;;

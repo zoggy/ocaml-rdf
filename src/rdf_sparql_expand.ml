@@ -483,10 +483,10 @@ and expand_path_elt_or_inverse env = function
   | Elt e -> Elt (expand_path_elt env e)
   | Inv e -> Inv (expand_path_elt env e)
 
-and expand_path_alternative env l =
+and expand_path_sequence env l =
   List.map (expand_path_elt_or_inverse env) l
 
-and expand_path env l = List.map (expand_path_alternative env) l
+and expand_path env l = List.map (expand_path_sequence env) l
 
 and expand_verb_path env = function
   | VerbPath p -> VerbPath (expand_path env p)
