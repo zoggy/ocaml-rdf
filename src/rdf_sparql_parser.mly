@@ -403,9 +403,19 @@ group_graph_pattern_sub:
 | t=option(triples_block) l=list(gp_triples)
   {
     let loc = mk_loc $startpos(t) $endpos(l) in
+    let l =
+      List.fold_left 
+        (fun acc (g, t) ->
+          match t with
+            None -> g :: acc
+          | Some t -> t :: g :: acc)
+        []
+        l
+    in
+    let l = List.rev l in
+    let elts = match t with None -> l | Some t -> t :: l in
     { ggp_sub_loc = loc ;
-      ggp_sub_triples = t ;
-      ggp_sub_rest = l;
+      ggp_sub_elts = elts ;
     }
   }
 ;
@@ -419,9 +429,10 @@ triples_block:
 | l=triples_block_details
   {
     let loc = mk_loc $startpos(l) $endpos(l) in
-    { triples_loc = loc ;
-      triples = l ;
-    }
+    Triples
+      { triples_loc = loc ;
+        triples = l ;
+      }
   }
 ;
 triples_block_details:

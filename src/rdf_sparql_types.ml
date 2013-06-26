@@ -306,7 +306,8 @@ and graph_graph_pattern =
     graphgp_pat : group_graph_pattern ;
   }
 
-and graph_pattern_not_triples =
+and graph_pattern_elt =
+  | Triples of triples_block
   | Union of group_graph_pattern list
   | Optional of group_graph_pattern
   | Minus of group_graph_pattern
@@ -423,8 +424,7 @@ and triples_node_props =
   }
 and ggp_sub = {
   ggp_sub_loc : loc ;
-  ggp_sub_triples : triples_block option ;
-  ggp_sub_rest : (graph_pattern_not_triples * triples_block option) list ;
+  ggp_sub_elts : graph_pattern_elt list ;
   }
 
 and group_graph_pattern =

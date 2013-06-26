@@ -438,7 +438,8 @@ and expand_graph_graph_pattern env t =
     graphgp_pat = expand_group_graph_pattern env t.graphgp_pat ;
   }
 
-and expand_graph_pattern_not_triples env = function
+and expand_graph_pattern_elt env = function
+  | Triples l -> Triples (expand_triples_block env l)
   | Union l -> Union (List.map (expand_group_graph_pattern env) l)
   | Optional g -> Optional (expand_group_graph_pattern env g)
   | Minus g -> Minus (expand_group_graph_pattern env g)
@@ -583,18 +584,11 @@ and expand_triples_node_props env t =
     tnp_props = List.map (expand_verb_prop_object_list env) t.tnp_props ;
   }
 
-and expand_ggp_sub =
-  let f_rest env (graph_pattern_not_triples, triples_block_option) =
-      (expand_graph_pattern_not_triples env graph_pattern_not_triples,
-       map_opt (expand_triples_block env) triples_block_option
-      )
-  in
-  fun env t ->
-      {
-        ggp_sub_loc = t.ggp_sub_loc ;
-        ggp_sub_triples = map_opt (expand_triples_block env) t.ggp_sub_triples ;
-        ggp_sub_rest = List.map (f_rest env) t.ggp_sub_rest ;
-      }
+and expand_ggp_sub env t =
+  {
+    ggp_sub_loc = t.ggp_sub_loc ;
+    ggp_sub_elts = List.map (expand_graph_pattern_elt env) t.ggp_sub_elts ;
+  }
 
 and expand_group_graph_pattern env = function
   | SubSelect s -> SubSelect (expand_sub_select env s)

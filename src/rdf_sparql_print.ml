@@ -658,7 +658,8 @@ and print_graph_graph_pattern b t =
   print_var_or_iri b t.graphgp_name ;
   print_group_graph_pattern b t.graphgp_pat
 
-and print_graph_pattern_not_triples b = function
+and print_graph_pattern_elt b = function
+  | Triples l -> print_triples_block b l
   | Union l -> print_list ~sep: " UNION " b print_group_graph_pattern l
   | Optional g -> p b " OPTIONAL " ; print_group_graph_pattern b g
   | Minus g -> p b " MINUS "; print_group_graph_pattern b g
@@ -809,16 +810,8 @@ and print_triples_node_props b t =
     p b " " ;
     List.iter (print_verb_prop_object_list b) t.tnp_props
 
-and print_ggp_sub =
-  let f_rest b (graph_pattern_not_triples, triples_block_option) =
-        print_graph_pattern_not_triples b graph_pattern_not_triples ;
-        p b " " ;
-        do_opt (print_triples_block b) triples_block_option
-  in
-  fun b t ->
-        do_opt (print_triples_block b) t.ggp_sub_triples ;
-        p b " " ;
-        List.iter (f_rest b) t.ggp_sub_rest
+and print_ggp_sub b t =
+  print_list ~sep: "\n" b print_graph_pattern_elt t.ggp_sub_elts
 
 and print_group_graph_pattern b pat =
   p b "{\n" ;
