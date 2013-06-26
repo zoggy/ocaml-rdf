@@ -829,15 +829,12 @@ and print_group_graph_pattern b pat =
   p b "\n}"
 
 and print_sub_select b t =
-  ()
-(*
-  { subsel_loc = t.subsel_loc ;
-    subsel_select = print_select_clause b t.subsel_select ;
-    subsel_where = print_group_graph_pattern b t.subsel_where ;
-    subsel_modifier = print_solution_modifier b t.subsel_modifier ;
-    subsel_values = print_values_clause b t.subsel_values ;
-  }
-*)
+  print_select_clause b t.subsel_select ;
+  p b "\nWHERE ";
+  print_group_graph_pattern b t.subsel_where ;
+  p b "\n";
+  print_solution_modifier b t.subsel_modifier ;
+  print_values_clause b t.subsel_values
 ;;
 
 let print_select_query b t =
