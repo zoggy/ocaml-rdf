@@ -76,7 +76,7 @@ let fresh_var =
 let iri_first = Iri { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_first };;
 let iri_rest = Iri { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_rest };;
 let iri_nil =  Iri { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_nil };;
-
+(*
 let rec build_triples_path subject acc prop_list_path =
 
 
@@ -157,3 +157,4 @@ and translate_triples_same_subject_path t =
 
 
 
+*)

@@ -404,7 +404,7 @@ group_graph_pattern_sub:
   {
     let loc = mk_loc $startpos(t) $endpos(l) in
     let l =
-      List.fold_left 
+      List.fold_left
         (fun acc (g, t) ->
           match t with
             None -> g :: acc
@@ -459,23 +459,24 @@ triples_same_subject_path:
         tvtp_path = p ;
       }
     in
-    TriplesPathVar t
+    TriplesVar t
   }
 | t=triples_node_path p=property_list_path
   {
     let loc = mk_loc $startpos(t) $endpos(p) in
     let t =
       {
-        tnpp_loc = loc ;
-        tnpp_path = t ;
-        tnpp_props = p ;
+        tnp_loc = loc ;
+        tnp_path = t ;
+        tnp_props = p ;
       }
     in
-    TriplesNodePath t
+    TriplesNode t
   }
 ;
 
-property_list_path: l=option(property_list_path_not_empty) { l }
+property_list_path: l=option(property_list_path_not_empty) 
+  { match l with None -> [] | Some l -> l }
 ;
 
 property_list_path_not_empty:
@@ -491,11 +492,10 @@ property_list_path_not_empty:
       more
     in
     {
-      proplp_loc = loc ;
-      proplp_verb = v ;
-      proplp_objects = olp ;
-      proplp_more = List.rev more ;
-    }
+      propol_loc = loc ;
+      propol_verb = v ;
+      propol_objects = olp ;
+    } :: (List.rev more)
   }
 ;
 
@@ -523,7 +523,7 @@ object_: graph_node { $1 }
 
 verb_path_or_simple:
 | path { VerbPath $1 }
-| var { VerbSimple $1 }
+| var { VerbVar $1 }
 ;
 
 graph_node:
@@ -703,13 +703,13 @@ object_path: graph_node_path { $1 }
 ;
 
 graph_node_path:
-| var_or_term { GraphNodePathVT $1 }
-| triples_node_path { GraphNodePathTriples $1 }
+| var_or_term { GraphNodeVT $1 }
+| triples_node_path { GraphNodeTriples $1 }
 ;
 
 triples_node_path:
-| collection_path { TNodePathCollection $1 }
-| blank_node_property_list_path { TNodePathBlank $1 }
+| collection_path { TNodeCollection $1 }
+| blank_node_property_list_path { TNodeBlank $1 }
 ;
 
 collection_path:

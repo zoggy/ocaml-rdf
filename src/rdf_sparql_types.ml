@@ -355,73 +355,49 @@ and path_sequence = path_elt_or_inverse list
 
 and path = path_sequence list
 
-and verb_path =
-  | VerbPath of path
-  | VerbSimple of var
-
 and verb =
+  | VerbPath of path
   | VerbVar of var
   | VerbIri of iri
   | VerbA
 
 and triples_node =
   | TNodeCollection of graph_node list
-  | TNodeBlank of verb prop_object_list list
+  | TNodeBlank of prop_object_list list
 
 and graph_node =
   | GraphNodeVT of var_or_term
   | GraphNodeTriples of triples_node
 
-and triples_node_path =
-  | TNodePathCollection of graph_node_path list
-  | TNodePathBlank of property_list_path
-
-and graph_node_path =
-  | GraphNodePathVT of var_or_term
-  | GraphNodePathTriples of triples_node_path
-
 and object_ = graph_node
-and object_path = graph_node_path
 
-and 'a prop_object_list =
+and prop_object_list =
   { propol_loc : loc ;
-    propol_verb : 'a ;
+    propol_verb : verb ;
     propol_objects : object_ list ;
   }
 
-and property_list_path =
-  { proplp_loc : loc ;
-    proplp_verb : verb_path ;
-    proplp_objects : object_path list ;
-    proplp_more : verb_path prop_object_list list ;
-  }
-
-and 'a triples_var_or_term_props =
+and triples_var_or_term_props =
   { tvtp_loc : loc ;
     tvtp_subject : var_or_term ;
-    tvtp_path : 'a
+    tvtp_path : prop_object_list list;
   }
-
-and triples_node_path_props =
-  { tnpp_loc : loc ;
-    tnpp_path : triples_node_path ;
-    tnpp_props : property_list_path option;
-  }
-
-and triples_same_subject_path =
-  | TriplesPathVar of property_list_path triples_var_or_term_props
-  | TriplesNodePath of triples_node_path_props
 
 and triples_block =
   { triples_loc : loc ;
-    triples : triples_same_subject_path list ;
+    triples : triples_same_subject list ;
   }
 
 and triples_node_props =
   { tnp_loc : loc ;
     tnp_path : triples_node ;
-    tnp_props : verb prop_object_list list;
+    tnp_props : prop_object_list list;
   }
+
+and triples_same_subject =
+  | TriplesVar of triples_var_or_term_props
+  | TriplesNode of triples_node_props
+
 and ggp_sub = {
   ggp_sub_loc : loc ;
   ggp_sub_elts : graph_pattern_elt list ;
@@ -446,10 +422,6 @@ type select_query = {
     select_where : group_graph_pattern ;
     select_modifier : solution_modifier ;
   }
-
-type triples_same_subject =
-  | TriplesVar of verb prop_object_list list triples_var_or_term_props
-  | TriplesNode of triples_node_props
 
 
 type triples_template = triples_same_subject list

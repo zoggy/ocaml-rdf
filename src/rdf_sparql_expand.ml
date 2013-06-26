@@ -489,11 +489,8 @@ and expand_path_sequence env l =
 
 and expand_path env l = List.map (expand_path_sequence env) l
 
-and expand_verb_path env = function
-  | VerbPath p -> VerbPath (expand_path env p)
-  | VerbSimple v -> VerbSimple v
-
 and expand_verb env = function
+  | VerbPath p -> VerbPath (expand_path env p)
   | VerbVar v -> VerbVar v
   | VerbIri iri -> VerbIri (expand_iri env iri)
   | VerbA -> VerbIri iriref_a
@@ -502,87 +499,42 @@ and expand_triples_node env = function
   | TNodeCollection l ->
       TNodeCollection (List.map (expand_graph_node env) l)
   | TNodeBlank l ->
-      TNodeBlank (List.map (expand_verb_prop_object_list env) l)
+      TNodeBlank (List.map (expand_prop_object_list env) l)
 
 and expand_graph_node env = function
   | GraphNodeVT t -> GraphNodeVT (expand_var_or_term env t)
   | GraphNodeTriples t -> GraphNodeTriples (expand_triples_node env t)
 
-and expand_triples_node_path env = function
-  | TNodePathCollection l ->
-      TNodePathCollection (List.map (expand_graph_node_path env) l)
-  | TNodePathBlank p ->
-      TNodePathBlank (expand_property_list_path env p)
-
-and expand_graph_node_path env = function
-  | GraphNodePathVT t -> GraphNodePathVT (expand_var_or_term env t)
-  | GraphNodePathTriples t -> GraphNodePathTriples (expand_triples_node_path env t)
-
 and expand_object env t = expand_graph_node env t
-and expand_object_path env t = expand_graph_node_path env t
 
-and expand_prop_object_list : 'a . (env -> 'a -> 'a) -> env -> 'a prop_object_list -> 'a prop_object_list =
-      fun f env t ->
-        { propol_loc = t.propol_loc ;
-          propol_verb = f env t.propol_verb ;
-          propol_objects = List.map (expand_object env) t.propol_objects ;
-        }
-
-and expand_verb_path_prop_object_list env t =
-  expand_prop_object_list expand_verb_path env t
-(*  { propol_loc = t.propol_loc ;
-    propol_verb = expand_verb_path env t.propol_verb ;
-    propol_objects = List.map (expand_object env) t.propol_objects ;
-  }
-*)
-and expand_verb_prop_object_list env t =
-  expand_prop_object_list expand_verb env t
-(*
-   { propol_loc = t.propol_loc ;
+and expand_prop_object_list env t =
+  { propol_loc = t.propol_loc ;
     propol_verb = expand_verb env t.propol_verb ;
     propol_objects = List.map (expand_object env) t.propol_objects ;
   }
-*)
 
-and expand_property_list_path env t =
-  { proplp_loc = t.proplp_loc ;
-    proplp_verb = expand_verb_path env t.proplp_verb ;
-    proplp_objects = List.map (expand_object_path env) t.proplp_objects ;
-    proplp_more = List.map
-      (expand_verb_path_prop_object_list env) t.proplp_more ;
-  }
-
-and expand_triples_var_or_term_props :
-  'a. (env -> 'a -> 'a) -> env -> 'a triples_var_or_term_props -> 'a triples_var_or_term_props =
-  fun f env t ->
+and expand_triples_var_or_term_props env t =
     { tvtp_loc = t.tvtp_loc ;
       tvtp_subject = expand_var_or_term env t.tvtp_subject ;
-      tvtp_path = f env t.tvtp_path ;
+      tvtp_path = List.map (expand_prop_object_list env) t.tvtp_path ;
     }
-
-and expand_triples_node_path_props env t =
-  { tnpp_loc = t.tnpp_loc ;
-    tnpp_path = expand_triples_node_path env t.tnpp_path ;
-    tnpp_props = map_opt (expand_property_list_path env) t.tnpp_props ;
-  }
-
-and expand_triples_same_subject_path env = function
-  | TriplesPathVar t ->
-      TriplesPathVar
-        (expand_triples_var_or_term_props expand_property_list_path env t)
-  | TriplesNodePath t ->
-      TriplesNodePath (expand_triples_node_path_props env t)
 
 and expand_triples_block env t =
   { triples_loc = t.triples_loc ;
-    triples = List.map (expand_triples_same_subject_path env) t.triples ;
+    triples = List.map (expand_triples_same_subject env) t.triples ;
   }
 
 and expand_triples_node_props env t =
   { tnp_loc = t.tnp_loc ;
     tnp_path = expand_triples_node env t.tnp_path ;
-    tnp_props = List.map (expand_verb_prop_object_list env) t.tnp_props ;
+    tnp_props = List.map (expand_prop_object_list env) t.tnp_props ;
   }
+
+and expand_triples_same_subject env = function
+  | TriplesVar t ->
+    TriplesVar
+      (expand_triples_var_or_term_props env t)
+  | TriplesNode t -> TriplesNode (expand_triples_node_props env t)
 
 and expand_ggp_sub env t =
   {
@@ -611,14 +563,6 @@ let expand_select_query env t =
     select_modifier = expand_solution_modifier env t.select_modifier ;
   }
 
-let expand_triples_same_subject env = function
-  | TriplesVar t ->
-    TriplesVar
-      (expand_triples_var_or_term_props
-       (fun env l -> List.map (expand_verb_prop_object_list env) l)
-         env t
-      )
-  | TriplesNode t -> TriplesNode (expand_triples_node_props env t)
 
 let expand_triples_template env l = List.map (expand_triples_same_subject env) l
 let expand_construct_template = expand_triples_template

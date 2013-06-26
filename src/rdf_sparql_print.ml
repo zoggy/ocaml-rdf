@@ -717,11 +717,8 @@ and print_path_sequence b l =
 and print_path b l =
   print_list ~sep: " | " b print_path_sequence l
 
-and print_verb_path b = function
-  | VerbPath p -> print_path b p
-  | VerbSimple v -> print_var b v
-
 and print_verb b = function
+  | VerbPath p -> print_path b p
   | VerbVar v -> print_var b v
   | VerbIri iri -> print_iri b iri
   | VerbA -> p b "a"
@@ -733,74 +730,33 @@ and print_triples_node b = function
       p b ")"
   | TNodeBlank l ->
       p b "[ " ;
-      List.iter (print_verb_prop_object_list b) l ;
+      List.iter (print_prop_object_list b) l ;
       p b " ]";
 
 and print_graph_node b = function
   | GraphNodeVT t -> print_var_or_term b t
   | GraphNodeTriples t -> print_triples_node b t
 
-and print_triples_node_path b = function
-  | TNodePathCollection l ->
-      p b "(" ;
-      List.iter (print_graph_node_path b) l ;
-      p b ")" ;
-  | TNodePathBlank path ->
-      p b "[ ";
-      print_property_list_path b path;
-      p b " ]";
-
-and print_graph_node_path b = function
-  | GraphNodePathVT t -> print_var_or_term b t
-  | GraphNodePathTriples t -> print_triples_node_path b t
-
 and print_object b t = print_graph_node b t
-and print_object_path b t = print_graph_node_path b t
 
-and print_prop_object_list :
-  'a . (Buffer.t -> 'a -> unit) -> Buffer.t -> 'a prop_object_list -> unit =
-      fun f b t ->
-          f b t.propol_verb ;
-          p b " ";
-          print_list ~sep: ";\n  " b print_object t.propol_objects
+and print_prop_object_list b t =
+  print_verb b t.propol_verb ;
+  p b " ";
+  print_list ~sep: ";\n  " b print_object t.propol_objects
 
-and print_verb_path_prop_object_list b t =
-  print_prop_object_list print_verb_path b t
-
-and print_verb_prop_object_list b t =
-  print_prop_object_list print_verb b t
-
-and print_property_list_path b t =
-    print_verb_path b t.proplp_verb ;
-    p b " " ;
-    List.iter (print_object_path b) t.proplp_objects ;
-    let f m =
-      p b " ;\n  ";
-      print_verb_path_prop_object_list b m
-    in
-    List.iter f t.proplp_more
-
-and print_triples_var_or_term_props :
-  'a. (Buffer.t -> 'a -> unit) -> Buffer.t -> 'a triples_var_or_term_props -> unit =
-  fun f b t ->
+and print_triples_var_or_term_props b t =
       print_var_or_term b t.tvtp_subject ;
       p b " " ;
-      f b t.tvtp_path ;
+      print_list ~sep:" ; " b print_prop_object_list t.tvtp_path ;
 
-and print_triples_node_path_props b t =
-  print_triples_node_path b t.tnpp_path ;
-  p b " " ;
-  do_opt (print_property_list_path b) t.tnpp_props
-
-and print_triples_same_subject_path b = function
-  | TriplesPathVar t ->
-      print_triples_var_or_term_props print_property_list_path b t
-  | TriplesNodePath t ->
-      print_triples_node_path_props b t
+and print_triples_same_subject b = function
+| TriplesVar t ->
+    print_triples_var_or_term_props b t;
+| TriplesNode t -> print_triples_node_props b t
 
 and print_triples_block =
   let f b t =
-    print_triples_same_subject_path b t;
+    print_triples_same_subject b t;
     p b "."
   in
   fun b t -> List.iter (f b) t.triples
@@ -808,7 +764,7 @@ and print_triples_block =
 and print_triples_node_props b t =
     print_triples_node b t.tnp_path ;
     p b " " ;
-    List.iter (print_verb_prop_object_list b) t.tnp_props
+    List.iter (print_prop_object_list b) t.tnp_props
 
 and print_ggp_sub b t =
   print_list ~sep: "\n" b print_graph_pattern_elt t.ggp_sub_elts
@@ -839,14 +795,6 @@ let print_select_query b t =
   p b "\n";
   print_solution_modifier b t.select_modifier ;
 ;;
-
-
-let print_triples_same_subject b = function
-| TriplesVar t ->
-    print_triples_var_or_term_props
-      (fun b l -> print_list ~sep: " " b print_verb_prop_object_list l)
-      b t;
-| TriplesNode t -> print_triples_node_props b t
 
 let print_triples_template b l =
   print_list ~sep: ".\n" b print_triples_same_subject l
