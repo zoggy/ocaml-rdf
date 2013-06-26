@@ -88,18 +88,6 @@ let print_rdf_literal b t =
       match s_type with
         None -> ()
       | Some f -> f ()
-
-(*  match t.rdf_lit_type with
-    None -> t
-  | Some iri ->
-      match print_iri b iri with
-        PrefixedName _ -> assert false
-      | Iriref i ->
-          { rdf_lit_loc = t.rdf_lit_loc ;
-            rdf_lit = { t.rdf_lit with Rdf_node.lit_type = Some i.ir_iri } ;
-            rdf_lit_type = Some (Iriref i) ;
-          }
-*)
 ;;
 
 let print_data_block_value b = function
@@ -771,12 +759,9 @@ and print_object_path b t = print_graph_node_path b t
 and print_prop_object_list :
   'a . (Buffer.t -> 'a -> unit) -> Buffer.t -> 'a prop_object_list -> unit =
       fun f b t ->
-          let g o =
-            p b " ;\n  ";
-            print_object b o
-          in
           f b t.propol_verb ;
-          List.iter g t.propol_objects
+          p b " ";
+          print_list ~sep: ";\n  " b print_object t.propol_objects
 
 and print_verb_path_prop_object_list b t =
   print_prop_object_list print_verb_path b t
@@ -859,50 +844,66 @@ let print_select_query b t =
   print_select_clause b t.select_select ;
   p b " " ;
   List.iter (print_dataset_clause b) t.select_dataset ;
-  p b "\nWHERE" ;
+  p b "\nWHERE " ;
   print_group_graph_pattern b t.select_where ;
   p b "\n";
   print_solution_modifier b t.select_modifier ;
 ;;
 
-(*
-let print_triples_same_subject b = function
-  | TriplesVar t ->
-    TriplesVar
-      (print_triples_var_or_term_props
-       (fun b l -> List.iter (print_verb_prop_object_list b) l)
-         b t
-      )
-  | TriplesNode t -> TriplesNode (print_triples_node_props b t)
 
-let print_triples_template b l = List.iter (print_triples_same_subject b) l
+let print_triples_same_subject b = function
+| TriplesVar t ->
+    print_triples_var_or_term_props
+      (fun b l -> print_list ~sep: " " b print_verb_prop_object_list l)
+      b t;
+| TriplesNode t -> print_triples_node_props b t
+
+let print_triples_template b l =
+  print_list ~sep: ".\n" b print_triples_same_subject l
 let print_construct_template = print_triples_template
 
 let print_construct_where b = function
-  | Constr_ggp p -> Constr_ggp (print_group_graph_pattern b p)
-  | Constr_template t -> Constr_template (print_triples_template b t)
-*)
+  | Constr_ggp p -> print_group_graph_pattern b p
+  | Constr_template t -> print_triples_template b t
+
 
 let print_construct_query b t =
-  ()
-(*  {
-    constr_template = map_opt (print_construct_template b) t.constr_template ;
-    constr_dataset = List.iter (print_dataset_clause b) t.constr_dataset ;
-    constr_where = print_construct_where b t.constr_where ;
-    constr_modifier = print_solution_modifier b t.constr_modifier ;
-  }
-*)
+  p b "CONSTRUCT ";
+  (
+   match t.constr_template with
+     Some tmpl ->
+       print_construct_template b tmpl ;
+       p b " ";
+       List.iter (print_dataset_clause b) t.constr_dataset ;
+       p b "\nWHERE ";
+       print_construct_where b t.constr_where ;
+   | None ->
+       List.iter (print_dataset_clause b) t.constr_dataset ;
+       p b "\nWHERE { ";
+       print_construct_where b t.constr_where ;
+       p b " }";
+
+  );
+  p b "\n";
+  print_solution_modifier b t.constr_modifier
 
 let print_describe_query b t =
-  ()
-(*
-  {
-    desc_sel = List.iter (print_var_or_iri b) t.desc_sel ;
-    desc_dataset = List.iter (print_dataset_clause b) t.desc_dataset ;
-    desc_where = map_opt (print_group_graph_pattern b) t.desc_where ;
-    desc_modifier = print_solution_modifier b t.desc_modifier;
-  }
-*)
+  p b "DESCRIBE ";
+  (match t.desc_sel with
+    [] -> p b "*"
+  | l -> print_list ~sep: " " b print_var_or_iri l;
+  );
+  p b " ";
+  List.iter (print_dataset_clause b) t.desc_dataset ;
+  (match t.desc_where with
+     None -> ()
+   | Some w ->
+       p b "\nWHERE " ;
+       print_group_graph_pattern b w
+  );
+  p b "\n";
+  print_solution_modifier b t.desc_modifier
+;;
 
 let print_ask_query b t =
   p b "ASK ";
