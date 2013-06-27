@@ -137,6 +137,7 @@ and function_call =
     func_args : arg_list ;
   }
 
+(*
 and relational_expression =
   | Numexp of numeric_expression
   | Equal of numeric_expression * numeric_expression
@@ -178,13 +179,38 @@ and primary_expression =
   | PrimNumeric of rdf_literal
   | PrimBoolean of rdf_literal
   | PrimVar of var
+*)
+
+and expr =
+  | EVar of var
+  | EPlus of expression * expression
+  | EMinus of expression * expression
+  | EDiv of expression * expression
+  | EMult of expression * expression
+  | ENot of expression
+  | EUMinus of expression
+  | EBic of built_in_call
+  | EFuncall of function_call
+  | ELit of rdf_literal
+  | ENumeric of rdf_literal
+  | EBoolean of rdf_literal
+  | EEqual of expression * expression
+  | ENotEqual of expression * expression
+  | ELt of expression * expression
+  | EGt of expression * expression
+  | ELte of expression * expression
+  | EGte of expression * expression
+  | EIn of expression * expression list
+  | ENotIn of expression * expression list
+  | EOr of expression list
+  | EAnd of expression list
 
 and expression =
   { expr_loc : loc ;
-    expr_or_exprs : and_expression list ; (* exp1 or exp2 ... *)
+    expr : expr ;
   }
 and and_expression = value_logical list
-and value_logical = relational_expression
+and value_logical = expression
 
 and built_in_call =
   | Bic_COUNT of bool * expression option  (** '*' or expression *)
@@ -377,26 +403,14 @@ and prop_object_list =
     propol_objects : object_ list ;
   }
 
-and triples_var_or_term_props =
-  { tvtp_loc : loc ;
-    tvtp_subject : var_or_term ;
-    tvtp_path : prop_object_list list;
-  }
-
 and triples_block =
   { triples_loc : loc ;
     triples : triples_same_subject list ;
   }
 
-and triples_node_props =
-  { tnp_loc : loc ;
-    tnp_path : triples_node ;
-    tnp_props : prop_object_list list;
-  }
-
 and triples_same_subject =
-  | TriplesVar of triples_var_or_term_props
-  | TriplesNode of triples_node_props
+  | TriplesVar of var_or_term * prop_object_list list
+  | TriplesNode of triples_node * prop_object_list list
 
 and ggp_sub = {
   ggp_sub_loc : loc ;

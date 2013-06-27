@@ -198,22 +198,11 @@ triples_template: construct_triples { $1 }
 triples_same_subject:
 | v=var_or_term l=property_list_not_empty
   {
-    let loc = mk_loc $startpos(v) $endpos(l) in
-    TriplesVar
-      {
-        tvtp_loc = loc ;
-        tvtp_subject = v ;
-        tvtp_path = l ;
-      }
+    TriplesVar (v, l)
   }
 | t=triples_node l=property_list
   {
-    let loc = mk_loc $startpos(t) $endpos(l) in
-    TriplesNode
-      { tnp_loc = loc ;
-        tnp_path = t ;
-        tnp_props = l ;
-      }
+    TriplesNode (t, l)
   }
 ;
 
@@ -452,30 +441,15 @@ triples_block_details2:
 triples_same_subject_path:
 | v=var_or_term p=property_list_path_not_empty
   {
-    let loc = mk_loc $startpos(v) $endpos(p) in
-    let t =
-      { tvtp_loc = loc ;
-        tvtp_subject = v ;
-        tvtp_path = p ;
-      }
-    in
-    TriplesVar t
+    TriplesVar (v, p)
   }
 | t=triples_node_path p=property_list_path
   {
-    let loc = mk_loc $startpos(t) $endpos(p) in
-    let t =
-      {
-        tnp_loc = loc ;
-        tnp_path = t ;
-        tnp_props = p ;
-      }
-    in
-    TriplesNode t
+    TriplesNode (t, p)
   }
 ;
 
-property_list_path: l=option(property_list_path_not_empty) 
+property_list_path: l=option(property_list_path_not_empty)
   { match l with None -> [] | Some l -> l }
 ;
 
@@ -830,7 +804,13 @@ function_call:
 
 expression: l=conditional_or_expression {
     let loc = mk_loc $startpos(l) $endpos(l) in
-    { expr_loc = loc ; expr_or_exprs = l }
+    let e =
+      match l with
+        [] -> assert false
+      | [e] -> e
+      | _ -> EOr l
+    in
+    { expr_loc = loc ; expr = e }
   }
 ;
 
@@ -840,30 +820,43 @@ conditional_or_expression:
 
 conditional_and_expression:
   l=separated_nonempty_list(AMPAMP, value_logical)
-  { l }
+  { match l with
+      [] -> assert false
+    | [e] -> e
+    | _ ->
+        { expr_loc = mk_loc $startpos(l) $endpos(l) ;
+          expr = EAnd l ;
+        }
+  }
 ;
 
-value_logical: relational_expression { $1 }
+value_logical:
+  e = relational_expression {
+    {
+      expr_loc = mk_loc $startpos(e) $endpos(e) ;
+      expr = e ;
+    }
+  }
 ;
 
 relational_expression:
-| numexp { Numexp $1 }
+| numexp { $1 }
 | e1=numexp EQUAL e2=numexp
-  { Equal (e1, e2) }
+  { EEqual (e1, e2) }
 | e1=numexp NOTEQUAL e2=numexp
-  { NotEqual (e1, e2) }
+  { ENotEqual (e1, e2) }
 | e1=numexp LT e2=numexp
-  { Lt (e1, e2) }
+  { ELt (e1, e2) }
 | e1=numexp GT e2=numexp
-  { Gt (e1, e2) }
+  { EGt (e1, e2) }
 | e1=numexp LTE e2=numexp
-  { Lte (e1, e2) }
+  { ELte (e1, e2) }
 | e1=numexp GTE e2=numexp
-  { Gte (e1, e2) }
+  { EGte (e1, e2) }
 | e=numexp IN l=expression_list
-  { In (e, l) }
+  { EIn (e, l) }
 | e=numexp NOT IN l=expression_list
-  { NotIn (e, l) }
+  { ENotIn (e, l) }
 ;
 
 numexp: add_expression { $1 }
@@ -898,9 +891,16 @@ add_expression3:
 ;
 
 mult_exp:
-| e=unary_expression { Unary e }
-| e1=unary_expression STAR e2=mult_exp { Mult (e1, e2) }
-| e1=unary_expression SLASH e2=mult_exp { Div (e1, e2) }
+| e=unary_expression { e }
+| e1=unary_expression STAR e2=mult_exp {
+    { expr_loc = mk_loc $starpos(e1) $endpos(e2) ;
+      expr = EMult (e1, e2) ;
+    }
+  }
+| e1=unary_expression SLASH e2=mult_exp {
+    { expr_loc = mk_loc $starpos(e1) $endpos(e2) ;
+      expr = EDiv (e1, e2) ;
+    }
 ;
 
 unary_expression:

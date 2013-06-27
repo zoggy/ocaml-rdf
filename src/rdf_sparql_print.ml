@@ -744,15 +744,16 @@ and print_prop_object_list b t =
   p b " ";
   print_list ~sep: ";\n  " b print_object t.propol_objects
 
-and print_triples_var_or_term_props b t =
-      print_var_or_term b t.tvtp_subject ;
-      p b " " ;
-      print_list ~sep:" ; " b print_prop_object_list t.tvtp_path ;
-
 and print_triples_same_subject b = function
-| TriplesVar t ->
-    print_triples_var_or_term_props b t;
-| TriplesNode t -> print_triples_node_props b t
+| TriplesVar (s, path) ->
+      print_var_or_term b s;
+      p b " " ;
+      print_list ~sep:" ; " b print_prop_object_list path ;
+
+| TriplesNode (t, path) ->
+      print_triples_node b t;
+      p b " " ;
+      List.iter (print_prop_object_list b) path
 
 and print_triples_block =
   let f b t =
@@ -760,11 +761,6 @@ and print_triples_block =
     p b "."
   in
   fun b t -> List.iter (f b) t.triples
-
-and print_triples_node_props b t =
-    print_triples_node b t.tnp_path ;
-    p b " " ;
-    List.iter (print_prop_object_list b) t.tnp_props
 
 and print_ggp_sub b t =
   print_list ~sep: "\n" b print_graph_pattern_elt t.ggp_sub_elts

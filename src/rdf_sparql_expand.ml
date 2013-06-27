@@ -513,28 +513,22 @@ and expand_prop_object_list env t =
     propol_objects = List.map (expand_object env) t.propol_objects ;
   }
 
-and expand_triples_var_or_term_props env t =
-    { tvtp_loc = t.tvtp_loc ;
-      tvtp_subject = expand_var_or_term env t.tvtp_subject ;
-      tvtp_path = List.map (expand_prop_object_list env) t.tvtp_path ;
-    }
-
 and expand_triples_block env t =
   { triples_loc = t.triples_loc ;
     triples = List.map (expand_triples_same_subject env) t.triples ;
   }
 
-and expand_triples_node_props env t =
-  { tnp_loc = t.tnp_loc ;
-    tnp_path = expand_triples_node env t.tnp_path ;
-    tnp_props = List.map (expand_prop_object_list env) t.tnp_props ;
-  }
-
 and expand_triples_same_subject env = function
-  | TriplesVar t ->
-    TriplesVar
-      (expand_triples_var_or_term_props env t)
-  | TriplesNode t -> TriplesNode (expand_triples_node_props env t)
+  | TriplesVar (t, l) ->
+      TriplesVar
+        (expand_var_or_term env t,
+         List.map (expand_prop_object_list env) l
+        )
+  | TriplesNode (t, l) ->
+      TriplesNode
+        (expand_triples_node env t,
+         List.map (expand_prop_object_list env) l
+        )
 
 and expand_ggp_sub env t =
   {
