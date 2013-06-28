@@ -37,13 +37,20 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token SELECT CONSTRUCT DESCRIBE ASK
 %token DISTINCT REDUCED
 %token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
-%token STAR NIL COMMA DOT PIPE SLASH HAT HATHAT BANG QM PLUS SEMICOLON
+%token NIL COMMA DOT PIPE HAT HATHAT QM SEMICOLON
 %token LPAR RPAR
 %token LBRACE RBRACE
 %token LBRACKET RBRACKET
 %token EQUAL NOTEQUAL LT GT LTE GTE NOT IN
+
+%token PLUS MINUS STAR SLASH BANG
+
+%left PLUS MINUS        /* lowest precedence */
+%left STAR SLASH         /* medium precedence */
+%nonassoc BANG      /* highest precedence */
+
 %token UNDEF
-%token UNION OPTIONAL GRAPH SERVICE SILENT BIND MINUS FILTER
+%token UNION OPTIONAL GRAPH SERVICE SILENT BIND FILTER
 %token AMPAMP PIPEPIPE
 
 %token ABS AVG BNODE BOUND CEIL COALESCE CONCAT CONTAINS COUNT
@@ -802,31 +809,21 @@ function_call:
 ;
 
 
-expression: l=conditional_or_expression {
-    let loc = mk_loc $startpos(l) $endpos(l) in
-    let e =
-      match l with
-        [] -> assert false
-      | [e] -> e
-      | _ -> EOr l
-    in
-    { expr_loc = loc ; expr = e }
+expression:
+  e=and_expression { e }
+| e1=and_expression PIPEPIPE e2=and_expression {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ; expr = EOr (e1, e2) }
   }
 ;
 
-conditional_or_expression:
-  separated_nonempty_list(PIPEPIPE, conditional_and_expression) { $1 }
-;
-
-conditional_and_expression:
-  l=separated_nonempty_list(AMPAMP, value_logical)
-  { match l with
-      [] -> assert false
-    | [e] -> e
-    | _ ->
-        { expr_loc = mk_loc $startpos(l) $endpos(l) ;
-          expr = EAnd l ;
-        }
+and_expression:
+  e=value_logical { e }
+| e1=value_logical AMPAMP e2=value_logical
+  {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = EAnd (e1, e2) ;
+    }
   }
 ;
 
@@ -841,27 +838,115 @@ value_logical:
 
 relational_expression:
 | numexp { $1 }
-| e1=numexp EQUAL e2=numexp
-  { EEqual (e1, e2) }
-| e1=numexp NOTEQUAL e2=numexp
-  { ENotEqual (e1, e2) }
-| e1=numexp LT e2=numexp
-  { ELt (e1, e2) }
-| e1=numexp GT e2=numexp
-  { EGt (e1, e2) }
-| e1=numexp LTE e2=numexp
-  { ELte (e1, e2) }
-| e1=numexp GTE e2=numexp
-  { EGte (e1, e2) }
-| e=numexp IN l=expression_list
-  { EIn (e, l) }
-| e=numexp NOT IN l=expression_list
-  { ENotIn (e, l) }
+| e1=numexp EQUAL e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = EEqual (e1, e2) ;
+    }
+  }
+| e1=numexp NOTEQUAL e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = ENotEqual (e1, e2) ;
+    }
+  }
+| e1=numexp LT e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = ELt (e1, e2) ;
+    }
+  }
+| e1=numexp GT e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = EGt (e1, e2) ;
+    }
+  }
+| e1=numexp LTE e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = ELte (e1, e2) ;
+    }
+  }
+| e1=numexp GTE e2=numexp {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = EGte (e1, e2) ;
+    }
+  }
+| e=numexp IN l=expression_list {
+    { expr_loc = mk_loc $startpos(e) $endpos(l) ;
+      expr = EIn (e, l) ;
+    }
+  }
+| e=numexp NOT IN l=expression_list {
+    { expr_loc = mk_loc $startpos(e) $endpos(l) ;
+      expr = ENotIn (e, l) ;
+    }
+  }
 ;
 
-numexp: add_expression { $1 }
+numexp:
+| e=primary_expression { e }
+| e1=expression STAR e2=expression {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ;
+      expr = EMult (e1, e2) ;
+    }
+  }
+| e1=expression SLASH e2=expression {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ;
+      expr = EDiv (e1, e2) ;
+    }
+  }
+| e1=expression PLUS e2=expression {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ;
+      expr = EPlus (e1, e2) ;
+    }
+  }
+| e1=expression MINUS e2=expression {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ;
+      expr = EMinus (e1, e2) ;
+    }
+  }
+| e1=expression lit=numeric_literal_positive {
+    let loc = mk_loc $startpos(e1) $endpos(lit) in
+    let lit =
+      let s = lit.rdf_lit.Rdf_node.lit_value in
+      let len = String.length s in
+      (* remove starting '+' *)
+      { lit with
+        rdf_lit = { lit.rdf_lit with Rdf_node.lit_value = String.sub s 1 (len - 1) } ;
+      }
+    in
+    { expr_loc = loc ;
+      expr = EPlus (e1, ENumeric lit) ;
+    }
+  }
+| e1=expression lit=numeric_literal_negative {
+    let loc = mk_loc $startpos(e1) $endpos(lit) in
+    let lit =
+      let s = lit.rdf_lit.Rdf_node.lit_value in
+      let len = String.length s in
+      (* remove starting '-' *)
+      { lit with
+        rdf_lit = { lit.rdf_lit with Rdf_node.lit_value = String.sub s 1 (len - 1) } ;
+      }
+    in
+    { expr_loc = loc ;
+      expr = EPlus (e1, ENumeric lit) ;
+    }
+  }
+| BANG e=expression {
+    { expr_loc = mk_loc $startpos($1) $endpos(e) ;
+      expr = ENot e ;
+    }
+  }
+| PLUS e=expression { e }
+| MINUS e=expression %prec BANG {
+    { expr_loc = mk_loc $startpos($1) $endpos(e) ;
+      expr = EUMinus e ;
+    }
+  }
 ;
-
+(*
 add_expression:
 | mult_exp list(add_expression2) { ($1, $2) }
 ;
@@ -909,20 +994,44 @@ unary_expression:
 | MINUS primary_expression { PrimMinus $2 }
 | primary_expression { Primary $1 }
 ;
-
+*)
 expression_list:
 | NIL { [] }
 | LPAR l=separated_nonempty_list(COMMA, expression) RPAR { l }
 ;
 
 primary_expression:
-| bracketted_expression { PrimExpr $1 }
-| built_in_call { PrimBuiltInCall $1 }
-| iri_or_function { PrimFun $1 }
-| rdf_literal { PrimLit $1 }
-| numeric_literal { PrimNumeric $1 }
-| boolean_literal { PrimBoolean $1 }
-| var { PrimVar $1 }
+| bracketted_expression { $1 }
+| bic=built_in_call {
+    { expr_loc = mk_loc $startpos(bic) $endpos(bic) ;
+      expr = EBic bic ;
+    }
+  }
+| f=iri_or_function {
+    { expr_loc = mk_loc $startpos(f) $endpos(f) ;
+      expr = EFuncall f ;
+    }
+  }
+| lit=rdf_literal {
+    { expr_loc = mk_loc $startpos(lit) $endpos(lit) ;
+      expr = ELit lit ;
+    }
+  }
+| lit=numeric_literal {
+  { expr_loc = mk_loc $startpos(lit) $endpos(lit) ;
+      expr = ENumeric lit ;
+    }
+  }
+| lit=boolean_literal {
+    { expr_loc = mk_loc $startpos(lit) $endpos(lit) ;
+      expr = EBoolean lit ;
+    }
+  }
+| v=var {
+    { expr_loc = mk_loc $startpos(v) $endpos(v) ;
+      expr = EVar v ;
+    }
+  }
 ;
 
 numeric_literal:

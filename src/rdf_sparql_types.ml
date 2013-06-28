@@ -202,15 +202,13 @@ and expr =
   | EGte of expression * expression
   | EIn of expression * expression list
   | ENotIn of expression * expression list
-  | EOr of expression list
-  | EAnd of expression list
+  | EOr of expression * expression
+  | EAnd of expression * expression
 
 and expression =
   { expr_loc : loc ;
     expr : expr ;
   }
-and and_expression = value_logical list
-and value_logical = expression
 
 and built_in_call =
   | Bic_COUNT of bool * expression option  (** '*' or expression *)
