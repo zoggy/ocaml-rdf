@@ -1,0 +1,6 @@
+PREFIX : <http://example/>
+
+SELECT (:function(?x + ?y * ?z) AS ?F) ?z
+WHERE {
+
+}
