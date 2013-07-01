@@ -149,101 +149,81 @@ and expand_function_call env t =
     func_args = expand_arg_list env t.func_args ;
   }
 
-and expand_relational_expression env = function
-| Numexp e -> Numexp (expand_numeric_expression env e)
-| Equal (ne1, ne2) ->
-    Equal
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-| NotEqual (ne1, ne2) ->
-    NotEqual
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-| Lt (ne1, ne2) ->
-    Lt
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-  | Gt (ne1, ne2) ->
-    Gt
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-| Lte (ne1, ne2) ->
-   Lte
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-| Gte (ne1, ne2) ->
-    Gte
-      (expand_numeric_expression env ne1,
-       expand_numeric_expression env ne2)
-| In (ne, l) ->
-      In
-      (expand_numeric_expression env ne,
-       List.map (expand_expression env) l)
-| NotIn (ne, l) ->
-      NotIn
-      (expand_numeric_expression env ne,
-       List.map (expand_expression env) l)
-
-
-and expand_numeric_expression env t = expand_add_expression env t
-and expand_add_expression env (me, l) =
-  (expand_mult_expression env me,
-   List.map (expand_add_expression2 env) l
-  )
-and expand_add_expression2 env = function
-| ExpPlus (me, l) ->
-    ExpPlus
-      (expand_mult_expression env me,
-       List.map (expand_add_expression3 env) l
-      )
-| ExpMinus (me, l) ->
-    ExpMinus
-      (expand_mult_expression env me,
-       List.map (expand_add_expression3 env) l
-      )
-| ExpPosNumeric (lit, l) ->
-    ExpPosNumeric
-      (expand_rdf_literal env lit,
-       List.map (expand_add_expression3 env) l
-      )
-| ExpNegNumeric (lit, l) ->
-    ExpNegNumeric
-      (expand_rdf_literal env lit,
-       List.map (expand_add_expression3 env) l
-      )
-
-and expand_add_expression3 env = function
-  | AddMult e -> AddMult (expand_unary_expression env e)
-  | AddDiv e -> AddDiv (expand_unary_expression env e)
-
-and expand_mult_expression env = function
-  | Unary e -> Unary (expand_unary_expression env e)
-  | Mult (ue, me) ->
-    Mult (expand_unary_expression env ue, expand_mult_expression env me)
-  | Div (ue, me) ->
-      Div (expand_unary_expression env ue, expand_mult_expression env me)
-
-and expand_unary_expression env = function
-  | Primary e -> Primary (expand_primary_expression env e)
-  | PrimNot e -> PrimNot (expand_primary_expression env e)
-  | PrimPlus e -> PrimPlus (expand_primary_expression env e)
-  | PrimMinus e -> PrimMinus (expand_primary_expression env e)
-
-and expand_primary_expression env = function
-  | PrimExpr e -> PrimExpr (expand_expression env e)
-  | PrimBuiltInCall c -> PrimBuiltInCall (expand_built_in_call env c)
-  | PrimFun c -> PrimFun (expand_function_call env c)
-  | PrimLit lit -> PrimLit (expand_rdf_literal env lit)
-  | PrimNumeric lit -> PrimNumeric (expand_rdf_literal env lit)
-  | PrimBoolean lit -> PrimBoolean (expand_rdf_literal env lit)
-  | PrimVar v -> PrimVar v
+and expand_expr env = function
+  | EOr (e1, e2) ->
+      EOr
+        (expand_expression env e1,
+         expand_expression env e2)
+  | EAnd (e1, e2) ->
+      EAnd
+        (expand_expression env e1,
+         expand_expression env e2)
+  | EEqual (e1, e2) ->
+      EEqual
+        (expand_expression env e1,
+         expand_expression env e2)
+  | ENotEqual (e1, e2) ->
+      ENotEqual
+        (expand_expression env e1,
+         expand_expression env e2)
+  | ELt (e1, e2) ->
+      ELt
+      (expand_expression env e1,
+         expand_expression env e2)
+  | EGt (e1, e2) ->
+      EGt
+        (expand_expression env e1,
+         expand_expression env e2)
+  | ELte (e1, e2) ->
+      ELte
+        (expand_expression env e1,
+         expand_expression env e2)
+  | EGte (e1, e2) ->
+      EGte
+        (expand_expression env e1,
+         expand_expression env e2)
+  | EIn (e, l) ->
+      EIn
+        (expand_expression env e,
+         List.map (expand_expression env) l)
+  | ENotIn (e, l) ->
+      ENotIn
+        (expand_expression env e,
+         List.map (expand_expression env) l)
+  | EPlus (e1, e2) ->
+      EPlus
+        (expand_expression env e1,
+         expand_expression env e2
+        )
+  | EMinus (e1, e2) ->
+      EMinus
+        (expand_expression env e1,
+         expand_expression env e2
+        )
+  | EMult (e1, e2) ->
+      EMult
+        (expand_expression env e1,
+         expand_expression env e2
+        )
+  | EDiv (e1, e2) ->
+      EDiv
+        (expand_expression env e1,
+         expand_expression env e2
+        )
+  | EUMinus e ->
+      EUMinus (expand_expression env e)
+  | ENot e -> ENot (expand_expression env e)
+  | EBic c -> EBic (expand_built_in_call env c)
+  | EFuncall c -> EFuncall (expand_function_call env c)
+  | ELit lit -> ELit (expand_rdf_literal env lit)
+  | ENumeric lit -> ENumeric (expand_rdf_literal env lit)
+  | EBoolean lit -> EBoolean (expand_rdf_literal env lit)
+  | EVar v -> EVar v
 
 and expand_expression env t =
   { expr_loc = t.expr_loc ;
-    expr_or_exprs = List.map (expand_and_expression env) t.expr_or_exprs ;
+    expr = expand_expr env t.expr ;
   }
-and expand_and_expression env l = List.map (expand_value_logical env) l
-and expand_value_logical env t = expand_relational_expression env t
 
 and expand_built_in_call env = function
 | Bic_COUNT (b, eopt) ->

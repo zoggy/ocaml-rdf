@@ -828,12 +828,7 @@ and_expression:
 ;
 
 value_logical:
-  e = relational_expression {
-    {
-      expr_loc = mk_loc $startpos(e) $endpos(e) ;
-      expr = e ;
-    }
-  }
+  e = relational_expression { e }
 ;
 
 relational_expression:
@@ -908,30 +903,40 @@ numexp:
   }
 | e1=expression lit=numeric_literal_positive {
     let loc = mk_loc $startpos(e1) $endpos(lit) in
-    let lit =
-      let s = lit.rdf_lit.Rdf_node.lit_value in
+    let lit2 =
+      let s = lit.Rdf_node.lit_value in
       let len = String.length s in
       (* remove starting '+' *)
-      { lit with
-        rdf_lit = { lit.rdf_lit with Rdf_node.lit_value = String.sub s 1 (len - 1) } ;
+      { lit with Rdf_node.lit_value = String.sub s 1 (len - 1) }
+    in
+    let e2 =
+      let loc = mk_loc $startpos(lit) $endpos(lit) in
+      let lit2 = { rdf_lit_loc = loc ; rdf_lit = lit2 ; rdf_lit_type = None } in
+      { expr_loc = loc ;
+        expr = ENumeric lit2 ;
       }
     in
     { expr_loc = loc ;
-      expr = EPlus (e1, ENumeric lit) ;
+      expr = EPlus (e1, e2) ;
     }
   }
 | e1=expression lit=numeric_literal_negative {
     let loc = mk_loc $startpos(e1) $endpos(lit) in
-    let lit =
-      let s = lit.rdf_lit.Rdf_node.lit_value in
+    let lit2 =
+      let s = lit.Rdf_node.lit_value in
       let len = String.length s in
       (* remove starting '-' *)
-      { lit with
-        rdf_lit = { lit.rdf_lit with Rdf_node.lit_value = String.sub s 1 (len - 1) } ;
+      { lit with Rdf_node.lit_value = String.sub s 1 (len - 1) }
+    in
+    let e2 =
+      let loc = mk_loc $startpos(lit) $endpos(lit) in
+      let lit2 = { rdf_lit_loc = loc ; rdf_lit = lit2 ; rdf_lit_type = None } in
+      { expr_loc = loc ;
+        expr = ENumeric lit2 ;
       }
     in
     { expr_loc = loc ;
-      expr = EPlus (e1, ENumeric lit) ;
+      expr = EMinus (e1, e2) ;
     }
   }
 | BANG e=expression {

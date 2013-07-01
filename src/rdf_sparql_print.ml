@@ -182,111 +182,93 @@ and print_function_call b t =
   print_iri b t.func_iri ;
   print_arg_list b t.func_args
 
-and print_relational_expression b = function
-  | Numexp e -> print_numeric_expression b e
-  | Equal (ne1, ne2) ->
-      print_numeric_expression b ne1;
+and print_expr b = function
+  | EEqual (e1, e2) ->
+      print_expression b e1;
       p b " = ";
-      print_numeric_expression b ne2
-  | NotEqual (ne1, ne2) ->
-      print_numeric_expression b ne1;
+      print_expression b e2
+  | ENotEqual (e1, e2) ->
+      print_expression b e1;
       p b " != ";
-      print_numeric_expression b ne2
-  | Lt (ne1, ne2) ->
-      print_numeric_expression b ne1;
+      print_expression b e2
+  | ELt (e1, e2) ->
+      print_expression b e1;
       p b " < ";
-      print_numeric_expression b ne2
-  | Gt (ne1, ne2) ->
-      print_numeric_expression b ne1;
+      print_expression b e2
+  | EGt (e1, e2) ->
+      print_expression b e1;
       p b " > ";
-      print_numeric_expression b ne2
-  | Lte (ne1, ne2) ->
-      print_numeric_expression b ne1 ;
+      print_expression b e2
+  | ELte (e1, e2) ->
+      print_expression b e1 ;
       p b " <= ";
-      print_numeric_expression b ne2
-  | Gte (ne1, ne2) ->
-      print_numeric_expression b ne1 ;
+      print_expression b e2
+  | EGte (e1, e2) ->
+      print_expression b e1 ;
       p b " >= ";
-      print_numeric_expression b ne2
-  | In (ne, l) ->
-      print_numeric_expression b ne ;
+      print_expression b e2
+  | EIn (ne, l) ->
+      print_expression b ne ;
       p b " IN (";
       print_list ~sep: ", " b print_expression l;
       p b ")"
-| NotIn (ne, l) ->
-      print_numeric_expression b ne;
+  | ENotIn (ne, l) ->
+      print_expression b ne;
       p b " NOT IN (";
       print_list ~sep: ", " b print_expression l;
       p b ")"
-
-and print_numeric_expression b t = print_add_expression b t
-
-and print_add_expression b (me, l) =
-  print_mult_expression b me;
-  List.iter (print_add_expression2 b) l
-
-and print_add_expression2 b = function
-| ExpPlus (me, l) ->
+  | EPlus (e1, e2) ->
+      print_expression b e1 ;
       p b " + ";
-      print_mult_expression b me;
-      List.iter (print_add_expression3 b) l
-
-| ExpMinus (me, l) ->
+      print_expression b e2
+  | EMinus (e1, e2) ->
+      print_expression b e1 ;
       p b " - ";
-      print_mult_expression b me;
-      List.iter (print_add_expression3 b) l
-
-| ExpPosNumeric (lit, l) ->
-      print_rdf_literal b lit;
-      List.iter (print_add_expression3 b) l
-
-| ExpNegNumeric (lit, l) ->
-      print_rdf_literal b lit;
-      List.iter (print_add_expression3 b) l
-
-and print_add_expression3 b = function
-  | AddMult e ->
+      print_expression b e2
+  | EMult (e1, e2) ->
+      print_expression b e1 ;
       p b " * ";
-      print_unary_expression b e
-  | AddDiv e ->
+      print_expression b e2
+  | EDiv (e1, e2) ->
+      print_expression b e1 ;
       p b " / ";
-      print_unary_expression b e
+      print_expression b e2
 
-and print_mult_expression b = function
-  | Unary e -> print_unary_expression b e
-  | Mult (ue, me) ->
-      print_unary_expression b ue;
-      p b " * ";
-      print_mult_expression b me
-  | Div (ue, me) ->
-      print_unary_expression b ue;
-      p b " / ";
-      print_mult_expression b me
+  | EOr (e1, e2) ->
+      print_expression b e1 ;
+      p b " || ";
+      print_expression b e2
+  | EAnd (e1, e2) ->
+      print_expression b e1 ;
+      p b " && ";
+      print_expression b e2
 
-and print_unary_expression b = function
-  | Primary e -> print_primary_expression b e
-  | PrimNot e -> p b "!"; print_primary_expression b e
-  | PrimPlus e -> p b "+"; print_primary_expression b e
-  | PrimMinus e -> p b "-"; print_primary_expression b e
-
-and print_primary_expression b = function
-  | PrimExpr e ->
-      p b "(";
+  | EUMinus e ->
+      p b "- ";
       print_expression b e;
+  | ENot e ->
+      p b "!";
+      print_expression b e
+
+  | EBic c -> print_built_in_call b c
+  | EFuncall c -> print_function_call b c
+  | ELit lit -> print_rdf_literal b lit
+  | ENumeric lit -> print_rdf_literal b lit
+  | EBoolean lit -> print_rdf_literal b lit
+  | EVar v -> print_var b v
+
+and print_expression b e =
+  match e.expr with
+    EVar _
+  | EFuncall _
+  | EBic _
+  | ELit _
+  | ENumeric _
+  | EBoolean _  -> print_expr b e.expr
+  | _ ->
+      p b "(";
+      print_expr b e.expr ;
       p b ")"
-  | PrimBuiltInCall c -> print_built_in_call b c
-  | PrimFun c -> print_function_call b c
-  | PrimLit lit -> print_rdf_literal b lit
-  | PrimNumeric lit -> print_rdf_literal b lit
-  | PrimBoolean lit -> print_rdf_literal b lit
-  | PrimVar v -> print_var b v
-
-and print_expression b t =
-  print_list ~sep: "||" b print_and_expression t.expr_or_exprs
-
-and print_and_expression b l =
-  print_list ~sep: " && " b print_value_logical l
-and print_value_logical b t = print_relational_expression b t
 
 and print_built_in_call b = function
   | Bic_COUNT (dis, eopt) ->
