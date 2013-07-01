@@ -150,37 +150,10 @@ and expand_function_call env t =
   }
 
 and expand_expr env = function
-  | EOr (e1, e2) ->
-      EOr
+  | EBin (e1, op, e2) ->
+      EBin
         (expand_expression env e1,
-         expand_expression env e2)
-  | EAnd (e1, e2) ->
-      EAnd
-        (expand_expression env e1,
-         expand_expression env e2)
-  | EEqual (e1, e2) ->
-      EEqual
-        (expand_expression env e1,
-         expand_expression env e2)
-  | ENotEqual (e1, e2) ->
-      ENotEqual
-        (expand_expression env e1,
-         expand_expression env e2)
-  | ELt (e1, e2) ->
-      ELt
-      (expand_expression env e1,
-         expand_expression env e2)
-  | EGt (e1, e2) ->
-      EGt
-        (expand_expression env e1,
-         expand_expression env e2)
-  | ELte (e1, e2) ->
-      ELte
-        (expand_expression env e1,
-         expand_expression env e2)
-  | EGte (e1, e2) ->
-      EGte
-        (expand_expression env e1,
+         op,
          expand_expression env e2)
   | EIn (e, l) ->
       EIn
@@ -190,26 +163,6 @@ and expand_expr env = function
       ENotIn
         (expand_expression env e,
          List.map (expand_expression env) l)
-  | EPlus (e1, e2) ->
-      EPlus
-        (expand_expression env e1,
-         expand_expression env e2
-        )
-  | EMinus (e1, e2) ->
-      EMinus
-        (expand_expression env e1,
-         expand_expression env e2
-        )
-  | EMult (e1, e2) ->
-      EMult
-        (expand_expression env e1,
-         expand_expression env e2
-        )
-  | EDiv (e1, e2) ->
-      EDiv
-        (expand_expression env e1,
-         expand_expression env e2
-        )
   | EUMinus e ->
       EUMinus (expand_expression env e)
   | ENot e -> ENot (expand_expression env e)

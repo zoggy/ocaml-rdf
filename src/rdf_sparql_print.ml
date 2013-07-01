@@ -182,30 +182,24 @@ and print_function_call b t =
   print_iri b t.func_iri ;
   print_arg_list b t.func_args
 
+and string_of_bin_op = function
+  | EEqual -> "="
+  | ENotEqual -> "!="
+  | ELt -> "<"
+  | ELte -> "<="
+  | EGt -> ">"
+  | EGte -> ">="
+  | EPlus -> "+"
+  | EMinus -> "-"
+  | EMult -> "*"
+  | EDiv -> "/"
+  | EOr -> "||"
+  | EAnd -> "&&"
+
 and print_expr b = function
-  | EEqual (e1, e2) ->
+  | EBin (e1, op, e2) ->
       print_expression b e1;
-      p b " = ";
-      print_expression b e2
-  | ENotEqual (e1, e2) ->
-      print_expression b e1;
-      p b " != ";
-      print_expression b e2
-  | ELt (e1, e2) ->
-      print_expression b e1;
-      p b " < ";
-      print_expression b e2
-  | EGt (e1, e2) ->
-      print_expression b e1;
-      p b " > ";
-      print_expression b e2
-  | ELte (e1, e2) ->
-      print_expression b e1 ;
-      p b " <= ";
-      print_expression b e2
-  | EGte (e1, e2) ->
-      print_expression b e1 ;
-      p b " >= ";
+      p b (" "^(string_of_bin_op op)^" ");
       print_expression b e2
   | EIn (ne, l) ->
       print_expression b ne ;
@@ -217,31 +211,6 @@ and print_expr b = function
       p b " NOT IN (";
       print_list ~sep: ", " b print_expression l;
       p b ")"
-  | EPlus (e1, e2) ->
-      print_expression b e1 ;
-      p b " + ";
-      print_expression b e2
-  | EMinus (e1, e2) ->
-      print_expression b e1 ;
-      p b " - ";
-      print_expression b e2
-  | EMult (e1, e2) ->
-      print_expression b e1 ;
-      p b " * ";
-      print_expression b e2
-  | EDiv (e1, e2) ->
-      print_expression b e1 ;
-      p b " / ";
-      print_expression b e2
-
-  | EOr (e1, e2) ->
-      print_expression b e1 ;
-      p b " || ";
-      print_expression b e2
-  | EAnd (e1, e2) ->
-      print_expression b e1 ;
-      p b " && ";
-      print_expression b e2
 
   | EUMinus e ->
       p b "- ";

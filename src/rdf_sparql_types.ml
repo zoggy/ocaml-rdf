@@ -181,12 +181,14 @@ and primary_expression =
   | PrimVar of var
 *)
 
+and binary_op =
+  | EPlus | EMinus | EMult | EDiv
+  | EEqual | ENotEqual | ELt | EGt | ELte | EGte
+  | EOr | EAnd
+
 and expr =
   | EVar of var
-  | EPlus of expression * expression
-  | EMinus of expression * expression
-  | EDiv of expression * expression
-  | EMult of expression * expression
+  | EBin of expression * binary_op * expression
   | ENot of expression
   | EUMinus of expression
   | EBic of built_in_call
@@ -194,16 +196,8 @@ and expr =
   | ELit of rdf_literal
   | ENumeric of rdf_literal
   | EBoolean of rdf_literal
-  | EEqual of expression * expression
-  | ENotEqual of expression * expression
-  | ELt of expression * expression
-  | EGt of expression * expression
-  | ELte of expression * expression
-  | EGte of expression * expression
   | EIn of expression * expression list
   | ENotIn of expression * expression list
-  | EOr of expression * expression
-  | EAnd of expression * expression
 
 and expression =
   { expr_loc : loc ;

@@ -813,7 +813,7 @@ expression:
   e=and_expression { e }
 | e1=and_expression PIPEPIPE e2=and_expression {
     let loc = mk_loc $startpos(e1) $endpos(e2) in
-    { expr_loc = loc ; expr = EOr (e1, e2) }
+    { expr_loc = loc ; expr = EBin (e1, EOr, e2) }
   }
 ;
 
@@ -822,7 +822,7 @@ and_expression:
 | e1=value_logical AMPAMP e2=value_logical
   {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = EAnd (e1, e2) ;
+      expr = EBin (e1, EAnd, e2) ;
     }
   }
 ;
@@ -835,32 +835,32 @@ relational_expression:
 | numexp { $1 }
 | e1=numexp EQUAL e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = EEqual (e1, e2) ;
+      expr = EBin (e1, EEqual, e2) ;
     }
   }
 | e1=numexp NOTEQUAL e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = ENotEqual (e1, e2) ;
+      expr = EBin (e1, ENotEqual, e2) ;
     }
   }
 | e1=numexp LT e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = ELt (e1, e2) ;
+      expr = EBin (e1, ELt, e2) ;
     }
   }
 | e1=numexp GT e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = EGt (e1, e2) ;
+      expr = EBin (e1, EGt, e2) ;
     }
   }
 | e1=numexp LTE e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = ELte (e1, e2) ;
+      expr = EBin (e1, ELte, e2) ;
     }
   }
 | e1=numexp GTE e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
-      expr = EGte (e1, e2) ;
+      expr = EBin (e1, EGte, e2) ;
     }
   }
 | e=numexp IN l=expression_list {
@@ -880,25 +880,25 @@ numexp:
 | e1=expression STAR e2=expression {
     let loc = mk_loc $startpos(e1) $endpos(e2) in
     { expr_loc = loc ;
-      expr = EMult (e1, e2) ;
+      expr = EBin (e1, EMult, e2) ;
     }
   }
 | e1=expression SLASH e2=expression {
     let loc = mk_loc $startpos(e1) $endpos(e2) in
     { expr_loc = loc ;
-      expr = EDiv (e1, e2) ;
+      expr = EBin (e1, EDiv, e2) ;
     }
   }
 | e1=expression PLUS e2=expression {
     let loc = mk_loc $startpos(e1) $endpos(e2) in
     { expr_loc = loc ;
-      expr = EPlus (e1, e2) ;
+      expr = EBin (e1, EPlus, e2) ;
     }
   }
 | e1=expression MINUS e2=expression {
     let loc = mk_loc $startpos(e1) $endpos(e2) in
     { expr_loc = loc ;
-      expr = EMinus (e1, e2) ;
+      expr = EBin (e1, EMinus, e2) ;
     }
   }
 | e1=expression lit=numeric_literal_positive {
@@ -917,7 +917,7 @@ numexp:
       }
     in
     { expr_loc = loc ;
-      expr = EPlus (e1, e2) ;
+      expr = EBin (e1, EPlus, e2) ;
     }
   }
 | e1=expression lit=numeric_literal_negative {
@@ -936,7 +936,7 @@ numexp:
       }
     in
     { expr_loc = loc ;
-      expr = EMinus (e1, e2) ;
+      expr = EBin (e1, EMinus, e2) ;
     }
   }
 | BANG e=expression {
@@ -951,55 +951,7 @@ numexp:
     }
   }
 ;
-(*
-add_expression:
-| mult_exp list(add_expression2) { ($1, $2) }
-;
 
-add_expression2:
-| PLUS e=mult_exp l=list(add_expression3)
-  { ExpPlus (e, l) }
-| MINUS e=mult_exp l=list(add_expression3)
-  { ExpMinus (e, l) }
-| lit=numeric_literal_positive l=list(add_expression3)
-  {
-    let loc = mk_loc $startpos(lit) $endpos(lit) in
-    let lit = { rdf_lit_loc = loc ; rdf_lit = lit ; rdf_lit_type = None } in
-    ExpPosNumeric (lit, l)
-  }
-| lit=numeric_literal_negative l=list(add_expression3)
-  {
-    let loc = mk_loc $startpos(lit) $endpos(lit) in
-    let lit = { rdf_lit_loc = loc ; rdf_lit = lit ; rdf_lit_type = None } in
-    ExpNegNumeric (lit, l)
-  }
-;
-
-add_expression3:
-| STAR unary_expression { AddMult $2 }
-| SLASH unary_expression { AddDiv $2 }
-;
-
-mult_exp:
-| e=unary_expression { e }
-| e1=unary_expression STAR e2=mult_exp {
-    { expr_loc = mk_loc $starpos(e1) $endpos(e2) ;
-      expr = EMult (e1, e2) ;
-    }
-  }
-| e1=unary_expression SLASH e2=mult_exp {
-    { expr_loc = mk_loc $starpos(e1) $endpos(e2) ;
-      expr = EDiv (e1, e2) ;
-    }
-;
-
-unary_expression:
-| BANG primary_expression { PrimNot $2 }
-| PLUS primary_expression { PrimPlus $2 }
-| MINUS primary_expression { PrimMinus $2 }
-| primary_expression { Primary $1 }
-;
-*)
 expression_list:
 | NIL { [] }
 | LPAR l=separated_nonempty_list(COMMA, expression) RPAR { l }
