@@ -39,9 +39,7 @@ type query =
 type filter = constraint_
 
 
-type grouping =
-  | Implicit_grouping
-  | Explicit_grouping of group_condition list
+exception Implicit_aggregate_found
 
 type path =
     | Var of var
@@ -273,7 +271,15 @@ and translate_service s = failwith "SPARQL algebra: translate_service not implem
 
 and translate_inline_data d = DataToMultiset d
 
-and has_implicit_grouping q =
+and has_implicit_grouping =
+  let rec ggp =
+
+  and expression e =
+
+  and select_clause t =
+
+  in
+  ggp q.
   false (* FIXME: check for implicit grouping *)
 
 and translate_query_level q =
