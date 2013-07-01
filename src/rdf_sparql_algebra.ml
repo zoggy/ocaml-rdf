@@ -271,16 +271,13 @@ and translate_service s = failwith "SPARQL algebra: translate_service not implem
 
 and translate_inline_data d = DataToMultiset d
 
-and has_implicit_grouping =
-  let rec ggp =
-
-  and expression e =
-
-  and select_clause t =
-
-  in
-  ggp q.
-  false (* FIXME: check for implicit grouping *)
+and has_implicit_grouping q =
+  let aggregate f acc _ = raise Implicit_aggregate_found in
+  let visitor = { Rdf_sparql_vis.default with Rdf_sparql_vis.aggregate = aggregate } in
+  try
+    ignore (visitor.Rdf_sparql_vis.group_graph_pattern visitor () q.query_where);
+    false
+  with Implicit_aggregate_found -> true
 
 and translate_query_level q =
   let g = translate_ggp q.query_where in
