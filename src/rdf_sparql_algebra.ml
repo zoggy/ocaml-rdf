@@ -28,8 +28,20 @@ open Rdf_sparql_types
 module T = Rdf_sparql_types
 
 
+type query =
+    {
+      query_proj : select_clause option ;
+      query_where : group_graph_pattern ;
+      query_modifier : solution_modifier ;
+      query_values : values_clause option ;
+    }
 
 type filter = constraint_
+
+
+type grouping =
+  | Implicit_grouping
+  | Explicit_grouping of group_condition list
 
 type path =
     | Var of var
@@ -55,7 +67,7 @@ type algebra =
   | Minus of algebra * algebra
   | ToMultiset of algebra
   | DataToMultiset of datablock
-  | Group
+  | Group of group_condition list * algebra
   | Agregation
   | AgregateJoin
 
@@ -212,7 +224,14 @@ let rec translate_ggp = function
 | GGPSub t -> translate_ggp_sub t
 
 and translate_subselect t =
-  translate_ggp t.subsel_where
+    let q =
+      { query_proj = Some t.subsel_select ;
+        query_where = t.subsel_where ;
+        query_modifier = t.subsel_modifier ;
+        query_values = Some t.subsel_values ;
+      }
+    in
+    translate_query_level q
 
 and translate_ggp_sub t =
     let (filters, l) = collect_and_remove_filters t.ggp_sub_elts in
@@ -253,3 +272,25 @@ and translate_union l =
 and translate_service s = failwith "SPARQL algebra: translate_service not implemented"
 
 and translate_inline_data d = DataToMultiset d
+
+and has_implicit_grouping q =
+  false (* FIXME: check for implicit grouping *)
+
+and translate_query_level q =
+  let g = translate_ggp q.query_where in
+  let g =
+    match q.query_modifier.solmod_group with
+      [] ->
+       if has_implicit_grouping q then
+         Group([], g)
+       else
+         g
+   | group_conds -> Group (group_conds, g)
+  in
+  let g =
+    match g with
+      Group (conds, g) ->
+            assert false
+    | _ -> g
+  in
+      assert false

@@ -1110,59 +1110,59 @@ rdf_literal_:
 ;
 
 built_in_call:
-  agregate { $1 }
-| STR LPAR e=expression RPAR { Bic_STR e }
-| LANG LPAR e=expression RPAR { Bic_LANG e }
-| LANGMATCHES LPAR e1=expression COMMA e2=expression RPAR { Bic_LANGMATCHES (e1, e2) }
-| DATATYPE LPAR e=expression RPAR { Bic_DATATYPE e }
+  aggregate { Bic_agg $1 }
+| STR LPAR e=expression RPAR { Bic_fun ("STR", [e]) }
+| LANG LPAR e=expression RPAR { Bic_fun ("LANG", [e]) }
+| LANGMATCHES LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("LANGMATCHES", [e1; e2]) }
+| DATATYPE LPAR e=expression RPAR { Bic_fun ("DATATYPE", [e])}
 | BOUND LPAR v=var RPAR { Bic_BOUND v }
-| IRI LPAR e=expression RPAR { Bic_IRI e }
-| URI LPAR e=expression RPAR { Bic_URI e }
-| BNODE LPAR e=expression RPAR { Bic_BNODE (Some e) }
-| BNODE NIL { Bic_BNODE None }
-| RAND NIL { Bic_RAND }
-| ABS LPAR e=expression RPAR { Bic_ABS e }
-| CEIL LPAR e=expression RPAR { Bic_CEIL e }
-| FLOOR LPAR e=expression RPAR { Bic_FLOOR e }
-| ROUND LPAR e=expression RPAR { Bic_ROUND e }
-| CONCAT e=expression_list { Bic_CONCAT e }
+| IRI LPAR e=expression RPAR { Bic_fun ("IRI", [e])}
+| URI LPAR e=expression RPAR { Bic_fun ("URI", [e])}
+| BNODE LPAR e=expression RPAR { Bic_fun ("BNODE", [e]) }
+| BNODE NIL { Bic_fun ("BNODE", []) }
+| RAND NIL { Bic_fun ("RAND", []) }
+| ABS LPAR e=expression RPAR { Bic_fun ("ABS", [e])}
+| CEIL LPAR e=expression RPAR { Bic_fun ("CEIL", [e])}
+| FLOOR LPAR e=expression RPAR { Bic_fun ("FLOOR", [e])}
+| ROUND LPAR e=expression RPAR { Bic_fun ("ROUND", [e])}
+| CONCAT e=expression_list { Bic_fun ("CONCAT", e)}
 | substring_expression { $1 }
-| STRLEN LPAR e=expression RPAR { Bic_STRLEN e }
+| STRLEN LPAR e=expression RPAR { Bic_fun ("STRLEN", [e])}
 | str_replace_expression { $1 }
-| UCASE LPAR e=expression RPAR { Bic_UCASE e }
-| LCASE LPAR e=expression RPAR { Bic_LCASE e }
-| ENCODE_FOR_URI LPAR e=expression RPAR { Bic_ENCODE_FOR_URI e }
-| CONTAINS LPAR e1=expression COMMA e2=expression RPAR { Bic_CONTAINS (e1, e2) }
-| STRSTARTS LPAR e1=expression COMMA e2=expression RPAR { Bic_STRSTARTS (e1, e2) }
-| STRENDS LPAR e1=expression COMMA e2=expression RPAR { Bic_STRENDS (e1, e2) }
-| STRBEFORE LPAR e1=expression COMMA e2=expression RPAR { Bic_STRBEFORE (e1, e2) }
-| STRAFTER LPAR e1=expression COMMA e2=expression RPAR { Bic_STRAFTER (e1, e2) }
-| YEAR LPAR e=expression RPAR { Bic_YEAR e }
-| MONTH LPAR e=expression RPAR { Bic_MONTH e }
-| DAY LPAR e=expression RPAR { Bic_DAY e }
-| HOURS LPAR e=expression RPAR { Bic_HOURS e }
-| MINUTES LPAR e=expression RPAR { Bic_MINUTES e }
-| SECONDS LPAR e=expression RPAR { Bic_SECONDS e }
-| TIMEZONE LPAR e=expression RPAR { Bic_TIMEZONE e }
-| TZ LPAR e=expression RPAR { Bic_TZ e }
-| NOW NIL { Bic_NOW }
-| UUID NIL { Bic_UUID }
-| STRUUID NIL { Bic_STRUUID }
-| MD5 LPAR e=expression RPAR { Bic_MD5 e }
-| SHA1 LPAR e=expression RPAR { Bic_SHA1 e }
-| SHA256 LPAR e=expression RPAR { Bic_SHA256 e }
-| SHA384 LPAR e=expression RPAR { Bic_SHA384 e }
-| SHA512 LPAR e=expression RPAR { Bic_SHA512 e }
-| COALESCE l=expression_list { Bic_COALESCE l }
-| IF LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR { Bic_IF (e1, e2, e3) }
-| STRLANG LPAR e1=expression COMMA e2=expression RPAR { Bic_STRLANG (e1, e2) }
-| STRDT LPAR e1=expression COMMA e2=expression RPAR { Bic_STRDT (e1, e2) }
-| SAMETERM LPAR e1=expression COMMA e2=expression RPAR { Bic_SAMETERM (e1, e2) }
-| ISIRI LPAR e=expression RPAR { Bic_ISIRI e }
-| ISURI LPAR e=expression RPAR { Bic_ISURI e }
-| ISBLANK LPAR e=expression RPAR { Bic_ISBLANK e }
-| ISLITERAL LPAR e=expression RPAR { Bic_ISLITERAL e }
-| ISNUMERIC LPAR e=expression RPAR { Bic_ISNUMERIC e }
+| UCASE LPAR e=expression RPAR { Bic_fun ("UCASE", [e])}
+| LCASE LPAR e=expression RPAR { Bic_fun ("LCASE", [e])}
+| ENCODE_FOR_URI LPAR e=expression RPAR { Bic_fun ("ENCODE_FOR_URI", [e])}
+| CONTAINS LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("CONTAINS", [e1 ; e2]) }
+| STRSTARTS LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRSTARTS", [e1 ; e2]) }
+| STRENDS LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRENDS", [e1 ; e2]) }
+| STRBEFORE LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRBEFORE", [e1 ; e2]) }
+| STRAFTER LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRAFTER", [e1 ; e2]) }
+| YEAR LPAR e=expression RPAR { Bic_fun ("YEAR", [e])}
+| MONTH LPAR e=expression RPAR { Bic_fun ("MONTH", [e])}
+| DAY LPAR e=expression RPAR { Bic_fun ("DAY", [e])}
+| HOURS LPAR e=expression RPAR { Bic_fun ("HOURS", [e])}
+| MINUTES LPAR e=expression RPAR { Bic_fun ("MINUTES", [e])}
+| SECONDS LPAR e=expression RPAR { Bic_fun ("SECONDS", [e])}
+| TIMEZONE LPAR e=expression RPAR { Bic_fun ("TIMEZONE", [e])}
+| TZ LPAR e=expression RPAR { Bic_fun ("TZ", [e])}
+| NOW NIL { Bic_fun ("NOW", []) }
+| UUID NIL { Bic_fun ("UUID", []) }
+| STRUUID NIL { Bic_fun ("STRUUID", []) }
+| MD5 LPAR e=expression RPAR { Bic_fun ("MD5", [e])}
+| SHA1 LPAR e=expression RPAR { Bic_fun ("SHA1", [e])}
+| SHA256 LPAR e=expression RPAR { Bic_fun ("SHA256", [e])}
+| SHA384 LPAR e=expression RPAR { Bic_fun ("SHA384", [e])}
+| SHA512 LPAR e=expression RPAR { Bic_fun ("SHA512", [e])}
+| COALESCE l=expression_list { Bic_fun("COALESCE", l) }
+| IF LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR { Bic_fun("IF", [e1; e2; e3]) }
+| STRLANG LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRLANG", [e1 ; e2]) }
+| STRDT LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("STRDT", [e1 ; e2]) }
+| SAMETERM LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("SAMETERM", [e1 ; e2]) }
+| ISIRI LPAR e=expression RPAR { Bic_fun ("ISIRI", [e])}
+| ISURI LPAR e=expression RPAR { Bic_fun ("ISURI", [e])}
+| ISBLANK LPAR e=expression RPAR { Bic_fun ("ISBLANK", [e])}
+| ISLITERAL LPAR e=expression RPAR { Bic_fun ("ISLITERAL", [e])}
+| ISNUMERIC LPAR e=expression RPAR { Bic_fun ("ISNUMERIC", [e])}
 | regexp_expression { $1 }
 | EXISTS g=group_graph_pattern { Bic_EXISTS g }
 | NOT EXISTS g=group_graph_pattern { Bic_NOTEXISTS g }
@@ -1170,26 +1170,26 @@ built_in_call:
 
 regexp_expression:
 | REGEXP LPAR e1=expression COMMA e2=expression RPAR
-  { Bic_REGEXP (e1, e2, None) }
+  { Bic_fun("REGEXP", [e1 ; e2]) }
 | REGEXP LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
-  { Bic_REGEXP (e1, e2, Some e3) }
+  { Bic_fun ("REGEXP", [e1 ; e2 ; e3]) }
 ;
 
 substring_expression:
 | SUBSTR LPAR e1=expression COMMA e2=expression RPAR
-  { Bic_SUBSTR (e1, e2, None) }
+  { Bic_fun("SUBSTR", [e1 ; e2]) }
 | SUBSTR LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
-  { Bic_SUBSTR (e1, e2, Some e3) }
+  { Bic_fun ("SUBSTR", [e1 ; e2 ; e3]) }
 ;
 
 str_replace_expression:
 | REPLACE LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
-  { Bic_REPLACE (e1, e2, e3, None) }
+  { Bic_fun("REPLACE", [e1 ; e2 ; e3]) }
 | REPLACE LPAR e1=expression COMMA e2=expression COMMA e3=expression COMMA e4=expression RPAR
-  { Bic_REPLACE (e1, e2, e3, Some e4) }
+  { Bic_fun ("REPLACE", [e1 ;e2 ; e3 ; e4]) }
 ;
 
-agregate:
+aggregate:
 | COUNT LPAR d=option(DISTINCT) STAR RPAR { Bic_COUNT (d<>None, None) }
 | COUNT LPAR d=option(DISTINCT) e=expression RPAR { Bic_COUNT (d<>None, Some e) }
 | SUM LPAR d=option(DISTINCT) e=expression RPAR { Bic_SUM (d<>None, e) }

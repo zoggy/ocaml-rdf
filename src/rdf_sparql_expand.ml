@@ -225,7 +225,7 @@ and expand_expression env t =
     expr = expand_expr env t.expr ;
   }
 
-and expand_built_in_call env = function
+and expand_aggregate env = function
 | Bic_COUNT (b, eopt) ->
     Bic_COUNT (b, map_opt (expand_expression env) eopt)
 | Bic_SUM (b, e) ->
@@ -240,126 +240,15 @@ and expand_built_in_call env = function
     Bic_SAMPLE (b, expand_expression env e)
 | Bic_GROUP_CONCAT (b, e, s_opt) ->
     Bic_GROUP_CONCAT (b, expand_expression env e, s_opt)
-| Bic_STR e ->
-    Bic_STR (expand_expression env e)
-| Bic_LANG e ->
-    Bic_LANG (expand_expression env e)
-| Bic_LANGMATCHES (e1, e2) ->
-    Bic_LANGMATCHES (expand_expression env e1, expand_expression env e2)
-| Bic_DATATYPE e ->
-    Bic_DATATYPE (expand_expression env e)
-| Bic_BOUND v -> Bic_BOUND v
-| Bic_IRI e ->
-    Bic_IRI (expand_expression env e)
-| Bic_URI e ->
-    Bic_URI (expand_expression env e)
-| Bic_BNODE opt ->
-    Bic_BNODE (map_opt (expand_expression env) opt)
-| Bic_RAND -> Bic_RAND
-| Bic_ABS e ->
-    Bic_ABS (expand_expression env e)
-| Bic_CEIL e ->
-    Bic_CEIL (expand_expression env e)
-| Bic_FLOOR e ->
-    Bic_FLOOR (expand_expression env e)
-| Bic_ROUND e ->
-    Bic_ROUND (expand_expression env e)
-| Bic_CONCAT l ->
-    Bic_CONCAT (List.map (expand_expression env) l)
-| Bic_SUBSTR (e1, e2, eopt) ->
-      Bic_SUBSTR
-      (expand_expression env e1,
-       expand_expression env e2,
-       map_opt (expand_expression env) eopt
-      )
-| Bic_STRLEN e ->
-    Bic_STRLEN (expand_expression env e)
-| Bic_REPLACE (e1, e2, e3, eopt) ->
-      Bic_REPLACE
-      (expand_expression env e1,
-       expand_expression env e2,
-       expand_expression env e3,
-       map_opt (expand_expression env) eopt
-      )
-| Bic_UCASE e ->
-    Bic_UCASE (expand_expression env e)
-| Bic_LCASE e ->
-    Bic_LCASE (expand_expression env e)
-| Bic_ENCODE_FOR_URI e ->
-    Bic_ENCODE_FOR_URI (expand_expression env e)
-| Bic_CONTAINS (e1, e2) ->
-    Bic_CONTAINS (expand_expression env e1, expand_expression env e2)
-| Bic_STRSTARTS (e1, e2) ->
-    Bic_STRSTARTS (expand_expression env e1, expand_expression env e2)
-| Bic_STRENDS (e1, e2) ->
-    Bic_STRENDS (expand_expression env e1, expand_expression env e2)
-| Bic_STRBEFORE (e1, e2) ->
-    Bic_STRBEFORE (expand_expression env e1, expand_expression env e2)
-| Bic_STRAFTER (e1, e2) ->
-    Bic_STRAFTER (expand_expression env e1, expand_expression env e2)
-| Bic_YEAR e ->
-    Bic_YEAR (expand_expression env e)
-| Bic_MONTH e ->
-    Bic_MONTH (expand_expression env e)
-| Bic_DAY e ->
-    Bic_DAY (expand_expression env e)
-| Bic_HOURS e ->
-    Bic_HOURS (expand_expression env e)
-| Bic_MINUTES e ->
-    Bic_MINUTES (expand_expression env e)
-| Bic_SECONDS e ->
-    Bic_SECONDS (expand_expression env e)
-| Bic_TIMEZONE e ->
-    Bic_TIMEZONE (expand_expression env e)
-| Bic_TZ e ->
-    Bic_TZ (expand_expression env e)
-| Bic_NOW -> Bic_NOW
-| Bic_UUID -> Bic_UUID
-| Bic_STRUUID -> Bic_STRUUID
-| Bic_MD5 e ->
-    Bic_MD5 (expand_expression env e)
-| Bic_SHA1 e ->
-    Bic_SHA1 (expand_expression env e)
-| Bic_SHA256 e ->
-    Bic_SHA256 (expand_expression env e)
-| Bic_SHA384 e ->
-    Bic_SHA384 (expand_expression env e)
-| Bic_SHA512 e ->
-    Bic_SHA512 (expand_expression env e)
-| Bic_COALESCE l ->
-    Bic_COALESCE (List.map (expand_expression env) l)
-| Bic_IF (e1, e2, e3) ->
-    Bic_IF
-      (expand_expression env e1,
-       expand_expression env e2,
-       expand_expression env e3
-      )
-| Bic_STRLANG (e1, e2) ->
-    Bic_STRLANG (expand_expression env e1, expand_expression env e2)
-| Bic_STRDT (e1, e2) ->
-    Bic_STRDT (expand_expression env e1, expand_expression env e2)
-| Bic_SAMETERM (e1, e2) ->
-    Bic_SAMETERM(expand_expression env e1, expand_expression env e2)
-| Bic_ISIRI e ->
-    Bic_ISIRI (expand_expression env e)
-| Bic_ISURI e ->
-    Bic_ISURI (expand_expression env e)
-| Bic_ISBLANK e ->
-    Bic_ISBLANK (expand_expression env e)
-| Bic_ISLITERAL e ->
-    Bic_ISLITERAL (expand_expression env e)
-| Bic_ISNUMERIC e ->
-    Bic_ISNUMERIC (expand_expression env e)
-| Bic_REGEXP (e1, e2, eopt) ->
-    Bic_REGEXP
-      (expand_expression env e1,
-       expand_expression env e2,
-       map_opt (expand_expression env) eopt
-      )
-| Bic_EXISTS g ->
-    Bic_EXISTS (expand_group_graph_pattern env g)
-| Bic_NOTEXISTS g ->
-    Bic_NOTEXISTS (expand_group_graph_pattern env g)
+
+and expand_built_in_call env = function
+  | Bic_agg agg -> Bic_agg (expand_aggregate env agg)
+  | Bic_fun (name, l) -> Bic_fun (name, List.map (expand_expression env) l)
+  | Bic_BOUND v -> Bic_BOUND v
+  | Bic_EXISTS g ->
+      Bic_EXISTS (expand_group_graph_pattern env g)
+  | Bic_NOTEXISTS g ->
+      Bic_NOTEXISTS (expand_group_graph_pattern env g)
 
 and expand_group_var env t =
   { grpvar_loc = t.grpvar_loc ;

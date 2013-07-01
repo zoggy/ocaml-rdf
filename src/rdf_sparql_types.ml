@@ -211,13 +211,13 @@ and expression =
   }
 
 and built_in_call =
-  | Bic_COUNT of bool * expression option  (** '*' or expression *)
-  | Bic_SUM of bool * expression
-  | Bic_MIN of bool * expression
-  | Bic_MAX of bool * expression
-  | Bic_AVG of bool * expression
-  | Bic_SAMPLE of bool * expression
-  | Bic_GROUP_CONCAT of bool * expression * string option (* distinct * expr * separator option *)
+  | Bic_agg of aggregate
+  | Bic_fun of string * expression list
+  | Bic_BOUND of var
+  | Bic_EXISTS of group_graph_pattern
+  | Bic_NOTEXISTS of group_graph_pattern
+
+(*
   | Bic_STR of expression
   | Bic_LANG of expression
   | Bic_LANGMATCHES of expression * expression
@@ -270,8 +270,16 @@ and built_in_call =
   | Bic_ISLITERAL of expression
   | Bic_ISNUMERIC of expression
   | Bic_REGEXP of expression * expression * expression option
-  | Bic_EXISTS of group_graph_pattern
-  | Bic_NOTEXISTS of group_graph_pattern
+*)
+
+and aggregate =
+  | Bic_COUNT of bool * expression option  (** '*' or expression *)
+  | Bic_SUM of bool * expression
+  | Bic_MIN of bool * expression
+  | Bic_MAX of bool * expression
+  | Bic_AVG of bool * expression
+  | Bic_SAMPLE of bool * expression
+  | Bic_GROUP_CONCAT of bool * expression * string option (* distinct * expr * separator option *)
 
 and group_var =
   { grpvar_loc : loc ;
