@@ -66,8 +66,8 @@ type algebra =
   | ToMultiset of algebra
   | DataToMultiset of datablock
   | Group of group_condition list * algebra
-  | Agregation
-  | AgregateJoin
+  | Aggregation of aggregate * algebra
+  | AggregateJoin of algebra list
 
 let collect_and_remove_filters l =
   let f (acc_constraints, acc) = function
@@ -279,6 +279,107 @@ and has_implicit_grouping q =
     false
   with Implicit_aggregate_found -> true
 
+and aggregation_step q g =
+  let _A = ref [] in
+  let agg_i =
+     let cpt = ref 0 in
+     fun () -> incr cpt;
+     { var_loc = Rdf_sparql_types.dummy_loc ;
+       var_name = "__agg"^(string_of_int !cpt) ;
+     }
+  in
+  (* do not replace expressions in aggregate *)
+  let map_sample =
+    let f_aggregate f _ t = t in
+    let f_expression f acc t =
+      match t.expr with
+        EVar v ->
+          { expr_loc = Rdf_sparql_types.dummy_loc ;
+            expr = EBic (Bic_agg (Bic_SAMPLE (false, t))) ;
+          }
+      | _ -> Rdf_sparql_map.expression f acc t
+    in
+    { Rdf_sparql_map.default with
+      Rdf_sparql_map.aggregate = f_aggregate ;
+      Rdf_sparql_map.expression = f_expression ;
+    }
+  in
+  let map_agg =
+    let f_expression f acc t =
+      match t.expr with
+        EBic (Bic_agg agg) ->
+          let a = Aggregation(agg, g) in
+          _A := a :: !_A ;
+          let v = agg_i () in
+          { expr_loc = Rdf_sparql_types.dummy_loc ;
+            expr = EVar v ;
+          }
+     | _ -> Rdf_sparql_map.expression f acc t
+    in
+    { Rdf_sparql_map.default with
+      Rdf_sparql_map.expression = f_expression ;
+    }
+  in
+  let q =
+    let query_proj =
+      match q.query_proj with
+      | Some ({ sel_vars = SelectVars l } as s) ->
+          let replace e =
+            let e = map_sample.Rdf_sparql_map.expression map_sample () e in
+            map_agg.Rdf_sparql_map.expression map_agg () e
+          in
+          let f sv =
+            { sv with
+              sel_var_expr = Rdf_sparql_map.map_opt replace sv.sel_var_expr ;
+            }
+          in
+          Some { s with sel_vars = SelectVars (List.map f l) }
+      | x -> x
+    in
+    let having =
+      let f c =
+        let c = map_sample.Rdf_sparql_map.constraint_ map_sample () c in
+        map_agg.Rdf_sparql_map.constraint_ map_agg () c
+      in
+      List.map f q.query_modifier.solmod_having
+    in
+    let order =
+      let f cond =
+        let cond = map_sample.Rdf_sparql_map.order_condition map_sample () cond in
+        map_agg.Rdf_sparql_map.order_condition map_agg () cond
+      in
+      Rdf_sparql_map.map_opt (List.map f) q.query_modifier.solmod_order
+    in
+    let query_modifier =
+      { q.query_modifier with
+        solmod_having = having ;
+        solmod_order = order ;
+      }
+    in
+    { q with query_proj ; query_modifier ; }
+  in
+  let _E =
+    match q.query_proj with
+    | Some { sel_vars = SelectVars l } ->
+        let f acc sv =
+          match sv.sel_var_expr with
+          | Some _ -> acc
+          | None ->
+             let v_agg = agg_i () in
+             let e = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar sv.sel_var } in
+             let agg = Bic_SAMPLE (false, e) in
+             let a = Aggregation(agg, g) in
+             _A := a :: !_A;
+             (sv.sel_var, v_agg) :: acc
+        in
+        List.fold_left f [] l
+    | _ -> []
+  in
+  let _E = List.rev _E in
+  (AggregateJoin (List.rev !_A), _E, q)
+
+
+
 and translate_query_level q =
   let g = translate_ggp q.query_where in
   let g =
@@ -290,10 +391,10 @@ and translate_query_level q =
          g
    | group_conds -> Group (group_conds, g)
   in
-  let g =
+  let (g, _E, q) =
     match g with
-      Group (conds, g) ->
-            assert false
-    | _ -> g
+      Group (conds, _) ->
+       aggregation_step q g
+    | _ -> (g, [], q)
   in
-      assert false
+          assert false
