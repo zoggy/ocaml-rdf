@@ -478,3 +478,10 @@ type query =
     q_kind : query_kind ;
     q_values : values_clause ;
   }
+
+module VarSet = Set.Make
+ (struct
+    type t = var
+    let compare v1 v2 = Pervasives.compare v1.var_name v2.var_name
+  end
+ )

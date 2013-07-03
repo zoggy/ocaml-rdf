@@ -22,8 +22,10 @@ rdf_sparql.cmo : rdf_ulex.cmi rdf_sparql_print.cmo rdf_sparql_parser.cmi \
     rdf_sparql_lex.cmi rdf_sparql.cmi
 rdf_sparql.cmx : rdf_ulex.cmx rdf_sparql_print.cmx rdf_sparql_parser.cmx \
     rdf_sparql_lex.cmx rdf_sparql.cmi
-rdf_sparql_algebra.cmo : rdf_sparql_types.cmo rdf_rdf.cmo
-rdf_sparql_algebra.cmx : rdf_sparql_types.cmx rdf_rdf.cmx
+rdf_sparql_algebra.cmo : rdf_sparql_vis.cmo rdf_sparql_types.cmo \
+    rdf_sparql_map.cmo rdf_rdf.cmo
+rdf_sparql_algebra.cmx : rdf_sparql_vis.cmx rdf_sparql_types.cmx \
+    rdf_sparql_map.cmx rdf_rdf.cmx
 rdf_sparql_expand.cmo : rdf_xml.cmi rdf_uri.cmi rdf_sparql_types.cmo \
     rdf_rdf.cmo rdf_node.cmi
 rdf_sparql_expand.cmx : rdf_xml.cmx rdf_uri.cmx rdf_sparql_types.cmx \
@@ -32,6 +34,8 @@ rdf_sparql_lex.cmo : rdf_utf8.cmo rdf_uri.cmi rdf_sparql_types.cmo \
     rdf_sparql_parser.cmi rdf_sparql_lex.cmi
 rdf_sparql_lex.cmx : rdf_utf8.cmx rdf_uri.cmx rdf_sparql_types.cmx \
     rdf_sparql_parser.cmx rdf_sparql_lex.cmi
+rdf_sparql_map.cmo : rdf_sparql_types.cmo rdf_sparql_expand.cmo
+rdf_sparql_map.cmx : rdf_sparql_types.cmx rdf_sparql_expand.cmx
 rdf_sparql_parser.cmo : rdf_sparql_types.cmo rdf_rdf.cmo rdf_node.cmi \
     rdf_sparql_parser.cmi
 rdf_sparql_parser.cmx : rdf_sparql_types.cmx rdf_rdf.cmx rdf_node.cmx \
@@ -42,6 +46,8 @@ rdf_sparql_print.cmx : rdf_uri.cmx rdf_sparql_types.cmx rdf_rdf.cmx \
     rdf_node.cmx
 rdf_sparql_types.cmo : rdf_uri.cmi rdf_node.cmi
 rdf_sparql_types.cmx : rdf_uri.cmx rdf_node.cmx
+rdf_sparql_vis.cmo : rdf_sparql_types.cmo
+rdf_sparql_vis.cmx : rdf_sparql_types.cmx
 rdf_test_mysql.cmo : rdf_uri.cmi rdf_node.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_uri.cmx rdf_node.cmx rdf_graph.cmx
 rdf_ttl.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ulex.cmi rdf_ttl_types.cmo \

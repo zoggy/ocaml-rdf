@@ -27,13 +27,14 @@
 open Rdf_sparql_types
 module T = Rdf_sparql_types
 
+exception Variable_already_defined of var
 
 type query =
     {
       query_proj : select_clause option ;
       query_where : group_graph_pattern ;
       query_modifier : solution_modifier ;
-      query_values : values_clause option ;
+      query_values : values_clause ;
     }
 
 type filter = constraint_
@@ -68,6 +69,46 @@ type algebra =
   | Group of group_condition list * algebra
   | Aggregation of aggregate * algebra
   | AggregateJoin of algebra list
+
+module VS = Rdf_sparql_types.VarSet 
+
+let visible_vars =
+  (* list of all variables visible in the pattern,
+     so restricted by sub-SELECT projected variables and GROUP BY variables.
+     Not visible: only in filter, exists/not exists, masked by a subselect,
+       non-projected GROUP variables, only in the right hand side of MINUS
+  *)
+  let f_var f acc t = VS.add t acc in
+  let f_bind f acc t = VS.add t.bind_var acc in
+  let f_group_var f acc t =
+    match t.grpvar with
+      None -> acc
+    | Some v -> VS.add v acc
+  in
+  let f_sel_var acc sv = VS.add sv.sel_var acc in
+  let f_sub_select f acc t =
+    (* keep only named variables in select and group by clauses *)
+    let acc =
+      match t.subsel_select.sel_vars with
+        SelectAll -> acc
+      | SelectVars l -> List.fold_left f_sel_var acc l
+    in
+    let f acc = function
+      GroupVar { grpvar = Some v} -> VS.add v acc
+    | _ -> acc
+    in
+    List.fold_left f acc (t.subsel_modifier.solmod_group)
+  in
+  let visitor =
+    { Rdf_sparql_vis.default with
+      Rdf_sparql_vis.var = f_var ;
+      bind = f_bind ;
+      group_var = f_group_var ;
+      sub_select = f_sub_select ;
+    }
+  in
+  fun q ->
+    visitor.Rdf_sparql_vis.group_graph_pattern visitor VS.empty q.query_where
 
 let collect_and_remove_filters l =
   let f (acc_constraints, acc) = function
@@ -226,7 +267,7 @@ and translate_subselect t =
       { query_proj = Some t.subsel_select ;
         query_where = t.subsel_where ;
         query_modifier = t.subsel_modifier ;
-        query_values = Some t.subsel_values ;
+        query_values = t.subsel_values ;
       }
     in
     translate_query_level q
@@ -368,9 +409,10 @@ and aggregation_step q g =
              let v_agg = agg_i () in
              let e = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar sv.sel_var } in
              let agg = Bic_SAMPLE (false, e) in
+             let e_agg = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar v_agg } in
              let a = Aggregation(agg, g) in
              _A := a :: !_A;
-             (sv.sel_var, v_agg) :: acc
+             (sv.sel_var, e_agg) :: acc
         in
         List.fold_left f [] l
     | _ -> []
@@ -379,9 +421,12 @@ and aggregation_step q g =
   (AggregateJoin (List.rev !_A), _E, q)
 
 
-
 and translate_query_level q =
   let g = translate_ggp q.query_where in
+  let visible_vars = visible_vars q in
+  (* aggregate
+     http://www.w3.org/TR/sparql11-query/#sparqlGroupAggregate
+  *)
   let g =
     match q.query_modifier.solmod_group with
       [] ->
@@ -391,10 +436,51 @@ and translate_query_level q =
          g
    | group_conds -> Group (group_conds, g)
   in
-  let (g, _E, q) =
+  let (g, env, q) =
     match g with
       Group (conds, _) ->
        aggregation_step q g
     | _ -> (g, [], q)
   in
-          assert false
+
+  (* having
+     http://www.w3.org/TR/sparql11-query/#sparqlHavingClause
+  *)
+  let g =
+    match q.query_modifier.solmod_having with
+      [] -> g
+    | l -> Filter(g, l)
+  in
+  (* values
+    http://www.w3.org/TR/sparql11-query/#sparqlAlgebraFinalValues
+  *)
+  let g =
+    match q.query_values with
+      None -> g
+    | Some data -> Join (g, DataToMultiset data)
+  in
+
+  (* select
+     http://www.w3.org/TR/sparql11-query/#sparqlSelectExpressions
+  *)
+  let (pv, env) =
+    match q.query_proj with
+      None -> (VS.empty, env)
+    | Some { sel_vars = SelectAll } -> (visible_vars, env)
+    | Some { sel_vars = SelectVars l } ->
+       let f (acc, env) sv =
+         match sv.sel_var_expr with
+           None -> (VS.add sv.sel_var acc, env)
+         | Some e ->
+             let v = sv.sel_var in
+             if VS.mem v visible_vars then
+               raise (Variable_already_defined v);
+             (VS.add v acc, (v, e) :: env)
+       in
+       List.fold_left f (VS.empty, List.rev env) l
+  in
+  let g = List.fold_left
+    (fun g (var, e) -> Extend (g, var, e))
+    g (List.rev env)
+  in
+  assert false
