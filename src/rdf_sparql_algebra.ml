@@ -55,6 +55,8 @@ type path =
 
 type triple= var_or_term * path * var_or_term
 
+module VS = Rdf_sparql_types.VarSet
+
 type algebra =
   | BGP of triple list
   | Join of algebra * algebra
@@ -69,8 +71,11 @@ type algebra =
   | Group of group_condition list * algebra
   | Aggregation of aggregate * algebra
   | AggregateJoin of algebra list
-
-module VS = Rdf_sparql_types.VarSet 
+  | Project of algebra * VS.t
+  | Distinct of algebra
+  | Reduced of algebra
+  | Slice of algebra * int option * int option (* algebra * offset * limit *)
+  | OrderBy of algebra * order_condition list
 
 let visible_vars =
   (* list of all variables visible in the pattern,
@@ -482,5 +487,34 @@ and translate_query_level q =
   let g = List.fold_left
     (fun g (var, e) -> Extend (g, var, e))
     g (List.rev env)
+  in
+
+  (* order by *)
+  let g =
+    match q.query_modifier.solmod_order with
+      None -> g
+    | Some l -> OrderBy(g, l)
+  in
+  (* projection *)
+  let g = Project (g, pv) in
+
+  (* distinct / reduced *)
+  let g =
+    match q.query_proj with
+      None -> g
+    | Some s ->
+      match s.sel_flag with
+        None -> g
+      | Some T.Distinct -> Distinct g
+      | Some T.Reduced -> Reduced g
+  in
+  (* slice *)
+  let g =
+    match q.query_modifier.solmod_limoff with
+      None -> g
+    | Some lim ->
+        match lim.limoff_offset, lim.limoff_limit with
+          None, None -> g
+        | o, l -> Slice (g, o, l)
   in
   assert false
