@@ -517,4 +517,5 @@ and translate_query_level q =
           None, None -> g
         | o, l -> Slice (g, o, l)
   in
+  ignore(g);
   assert false

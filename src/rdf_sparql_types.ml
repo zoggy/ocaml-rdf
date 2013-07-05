@@ -1,5 +1,11 @@
 (** *)
 
+module OrderedString =
+  struct type t = string let compare = Pervasives.compare end
+
+module SSet = Set.Make(OrderedString)
+module SMap = Map.Make(OrderedString)
+
 type loc =
   { loc_start : Lexing.position ;
     loc_end : Lexing.position ;
