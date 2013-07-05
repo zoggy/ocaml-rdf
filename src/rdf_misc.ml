@@ -58,3 +58,16 @@ let create_log_fun_with_set ?prefix ?(print=prerr_endline) env_var =
 let create_log_fun ?prefix ?print env_var =
   fst (create_log_fun_with_set ?prefix ?print env_var);;
 
+let compare_list comp =
+  let rec iter l1 l2 =
+    match l1, l2 with
+      [], [] -> 0
+    | [], _ -> -1
+    | _, [] -> 1
+    | h1 :: q1, h2 :: q2 ->
+        match comp h1 h2 with
+          0 -> iter q1 q2
+        | n -> n
+  in
+  iter
+;;

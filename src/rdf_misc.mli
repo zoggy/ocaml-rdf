@@ -56,3 +56,4 @@ val create_log_fun_with_set :
   (?loc: string -> ?level:int -> (unit -> string) -> unit) *
   (int -> unit)
 
+val compare_list : ('a -> 'a -> int) -> 'a list -> 'a list -> int

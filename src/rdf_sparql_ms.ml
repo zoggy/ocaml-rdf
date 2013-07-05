@@ -191,6 +191,8 @@ let omega_fold =
   fun f o acc -> MuMap.fold (on_mu f) o acc
 ;;
 
+let omega_fold_n = MuMap.fold;;
+
 let omega_iter =
   let rec iteri n f mu i =
     if i < n then

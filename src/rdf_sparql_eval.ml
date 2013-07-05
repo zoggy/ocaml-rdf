@@ -35,10 +35,27 @@ type context =
     active : Rdf_graph.graph ;
   }
 
+module GExprOrdered =
+  struct
+    type t = Rdf_node.node option list
+    let compare =
+      let comp a b =
+        match a, b with
+          None, None -> 0
+        | Some _, None -> 1
+        | None, Some _ -> -1
+        | Some a, Some b -> Rdf_node.Ord_type.compare a b
+      in
+      Rdf_misc.compare_list comp
+  end
+module GExprMap = Map.Make (GExprOrdered)
+
+
 (** Evaluate boolean expression *)
 let ebv ctx mu e = true
 
-let eval_expr ctx mu e = assert false
+let eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.node =
+  fun ctx mu e -> assert false
 
 let filter_omega =
   let pred ctx filters mu = List.for_all (ebv ctx mu) filters in
@@ -84,6 +101,118 @@ let distinct =
     List.rev l
 ;;
 
+let slice =
+  let rec until len acc i = function
+    [] -> List.rev acc
+  | _ when i >= len -> List.rev acc
+  | h :: q -> until len (h::acc) (i+1) q
+  in
+  let rec iter start len i = function
+    [] -> []
+  | h :: q when i < start -> iter start len (i+1) q
+  | q ->
+      match len with
+        None -> q
+      | Some len -> until len [] 0 q
+  in
+  fun l off lim ->
+    match off, lim with
+      None, None -> l
+    | Some off, None -> iter off None 0 l
+    | None, Some lim -> until lim [] 0 l
+    | Some off, Some lim -> iter off (Some lim) 0 l
+;;
+
+let group_omega =
+  let make_e expr = { expr_loc = Rdf_sparql_types.dummy_loc ; expr } in
+  let map_conds = function
+  | GroupBuiltInCall c -> make_e (EBic c)
+  | GroupFunctionCall c -> make_e (EFuncall c)
+  | GroupVar gv ->
+      match gv.grpvar_expr, gv.grpvar with
+        None, None -> assert false
+      | Some e, None -> e
+      | None, Some v -> make_e (EVar v)
+      | Some e, Some v -> assert false (* what to evaluate ? *)
+  in
+  let eval_one ctx mu e =
+    try Some(eval_expr ctx mu e)
+    with _ -> None
+  in
+
+  fun ctx conds o ->
+    let conds = List.map map_conds conds in
+    let eval ctx mu = List.map (eval_one ctx mu) conds in
+    Rdf_sparql_ms.omega_fold_n
+      (fun mu n acc ->
+         let v = eval ctx mu in
+         let o =
+           try GExprMap.find v acc
+           with Not_found -> Rdf_sparql_ms.MuMap.empty
+         in
+         let o = Rdf_sparql_ms.omega_add mu o in
+         GExprMap.add v o acc
+      )
+      o
+      GExprMap.empty
+
+let agg_count d ms eopt = assert false
+let agg_sum d ms e = assert false
+let agg_min d ms e = assert false
+let agg_max d ms e = assert false
+let agg_avg d ms e = assert false
+let agg_sample d ms e = assert false
+let agg_group_concat d ms e sopt = assert false
+
+let eval_agg ctx agg ms =
+  match agg with
+    Bic_COUNT (d, eopt) -> agg_count d ms eopt
+  | Bic_SUM (d, e) -> agg_sum d ms e
+  | Bic_MIN (d, e) -> agg_min d ms e
+  | Bic_MAX (d, e) -> agg_max d ms e
+  | Bic_AVG (d, e) -> agg_avg d ms e
+  | Bic_SAMPLE (d, e) ->
+      let (sample_mu,_) =
+        try Rdf_sparql_ms.MuMap.choose ms
+        with Not_found -> assert false
+      in
+      eval_expr ctx sample_mu e
+  | Bic_GROUP_CONCAT (d, e, s_opt) -> agg_group_concat d ms e s_opt
+;;
+let aggregation ctx agg groups =
+  let f ms = eval_agg ctx agg ms in
+  GExprMap.map f groups
+;;
+
+let aggregate_join =
+  let f eval ctx = function
+    Aggregation (agg, Group (conds, a)) ->
+      let o = eval ctx a in
+      let groups = group_omega ctx conds o in
+      aggregation ctx agg groups
+  | _ -> assert false
+  in
+  let gather i v =
+    let var = {
+        var_loc = Rdf_sparql_types.dummy_loc ;
+        var_name = "__agg"^(string_of_int (i+1)) ;
+      }
+    in
+    (var, v)
+  in
+  let make_mu l =
+    List.fold_left
+      (fun acc (var, v) -> Rdf_sparql_ms.mu_add var v acc)
+      Rdf_sparql_ms.SMap.empty
+      (List.mapi gather l)
+  in
+  fun eval ctx l ->
+    let l = List.map (f eval ctx) l in
+    make_mu l
+
+
+
+
 let cons h q = h :: q ;;
 
 let rec eval ctx = function
@@ -118,10 +247,20 @@ let rec eval ctx = function
     let o2 = eval ctx a2 in
     minus_omega o1 o2
 
-| ToMultiset a -> eval ctx a
+| ToMultiset a ->
+    let l = eval_list ctx a in
+    List.fold_left
+      (fun o mu -> Rdf_sparql_ms.omega_add mu o)
+      Rdf_sparql_ms.MuMap.empty l
+
+| AggregateJoin l ->
+    aggregate_join eval ctx l
+
+| Aggregation _ -> assert false (* Aggregation always below AggregateJoin *)
+| Group (conds, a) -> assert false (* no group without Aggregation above *)
+| Aggregation (_, _) -> assert false (* Aggregation always contains a Group *)
+
 | DataToMultiset datablock -> assert false
-| Group (group_conds, a) -> assert false
-| Aggregation (agg, a) -> assert false
 | AggregateJoin l -> assert false
   | Project _ -> assert false
   | Distinct a -> assert false
@@ -142,6 +281,10 @@ and eval_list ctx = function
   | Reduced a ->
       let l = eval_list ctx a in
       distinct l (* FIXME: still have to understand what Reduced means *)
+  | Slice (a, off, lim) ->
+      let l = eval_list ctx a in
+      slice l off lim
+
   | a ->
       let o = eval ctx a in
       Rdf_sparql_ms.omega_fold cons o []
