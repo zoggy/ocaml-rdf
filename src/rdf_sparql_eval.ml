@@ -201,13 +201,14 @@ let aggregate_join =
     let groups = group_omega ctx conds o in
     GExprMap.fold (compute_group ctx aggs) groups Rdf_sparql_ms.MuMap.empty
 
-
-
-
 let cons h q = h :: q ;;
 
+let eval_triples ctx = function
+  [] -> Rdf_sparql_ms.omega_0
+|
+
 let rec eval ctx = function
-| BGP triples -> assert false
+| BGP triples -> eval_triples ctx triples
 
 | Join (a1, a2) ->
     let o1 = eval ctx a1 in
@@ -222,6 +223,7 @@ let rec eval ctx = function
 | Filter (a, filters) ->
       let omega = eval ctx a in
       filter_omega ctx filters omega
+
 | Union (a1, a2) ->
     let o1 = eval ctx a1 in
     let o2 = eval ctx a2 in
@@ -252,11 +254,11 @@ let rec eval ctx = function
 | Group (conds, a) -> assert false (* no group without AggregationJoin above *)
 
 | DataToMultiset datablock -> assert false
-  | Project _ -> assert false
-  | Distinct a -> assert false
-  | Reduced a -> assert false
-  | Slice (a, offset, limit) -> assert false
-  | OrderBy (a, order_conds) -> assert false
+| Project _ -> assert false
+| Distinct a -> assert false
+| Reduced a -> assert false
+| Slice (a, offset, limit) -> assert false
+| OrderBy (a, order_conds) -> assert false
 
 and eval_list ctx = function
   | OrderBy (a, order_conds) ->
@@ -274,7 +276,6 @@ and eval_list ctx = function
   | Slice (a, off, lim) ->
       let l = eval_list ctx a in
       slice l off lim
-
   | a ->
       let o = eval ctx a in
       Rdf_sparql_ms.omega_fold cons o []

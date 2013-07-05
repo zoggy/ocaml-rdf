@@ -53,7 +53,7 @@ type path =
     | ZeroOrOne of path
     | NPS of iriref list
 
-type triple= var_or_term * path * var_or_term
+type triple = var_or_term * path * var_or_term
 
 module VS = Rdf_sparql_types.VarSet
 
@@ -517,5 +517,5 @@ and translate_query_level q =
           None, None -> g
         | o, l -> Slice (g, o, l)
   in
-  ignore(g);
-  assert false
+  g
+;;
