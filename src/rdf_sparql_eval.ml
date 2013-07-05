@@ -185,30 +185,21 @@ let aggregation ctx agg groups =
 ;;
 
 let aggregate_join =
-  let f eval ctx = function
-    Aggregation (agg, Group (conds, a)) ->
-      let o = eval ctx a in
-      let groups = group_omega ctx conds o in
-      aggregation ctx agg groups
+  let compute_agg ctx ms (i,acc_mu) = function
+    Aggregation agg ->
+      let term = eval_agg ctx agg ms in
+      let var = "__agg"^(string_of_int (i+1)) in
+      (i+1, Rdf_sparql_ms.mu_add var term acc_mu)
   | _ -> assert false
   in
-  let gather i v =
-    let var = {
-        var_loc = Rdf_sparql_types.dummy_loc ;
-        var_name = "__agg"^(string_of_int (i+1)) ;
-      }
-    in
-    (var, v)
+  let compute_group ctx aggs key ms acc =
+    let (_,mu) = List.fold_left (compute_agg ctx ms) (1,Rdf_sparql_ms.SMap.empty) aggs in
+    Rdf_sparql_ms.omega_add mu acc
   in
-  let make_mu l =
-    List.fold_left
-      (fun acc (var, v) -> Rdf_sparql_ms.mu_add var v acc)
-      Rdf_sparql_ms.SMap.empty
-      (List.mapi gather l)
-  in
-  fun eval ctx l ->
-    let l = List.map (f eval ctx) l in
-    make_mu l
+  fun eval ctx (conds, a) aggs ->
+    let o = eval ctx a in
+    let groups = group_omega ctx conds o in
+    GExprMap.fold (compute_group ctx aggs) groups Rdf_sparql_ms.MuMap.empty
 
 
 
@@ -253,15 +244,14 @@ let rec eval ctx = function
       (fun o mu -> Rdf_sparql_ms.omega_add mu o)
       Rdf_sparql_ms.MuMap.empty l
 
-| AggregateJoin l ->
-    aggregate_join eval ctx l
+| AggregateJoin (Group(conds,a), l) ->
+    aggregate_join eval ctx (conds,a) l
 
+| AggregateJoin _ -> assert false (* AggregationJoin always has a Group *)
 | Aggregation _ -> assert false (* Aggregation always below AggregateJoin *)
-| Group (conds, a) -> assert false (* no group without Aggregation above *)
-| Aggregation (_, _) -> assert false (* Aggregation always contains a Group *)
+| Group (conds, a) -> assert false (* no group without AggregationJoin above *)
 
 | DataToMultiset datablock -> assert false
-| AggregateJoin l -> assert false
   | Project _ -> assert false
   | Distinct a -> assert false
   | Reduced a -> assert false

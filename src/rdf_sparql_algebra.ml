@@ -69,8 +69,8 @@ type algebra =
   | ToMultiset of algebra
   | DataToMultiset of datablock
   | Group of group_condition list * algebra
-  | Aggregation of aggregate * algebra
-  | AggregateJoin of algebra list
+  | Aggregation of aggregate
+  | AggregateJoin of algebra * algebra list (* Group * Aggregation list *)
   | Project of algebra * VS.t
   | Distinct of algebra
   | Reduced of algebra
@@ -354,7 +354,7 @@ and aggregation_step q g =
     let f_expression f acc t =
       match t.expr with
         EBic (Bic_agg agg) ->
-          let a = Aggregation(agg, g) in
+          let a = Aggregation agg in
           _A := a :: !_A ;
           let v = agg_i () in
           { expr_loc = Rdf_sparql_types.dummy_loc ;
@@ -415,7 +415,7 @@ and aggregation_step q g =
              let e = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar sv.sel_var } in
              let agg = Bic_SAMPLE (false, e) in
              let e_agg = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar v_agg } in
-             let a = Aggregation(agg, g) in
+             let a = Aggregation agg in
              _A := a :: !_A;
              (sv.sel_var, e_agg) :: acc
         in
@@ -423,7 +423,7 @@ and aggregation_step q g =
     | _ -> []
   in
   let _E = List.rev _E in
-  (AggregateJoin (List.rev !_A), _E, q)
+  (AggregateJoin (g, (List.rev !_A)), _E, q)
 
 
 and translate_query_level q =
