@@ -232,7 +232,9 @@ let eval_simple_triple =
     let (vp, pred) =
       match path with
         Var v -> (Some v.var_name, None)
-      | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
+      | Iri ir ->
+          print_endline (Rdf_uri.string ir.ir_iri);
+          (None, Some (Rdf_node.Uri ir.ir_iri))
       | _ -> assert false
   in
   let f acc (s,p,o) =
