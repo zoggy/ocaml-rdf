@@ -245,6 +245,16 @@ let eval_simple_triple =
   List.fold_left f Rdf_sparql_ms.MuMap.empty
     (ctx.active.Rdf_graph.find ?sub ?pred ?obj ())
 
+let __print_mu mu =
+  Rdf_sparql_ms.SMap.iter
+    (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+    mu;
+  print_newline ()
+;;
+
+let __print_omega o =
+  Rdf_sparql_ms.omega_iter __print_mu o;;
+
 let rec eval_triples ctx = function
   [] -> Rdf_sparql_ms.omega_0
 | l -> List.fold_left (eval_triple ctx) Rdf_sparql_ms.MuMap.empty l
@@ -257,7 +267,10 @@ and eval_triple ctx omega (x, path, y) =
   | _ -> failwith "not implemented"
 
 and eval ctx = function
-| BGP triples -> eval_triples ctx triples
+| BGP triples ->
+      let om = eval_triples ctx triples in
+      __print_omega om;
+      om
 
 | Join (a1, a2) ->
     let o1 = eval ctx a1 in

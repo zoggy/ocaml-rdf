@@ -43,9 +43,13 @@ let safe_main main =
       exit 1
 (*/c==v=[Misc.safe_main]=1.0====*)
 
-let eval_query query =
+let eval_query ?data query =
   let base = Rdf_uri.uri "http://localhost/" in
-  let graph = Rdf_graph.open_graph base in
+  let graph =
+    match data with
+      None -> Rdf_graph.open_graph base
+    | Some g -> g
+  in
   let query = Rdf_sparql_expand.expand_query base query in
   let q =
     match query.q_kind with
@@ -58,15 +62,24 @@ let eval_query query =
     | _ -> failwith "only select queries implemented"
   in
   let algebra = Rdf_sparql_algebra.translate_query_level q in
-  let ctx = { 
+  let b = Buffer.create 256 in
+  Rdf_sparql_algebra.print b algebra;
+  print_endline (Buffer.contents b);
+  let ctx = {
       Rdf_sparql_eval.graphs = Rdf_sparql_eval.Irimap.empty ;
       active = graph ;
     }
   in
-  ignore (Rdf_sparql_eval.eval_list ctx algebra)
+  let omega = Rdf_sparql_eval.eval_list ctx algebra in
+  let f_mu mu =
+    Rdf_sparql_ms.SMap.iter
+      (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+      mu
+  in
+  List.iter f_mu omega
 ;;
 
-let parse_query parse source =
+let parse_query parse ?data source =
   try
     let q = parse source in
     let base = Rdf_uri.uri "http://foo.bar/" in
@@ -74,7 +87,7 @@ let parse_query parse source =
     if !print_queries then
       print_endline (Rdf_sparql.string_of_query q);
     if !eval_queries then
-      eval_query q
+      eval_query ?data q
   with
     Rdf_sparql.Error e ->
       prerr_endline (Rdf_sparql.string_of_error e);
@@ -83,6 +96,7 @@ let parse_query parse source =
 
 let parse_query_string = parse_query Rdf_sparql.parse_from_string;;
 let parse_query_file = parse_query Rdf_sparql.parse_from_file;;
+let load_ttl_data = ref None;;
 
 let files = ref [];;
 
@@ -95,14 +109,25 @@ let main () =
 
       "-p", Arg.Set print_queries, " print back parsed queries";
       "-e", Arg.Set eval_queries, " evaluate parsed queries";
+
+      "-d", Arg.String (fun s -> load_ttl_data := Some s),
+      "file load data from turtle file";
     ]
     (fun s -> args := s :: !args)
     usage;
 
   let queries = List.rev !args in
   let files = List.rev !files in
-  List.iter parse_query_string queries;
-  List.iter parse_query_file files;
+  let data =
+    match !load_ttl_data with
+      None -> None
+    | Some file ->
+        let base = Rdf_uri.uri "http://localhost/" in
+        let graph = Rdf_graph.open_graph base in
+        Some (Rdf_ttl.from_file graph ~base file)
+  in
+  List.iter (parse_query_string ?data) queries;
+  List.iter (parse_query_file ?data) files;
 ;;
 
 

@@ -519,3 +519,88 @@ and translate_query_level q =
   in
   g
 ;;
+
+let p = Buffer.add_string;;
+
+let print_var_or_term b = function
+  Rdf_sparql_types.Var v -> p b ("?"^v.var_name)
+| GraphTerm _ -> p b "<term>"
+
+let print_path b = function
+  Var v ->  p b ("?"^v.var_name)
+| Iri ir -> p b (Rdf_uri.string ir.ir_iri)
+| _ -> assert false
+
+let print_triple b (x, path, y) =
+  print_var_or_term b x;
+  p b " " ;
+  print_path b path;
+  p b " ";
+  print_var_or_term b y;
+  p b " .\n"
+
+let print_triples b l = List.iter (print_triple b) l
+
+let rec print b = function
+| BGP triples -> p b "BGP("; print_triples b triples; p b ")"
+| Join (a1, a2) ->
+    p b "Join("; print b a1; p b ", " ; print b a2; p b ")"
+| LeftJoin (a1, a2, l) ->
+    p b "LeftJoin(";
+    print b a1; p b ", " ;
+    print b a2; p b ", <filters>" ;
+    p b ")"
+| Filter (a, l) ->
+    p b "Filter("; print b a; p b ", <filters>)"
+| Union (a1, a2) ->
+    p b "Union("; print b a1; p b ", " ; print b a2; p b ")"
+| Graph (vi, a) ->
+    p b "Graph(var_or_iri, "; print b a; p b ")"
+| Extend (a, v, e) ->
+    p b "Extend(";
+    print b a;
+    p b ", <var>, <expr>)"
+| Minus (a1, a2) ->
+    p b "Minus("; print b a1; p b ", " ; print b a2; p b ")"
+| ToMultiset a ->
+    p b "ToMultiset("; print b a; p b ")"
+| DataToMultiset d ->
+    p b "DataToMultiset(d)"
+| Group (l, a) ->
+    p b "Group(conds, ";
+    print b a;
+    p b ")"
+| Aggregation agg ->
+    p b "Aggregation(<agg>)"
+| AggregateJoin (a, l) ->
+    p b "AggregateJoin(\n";
+    print b a ;
+    List.iter (fun a -> p b ",\n"; print b a) l;
+    p b "\n)"
+| Project (a, set) ->
+    p b "Project(";
+    print b a ;
+    p b ", {";
+    Rdf_sparql_types.VarSet.iter
+      (fun v -> p b (v.var_name^" ; ")) set;
+    p b "} )"
+| Distinct a ->
+    p b "Distinct(";
+    print b a;
+    p b ")"
+| Reduced a ->
+    p b "Reduced(";
+    print b a;
+    p b ")"
+| Slice (a, off, lim) ->
+    p b "Slice(";
+    print b a ;
+    p b ", ";
+    p b (match off with None -> "NONE" | Some n -> string_of_int n);
+    p b ", ";
+    p b (match lim with None -> "NONE" | Some n -> string_of_int n);
+    p b ")"
+  | OrderBy (a, l) ->
+    p b "OrderBy(";
+    print b a;
+    p b ", <conds>)"
