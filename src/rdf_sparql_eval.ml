@@ -193,7 +193,7 @@ let aggregate_join =
   | _ -> assert false
   in
   let compute_group ctx aggs key ms acc =
-    let (_,mu) = List.fold_left (compute_agg ctx ms) (1,Rdf_sparql_ms.SMap.empty) aggs in
+    let (_,mu) = List.fold_left (compute_agg ctx ms) (1,Rdf_sparql_ms.mu_0) aggs in
     Rdf_sparql_ms.omega_add mu acc
   in
   fun eval ctx (conds, a) aggs ->
@@ -203,11 +203,60 @@ let aggregate_join =
 
 let cons h q = h :: q ;;
 
-let eval_triples ctx = function
-  [] -> Rdf_sparql_ms.omega_0
-|
+let filter_of_var_or_term = function
+  Rdf_sparql_types.Var v -> (Some v.var_name, None)
+| GraphTerm t ->
+    match t with
+      GraphTermIri (Iriref ir) -> (None, Some (Rdf_node.Uri ir.ir_iri))
+    | GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermLit lit
+    | GraphTermNumeric lit
+    | GraphTermBoolean lit -> (None, Some (Rdf_node.Literal lit.rdf_lit))
+    | GraphTermBlank bn ->
+         let s =
+           match bn.bnode_label with
+             None -> None
+           | Some s -> Some ("?"^s)
+         in
+         (s, None)
+    | GraphTermNil -> (None, None)
 
-let rec eval ctx = function
+let eval_simple_triple =
+  let add mu term = function
+    None -> mu
+  | Some name -> Rdf_sparql_ms.mu_add name term mu
+  in
+  fun ctx x path y ->
+    let (vx, sub) = filter_of_var_or_term x in
+    let (vy, obj) = filter_of_var_or_term y in
+    let (vp, pred) =
+      match path with
+        Var v -> (Some v.var_name, None)
+      | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
+      | _ -> assert false
+  in
+  let f acc (s,p,o) =
+    let mu = add Rdf_sparql_ms.mu_0 s vx in
+    let mu = add mu p vp in
+    let mu = add mu o vy in
+    Rdf_sparql_ms.omega_add mu acc
+  in
+  (* FIXME: we will use a fold in the graph when it is implemented *)
+  List.fold_left f Rdf_sparql_ms.MuMap.empty
+    (ctx.active.Rdf_graph.find ?sub ?pred ?obj ())
+
+let rec eval_triples ctx = function
+  [] -> Rdf_sparql_ms.omega_0
+| l -> List.fold_left (eval_triple ctx) Rdf_sparql_ms.MuMap.empty l
+
+and eval_triple ctx omega (x, path, y) =
+  match path with
+    Var _
+  | Iri _ -> eval_simple_triple ctx x path y
+  | Inv p -> eval_triple ctx omega (y, p, x)
+  | _ -> failwith "not implemented"
+
+and eval ctx = function
 | BGP triples -> eval_triples ctx triples
 
 | Join (a1, a2) ->
