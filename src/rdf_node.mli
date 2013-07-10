@@ -58,7 +58,6 @@ val node_of_uri_string : string -> node
 (** Creation of a literal. *)
 val mk_literal : ?typ:Rdf_uri.uri -> ?lang:string -> string -> literal
 
-
 (** Create a datetime literal with type uri from the given datetime [d].
   If no date is given, [Unix.time()] is used.*)
 val mk_literal_datetime : ?d:float -> unit -> literal
@@ -73,15 +72,26 @@ val datetime_of_literal : literal -> Netdate.t
 (** Create a boolean literal with type uri from the given boolean. *)
 val mk_literal_bool : bool -> literal
 
-(** Create a literal node from the given boolean. (see {!mk_literal_bool}). *)
-val node_of_bool : bool -> node
+(** Create an integer literal. *)
+val mk_literal_int : int -> literal
+
+(** Create a double literal. *)
+val mk_literal_double : float -> literal
 
 (** Parse a literal to get a boolean. *)
 val bool_of_literal : literal -> bool
 
-
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
 val node_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> node
+
+(** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)] *)
+val node_of_int : int -> node
+
+(** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_double float)] *)
+val node_of_double : float -> node
+
+(** Create a literal node from the given boolean. (see {!mk_literal_bool}). *)
+val node_of_bool : bool -> node
 
 (** Create a string from the given RDF literal, using turtle syntax. *)
 val string_of_literal : literal -> string

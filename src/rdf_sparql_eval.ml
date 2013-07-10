@@ -25,6 +25,7 @@
 (** *)
 
 module N = Rdf_node
+open Rdf_dt
 open Rdf_sparql_types
 open Rdf_sparql_algebra
 
@@ -36,6 +37,7 @@ let dbg = Rdf_misc.create_log_fun
 exception Unbound_variable of var
 exception Not_a_integer of Rdf_node.literal
 exception Not_a_double_or_decimal of Rdf_node.literal
+exception Type_mismatch of Rdf_dt.value * Rdf_dt.value
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -62,62 +64,126 @@ module GExprMap = Map.Make (GExprOrdered)
 
 
 let eval_var mu v =
-  try Rdf_sparql_ms.mu_find_var v mu
+  try
+    let node = Rdf_sparql_ms.mu_find_var v mu in
+    Rdf_dt.of_node node
   with Not_found -> raise (Unbound_variable v)
 ;;
 
-let map_numeric f lit =
-  match lit.N.lit_type with
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_integer ->
-      begin
-        try
-          let v = f (int_of_string lit.N.lit_value) in
-          { lit with N.lit_value = v }
-        with _ -> raise (Not_a_integer lit)
-      end
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_double
-        or Rdf_uri.equal t Rdf_rdf.xsd_decimal ->
-      begin
-        try
-          let v = f (string_of_float lit.N.lit_value) in
-          { lit with N.lit_value = v }
-        with _ -> raise (Not_a_float lit)
-      end
-
-let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.literal =
-  fun ctx mu e ->
-    match e with
-      EVar v -> eval_var mu v
-    | ENot e -> Rdf_node.mk_literal_bool (not (eval_expr ctx mu e))
-
 (** Evaluate boolean expression.
   See http://www.w3.org/TR/sparql11-query/#ebv *)
-and ebv ctx mu e =
-  let lit =  eval_expr ctx mu e in
-  match lit.N.lit_type with
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_boolean ->
-      lit.N.lit_value = "true"
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_integer ->
+let ebv = function
+  | Bool b -> b
+  | String "" -> false
+  | String _ -> true
+  | Ltrl ("",_) -> false
+  | Ltrl _ -> true
+  | Int n -> n <> 0
+  | Float f ->
       begin
-        try (int_of_string lit.N.lit_value) <> 0
-        with _ -> false
+        match Pervasives.classify_float f with
+          FP_nan | FP_zero -> false
+        | _ -> true
       end
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_double
-        or Rdf_uri.equal t Rdf_rdf.xsd_decimal ->
-      begin
-        try
-          let v = float_of_string lit.N.lit_value in
-          match Pervasives.classify_float v with
-            FP_nan -> false
-          | _ -> v <> 0.0
-        with _ -> false
-      end
-  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_string ->
-      String.length lit.N.lit_value > 0
-  | _ ->
-      String.length lit.N.lit_value > 0
+  | Datetime _
+  | Rdf_dt.Iri _ | Rdf_dt.Blank _ -> false (* FIXME: or error ? *)
+;;
 
-and ebv_lit ctx mu e = Rdf_node.mk_literal_bool (ebv ctx mu e)
+let rec eval_numeric2 f_int f_float = function
+| (Float f1, Float f2) -> Float (f_float f1 f2)
+| (Int n1, Int n2) -> Int (f_int n1 n2)
+| ((Float _) as v1, ((Int _) as v2)) ->
+    eval_numeric2 f_int f_float (v1, Rdf_dt.float v2)
+| ((Int _) as v1, ((Float _) as v2)) ->
+    eval_numeric2 f_int f_float (Rdf_dt.float v1, v2)
+| v1, v2 ->
+    eval_numeric2 f_int f_float
+      ((Rdf_dt.numeric v1), (Rdf_dt.numeric v2))
+
+let eval_plus = eval_numeric2 (+) (+.)
+let eval_minus = eval_numeric2 (-) (-.)
+let eval_mult = eval_numeric2 ( * ) ( *. )
+let eval_div = eval_numeric2 (/) (/.)
+
+let rec compare v1 v2 =
+  match v1, v2 with
+  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
+  | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
+  | String s1, String s2
+  | Ltrl (s1, None), String s2
+  | String s1, Ltrl (s2, None) -> Pervasives.compare s1 s2
+  | Int n1, Int n2 -> Pervasives.compare n1 n2
+  | Int _, Float _ -> compare (Rdf_dt.float v1) v2
+  | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
+  | Float f1, Float f2 -> Pervasives.compare f1 f2
+  | Bool b1, Bool b2 -> Pervasives.compare b1 b2
+  | Datetime t1, Datetime t2 ->
+      Pervasives.compare (Netdate.since_epoch t1) (Netdate.since_epoch t2)
+  | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
+      begin
+        match Pervasives.compare lang1 lang2 with
+          0 -> Pervasives.compare l1 l2
+        | n -> n
+      end
+  | _, _ -> raise (Type_mismatch (v1, v2))
+
+let eval_equal (v1, v2) = Bool (compare v1 v2 = 0)
+let eval_not_equal (v1, v2) = Bool (compare v1 v2 <> 0)
+let eval_lt (v1, v2) = Bool (compare v1 v2 < 0)
+let eval_lte (v1, v2) = Bool (compare v1 v2 <= 0)
+let eval_gt (v1, v2) = Bool (compare v1 v2 > 0)
+let eval_gte (v1, v2) = Bool (compare v1 v2 >= 0)
+
+let eval_or (v1, v2) = Bool ((ebv v1) || (ebv v2))
+let eval_and (v1, v2) = Bool ((ebv v1) && (ebv v2))
+
+let eval_bin = function
+| EPlus -> eval_plus
+| EMinus -> eval_minus
+| EMult -> eval_mult
+| EDiv -> eval_div
+| EEqual -> eval_equal
+| ENotEqual -> eval_not_equal
+| ELt -> eval_lt
+| EGt -> eval_gt
+| ELte -> eval_lte
+| EGte -> eval_gte
+| EOr -> eval_or
+| EAnd -> eval_and
+
+let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
+  fun ctx mu e ->
+    match e.expr with
+      EVar v -> eval_var mu v
+    | EBin (e1, op, e2) ->
+        let v1 = eval_expr ctx mu e1 in
+        let v2 = eval_expr ctx mu e2 in
+        eval_bin op (v1, v2)
+    | ENot e ->
+        let b = ebv (eval_expr ctx mu e) in
+        Bool (not b)
+    | EUMinus e ->
+        let v = eval_expr ctx mu e in
+        eval_bin EMinus (Int 0, v)
+    | EBic c -> eval_bic ctx mu c
+    | EFuncall c -> eval_funcall ctx mu c
+    | ELit lit
+    | ENumeric lit
+    | EBoolean lit -> Rdf_dt.of_literal lit.rdf_lit
+    | EIn (e, l) -> eval_in ctx mu e l
+    | ENotIn (e, l) ->
+        match eval_in ctx mu e l with
+          Bool b -> Bool (not b)
+        | _ -> assert false
+
+and eval_bic ctx mu e = Int 1
+
+and eval_funcall ctx mu e = Int 1
+
+and eval_in ctx mu e l = Bool true
+
+
+and ebv_lit v = Rdf_node.mk_literal_bool (ebv v)
 
 let eval_filter ctx mu c =
   let e =
@@ -128,7 +194,7 @@ let eval_filter ctx mu c =
         { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EFuncall c }
     | ConstrExpr e -> e
   in
-  ebv ctx mu e
+  ebv (eval_expr ctx mu e)
 
 
 let filter_omega =
@@ -151,7 +217,7 @@ let leftjoin_omega =
 let minus_omega o1 o2 = Rdf_sparql_ms.omega_minus o1 o2
 
 let extend_omega ctx o var expr =
-  let eval mu = Rdf_node.Literal (eval_expr ctx mu expr) in
+  let eval mu = Rdf_dt.to_node (eval_expr ctx mu expr) in
   Rdf_sparql_ms.omega_extend eval o var
 
 let sort_sequence ctx l = l
@@ -210,7 +276,7 @@ let group_omega =
       | Some e, Some v -> assert false (* what to evaluate ? *)
   in
   let eval_one ctx mu e =
-    try Some(Rdf_node.Literal (eval_expr ctx mu e))
+    try Some(Rdf_dt.to_node (eval_expr ctx mu e))
     with _ -> None
   in
 
@@ -261,7 +327,7 @@ let aggregation ctx agg groups =
 let aggregate_join =
   let compute_agg ctx ms (i,acc_mu) = function
     Aggregation agg ->
-      let term = Rdf_node.Literal (eval_agg ctx agg ms) in
+      let term = Rdf_dt.to_node (eval_agg ctx agg ms) in
       let var = "__agg"^(string_of_int (i+1)) in
       (i+1, Rdf_sparql_ms.mu_add var term acc_mu)
   | _ -> assert false

@@ -70,6 +70,16 @@ let mk_literal_bool b =
   mk_literal ~typ: Rdf_rdf.xsd_boolean v
 ;;
 
+let mk_literal_int n =
+  mk_literal ~typ: Rdf_rdf.xsd_boolean (string_of_int n)
+;;
+
+let mk_literal_double f =
+  mk_literal ~typ: Rdf_rdf.xsd_double (string_of_float f)
+;;
+
+let node_of_int n = Literal (mk_literal_int n)
+let node_of_double f = Literal (mk_literal_double f)
 let node_of_bool b = Literal (mk_literal_bool b);;
 
 let bool_of_literal lit =
