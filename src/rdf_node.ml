@@ -67,7 +67,7 @@ let datetime_of_literal lit = Netdate.parse lit.lit_value;;
 
 let mk_literal_bool b =
   let v = if b then "1" else "0" in
-  mk_literal ~typ: (Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#boolean") v
+  mk_literal ~typ: Rdf_rdf.xsd_boolean v
 ;;
 
 let node_of_bool b = Literal (mk_literal_bool b);;
@@ -185,3 +185,6 @@ module Ord_type =
           (string_of_blank_id id1)
           (string_of_blank_id id2)
   end;;
+
+let lit_true = mk_literal_bool true
+let lit_false = mk_literal_bool false

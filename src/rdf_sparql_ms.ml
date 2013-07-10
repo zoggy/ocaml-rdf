@@ -53,6 +53,7 @@ let mu_merge =
   SMap.merge f
 
 let mu_add = SMap.add
+let mu_find_var v map = SMap.find v.var_name map
 
 let mu_project =
   let f set v _ = SSet.mem v set in

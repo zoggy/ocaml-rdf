@@ -92,3 +92,9 @@ val string_of_node : node -> string
 
 (** [node_hash node] returns an int64 identifiying (hopefully unically)) a given node. *)
 val node_hash : node -> int64
+
+(** Literal "true" with according type. *)
+val lit_true : literal
+
+(** Literal "false" with according type. *)
+val lit_false : literal

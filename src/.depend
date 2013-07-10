@@ -4,6 +4,8 @@ rdf_config.cmo : rdf_config.cmi
 rdf_config.cmx : rdf_config.cmi
 rdf_dot.cmo : rdf_uri.cmi rdf_rdf.cmo rdf_node.cmi rdf_graph.cmi
 rdf_dot.cmx : rdf_uri.cmx rdf_rdf.cmx rdf_node.cmx rdf_graph.cmx
+rdf_dt.cmo :
+rdf_dt.cmx :
 rdf_graph.cmo : rdf_uri.cmi rdf_rdf.cmo rdf_node.cmi rdf_graph.cmi
 rdf_graph.cmx : rdf_uri.cmx rdf_rdf.cmx rdf_node.cmx rdf_graph.cmi
 rdf_mem.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
@@ -12,8 +14,8 @@ rdf_misc.cmo : rdf_misc.cmi
 rdf_misc.cmx : rdf_misc.cmi
 rdf_my.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_my.cmx : rdf_uri.cmx rdf_node.cmx rdf_misc.cmx rdf_graph.cmx
-rdf_node.cmo : rdf_uri.cmi rdf_misc.cmi rdf_node.cmi
-rdf_node.cmx : rdf_uri.cmx rdf_misc.cmx rdf_node.cmi
+rdf_node.cmo : rdf_uri.cmi rdf_rdf.cmo rdf_misc.cmi rdf_node.cmi
+rdf_node.cmx : rdf_uri.cmx rdf_rdf.cmx rdf_misc.cmx rdf_node.cmi
 rdf_pg.cmo : rdf_uri.cmi rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_pg.cmx : rdf_uri.cmx rdf_node.cmx rdf_misc.cmx rdf_graph.cmx
 rdf_rdf.cmo : rdf_uri.cmi

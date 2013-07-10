@@ -57,6 +57,7 @@ LIB_RDF_CMOFILES= \
 	rdf_ttl_parser.cmo \
 	rdf_ttl_lex.cmo \
 	rdf_ttl.cmo \
+	rdf_dt.cmo \
 	rdf_sparql_types.cmo \
 	rdf_sparql_vis.cmo \
 	rdf_sparql_parser.cmo \

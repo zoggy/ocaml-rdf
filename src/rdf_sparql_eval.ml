@@ -33,6 +33,10 @@ let dbg = Rdf_misc.create_log_fun
     "RDF_SPARQL_EVAL_DEBUG_LEVEL"
 ;;
 
+exception Unbound_variable of var
+exception Not_a_integer of Rdf_node.literal
+exception Not_a_double_or_decimal of Rdf_node.literal
+
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
 
@@ -57,13 +61,38 @@ module GExprOrdered =
 module GExprMap = Map.Make (GExprOrdered)
 
 
+let eval_var mu v =
+  try Rdf_sparql_ms.mu_find_var v mu
+  with Not_found -> raise (Unbound_variable v)
+;;
 
-let eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.literal =
-  fun ctx mu e -> assert false
+let map_numeric f lit =
+  match lit.N.lit_type with
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_integer ->
+      begin
+        try
+          let v = f (int_of_string lit.N.lit_value) in
+          { lit with N.lit_value = v }
+        with _ -> raise (Not_a_integer lit)
+      end
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_double
+        or Rdf_uri.equal t Rdf_rdf.xsd_decimal ->
+      begin
+        try
+          let v = f (string_of_float lit.N.lit_value) in
+          { lit with N.lit_value = v }
+        with _ -> raise (Not_a_float lit)
+      end
+
+let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.literal =
+  fun ctx mu e ->
+    match e with
+      EVar v -> eval_var mu v
+    | ENot e -> Rdf_node.mk_literal_bool (not (eval_expr ctx mu e))
 
 (** Evaluate boolean expression.
   See http://www.w3.org/TR/sparql11-query/#ebv *)
-let ebv ctx mu e =
+and ebv ctx mu e =
   let lit =  eval_expr ctx mu e in
   match lit.N.lit_type with
   | Some t when Rdf_uri.equal t Rdf_rdf.xsd_boolean ->
@@ -87,6 +116,8 @@ let ebv ctx mu e =
       String.length lit.N.lit_value > 0
   | _ ->
       String.length lit.N.lit_value > 0
+
+and ebv_lit ctx mu e = Rdf_node.mk_literal_bool (ebv ctx mu e)
 
 let eval_filter ctx mu c =
   let e =
