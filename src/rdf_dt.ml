@@ -166,6 +166,8 @@ let of_literal lit =
         end
     | Some t when Rdf_uri.equal t Rdf_rdf.xsd_string ->
         String lit.lit_value
+    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_datetime ->
+        Datetime (Netdate.parse lit.lit_value)
     | None ->
         begin
           match lit.lit_language with

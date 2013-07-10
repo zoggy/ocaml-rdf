@@ -38,6 +38,8 @@ exception Unbound_variable of var
 exception Not_a_integer of Rdf_node.literal
 exception Not_a_double_or_decimal of Rdf_node.literal
 exception Type_mismatch of Rdf_dt.value * Rdf_dt.value
+exception Invalid_fun_argument of Rdf_uri.uri
+exception Unknown_fun of Rdf_uri.uri
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -61,6 +63,19 @@ module GExprOrdered =
       Rdf_misc.compare_list comp
   end
 module GExprMap = Map.Make (GExprOrdered)
+
+
+let xsd_datetime = Rdf_rdf.xsd_ "dateTime";;
+let fun_datetime = function
+  [] | _::_::_ -> raise(Invalid_fun_argument xsd_datetime)
+| [v] -> Rdf_dt.datetime v
+
+let funs = [
+    xsd_datetime, fun_datetime ;
+  ];;
+
+let funs = List.fold_left
+  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty funs;;
 
 
 let eval_var mu v =
@@ -176,12 +191,41 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
           Bool b -> Bool (not b)
         | _ -> assert false
 
-and eval_bic ctx mu e = Int 1
+and eval_bic ctx mu = function
+  | Bic_agg agg -> assert false
+  | Bic_fun (name, args) ->
+      let args = List.map (eval_expr ctx mu) args in
+      assert false
+  | Bic_BOUND v ->
+      (try ignore(Rdf_sparql_ms.mu_find_var v mu); Bool true
+       with _ -> Bool false)
+  | Bic_EXISTS _
+  | Bic_NOTEXISTS _ -> assert false
+     (* FIXME: need to translate this in algebra, with type parameter for expressions ... ? *)
 
-and eval_funcall ctx mu e = Int 1
+and eval_funcall ctx mu c =
+  let f =
+    let iri =
+      match c.func_iri with
+        Iriref ir -> ir.ir_iri
+      | _ -> assert false
+    in
+    try Irimap.find iri funs
+    with Not_found -> raise (Unknown_fun iri)
+  in
+  let args = List.map (eval_expr ctx mu) c.func_args.argl in
+  f args
 
-and eval_in ctx mu e l = Bool true
-
+and eval_in =
+  let f ctx mu v e =
+    let v2 = eval_expr ctx mu e in
+    match compare v v2 with
+      0 -> true
+    | _ -> false
+  in
+  fun ctx mu e l ->
+    let v = eval_expr ctx mu e in
+    Bool (List.exists (f ctx mu v) l)
 
 and ebv_lit v = Rdf_node.mk_literal_bool (ebv v)
 
