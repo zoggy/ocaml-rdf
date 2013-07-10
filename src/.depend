@@ -23,9 +23,9 @@ rdf_sparql.cmo : rdf_ulex.cmi rdf_sparql_print.cmo rdf_sparql_parser.cmi \
 rdf_sparql.cmx : rdf_ulex.cmx rdf_sparql_print.cmx rdf_sparql_parser.cmx \
     rdf_sparql_lex.cmx rdf_sparql.cmi
 rdf_sparql_algebra.cmo : rdf_uri.cmi rdf_sparql_vis.cmo rdf_sparql_types.cmo \
-    rdf_sparql_map.cmo rdf_rdf.cmo
+    rdf_sparql_map.cmo rdf_rdf.cmo rdf_node.cmi
 rdf_sparql_algebra.cmx : rdf_uri.cmx rdf_sparql_vis.cmx rdf_sparql_types.cmx \
-    rdf_sparql_map.cmx rdf_rdf.cmx
+    rdf_sparql_map.cmx rdf_rdf.cmx rdf_node.cmx
 rdf_sparql_eval.cmo : rdf_uri.cmi rdf_sparql_types.cmo rdf_sparql_ms.cmo \
     rdf_sparql_algebra.cmo rdf_node.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_sparql_eval.cmx : rdf_uri.cmx rdf_sparql_types.cmx rdf_sparql_ms.cmx \

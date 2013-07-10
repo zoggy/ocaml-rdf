@@ -83,6 +83,8 @@ val bool_of_literal : literal -> bool
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
 val node_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> node
 
+(** Create a string from the given RDF literal, using turtle syntax. *)
+val string_of_literal : literal -> string
 
 (** Create a string for the given node, using RDF turtle syntax conventions.
   @see <http://www.w3.org/TeamSubmission/turtle/#language> the description of turtle language. *)

@@ -106,18 +106,20 @@ let quote_str s =
   "\"" ^ s ^ "\""
 ;;
 
+let string_of_literal lit =
+  (quote_str lit.lit_value) ^
+    (match lit.lit_language with
+       None -> ""
+     | Some l -> "@" ^ l
+    ) ^
+    (match lit.lit_type with
+       None -> ""
+     | Some t -> "^^<" ^ (Rdf_uri.string t) ^ ">"
+    )
+
 let string_of_node = function
 | Uri uri -> "<" ^ (Rdf_uri.string uri) ^ ">"
-| Literal lit ->
-      (quote_str lit.lit_value) ^
-      (match lit.lit_language with
-         None -> ""
-       | Some l -> "@" ^ l
-      ) ^
-      (match lit.lit_type with
-         None -> ""
-       | Some t -> "^^<" ^ (Rdf_uri.string t) ^ ">"
-      )
+| Literal lit -> string_of_literal lit
 | Blank -> "_"
 | Blank_ id ->  "_:" ^ (string_of_blank_id id)
 ;;

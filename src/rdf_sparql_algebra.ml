@@ -522,85 +522,144 @@ and translate_query_level q =
 
 let p = Buffer.add_string;;
 
-let print_var_or_term b = function
-  Rdf_sparql_types.Var v -> p b ("?"^v.var_name)
-| GraphTerm _ -> p b "<term>"
+let string_of_var_or_term = function
+  Rdf_sparql_types.Var v -> "?" ^ v.var_name
+| GraphTerm t ->
+    match t with
+      GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermIri (Iriref ir) ->
+        Rdf_uri.string ir.ir_iri
+    | GraphTermLit lit
+    | GraphTermNumeric lit
+    | GraphTermBoolean lit ->
+       Rdf_node.string_of_literal lit.rdf_lit
+    | GraphTermBlank bn ->
+        begin
+          match bn.bnode_label with
+            None -> "[]"
+          | Some s -> "_:"^s
+        end
+    | GraphTermNil -> "()"
 
-let print_path b = function
-  Var v ->  p b ("?"^v.var_name)
-| Iri ir -> p b (Rdf_uri.string ir.ir_iri)
+let string_of_path = function
+  Var v ->  "?"^v.var_name
+| Iri ir -> Rdf_uri.string ir.ir_iri
 | _ -> assert false
 
-let print_triple b (x, path, y) =
-  print_var_or_term b x;
-  p b " " ;
-  print_path b path;
-  p b " ";
-  print_var_or_term b y;
+let string_of_triple (x, path, y) =
+  (string_of_var_or_term x) ^ " " ^
+  (string_of_path path) ^ " " ^
+  (string_of_var_or_term y)
+
+let print_triple mg b t =
+  p b mg ;
+  p b (string_of_triple t);
   p b " .\n"
 
-let print_triples b l = List.iter (print_triple b) l
+let print_triples mg b l = List.iter (print_triple mg b) l
 
-let rec print b = function
-| BGP triples -> p b "BGP("; print_triples b triples; p b ")"
+let rec print mg b = function
+| BGP triples ->
+    let mg2 = mg ^ "  " in
+    p b (mg^"BGP(\n");
+    print_triples mg2 b triples;
+    p b (mg^")")
 | Join (a1, a2) ->
-    p b "Join("; print b a1; p b ", " ; print b a2; p b ")"
+    p b (mg^"Join(\n");
+    let mg2 = mg ^ "  " in
+    print mg2 b a1;
+    p b ",\n" ;
+    print mg2 b a2;
+    p b ")"
 | LeftJoin (a1, a2, l) ->
-    p b "LeftJoin(";
-    print b a1; p b ", " ;
-    print b a2; p b ", <filters>" ;
+    p b (mg^"LeftJoin(\n");
+    let mg2 = mg ^ "  " in
+    print mg2 b a1;
+    p b ",\n" ;
+    print mg2 b a2;
+    p b (",\n"^mg2^"<filters>") ;
     p b ")"
 | Filter (a, l) ->
-    p b "Filter("; print b a; p b ", <filters>)"
+    let mg2 = mg ^ "  " in
+    p b (mg^"Filter(\n");
+    print mg2 b a;
+    p b (",\n"^mg2^"<filters>");
+    p b ")"
 | Union (a1, a2) ->
-    p b "Union("; print b a1; p b ", " ; print b a2; p b ")"
+    let mg2 = mg ^ "  " in
+    p b (mg^"Union(\n");
+    print mg2 b a1;
+    p b ",\n" ;
+    print mg2 b a2;
+    p b ")"
 | Graph (vi, a) ->
-    p b "Graph(var_or_iri, "; print b a; p b ")"
+    let mg2 = mg ^ "  " in
+    p b (mg^"Graph(var_or_iri,\n");
+    print mg2 b a;
+    p b ")"
 | Extend (a, v, e) ->
-    p b "Extend(";
-    print b a;
-    p b ", <var>, <expr>)"
+    let mg2 = mg ^ "  " in
+    p b (mg^"Extend(\n");
+    print mg2 b a;
+    p b (",\n"^mg2^"<var>, <expr>)")
 | Minus (a1, a2) ->
-    p b "Minus("; print b a1; p b ", " ; print b a2; p b ")"
+    let mg2 = mg ^ "  " in
+    p b (mg^"Minus(\n");
+    print mg2 b a1;
+    p b ",\n" ;
+    print mg2 b a2;
+    p b ")"
 | ToMultiset a ->
-    p b "ToMultiset("; print b a; p b ")"
+    p b (mg^"ToMultiset(\n");
+    print (mg^"  ") b a;
+    p b ")"
 | DataToMultiset d ->
-    p b "DataToMultiset(d)"
+    p b (mg^"DataToMultiset(d)")
 | Group (l, a) ->
-    p b "Group(conds, ";
-    print b a;
+    p b (mg^"Group(conds,\n");
+    print (mg^"  ") b a;
     p b ")"
 | Aggregation agg ->
-    p b "Aggregation(<agg>)"
+    p b (mg^"Aggregation(<agg>)")
 | AggregateJoin (a, l) ->
-    p b "AggregateJoin(\n";
-    print b a ;
-    List.iter (fun a -> p b ",\n"; print b a) l;
-    p b "\n)"
+    let mg2 = mg ^ "  " in
+    p b (mg^"AggregateJoin(\n");
+    print mg2 b a ;
+    List.iter (fun a -> p b ",\n"; print mg2 b a) l;
+    p b ("\n"^mg^")")
 | Project (a, set) ->
-    p b "Project(";
-    print b a ;
-    p b ", {";
+    let mg2 = mg ^ "  " in
+    p b (mg^"Project(\n");
+    print mg2 b a ;
+    p b (",\n"^ mg2 ^ "{");
     Rdf_sparql_types.VarSet.iter
       (fun v -> p b (v.var_name^" ; ")) set;
-    p b "} )"
+    p b ("}\n"^mg^")")
 | Distinct a ->
-    p b "Distinct(";
-    print b a;
+    p b (mg^"Distinct(\n");
+    print (mg^"  ") b a;
     p b ")"
 | Reduced a ->
-    p b "Reduced(";
-    print b a;
+    p b (mg^"Reduced(\n");
+    print (mg^"  ") b a;
     p b ")"
 | Slice (a, off, lim) ->
-    p b "Slice(";
-    print b a ;
-    p b ", ";
+    let mg2 = mg ^ "  " in
+    p b (mg^"Slice(\n");
+    print mg2 b a ;
+    p b (",\n"^mg2);
     p b (match off with None -> "NONE" | Some n -> string_of_int n);
     p b ", ";
     p b (match lim with None -> "NONE" | Some n -> string_of_int n);
     p b ")"
   | OrderBy (a, l) ->
-    p b "OrderBy(";
-    print b a;
-    p b ", <conds>)"
+    let mg2 = mg ^ "  " in
+    p b (mg^"OrderBy(\n");
+    print mg2 b a;
+    p b (",\n"^mg2^" <conds>)")
+
+let string_of_algebra a =
+  let b = Buffer.create 256 in
+  print "" b a;
+  Buffer.contents b
+;;

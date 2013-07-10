@@ -62,9 +62,8 @@ let eval_query ?data query =
     | _ -> failwith "only select queries implemented"
   in
   let algebra = Rdf_sparql_algebra.translate_query_level q in
-  let b = Buffer.create 256 in
-  Rdf_sparql_algebra.print b algebra;
-  print_endline (Buffer.contents b);
+  print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
+  print_endline (Rdf_ttl.to_string graph);
   let ctx = {
       Rdf_sparql_eval.graphs = Rdf_sparql_eval.Irimap.empty ;
       active = graph ;
@@ -74,7 +73,8 @@ let eval_query ?data query =
   let f_mu mu =
     Rdf_sparql_ms.SMap.iter
       (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-      mu
+      mu;
+    print_newline()
   in
   List.iter f_mu omega
 ;;

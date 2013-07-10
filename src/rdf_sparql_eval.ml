@@ -27,6 +27,11 @@
 open Rdf_sparql_types
 open Rdf_sparql_algebra
 
+let dbg = Rdf_misc.create_log_fun
+  ~prefix: "Rdf_sparql_eval"
+    "RDF_SPARQL_EVAL_DEBUG_LEVEL"
+;;
+
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
 
@@ -227,25 +232,35 @@ let eval_simple_triple =
   | Some name -> Rdf_sparql_ms.mu_add name term mu
   in
   fun ctx x path y ->
+    dbg ~level: 2
+      (fun () ->
+         "eval_simple_triple "^
+         (Rdf_sparql_algebra.string_of_triple (x, path, y))
+      );
     let (vx, sub) = filter_of_var_or_term x in
     let (vy, obj) = filter_of_var_or_term y in
     let (vp, pred) =
       match path with
         Var v -> (Some v.var_name, None)
-      | Iri ir ->
-          print_endline (Rdf_uri.string ir.ir_iri);
-          (None, Some (Rdf_node.Uri ir.ir_iri))
+      | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
       | _ -> assert false
-  in
-  let f acc (s,p,o) =
-    let mu = add Rdf_sparql_ms.mu_0 s vx in
-    let mu = add mu p vp in
-    let mu = add mu o vy in
-    Rdf_sparql_ms.omega_add mu acc
-  in
-  (* FIXME: we will use a fold in the graph when it is implemented *)
-  List.fold_left f Rdf_sparql_ms.MuMap.empty
-    (ctx.active.Rdf_graph.find ?sub ?pred ?obj ())
+    in
+    let f acc (s,p,o) =
+      dbg ~level: 3
+        (fun () ->
+           "simple_triple__f("^
+             (Rdf_node.string_of_node s)^", "^
+             (Rdf_node.string_of_node p)^", "^
+             (Rdf_node.string_of_node o)^")"
+        );
+      let mu = add Rdf_sparql_ms.mu_0 s vx in
+      let mu = add mu p vp in
+      let mu = add mu o vy in
+      Rdf_sparql_ms.omega_add mu acc
+    in
+    (* FIXME: we will use a fold in the graph when it is implemented *)
+    List.fold_left f Rdf_sparql_ms.MuMap.empty
+      (ctx.active.Rdf_graph.find ?sub ?pred ?obj ())
 
 let __print_mu mu =
   Rdf_sparql_ms.SMap.iter
@@ -257,15 +272,20 @@ let __print_mu mu =
 let __print_omega o =
   Rdf_sparql_ms.omega_iter __print_mu o;;
 
-let rec eval_triples ctx = function
-  [] -> Rdf_sparql_ms.omega_0
-| l -> List.fold_left (eval_triple ctx) Rdf_sparql_ms.MuMap.empty l
+let rec eval_triples =
+  let eval_join ctx acc triple =
+    let o = eval_triple ctx triple in
+    Rdf_sparql_ms.omega_join acc o
+  in
+  fun ctx -> function
+        [] -> Rdf_sparql_ms.omega_0
+    | l -> List.fold_left (eval_join ctx) Rdf_sparql_ms.omega_0 l
 
-and eval_triple ctx omega (x, path, y) =
+and eval_triple ctx (x, path, y) =
   match path with
     Var _
   | Iri _ -> eval_simple_triple ctx x path y
-  | Inv p -> eval_triple ctx omega (y, p, x)
+  | Inv p -> eval_triple ctx (y, p, x)
   | _ -> failwith "not implemented"
 
 and eval ctx = function

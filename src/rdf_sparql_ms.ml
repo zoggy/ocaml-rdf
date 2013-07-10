@@ -75,7 +75,7 @@ let omega_add mu ms =
     let n = MuMap.find mu ms in
     MuMap.add mu (n+1) ms
   with Not_found ->
-    MuMap.add mu 0 ms
+    MuMap.add mu 1 ms
 ;;
 
 let omega_0 = MuMap.add mu_0 1 MuMap.empty
