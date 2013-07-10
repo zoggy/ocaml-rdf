@@ -76,6 +76,7 @@ let eval_query ?data query =
       mu;
     print_newline()
   in
+  print_endline "Solutions:";
   List.iter f_mu omega
 ;;
 

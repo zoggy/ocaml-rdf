@@ -78,3 +78,4 @@ let xsd_integer = xsd_"integer";;
 let xsd_double = xsd_"double";;
 let xsd_decimal = xsd_"decimal";;
 let xsd_boolean = xsd_"boolean";;
+let xsd_string = xsd_"string";;

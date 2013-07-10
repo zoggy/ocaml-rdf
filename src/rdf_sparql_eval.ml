@@ -24,6 +24,7 @@
 
 (** *)
 
+module N = Rdf_node
 open Rdf_sparql_types
 open Rdf_sparql_algebra
 
@@ -56,14 +57,51 @@ module GExprOrdered =
 module GExprMap = Map.Make (GExprOrdered)
 
 
-(** Evaluate boolean expression *)
-let ebv ctx mu e = true
 
-let eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.node =
+let eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_node.literal =
   fun ctx mu e -> assert false
 
+(** Evaluate boolean expression.
+  See http://www.w3.org/TR/sparql11-query/#ebv *)
+let ebv ctx mu e =
+  let lit =  eval_expr ctx mu e in
+  match lit.N.lit_type with
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_boolean ->
+      lit.N.lit_value = "true"
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_integer ->
+      begin
+        try (int_of_string lit.N.lit_value) <> 0
+        with _ -> false
+      end
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_double
+        or Rdf_uri.equal t Rdf_rdf.xsd_decimal ->
+      begin
+        try
+          let v = float_of_string lit.N.lit_value in
+          match Pervasives.classify_float v with
+            FP_nan -> false
+          | _ -> v <> 0.0
+        with _ -> false
+      end
+  | Some t when Rdf_uri.equal t Rdf_rdf.xsd_string ->
+      String.length lit.N.lit_value > 0
+  | _ ->
+      String.length lit.N.lit_value > 0
+
+let eval_filter ctx mu c =
+  let e =
+    match c with
+      ConstrBuiltInCall c ->
+        { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EBic c }
+    | ConstrFunctionCall c ->
+        { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EFuncall c }
+    | ConstrExpr e -> e
+  in
+  ebv ctx mu e
+
+
 let filter_omega =
-  let pred ctx filters mu = List.for_all (ebv ctx mu) filters in
+  let pred ctx filters mu = List.for_all (eval_filter ctx mu) filters in
   fun ctx filters o -> Rdf_sparql_ms.omega_filter (pred ctx filters) o
 
 let join_omega ctx o1 o2 =
@@ -72,7 +110,7 @@ let join_omega ctx o1 o2 =
 let union_omega o1 o2 = Rdf_sparql_ms.omega_union o1 o2
 
 let leftjoin_omega =
-  let pred ctx filters mu = List.for_all (ebv ctx mu) filters in
+  let pred ctx filters mu = List.for_all (eval_filter ctx mu) filters in
   fun ctx o1 o2 filters ->
     let pred = pred ctx filters in
     let filter_part = Rdf_sparql_ms.omega_join ~pred o1 o2 in
@@ -82,7 +120,7 @@ let leftjoin_omega =
 let minus_omega o1 o2 = Rdf_sparql_ms.omega_minus o1 o2
 
 let extend_omega ctx o var expr =
-  let eval mu = eval_expr ctx mu expr in
+  let eval mu = Rdf_node.Literal (eval_expr ctx mu expr) in
   Rdf_sparql_ms.omega_extend eval o var
 
 let sort_sequence ctx l = l
@@ -141,7 +179,7 @@ let group_omega =
       | Some e, Some v -> assert false (* what to evaluate ? *)
   in
   let eval_one ctx mu e =
-    try Some(eval_expr ctx mu e)
+    try Some(Rdf_node.Literal (eval_expr ctx mu e))
     with _ -> None
   in
 
@@ -192,7 +230,7 @@ let aggregation ctx agg groups =
 let aggregate_join =
   let compute_agg ctx ms (i,acc_mu) = function
     Aggregation agg ->
-      let term = eval_agg ctx agg ms in
+      let term = Rdf_node.Literal (eval_agg ctx agg ms) in
       let var = "__agg"^(string_of_int (i+1)) in
       (i+1, Rdf_sparql_ms.mu_add var term acc_mu)
   | _ -> assert false
