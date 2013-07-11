@@ -40,6 +40,8 @@ exception Not_a_double_or_decimal of Rdf_node.literal
 exception Type_mismatch of Rdf_dt.value * Rdf_dt.value
 exception Invalid_fun_argument of Rdf_uri.uri
 exception Unknown_fun of Rdf_uri.uri
+exception Invalid_built_in_fun_argument of string * expression list
+exception Unknown_built_in_fun of string
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -64,27 +66,6 @@ module GExprOrdered =
   end
 module GExprMap = Map.Make (GExprOrdered)
 
-
-let xsd_datetime = Rdf_rdf.xsd_ "dateTime";;
-let fun_datetime = function
-  [] | _::_::_ -> raise(Invalid_fun_argument xsd_datetime)
-| [v] -> Rdf_dt.datetime v
-
-let funs = [
-    xsd_datetime, fun_datetime ;
-  ];;
-
-let funs = List.fold_left
-  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty funs;;
-
-
-let eval_var mu v =
-  try
-    let node = Rdf_sparql_ms.mu_find_var v mu in
-    Rdf_dt.of_node node
-  with Not_found -> raise (Unbound_variable v)
-;;
-
 (** Evaluate boolean expression.
   See http://www.w3.org/TR/sparql11-query/#ebv *)
 let ebv = function
@@ -103,6 +84,61 @@ let ebv = function
   | Datetime _
   | Rdf_dt.Iri _ | Rdf_dt.Blank _ -> false (* FIXME: or error ? *)
 ;;
+
+(**  Predefined functions *)
+
+let xsd_datetime = Rdf_rdf.xsd_ "dateTime";;
+let fun_datetime = function
+  [] | _::_::_ -> raise(Invalid_fun_argument xsd_datetime)
+| [v] -> Rdf_dt.datetime v
+
+let funs = [
+    xsd_datetime, fun_datetime ;
+  ];;
+
+let funs = List.fold_left
+  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty funs;;
+
+
+(** Builtin functions; they take an expression evaluation function
+  in parameter, as all arguments must not be always evaluated,
+  for example in the IF.  *)
+
+let bi_if name eval_expr = function
+  [e1 ; e2 ; e3] ->
+    begin
+       if ebv (eval_expr e1) then
+         eval_expr e2
+       else
+         eval_expr e3
+    end
+| l ->
+  raise (Invalid_built_in_fun_argument (name, l))
+;;
+
+let built_in_funs =
+  let l =
+    [ "IF", bi_if ;
+    ]
+  in
+  List.fold_left
+    (fun acc (name, f) -> SMap.add name (f name) acc)
+    SMap.empty l
+;;
+
+let get_built_in_fun name =
+  let name = String.uppercase name in
+  try SMap.find name built_in_funs
+  with Not_found -> raise (Unknown_built_in_fun name)
+;;
+
+let eval_var mu v =
+  try
+    let node = Rdf_sparql_ms.mu_find_var v mu in
+    Rdf_dt.of_node node
+  with Not_found -> raise (Unbound_variable v)
+;;
+
 
 let rec eval_numeric2 f_int f_float = function
 | (Float f1, Float f2) -> Float (f_float f1 f2)
@@ -194,8 +230,8 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
 and eval_bic ctx mu = function
   | Bic_agg agg -> assert false
   | Bic_fun (name, args) ->
-      let args = List.map (eval_expr ctx mu) args in
-      assert false
+      let f = get_built_in_fun name in
+      f (eval_expr ctx mu) args
   | Bic_BOUND v ->
       (try ignore(Rdf_sparql_ms.mu_find_var v mu); Bool true
        with _ -> Bool false)
