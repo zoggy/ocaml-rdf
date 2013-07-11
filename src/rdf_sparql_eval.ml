@@ -42,6 +42,7 @@ exception Invalid_fun_argument of Rdf_uri.uri
 exception Unknown_fun of Rdf_uri.uri
 exception Invalid_built_in_fun_argument of string * expression list
 exception Unknown_built_in_fun of string
+exception No_term
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -69,6 +70,7 @@ module GExprMap = Map.Make (GExprOrdered)
 (** Evaluate boolean expression.
   See http://www.w3.org/TR/sparql11-query/#ebv *)
 let ebv = function
+  | Error e -> raise e
   | Bool b -> b
   | String "" -> false
   | String _ -> true
@@ -116,6 +118,25 @@ let bi_if name eval_expr = function
   raise (Invalid_built_in_fun_argument (name, l))
 ;;
 
+let bi_coalesce =
+  let rec iter eval_expr = function
+    [] -> raise No_term
+  | h :: q ->
+    let v =
+        try
+          match eval_expr h with
+            Error _ -> None
+          | v -> Some v
+        with _ -> None
+      in
+      match v with
+        None -> iter eval_expr q
+      | Some v -> v
+  in
+  fun eval_expr l ->
+    iter eval_expr l
+
+
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
@@ -125,6 +146,8 @@ let built_in_funs =
     (fun acc (name, f) -> SMap.add name (f name) acc)
     SMap.empty l
 ;;
+
+
 
 let get_built_in_fun name =
   let name = String.uppercase name in
@@ -185,7 +208,13 @@ let eval_lte (v1, v2) = Bool (compare v1 v2 <= 0)
 let eval_gt (v1, v2) = Bool (compare v1 v2 > 0)
 let eval_gte (v1, v2) = Bool (compare v1 v2 >= 0)
 
-let eval_or (v1, v2) = Bool ((ebv v1) || (ebv v2))
+let eval_or = function
+  (Error e, Error _) -> Error e
+| (Error e, v)
+| (v, Error e) ->
+    if ebv v then Bool true else Error e
+| v1 ,v2 -> Bool ((ebv v1) || (ebv v2))
+
 let eval_and (v1, v2) = Bool ((ebv v1) && (ebv v2))
 
 let eval_bin = function

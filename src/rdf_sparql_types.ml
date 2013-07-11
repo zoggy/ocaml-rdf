@@ -214,8 +214,8 @@ and built_in_call =
   | Bic_agg of aggregate
   | Bic_fun of string * expression list
   | Bic_BOUND of var
-  | Bic_EXISTS of group_graph_pattern
-  | Bic_NOTEXISTS of group_graph_pattern
+  | Bic_EXISTS of group_graph_pattern (* FIXME: todo *)
+  | Bic_NOTEXISTS of group_graph_pattern (* FIXME: todo *)
 
 (*
   | Bic_STR of expression
