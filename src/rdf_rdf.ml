@@ -80,4 +80,5 @@ let xsd_decimal = xsd_"decimal";;
 let xsd_boolean = xsd_"boolean";;
 let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
+let rdf_langstring = rdf_"rdf:langString"
 

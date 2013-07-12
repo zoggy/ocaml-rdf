@@ -786,19 +786,9 @@ arg_list:
 iri_or_function:
 | iri=iri
   {
-    let loc = mk_loc $startpos(iri) $endpos(iri) in
-    let arg_list =
-      {
-        argl_loc = mk_loc $endpos(iri) $endpos(iri) ;
-        argl_distinct = false ; argl = [] ;
-      }
-    in
-    { func_loc = loc ;
-      func_iri = iri ;
-      func_args = arg_list ;
-    }
+    EIri iri
   }
-| function_call { $1 }
+| function_call { EFuncall $1 }
 ;
 
 function_call:
@@ -966,11 +956,6 @@ primary_expression:
       expr = EBic bic ;
     }
   }
-| f=iri_or_function {
-    { expr_loc = mk_loc $startpos(f) $endpos(f) ;
-      expr = EFuncall f ;
-    }
-  }
 | lit=rdf_literal {
     { expr_loc = mk_loc $startpos(lit) $endpos(lit) ;
       expr = ELit lit ;
@@ -989,6 +974,11 @@ primary_expression:
 | v=var {
     { expr_loc = mk_loc $startpos(v) $endpos(v) ;
       expr = EVar v ;
+    }
+  }
+| x=iri_or_function {
+    { expr_loc = mk_loc $startpos(x) $endpos(x) ;
+      expr = x ;
     }
   }
 ;

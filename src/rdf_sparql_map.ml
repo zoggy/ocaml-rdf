@@ -148,6 +148,7 @@ and binary_op f acc t = t
 
 and expr f acc = function
   | EVar var -> EVar (f.var f acc var)
+  | EIri iri -> EIri (f.iri f acc iri)
   | EBin (e1, op, e2) ->
       EBin
          (f.expression f acc e1,

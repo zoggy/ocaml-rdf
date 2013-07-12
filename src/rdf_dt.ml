@@ -19,6 +19,27 @@ exception Invalid_literal of Rdf_node.literal
 
 let date_fmt = "%d %b %Y %T %z"
 
+
+let datatype = function
+  Error e -> Error e
+| (Blank _)
+| (Iri _) as v -> Error (Type_error (v, "literal"))
+| v ->
+    let uri =
+      match v with
+        String _ -> Rdf_rdf.xsd_string
+      | Int _ -> Rdf_rdf.xsd_integer
+      | Float _ -> Rdf_rdf.xsd_double
+      | Bool _ -> Rdf_rdf.xsd_boolean
+      | Datetime _ -> Rdf_rdf.xsd_datetime
+      | Ltrl (_, None) -> Rdf_rdf.xsd_string
+      | Ltrl (s, Some _) -> Rdf_rdf.rdf_langstring
+      | Ltrdt (_, uri) -> uri
+      | Error _ | Blank _ | Iri _ -> assert false
+    in
+    Iri uri
+;;
+
 let string_literal v =
   match v with
   String s -> (s, None)
@@ -33,7 +54,7 @@ let string = function
 | v ->
     let s =
       match v with
-      | Error e -> raise (Type_error (v, "string"))
+      | Error e -> assert false
       | Iri t -> Rdf_uri.string t
       | String s -> s
       | Int n -> string_of_int n
@@ -53,7 +74,7 @@ let int = function
     try
       let n =
         match v with
-        | Error e -> raise (Type_error (v, "int"))
+        | Error e -> assert false
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> int_of_string s
@@ -75,7 +96,7 @@ let float = function
     try
       let f =
         match v with
-        | Error e -> raise (Type_error (v, "float"))
+        | Error e ->  assert false
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> float_of_string s
@@ -98,7 +119,7 @@ let bool = function
     try
       let b =
         match v with
-        | Error e -> raise (Type_error (v, "bool"))
+        | Error e -> assert false
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) ->
@@ -128,7 +149,7 @@ let datetime = function
     try
       let t =
         match v with
-        | Error e -> raise (Type_error (v, "datetime"))
+        | Error e -> assert false
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> Netdate.parse s
@@ -146,7 +167,7 @@ let ltrl = function
     try
       let (s, lang) =
         match v with
-        | Error e -> raise (Type_error (v, "ltrl"))
+        | Error e -> assert false
         | Iri t -> (Rdf_uri.string t, None)
         | String s
         | Ltrdt (s, _) -> (s, None)
@@ -168,7 +189,7 @@ let numeric = function
 | v ->
     try
       match v with
-      | Error e -> raise (Type_error (v, "numeric"))
+      | Error e -> assert false
       | String s
       | Ltrdt (s, _)
       | Ltrl (s, _) ->

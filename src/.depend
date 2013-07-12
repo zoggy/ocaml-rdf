@@ -29,9 +29,11 @@ rdf_sparql_algebra.cmo : rdf_uri.cmi rdf_sparql_vis.cmo rdf_sparql_types.cmo \
 rdf_sparql_algebra.cmx : rdf_uri.cmx rdf_sparql_vis.cmx rdf_sparql_types.cmx \
     rdf_sparql_map.cmx rdf_rdf.cmx rdf_node.cmx
 rdf_sparql_eval.cmo : rdf_uri.cmi rdf_sparql_types.cmo rdf_sparql_ms.cmo \
-    rdf_sparql_algebra.cmo rdf_node.cmi rdf_misc.cmi rdf_graph.cmi rdf_dt.cmo
+    rdf_sparql_algebra.cmo rdf_rdf.cmo rdf_node.cmi rdf_misc.cmi \
+    rdf_graph.cmi rdf_dt.cmo
 rdf_sparql_eval.cmx : rdf_uri.cmx rdf_sparql_types.cmx rdf_sparql_ms.cmx \
-    rdf_sparql_algebra.cmx rdf_node.cmx rdf_misc.cmx rdf_graph.cmx rdf_dt.cmx
+    rdf_sparql_algebra.cmx rdf_rdf.cmx rdf_node.cmx rdf_misc.cmx \
+    rdf_graph.cmx rdf_dt.cmx
 rdf_sparql_expand.cmo : rdf_xml.cmi rdf_uri.cmi rdf_sparql_types.cmo \
     rdf_rdf.cmo rdf_node.cmi
 rdf_sparql_expand.cmx : rdf_xml.cmx rdf_uri.cmx rdf_sparql_types.cmx \

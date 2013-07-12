@@ -150,6 +150,7 @@ and expand_function_call env t =
   }
 
 and expand_expr env = function
+  | EIri iri -> EIri (expand_iri env iri)
   | EBin (e1, op, e2) ->
       EBin
         (expand_expression env e1,

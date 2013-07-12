@@ -175,6 +175,14 @@ let bi_coalesce _ =
   iter
 ;;
 
+let bi_datatype name =
+  let f eval_expr = function
+    [e] -> Rdf_dt.datatype (eval_expr e)
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_isblank name =
   let f eval_expr = function
     [e] ->
@@ -312,6 +320,7 @@ let built_in_funs =
   let l =
     [ "IF", bi_if ;
       "COALESCE", bi_coalesce ;
+      "DATATYPE", bi_datatype ;
       "ISBLANK", bi_isblank ;
       "ISIRI", bi_isiri ;
       "ISURI", bi_isiri ;
@@ -343,6 +352,10 @@ let eval_var mu v =
   with Not_found -> raise (Unbound_variable v)
 ;;
 
+let eval_iri = function
+  Iriref ir -> Rdf_dt.Iri ir.ir_iri
+| PrefixedName _ -> assert false
+;;
 
 let rec eval_numeric2 f_int f_float (v1, v2) =
  try
@@ -404,6 +417,7 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
   fun ctx mu e ->
     match e.expr with
       EVar v -> eval_var mu v
+    | EIri iri -> eval_iri iri
     | EBin (e1, op, e2) ->
         let v1 = eval_expr ctx mu e1 in
         let v2 = eval_expr ctx mu e2 in

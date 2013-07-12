@@ -194,6 +194,7 @@ and binary_op =
 
 and expr =
   | EVar of var
+  | EIri of iri
   | EBin of expression * binary_op * expression
   | ENot of expression
   | EUMinus of expression

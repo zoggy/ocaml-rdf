@@ -93,6 +93,9 @@ let parse_query parse ?data source =
     Rdf_sparql.Error e ->
       prerr_endline (Rdf_sparql.string_of_error e);
       exit 1
+  | Rdf_sparql_eval.Unknown_fun iri ->
+      prerr_endline ("Unknown function "^(Rdf_uri.string iri));
+      exit 1
 ;;
 
 let parse_query_string = parse_query Rdf_sparql.parse_from_string;;
