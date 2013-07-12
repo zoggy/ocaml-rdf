@@ -225,6 +225,7 @@ and print_expr b = function
   | ENumeric lit -> print_rdf_literal b lit
   | EBoolean lit -> print_rdf_literal b lit
   | EVar v -> print_var b v
+  | EIri iri -> print_iri b iri
 
 and print_expression b e =
   match e.expr with

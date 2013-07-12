@@ -588,12 +588,12 @@ let group_omega =
   fun ctx conds o ->
     let conds = List.map map_conds conds in
     let eval ctx mu = List.map (eval_one ctx mu) conds in
-    Rdf_sparql_ms.omega_fold_n
-      (fun mu n acc ->
+    Rdf_sparql_ms.omega_fold
+      (fun mu acc ->
          let v = eval ctx mu in
          let o =
            try GExprMap.find v acc
-           with Not_found -> Rdf_sparql_ms.MuMap.empty
+           with Not_found -> Rdf_sparql_ms.Multimu.empty
          in
          let o = Rdf_sparql_ms.omega_add mu o in
          GExprMap.add v o acc
@@ -617,8 +617,8 @@ let eval_agg ctx agg ms =
   | Bic_MAX (d, e) -> agg_max d ms e
   | Bic_AVG (d, e) -> agg_avg d ms e
   | Bic_SAMPLE (d, e) ->
-      let (sample_mu,_) =
-        try Rdf_sparql_ms.MuMap.choose ms
+      let (_,sample_mu) =
+        try Rdf_sparql_ms.Multimu.choose ms
         with Not_found -> assert false
       in
       eval_expr ctx sample_mu e
@@ -644,7 +644,7 @@ let aggregate_join =
   fun eval ctx (conds, a) aggs ->
     let o = eval ctx a in
     let groups = group_omega ctx conds o in
-    GExprMap.fold (compute_group ctx aggs) groups Rdf_sparql_ms.MuMap.empty
+    GExprMap.fold (compute_group ctx aggs) groups Rdf_sparql_ms.Multimu.empty
 
 let cons h q = h :: q ;;
 
@@ -699,7 +699,7 @@ let eval_simple_triple =
       Rdf_sparql_ms.omega_add mu acc
     in
     (* FIXME: we will use a fold in the graph when it is implemented *)
-    List.fold_left f Rdf_sparql_ms.MuMap.empty
+    List.fold_left f Rdf_sparql_ms.Multimu.empty
       (ctx.active.Rdf_graph.find ?sub ?pred ?obj ())
 
 let __print_mu mu =
@@ -768,7 +768,7 @@ and eval ctx = function
     let l = eval_list ctx a in
     List.fold_left
       (fun o mu -> Rdf_sparql_ms.omega_add mu o)
-      Rdf_sparql_ms.MuMap.empty l
+      Rdf_sparql_ms.Multimu.empty l
 
 | AggregateJoin (Group(conds,a), l) ->
     aggregate_join eval ctx (conds,a) l

@@ -62,82 +62,83 @@ let mu_project =
 module MuOrdered =
   struct
     type t = mu
-     let compare = mu_compare
+    let compare = mu_compare
   end
 
-module MuMap = Map.Make(MuOrdered)
 module MuSet = Set.Make(MuOrdered)
 
-(** A Multiset is a map from a mu to a counter *)
-type multiset = int MuMap.t
+module MuNOrdered =
+  struct
+    type t = int * mu
+    let compare (n1, _) (n2, _) = Pervasives.compare n1 n2
+  end
 
-let omega_add mu ms =
-  try
-    let n = MuMap.find mu ms in
-    MuMap.add mu (n+1) ms
-  with Not_found ->
-    MuMap.add mu 1 ms
+module Multimu = Set.Make(MuNOrdered)
+
+(** A Multiset is a set of pairs (int, mu) *)
+type multiset = Multimu.t
+
+let omega_add =
+  let genid =
+    let cpt = ref 0 in
+    fun () -> incr cpt; !cpt
+  in
+  fun mu ms ->
+    Multimu.add (genid(), mu) ms
 ;;
 
-let omega_0 = MuMap.add mu_0 1 MuMap.empty
-let omega x t = MuMap.add (mu x t) 1 MuMap.empty
+let omega_0 = omega_add mu_0 Multimu.empty
+let omega x t = omega_add (mu x t) Multimu.empty
 
-let card_mu omega mu =
-  try MuMap.find mu omega
-  with Not_found -> 0
+let card_mu omega mu0 =
+  let pred (_,mu) = mu_compare mu0 mu = 0 in
+  let s = Multimu.filter pred omega in
+  Multimu.cardinal s
 ;;
 
 let omega_filter =
-  let f pred mu n map =
-    if pred mu then MuMap.add mu n map else map
+  let f pred (id, mu) set =
+    if pred mu then Multimu.add (id, mu) set else set
   in
   fun pred om ->
-    MuMap.fold (f pred) om MuMap.empty
+    Multimu.fold (f pred) om Multimu.empty
 ;;
 
 let omega_join =
-  let f2 pred mu1 n1 mu2 n2 map =
+  let f2 pred mu1 (_, mu2) set =
     try
       let mu = mu_merge mu1 mu2 in
       if pred mu then
-        MuMap.add mu (n1 * n2) map
+        omega_add mu set
       else
-        map
-    with Incompatible_mus _ -> map
+        set
+    with Incompatible_mus _ -> set
   in
-  let f pred om2 mu1 n1 map =
-    MuMap.fold (f2 pred mu1 n1) om2 map
+  let f pred om2 (_id1, mu1) set =
+    Multimu.fold (f2 pred mu1) om2 set
   in
-  fun ?(pred=fun _ -> true) om1 om2 -> MuMap.fold (f pred om2) om1 MuMap.empty
+  fun ?(pred=fun _ -> true) om1 om2 -> Multimu.fold (f pred om2) om1 Multimu.empty
   ;;
 
-let omega_union =
-  let f key n1 n2 =
-    match n1, n2 with
-      None, x
-    | x, None -> x
-    | Some n1, Some n2 -> Some (n1 + n2)
-  in
-  MuMap.merge f
-;;
+let omega_union = Multimu.union;;
 
 let omega_diff_pred =
-  let pred eval mu1 mu2 _ =
+  let pred eval mu1 (_, mu2) =
     try
       let mu = mu_merge mu1 mu2 in
       not (eval mu)
       with Incompatible_mus _ -> true
   in
-  let f eval o2 mu1 _ =
-     MuMap.for_all (pred eval mu1) o2
+  let f eval o2 (_, mu1) =
+     Multimu.for_all (pred eval mu1) o2
   in
   fun eval o1 o2 ->
-    match MuMap.compare Pervasives.compare o2 omega_0 with
+    match Multimu.compare o2 omega_0 with
       0 -> o1
     | _ ->
-      match MuMap.compare Pervasives.compare o2 MuMap.empty with
+      match Multimu.compare o2 Multimu.empty with
         0 -> o1
-      | _ -> MuMap.filter (f eval o2) o1
+      | _ -> Multimu.filter (f eval o2) o1
 ;;
 
 exception Not_disjoint
@@ -153,16 +154,16 @@ let mu_disjoint_doms =
 ;;
 
 let omega_minus =
-  let f2 mu1 mu2 _ =
+  let f2 mu1 (_, mu2) =
     (mu_disjoint_doms mu1 mu2) ||
       (try ignore (mu_merge mu1 mu2); false
        with _ -> true)
   in
-  let f o2 mu1 _ = MuMap.for_all (f2 mu1) o2 in
-  fun o1 o2 -> MuMap.filter (f o2) o1
+  let f o2 (_, mu1) = Multimu.for_all (f2 mu1) o2 in
+  fun o1 o2 -> Multimu.filter (f o2) o1
 
 let omega_extend =
-  let f eval var mu n map =
+  let f eval var (_, mu) map =
     let mu =
       try
         ignore(SMap.find var.var_name mu);
@@ -175,32 +176,20 @@ let omega_extend =
           with
             _ -> mu
     in
-    MuMap.add mu n map
+    omega_add mu map
   in
   fun eval o var ->
-    MuMap.fold (f eval var) o MuMap.empty
+    Multimu.fold (f eval var) o Multimu.empty
 ;;
 
 let omega_fold =
-  let rec iteri n f mu acc i =
-    if i < n then
-      iteri n f mu (f mu acc) (i+1)
-    else
-      acc
-  in
-  let on_mu f mu n acc = iteri n f mu acc 0 in
-  fun f o acc -> MuMap.fold (on_mu f) o acc
+  let f g (_, mu) acc = g mu acc in
+  fun g o acc -> Multimu.fold (f g) o acc
 ;;
 
-let omega_fold_n = MuMap.fold;;
-
 let omega_iter =
-  let rec iteri n f mu i =
-    if i < n then
-     ( f mu; iteri n f mu (i+1) )
-  in
-  let on_mu f mu n = iteri n f mu 0 in
-  fun f o -> MuMap.iter (on_mu f) o
+  let f g (_, mu) = g mu in
+  fun g o -> Multimu.iter (f g) o
 ;;
 
   

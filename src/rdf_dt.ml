@@ -14,6 +14,50 @@ type value =
   | Ltrl of string * string option (* optional language *)
   | Ltrdt of string * Rdf_uri.uri (* datatyped literal, with unsupported datatype *)
 
+module ValueOrdered =
+  struct
+    type t = value
+    let compare v1 v2 =
+      match v1, v2 with
+        Error e1, Error e2 -> Pervasives.compare e1 e2
+      | Error _, _ -> 1
+      | _, Error _ -> -1
+      | Blank l1, Blank l2 -> Pervasives.compare l1 l2
+      | Blank _, _ -> 1
+      | _, Blank _ -> -1
+      | Iri uri1, Iri uri2 -> Rdf_uri.compare uri1 uri2
+      | Iri _, _ -> 1
+      | _, Iri _ -> -1
+      | String s1, String s2
+      | Ltrl (s1, None), Ltrl (s2, None)
+      | String s1, Ltrl (s2, None)
+      | Ltrl (s1, None), String s2 -> Pervasives.compare s1 s2
+      | String _, _ -> 1
+      | _, String _ -> -1
+      | Ltrl (s1, Some l1), Ltrl (s2, Some l2) -> Pervasives.compare (s1, l1) (s2, l2)
+      | Ltrl _, _ -> 1
+      | _, Ltrl _ -> -1
+      | Int n1, Int n2 -> Pervasives.compare n1 n2
+      | Int _, _ -> 1
+      | _, Int _ -> -1
+      | Float f1, Float f2 -> Pervasives.compare f1 f2
+      | Float _, _ -> 1
+      | _, Float _ -> -1
+      | Bool b1, Bool b2 -> Pervasives.compare b1 b2
+      | Bool _, _ -> 1
+      | _, Bool _ -> -1
+      | Datetime d1, Datetime d2 -> Pervasives.compare (Netdate.since_epoch d1) (Netdate.since_epoch d2)
+      | Datetime _, _ -> 1
+      | _, Datetime _ -> -1
+      | Ltrdt (s1, uri1), Ltrdt (s2, uri2) ->
+          (match Pervasives.compare s1 s2 with
+             0 -> Rdf_uri.compare uri1 uri2
+           | n -> n)
+       (*| Ltrdt _, _ -> 1
+         | _, Ltrdt _ -> -1*)
+  end
+
+module VMap = Map.Make (ValueOrdered)
 exception Type_error of value * string
 exception Invalid_literal of Rdf_node.literal
 
