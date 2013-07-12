@@ -213,9 +213,14 @@ let eval_or = function
 | (Error e, v)
 | (v, Error e) ->
     if ebv v then Bool true else Error e
-| v1 ,v2 -> Bool ((ebv v1) || (ebv v2))
+| v1, v2 -> Bool ((ebv v1) || (ebv v2))
 
-let eval_and (v1, v2) = Bool ((ebv v1) && (ebv v2))
+let eval_and = function
+  (Error e, Error _) -> Error e
+| (Error e, v)
+| (v, Error e) ->
+    if ebv v then Error e else Bool false
+| v1, v2 -> Bool ((ebv v1) && (ebv v2))
 
 let eval_bin = function
 | EPlus -> eval_plus

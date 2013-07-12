@@ -41,17 +41,21 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token LPAR RPAR
 %token LBRACE RBRACE
 %token LBRACKET RBRACKET
-%token EQUAL NOTEQUAL LT GT LTE GTE NOT IN
 
 %token PLUS MINUS STAR SLASH BANG
 
-%left PLUS MINUS        /* lowest precedence */
-%left STAR SLASH         /* medium precedence */
-%nonassoc BANG      /* highest precedence */
 
 %token UNDEF
 %token UNION OPTIONAL GRAPH SERVICE SILENT BIND FILTER
 %token AMPAMP PIPEPIPE
+%token EQUAL NOTEQUAL LT GT LTE GTE NOT IN
+
+%left AMPAMP
+%left PIPEPIPE
+%nonassoc EQUAL NOTEQUAL LT GT LTE GTE NOT IN
+%left PLUS MINUS        /* lowest precedence */
+%left STAR SLASH         /* medium precedence */
+%nonassoc BANG      /* highest precedence */
 
 %token ABS AVG BNODE BOUND CEIL COALESCE CONCAT CONTAINS COUNT
 %token DATATYPE DAY ENCODE_FOR_URI EXISTS FLOOR GROUP_CONCAT HOURS
@@ -832,7 +836,6 @@ value_logical:
 ;
 
 relational_expression:
-| numexp { $1 }
 | e1=numexp EQUAL e2=numexp {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
       expr = EBin (e1, EEqual, e2) ;
@@ -873,6 +876,8 @@ relational_expression:
       expr = ENotIn (e, l) ;
     }
   }
+| numexp { $1 }
+
 ;
 
 numexp:
