@@ -44,6 +44,7 @@ exception Invalid_built_in_fun_argument of string * expression list
 exception Unknown_built_in_fun of string
 exception No_term
 exception Cannot_compare_for_datatype of Rdf_uri.uri
+exception Unhandled_regex_flag of char
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -238,6 +239,63 @@ let bi_sameterm name =
   f
 ;;
 
+(** See http://www.w3.org/TR/xpath-functions/#regex-syntax *)
+let bi_regex name =
+  let flag_of_char r c =
+    let f =
+      match c with
+      | 's' -> `DOTALL
+      | 'm' -> `MULTILINE
+      | 'i' -> `CASELESS (* FIXME: 'x' not handled yet *)
+      | c -> raise (Unhandled_regex_flag c)
+    in
+    r := f :: !r
+  in
+  let f eval_expr l =
+    let (s, pat, flags) =
+      match l with
+      | [e1 ; e2 ] -> (eval_expr e1, eval_expr e2, None)
+      | [e1 ; e2 ; e3 ] -> (eval_expr e1, eval_expr e2, Some (eval_expr e3))
+      | _ -> raise (Invalid_built_in_fun_argument (name, l))
+    in
+    try
+      let (s, _) = Rdf_dt.string_literal s in
+      let pat = match pat with
+          String s -> s
+        | _ -> raise (Rdf_dt.Type_error (pat, "simple string"))
+      in
+      let flags =
+        match flags with
+          None -> []
+        | Some (String s) ->
+            let l = ref [] in
+            String.iter (flag_of_char l) s;
+            !l
+        | Some v -> raise (Rdf_dt.Type_error (v, "simple string"))
+      in
+      let flags = `UTF8 :: flags in
+      dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat);
+      let rex = Pcre.regexp ~flags pat in
+      Bool (Pcre.pmatch ~rex s)
+    with
+      e ->
+        dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
+        Error e
+  in
+  f
+;;
+
+let bi_str name =
+  let f eval_expr = function
+    [e] ->
+      (try Rdf_dt.string (eval_expr e)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
@@ -248,6 +306,8 @@ let built_in_funs =
       "ISLITERAL", bi_isliteral ;
       "ISNUMERIC", bi_isnumeric ;
       "SAMETERM", bi_sameterm ;
+      "REGEX", bi_regex ;
+      "STR", bi_str ;
     ]
   in
   List.fold_left

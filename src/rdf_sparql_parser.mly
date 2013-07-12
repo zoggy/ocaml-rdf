@@ -60,7 +60,7 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token ABS AVG BNODE BOUND CEIL COALESCE CONCAT CONTAINS COUNT
 %token DATATYPE DAY ENCODE_FOR_URI EXISTS FLOOR GROUP_CONCAT HOURS
 %token IF IRI ISBLANK ISIRI ISLITERAL ISNUMERIC ISURI LANG LANGMATCHES
-%token LCASE MAX MD5 MIN MINUTES MONTH NOW RAND REGEXP REPLACE ROUND
+%token LCASE MAX MD5 MIN MINUTES MONTH NOW RAND REGEX REPLACE ROUND
 %token SAMETERM SAMPLE SECONDS SEPARATOR SHA1 SHA256 SHA384 SHA512
 %token STR STRAFTER STRBEFORE STRDT STRENDS STRLANG STRLEN STRSTARTS
 %token STRUUID SUBSTR SUM TIMEZONE TZ UCASE URI UUID YEAR
@@ -1068,6 +1068,7 @@ rdf_literal_:
 
 built_in_call:
   aggregate { Bic_agg $1 }
+| regexp_expression { $1 }
 | STR LPAR e=expression RPAR { Bic_fun ("STR", [e]) }
 | LANG LPAR e=expression RPAR { Bic_fun ("LANG", [e]) }
 | LANGMATCHES LPAR e1=expression COMMA e2=expression RPAR { Bic_fun ("LANGMATCHES", [e1; e2]) }
@@ -1120,16 +1121,15 @@ built_in_call:
 | ISBLANK LPAR e=expression RPAR { Bic_fun ("ISBLANK", [e])}
 | ISLITERAL LPAR e=expression RPAR { Bic_fun ("ISLITERAL", [e])}
 | ISNUMERIC LPAR e=expression RPAR { Bic_fun ("ISNUMERIC", [e])}
-| regexp_expression { $1 }
 | EXISTS g=group_graph_pattern { Bic_EXISTS g }
 | NOT EXISTS g=group_graph_pattern { Bic_NOTEXISTS g }
 ;
 
 regexp_expression:
-| REGEXP LPAR e1=expression COMMA e2=expression RPAR
-  { Bic_fun("REGEXP", [e1 ; e2]) }
-| REGEXP LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
-  { Bic_fun ("REGEXP", [e1 ; e2 ; e3]) }
+| REGEX LPAR e1=expression COMMA e2=expression RPAR
+  { Bic_fun("REGEX", [e1 ; e2]) }
+| REGEX LPAR e1=expression COMMA e2=expression COMMA e3=expression RPAR
+  { Bic_fun ("REGEX", [e1 ; e2 ; e3]) }
 ;
 
 substring_expression:

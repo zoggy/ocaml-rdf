@@ -19,12 +19,21 @@ exception Invalid_literal of Rdf_node.literal
 
 let date_fmt = "%d %b %Y %T %z"
 
+let string_literal v =
+  match v with
+  String s -> (s, None)
+| Ltrl (s, lang) -> (s, lang)
+| Ltrdt _ | Int _ | Float _ | Bool _ | Blank _
+| Datetime _ | Iri _ | Error _ ->
+      raise (Type_error (v, "literal_string"))
+;;
+
 let string = function
   Error e -> Error e
 | v ->
     let s =
       match v with
-      | Error e -> assert false
+      | Error e -> raise (Type_error (v, "string"))
       | Iri t -> Rdf_uri.string t
       | String s -> s
       | Int n -> string_of_int n
@@ -44,7 +53,7 @@ let int = function
     try
       let n =
         match v with
-        | Error e -> assert false
+        | Error e -> raise (Type_error (v, "int"))
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> int_of_string s
@@ -66,7 +75,7 @@ let float = function
     try
       let f =
         match v with
-        | Error e -> assert false
+        | Error e -> raise (Type_error (v, "float"))
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> float_of_string s
@@ -89,7 +98,7 @@ let bool = function
     try
       let b =
         match v with
-        | Error e -> assert false
+        | Error e -> raise (Type_error (v, "bool"))
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) ->
@@ -119,7 +128,7 @@ let datetime = function
     try
       let t =
         match v with
-        | Error e -> assert false
+        | Error e -> raise (Type_error (v, "datetime"))
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> Netdate.parse s
@@ -137,7 +146,7 @@ let ltrl = function
     try
       let (s, lang) =
         match v with
-        | Error e -> assert false
+        | Error e -> raise (Type_error (v, "ltrl"))
         | Iri t -> (Rdf_uri.string t, None)
         | String s
         | Ltrdt (s, _) -> (s, None)
@@ -159,7 +168,7 @@ let numeric = function
 | v ->
     try
       match v with
-      | Error e -> assert false
+      | Error e -> raise (Type_error (v, "numeric"))
       | String s
       | Ltrdt (s, _)
       | Ltrl (s, _) ->

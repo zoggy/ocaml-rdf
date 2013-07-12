@@ -55,7 +55,7 @@ let regexp integer_negative = '-'integer
 let regexp decimal_negative = '-'decimal
 let regexp double_negative = '-'double
 let regexp boolean = "true" | "false"
-let regexp echar = '\\' ['t' 'b' 'n' 'r' 'f' '"' '\'']
+let regexp echar = '\\' ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
 let regexp string_literal1 = "'" ( ([^0x27 0x5C 0xA 0xD]) | echar )* "'"
 let regexp string_literal2 = '"' ( ([^0x22 0x5C 0xA 0xD]) | echar )* '"'
 let regexp string_literal_long1 = "'''" ( ( "'" | "''" )? ( [^'\'' '\\'] | echar ) )* "'''"
@@ -208,7 +208,7 @@ let rec main = lexer
 | ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')  -> PREFIX
 | ('r'|'R') ('a'|'A') ('n'|'N') ('d'|'D')  -> RAND
 | ('r'|'R') ('e'|'E') ('d'|'D') ('u'|'U') ('c'|'C') ('e'|'E') ('d'|'D')  -> REDUCED
-| ('r'|'R') ('e'|'E') ('g'|'G') ('e'|'E') ('x'|'X') ('p'|'P')  -> REGEXP
+| ('r'|'R') ('e'|'E') ('g'|'G') ('e'|'E') ('x'|'X') -> REGEX
 | ('r'|'R') ('e'|'E') ('p'|'P') ('l'|'L') ('a'|'A') ('c'|'C') ('e'|'E')  -> REPLACE
 | ('r'|'R') ('o'|'O') ('u'|'U') ('n'|'N') ('d'|'D')  -> ROUND
 | ('s'|'S') ('a'|'A') ('m'|'M') ('e'|'E') ('t'|'T') ('e'|'E') ('r'|'R') ('m'|'M')  -> SAMETERM

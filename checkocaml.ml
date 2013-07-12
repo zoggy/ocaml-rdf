@@ -898,6 +898,7 @@ let _ = add_subst "MENHIR" menhir;;
 
 let _ = check_ocamlfind_package conf "netstring";;
 let _ = check_ocamlfind_package conf "ulex";;
+let _ = check_ocamlfind_package conf "pcre";;
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "mysql" with
