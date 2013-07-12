@@ -174,6 +174,18 @@ let bi_coalesce _ =
   iter
 ;;
 
+let bi_isblank name =
+  let f eval_expr = function
+    [e] ->
+      (match eval_expr e with
+         Rdf_dt.Blank _ -> Bool true
+       | _ -> Bool false
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_isiri name =
   let f eval_expr = function
     [e] ->
@@ -201,6 +213,7 @@ let built_in_funs =
   let l =
     [ "IF", bi_if ;
       "COALESCE", bi_coalesce ;
+      "ISBLANK", bi_isblank ;
       "ISIRI", bi_isiri ;
       "ISURI", bi_isiri ;
       "SAMETERM", bi_sameterm ;
