@@ -43,6 +43,7 @@ exception Unknown_fun of Rdf_uri.uri
 exception Invalid_built_in_fun_argument of string * expression list
 exception Unknown_built_in_fun of string
 exception No_term
+exception Cannot_compare_for_datatype of Rdf_uri.uri
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -76,6 +77,8 @@ let ebv = function
   | String _ -> true
   | Ltrl ("",_) -> false
   | Ltrl _ -> true
+  | Ltrdt ("", _) -> false
+  | Ltrdt _ -> true
   | Int n -> n <> 0
   | Float f ->
       begin
@@ -86,6 +89,40 @@ let ebv = function
   | Datetime _
   | Rdf_dt.Iri _ | Rdf_dt.Blank _ -> false (* FIXME: or error ? *)
 ;;
+
+
+let rec compare ?(sameterm=false) v1 v2 =
+  match v1, v2 with
+  | Error e, Error _ -> -1
+  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
+  | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
+  | String s1, String s2
+  | Ltrl (s1, None), String s2
+  | String s1, Ltrl (s2, None) -> Pervasives.compare s1 s2
+  | Int n1, Int n2 -> Pervasives.compare n1 n2
+  | Int _, Float _ -> compare (Rdf_dt.float v1) v2
+  | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
+  | Float f1, Float f2 -> Pervasives.compare f1 f2
+  | Bool b1, Bool b2 -> Pervasives.compare b1 b2
+  | Datetime t1, Datetime t2 ->
+      Pervasives.compare (Netdate.since_epoch t1) (Netdate.since_epoch t2)
+  | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
+      begin
+        match Pervasives.compare lang1 lang2 with
+          0 -> Pervasives.compare l1 l2
+        | n -> n
+      end
+  | Ltrdt (s1, dt1), Ltrdt (s2, dt2) ->
+      (
+       match Rdf_uri.compare dt1 dt2 with
+         0 ->
+           if sameterm then
+             Pervasives.compare s1 s2
+           else
+             raise (Cannot_compare_for_datatype dt1)
+       | _ -> raise (Type_mismatch (v1, v2))
+      )
+  | _, _ -> raise (Type_mismatch (v1, v2))
 
 (**  Predefined functions *)
 
@@ -118,7 +155,7 @@ let bi_if name eval_expr = function
   raise (Invalid_built_in_fun_argument (name, l))
 ;;
 
-let bi_coalesce =
+let bi_coalesce _ =
   let rec iter eval_expr = function
     [] -> raise No_term
   | h :: q ->
@@ -135,11 +172,24 @@ let bi_coalesce =
   in
   fun eval_expr l ->
     iter eval_expr l
+;;
 
+let bi_sameterm name =
+  let f eval_expr = function
+    [e1 ; e2] ->
+      let v1 = eval_expr e1 in
+      let v2 = eval_expr e2 in
+      Bool (compare ~sameterm: true v1 v2 = 0)
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
 
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
+      "COALESCE", bi_coalesce ;
+      "SAMETERM", bi_sameterm ;
     ]
   in
   List.fold_left
@@ -178,28 +228,6 @@ let eval_plus = eval_numeric2 (+) (+.)
 let eval_minus = eval_numeric2 (-) (-.)
 let eval_mult = eval_numeric2 ( * ) ( *. )
 let eval_div = eval_numeric2 (/) (/.)
-
-let rec compare v1 v2 =
-  match v1, v2 with
-  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
-  | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
-  | String s1, String s2
-  | Ltrl (s1, None), String s2
-  | String s1, Ltrl (s2, None) -> Pervasives.compare s1 s2
-  | Int n1, Int n2 -> Pervasives.compare n1 n2
-  | Int _, Float _ -> compare (Rdf_dt.float v1) v2
-  | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
-  | Float f1, Float f2 -> Pervasives.compare f1 f2
-  | Bool b1, Bool b2 -> Pervasives.compare b1 b2
-  | Datetime t1, Datetime t2 ->
-      Pervasives.compare (Netdate.since_epoch t1) (Netdate.since_epoch t2)
-  | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
-      begin
-        match Pervasives.compare lang1 lang2 with
-          0 -> Pervasives.compare l1 l2
-        | n -> n
-      end
-  | _, _ -> raise (Type_mismatch (v1, v2))
 
 let eval_equal (v1, v2) = Bool (compare v1 v2 = 0)
 let eval_not_equal (v1, v2) = Bool (compare v1 v2 <> 0)
@@ -259,6 +287,7 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
     | ENotIn (e, l) ->
         match eval_in ctx mu e l with
           Bool b -> Bool (not b)
+        | Error e -> Error e
         | _ -> assert false
 
 and eval_bic ctx mu = function
@@ -287,15 +316,20 @@ and eval_funcall ctx mu c =
   f args
 
 and eval_in =
-  let f ctx mu v e =
-    let v2 = eval_expr ctx mu e in
-    match compare v v2 with
-      0 -> true
-    | _ -> false
-  in
-  fun ctx mu e l ->
+  let eval eval_expr ctx mu v0 e acc =
     let v = eval_expr ctx mu e in
-    Bool (List.exists (f ctx mu v) l)
+    let b =
+      try Bool (compare v0 v = 0)
+      with e -> Error e
+    in
+    eval_or (b, acc)
+  in
+  fun ctx mu e0 l ->
+    match l with
+      [] -> Bool false
+    | _ ->
+      let v0 = eval_expr ctx mu e0 in
+      List.fold_right (eval eval_expr ctx mu v0) l (Bool false)
 
 and ebv_lit v = Rdf_node.mk_literal_bool (ebv v)
 

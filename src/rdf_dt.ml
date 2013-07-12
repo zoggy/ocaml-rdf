@@ -12,6 +12,7 @@ type value =
   | Bool of bool
   | Datetime of Netdate.t
   | Ltrl of string * string option (* optional language *)
+  | Ltrdt of string * Rdf_uri.uri (* datatyped literal, with unsupported datatype *)
 
 exception Type_error of value * string
 exception Invalid_literal of Rdf_node.literal
@@ -33,6 +34,7 @@ let string = function
       | Datetime t -> Netdate.format ~fmt: date_fmt t
       | Ltrl (s, _) -> s
       | Blank _ -> raise (Type_error (v, "string"))
+      | Ltrdt (s, _) -> s
     in
     String s
 
@@ -44,6 +46,7 @@ let int = function
         match v with
         | Error e -> assert false
         | String s
+        | Ltrdt (s, _)
         | Ltrl (s, _) -> int_of_string s
         | Int n -> n
         | Float f -> truncate f
@@ -65,6 +68,7 @@ let float = function
         match v with
         | Error e -> assert false
         | String s
+        | Ltrdt (s, _)
         | Ltrl (s, _) -> float_of_string s
         | Int n -> float n
         | Float f -> f
@@ -87,6 +91,7 @@ let bool = function
         match v with
         | Error e -> assert false
         | String s
+        | Ltrdt (s, _)
         | Ltrl (s, _) ->
             (match s with
                "1" | "true" -> true
@@ -116,6 +121,7 @@ let datetime = function
         match v with
         | Error e -> assert false
         | String s
+        | Ltrdt (s, _)
         | Ltrl (s, _) -> Netdate.parse s
         | Int _ | Float _ | Bool _  | Iri _  | Blank _ -> failwith ""
         | Datetime t -> t
@@ -133,7 +139,8 @@ let ltrl = function
         match v with
         | Error e -> assert false
         | Iri t -> (Rdf_uri.string t, None)
-        | String s -> (s, None)
+        | String s
+        | Ltrdt (s, _) -> (s, None)
         | Ltrl (s, l) -> (s, l)
         | Int n -> (string_of_int n, None)
         | Float f -> (string_of_float f, None)
@@ -154,6 +161,7 @@ let numeric = function
       match v with
       | Error e -> assert false
       | String s
+      | Ltrdt (s, _)
       | Ltrl (s, _) ->
           begin
             try Int (int_of_string s)
@@ -196,8 +204,8 @@ let of_literal lit =
             None -> String lit.lit_value
           | Some s -> Ltrl (lit.lit_value, Some s)
         end
-    | _ ->
-        String lit.lit_value
+    | Some dt ->
+        Ltrdt (lit.lit_value, dt)
   with
   _ -> raise (Invalid_literal lit)
 
@@ -217,4 +225,5 @@ let to_node = function
 | Bool b -> Rdf_node.node_of_bool b
 | Datetime d -> Rdf_node.node_of_datetime ~d: (Netdate.since_epoch d) ()
 | Ltrl (s,lang) -> Rdf_node.node_of_literal_string ?lang s
+| Ltrdt (s, typ) -> Rdf_node.node_of_literal_string ~typ s
 
