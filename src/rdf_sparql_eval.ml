@@ -146,52 +146,66 @@ let funs = List.fold_left
   in parameter, as all arguments must not be always evaluated,
   for example in the IF.  *)
 
-let bi_if name ctx eval_expr = function
-  [e1 ; e2 ; e3] ->
+
+let bi_bnode name eval_expr ctx mu = function
+  [] -> Blank (Rdf_sparql_ms.gen_blank_id())
+| [e] ->
     begin
-       if ebv (eval_expr e1) then
-         eval_expr e2
-       else
-         eval_expr e3
+      let v = eval_expr ctx mu e in
+      match v with
+        String _
+      | Ltrl (_, None) -> Rdf_sparql_ms.get_bnode mu v
+      | _ -> Error (Rdf_dt.Type_error (v, "simple literal or string"))
     end
 | l -> raise (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_coalesce _ =
-  let rec iter eval_expr = function
+  let rec iter eval_expr ctx mu = function
     [] -> raise No_term
   | h :: q ->
     let v =
         try
-          match eval_expr h with
+          match eval_expr ctx mu h with
             Error _ -> None
           | v -> Some v
         with _ -> None
       in
       match v with
-        None -> iter eval_expr q
+        None -> iter eval_expr ctx mu q
       | Some v -> v
   in
-  fun _ctx -> iter
+  iter
 ;;
 
 let bi_datatype name =
-  let f _ctx eval_expr = function
-    [e] -> Rdf_dt.datatype (eval_expr e)
+  let f eval_expr ctx mu = function
+    [e] -> Rdf_dt.datatype (eval_expr ctx mu e)
   | l -> raise (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
 
-let bi_iri name ctx eval_expr = function
-  [e] -> Rdf_dt.iri ctx.base (eval_expr e)
+let bi_if name eval_expr ctx mu = function
+  [e1 ; e2 ; e3] ->
+    begin
+       if ebv (eval_expr ctx mu e1) then
+         eval_expr ctx mu e2
+       else
+         eval_expr ctx mu e3
+    end
+| l -> raise (Invalid_built_in_fun_argument (name, l))
+;;
+
+let bi_iri name eval_expr ctx mu = function
+  [e] -> Rdf_dt.iri ctx.base (eval_expr ctx mu e)
 | l -> raise (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_isblank name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (match eval_expr e with
+      (match eval_expr ctx mu e with
          Rdf_dt.Blank _ -> Bool true
        | _ -> Bool false
       )
@@ -201,9 +215,9 @@ let bi_isblank name =
 ;;
 
 let bi_isiri name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (match eval_expr e with
+      (match eval_expr ctx mu e with
          Rdf_dt.Iri _ -> Bool true
        | _ -> Bool false
       )
@@ -213,9 +227,9 @@ let bi_isiri name =
 ;;
 
 let bi_isliteral name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (match eval_expr e with
+      (match eval_expr ctx mu e with
          Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _ -> Bool false
        | Rdf_dt.String _ | Rdf_dt.Int _ | Rdf_dt.Float _ | Rdf_dt.Bool _
        | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
@@ -227,9 +241,9 @@ let bi_isliteral name =
 ;;
 
 let bi_lang name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (match eval_expr e with
+      (match eval_expr ctx mu e with
         Ltrl (_, Some l) -> String l
       | _ -> String ""
       )
@@ -239,9 +253,9 @@ let bi_lang name =
 ;;
 
 let bi_isnumeric name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (match eval_expr e with
+      (match eval_expr ctx mu e with
        | Rdf_dt.Int _ | Rdf_dt.Float _ -> Bool true
        | Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _
        | Rdf_dt.String _ | Rdf_dt.Bool _
@@ -254,10 +268,10 @@ let bi_isnumeric name =
 ;;
 
 let bi_sameterm name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e1 ; e2] ->
-      let v1 = eval_expr e1 in
-      let v2 = eval_expr e2 in
+      let v1 = eval_expr ctx mu e1 in
+      let v2 = eval_expr ctx mu e2 in
       Bool (compare ~sameterm: true v1 v2 = 0)
   | l -> raise (Invalid_built_in_fun_argument (name, l))
   in
@@ -276,11 +290,13 @@ let bi_regex name =
     in
     r := f :: !r
   in
-  let f _ctx eval_expr l =
+  let f eval_expr ctx mu l =
     let (s, pat, flags) =
       match l with
-      | [e1 ; e2 ] -> (eval_expr e1, eval_expr e2, None)
-      | [e1 ; e2 ; e3 ] -> (eval_expr e1, eval_expr e2, Some (eval_expr e3))
+      | [e1 ; e2 ] -> (eval_expr ctx mu e1, eval_expr ctx mu e2, None)
+      | [e1 ; e2 ; e3 ] ->
+        (eval_expr ctx mu e1, eval_expr ctx mu e2,
+         Some (eval_expr ctx mu e3))
       | _ -> raise (Invalid_built_in_fun_argument (name, l))
     in
     try
@@ -311,9 +327,9 @@ let bi_regex name =
 ;;
 
 let bi_str name =
-  let f _ctx eval_expr = function
+  let f eval_expr ctx mu = function
     [e] ->
-      (try Rdf_dt.string (eval_expr e)
+      (try Rdf_dt.string (eval_expr ctx mu e)
        with e -> Error e
       )
   | l -> raise (Invalid_built_in_fun_argument (name, l))
@@ -324,6 +340,7 @@ let bi_str name =
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
+      "BNODE", bi_bnode ;
       "COALESCE", bi_coalesce ;
       "DATATYPE", bi_datatype ;
       "ISBLANK", bi_isblank ;
@@ -451,7 +468,7 @@ and eval_bic ctx mu = function
   | Bic_agg agg -> assert false
   | Bic_fun (name, args) ->
       let f = get_built_in_fun name in
-      f ctx (eval_expr ctx mu) args
+      f eval_expr ctx mu args
   | Bic_BOUND v ->
       (try ignore(Rdf_sparql_ms.mu_find_var v mu); Bool true
        with _ -> Bool false)

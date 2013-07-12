@@ -46,6 +46,19 @@ let mu_add v t mu = { mu with mu_bindings = SMap.add v t mu.mu_bindings }
 let mu_copy mu = { mu_bindings = mu.mu_bindings ; mu_bnodes = mu.mu_bnodes }
 let mu x t = mu_add x t mu_0
 
+let gen_blank_id =
+  let cpt = ref 0 in
+  fun () -> incr cpt ; "__b"^(string_of_int !cpt)^"__"
+;;
+
+let get_bnode mu value =
+  try Rdf_dt.Blank (VMap.find value mu.mu_bnodes)
+  with Not_found ->
+    let label = gen_blank_id () in
+    mu.mu_bnodes <- VMap.add value label mu.mu_bnodes ;
+    Rdf_dt.Blank label
+;;
+
 let mu_compare mu1 mu2 = SMap.compare Rdf_node.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
 
 exception Incompatible_mus of string
