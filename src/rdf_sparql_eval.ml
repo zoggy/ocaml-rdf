@@ -198,6 +198,20 @@ let bi_isiri name =
   f
 ;;
 
+let bi_isliteral name =
+  let f eval_expr = function
+    [e] ->
+      (match eval_expr e with
+         Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _ -> Bool false
+       | Rdf_dt.String _ | Rdf_dt.Int _ | Rdf_dt.Float _ | Rdf_dt.Bool _
+       | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
+           Bool true
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_sameterm name =
   let f eval_expr = function
     [e1 ; e2] ->
@@ -216,6 +230,7 @@ let built_in_funs =
       "ISBLANK", bi_isblank ;
       "ISIRI", bi_isiri ;
       "ISURI", bi_isiri ;
+      "ISLITERAL", bi_isliteral ;
       "SAMETERM", bi_sameterm ;
     ]
   in
