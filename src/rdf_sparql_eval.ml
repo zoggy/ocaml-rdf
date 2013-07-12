@@ -171,8 +171,19 @@ let bi_coalesce _ =
         None -> iter eval_expr q
       | Some v -> v
   in
-  fun eval_expr l ->
-    iter eval_expr l
+  iter
+;;
+
+let bi_isiri name =
+  let f eval_expr = function
+    [e] ->
+      (match eval_expr e with
+         Rdf_dt.Iri _ -> Bool true
+       | _ -> Bool false
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
 ;;
 
 let bi_sameterm name =
@@ -190,6 +201,8 @@ let built_in_funs =
   let l =
     [ "IF", bi_if ;
       "COALESCE", bi_coalesce ;
+      "ISIRI", bi_isiri ;
+      "ISURI", bi_isiri ;
       "SAMETERM", bi_sameterm ;
     ]
   in
