@@ -93,7 +93,8 @@ let ebv = function
 
 let rec compare ?(sameterm=false) v1 v2 =
   match v1, v2 with
-  | Error e, Error _ -> -1
+  | Error _, _ -> 1
+  | _, Error _ -> -1
   | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
   | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
   | String s1, String s2
@@ -213,16 +214,21 @@ let eval_var mu v =
 ;;
 
 
-let rec eval_numeric2 f_int f_float = function
-| (Float f1, Float f2) -> Float (f_float f1 f2)
-| (Int n1, Int n2) -> Int (f_int n1 n2)
-| ((Float _) as v1, ((Int _) as v2)) ->
-    eval_numeric2 f_int f_float (v1, Rdf_dt.float v2)
-| ((Int _) as v1, ((Float _) as v2)) ->
-    eval_numeric2 f_int f_float (Rdf_dt.float v1, v2)
-| v1, v2 ->
-    eval_numeric2 f_int f_float
-      ((Rdf_dt.numeric v1), (Rdf_dt.numeric v2))
+let rec eval_numeric2 f_int f_float (v1, v2) =
+ try
+   match (v1, v2) with
+    | (Float f1, Float f2) -> Float (f_float f1 f2)
+    | (Int n1, Int n2) -> Int (f_int n1 n2)
+    | ((Float _) as v1, ((Int _) as v2)) ->
+        eval_numeric2 f_int f_float (v1, Rdf_dt.float v2)
+    | ((Int _) as v1, ((Float _) as v2)) ->
+        eval_numeric2 f_int f_float (Rdf_dt.float v1, v2)
+    | v1, v2 ->
+        eval_numeric2 f_int f_float
+          ((Rdf_dt.numeric v1), (Rdf_dt.numeric v2))
+  with
+    e -> Error e
+;;
 
 let eval_plus = eval_numeric2 (+) (+.)
 let eval_minus = eval_numeric2 (-) (-.)
