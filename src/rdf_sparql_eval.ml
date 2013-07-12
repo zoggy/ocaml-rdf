@@ -213,6 +213,18 @@ let bi_isliteral name =
   f
 ;;
 
+let bi_lang name =
+  let f eval_expr = function
+    [e] ->
+      (match eval_expr e with
+        Ltrl (_, Some l) -> String l
+      | _ -> String ""
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_isnumeric name =
   let f eval_expr = function
     [e] ->
@@ -305,6 +317,7 @@ let built_in_funs =
       "ISURI", bi_isiri ;
       "ISLITERAL", bi_isliteral ;
       "ISNUMERIC", bi_isnumeric ;
+      "LANG", bi_lang ;
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
       "STR", bi_str ;
