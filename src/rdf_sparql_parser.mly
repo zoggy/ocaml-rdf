@@ -75,10 +75,7 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 %token <string>Decimal_negative
 %token <string>Double_negative
 %token <string>Boolean
-%token <string>String_literal1
-%token <string>String_literal2
-%token <string>String_literal_long1
-%token <string>String_literal_long2
+%token <string>String_literal
 %token <string>Langtag
 
 %start <Rdf_sparql_types.query> query
@@ -1041,11 +1038,7 @@ boolean_literal:
   }
 ;
 
-string:
-| String_literal1 { $1 }
-| String_literal2 { $1 }
-| String_literal_long1 { $1 }
-| String_literal_long2 { $1 }
+string: String_literal { $1 }
 ;
 
 rdf_literal:

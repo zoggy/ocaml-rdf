@@ -21,6 +21,19 @@ let utf8_find_char t c =
   in
   iter 0
 ;;
+
+let add_echar b = function
+  | 'b' -> Buffer.add_char b '\b'
+(*  | 'f' -> Buffer.add_char b '\f'*)
+  | 'n' -> Buffer.add_char b '\n'
+  | 'r' -> Buffer.add_char b '\r'
+  | 't' -> Buffer.add_char b '\t'
+  | '\\' -> Buffer.add_char b '\\'
+  | '"' -> Buffer.add_char b '"'
+  | '\'' -> Buffer.add_char b '\''
+  | c -> Buffer.add_char b c
+;;
+
 let regexp hex = ['0'-'9'] | ['A'-'F'] | ['a'-'f']
 let regexp codepoint_u = "\\u" hex hex hex hex
 let regexp codepoint_U = "\\U" hex hex hex hex hex hex hex hex
@@ -55,15 +68,89 @@ let regexp integer_negative = '-'integer
 let regexp decimal_negative = '-'decimal
 let regexp double_negative = '-'double
 let regexp boolean = "true" | "false"
-let regexp echar = '\\' ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
+let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
+
+let regexp schar_quote = ([^0x27 0x5C 0xA 0xD])+
+let regexp schar_dquote = ([^0x22 0x5C 0xA 0xD])+
+
+(*
 let regexp string_literal1 = "'" ( ([^0x27 0x5C 0xA 0xD]) | echar )* "'"
 let regexp string_literal2 = '"' ( ([^0x22 0x5C 0xA 0xD]) | echar )* '"'
 let regexp string_literal_long1 = "'''" ( ( "'" | "''" )? ( [^'\'' '\\'] | echar ) )* "'''"
 let regexp string_literal_long2 = "\"\"\"" ( ( '"' | "\"\"" )? ( [^'"' '\\'] | echar ) )* "\"\"\""
+*)
+
+let regexp longstring_quote_delim = 0x27 0x27 0x27
+let regexp longstring_dquote_delim = 0x22 0x22 0x22
+
 let regexp ws = 0x20 | 0x9 | 0xD | 0xA
 let regexp nil = '(' ws* ')'
 let regexp anon = '[' ws* ']';;
 
+
+let rec string_quote b = lexer
+| '\'' -> String_literal (Buffer.contents b)
+| '\\' echar ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  add_echar b s.[0];
+  string_quote b lexbuf
+| schar_quote ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    string_quote b lexbuf
+| eof ->
+   failwith "Unterminated quoted string"
+;;
+
+let rec string_dquote b = lexer
+| '"' -> String_literal (Buffer.contents b)
+| '\\' echar ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  add_echar b s.[0];
+  string_dquote b lexbuf
+| schar_dquote ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    string_dquote b lexbuf
+| eof ->
+   failwith "Unterminated double quoted string"
+;;
+
+
+let rec longstring_quote b = lexer
+| longstring_quote_delim ->
+    String_literal (Buffer.contents b)
+| '\\' echar ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  add_echar b s.[0];
+  longstring_quote b lexbuf
+| ('\'' | ( [^'\'' '\\'] | '\n')* ) ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    longstring_quote b lexbuf
+| eof ->
+   failwith "Unterminated long quoted string"
+;;
+
+
+let rec longstring_dquote b = lexer
+| longstring_dquote_delim ->
+    String_literal (Buffer.contents b)
+| '\\' echar ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  add_echar b s.[0];
+  longstring_dquote b lexbuf
+| ('"' | ( [^'"' '\\'] | '\n')* ) ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    longstring_dquote b lexbuf
+| eof ->
+   failwith "Unterminated long double-quoted string"
+;;
 
 let rec main = lexer
 | pname_ns ->
@@ -111,6 +198,19 @@ let rec main = lexer
   let len = String.length s in
   Langtag (String.sub s 1 (len - 1))
 
+| longstring_quote_delim ->
+    prerr_endline "entering long quoted string";
+    longstring_quote (Buffer.create 256) lexbuf
+| longstring_dquote_delim ->
+    prerr_endline "entering long dquoted string";
+    longstring_dquote (Buffer.create 256) lexbuf
+| '\'' ->
+    prerr_endline "entering quoted string";
+    string_quote (Buffer.create 256) lexbuf
+| '"' ->
+    prerr_endline "entering dquoted string";
+    string_dquote (Buffer.create 256) lexbuf
+(*
 | string_literal1 ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let len = String.length s in
@@ -130,6 +230,7 @@ let rec main = lexer
   let s = Ulexing.utf8_lexeme lexbuf in
   let len = String.length s in
   String_literal1 (String.sub s 3 (len - 6))
+*)
 
 | integer -> Integer (Ulexing.utf8_lexeme lexbuf)
 | decimal -> Decimal (Ulexing.utf8_lexeme lexbuf)
