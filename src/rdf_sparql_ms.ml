@@ -26,16 +26,27 @@
 
 open Rdf_sparql_types
 
+let dbg = Rdf_misc.create_log_fun
+  ~prefix: "Rdf_sparql_ms"
+    "RDF_SPARQL_MS_DEBUG_LEVEL"
+;;
 module SMap = Rdf_sparql_types.SMap
 module SSet = Rdf_sparql_types.SSet
 
+module VMap = Rdf_dt.VMap;;
+
 (** A solution mapping : variable -> rdf term *)
-type mu = Rdf_node.node SMap.t
+type mu = {
+    mu_bindings : Rdf_node.node SMap.t ;
+    mutable mu_bnodes : string VMap.t ;
+  }
 
-let mu_0 = SMap.empty
-let mu x t = SMap.add x t mu_0
+let mu_0 = { mu_bindings = SMap.empty ; mu_bnodes = VMap.empty }
+let mu_add v t mu = { mu with mu_bindings = SMap.add v t mu.mu_bindings }
+let mu_copy mu = { mu_bindings = mu.mu_bindings ; mu_bnodes = mu.mu_bnodes }
+let mu x t = mu_add x t mu_0
 
-let mu_compare = SMap.compare Rdf_node.Ord_type.compare
+let mu_compare mu1 mu2 = SMap.compare Rdf_node.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
 
 exception Incompatible_mus of string
 exception Cannot_extend_mu of var
@@ -50,14 +61,26 @@ let mu_merge =
           0 -> Some t1
         | _ -> raise (Incompatible_mus var)
   in
-  SMap.merge f
+  let merge_bnodes v label1 label2 =
+    match label1, label2 with
+      None, x | x, None -> x
+    | Some l1, Some l2 ->
+        match Pervasives.compare l1 l2 with
+          0 -> Some l1
+        | _ ->
+          dbg ~loc: "warning" ~level:2 (fun () -> "Merging mus: bnodes label maps differ");
+          Some l1
+  in
+  fun mu1 mu2 ->
+    let mu_bindings = SMap.merge f mu1.mu_bindings mu2.mu_bindings in
+    let mu_bnodes = VMap.merge merge_bnodes mu1.mu_bnodes mu2.mu_bnodes in
+    { mu_bindings ; mu_bnodes }
 
-let mu_add = SMap.add
-let mu_find_var v map = SMap.find v.var_name map
+let mu_find_var v mu = SMap.find v.var_name mu.mu_bindings
 
 let mu_project =
   let f set v _ = SSet.mem v set in
-  fun set mu -> SMap.filter (f set) mu
+  fun set mu -> { mu with mu_bindings = SMap.filter (f set) mu.mu_bindings }
 
 module MuOrdered =
   struct
@@ -149,7 +172,7 @@ let mu_disjoint_doms =
     | _ -> None
   in
   fun mu1 mu2 ->
-    try ignore(SMap.merge f mu1 mu2); true
+    try ignore(SMap.merge f mu1.mu_bindings mu2.mu_bindings); true
     with Not_disjoint -> false
 ;;
 
@@ -166,7 +189,7 @@ let omega_extend =
   let f eval var (_, mu) map =
     let mu =
       try
-        ignore(SMap.find var.var_name mu);
+        ignore(mu_find_var var mu);
         raise (Cannot_extend_mu var)
       with
         Not_found ->

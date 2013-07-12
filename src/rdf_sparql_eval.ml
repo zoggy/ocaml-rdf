@@ -705,7 +705,7 @@ let eval_simple_triple =
 let __print_mu mu =
   Rdf_sparql_ms.SMap.iter
     (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-    mu;
+    mu.Rdf_sparql_ms.mu_bindings;
   print_newline ()
 ;;
 

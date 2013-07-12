@@ -74,7 +74,7 @@ let eval_query ?data query =
   let f_mu mu =
     Rdf_sparql_ms.SMap.iter
       (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-      mu;
+      mu.Rdf_sparql_ms.mu_bindings;
     print_newline()
   in
   print_endline "Solutions:";
