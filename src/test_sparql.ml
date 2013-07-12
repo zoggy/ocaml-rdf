@@ -50,7 +50,7 @@ let eval_query ?data query =
       None -> Rdf_graph.open_graph base
     | Some g -> g
   in
-  let query = Rdf_sparql_expand.expand_query base query in
+  let (base, query) = Rdf_sparql_expand.expand_query base query in
   let q =
     match query.q_kind with
       Select s ->
@@ -67,6 +67,7 @@ let eval_query ?data query =
   let ctx = {
       Rdf_sparql_eval.graphs = Rdf_sparql_eval.Irimap.empty ;
       active = graph ;
+      base = base ;
     }
   in
   let omega = Rdf_sparql_eval.eval_list ctx algebra in
@@ -84,7 +85,7 @@ let parse_query parse ?data source =
   try
     let q = parse source in
     let base = Rdf_uri.uri "http://foo.bar/" in
-    let q = Rdf_sparql_expand.expand_query base q in
+    let (_, q) = Rdf_sparql_expand.expand_query base q in
     if !print_queries then
       print_endline (Rdf_sparql.string_of_query q);
     if !eval_queries then

@@ -50,9 +50,10 @@ module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
 
 type context =
-  { graphs : Rdf_graph.graph Irimap.t ;
-    active : Rdf_graph.graph ;
-  }
+    { base : Rdf_uri.uri ;
+      graphs : Rdf_graph.graph Irimap.t ;
+      active : Rdf_graph.graph ;
+    }
 
 module GExprOrdered =
   struct
@@ -145,7 +146,7 @@ let funs = List.fold_left
   in parameter, as all arguments must not be always evaluated,
   for example in the IF.  *)
 
-let bi_if name eval_expr = function
+let bi_if name ctx eval_expr = function
   [e1 ; e2 ; e3] ->
     begin
        if ebv (eval_expr e1) then
@@ -153,8 +154,7 @@ let bi_if name eval_expr = function
        else
          eval_expr e3
     end
-| l ->
-  raise (Invalid_built_in_fun_argument (name, l))
+| l -> raise (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_coalesce _ =
@@ -172,19 +172,24 @@ let bi_coalesce _ =
         None -> iter eval_expr q
       | Some v -> v
   in
-  iter
+  fun _ctx -> iter
 ;;
 
 let bi_datatype name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] -> Rdf_dt.datatype (eval_expr e)
   | l -> raise (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
 
+let bi_iri name ctx eval_expr = function
+  [e] -> Rdf_dt.iri ctx.base (eval_expr e)
+| l -> raise (Invalid_built_in_fun_argument (name, l))
+;;
+
 let bi_isblank name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (match eval_expr e with
          Rdf_dt.Blank _ -> Bool true
@@ -196,7 +201,7 @@ let bi_isblank name =
 ;;
 
 let bi_isiri name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (match eval_expr e with
          Rdf_dt.Iri _ -> Bool true
@@ -208,7 +213,7 @@ let bi_isiri name =
 ;;
 
 let bi_isliteral name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (match eval_expr e with
          Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _ -> Bool false
@@ -222,7 +227,7 @@ let bi_isliteral name =
 ;;
 
 let bi_lang name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (match eval_expr e with
         Ltrl (_, Some l) -> String l
@@ -234,7 +239,7 @@ let bi_lang name =
 ;;
 
 let bi_isnumeric name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (match eval_expr e with
        | Rdf_dt.Int _ | Rdf_dt.Float _ -> Bool true
@@ -249,7 +254,7 @@ let bi_isnumeric name =
 ;;
 
 let bi_sameterm name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e1 ; e2] ->
       let v1 = eval_expr e1 in
       let v2 = eval_expr e2 in
@@ -271,7 +276,7 @@ let bi_regex name =
     in
     r := f :: !r
   in
-  let f eval_expr l =
+  let f _ctx eval_expr l =
     let (s, pat, flags) =
       match l with
       | [e1 ; e2 ] -> (eval_expr e1, eval_expr e2, None)
@@ -306,7 +311,7 @@ let bi_regex name =
 ;;
 
 let bi_str name =
-  let f eval_expr = function
+  let f _ctx eval_expr = function
     [e] ->
       (try Rdf_dt.string (eval_expr e)
        with e -> Error e
@@ -322,14 +327,16 @@ let built_in_funs =
       "COALESCE", bi_coalesce ;
       "DATATYPE", bi_datatype ;
       "ISBLANK", bi_isblank ;
+      "IRI", bi_iri ;
       "ISIRI", bi_isiri ;
-      "ISURI", bi_isiri ;
       "ISLITERAL", bi_isliteral ;
       "ISNUMERIC", bi_isnumeric ;
+      "ISURI", bi_isiri ;
       "LANG", bi_lang ;
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
       "STR", bi_str ;
+      "URI", bi_iri ;
     ]
   in
   List.fold_left
@@ -444,7 +451,7 @@ and eval_bic ctx mu = function
   | Bic_agg agg -> assert false
   | Bic_fun (name, args) ->
       let f = get_built_in_fun name in
-      f (eval_expr ctx mu) args
+      f ctx (eval_expr ctx mu) args
   | Bic_BOUND v ->
       (try ignore(Rdf_sparql_ms.mu_find_var v mu); Bool true
        with _ -> Bool false)

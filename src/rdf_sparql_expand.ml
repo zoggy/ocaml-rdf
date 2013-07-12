@@ -424,5 +424,5 @@ let expand_query default_base_uri q =
   let (env, q_prolog) = expand_query_prolog env q.q_prolog in
   let q_kind = expand_query_kind env q.q_kind in
   let q_values = expand_values_clause env q.q_values in
-  { q_prolog ; q_kind ; q_values }
+  (env.base, { q_prolog ; q_kind ; q_values })
 ;;

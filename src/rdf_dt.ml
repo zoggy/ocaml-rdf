@@ -19,6 +19,22 @@ exception Invalid_literal of Rdf_node.literal
 
 let date_fmt = "%d %b %Y %T %z"
 
+let iri base_uri = function
+| Error e -> Error e
+| Iri iri -> Iri iri
+| (String s)
+| (Ltrl (s, None)) as v ->
+    begin
+      try
+        let uri = Rdf_uri.uri s in
+        let netu = Rdf_uri.neturl uri in
+        let base = Rdf_uri.neturl base_uri in
+        let iri = Rdf_uri.of_neturl (Neturl.ensure_absolute_url ~base netu) in
+        Iri iri
+      with _ -> Error (Type_error (v, "iri"))
+    end
+| v -> Error (Type_error (v, "iri"))
+;;
 
 let datatype = function
   Error e -> Error e
