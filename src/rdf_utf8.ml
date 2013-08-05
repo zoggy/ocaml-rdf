@@ -73,6 +73,35 @@ let utf8_string_length s =
   in
   iter 0 0
 
+let utf8_substr s pos l =
+  (*prerr_endline (Printf.sprintf "utf8_substr pos=%d l=%d" pos l);*)
+  let inv () = invalid_arg "Rdf_utf8.utf8_substr" in
+  let len = String.length s in
+  if pos < 0 || l >= len then inv ();
+  let start = ref (-1) in
+  let stop = ref (-1) in
+  let rec iter i n =
+    (*print_endline (Printf.sprintf "iter i=%d, n=%d" i n);*)
+    if n = pos then start := i ;
+    if n = pos + l then
+      stop := i
+    else
+      (
+       if n >= len then inv () ;
+       let size = utf8_nb_bytes_of_char s.[i] in
+       iter (i+size) (n+1)
+      )
+  in
+  iter 0 0 ;
+  (*print_endline (Printf.sprintf "start=%d, stop=%d" !start !stop);*)
+  String.sub s !start (!stop - !start)
+;;
+(*
+let () = print_endline (utf8_substr "abécédé" 2 4);;
+let () = print_endline (utf8_substr "abécédé" 4 0);;
+let () = print_endline (utf8_substr "abécédé" 2 5);;
+*)
+
 (** conversions algorithm from [http://en.wikipedia.org/wiki/UTF-8]. *)
 let utf8_char_of_code n =
   if n < 128 then

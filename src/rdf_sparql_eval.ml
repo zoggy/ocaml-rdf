@@ -384,6 +384,55 @@ let bi_strlen name =
   f
 ;;
 
+let bi_substr name =
+  let f eval_expr ctx mu args =
+    let (e, pos, len) =
+      match args with
+        [e1 ; e2 ] -> (e1, e2, None)
+      | [e1 ; e2 ; e3] -> (e1, e2, Some e3)
+      | _ -> raise (Invalid_built_in_fun_argument (name, args))
+    in
+    try
+      let (s, lang) = Rdf_dt.string_literal (eval_expr ctx mu e) in
+      let pos =
+        match Rdf_dt.int (eval_expr ctx mu pos) with
+          Error e -> raise e
+        | Int n -> n
+        | _ -> assert false
+      in
+      let len =
+        match len with
+          None -> None
+        | Some e ->
+            match eval_expr ctx mu e with
+              Error e -> raise e
+            | Int n -> Some n
+            | _ -> assert false
+      in
+      (* Convert positions to 0-based positions, and according
+        to string length, since we return empty string in case of invalid bounds. *)
+      let len_s = Rdf_utf8.utf8_string_length s in
+      let start = pos - 1 in
+      let len =
+        match len with
+          None -> len_s - start
+        | Some len ->
+            let len = start + len + 1 (* + 1 because we cremented start above *) in
+            min (len_s - start) len
+      in
+      let start =
+        if start < 0
+        then 0
+        else if start >= len_s then len_s - 1
+          else start
+      in
+      let s = Rdf_utf8.utf8_substr s start len in
+      Ltrl (s, lang)
+    with e -> Error e
+  in
+  f
+;;
+
 
 let built_in_funs =
   let l =
@@ -404,6 +453,7 @@ let built_in_funs =
       "STRDT", bi_strdt ;
       "STRLANG", bi_strlang ;
       "STRLEN", bi_strlen ;
+      "SUBSTR", bi_substr ;
       "URI", bi_iri ;
     ]
   in
