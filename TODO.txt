@@ -1,1 +1,5 @@
 - represent and use IRIs in Sparql instead of URIs
+
+- built in calls:
+* UUID
+* STRUUID

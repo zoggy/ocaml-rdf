@@ -369,6 +369,21 @@ let bi_strlang name =
   f
 ;;
 
+let string_lit_compatible (_,lang1) (_,lang2) = lang1 = lang2;;
+
+let bi_strlen name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      (try
+         let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e) in
+         Int (Rdf_utf8.utf8_string_length s)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 
 let built_in_funs =
   let l =
@@ -388,6 +403,7 @@ let built_in_funs =
       "STR", bi_str ;
       "STRDT", bi_strdt ;
       "STRLANG", bi_strlang ;
+      "STRLEN", bi_strlen ;
       "URI", bi_iri ;
     ]
   in

@@ -1,0 +1,8 @@
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX org:    <http://example.com/ns#>
+
+SELECT ?name ?id
+WHERE  { _:a org:employeeName ?name .
+         _:a org:employeeId ?id .
+         FILTER (?name = "Alice")
+       }
