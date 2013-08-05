@@ -355,6 +355,20 @@ let bi_strdt name =
   f
 ;;
 
+let bi_strlang name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+        let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e1) in
+        let (lang, _) = Rdf_dt.string_literal (eval_expr ctx mu e2) in
+        Ltrl (s, Some lang)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 
 let built_in_funs =
   let l =
@@ -373,6 +387,7 @@ let built_in_funs =
       "REGEX", bi_regex ;
       "STR", bi_str ;
       "STRDT", bi_strdt ;
+      "STRLANG", bi_strlang ;
       "URI", bi_iri ;
     ]
   in
