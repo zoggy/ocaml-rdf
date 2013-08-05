@@ -45,6 +45,7 @@ exception Unknown_built_in_fun of string
 exception No_term
 exception Cannot_compare_for_datatype of Rdf_uri.uri
 exception Unhandled_regex_flag of char
+exception Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -433,6 +434,23 @@ let bi_substr name =
   f
 ;;
 
+let bi_strstarts name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+         let v1 = eval_expr ctx mu e1 in
+         let v2 = eval_expr ctx mu e2 in
+        let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+        let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+        if not (string_lit_compatible lit1 lit2) then
+          raise (Incompatible_string_literals (v1, v2));
+        Bool (Rdf_utf8.utf8_is_prefix s1 s2)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+
 
 let built_in_funs =
   let l =
@@ -453,6 +471,7 @@ let built_in_funs =
       "STRDT", bi_strdt ;
       "STRLANG", bi_strlang ;
       "STRLEN", bi_strlen ;
+      "STRSTARTS", bi_strstarts ;
       "SUBSTR", bi_substr ;
       "URI", bi_iri ;
     ]
