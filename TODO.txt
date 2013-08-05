@@ -3,3 +3,6 @@
 - built in calls:
 * UUID
 * STRUUID
+* UCASE
+* LCASE
+
