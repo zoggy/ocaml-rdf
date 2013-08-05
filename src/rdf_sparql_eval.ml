@@ -267,17 +267,6 @@ let bi_isnumeric name =
   f
 ;;
 
-let bi_sameterm name =
-  let f eval_expr ctx mu = function
-    [e1 ; e2] ->
-      let v1 = eval_expr ctx mu e1 in
-      let v2 = eval_expr ctx mu e2 in
-      Bool (compare ~sameterm: true v1 v2 = 0)
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
-  in
-  f
-;;
-
 (** See http://www.w3.org/TR/xpath-functions/#regex-syntax *)
 let bi_regex name =
   let flag_of_char r c =
@@ -325,6 +314,17 @@ let bi_regex name =
   in
   f
 ;;
+let bi_sameterm name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      let v1 = eval_expr ctx mu e1 in
+      let v2 = eval_expr ctx mu e2 in
+      Bool (compare ~sameterm: true v1 v2 = 0)
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 
 let bi_str name =
   let f eval_expr ctx mu = function
@@ -336,6 +336,25 @@ let bi_str name =
   in
   f
 ;;
+
+let bi_strdt name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+        let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e1) in
+        let uri =
+          match Rdf_dt.iri ctx.base (eval_expr ctx mu e2) with
+            Rdf_dt.Iri t -> t
+          | _ -> assert false
+         in
+         Ltrdt (s, uri)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 
 let built_in_funs =
   let l =
@@ -353,6 +372,7 @@ let built_in_funs =
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
       "STR", bi_str ;
+      "STRDT", bi_strdt ;
       "URI", bi_iri ;
     ]
   in
