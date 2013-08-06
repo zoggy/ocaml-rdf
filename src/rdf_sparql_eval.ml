@@ -574,7 +574,34 @@ let bi_concat name =
     iter eval_expr ctx mu b None
 ;;
 
-
+let bi_langmatches name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+         let v1 = eval_expr ctx mu e1 in
+         let v2 = eval_expr ctx mu e2 in
+         let ((s1, _) as lit1) = Rdf_dt.string_literal v1 in
+         let ((s2, _) as lit2) = Rdf_dt.string_literal v2 in
+         let b =
+           match s2 with
+             "*" -> s1 <> ""
+           | _ ->
+             (* by now, just check language spec s2 is a prefix of
+               the given language tag s1 *)
+             let s1 = String.lowercase s1 in
+             let s2 = String.lowercase s2 in
+             let len1 = String.length s1 in
+             let len2 = String.length s2 in
+               (len1 >= len2) &&
+                 (String.sub s1 0 len2 = s2)
+         in
+         Bool b
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
 
 let built_in_funs =
   let l =
@@ -592,6 +619,7 @@ let built_in_funs =
       "ISNUMERIC", bi_isnumeric ;
       "ISURI", bi_isiri ;
       "LANG", bi_lang ;
+      "LANGMATCHES", bi_langmatches ;
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
       "STR", bi_str ;
