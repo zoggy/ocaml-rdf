@@ -370,7 +370,10 @@ let bi_strlang name =
   f
 ;;
 
-let string_lit_compatible (_,lang1) (_,lang2) = lang1 = lang2;;
+let string_lit_compatible lit1 lit2 =
+  match lit1, lit2 with
+    (_, Some x), (_, Some y) -> x = y
+  | _ -> true;;
 
 let bi_strlen name =
   let f eval_expr ctx mu = function
@@ -547,6 +550,30 @@ let bi_encode_for_uri name =
   f
 ;;
 
+let bi_concat name =
+  let rec iter eval_expr ctx mu b lang = function
+    [] when lang = None -> String (Buffer.contents b)
+  | [] -> Ltrl (Buffer.contents b, lang)
+  | e :: q ->
+      let (s,lang2) as lit = Rdf_dt.string_literal (eval_expr ctx mu e) in
+      let lang =
+        match lang, lang2 with
+          None, None -> None
+        | None, Some _ -> lang2
+        | Some _, None -> lang
+        | Some x, Some y when x <> y ->
+            raise (Incompatible_string_literals
+             (Ltrl (Buffer.contents b, lang), Ltrl (s,lang2)))
+        | _ -> lang
+      in
+      Buffer.add_string b s ;
+      iter eval_expr ctx mu b lang q
+  in
+  fun eval_expr ctx mu ->
+    let b = Buffer.create 256 in
+    iter eval_expr ctx mu b None
+;;
+
 
 
 let built_in_funs =
@@ -554,6 +581,7 @@ let built_in_funs =
     [ "IF", bi_if ;
       "BNODE", bi_bnode ;
       "COALESCE", bi_coalesce ;
+      "CONCAT", bi_concat ;
       "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
       "ENCODE_FOR_URI", bi_encode_for_uri ;
