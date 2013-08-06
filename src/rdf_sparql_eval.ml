@@ -1275,7 +1275,7 @@ let eval_simple_triple =
       match path with
         Var v -> (Some v.var_name, None)
       | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
-      | _ -> assert false (* FIXME: implement other path *)
+      | _ -> assert false
     in
     let f acc (s,p,o) =
       dbg ~level: 3
@@ -1318,6 +1318,17 @@ and eval_triple ctx (x, path, y) =
     Var _
   | Iri _ -> eval_simple_triple ctx x path y
   | Inv p -> eval_triple ctx (y, p, x)
+  | Seq (p1, p2) ->
+      let blank =
+        let id = Rdf_sparql_ms.gen_blank_id () in
+        GraphTerm
+          (GraphTermBlank
+           { bnode_loc = Rdf_loc.dummy_loc ;
+             bnode_label = Some id ;
+           })
+      in
+      let bgp = BGP [ (x, p1, blank) ; (blank, p2, y) ] in
+      eval ctx bgp
   | _ -> failwith "not implemented"
 
 and eval ctx = function
