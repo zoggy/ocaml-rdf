@@ -48,6 +48,7 @@ exception No_term
 exception Cannot_compare_for_datatype of Rdf_uri.uri
 exception Unhandled_regex_flag of char
 exception Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
+exception Empty_set of string (** sparql function name *)
 
 module Irimap = Map.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
@@ -131,6 +132,14 @@ let rec compare ?(sameterm=false) v1 v2 =
        | _ -> raise (Type_mismatch (v1, v2))
       )
   | _, _ -> raise (Type_mismatch (v1, v2))
+
+(** Implement the sorting order used in sparql order by clause:
+  http://www.w3.org/TR/sparql11-query/#modOrderBy *)
+let sortby_compare v1 v2 =
+  try compare v1 v2
+  with _ -> Rdf_dt.ValueOrdered.compare v1 v2
+;;
+
 
 (**  Predefined functions *)
 
@@ -1118,8 +1127,41 @@ let agg_sum ctx d ms e =
   v
 ;;
 
-let agg_min ctx d ms e = assert false
-let agg_max ctx d ms e = assert false
+let agg_fold g base ctx d ms e =
+  let f mu (vset, v) =
+    let v2 = eval_expr ctx mu e in
+    if d then
+      if Rdf_dt.VSet.mem v2 vset then
+        (vset, v)
+      else
+        (Rdf_dt.VSet.add v2 vset, g v v2)
+    else
+      (vset, g v v2)
+  in
+  let (_, v) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, base) in
+  v
+;;
+
+let agg_min =
+  let g v1 v2 =
+    match v1, v2 with
+      Error _, _ -> v2
+    | _, Error _ -> v1
+    | _, _ ->
+      if sortby_compare v1 v2 > 0 then v2 else v1
+  in
+  agg_fold g (Error (Empty_set "MIN"));;
+
+let agg_max =
+  let g v1 v2 =
+    match v1, v2 with
+      Error _, _ -> v2
+    | _, Error _ -> v1
+    | _, _ ->
+      if sortby_compare v1 v2 > 0 then v1 else v2
+  in
+  agg_fold g (Error (Empty_set "MAX"));;
+
 let agg_avg ctx d ms e =
   let f mu (vset, v, cpt) =
     match eval_expr ctx mu e with
