@@ -470,6 +470,24 @@ let bi_strstarts name =
   f
 ;;
 
+let bi_contains name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+         let v1 = eval_expr ctx mu e1 in
+         let v2 = eval_expr ctx mu e2 in
+        let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+        let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+        if not (string_lit_compatible lit1 lit2) then
+          raise (Incompatible_string_literals (v1, v2));
+        Bool (Rdf_utf8.utf8_contains s1 s2)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_struuid name =
   let f _ _ _ = function
     [] ->
@@ -480,11 +498,13 @@ let bi_struuid name =
   f
 ;;
 
+
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
       "BNODE", bi_bnode ;
       "COALESCE", bi_coalesce ;
+      "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
       "ISBLANK", bi_isblank ;
       "IRI", bi_iri ;

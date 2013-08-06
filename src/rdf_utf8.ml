@@ -117,6 +117,22 @@ let utf8_is_suffix s1 s2 =
     (len1 >= len2) && (String.sub s1 (len1 - len2) len2) = s2
 ;;
 
+let utf8_contains s1 s2 =
+  let ulen1 = utf8_string_length s1 in
+  let ulen2 = utf8_string_length s2 in
+  let len2 = String.length s2 in
+  let rec iter i n =
+    (ulen1 - n >= ulen2) &&
+      (
+       (String.sub s1 i len2 = s2) ||
+         (let size = utf8_nb_bytes_of_char s1.[i] in
+          iter (i+size) (n+1)
+         )
+      )
+  in
+  iter 0 0
+;;
+
 (** conversions algorithm from [http://en.wikipedia.org/wiki/UTF-8]. *)
 let utf8_char_of_code n =
   if n < 128 then
