@@ -1120,7 +1120,25 @@ let agg_sum ctx d ms e =
 
 let agg_min ctx d ms e = assert false
 let agg_max ctx d ms e = assert false
-let agg_avg ctx d ms e = assert false
+let agg_avg ctx d ms e =
+  let f mu (vset, v, cpt) =
+    match eval_expr ctx mu e with
+      Error _ -> (vset, v, cpt)
+    | v2 ->
+        if d then
+          if Rdf_dt.VSet.mem v2 vset then
+            (vset, v, cpt)
+          else
+            (Rdf_dt.VSet.add v2 vset, eval_plus (v, v2), cpt+1)
+        else
+          (vset, eval_plus (v, v2), cpt+1)
+  in
+  let (_, v,cpt) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, Int 0, 0) in
+  match cpt with
+    0 -> Int 0
+  | _ -> eval_div (v, Int cpt)
+;;
+
 let agg_sample ctx d ms e = assert false
 let agg_group_concat ctx d ms e sopt = assert false
 

@@ -1,0 +1,12 @@
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix eg:         <http://biometrics.example/ns#> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+
+_:a  foaf:name       "Alice".
+_:a  eg:shoeSize     "39.5"^^xsd:float .
+
+_:b  foaf:name       "Bob".
+_:b  eg:shoeSize     "42"^^xsd:integer .
+
+_:c  foaf:name       "Charlie".
+_:c  eg:shoeSize     "45"^^xsd:integer .
