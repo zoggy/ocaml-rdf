@@ -117,21 +117,49 @@ let utf8_is_suffix s1 s2 =
     (len1 >= len2) && (String.sub s1 (len1 - len2) len2) = s2
 ;;
 
-let utf8_contains s1 s2 =
+let utf8_substr_pos s1 s2 =
   let ulen1 = utf8_string_length s1 in
   let ulen2 = utf8_string_length s2 in
   let len2 = String.length s2 in
   let rec iter i n =
-    (ulen1 - n >= ulen2) &&
+    if ulen1 - n >= ulen2 then
       (
-       (String.sub s1 i len2 = s2) ||
-         (let size = utf8_nb_bytes_of_char s1.[i] in
+       if String.sub s1 i len2 = s2 then
+         Some i
+       else
+         (
+          let size = utf8_nb_bytes_of_char s1.[i] in
           iter (i+size) (n+1)
          )
       )
+    else
+      None
   in
   iter 0 0
 ;;
+
+let utf8_contains s1 s2 = utf8_substr_pos s1 s2 <> None;;
+
+let utf8_strbefore s1 = function
+  "" -> s1
+| s2 ->
+    match utf8_substr_pos s1 s2 with
+      None
+    | Some 0 -> ""
+    | Some n -> String.sub s1 0 n
+;;
+
+let utf8_strafter s1 = function
+  "" -> s1
+| s2 ->
+    match utf8_substr_pos s1 s2 with
+      None -> ""
+    | Some 0 -> s1
+    | Some n ->
+        let start = n + String.length s2 in
+        String.sub s1 start (String.length s1 - start)
+;;
+
 
 (** conversions algorithm from [http://en.wikipedia.org/wiki/UTF-8]. *)
 let utf8_char_of_code n =

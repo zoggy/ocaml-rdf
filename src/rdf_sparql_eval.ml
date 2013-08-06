@@ -458,11 +458,11 @@ let bi_strstarts name =
       (try
          let v1 = eval_expr ctx mu e1 in
          let v2 = eval_expr ctx mu e2 in
-        let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
-        let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
-        if not (string_lit_compatible lit1 lit2) then
-          raise (Incompatible_string_literals (v1, v2));
-        Bool (Rdf_utf8.utf8_is_prefix s1 s2)
+         let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+         let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+         if not (string_lit_compatible lit1 lit2) then
+           raise (Incompatible_string_literals (v1, v2));
+         Bool (Rdf_utf8.utf8_is_prefix s1 s2)
        with e -> Error e
       )
   | l -> raise (Invalid_built_in_fun_argument (name, l))
@@ -476,17 +476,53 @@ let bi_contains name =
       (try
          let v1 = eval_expr ctx mu e1 in
          let v2 = eval_expr ctx mu e2 in
-        let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
-        let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
-        if not (string_lit_compatible lit1 lit2) then
-          raise (Incompatible_string_literals (v1, v2));
-        Bool (Rdf_utf8.utf8_contains s1 s2)
+         let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+         let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+         if not (string_lit_compatible lit1 lit2) then
+           raise (Incompatible_string_literals (v1, v2));
+         Bool (Rdf_utf8.utf8_contains s1 s2)
        with e -> Error e
       )
   | l -> raise (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
+
+let bi_strbefore name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+         let v1 = eval_expr ctx mu e1 in
+         let v2 = eval_expr ctx mu e2 in
+         let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+         let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+         if not (string_lit_compatible lit1 lit2) then
+           raise (Incompatible_string_literals (v1, v2));
+         String (Rdf_utf8.utf8_strbefore s1 s2)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+let bi_strafter name =
+  let f eval_expr ctx mu = function
+    [e1 ; e2] ->
+      (try
+         let v1 = eval_expr ctx mu e1 in
+         let v2 = eval_expr ctx mu e2 in
+         let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
+         let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
+         if not (string_lit_compatible lit1 lit2) then
+           raise (Incompatible_string_literals (v1, v2));
+         String (Rdf_utf8.utf8_strafter s1 s2)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 
 let bi_struuid name =
   let f _ _ _ = function
@@ -516,6 +552,8 @@ let built_in_funs =
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
       "STR", bi_str ;
+      "STRAFTER", bi_strafter ;
+      "STRBEFORE", bi_strbefore ;
       "STRDT", bi_strdt ;
       "STRENDS", bi_strends ;
       "STRLANG", bi_strlang ;
