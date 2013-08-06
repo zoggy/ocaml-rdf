@@ -728,6 +728,38 @@ let bi_date_seconds t =
   Float (float_of_int t.Netdate.second +. dec)
 ;;
 
+let bi_hash f name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      let v =
+        try Rdf_dt. (eval_expr ctx mu e)
+        with e -> Error e
+      in
+      (
+       match v with
+         Error e -> Error e
+       | String s -> f s
+       | _ -> raise (Rdf_dt.Type_error (v, "simple string"))
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f;;
+
+let bi_md5 s = String (String.lowercase (Digest.to_hex (Digest.string s)));;
+let bi_sha1 s =
+  let hash = Cryptokit.Hash.sha1 () in
+  hash#add_string s ;
+  let t = Cryptokit.Hexa.encode () in
+  t#put_string hash#result ;
+  String (String.lowercase t#get_string)
+;;
+let bi_sha256 s =
+  let hash = Cryptokit.Hash.sha256 () in
+  hash#add_string s ;
+  let t = Cryptokit.Hexa.encode () in
+  t#put_string hash#result ;
+  String (String.lowercase t#get_string)
+;;
 
 let built_in_funs =
   let l =
@@ -752,6 +784,7 @@ let built_in_funs =
       "ISURI", bi_isiri ;
       "LANG", bi_lang ;
       "LANGMATCHES", bi_langmatches ;
+      "MD5", bi_hash bi_md5 ;
       "MINUTES", bi_on_date bi_date_minutes ;
       "MONTH", bi_on_date bi_date_month ;
       "NOW", bi_now ;
@@ -761,6 +794,8 @@ let built_in_funs =
       "ROUND", bi_numeric bi_num_round ;
       "SAMETERM", bi_sameterm ;
       "SECONDS", bi_on_date bi_date_seconds ;
+      "SHA1", bi_hash bi_sha1 ;
+      "SHA256", bi_hash bi_sha256 ;
       "STR", bi_str ;
       "STRAFTER", bi_strafter ;
       "STRBEFORE", bi_strbefore ;

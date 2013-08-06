@@ -8,4 +8,6 @@
     http://www.ietf.org/rfc/rfc4647.txt
 * TIMEZONE
 * TZ
+* SHA384
+* SHA512
 
