@@ -1182,7 +1182,24 @@ let agg_avg ctx d ms e =
 ;;
 
 let agg_sample ctx d ms e = assert false
-let agg_group_concat ctx d ms e sopt = assert false
+let agg_group_concat ctx d ms e sopt =
+  let sep = match sopt with None -> " " | Some s -> s in
+  let g current v =
+    try
+      match Rdf_dt.string v with
+        Error _ -> current
+      | String s ->
+          (match current with
+             None -> Some s
+           | Some cur -> Some (cur ^ sep ^ s)
+          )
+      | _ -> assert false
+    with _ -> current
+  in
+  match agg_fold g None ctx d ms e with
+    None -> String ""
+  | Some s -> String s
+;;
 
 let eval_agg ctx agg ms =
   match agg with
