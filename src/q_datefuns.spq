@@ -1,0 +1,13 @@
+PREFIX a:      <http://www.w3.org/2000/10/annotation-ns#>
+PREFIX dc:     <http://purl.org/dc/elements/1.1/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?date
+   (year(?date) as ?year)
+   (month(?date) as ?month)
+   (day(?date) as ?day)
+   (hours(?date) as ?hours)
+   (minutes(?date) as ?minutes)
+   (seconds(?date) as ?seconds)
+WHERE { ?annot  dc:date      ?date .
+      }

@@ -34,6 +34,8 @@ let dbg = Rdf_misc.create_log_fun
     "RDF_SPARQL_EVAL_DEBUG_LEVEL"
 ;;
 
+let () = Random.self_init();;
+
 exception Unbound_variable of var
 exception Not_a_integer of Rdf_node.literal
 exception Not_a_double_or_decimal of Rdf_node.literal
@@ -54,6 +56,8 @@ type context =
     { base : Rdf_uri.uri ;
       graphs : Rdf_graph.graph Irimap.t ;
       active : Rdf_graph.graph ;
+      now : Netdate.t ; (** because all calls to NOW() must return the same value,
+        we get it at the beginning of the evaluation and use it when required *)
     }
 
 module GExprOrdered =
@@ -642,15 +646,104 @@ let bi_replace name =
   f
 ;;
 
+let bi_numeric f name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      let v =
+        try Rdf_dt.numeric (eval_expr ctx mu e)
+        with e -> Error e
+      in
+      (
+       match v with
+         Error e -> Error e
+       | _ -> f v
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
+let bi_num_abs = function
+  Int n -> Int (abs n)
+| Float f -> Float (abs_float f)
+| _ -> assert false
+;;
+
+
+let bi_num_round = function
+  Int n -> Int n
+| Float f ->  Float (Pervasives.float (int_of_float (floor (f +. 0.5))))
+| _ -> assert false
+;;
+
+
+let bi_num_ceil = function
+  Int n -> Int n
+| Float f -> Float (ceil f)
+| _ -> assert false
+;;
+
+
+let bi_num_floor = function
+  Int n -> Int n
+| Float f -> Float (floor f)
+| _ -> assert false
+;;
+
+let bi_rand name _ _ _ = function
+  [] -> Float (Random.float 1.0)
+| l -> raise (Invalid_built_in_fun_argument (name, l))
+;;
+
+let bi_now name _ ctx _ = function
+  [] -> Datetime ctx.now
+| l -> raise (Invalid_built_in_fun_argument (name, l))
+;;
+
+let bi_on_date f name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      let v =
+        try Rdf_dt.datetime (eval_expr ctx mu e)
+        with e -> Error e
+      in
+      (
+       match v with
+         Error e -> Error e
+       | Datetime t -> f t
+       | _ -> assert false
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
+let bi_date_year t = Int t.Netdate.year ;;
+let bi_date_month t = Int t.Netdate.month ;;
+let bi_date_day t = Int t.Netdate.day ;;
+let bi_date_hours t = Int t.Netdate.hour ;;
+let bi_date_minutes t = Int t.Netdate.minute ;;
+let bi_date_seconds t =
+  let dec = (float_of_int t.Netdate.nanos) /. 1_000_000_000.0 in
+  Float (float_of_int t.Netdate.second +. dec)
+;;
+
+
 let built_in_funs =
   let l =
-    [ "IF", bi_if ;
+    [
+      "ABS", bi_numeric bi_num_abs ;
       "BNODE", bi_bnode ;
+      "CEIL", bi_numeric bi_num_ceil ;
       "COALESCE", bi_coalesce ;
       "CONCAT", bi_concat ;
       "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
+      "DAY", bi_on_date bi_date_day ;
       "ENCODE_FOR_URI", bi_encode_for_uri ;
+      "FLOOR", bi_numeric bi_num_floor ;
+      "HOURS", bi_on_date bi_date_hours ;
+      "IF", bi_if ;
       "ISBLANK", bi_isblank ;
       "IRI", bi_iri ;
       "ISIRI", bi_isiri ;
@@ -659,9 +752,15 @@ let built_in_funs =
       "ISURI", bi_isiri ;
       "LANG", bi_lang ;
       "LANGMATCHES", bi_langmatches ;
-      "SAMETERM", bi_sameterm ;
+      "MINUTES", bi_on_date bi_date_minutes ;
+      "MONTH", bi_on_date bi_date_month ;
+      "NOW", bi_now ;
+      "RAND", bi_rand ;
       "REGEX", bi_regex ;
       "REPLACE", bi_replace ;
+      "ROUND", bi_numeric bi_num_round ;
+      "SAMETERM", bi_sameterm ;
+      "SECONDS", bi_on_date bi_date_seconds ;
       "STR", bi_str ;
       "STRAFTER", bi_strafter ;
       "STRBEFORE", bi_strbefore ;
@@ -673,6 +772,7 @@ let built_in_funs =
       "STRUUID", bi_struuid ;
       "SUBSTR", bi_substr ;
       "URI", bi_iri ;
+      "YEAR", bi_on_date bi_date_year ;
     ]
   in
   List.fold_left

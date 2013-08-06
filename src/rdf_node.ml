@@ -71,7 +71,7 @@ let mk_literal_bool b =
 ;;
 
 let mk_literal_int n =
-  mk_literal ~typ: Rdf_rdf.xsd_boolean (string_of_int n)
+  mk_literal ~typ: Rdf_rdf.xsd_integer (string_of_int n)
 ;;
 
 let mk_literal_double f =

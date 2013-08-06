@@ -68,6 +68,7 @@ let eval_query ?data query =
       Rdf_sparql_eval.graphs = Rdf_sparql_eval.Irimap.empty ;
       active = graph ;
       base = base ;
+      now = Netdate.create (Unix.gettimeofday()) ;
     }
   in
   let omega = Rdf_sparql_eval.eval_list ctx algebra in
