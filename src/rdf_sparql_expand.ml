@@ -20,7 +20,7 @@ let create_env base = { base ; prefixes = SMap.empty }
 
 let iriref_a =
   Iriref
-    { ir_loc = Rdf_sparql_types.dummy_loc ;
+    { ir_loc = Rdf_loc.dummy_loc ;
       ir_iri = Rdf_rdf.rdf_type ;
     }
 ;;

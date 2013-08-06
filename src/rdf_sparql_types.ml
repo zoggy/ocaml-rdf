@@ -6,14 +6,9 @@ module OrderedString =
 module SSet = Set.Make(OrderedString)
 module SMap = Map.Make(OrderedString)
 
-type loc =
+type loc = Rdf_loc.loc =
   { loc_start : Lexing.position ;
     loc_end : Lexing.position ;
-  }
-
-let dummy_loc = {
-    loc_start = Lexing.dummy_pos ;
-    loc_end = Lexing.dummy_pos ;
   }
 
 type pname_ns = {

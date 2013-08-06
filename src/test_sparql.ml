@@ -98,6 +98,13 @@ let parse_query parse ?data source =
   | Rdf_sparql_eval.Unknown_fun iri ->
       prerr_endline ("Unknown function "^(Rdf_uri.string iri));
       exit 1
+  | Rdf_sparql_eval.Unbound_variable v ->
+      let msg =
+        Printf.sprintf "%sUnbound variable %S"
+          (Rdf_loc.string_of_loc v.var_loc) v.var_name
+      in
+      prerr_endline msg;
+      exit 1
 ;;
 
 let parse_query_string = parse_query Rdf_sparql.parse_from_string;;

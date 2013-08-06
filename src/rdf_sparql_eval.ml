@@ -965,9 +965,9 @@ let eval_filter ctx mu c =
   let e =
     match c with
       ConstrBuiltInCall c ->
-        { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EBic c }
+        { expr_loc = Rdf_loc.dummy_loc ; expr = EBic c }
     | ConstrFunctionCall c ->
-        { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EFuncall c }
+        { expr_loc = Rdf_loc.dummy_loc ; expr = EFuncall c }
     | ConstrExpr e -> e
   in
   ebv (eval_expr ctx mu e)
@@ -1040,7 +1040,7 @@ let slice =
 ;;
 
 let group_omega =
-  let make_e expr = { expr_loc = Rdf_sparql_types.dummy_loc ; expr } in
+  let make_e expr = { expr_loc = Rdf_loc.dummy_loc ; expr } in
   let map_conds = function
   | GroupBuiltInCall c -> make_e (EBic c)
   | GroupFunctionCall c -> make_e (EFuncall c)
@@ -1101,7 +1101,23 @@ let agg_count ctx d ms eopt =
   Int n
 ;;
 
-let agg_sum ctx d ms e = assert false
+let agg_sum ctx d ms e =
+  let f mu (vset, v) =
+    match eval_expr ctx mu e with
+      Error _ -> (vset, v)
+    | v2 ->
+        if d then
+          if Rdf_dt.VSet.mem v2 vset then
+            (vset, v)
+          else
+            (Rdf_dt.VSet.add v2 vset, eval_plus (v, v2))
+        else
+          (vset, eval_plus (v, v2))
+  in
+  let (_, v) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, Int 0) in
+  v
+;;
+
 let agg_min ctx d ms e = assert false
 let agg_max ctx d ms e = assert false
 let agg_avg ctx d ms e = assert false
@@ -1217,7 +1233,7 @@ let rec eval_triples =
     Rdf_sparql_ms.omega_join acc o
   in
   fun ctx -> function
-        [] -> Rdf_sparql_ms.omega_0
+    | [] -> Rdf_sparql_ms.omega_0
     | l -> List.fold_left (eval_join ctx) Rdf_sparql_ms.omega_0 l
 
 and eval_triple ctx (x, path, y) =

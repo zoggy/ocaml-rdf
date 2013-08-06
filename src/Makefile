@@ -43,6 +43,7 @@ LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 
 LIB_RDF_CMOFILES= \
 	rdf_config.cmo \
+	rdf_loc.cmo \
 	rdf_utf8.cmo \
 	rdf_uri.cmo \
 	rdf_misc.cmo \

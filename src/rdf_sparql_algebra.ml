@@ -129,13 +129,13 @@ let fresh_var =
   fun () ->
     incr cpt;
     let label = "_V"^(string_of_int !cpt) in
-    { var_loc = Rdf_sparql_types.dummy_loc ; var_name = label }
+    { var_loc = Rdf_loc.dummy_loc ; var_name = label }
 ;;
 
-let path_iri_first = Iri { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_first } ;;
-let path_iri_rest =  Iri { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_rest } ;;
-let iri_nil =  T.Iriref { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_nil } ;;
-let iriref_type = { ir_loc = T.dummy_loc ; ir_iri = Rdf_rdf.rdf_type } ;;
+let path_iri_first = Iri { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_first } ;;
+let path_iri_rest =  Iri { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_rest } ;;
+let iri_nil =  T.Iriref { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_nil } ;;
+let iriref_type = { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_type } ;;
 let path_iri_type = Iri iriref_type ;;
 
 let rec translate_path = function
@@ -334,7 +334,7 @@ and aggregation_step q g =
   let agg_i =
      let cpt = ref 0 in
      fun () -> incr cpt;
-     { var_loc = Rdf_sparql_types.dummy_loc ;
+     { var_loc = Rdf_loc.dummy_loc ;
        var_name = "__agg"^(string_of_int !cpt) ;
      }
   in
@@ -344,7 +344,7 @@ and aggregation_step q g =
     let f_expression f acc t =
       match t.expr with
         EVar v ->
-          { expr_loc = Rdf_sparql_types.dummy_loc ;
+          { expr_loc = Rdf_loc.dummy_loc ;
             expr = EBic (Bic_agg (Bic_SAMPLE (false, t))) ;
           }
       | _ -> Rdf_sparql_map.expression f acc t
@@ -361,7 +361,7 @@ and aggregation_step q g =
           let a = Aggregation agg in
           _A := a :: !_A ;
           let v = agg_i () in
-          { expr_loc = Rdf_sparql_types.dummy_loc ;
+          { expr_loc = Rdf_loc.dummy_loc ;
             expr = EVar v ;
           }
      | _ -> Rdf_sparql_map.expression f acc t
@@ -416,9 +416,9 @@ and aggregation_step q g =
           | Some _ -> acc
           | None ->
              let v_agg = agg_i () in
-             let e = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar sv.sel_var } in
+             let e = { expr_loc = Rdf_loc.dummy_loc ; expr = EVar sv.sel_var } in
              let agg = Bic_SAMPLE (false, e) in
-             let e_agg = { expr_loc = Rdf_sparql_types.dummy_loc ; expr = EVar v_agg } in
+             let e_agg = { expr_loc = Rdf_loc.dummy_loc ; expr = EVar v_agg } in
              let a = Aggregation agg in
              _A := a :: !_A;
              (sv.sel_var, e_agg) :: acc
@@ -441,16 +441,16 @@ and translate_query_level q =
       [] ->
        if has_implicit_grouping q then
          (
-          let lit = { rdf_lit_loc = Rdf_sparql_types.dummy_loc ;
+          let lit = { rdf_lit_loc = Rdf_loc.dummy_loc ;
                       rdf_lit = Rdf_node.mk_literal_int 1 ;
                       rdf_lit_type = None ;
                     }
           in
-          let e = { expr_loc = Rdf_sparql_types.dummy_loc ;
+          let e = { expr_loc = Rdf_loc.dummy_loc ;
                     expr = ENumeric lit ;
                   }
           in
-          let gv = { grpvar_loc = Rdf_sparql_types.dummy_loc ;
+          let gv = { grpvar_loc = Rdf_loc.dummy_loc ;
                      grpvar_expr = Some e ; grpvar = None ;
                    }
           in
