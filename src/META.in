@@ -1,6 +1,6 @@
 version = "@VERSION@"
 description = "Handling RDF graphs"
-requires = "netstring,xmlm,ulex,menhirLib"
+requires = "netstring,uuidm,xmlm,ulex,menhirLib"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
 archive(native,plugin) = "rdf.cmxs"
