@@ -913,6 +913,7 @@ let _ =
   | _ -> ();;
 
 let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
+let _ = check_ocamlfind_package conf "uuidm";;
 
 let _ = !print "\n###\n"
 

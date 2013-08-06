@@ -1725,7 +1725,7 @@ fi
 
 
 RDF_PACKAGES=$PACKAGE
-PACKAGES=netstring,xmlm,ulex,menhirLib,pcre
+PACKAGES=netstring,uuidm,xmlm,ulex,menhirLib,pcre
 if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
 if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
 

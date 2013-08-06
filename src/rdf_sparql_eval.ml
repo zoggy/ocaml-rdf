@@ -470,6 +470,16 @@ let bi_strstarts name =
   f
 ;;
 
+let bi_struuid name =
+  let f _ _ _ = function
+    [] ->
+      let uuid = Uuidm.create `V4 in
+      String (Uuidm.to_string uuid)
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
@@ -491,6 +501,7 @@ let built_in_funs =
       "STRLANG", bi_strlang ;
       "STRLEN", bi_strlen ;
       "STRSTARTS", bi_strstarts ;
+      "STRUUID", bi_struuid ;
       "SUBSTR", bi_substr ;
       "URI", bi_iri ;
     ]

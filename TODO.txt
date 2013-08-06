@@ -1,7 +1,7 @@
 - represent and use IRIs in Sparql instead of URIs
 
 - built in calls:
-* UUID
+* UUID => when urn scheme is recognized in neturl ?
 * STRUUID
 * UCASE
 * LCASE
