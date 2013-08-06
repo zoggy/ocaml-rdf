@@ -2,7 +2,6 @@
 
 - built in calls:
 * UUID => when urn scheme is recognized in neturl ?
-* STRUUID
 * UCASE
 * LCASE
 
