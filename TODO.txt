@@ -4,4 +4,6 @@
 * UUID => when urn scheme is recognized in neturl ?
 * UCASE
 * LCASE
+* langMatches: implement matching of language tags
+    http://www.ietf.org/rfc/rfc4647.txt
 

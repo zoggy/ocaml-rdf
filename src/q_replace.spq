@@ -1,0 +1,4 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (replace(?name, "a(.)", "A$1") as ?Alicia)
+ WHERE { ?x foaf:name ?name .
+       }

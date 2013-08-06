@@ -268,18 +268,16 @@ let bi_isnumeric name =
   f
 ;;
 
+let regex_flag_of_char = function
+ | 's' -> `DOTALL
+| 'm' -> `MULTILINE
+| 'i' -> `CASELESS (* FIXME: 'x' not handled yet *)
+| c -> raise (Unhandled_regex_flag c)
+;;
+
 (** See http://www.w3.org/TR/xpath-functions/#regex-syntax *)
 let bi_regex name =
-  let flag_of_char r c =
-    let f =
-      match c with
-      | 's' -> `DOTALL
-      | 'm' -> `MULTILINE
-      | 'i' -> `CASELESS (* FIXME: 'x' not handled yet *)
-      | c -> raise (Unhandled_regex_flag c)
-    in
-    r := f :: !r
-  in
+  let flag_of_char r c = r := (regex_flag_of_char c) :: !r in
   let f eval_expr ctx mu l =
     let (s, pat, flags) =
       match l with
@@ -315,6 +313,7 @@ let bi_regex name =
   in
   f
 ;;
+
 let bi_sameterm name =
   let f eval_expr ctx mu = function
     [e1 ; e2] ->
@@ -603,6 +602,46 @@ let bi_langmatches name =
   f
 ;;
 
+let bi_replace name =
+  let flag_of_char r c = r := (regex_flag_of_char c) :: !r in
+  let f eval_expr ctx mu l =
+    let (s, pat, templ, flags) =
+      match l with
+      | [e1 ; e2 ; e3 ] ->
+          (eval_expr ctx mu e1, eval_expr ctx mu e2, eval_expr ctx mu e3, None)
+      | [e1 ; e2 ; e3 ; e4 ] ->
+        (eval_expr ctx mu e1, eval_expr ctx mu e2, eval_expr ctx mu e3,
+         Some (eval_expr ctx mu e4))
+      | _ -> raise (Invalid_built_in_fun_argument (name, l))
+    in
+    try
+      let (s, _) = Rdf_dt.string_literal s in
+      let pat = match pat with
+          String s -> s
+        | _ -> raise (Rdf_dt.Type_error (pat, "simple string"))
+      in
+      let (templ, _) = Rdf_dt.string_literal templ in
+      let flags =
+        match flags with
+          None -> []
+        | Some (String s) ->
+            let l = ref [] in
+            String.iter (flag_of_char l) s;
+            !l
+        | Some v -> raise (Rdf_dt.Type_error (v, "simple string"))
+      in
+      let flags = `UTF8 :: flags in
+      dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat^" templ="^templ);
+      let rex = Pcre.regexp ~flags pat in
+      String (Pcre.replace ~rex ~templ s)
+    with
+      e ->
+        dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
+        Error e
+  in
+  f
+;;
+
 let built_in_funs =
   let l =
     [ "IF", bi_if ;
@@ -622,6 +661,7 @@ let built_in_funs =
       "LANGMATCHES", bi_langmatches ;
       "SAMETERM", bi_sameterm ;
       "REGEX", bi_regex ;
+      "REPLACE", bi_replace ;
       "STR", bi_str ;
       "STRAFTER", bi_strafter ;
       "STRBEFORE", bi_strbefore ;
