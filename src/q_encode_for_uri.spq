@@ -1,0 +1,4 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (encode_for_uri(?name) as ?enc)
+ WHERE { ?x foaf:name  ?name ;
+       }

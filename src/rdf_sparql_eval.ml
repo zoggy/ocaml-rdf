@@ -534,6 +534,20 @@ let bi_struuid name =
   f
 ;;
 
+let bi_encode_for_uri name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      (try
+         let (s,_) = Rdf_dt.string_literal (eval_expr ctx mu e) in
+         String (Netencoding.Url.encode ~plus: false s)
+       with e -> Error e
+      )
+  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
+
 
 let built_in_funs =
   let l =
@@ -542,6 +556,7 @@ let built_in_funs =
       "COALESCE", bi_coalesce ;
       "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
+      "ENCODE_FOR_URI", bi_encode_for_uri ;
       "ISBLANK", bi_isblank ;
       "IRI", bi_iri ;
       "ISIRI", bi_isiri ;
