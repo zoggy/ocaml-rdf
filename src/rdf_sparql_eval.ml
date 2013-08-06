@@ -1329,6 +1329,10 @@ and eval_triple ctx (x, path, y) =
       in
       let bgp = BGP [ (x, p1, blank) ; (blank, p2, y) ] in
       eval ctx bgp
+  | Alt (p1, p2) ->
+      let bgp1 = BGP [ (x, p1, y) ] in
+      let bgp2 = BGP [ (x, p2, y) ] in
+      eval ctx (Union (bgp1, bgp2))
   | _ -> failwith "not implemented"
 
 and eval ctx = function
