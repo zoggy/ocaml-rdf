@@ -199,16 +199,16 @@ let rec main = lexer
   Langtag (String.sub s 1 (len - 1))
 
 | longstring_quote_delim ->
-    prerr_endline "entering long quoted string";
+    (*prerr_endline "entering long quoted string";*)
     longstring_quote (Buffer.create 256) lexbuf
 | longstring_dquote_delim ->
-    prerr_endline "entering long dquoted string";
+    (*prerr_endline "entering long dquoted string";*)
     longstring_dquote (Buffer.create 256) lexbuf
 | '\'' ->
-    prerr_endline "entering quoted string";
+    (*prerr_endline "entering quoted string";*)
     string_quote (Buffer.create 256) lexbuf
 | '"' ->
-    prerr_endline "entering dquoted string";
+    (*prerr_endline "entering dquoted string";*)
     string_dquote (Buffer.create 256) lexbuf
 (*
 | string_literal1 ->

@@ -1072,28 +1072,56 @@ let group_omega =
       o
       GExprMap.empty
 
-let agg_count d ms eopt = assert false
-let agg_sum d ms e = assert false
-let agg_min d ms e = assert false
-let agg_max d ms e = assert false
-let agg_avg d ms e = assert false
-let agg_sample d ms e = assert false
-let agg_group_concat d ms e sopt = assert false
+
+let agg_count ctx d ms eopt =
+  let f mu (muset, vset, n) =
+    match eopt with
+      None ->
+        if d then
+          if Rdf_sparql_ms.MuSet.mem mu muset then
+            (muset, vset, n)
+          else
+            (Rdf_sparql_ms.MuSet.add mu muset, vset, n+1)
+        else
+          (muset, vset, n+1)
+    | Some e ->
+        match eval_expr ctx mu e with
+          Error _ -> (muset, vset, n)
+        | v ->
+            if d then
+              if Rdf_dt.VSet.mem v vset then
+                (muset, vset, n)
+              else
+                (muset, Rdf_dt.VSet.add v vset, n+1)
+            else
+              (muset, vset, n+1)
+  in
+  let (_, _, n) = Rdf_sparql_ms.omega_fold f ms (Rdf_sparql_ms.MuSet.empty, Rdf_dt.VSet.empty, 0) in
+  dbg ~level: 2 (fun () -> "COUNT(...)="^(string_of_int n));
+  Int n
+;;
+
+let agg_sum ctx d ms e = assert false
+let agg_min ctx d ms e = assert false
+let agg_max ctx d ms e = assert false
+let agg_avg ctx d ms e = assert false
+let agg_sample ctx d ms e = assert false
+let agg_group_concat ctx d ms e sopt = assert false
 
 let eval_agg ctx agg ms =
   match agg with
-    Bic_COUNT (d, eopt) -> agg_count d ms eopt
-  | Bic_SUM (d, e) -> agg_sum d ms e
-  | Bic_MIN (d, e) -> agg_min d ms e
-  | Bic_MAX (d, e) -> agg_max d ms e
-  | Bic_AVG (d, e) -> agg_avg d ms e
+    Bic_COUNT (d, eopt) -> agg_count ctx d ms eopt
+  | Bic_SUM (d, e) -> agg_sum ctx d ms e
+  | Bic_MIN (d, e) -> agg_min ctx d ms e
+  | Bic_MAX (d, e) -> agg_max ctx d ms e
+  | Bic_AVG (d, e) -> agg_avg ctx d ms e
   | Bic_SAMPLE (d, e) ->
       let (_,sample_mu) =
         try Rdf_sparql_ms.Multimu.choose ms
         with Not_found -> assert false
       in
       eval_expr ctx sample_mu e
-  | Bic_GROUP_CONCAT (d, e, s_opt) -> agg_group_concat d ms e s_opt
+  | Bic_GROUP_CONCAT (d, e, s_opt) -> agg_group_concat ctx d ms e s_opt
 ;;
 let aggregation ctx agg groups =
   let f ms = eval_agg ctx agg ms in
@@ -1104,7 +1132,7 @@ let aggregate_join =
   let compute_agg ctx ms (i,acc_mu) = function
     Aggregation agg ->
       let term = Rdf_dt.to_node (eval_agg ctx agg ms) in
-      let var = "__agg"^(string_of_int (i+1)) in
+      let var = "__agg"^(string_of_int i) in
       (i+1, Rdf_sparql_ms.mu_add var term acc_mu)
   | _ -> assert false
   in

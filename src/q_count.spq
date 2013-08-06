@@ -1,0 +1,5 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (count(distinct ?name) as ?c)
+ WHERE { ?x foaf:name  ?name ;
+          FILTER (STRENDS(?name, "ice"))
+       }

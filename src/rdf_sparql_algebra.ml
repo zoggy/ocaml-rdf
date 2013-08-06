@@ -322,6 +322,10 @@ and has_implicit_grouping q =
   let visitor = { Rdf_sparql_vis.default with Rdf_sparql_vis.aggregate = aggregate } in
   try
     ignore (visitor.Rdf_sparql_vis.group_graph_pattern visitor () q.query_where);
+    (match q.query_proj with
+         | None -> ()
+         | Some c -> ignore (visitor.Rdf_sparql_vis.select_clause visitor () c)
+    );
     false
   with Implicit_aggregate_found -> true
 
@@ -436,7 +440,22 @@ and translate_query_level q =
     match q.query_modifier.solmod_group with
       [] ->
        if has_implicit_grouping q then
-         Group([], g)
+         (
+          let lit = { rdf_lit_loc = Rdf_sparql_types.dummy_loc ;
+                      rdf_lit = Rdf_node.mk_literal_int 1 ;
+                      rdf_lit_type = None ;
+                    }
+          in
+          let e = { expr_loc = Rdf_sparql_types.dummy_loc ;
+                    expr = ENumeric lit ;
+                  }
+          in
+          let gv = { grpvar_loc = Rdf_sparql_types.dummy_loc ;
+                     grpvar_expr = Some e ; grpvar = None ;
+                   }
+          in
+          Group([GroupVar gv], g)
+         )
        else
          g
    | group_conds -> Group (group_conds, g)
@@ -522,8 +541,9 @@ and translate_query_level q =
 
 let p = Buffer.add_string;;
 
+let string_of_var v = "?"^v.var_name
 let string_of_var_or_term = function
-  Rdf_sparql_types.Var v -> "?" ^ v.var_name
+  Rdf_sparql_types.Var v -> string_of_var v
 | GraphTerm t ->
     match t with
       GraphTermIri (PrefixedName _) -> assert false
@@ -557,6 +577,19 @@ let print_triple mg b t =
   p b " .\n"
 
 let print_triples mg b l = List.iter (print_triple mg b) l
+
+let print_expr = Rdf_sparql_print.print_expression ;;
+
+let print_group_condition b = function
+  GroupBuiltInCall c -> p b "GroupBuiltInCall _"
+| GroupFunctionCall c -> p b "GroupFunctionCall _"
+| GroupVar gv ->
+    match gv.grpvar_expr, gv.grpvar with
+      None, None -> assert false
+    | Some e, None -> print_expr b e
+    | None, Some v -> p b (string_of_var v)
+    | Some e, Some v -> print_expr b e; p b (" as "^(string_of_var v))
+;;
 
 let rec print mg b = function
 | BGP triples ->
@@ -601,7 +634,9 @@ let rec print mg b = function
     let mg2 = mg ^ "  " in
     p b (mg^"Extend(\n");
     print mg2 b a;
-    p b (",\n"^mg2^"<var>, <expr>)")
+    p b (",\n"^mg2^(string_of_var v)^", ");
+    print_expr b e;
+    p b ")"
 | Minus (a1, a2) ->
     let mg2 = mg ^ "  " in
     p b (mg^"Minus(\n");
@@ -616,7 +651,9 @@ let rec print mg b = function
 | DataToMultiset d ->
     p b (mg^"DataToMultiset(d)")
 | Group (l, a) ->
-    p b (mg^"Group(conds,\n");
+    p b (mg^"Group([");
+    List.iter (fun gc -> print_group_condition b gc; p b " ; ") l;
+    p b "],\n";
     print (mg^"  ") b a;
     p b ")"
 | Aggregation agg ->
@@ -652,7 +689,7 @@ let rec print mg b = function
     p b ", ";
     p b (match lim with None -> "NONE" | Some n -> string_of_int n);
     p b ")"
-  | OrderBy (a, l) ->
+| OrderBy (a, l) ->
     let mg2 = mg ^ "  " in
     p b (mg^"OrderBy(\n");
     print mg2 b a;

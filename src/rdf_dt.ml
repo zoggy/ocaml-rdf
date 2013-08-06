@@ -58,6 +58,7 @@ module ValueOrdered =
   end
 
 module VMap = Map.Make (ValueOrdered)
+module VSet = Set.Make (ValueOrdered)
 exception Type_error of value * string
 exception Invalid_literal of Rdf_node.literal
 
