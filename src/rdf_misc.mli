@@ -28,6 +28,8 @@ val string_of_opt : string option -> string
 val opt_of_string : string -> string option
 val map_opt : ('a -> 'b) -> 'a option -> 'b option
 
+val opt_compare : ('a -> 'a -> int) -> 'a option -> 'a option -> int
+
 (** Creating a log function.
   [create_log_fun env_var] get the log level (an integer) from the given
   environment variable, and returns a function to print messages.

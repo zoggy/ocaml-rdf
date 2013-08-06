@@ -561,9 +561,13 @@ let string_of_var_or_term = function
         end
     | GraphTermNil -> "()"
 
-let string_of_path = function
+let rec string_of_path = function
   Var v ->  "?"^v.var_name
 | Iri ir -> Rdf_uri.string ir.ir_iri
+| Inv p -> "(^"^(string_of_path p)^")"
+| Alt (p1, p2) -> "("^(string_of_path p1)^" | "^(string_of_path p2)^")"
+| Seq (p1, p2) -> "("^(string_of_path p1)^" / "^(string_of_path p2)^")"
+| ZeroOrOne p -> "("^(string_of_path p)^"?)"
 | _ -> assert false
 
 let string_of_triple (x, path, y) =

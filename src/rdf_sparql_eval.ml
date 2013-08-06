@@ -1313,6 +1313,46 @@ let rec eval_triples =
     | [] -> Rdf_sparql_ms.omega_0
     | l -> List.fold_left (eval_join ctx) Rdf_sparql_ms.omega_0 l
 
+and eval_triple_path_zero_or_one ctx x p y =
+  let ms_one = eval_simple_triple ctx x p y in
+  match x, y with
+  | T.Var v, ((GraphTerm _) as t)
+  | ((GraphTerm _) as t), T.Var v ->
+     let (_, term) = filter_of_var_or_term t in
+     (
+      match term with
+        None -> ms_one
+      | Some term ->
+        let pred (_,mu) =
+          try Rdf_node.compare (Rdf_sparql_ms.mu_find_var v mu) term = 0
+          with Not_found -> false
+        in
+        if Rdf_sparql_ms.Multimu.exists pred ms_one then
+          ms_one
+        else
+          (
+           let mu = Rdf_sparql_ms.mu v.var_name term in
+           Rdf_sparql_ms.omega_add mu ms_one
+          )
+      )
+  | GraphTerm _, GraphTerm _ ->
+      let (_, term1) = filter_of_var_or_term x in
+      let (_, term2) = filter_of_var_or_term y in
+      if not (Rdf_sparql_ms.Multimu.is_empty ms_one) or
+        Rdf_misc.opt_compare Rdf_node.compare term1 term2 = 0
+      then
+        Rdf_sparql_ms.omega_0
+      else
+        Rdf_sparql_ms.Multimu.empty
+
+  | T.Var v1, T.Var v2 ->
+      (* FIXME: specification not clear:
+        "eval(Path(X:var, ZeroOrOnePath(P), Y:var)) =
+    { (X, xn) (Y, yn) | either (yn in nodes(G) and xn = yn) or {(X,xn), (Y,yn)} in eval(Path(X,P,Y)) }"
+      *)
+      ms_one
+
+(* See http://www.w3.org/TR/sparql11-query/#PropertyPathPatterns *)
 and eval_triple ctx (x, path, y) =
   match path with
     Var _
@@ -1333,6 +1373,8 @@ and eval_triple ctx (x, path, y) =
       let bgp1 = BGP [ (x, p1, y) ] in
       let bgp2 = BGP [ (x, p2, y) ] in
       eval ctx (Union (bgp1, bgp2))
+  | ZeroOrOne p ->
+      eval_triple_path_zero_or_one ctx x p y
   | _ -> failwith "not implemented"
 
 and eval ctx = function

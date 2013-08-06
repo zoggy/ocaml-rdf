@@ -1,0 +1,5 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX eg:   <http://biometrics.example/ns#>
+SELECT ?name ?foo
+ WHERE { ?name (^foaf:name?)/eg:foo?/eg:shoeSize ?foo.}

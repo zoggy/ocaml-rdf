@@ -28,6 +28,14 @@ let string_of_opt = function None -> "" | Some s -> s;;
 let opt_of_string = function "" -> None | s -> Some s;;
 let map_opt f = function None -> None | Some x -> Some (f x);;
 
+let opt_compare f v1 v2 =
+  match v1, v2 with
+    None, None -> 0
+  | None, _ -> -1
+  | _, None -> 1
+  | Some v1, Some v2 -> f v1 v2
+;;
+
 let create_log_fun_with_set ?prefix ?(print=prerr_endline) env_var =
   let log_level =
     ref
