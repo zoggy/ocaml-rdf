@@ -1275,7 +1275,7 @@ let eval_simple_triple =
       match path with
         Var v -> (Some v.var_name, None)
       | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
-      | _ -> assert false
+      | _ -> assert false (* FIXME: implement other path *)
     in
     let f acc (s,p,o) =
       dbg ~level: 3
@@ -1345,7 +1345,8 @@ and eval ctx = function
     let o2 = eval ctx a2 in
     union_omega o1 o2
 
-| Graph (var_or_iri, a) -> assert false
+| Graph (var_or_iri, a) ->
+      assert false (* FIXME: implement *)
 
 | Extend (a, var, expr) ->
     let o = eval ctx a in
@@ -1369,7 +1370,7 @@ and eval ctx = function
 | Aggregation _ -> assert false (* Aggregation always below AggregateJoin *)
 | Group (conds, a) -> assert false (* no group without AggregationJoin above *)
 
-| DataToMultiset datablock -> assert false
+| DataToMultiset datablock -> assert false (* FIXME: implement *)
 | Project _ -> assert false
 | Distinct a -> assert false
 | Reduced a -> assert false
@@ -1379,7 +1380,7 @@ and eval ctx = function
 and eval_list ctx = function
   | OrderBy (a, order_conds) ->
       let l = eval_list ctx a in
-      sort_sequence ctx l
+      sort_sequence ctx l (* FIXME: todo *)
   | Project (a, vars) ->
       let l = eval_list ctx a in
       project_sequence vars l
