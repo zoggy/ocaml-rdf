@@ -1,0 +1,13 @@
+(* Title of the test *)
+title = "Named and Default Graphs"
+(* Description of the test *)
+descr = "From http://www.w3.org/TR/sparql11-query/#namedAndDefaultGraph"
+(* File containing the query *)
+query = "q_named_graphs4.spq"
+(* File containing the default graph *)
+default_graph = "data_named_graphs4.ttl"
+named_graphs = [
+  ("http://example.org/2005-06-06:graph1", "data1_named_graphs4.ttl");
+  ("http://example.org/2005-06-06:graph2", "data2_named_graphs4.ttl");
+ ]
+

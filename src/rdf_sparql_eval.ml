@@ -72,7 +72,15 @@ let context ~base ?from ?(from_named=Iriset.empty) dataset =
         Rdf_graph.open_graph base
     | Some iri -> dataset.Rdf_ds.get_named iri
   in
-  { base ; named = from_named ; dataset ; active ;
+  let named =
+    (* if not named graph is specified, they use the named graphs of
+       dataset *)
+    if Iriset.is_empty from_named then
+      dataset.Rdf_ds.named
+    else
+      from_named
+  in
+  { base ; named = named ; dataset ; active ;
     now = Netdate.create (Unix.gettimeofday()) ;
   }
 ;;
