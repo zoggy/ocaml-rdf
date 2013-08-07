@@ -11,3 +11,5 @@
 * SHA384
 * SHA512
 
+* subqueries
+
