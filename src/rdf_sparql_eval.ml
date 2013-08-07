@@ -1380,7 +1380,7 @@ and eval_reachable =
         (_, None) -> assert false
       | (_, Some node) -> node
   in
-  let rec iter ?(keep=true) ctx term path var (seen, acc_ms) =
+  let rec iter ctx term path var (seen, acc_ms) =
     let node = node_of_graphterm term in
     match Rdf_node.NSet.mem node seen with
       true -> (seen, acc_ms)
@@ -1391,11 +1391,7 @@ and eval_reachable =
            starting point for next iteration *)
         let f mu (seen, acc_ms) =
           try
-            let acc_ms =
-              if keep
-              then Rdf_sparql_ms.omega_add_if_not_present mu acc_ms
-              else acc_ms
-            in
+            let acc_ms = Rdf_sparql_ms.omega_add_if_not_present mu acc_ms in
             let node = Rdf_sparql_ms.mu_find_var var mu in
             iter ctx (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
           with Not_found -> (seen, acc_ms)
@@ -1403,8 +1399,14 @@ and eval_reachable =
         Rdf_sparql_ms.omega_fold f ms (seen, acc_ms)
   in
   fun ?(zero=false) ctx term path var ->
-    let (_,ms) = iter ~keep:zero ctx term path var
-                (Rdf_node.NSet.empty, Rdf_sparql_ms.Multimu.empty)
+    let (_,ms) =
+      let ms_start =
+        if zero then
+          Rdf_sparql_ms.omega var.var_name (node_of_graphterm term)
+        else
+          Rdf_sparql_ms.Multimu.empty
+      in
+      iter ctx term path var (Rdf_node.NSet.empty, ms_start)
     in
     ms
 
