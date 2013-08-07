@@ -50,7 +50,7 @@ let eval_query ?data query =
       None -> Rdf_graph.open_graph base
     | Some g -> g
   in
-  let (base, query) = Rdf_sparql_expand.expand_query base query in
+  let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
   let q =
     match query.q_kind with
       Select s ->
@@ -65,7 +65,10 @@ let eval_query ?data query =
   print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
   print_endline (Rdf_ttl.to_string graph);
   let dataset = Rdf_ds.dataset graph in
-  let ctx = Rdf_sparql_eval.context base dataset in
+  let ctx = Rdf_sparql_eval.context base
+     ?from: ds.df_sparql_expand.from
+     ~named: ds.Rdf_sparql_expand.from_named dataset
+  in
   let omega = Rdf_sparql_eval.eval_list ctx algebra in
   let f_mu mu =
     Rdf_sparql_ms.SMap.iter

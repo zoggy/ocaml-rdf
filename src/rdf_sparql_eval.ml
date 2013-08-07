@@ -63,8 +63,16 @@ type context =
         we get it at the beginning of the evaluation and use it when required *)
     }
 
-let context ~base ?(named=Iriset.empty) dataset =
-  { base ; named ; dataset ; active = dataset.Rdf_ds.default ;
+let context ~base ?from ?(from_named=Iriset.empty) dataset =
+  let active =
+    match from with
+      None when Iriset.is_empty from_named -> dataset.Rdf_ds.default
+    | None ->
+        (* default graph is empty *)
+        Rdf_graph.open_graph base
+    | Some iri -> dataset.Rdf_ds.get_named iri
+  in
+  { base ; named = from_named ; dataset ; active ;
     now = Netdate.create (Unix.gettimeofday()) ;
   }
 ;;

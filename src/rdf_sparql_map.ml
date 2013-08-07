@@ -3,7 +3,7 @@
 open Rdf_sparql_types
 module T = Rdf_sparql_types
 
-let map_opt = Rdf_sparql_expand.map_opt
+let map_opt = Rdf_misc.map_opt
 
 type ('acc, 't) map_fun = 'acc mapper -> 'acc -> 't -> 't
 

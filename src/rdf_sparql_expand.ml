@@ -4,10 +4,7 @@ open Rdf_sparql_types
 
 exception Unknown_prefix of pname_ns
 
-let map_opt f = function
-  None -> None
-| Some x -> Some (f x)
-;;
+let map_opt = Rdf_misc.map_opt;;
 
 module SMap = Rdf_xml.SMap;;
 
@@ -15,6 +12,8 @@ type env =
   { base : Rdf_uri.uri ;
     prefixes : Rdf_uri.uri SMap.t ;
   }
+
+type dataset = { from : Rdf_uri.uri option ; from_named : Rdf_ds.Iriset.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 
@@ -419,11 +418,31 @@ let expand_query_kind env = function
   | Ask q -> Ask (expand_ask_query env q)
 ;;
 
+let build_dataset =
+  let iter ds = function
+    DefaultGraphClause (PrefixedName _)
+  | NamedGraphClause (PrefixedName _) -> assert false
+  | DefaultGraphClause (Iriref ir) ->
+      { ds with from = Some ir.ir_iri }
+  | NamedGraphClause (Iriref ir) ->
+      { ds with
+        from_named = Rdf_ds.Iriset.add ir.ir_iri ds.from_named }
+  in
+  let build q = iter
+    { from = None ; from_named = Rdf_ds.Iriset.empty }
+  in
+  function
+    Select q -> build q.select_dataset
+  | Construct q -> build q.constr_dataset
+  | Describe q -> build q.desc_dataset
+  | Ask q -> build q.ask_dataset
+;;
 
 let expand_query default_base_uri q =
   let env = create_env default_base_uri in
   let (env, q_prolog) = expand_query_prolog env q.q_prolog in
   let q_kind = expand_query_kind env q.q_kind in
   let q_values = expand_values_clause env q.q_values in
-  (env.base, { q_prolog ; q_kind ; q_values })
+  let ds = build_dataset q.q_kind in
+  (env.base, ds, { q_prolog ; q_kind ; q_values })
 ;;
