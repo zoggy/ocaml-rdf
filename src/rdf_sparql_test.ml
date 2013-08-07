@@ -77,6 +77,19 @@ let mk_dataset spec =
   Rdf_ds.simple_dataset ~named default
 ;;
 
+let print_solution mu =
+  Rdf_sparql_ms.SMap.iter
+    (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+    mu.Rdf_sparql_ms.mu_bindings;
+  print_newline()
+;;
+let print_result = function
+  Error s -> print_endline ("ERROR: "^s)
+| Ok solutions ->
+   Printf.printf "%d Solution(s):\n" (List.length solutions);
+   List.iter print_solution solutions
+;;
+
 let run_test spec =
   try
     let dataset = mk_dataset spec in
@@ -130,6 +143,7 @@ let main () =
   | files ->
     let specs = List.map load_file files in
     let tests = List.map run_test specs in
+    List.iter (fun t -> print_result t.result) tests ;
     ()
 
 ;;

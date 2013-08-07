@@ -634,7 +634,9 @@ let rec print mg b = function
     p b ")"
 | Graph (vi, a) ->
     let mg2 = mg ^ "  " in
-    p b (mg^"Graph(var_or_iri,\n");
+    p b (mg^"Graph(");
+    Rdf_sparql_print.print_var_or_iri b vi;
+    p b ",\n";
     print mg2 b a;
     p b ")"
 | Extend (a, v, e) ->
