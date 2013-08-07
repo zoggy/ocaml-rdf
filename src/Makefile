@@ -129,6 +129,9 @@ rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
 test_uncodepoint: rdf_utf8.cmx rdf_sparql_lex.cmx test_uncodepoint.ml
 	$(OCAMLFIND) ocamlopt -package ulex -linkpkg -linkall -o $@ $^
 
+rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx
+		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) rdf_sparql_test.cmx
+
 # Documentation :
 #################
 dump.odoc: *.mli *.ml
@@ -208,3 +211,6 @@ rdf_sparql_lex.ml: rdf_sparql_lex.mll
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 	$(MENHIR) --explain --infer --table --base rdf_sparql_parser $^ # --trace
+
+rdf_sparql_test.cmx: rdf_sparql_test.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
