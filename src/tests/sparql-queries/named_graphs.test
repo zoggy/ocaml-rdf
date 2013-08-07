@@ -3,7 +3,7 @@ title = "Accessing named graphs"
 (* Description of the test *)
 descr = "From http://www.w3.org/TR/sparql11-query/#accessByLabel"
 (* File containing the query *)
-query = "q_named_graphs.spq"
+query = "named_graphs.spq"
 (* File containing the default graph *)
 default_graph = ""
 named_graphs = [

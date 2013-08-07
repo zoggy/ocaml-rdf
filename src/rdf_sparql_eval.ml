@@ -1604,7 +1604,7 @@ and eval ctx = function
 and eval_list ctx = function
   | OrderBy (a, order_conds) ->
       let l = eval_list ctx a in
-      sort_sequence ctx l (* FIXME: todo *)
+      sort_sequence ctx l (* FIXME: implement *)
   | Project (a, vars) ->
       let l = eval_list ctx a in
       project_sequence vars l

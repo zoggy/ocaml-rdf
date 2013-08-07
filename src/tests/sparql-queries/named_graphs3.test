@@ -3,7 +3,7 @@ title = "Restricting Possible Graph IRIs"
 (* Description of the test *)
 descr = "From http://www.w3.org/TR/sparql11-query/#restrictInQuery"
 (* File containing the query *)
-query = "q_named_graphs3.spq"
+query = "named_graphs3.spq"
 (* File containing the default graph *)
 default_graph = ""
 named_graphs = [

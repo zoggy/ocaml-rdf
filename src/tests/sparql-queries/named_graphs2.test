@@ -3,7 +3,7 @@ title = "Restricting by Graph IRI"
 (* Description of the test *)
 descr = "From http://www.w3.org/TR/sparql11-query/#restrictByLabel"
 (* File containing the query *)
-query = "q_named_graphs2.spq"
+query = "named_graphs2.spq"
 (* File containing the default graph *)
 default_graph = ""
 named_graphs = [
