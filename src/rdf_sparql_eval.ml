@@ -52,19 +52,19 @@ exception Empty_set of string (** sparql function name *)
 
 
 module Irimap = Rdf_ds.Irimap
-module Iriset = Set.Make
-  (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
+module Iriset = Rdf_ds.Iriset
 
 type context =
     { base : Rdf_uri.uri ;
+      named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
       now : Netdate.t ; (** because all calls to NOW() must return the same value,
         we get it at the beginning of the evaluation and use it when required *)
     }
 
-let context ~base dataset =
-  { base ; dataset ; active = dataset.Rdf_ds.default ;
+let context ~base ?(named=Iriset.empty) dataset =
+  { base ; named ; dataset ; active = dataset.Rdf_ds.default ;
     now = Netdate.create (Unix.gettimeofday()) ;
   }
 ;;
@@ -1528,8 +1528,32 @@ and eval ctx = function
     let o2 = eval ctx a2 in
     union_omega o1 o2
 
-| Graph (var_or_iri, a) ->
-      assert false (* FIXME: implement *)
+| Graph (VIIri (PrefixedName _), _) -> assert false
+| Graph (VIIri (Iriref ir), a) ->
+    let iri = ir.ir_iri in
+    let ctx =
+      let g = ctx.dataset.Rdf_ds.get_named iri in
+      { ctx with active = g }
+    in
+    eval ctx a
+
+| Graph (VIVar v, a) ->
+      let f_iri iri acc_ms =
+        let omega =
+          let ctx =
+            let g = ctx.dataset.Rdf_ds.get_named iri in
+            { ctx with active = g }
+          in
+          eval ctx a
+        in
+        let f_mu mu o =
+          let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_node.Uri iri) mu in
+          Rdf_sparql_ms.omega_add mu o
+        in
+        let omega = Rdf_sparql_ms.omega_fold f_mu omega Rdf_sparql_ms.Multimu.empty in
+        Rdf_sparql_ms.omega_union acc_ms omega
+      in
+      Iriset.fold f_iri ctx.named Rdf_sparql_ms.Multimu.empty
 
 | Extend (a, var, expr) ->
     let o = eval ctx a in
