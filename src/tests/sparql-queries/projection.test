@@ -1,0 +1,10 @@
+(* Title of the test *)
+title = "Projection"
+(* Description of the test *)
+descr = "From http://www.w3.org/TR/sparql11-query/#modProjection"
+(* File containing the query *)
+query = "projection.spq"
+(* File containing the default graph *)
+default_graph = "projection.ttl"
+named_graphs = []
+

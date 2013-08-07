@@ -5,7 +5,7 @@ descr = "From http://www.w3.org/TR/sparql11-query/#namedAndDefaultGraph"
 (* File containing the query *)
 query = "named_graphs4.spq"
 (* File containing the default graph *)
-default_graph = "named_graphs4_data.ttl"
+default_graph = "named_graphs4.ttl"
 named_graphs = [
   ("http://example.org/2005-06-06:graph1", "named_graphs4_data1.ttl");
   ("http://example.org/2005-06-06:graph2", "named_graphs4_data2.ttl");
