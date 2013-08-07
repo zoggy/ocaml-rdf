@@ -1,0 +1,10 @@
+(* Title of the test *)
+title = "Duplicate solutions"
+(* Description of the test *)
+descr = "From http://www.w3.org/TR/sparql11-query/#modDistinct"
+(* File containing the query *)
+query = "distinct.spq"
+(* File containing the default graph *)
+default_graph = "duplicate_solutions.ttl"
+named_graphs = []
+
