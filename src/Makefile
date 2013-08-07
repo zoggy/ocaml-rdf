@@ -50,6 +50,7 @@ LIB_RDF_CMOFILES= \
 	rdf_rdf.cmo \
 	rdf_node.cmo \
 	rdf_graph.cmo \
+	rdf_ds.cmo \
 	rdf_mem.cmo \
 	rdf_dot.cmo \
 	rdf_xml.cmo \

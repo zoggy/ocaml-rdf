@@ -49,36 +49,25 @@ exception Cannot_compare_for_datatype of Rdf_uri.uri
 exception Unhandled_regex_flag of char
 exception Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 exception Empty_set of string (** sparql function name *)
-exception Could_not_retrieve_graph of Rdf_uri.uri * exn
 
-module Irimap = Map.Make
+
+module Irimap = Rdf_ds.Irimap
+module Iriset = Set.Make
   (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
 
 type context =
     { base : Rdf_uri.uri ;
-      mutable graphs : Rdf_graph.graph Irimap.t ;
+      dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
       now : Netdate.t ; (** because all calls to NOW() must return the same value,
         we get it at the beginning of the evaluation and use it when required *)
-      retrieve_graph : Rdf_uri.uri -> Rdf_graph.graph ;
     }
 
-let context ~base ?(graphs=[]) ?retrieve_graph graph =
-  let retrieve_graph =
-    match retrieve_graph with
-      Some f -> f
-    | None ->
-        let f uri = failwith "No implementation provided to retrieve named graphs." in
-        f
-  in
-  let graphs = List.fold_left (fun map (uri,g) -> Irimap.add uri g map) Irimap.empty graphs in
-  { base ; graphs ; active = graph ;
+let context ~base dataset =
+  { base ; dataset ; active = dataset.Rdf_ds.default ;
     now = Netdate.create (Unix.gettimeofday()) ;
-    retrieve_graph ;
   }
 ;;
-
-
 
 module GExprOrdered =
   struct

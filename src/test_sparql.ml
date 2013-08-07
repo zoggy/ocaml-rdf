@@ -64,7 +64,8 @@ let eval_query ?data query =
   let algebra = Rdf_sparql_algebra.translate_query_level q in
   print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
   print_endline (Rdf_ttl.to_string graph);
-  let ctx = Rdf_sparql_eval.context base graph in
+  let dataset = Rdf_ds.dataset graph in
+  let ctx = Rdf_sparql_eval.context base dataset in
   let omega = Rdf_sparql_eval.eval_list ctx algebra in
   let f_mu mu =
     Rdf_sparql_ms.SMap.iter
