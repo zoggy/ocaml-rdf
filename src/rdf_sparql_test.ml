@@ -3,6 +3,7 @@
 module C = Config_file;;
 
 open Rdf_sparql_types;;
+open Rdf_sparql_query;;
 
 let verb = print_endline;;
 
@@ -15,7 +16,7 @@ type test_spec =
     named : (Rdf_uri.uri * string) list ;
   }
 
-type result = Error of string | Ok of Rdf_sparql_ms.mu list
+type result = Error of string | Ok of Rdf_sparql_query.result
 
 type test = {
   spec : test_spec ;
@@ -83,38 +84,24 @@ let print_solution mu =
     mu.Rdf_sparql_ms.mu_bindings;
   print_newline()
 ;;
+
 let print_result = function
   Error s -> print_endline ("ERROR: "^s)
-| Ok solutions ->
+| Ok (Solutions solutions) ->
    Printf.printf "%d Solution(s):\n" (List.length solutions);
    List.iter print_solution solutions
+| Ok (Bool b) ->
+   print_endline (if b then "true" else "false")
+| Ok (Graph g) ->
+    print_endline (Rdf_ttl.to_string g)
 ;;
 
 let run_test spec =
   try
     let dataset = mk_dataset spec in
     let query = Rdf_sparql.parse_from_file spec.query in
-
-    let (base, ds, query) = Rdf_sparql_expand.expand_query spec.base query in
-    let q =
-      match query.q_kind with
-        Select s ->
-          { Rdf_sparql_algebra.query_proj = Some s.select_select ;
-            query_where = s.select_where ;
-            query_modifier = s.select_modifier ;
-            query_values = None ;
-          }
-      | _ -> failwith "only select queries implemented"
-    in
-    let algebra = Rdf_sparql_algebra.translate_query_level q in
-    print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
-    print_endline (Rdf_ttl.to_string dataset.Rdf_ds.default);
-    let ctx = Rdf_sparql_eval.context ~base
-      ?from: ds.Rdf_sparql_expand.from
-        ~from_named: ds.Rdf_sparql_expand.from_named dataset
-    in
-    let omega = Rdf_sparql_eval.eval_list ctx algebra in
-    { spec ; result = Ok omega }
+    let res = Rdf_sparql_query.execute spec.base dataset query in
+    { spec ; result = Ok res }
   with
     e ->
       let msg =

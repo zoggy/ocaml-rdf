@@ -13,3 +13,7 @@
 
 * subqueries
 
+* CONSTRUCT
+* ASK
+* DESCRIBE
+
