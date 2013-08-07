@@ -571,7 +571,7 @@ let rec string_of_path = function
 | ZeroOrOne p -> "("^(string_of_path p)^"?)"
 | ZeroOrMore p -> "("^(string_of_path p)^"*)"
 | OneOrMore p -> "("^(string_of_path p)^"+)"
-| _ -> assert false
+| NPS l -> "<nps>"
 
 let string_of_triple (x, path, y) =
   (string_of_var_or_term x) ^ " " ^

@@ -1447,6 +1447,24 @@ and eval_triple_path_or_more ctx ~zero x p y =
       in
       Rdf_node.NSet.fold f all_sub_and_obj Rdf_sparql_ms.Multimu.empty
 
+and eval_triple_path_nps ctx x iris y =
+  (* compute the triples and remove solutions where the predicate
+     is one of the iris. *)
+  let forbidden = List.fold_left
+     (fun set iriref -> Rdf_node.NSet.add (Rdf_node.Uri iriref.ir_iri) set)
+     Rdf_node.NSet.empty iris
+  in
+  (* we use a dummy variable to access the predicate in each solution *)
+  let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
+  let ms = eval_simple_triple ctx x (Var v) y in
+  let pred mu =
+    try
+      let p = Rdf_sparql_ms.mu_find_var v mu in
+      not (Rdf_node.NSet.mem p forbidden)
+    with Not_found -> false
+  in
+  Rdf_sparql_ms.omega_filter pred ms
+
 (* See http://www.w3.org/TR/sparql11-query/#PropertyPathPatterns *)
 and eval_triple ctx (x, path, y) =
   match path with
@@ -1474,7 +1492,8 @@ and eval_triple ctx (x, path, y) =
       eval_triple_path_or_more ~zero: true ctx x p y
   | OneOrMore p ->
       eval_triple_path_or_more ~zero: false ctx x p y
-  | _ -> failwith "not implemented"
+  | NPS iris ->
+      eval_triple_path_nps ctx x iris y
 
 and eval ctx = function
 | BGP triples ->
