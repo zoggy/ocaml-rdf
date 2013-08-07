@@ -65,9 +65,9 @@ let eval_query ?data query =
   print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
   print_endline (Rdf_ttl.to_string graph);
   let dataset = Rdf_ds.dataset graph in
-  let ctx = Rdf_sparql_eval.context base
-     ?from: ds.df_sparql_expand.from
-     ~named: ds.Rdf_sparql_expand.from_named dataset
+  let ctx = Rdf_sparql_eval.context ~base
+     ?from: ds.Rdf_sparql_expand.from
+     ~from_named: ds.Rdf_sparql_expand.from_named dataset
   in
   let omega = Rdf_sparql_eval.eval_list ctx algebra in
   let f_mu mu =
@@ -83,8 +83,6 @@ let eval_query ?data query =
 let parse_query parse ?data source =
   try
     let q = parse source in
-    let base = Rdf_uri.uri "http://foo.bar/" in
-    let (_, q) = Rdf_sparql_expand.expand_query base q in
     if !print_queries then
       print_endline (Rdf_sparql.string_of_query q);
     if !eval_queries then

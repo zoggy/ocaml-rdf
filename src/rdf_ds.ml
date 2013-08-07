@@ -15,7 +15,7 @@ type dataset =
     get_named : Rdf_uri.uri -> Rdf_graph.graph ;
   }
 
-let base_dataset ?(named=[]) default =
+let simple_dataset ?(named=[]) default =
   let named = List.fold_left (fun map (uri,g) -> Irimap.add uri g map) Irimap.empty named in
   let get_named uri =
     try Irimap.find uri named
@@ -28,6 +28,6 @@ let base_dataset ?(named=[]) default =
 
 let dataset ?get_named default =
   match get_named with
-    None -> base_dataset default
+    None -> simple_dataset default
   | Some get_named -> { default ; get_named }
 ;;

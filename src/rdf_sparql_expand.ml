@@ -428,8 +428,8 @@ let build_dataset =
       { ds with
         from_named = Rdf_ds.Iriset.add ir.ir_iri ds.from_named }
   in
-  let build q = iter
-    { from = None ; from_named = Rdf_ds.Iriset.empty }
+  let build clauses = List.fold_left iter
+    { from = None ; from_named = Rdf_ds.Iriset.empty } clauses
   in
   function
     Select q -> build q.select_dataset
