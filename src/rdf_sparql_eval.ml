@@ -1257,6 +1257,7 @@ let filter_of_var_or_term = function
          in
          (s, None)
     | GraphTermNil -> (None, None)
+    | GraphTermNode node -> (None, Some node)
 
 let eval_simple_triple =
   let add mu term = function
@@ -1304,6 +1305,12 @@ let __print_mu mu =
 let __print_omega o =
   Rdf_sparql_ms.omega_iter __print_mu o;;
 
+let active_graph_subjects_and_objects ctx =
+  let add set node = Rdf_node.NSet.add node set in
+  let set = List.fold_left add Rdf_node.NSet.empty (ctx.active.Rdf_graph.subjects ()) in
+  List.fold_left add set (ctx.active.Rdf_graph.objects ())
+;;
+
 let rec eval_triples =
   let eval_join ctx acc triple =
     let o = eval_triple ctx triple in
@@ -1318,6 +1325,10 @@ and eval_triple_path_zero_or_one ctx x p y =
   match x, y with
   | T.Var v, ((GraphTerm _) as t)
   | ((GraphTerm _) as t), T.Var v ->
+     (*
+       eval(Path(X:term, ZeroOrOnePath(P), Y:var)) = { (Y, yn) | yn = X or {(Y, yn)} in eval(Path(X,P,Y)) }
+       eval(Path(X:var, ZeroOrOnePath(P), Y:term)) = { (X, xn) | xn = Y or {(X, xn)} in eval(Path(X,P,Y)) }
+     *)
      let (_, term) = filter_of_var_or_term t in
      (
       match term with
@@ -1336,6 +1347,11 @@ and eval_triple_path_zero_or_one ctx x p y =
           )
       )
   | GraphTerm _, GraphTerm _ ->
+      (*
+        eval(Path(X:term, ZeroOrOnePath(P), Y:term)) =
+          { {} } if X = Y or eval(Path(X,P,Y)) is not empty
+          { } othewise
+      *)
       let (_, term1) = filter_of_var_or_term x in
       let (_, term2) = filter_of_var_or_term y in
       if not (Rdf_sparql_ms.Multimu.is_empty ms_one) or
@@ -1346,11 +1362,88 @@ and eval_triple_path_zero_or_one ctx x p y =
         Rdf_sparql_ms.Multimu.empty
 
   | T.Var v1, T.Var v2 ->
-      (* FIXME: specification not clear:
-        "eval(Path(X:var, ZeroOrOnePath(P), Y:var)) =
-    { (X, xn) (Y, yn) | either (yn in nodes(G) and xn = yn) or {(X,xn), (Y,yn)} in eval(Path(X,P,Y)) }"
+      (*
+        eval(Path(X:var, ZeroOrOnePath(P), Y:var)) =
+          { (X, xn) (Y, yn) | either (yn in nodes(G) and xn = yn) or {(X,xn), (Y,yn)} in eval(Path(X,P,Y)) }
       *)
-      ms_one
+      let all_sub_and_obj = active_graph_subjects_and_objects ctx in
+      let f node ms =
+        let mu = Rdf_sparql_ms.mu v1.var_name node in
+        let mu = Rdf_sparql_ms.mu_add v2.var_name node mu in
+        Rdf_sparql_ms.omega_add_if_not_present mu ms
+      in
+      Rdf_node.NSet.fold f all_sub_and_obj ms_one
+
+and eval_reachable =
+  let node_of_graphterm t =
+      match filter_of_var_or_term t with
+        (_, None) -> assert false
+      | (_, Some node) -> node
+  in
+  let rec iter ?(keep=true) ctx term path var (seen, acc_ms) =
+    let node = node_of_graphterm term in
+    match Rdf_node.NSet.mem node seen with
+      true -> (seen, acc_ms)
+    | false ->
+        let seen = Rdf_node.NSet.add node seen in
+        let ms = eval_triple ctx (term, path, Rdf_sparql_types.Var var) in
+        (* for each solution, use the node associated to var as
+           starting point for next iteration *)
+        let f mu (seen, acc_ms) =
+          try
+            let acc_ms =
+              if keep
+              then Rdf_sparql_ms.omega_add_if_not_present mu acc_ms
+              else acc_ms
+            in
+            let node = Rdf_sparql_ms.mu_find_var var mu in
+            iter ctx (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
+          with Not_found -> (seen, acc_ms)
+        in
+        Rdf_sparql_ms.omega_fold f ms (seen, acc_ms)
+  in
+  fun ?(zero=false) ctx term path var ->
+    let (_,ms) = iter ~keep:zero ctx term path var
+                (Rdf_node.NSet.empty, Rdf_sparql_ms.Multimu.empty)
+    in
+    ms
+
+and eval_triple_path_or_more ctx ~zero x p y =
+  match x, y with
+  | GraphTerm _, T.Var v ->
+      eval_reachable ~zero ctx x p v
+  | T.Var v, GraphTerm _ ->
+      eval_reachable ~zero ctx x (Inv p) v
+  | GraphTerm _, GraphTerm _ ->
+      let node =
+        match filter_of_var_or_term y with
+          (_, None) ->  assert false
+        | (_, Some node) -> node
+      in
+      let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
+      let solutions = eval_reachable ~zero ctx x p v in
+      let pred mu =
+        try Rdf_node.compare (Rdf_sparql_ms.mu_find_var v mu) node = 0
+        with Not_found -> false
+      in
+      if Rdf_sparql_ms.omega_exists pred solutions then
+        Rdf_sparql_ms.omega_0
+      else
+        Rdf_sparql_ms.Multimu.empty
+
+  | T.Var v1, T.Var v2 ->
+      let all_sub_and_obj = active_graph_subjects_and_objects ctx in
+      let f node acc_ms =
+        let term = GraphTerm (GraphTermNode node) in
+        let ms = eval_reachable ~zero ctx term p v2 in
+        (* add (v1 -> node) to each returned solution *)
+        let f mu acc_ms =
+          let mu = Rdf_sparql_ms.mu_add v1.var_name node mu in
+          Rdf_sparql_ms.omega_add mu acc_ms
+        in
+        Rdf_sparql_ms.omega_fold f ms acc_ms
+      in
+      Rdf_node.NSet.fold f all_sub_and_obj Rdf_sparql_ms.Multimu.empty
 
 (* See http://www.w3.org/TR/sparql11-query/#PropertyPathPatterns *)
 and eval_triple ctx (x, path, y) =
@@ -1375,6 +1468,10 @@ and eval_triple ctx (x, path, y) =
       eval ctx (Union (bgp1, bgp2))
   | ZeroOrOne p ->
       eval_triple_path_zero_or_one ctx x p y
+  | ZeroOrMore p ->
+      eval_triple_path_or_more ~zero: true ctx x p y
+  | OneOrMore p ->
+      eval_triple_path_or_more ~zero: false ctx x p y
   | _ -> failwith "not implemented"
 
 and eval ctx = function

@@ -279,6 +279,7 @@ and expand_graph_term env = function
   | GraphTermBoolean lit -> GraphTermBoolean (expand_rdf_literal env lit)
   | GraphTermBlank b -> GraphTermBlank b
   | GraphTermNil -> GraphTermNil
+  | GraphTermNode _ -> assert false
 
 and expand_var_or_term env = function
   | Var v -> Var v

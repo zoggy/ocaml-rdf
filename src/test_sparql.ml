@@ -137,7 +137,11 @@ let main () =
     | Some file ->
         let base = Rdf_uri.uri "http://localhost/" in
         let graph = Rdf_graph.open_graph base in
-        Some (Rdf_ttl.from_file graph ~base file)
+        try Some (Rdf_ttl.from_file graph ~base file)
+        with
+        | Rdf_ttl.Error e ->
+            prerr_endline (Rdf_ttl.string_of_error e);
+            exit 1
   in
   List.iter (parse_query_string ?data) queries;
   List.iter (parse_query_file ?data) files;

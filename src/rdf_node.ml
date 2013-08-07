@@ -197,5 +197,7 @@ module Ord_type =
     let compare = compare
   end;;
 
+module NSet = Set.Make (Ord_type);;
+
 let lit_true = mk_literal_bool true
 let lit_false = mk_literal_bool false

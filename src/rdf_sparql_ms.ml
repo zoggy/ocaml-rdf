@@ -123,6 +123,14 @@ let omega_add =
     Multimu.add (genid(), mu) ms
 ;;
 
+let omega_add_if_not_present =
+  let pred mu0 (_,mu) = mu_compare mu0 mu = 0 in
+  fun mu ms ->
+    if Multimu.exists (pred mu) ms
+    then ms
+    else omega_add mu ms
+;;
+
 let omega_0 = omega_add mu_0 Multimu.empty
 let omega x t = omega_add (mu x t) Multimu.empty
 
@@ -228,4 +236,7 @@ let omega_iter =
   fun g o -> Multimu.iter (f g) o
 ;;
 
-  
+let omega_exists =
+  let f pred (_, mu) = pred mu in
+  fun pred o -> Multimu.exists (f pred) o
+;;

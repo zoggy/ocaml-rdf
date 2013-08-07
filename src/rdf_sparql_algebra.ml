@@ -560,6 +560,7 @@ let string_of_var_or_term = function
           | Some s -> "_:"^s
         end
     | GraphTermNil -> "()"
+    | GraphTermNode node -> Rdf_node.string_of_node node
 
 let rec string_of_path = function
   Var v ->  "?"^v.var_name
@@ -568,6 +569,8 @@ let rec string_of_path = function
 | Alt (p1, p2) -> "("^(string_of_path p1)^" | "^(string_of_path p2)^")"
 | Seq (p1, p2) -> "("^(string_of_path p1)^" / "^(string_of_path p2)^")"
 | ZeroOrOne p -> "("^(string_of_path p)^"?)"
+| ZeroOrMore p -> "("^(string_of_path p)^"*)"
+| OneOrMore p -> "("^(string_of_path p)^"+)"
 | _ -> assert false
 
 let string_of_triple (x, path, y) =

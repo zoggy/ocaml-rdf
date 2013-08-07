@@ -258,6 +258,7 @@ and graph_term f acc = function
   | GraphTermBoolean lit -> GraphTermBoolean (f.rdf_literal f acc lit)
   | GraphTermBlank b -> GraphTermBlank (f.blank_node f acc b)
   | GraphTermNil -> GraphTermNil
+  | GraphTermNode _ -> assert false
 
 and var_or_term f acc = function
   | Var v -> Var (f.var f acc v)

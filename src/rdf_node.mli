@@ -44,6 +44,7 @@ type node =
 val compare : node -> node -> int
 
 module Ord_type : sig type t = node val compare : node -> node -> int end
+module NSet : Set.S with type elt = node
 
 (** A RDF triple is just ... a triple of nodes. *)
 type triple = node * node * node

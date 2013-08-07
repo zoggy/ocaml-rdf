@@ -400,6 +400,7 @@ and print_graph_term b = function
   | GraphTermBoolean lit -> print_rdf_literal b lit
   | GraphTermBlank bnode -> print_bnode b bnode
   | GraphTermNil -> p b "()"
+  | GraphTermNode _ -> assert false
 
 and print_var_or_term b = function
   | Var v -> print_var b v

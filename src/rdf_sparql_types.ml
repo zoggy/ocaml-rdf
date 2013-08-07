@@ -352,6 +352,7 @@ and graph_term =
   | GraphTermBoolean of rdf_literal
   | GraphTermBlank of blank_node
   | GraphTermNil
+  | GraphTermNode of Rdf_node.node (** not parsed, but used in evaluation of paths *)
 
 and var_or_term =
   | Var of var
