@@ -24,6 +24,7 @@
 
 type error =
 | Parse_error of int * int * string
+| Exception of exn
 
 exception Error of error
 

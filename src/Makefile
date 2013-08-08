@@ -121,6 +121,9 @@ test_xml: $(LIB_RDF) test_xml.cmx
 test_ttl: $(LIB_RDF) test_ttl.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_ttl.cmx
 
+rdf_to_ttl: $(LIB_RDF) rdf_to_ttl.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) rdf_to_ttl.cmx
+
 test_sparql: $(LIB_RDF) test_sparql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_sparql.cmx
 
@@ -211,7 +214,7 @@ rdf_sparql_lex.ml: rdf_sparql_lex.mll
 	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
-	$(MENHIR) --explain --infer --table --base rdf_sparql_parser $^ # --trace
+	$(MENHIR) --explain --infer --base rdf_sparql_parser $^ # --trace
 
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<

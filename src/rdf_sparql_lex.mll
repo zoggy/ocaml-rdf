@@ -406,7 +406,10 @@ let rec main = lexer
 | eof ->
     EOF
 | _ ->
-  failwith (Printf.sprintf "Unexpected lexeme: %S" (Ulexing.utf8_lexeme lexbuf));
+  let msg = Printf.sprintf "Unexpected lexeme: %S"
+    (Ulexing.utf8_lexeme lexbuf)
+  in
+  failwith msg
 ;;
 
 let int_of_hex c =

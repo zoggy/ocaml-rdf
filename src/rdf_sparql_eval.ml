@@ -73,7 +73,7 @@ let context ~base ?from ?(from_named=Iriset.empty) dataset =
     | Some iri -> dataset.Rdf_ds.get_named iri
   in
   let named =
-    (* if not named graph is specified, they use the named graphs of
+    (* if no named graph is specified, then use the named graphs of
        dataset *)
     if Iriset.is_empty from_named then
       dataset.Rdf_ds.named
