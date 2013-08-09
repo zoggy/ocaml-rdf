@@ -1522,7 +1522,7 @@ and eval_triple ctx (x, path, y) =
 and eval ctx = function
 | BGP triples ->
       let om = eval_triples ctx triples in
-      __print_omega om;
+      (*__print_omega om;*)
       om
 
 | Join (a1, a2) ->
@@ -1563,7 +1563,7 @@ and eval ctx = function
           eval ctx a
         in
         let f_mu mu o =
-          prerr_endline ("Add var "^v.var_name^" with value "^(Rdf_uri.string iri));
+          dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Rdf_uri.string iri)));
           let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_node.Uri iri) mu in
           Rdf_sparql_ms.omega_add mu o
         in
