@@ -59,3 +59,14 @@ val create_log_fun_with_set :
   (int -> unit)
 
 val compare_list : ('a -> 'a -> int) -> 'a list -> 'a list -> int
+
+(*i==v=[File.string_of_file]=1.0====*)
+(** [string_of_file filename] returns the content of [filename]
+   in the form of one string.
+@author Maxence Guesdon
+@version 1.0
+@raise Sys_error if the file could not be opened.
+@cgname File.string_of_file*)
+val string_of_file : string -> string
+(*/i==v=[File.string_of_file]=1.0====*)
+

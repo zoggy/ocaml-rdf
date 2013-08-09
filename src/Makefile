@@ -46,10 +46,10 @@ LIB_POSTGRESQL_CMXS=$(LIB_POSTGRESQL:.cmxa=.cmxs)
 
 LIB_RDF_CMOFILES= \
 	rdf_config.cmo \
-	rdf_loc.cmo \
 	rdf_utf8.cmo \
-	rdf_uri.cmo \
 	rdf_misc.cmo \
+	rdf_loc.cmo \
+	rdf_uri.cmo \
 	rdf_rdf.cmo \
 	rdf_node.cmo \
 	rdf_graph.cmo \
@@ -73,7 +73,6 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_expand.cmo \
 	rdf_sparql_ms.cmo \
 	rdf_sparql_eval.cmo \
-	rdf_sparql_query.cmo \
 	rdf_sparql.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)

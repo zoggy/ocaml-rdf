@@ -27,7 +27,23 @@
 open Rdf_sparql_types
 module T = Rdf_sparql_types
 
-exception Variable_already_defined of var
+type error =
+| Variable_already_defined of var
+| Unknown_prefix of pname_ns
+
+exception Error of error
+let error e = raise (Error e)
+
+let string_of_error = function
+| Variable_already_defined v ->
+    Printf.sprintf "%sMultiply defined variable %S"
+      (Rdf_loc.string_of_loc v.var_loc) v.var_name
+| Unknown_prefix p ->
+   Printf.sprintf "%sUnknown prefix %S"
+      (Rdf_loc.string_of_loc p.pname_ns_loc)
+      p.pname_ns_name
+;;
+
 
 type query =
     {
@@ -498,7 +514,7 @@ and translate_query_level q =
          | Some e ->
              let v = sv.sel_var in
              if VS.mem v visible_vars then
-               raise (Variable_already_defined v);
+               error (Variable_already_defined v);
              (VS.add v acc, (v, e) :: env)
        in
        List.fold_left f (VS.empty, List.rev env) l

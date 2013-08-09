@@ -26,74 +26,57 @@ open Rdf_sparql_types;;
 open Rdf_sparql_eval;;
 
 type error =
-| Parse_error of int * int * string
-| Exception of exn
+| Parse_error of Rdf_loc.loc * string
+| Value_error of Rdf_dt.error
+| Eval_error of Rdf_sparql_eval.error
+| Algebra_error of Rdf_sparql_algebra.error
 
 exception Error of error
+let error e = raise (Error e)
 
-let string_of_error = function
-  Parse_error (start, stop, s) ->
-    Printf.sprintf "characters %d-%d: %s" start stop s
-| Exception e ->
-    match e with
-      Unbound_variable v ->
-        Printf.sprintf "%sUnbound variable %S"
-          (Rdf_loc.string_of_loc v.var_loc) v.var_name
-    | Not_a_integer lit ->
-        "Not an integer: "^(Rdf_node.string_of_literal lit)
-    | Not_a_double_or_decimal lit ->
-        "Not an double: "^(Rdf_node.string_of_literal lit)
-    | Type_mismatch (v1, v2) -> (* FIXME: show values *)
-        "Type mismatch"
-    | Invalid_fun_argument uri ->
-        "Invalid argument for function "^(Rdf_uri.string uri)
-    | Unknown_fun uri ->
-        "Unknown function "^(Rdf_uri.string uri)
-    | Invalid_built_in_fun_argument (name, _) ->
-        "Invalid argument list for builtin function "^name
-    | Unknown_built_in_fun name ->
-        "Unknown builtit function "^name
-    | No_term ->
-        "No term"
-    | Cannot_compare_for_datatype uri ->
-        "Cannot compare values of datatype "^(Rdf_uri.string uri)
-    | Unhandled_regex_flag c ->
-        "Unhandled regexp flag "^(String.make 1 c)
-    | Incompatible_string_literals (v1, v2) -> (* FIXME: show values *)
-        "Incompatible string literals"
-    | Empty_set name ->
-        "Empty set in function "^name
-    | Failure msg ->
-         msg
-    | e -> Printexc.to_string e
+let rec string_of_error = function
+  Parse_error (loc, s) ->
+    Printf.sprintf "%s%s" (Rdf_loc.string_of_loc loc) s
+
+| Value_error (Rdf_dt.Exception (Rdf_dt.Error e)) ->
+    string_of_error (Value_error e)
+
+| Value_error (Rdf_dt.Exception (Rdf_sparql_eval.Error e))
+| Eval_error e -> Rdf_sparql_eval.string_of_error e
+
+| Value_error e -> Rdf_dt.string_of_error e
+| Algebra_error e -> Rdf_sparql_algebra.string_of_error e
 ;;
 
-let parse_from_lexbuf lexbuf =
-  let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main in
+
+let parse_from_lexbuf source_info ?fname lexbuf =
+  let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in
   let q =
     try parse lexbuf
     with
     (*| MenhirLib.TableInterpreter.Accept _ *)
     | Rdf_sparql_parser.Error ->
         let (start, stop) = Ulexing.loc lexbuf in
+        let loc = source_info start stop in
         let lexeme = Ulexing.utf8_lexeme lexbuf in
-        let msg = Printf.sprintf "parse error on lexeme %S" lexeme in
-        raise (Error (Parse_error (start, stop, msg)))
+        let msg = Printf.sprintf "Parse error on lexeme %S" lexeme in
+        raise (Error (Parse_error (loc, msg)))
     | Failure msg ->
         let (start, stop) = Ulexing.loc lexbuf in
-        raise (Error (Parse_error (start, stop, msg)))
+        let loc = source_info start stop in
+        raise (Error (Parse_error (loc, msg)))
   in
   q
 
 let parse_from_string s =
   let lexbuf = Ulexing.from_utf8_string s in
-  parse_from_lexbuf lexbuf
+  parse_from_lexbuf (Rdf_loc.source_info_string s) lexbuf
 ;;
 
 let parse_from_file file =
   let ic = open_in file in
   let lexbuf = Ulexing.from_utf8_channel ic in
-  try parse_from_lexbuf lexbuf
+  try parse_from_lexbuf (Rdf_loc.source_info_file file) ~fname: file lexbuf
   with e ->
       close_in ic;
       raise e
@@ -104,3 +87,79 @@ let string_of_query q =
   Rdf_sparql_print.print_query b q ;
   Buffer.contents b
 ;;
+
+
+let dbg = Rdf_misc.create_log_fun
+  ~prefix: "Rdf_sparql_eval"
+    "RDF_SPARQL_QUERY_DEBUG_LEVEL"
+;;
+
+
+type query_result =
+  Bool of bool
+| Solutions of Rdf_sparql_ms.mu list
+| Graph of Rdf_graph.graph
+
+let execute ~base dataset query =
+  let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
+  let q =
+    match query.q_kind with
+      Select s ->
+        { Rdf_sparql_algebra.query_proj = Some s.select_select ;
+          query_where = s.select_where ;
+          query_modifier = s.select_modifier ;
+          query_values = None ;
+        }
+    | Ask a ->
+        { Rdf_sparql_algebra.query_proj = None ;
+          query_where = a.ask_where ;
+          query_modifier = a.ask_modifier ;
+          query_values = None ;
+        }
+    | Construct c ->
+        let w =
+          match c.constr_where with
+            Constr_ggp ggp -> ggp
+          | Constr_template _ -> assert false (* FIXME: implement *)
+        in
+        { Rdf_sparql_algebra.query_proj = None ;
+          query_where = w ;
+          query_modifier = c.constr_modifier ;
+          query_values = None ;
+        }
+    | Describe d ->
+        let w =
+          match d.desc_where with
+          | None -> GGPSub { ggp_sub_loc = Rdf_loc.dummy_loc ; ggp_sub_elts = [] }
+          | Some w -> w
+        in
+        { Rdf_sparql_algebra.query_proj = None ; (* FIXME: handle desc_sel *)
+          query_where = w ;
+          query_modifier = d.desc_modifier ;
+          query_values = None ;
+        }
+  in
+  let algebra = Rdf_sparql_algebra.translate_query_level q in
+  dbg ~level: 2 (fun () -> Rdf_sparql_algebra.string_of_algebra algebra);
+  dbg ~level: 2 (fun () -> Rdf_ttl.to_string dataset.Rdf_ds.default);
+  let ctx = Rdf_sparql_eval.context ~base
+    ?from: ds.Rdf_sparql_expand.from
+        ~from_named: ds.Rdf_sparql_expand.from_named dataset
+  in
+  let solutions = Rdf_sparql_eval.eval_list ctx algebra in
+  match query.q_kind with
+    Select _ -> Solutions solutions
+  | Ask _ -> Bool (solutions <> [])
+  | Construct _ -> assert false
+  | Describe _ -> assert false
+;;
+
+let execute ~base dataset query =
+  try execute ~base dataset query
+  with
+    Rdf_dt.Error e -> error (Value_error e)
+  | Rdf_sparql_eval.Error e -> error (Eval_error e)
+  | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+;;
+
+  

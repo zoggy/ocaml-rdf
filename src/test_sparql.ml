@@ -50,34 +50,20 @@ let eval_query ?data query =
       None -> Rdf_graph.open_graph base
     | Some g -> g
   in
-  let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
-  let q =
-    match query.q_kind with
-      Select s ->
-        { query_proj = Some s.select_select ;
-          query_where = s.select_where ;
-          query_modifier = s.select_modifier ;
-          query_values = None ;
-        }
-    | _ -> failwith "only select queries implemented"
-  in
-  let algebra = Rdf_sparql_algebra.translate_query_level q in
-  print_endline (Rdf_sparql_algebra.string_of_algebra algebra);
-  print_endline (Rdf_ttl.to_string graph);
   let dataset = Rdf_ds.dataset graph in
-  let ctx = Rdf_sparql_eval.context ~base
-     ?from: ds.Rdf_sparql_expand.from
-     ~from_named: ds.Rdf_sparql_expand.from_named dataset
-  in
-  let omega = Rdf_sparql_eval.eval_list ctx algebra in
-  let f_mu mu =
-    Rdf_sparql_ms.SMap.iter
-      (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-      mu.Rdf_sparql_ms.mu_bindings;
-    print_newline()
-  in
-  print_endline "Solutions:";
-  List.iter f_mu omega
+  match Rdf_sparql.execute ~base dataset query with
+  | Rdf_sparql.Bool true -> print_endline "true"
+  | Rdf_sparql.Bool false -> print_endline "false"
+  | Rdf_sparql.Graph _ -> print_endline "graph"
+  | Rdf_sparql.Solutions sols ->
+      let f_mu mu =
+        Rdf_sparql_ms.SMap.iter
+          (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+          mu.Rdf_sparql_ms.mu_bindings;
+        print_newline()
+      in
+      print_endline "Solutions:";
+      List.iter f_mu sols
 ;;
 
 let parse_query parse ?data source =
@@ -90,16 +76,6 @@ let parse_query parse ?data source =
   with
     Rdf_sparql.Error e ->
       prerr_endline (Rdf_sparql.string_of_error e);
-      exit 1
-  | Rdf_sparql_eval.Unknown_fun iri ->
-      prerr_endline ("Unknown function "^(Rdf_uri.string iri));
-      exit 1
-  | Rdf_sparql_eval.Unbound_variable v ->
-      let msg =
-        Printf.sprintf "%sUnbound variable %S"
-          (Rdf_loc.string_of_loc v.var_loc) v.var_name
-      in
-      prerr_endline msg;
       exit 1
 ;;
 

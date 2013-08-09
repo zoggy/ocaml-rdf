@@ -16,6 +16,31 @@ let dummy_loc = {
     loc_end = Lexing.dummy_pos ;
   }
 
+
+let source_info_string s start stop =
+  let bols = Rdf_utf8.utf8_string_get_bol s in
+  let rec search cnum = function
+    [] -> (1,0)
+  | (line,bol) :: q ->
+      if cnum >= bol then (line, bol) else search cnum q
+  in
+  let pos p =
+    let (line, bol) = search p bols in
+    { pos_cnum = p ; pos_fname = "" ;
+      pos_bol = bol ; pos_lnum = line ;
+    }
+  in
+  { loc_start = pos start ; loc_end = pos stop }
+;;
+
+let source_info_file file start stop =
+  let s = Rdf_misc.string_of_file file in
+  let loc = source_info_string s start stop in
+  {
+    loc_start = {loc.loc_start with pos_fname = file } ;
+    loc_end = { loc.loc_end with pos_fname = file } ;
+  }
+
 let (msg_file, msg_line, msg_char, msg_chars, msg_to, msg_colon, msg_head) =
   ("File \"", "\", line ", ", character ", ", characters ", "-", ":", "")
 
@@ -53,3 +78,4 @@ let string_of_loc loc =
   print Format.str_formatter loc;
   Format.flush_str_formatter ()
 ;;
+

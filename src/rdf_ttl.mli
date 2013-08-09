@@ -24,7 +24,7 @@
 
 (** Reading and writing Turtle. *)
 
-type error = Parse_error of int * int * string | Unknown_namespace of string
+type error = Parse_error of Rdf_loc.loc * string | Unknown_namespace of string
 exception Error of error
 val string_of_error : error -> string
 

@@ -43,9 +43,9 @@ let regexp double = ('-' | '+') ? ( ['0'-'9']+ '.' ['0'-'9']* exponent | '.' (['
 let regexp decimal = ('-' | '+')? ( ['0'-'9']+ '.' ['0'-'9']* | '.' (['0'-'9'])+ | (['0'-'9'])+ )
 let regexp boolean = "true" | "false"
 
-let rec longstring b = lexer
+let rec longstring b line = lexer
 | longstring_delim ->
-    String_ (Buffer.contents b)
+    line, String_ (Buffer.contents b)
 | '\\' character ->
     let s = Ulexing.utf8_lexeme lexbuf in
     (* unescape some characters *)
@@ -57,55 +57,57 @@ let rec longstring b = lexer
      | '"' -> Buffer.add_char b '"'
      | _ -> Buffer.add_string b s
     );
-    longstring b lexbuf
+    longstring b line lexbuf
 | ('"' | ( [^'"' '\\'] | '\n')* ) ->
     let s = Ulexing.utf8_lexeme lexbuf in
     Buffer.add_string b s ;
-    longstring b lexbuf
+    longstring b (line + Rdf_utf8.utf8_count_nl s) lexbuf
 | eof ->
    failwith "Unterminated long string"
 ;;
 
-let rec main = lexer
-| 'a' -> A
-| "\r\n" | '\r' | '\n' -> main lexbuf
-| comment -> main lexbuf
-| ws -> main lexbuf
-| '(' -> LEFT_PAR
-| ')' -> RIGHT_PAR
-| "[]" -> EMPTY_BRACKETS
-| '[' -> LEFT_BRACKET
-| ']' -> RIGHT_BRACKET
-| ',' -> COMMA
-| ';' -> SEMICOLON
-| '.' -> DOT
-| "@prefix" -> AT_PREFIX
-| "@base" -> AT_BASE
-| '@' -> AT
-| "^^" -> HATHAT
+let rec main line = lexer
+| 'a' -> line, A
+| "\r\n" -> main (line+1) lexbuf
+| '\r' -> main line lexbuf
+| '\n' -> main (line+1) lexbuf
+| comment -> main line lexbuf
+| ws -> main line lexbuf
+| '(' -> line, LEFT_PAR
+| ')' -> line, RIGHT_PAR
+| "[]" -> line, EMPTY_BRACKETS
+| '[' -> line, LEFT_BRACKET
+| ']' -> line, RIGHT_BRACKET
+| ',' -> line, COMMA
+| ';' -> line, SEMICOLON
+| '.' -> line, DOT
+| "@prefix" -> line, AT_PREFIX
+| "@base" -> line, AT_BASE
+| '@' -> line, AT
+| "^^" -> line, HATHAT
 | boolean ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Boolean s
+      line, Boolean s
 | integer ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Integer s
+      line, Integer s
 | decimal ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Decimal s
+      line, Decimal s
 | double ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Double s
+      line, Double s
 | uriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Uriref_ (String.sub s 1 (String.length s - 2))
+      line, Uriref_ (String.sub s 1 (String.length s - 2))
 | prefixName? ':' ->
       let s = Ulexing.utf8_lexeme lexbuf in
       (*prerr_endline (Printf.sprintf "prefixName %s" s);*)
-      Identifier (String.sub s 0 (String.length s - 1))
+      line, Identifier (String.sub s 0 (String.length s - 1))
 | nodeid ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let id = String.sub s 2 (String.length s - 2) in
-  Bname id
+  line, Bname id
 | qname ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let p = String.index s ':' in
@@ -121,16 +123,16 @@ let rec main = lexer
     else
       None
   in
-  Qname_ (s1, s2)
+  line, Qname_ (s1, s2)
 
 | langtag ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      Identifier s
-| longstring_delim -> longstring (Buffer.create 256) lexbuf
+      line, Identifier s
+| longstring_delim -> longstring (Buffer.create 256) line lexbuf
 | string ->
    let s = Ulexing.utf8_lexeme lexbuf in
-   String_ (String.sub s 1 (String.length s - 2))
-| eof -> EOF
+   line, String_ (String.sub s 1 (String.length s - 2))
+| eof -> line, EOF
 | _ ->
   let s = Ulexing.utf8_lexeme lexbuf in
   failwith (Printf.sprintf "Lexeme %S not handled" s)

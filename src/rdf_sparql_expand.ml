@@ -2,8 +2,6 @@
 
 open Rdf_sparql_types
 
-exception Unknown_prefix of pname_ns
-
 let map_opt = Rdf_misc.map_opt;;
 
 module SMap = Rdf_xml.SMap;;
@@ -33,7 +31,7 @@ let expand_iri env = function
       | s ->
           try SMap.find s env.prefixes
           with Not_found ->
-              raise (Unknown_prefix pname.pname_ns)
+              Rdf_sparql_algebra.error (Rdf_sparql_algebra.Unknown_prefix pname.pname_ns)
     in
     let iri =
       match pname.pname_local with

@@ -22,11 +22,17 @@
 (*                                                                               *)
 (*********************************************************************************)
 
+(** Sparql queries. *)
+
 type error =
-| Parse_error of int * int * string
-| Exception of exn
+| Parse_error of Rdf_loc.loc * string
+| Value_error of Rdf_dt.error
+| Eval_error of Rdf_sparql_eval.error
+| Algebra_error of Rdf_sparql_algebra.error
 
 exception Error of error
+
+(** {2 Parsing and printing Sparql queries} *)
 
 val string_of_error : error -> string
 
@@ -34,3 +40,14 @@ val parse_from_string : string -> Rdf_sparql_types.query
 val parse_from_file : string -> Rdf_sparql_types.query
 
 val string_of_query : Rdf_sparql_types.query -> string
+
+(** {2 Executing queries} *)
+
+type query_result =
+  Bool of bool
+| Solutions of Rdf_sparql_ms.mu list
+| Graph of Rdf_graph.graph
+
+val execute :
+  base:Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> query_result
+

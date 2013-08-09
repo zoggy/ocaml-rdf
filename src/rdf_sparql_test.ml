@@ -3,7 +3,7 @@
 module C = Config_file;;
 
 open Rdf_sparql_types;;
-open Rdf_sparql_query;;
+open Rdf_sparql;;
 
 let verb = print_endline;;
 
@@ -16,7 +16,7 @@ type test_spec =
     named : (Rdf_uri.uri * string) list ;
   }
 
-type result = Error of string | Ok of Rdf_sparql_query.result
+type result = Error of string | Ok of Rdf_sparql.query_result
 
 type test = {
   spec : test_spec ;
@@ -100,18 +100,13 @@ let run_test spec =
   try
     let dataset = mk_dataset spec in
     let query = Rdf_sparql.parse_from_file spec.query in
-    let res = Rdf_sparql_query.execute spec.base dataset query in
+    let res = Rdf_sparql.execute spec.base dataset query in
     { spec ; result = Ok res }
   with
     e ->
       let msg =
         match e with
           Rdf_sparql.Error e -> Rdf_sparql.string_of_error e
-        | Rdf_sparql_eval.Unknown_fun iri ->
-            "Unknown function "^(Rdf_uri.string iri)
-        | Rdf_sparql_eval.Unbound_variable v ->
-            Printf.sprintf "%sUnbound variable %S"
-              (Rdf_loc.string_of_loc v.var_loc) v.var_name
         | Rdf_ttl.Error e ->
             Rdf_ttl.string_of_error e
         | _ -> raise e

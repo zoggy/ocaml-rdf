@@ -36,20 +36,53 @@ let dbg = Rdf_misc.create_log_fun
 
 let () = Random.self_init();;
 
-exception Unbound_variable of var
-exception Not_a_integer of Rdf_node.literal
-exception Not_a_double_or_decimal of Rdf_node.literal
-exception Type_mismatch of Rdf_dt.value * Rdf_dt.value
-exception Invalid_fun_argument of Rdf_uri.uri
-exception Unknown_fun of Rdf_uri.uri
-exception Invalid_built_in_fun_argument of string * expression list
-exception Unknown_built_in_fun of string
-exception No_term
-exception Cannot_compare_for_datatype of Rdf_uri.uri
-exception Unhandled_regex_flag of char
-exception Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
-exception Empty_set of string (** sparql function name *)
+type error =
+| Unbound_variable of var
+| Not_a_integer of Rdf_node.literal
+| Not_a_double_or_decimal of Rdf_node.literal
+| Type_mismatch of Rdf_dt.value * Rdf_dt.value
+| Invalid_fun_argument of Rdf_uri.uri
+| Unknown_fun of Rdf_uri.uri
+| Invalid_built_in_fun_argument of string * expression list
+| Unknown_built_in_fun of string
+| No_term
+| Cannot_compare_for_datatype of Rdf_uri.uri
+| Unhandled_regex_flag of char
+| Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
+| Empty_set of string (** sparql function name *)
 
+exception Error of error
+let error e = raise (Error e)
+
+let string_of_error = function
+| Unbound_variable v ->
+    Printf.sprintf "%sUnbound variable %S"
+      (Rdf_loc.string_of_loc v.var_loc) v.var_name
+| Not_a_integer lit ->
+    "Not an integer: "^(Rdf_node.string_of_literal lit)
+| Not_a_double_or_decimal lit ->
+    "Not an double: "^(Rdf_node.string_of_literal lit)
+| Type_mismatch (v1, v2) -> (* FIXME: show values *)
+    "Type mismatch"
+| Invalid_fun_argument uri ->
+    "Invalid argument for function "^(Rdf_uri.string uri)
+| Unknown_fun uri ->
+    "Unknown function "^(Rdf_uri.string uri)
+| Invalid_built_in_fun_argument (name, _) ->
+    "Invalid argument list for builtin function "^name
+| Unknown_built_in_fun name ->
+        "Unknown builtit function "^name
+| No_term ->
+    "No term"
+| Cannot_compare_for_datatype uri ->
+    "Cannot compare values of datatype "^(Rdf_uri.string uri)
+| Unhandled_regex_flag c ->
+    "Unhandled regexp flag "^(String.make 1 c)
+| Incompatible_string_literals (v1, v2) -> (* FIXME: show values *)
+    "Incompatible string literals"
+| Empty_set name ->
+    "Empty set in function "^name
+;;
 
 module Irimap = Rdf_ds.Irimap
 module Iriset = Rdf_ds.Iriset
@@ -103,7 +136,7 @@ module GExprMap = Map.Make (GExprOrdered)
 (** Evaluate boolean expression.
   See http://www.w3.org/TR/sparql11-query/#ebv *)
 let ebv = function
-  | Error e -> raise e
+  | Err e -> Rdf_dt.error e
   | Bool b -> b
   | String "" -> false
   | String _ -> true
@@ -125,8 +158,8 @@ let ebv = function
 
 let rec compare ?(sameterm=false) v1 v2 =
   match v1, v2 with
-  | Error _, _ -> 1
-  | _, Error _ -> -1
+  | Err _, _ -> 1
+  | _, Err _ -> -1
   | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
   | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
   | String s1, String s2
@@ -152,10 +185,10 @@ let rec compare ?(sameterm=false) v1 v2 =
            if sameterm then
              Pervasives.compare s1 s2
            else
-             raise (Cannot_compare_for_datatype dt1)
-       | _ -> raise (Type_mismatch (v1, v2))
+             error (Cannot_compare_for_datatype dt1)
+       | _ -> error (Type_mismatch (v1, v2))
       )
-  | _, _ -> raise (Type_mismatch (v1, v2))
+  | _, _ -> error (Type_mismatch (v1, v2))
 
 (** Implement the sorting order used in sparql order by clause:
   http://www.w3.org/TR/sparql11-query/#modOrderBy *)
@@ -169,7 +202,7 @@ let sortby_compare v1 v2 =
 
 let xsd_datetime = Rdf_rdf.xsd_ "dateTime";;
 let fun_datetime = function
-  [] | _::_::_ -> raise(Invalid_fun_argument xsd_datetime)
+  [] | _::_::_ -> error (Invalid_fun_argument xsd_datetime)
 | [v] -> Rdf_dt.datetime v
 
 let funs = [
@@ -193,19 +226,19 @@ let bi_bnode name eval_expr ctx mu = function
       match v with
         String _
       | Ltrl (_, None) -> Rdf_sparql_ms.get_bnode mu v
-      | _ -> Error (Rdf_dt.Type_error (v, "simple literal or string"))
+      | _ -> Err (Rdf_dt.Type_error (v, "simple literal or string"))
     end
-| l -> raise (Invalid_built_in_fun_argument (name, l))
+| l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_coalesce _ =
   let rec iter eval_expr ctx mu = function
-    [] -> raise No_term
+    [] -> error No_term
   | h :: q ->
     let v =
         try
           match eval_expr ctx mu h with
-            Error _ -> None
+            Err _ -> None
           | v -> Some v
         with _ -> None
       in
@@ -219,7 +252,7 @@ let bi_coalesce _ =
 let bi_datatype name =
   let f eval_expr ctx mu = function
     [e] -> Rdf_dt.datatype (eval_expr ctx mu e)
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -232,12 +265,12 @@ let bi_if name eval_expr ctx mu = function
        else
          eval_expr ctx mu e3
     end
-| l -> raise (Invalid_built_in_fun_argument (name, l))
+| l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_iri name eval_expr ctx mu = function
   [e] -> Rdf_dt.iri ctx.base (eval_expr ctx mu e)
-| l -> raise (Invalid_built_in_fun_argument (name, l))
+| l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_isblank name =
@@ -247,7 +280,7 @@ let bi_isblank name =
          Rdf_dt.Blank _ -> Bool true
        | _ -> Bool false
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -259,7 +292,7 @@ let bi_isiri name =
          Rdf_dt.Iri _ -> Bool true
        | _ -> Bool false
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -268,12 +301,12 @@ let bi_isliteral name =
   let f eval_expr ctx mu = function
     [e] ->
       (match eval_expr ctx mu e with
-         Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _ -> Bool false
+         Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Err _ -> Bool false
        | Rdf_dt.String _ | Rdf_dt.Int _ | Rdf_dt.Float _ | Rdf_dt.Bool _
        | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
            Bool true
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -285,7 +318,7 @@ let bi_lang name =
         Ltrl (_, Some l) -> String l
       | _ -> String ""
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -295,12 +328,12 @@ let bi_isnumeric name =
     [e] ->
       (match eval_expr ctx mu e with
        | Rdf_dt.Int _ | Rdf_dt.Float _ -> Bool true
-       | Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Error _
+       | Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Err _
        | Rdf_dt.String _ | Rdf_dt.Bool _
        | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
            Bool false
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -309,7 +342,7 @@ let regex_flag_of_char = function
  | 's' -> `DOTALL
 | 'm' -> `MULTILINE
 | 'i' -> `CASELESS (* FIXME: 'x' not handled yet *)
-| c -> raise (Unhandled_regex_flag c)
+| c -> error (Unhandled_regex_flag c)
 ;;
 
 (** See http://www.w3.org/TR/xpath-functions/#regex-syntax *)
@@ -322,13 +355,13 @@ let bi_regex name =
       | [e1 ; e2 ; e3 ] ->
         (eval_expr ctx mu e1, eval_expr ctx mu e2,
          Some (eval_expr ctx mu e3))
-      | _ -> raise (Invalid_built_in_fun_argument (name, l))
+      | _ -> error (Invalid_built_in_fun_argument (name, l))
     in
     try
       let (s, _) = Rdf_dt.string_literal s in
       let pat = match pat with
           String s -> s
-        | _ -> raise (Rdf_dt.Type_error (pat, "simple string"))
+        | _ -> Rdf_dt.error (Rdf_dt.Type_error (pat, "simple string"))
       in
       let flags =
         match flags with
@@ -337,7 +370,7 @@ let bi_regex name =
             let l = ref [] in
             String.iter (flag_of_char l) s;
             !l
-        | Some v -> raise (Rdf_dt.Type_error (v, "simple string"))
+        | Some v -> Rdf_dt.error (Rdf_dt.Type_error (v, "simple string"))
       in
       let flags = `UTF8 :: flags in
       dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat);
@@ -346,7 +379,7 @@ let bi_regex name =
     with
       e ->
         dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
-        Error e
+        Err (Rdf_dt.Exception e)
   in
   f
 ;;
@@ -357,7 +390,7 @@ let bi_sameterm name =
       let v1 = eval_expr ctx mu e1 in
       let v2 = eval_expr ctx mu e2 in
       Bool (compare ~sameterm: true v1 v2 = 0)
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -367,9 +400,9 @@ let bi_str name =
   let f eval_expr ctx mu = function
     [e] ->
       (try Rdf_dt.string (eval_expr ctx mu e)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -385,9 +418,9 @@ let bi_strdt name =
           | _ -> assert false
          in
          Ltrdt (s, uri)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -399,9 +432,9 @@ let bi_strlang name =
         let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e1) in
         let (lang, _) = Rdf_dt.string_literal (eval_expr ctx mu e2) in
         Ltrl (s, Some lang)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -417,9 +450,9 @@ let bi_strlen name =
       (try
          let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e) in
          Int (Rdf_utf8.utf8_string_length s)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -430,13 +463,13 @@ let bi_substr name =
       match args with
         [e1 ; e2 ] -> (e1, e2, None)
       | [e1 ; e2 ; e3] -> (e1, e2, Some e3)
-      | _ -> raise (Invalid_built_in_fun_argument (name, args))
+      | _ -> error (Invalid_built_in_fun_argument (name, args))
     in
     try
       let (s, lang) = Rdf_dt.string_literal (eval_expr ctx mu e) in
       let pos =
         match Rdf_dt.int (eval_expr ctx mu pos) with
-          Error e -> raise e
+          Err e -> Rdf_dt.error e
         | Int n -> n
         | _ -> assert false
       in
@@ -445,7 +478,7 @@ let bi_substr name =
           None -> None
         | Some e ->
             match eval_expr ctx mu e with
-              Error e -> raise e
+              Err e -> Rdf_dt.error e
             | Int n -> Some n
             | _ -> assert false
       in
@@ -468,7 +501,7 @@ let bi_substr name =
       in
       let s = Rdf_utf8.utf8_substr s start len in
       Ltrl (s, lang)
-    with e -> Error e
+    with e -> Err (Rdf_dt.Exception e)
   in
   f
 ;;
@@ -482,11 +515,11 @@ let bi_strends name =
         let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
         let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
         if not (string_lit_compatible lit1 lit2) then
-          raise (Incompatible_string_literals (v1, v2));
+          error (Incompatible_string_literals (v1, v2));
         Bool (Rdf_utf8.utf8_is_suffix s1 s2)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -500,11 +533,11 @@ let bi_strstarts name =
          let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
          let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
          if not (string_lit_compatible lit1 lit2) then
-           raise (Incompatible_string_literals (v1, v2));
+           error (Incompatible_string_literals (v1, v2));
          Bool (Rdf_utf8.utf8_is_prefix s1 s2)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -518,11 +551,11 @@ let bi_contains name =
          let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
          let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
          if not (string_lit_compatible lit1 lit2) then
-           raise (Incompatible_string_literals (v1, v2));
+           error (Incompatible_string_literals (v1, v2));
          Bool (Rdf_utf8.utf8_contains s1 s2)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -536,11 +569,11 @@ let bi_strbefore name =
          let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
          let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
          if not (string_lit_compatible lit1 lit2) then
-           raise (Incompatible_string_literals (v1, v2));
+           error (Incompatible_string_literals (v1, v2));
          String (Rdf_utf8.utf8_strbefore s1 s2)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -553,11 +586,11 @@ let bi_strafter name =
          let ((s1, lang1) as lit1) = Rdf_dt.string_literal v1 in
          let ((s2, lang2) as lit2) = Rdf_dt.string_literal v2 in
          if not (string_lit_compatible lit1 lit2) then
-           raise (Incompatible_string_literals (v1, v2));
+           error (Incompatible_string_literals (v1, v2));
          String (Rdf_utf8.utf8_strafter s1 s2)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -568,7 +601,7 @@ let bi_struuid name =
     [] ->
       let uuid = Uuidm.create `V4 in
       String (Uuidm.to_string uuid)
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -579,9 +612,9 @@ let bi_encode_for_uri name =
       (try
          let (s,_) = Rdf_dt.string_literal (eval_expr ctx mu e) in
          String (Netencoding.Url.encode ~plus: false s)
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -598,7 +631,7 @@ let bi_concat name =
         | None, Some _ -> lang2
         | Some _, None -> lang
         | Some x, Some y when x <> y ->
-            raise (Incompatible_string_literals
+            error (Incompatible_string_literals
              (Ltrl (Buffer.contents b, lang), Ltrl (s,lang2)))
         | _ -> lang
       in
@@ -632,9 +665,9 @@ let bi_langmatches name =
                  (String.sub s1 0 len2 = s2)
          in
          Bool b
-       with e -> Error e
+       with e -> Err (Rdf_dt.Exception e)
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -649,13 +682,13 @@ let bi_replace name =
       | [e1 ; e2 ; e3 ; e4 ] ->
         (eval_expr ctx mu e1, eval_expr ctx mu e2, eval_expr ctx mu e3,
          Some (eval_expr ctx mu e4))
-      | _ -> raise (Invalid_built_in_fun_argument (name, l))
+      | _ -> error (Invalid_built_in_fun_argument (name, l))
     in
     try
       let (s, _) = Rdf_dt.string_literal s in
       let pat = match pat with
           String s -> s
-        | _ -> raise (Rdf_dt.Type_error (pat, "simple string"))
+        | _ -> Rdf_dt.error (Rdf_dt.Type_error (pat, "simple string"))
       in
       let (templ, _) = Rdf_dt.string_literal templ in
       let flags =
@@ -665,7 +698,7 @@ let bi_replace name =
             let l = ref [] in
             String.iter (flag_of_char l) s;
             !l
-        | Some v -> raise (Rdf_dt.Type_error (v, "simple string"))
+        | Some v -> Rdf_dt.error (Rdf_dt.Type_error (v, "simple string"))
       in
       let flags = `UTF8 :: flags in
       dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat^" templ="^templ);
@@ -674,7 +707,7 @@ let bi_replace name =
     with
       e ->
         dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
-        Error e
+        Err (Rdf_dt.Exception e)
   in
   f
 ;;
@@ -684,14 +717,14 @@ let bi_numeric f name =
     [e] ->
       let v =
         try Rdf_dt.numeric (eval_expr ctx mu e)
-        with e -> Error e
+        with e -> Err (Rdf_dt.Exception e)
       in
       (
        match v with
-         Error e -> Error e
+         Err e -> Err e
        | _ -> f v
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -725,12 +758,12 @@ let bi_num_floor = function
 
 let bi_rand name _ _ _ = function
   [] -> Float (Random.float 1.0)
-| l -> raise (Invalid_built_in_fun_argument (name, l))
+| l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_now name _ ctx _ = function
   [] -> Datetime ctx.now
-| l -> raise (Invalid_built_in_fun_argument (name, l))
+| l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
 let bi_on_date f name =
@@ -738,15 +771,15 @@ let bi_on_date f name =
     [e] ->
       let v =
         try Rdf_dt.datetime (eval_expr ctx mu e)
-        with e -> Error e
+        with e -> Err (Rdf_dt.Exception e)
       in
       (
        match v with
-         Error e -> Error e
+         Err e -> Err e
        | Datetime t -> f t
        | _ -> assert false
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
 ;;
@@ -766,15 +799,15 @@ let bi_hash f name =
     [e] ->
       let v =
         try Rdf_dt. (eval_expr ctx mu e)
-        with e -> Error e
+        with e -> Err (Rdf_dt.Exception e)
       in
       (
        match v with
-         Error e -> Error e
+         Err e -> Err e
        | String s -> f s
-       | _ -> raise (Rdf_dt.Type_error (v, "simple string"))
+       | _ -> Rdf_dt.error (Rdf_dt.Type_error (v, "simple string"))
       )
-  | l -> raise (Invalid_built_in_fun_argument (name, l))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f;;
 
@@ -853,14 +886,14 @@ let built_in_funs =
 let get_built_in_fun name =
   let name = String.uppercase name in
   try SMap.find name built_in_funs
-  with Not_found -> raise (Unknown_built_in_fun name)
+  with Not_found -> error (Unknown_built_in_fun name)
 ;;
 
 let eval_var mu v =
   try
     let node = Rdf_sparql_ms.mu_find_var v mu in
     Rdf_dt.of_node node
-  with Not_found -> raise (Unbound_variable v)
+  with Not_found -> error (Unbound_variable v)
 ;;
 
 let eval_iri = function
@@ -881,7 +914,7 @@ let rec eval_numeric2 f_int f_float (v1, v2) =
         eval_numeric2 f_int f_float
           ((Rdf_dt.numeric v1), (Rdf_dt.numeric v2))
   with
-    e -> Error e
+    e -> Err (Rdf_dt.Exception e)
 ;;
 
 let eval_plus = eval_numeric2 (+) (+.)
@@ -897,17 +930,17 @@ let eval_gt (v1, v2) = Bool (compare v1 v2 > 0)
 let eval_gte (v1, v2) = Bool (compare v1 v2 >= 0)
 
 let eval_or = function
-  (Error e, Error _) -> Error e
-| (Error e, v)
-| (v, Error e) ->
-    if ebv v then Bool true else Error e
+  (Err e, Err _) -> Err e
+| (Err e, v)
+| (v, Err e) ->
+    if ebv v then Bool true else Err e
 | v1, v2 -> Bool ((ebv v1) || (ebv v2))
 
 let eval_and = function
-  (Error e, Error _) -> Error e
-| (Error e, v)
-| (v, Error e) ->
-    if ebv v then Error e else Bool false
+  (Err e, Err _) -> Err e
+| (Err e, v)
+| (v, Err e) ->
+    if ebv v then Err e else Bool false
 | v1, v2 -> Bool ((ebv v1) && (ebv v2))
 
 let eval_bin = function
@@ -948,7 +981,7 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
     | ENotIn (e, l) ->
         match eval_in ctx mu e l with
           Bool b -> Bool (not b)
-        | Error e -> Error e
+        | Err e -> Err e
         | _ -> assert false
 
 and eval_bic ctx mu = function
@@ -971,7 +1004,7 @@ and eval_funcall ctx mu c =
       | _ -> assert false
     in
     try Irimap.find iri funs
-    with Not_found -> raise (Unknown_fun iri)
+    with Not_found -> error (Unknown_fun iri)
   in
   let args = List.map (eval_expr ctx mu) c.func_args.argl in
   f args
@@ -981,7 +1014,7 @@ and eval_in =
     let v = eval_expr ctx mu e in
     let b =
       try Bool (compare v0 v = 0)
-      with e -> Error e
+      with e -> Err (Rdf_dt.Exception e)
     in
     eval_or (b, acc)
   in
@@ -1119,7 +1152,7 @@ let agg_count ctx d ms eopt =
           (muset, vset, n+1)
     | Some e ->
         match eval_expr ctx mu e with
-          Error _ -> (muset, vset, n)
+          Err _ -> (muset, vset, n)
         | v ->
             if d then
               if Rdf_dt.VSet.mem v vset then
@@ -1137,7 +1170,7 @@ let agg_count ctx d ms eopt =
 let agg_sum ctx d ms e =
   let f mu (vset, v) =
     match eval_expr ctx mu e with
-      Error _ -> (vset, v)
+      Err _ -> (vset, v)
     | v2 ->
         if d then
           if Rdf_dt.VSet.mem v2 vset then
@@ -1169,27 +1202,27 @@ let agg_fold g base ctx d ms e =
 let agg_min =
   let g v1 v2 =
     match v1, v2 with
-      Error _, _ -> v2
-    | _, Error _ -> v1
+      Err _, _ -> v2
+    | _, Err _ -> v1
     | _, _ ->
       if sortby_compare v1 v2 > 0 then v2 else v1
   in
-  agg_fold g (Error (Empty_set "MIN"));;
+  agg_fold g (Err (Rdf_dt.Exception (Error (Empty_set "MIN"))));;
 
 let agg_max =
   let g v1 v2 =
     match v1, v2 with
-      Error _, _ -> v2
-    | _, Error _ -> v1
+      Err _, _ -> v2
+    | _, Err _ -> v1
     | _, _ ->
       if sortby_compare v1 v2 > 0 then v1 else v2
   in
-  agg_fold g (Error (Empty_set "MAX"));;
+  agg_fold g (Err (Rdf_dt.Exception (Error (Empty_set "MAX"))));;
 
 let agg_avg ctx d ms e =
   let f mu (vset, v, cpt) =
     match eval_expr ctx mu e with
-      Error _ -> (vset, v, cpt)
+      Err _ -> (vset, v, cpt)
     | v2 ->
         if d then
           if Rdf_dt.VSet.mem v2 vset then
@@ -1211,7 +1244,7 @@ let agg_group_concat ctx d ms e sopt =
   let g current v =
     try
       match Rdf_dt.string v with
-        Error _ -> current
+        Err _ -> current
       | String s ->
           (match current with
              None -> Some s

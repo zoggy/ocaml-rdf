@@ -196,6 +196,34 @@ let utf8_char_of_code n =
           failwith (Printf.sprintf "UTF-8 code out of range: %x" n)
 ;;
 
+let utf8_string_get_bol =
+  let rec iter acc len s line char i =
+    if i >= len then
+      List.rev acc
+    else
+      (
+       let size = utf8_nb_bytes_of_char s.[i] in
+       match s.[i] with
+         '\n' -> iter ((line,char+1)::acc) len s (i+size) (char+1) i
+       | _ -> iter acc len s (i+size) (char+1) 0
+      )
+  in
+  fun s -> iter [] (String.length s) s 1 0 0
+;;
+
+let utf8_count_nl =
+  let rec iter len s n i =
+    if i >= len then n
+    else
+      (let size = utf8_nb_bytes_of_char s.[i] in
+       match s.[i] with
+         '\n' -> iter len s (n+1) (i+size)
+       | _ -> iter len s n (i+size)
+      )
+  in
+  fun s -> iter (String.length s) s 0 0
+;;
+
 (** Escape some characters by \n, \r, \b, \t, \quotes and \\ but do not escape \u. *)
 let utf8_escape =
   let rec iter b len s i =

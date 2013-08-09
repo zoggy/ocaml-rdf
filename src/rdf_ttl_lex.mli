@@ -24,4 +24,4 @@
 
 (** Unicode lexer *)
 
-val main : Ulexing.lexbuf -> Rdf_ttl_parser.token
+val main : int -> Ulexing.lexbuf -> int * Rdf_ttl_parser.token

@@ -25,4 +25,5 @@
 (** Utilities to use Ulex. *)
 
 val menhir_with_ulex :
-  ('a, 'b) MenhirLib.Convert.traditional -> ('c -> 'a) -> 'c -> 'b
+  ('a, 'b) MenhirLib.Convert.traditional -> (int -> Ulexing.lexbuf -> int * 'a) ->
+    ?fname: string -> Ulexing.lexbuf -> 'b
