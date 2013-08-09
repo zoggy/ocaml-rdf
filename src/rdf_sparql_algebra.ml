@@ -548,7 +548,7 @@ let string_of_var_or_term = function
     match t with
       GraphTermIri (PrefixedName _) -> assert false
     | GraphTermIri (Iriref ir) ->
-        Rdf_uri.string ir.ir_iri
+        "<"^(Rdf_uri.string ir.ir_iri)^">"
     | GraphTermLit lit
     | GraphTermNumeric lit
     | GraphTermBoolean lit ->
@@ -564,7 +564,7 @@ let string_of_var_or_term = function
 
 let rec string_of_path = function
   Var v ->  "?"^v.var_name
-| Iri ir -> Rdf_uri.string ir.ir_iri
+| Iri ir -> "<"^(Rdf_uri.string ir.ir_iri)^">"
 | Inv p -> "(^"^(string_of_path p)^")"
 | Alt (p1, p2) -> "("^(string_of_path p1)^" | "^(string_of_path p2)^")"
 | Seq (p1, p2) -> "("^(string_of_path p1)^" / "^(string_of_path p2)^")"
