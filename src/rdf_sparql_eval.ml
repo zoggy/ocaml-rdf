@@ -1289,6 +1289,7 @@ let eval_simple_triple =
   | Some name -> Rdf_sparql_ms.mu_add name term mu
   in
   fun ctx x path y ->
+    Rdf_ttl.to_file ctx.active "/tmp/t.ttl";
     dbg ~level: 2
       (fun () ->
          "eval_simple_triple "^

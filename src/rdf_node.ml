@@ -110,11 +110,7 @@ let unescape_backslash_u s =
   Buffer.contents b
 ;;
 
-let quote_str s =
-  let s = String.escaped s in
-  let s = unescape_backslash_u s in
-  "\"" ^ s ^ "\""
-;;
+let quote_str s = "\""^(Rdf_utf8.utf8_escape s)^"\"";;
 
 let string_of_literal lit =
   (quote_str lit.lit_value) ^

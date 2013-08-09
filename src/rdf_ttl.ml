@@ -217,7 +217,7 @@ let to_string g =
 
 
 let to_file g file =
-  let oc = open_out file in
+  let oc = open_out_bin file in
   try
     let print s = output_string oc (s^"\n") in
     to_ print g;

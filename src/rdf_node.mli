@@ -96,6 +96,10 @@ val node_of_double : float -> node
 (** Create a literal node from the given boolean. (see {!mk_literal_bool}). *)
 val node_of_bool : bool -> node
 
+(** [quote_str str] returns the given string [str] between quotes, with
+  correct literal string escapes. *)
+val quote_str : string -> string
+
 (** Create a string from the given RDF literal, using turtle syntax. *)
 val string_of_literal : literal -> string
 

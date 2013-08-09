@@ -196,3 +196,33 @@ let utf8_char_of_code n =
           failwith (Printf.sprintf "UTF-8 code out of range: %x" n)
 ;;
 
+(** Escape some characters by \n, \r, \b, \t, \quotes and \\ but do not escape \u. *)
+let utf8_escape =
+  let rec iter b len s i =
+    if i >= len then
+      ()
+    else
+      begin
+        let size = utf8_nb_bytes_of_char s.[i] in
+        begin
+          match s.[i] with
+          | '\b' -> Buffer.add_string b "\\b"
+          | '\n' -> Buffer.add_string b "\\n"
+          | '\r' -> Buffer.add_string b "\\r"
+          | '\t' -> Buffer.add_string b "\\t"
+          | '"' -> Buffer.add_string b "\\\""
+          | '\\' when i < len - 1 && s.[i] <> 'u' && s.[i] <> 'U' ->
+              Buffer.add_string b "\\\\"
+          | c ->
+            Buffer.add_string b (String.sub s i size);
+         end;
+         iter b len s (i+size)
+       end
+  in
+  fun s ->
+    let len = String.length s in
+    let b = Buffer.create len in
+    iter b len s 0 ;
+    Buffer.contents b
+;;
+

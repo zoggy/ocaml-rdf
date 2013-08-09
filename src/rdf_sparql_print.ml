@@ -67,7 +67,7 @@ let print_query_prolog b decls =
   List.iter (print_query_prolog_decl b) decls
 ;;
 
-let print_string_lit b s = pp b "%S" s
+let print_string_lit b s = p b (Rdf_node.quote_str s)
 
 let print_rdf_literal b t =
   match t.rdf_lit.Rdf_node.lit_type with
