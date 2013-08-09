@@ -204,8 +204,8 @@ let utf8_string_get_bol =
       (
        let size = utf8_nb_bytes_of_char s.[i] in
        match s.[i] with
-         '\n' -> iter ((line,char+1)::acc) len s (i+size) (char+1) i
-       | _ -> iter acc len s (i+size) (char+1) 0
+         '\n' -> iter ((line+1,char)::acc) len s (line+1) (char+1) (i+size)
+       | _ -> iter acc len s line (char+1) (i+size)
       )
   in
   fun s -> iter [] (String.length s) s 1 0 0
