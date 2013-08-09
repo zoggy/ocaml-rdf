@@ -42,15 +42,15 @@ let source_info_file file start stop =
   }
 
 let (msg_file, msg_line, msg_char, msg_chars, msg_to, msg_colon, msg_head) =
-  ("File \"", "\", line ", ", character ", ", characters ", "-", ":", "")
+  ("File ", "line ", ", character ", ", characters ", "-", ":", "")
 
 (* return file, line, char from the given position *)
 let get_pos_info pos =
   let (filename, linenum, linebeg) =
-    if pos.pos_fname = "" then
+(*    if pos.pos_fname = "" then
       ("", -1, 0)
     else
-      (pos.pos_fname, pos.pos_lnum, pos.pos_bol)
+*)      (pos.pos_fname, pos.pos_lnum, pos.pos_bol)
   in
   (filename, linenum, pos.pos_cnum - linebeg)
 ;;
@@ -61,7 +61,8 @@ let print ppf loc =
   let (startchar, endchar) =
     if startchar < 0 then (0, 1) else (startchar, endchar)
   in
-  fprintf ppf "%s%s%s%i" msg_file file msg_line line;
+  if file <> "" then fprintf ppf "%s \"%s\", " msg_file file;
+  fprintf ppf "%s%i" msg_line line;
   if startchar <> endchar then
     begin
       fprintf ppf "%s%i" msg_chars startchar;
