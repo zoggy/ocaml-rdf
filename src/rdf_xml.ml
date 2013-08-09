@@ -104,13 +104,13 @@ let string_of_xmls namespaces trees =
 
 
 let xmls_of_string str =
-  prerr_endline "xmls_of_string";
+  (*prerr_endline "xmls_of_string";*)
   let str = "<foo__>"^str^"</foo__>" in
-  prerr_endline str;
+  (*prerr_endline str;*)
   try
     let i = Xmlm.make_input ~strip: true (`String (0, str)) in
     let (_,tree) = in_tree i in
-    prerr_endline "parse ok";
+    (*prerr_endline "parse ok";*)
     match tree with
       E ((("","foo__"),_),subs) -> subs
     | _ -> assert false
@@ -387,8 +387,7 @@ let input_tree g ~base t =
     match t with
       D _ -> assert false
     | E ((e,_),children) when is_element Rdf_rdf.rdf_RDF e ->
-        (*let xml = string_of_xmls children in
-        prerr_endline xml;*)
+        (*let xml = string_of_xmls children in prerr_endline xml;*)
 
         List.fold_left (input_node g state) gstate children
     | t -> input_node g state gstate t
