@@ -67,6 +67,10 @@ val is_bound : solution -> string -> bool
   of the solution.*)
 val solution_fold : (string -> Rdf_node.node -> 'a-> 'a) -> solution -> 'a -> 'a
 
+(** [solution_iter f solution] calls [f] on each pair [(varname, term)]
+  of the [solution]. *)
+val solution_iter : (string -> Rdf_node.node -> unit) -> solution -> unit
+
 (** {3 Querying} *)
 
 type query_result =

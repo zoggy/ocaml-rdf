@@ -56,14 +56,14 @@ let eval_query ?data query =
   | Rdf_sparql.Bool false -> print_endline "false"
   | Rdf_sparql.Graph _ -> print_endline "graph"
   | Rdf_sparql.Solutions sols ->
-      let f_mu mu =
-        Rdf_sparql_ms.SMap.iter
+      let f_sol sol =
+        Rdf_sparql.solution_iter
           (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-          mu.Rdf_sparql_ms.mu_bindings;
+          sol;
         print_newline()
       in
       print_endline "Solutions:";
-      List.iter f_mu sols
+      List.iter f_sol sols
 ;;
 
 let parse_query parse ?data source =

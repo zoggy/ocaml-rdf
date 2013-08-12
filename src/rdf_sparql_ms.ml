@@ -97,6 +97,7 @@ let mu_project =
   fun set mu -> { mu with mu_bindings = SMap.filter (f set) mu.mu_bindings }
 
 let mu_fold f mu acc = SMap.fold f mu.mu_bindings acc;;
+let mu_iter f mu = SMap.iter f mu.mu_bindings;;
 
 module MuOrdered =
   struct

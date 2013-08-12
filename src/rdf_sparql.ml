@@ -107,6 +107,7 @@ type solution = Rdf_sparql_ms.mu
 let get_term sol v = Rdf_sparql_ms.mu_find_varname v sol;;
 let is_bound sol v = try ignore(get_term sol v); true with Not_found -> false;;
 let solution_fold = Rdf_sparql_ms.mu_fold ;;
+let solution_iter = Rdf_sparql_ms.mu_iter ;;
 
 type query_result =
   Bool of bool

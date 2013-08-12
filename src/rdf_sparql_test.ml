@@ -78,10 +78,10 @@ let mk_dataset spec =
   Rdf_ds.simple_dataset ~named default
 ;;
 
-let print_solution mu =
-  Rdf_sparql_ms.SMap.iter
+let print_solution solution =
+  Rdf_sparql.solution_iter
     (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
-    mu.Rdf_sparql_ms.mu_bindings;
+    solution;
   print_newline()
 ;;
 

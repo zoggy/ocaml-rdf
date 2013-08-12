@@ -50,6 +50,7 @@ type error =
 | Unhandled_regex_flag of char
 | Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 | Empty_set of string (** sparql function name *)
+| Missing_values_in_inline_data of inline_data_full
 
 exception Error of error
 let error e = raise (Error e)
@@ -82,6 +83,8 @@ let string_of_error = function
     "Incompatible string literals"
 | Empty_set name ->
     "Empty set in function "^name
+| Missing_values_in_inline_data idf ->
+    "Missing values in inline data"
 ;;
 
 module Irimap = Rdf_ds.Irimap
@@ -1425,6 +1428,51 @@ let active_graph_subjects_and_objects ctx =
   List.fold_left add set (ctx.active.Rdf_graph.objects ())
 ;;
 
+let eval_datablock =
+  let mu_add = Rdf_sparql_ms.mu_add in
+  let add_var_value mu v = function
+    DataBlockValueIri (PrefixedName _) -> assert false
+  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_node.Uri ir.ir_iri) mu
+  | DataBlockValueRdf lit
+  | DataBlockValueNumeric lit
+  | DataBlockValueBoolean lit ->
+      let lit = lit.rdf_lit in
+      mu_add v.var_name (Rdf_node.Literal lit) mu
+  | DataBlockValueUndef -> mu
+  in
+
+  let one_var =
+    let f var acc dbv =
+      let mu = Rdf_sparql_ms.mu_0 in
+      let mu = add_var_value mu var dbv in
+      Rdf_sparql_ms.omega_add mu acc
+    in
+    fun v data ->
+      List.fold_left (f v) Rdf_sparql_ms.Multimu.empty data
+  in
+  let full_data =
+    let f_row vars acc = function
+      Nil -> Rdf_sparql_ms.omega_add Rdf_sparql_ms.mu_0 acc
+    | Value dbv_list ->
+        let mu = Rdf_sparql_ms.mu_0 in
+        let mu = List.fold_left2 add_var_value mu vars dbv_list in
+        Rdf_sparql_ms.omega_add mu acc
+    in
+    fun vars values ->
+      List.fold_left (f_row vars) Rdf_sparql_ms.Multimu.empty values
+  in
+  function
+    InLineDataOneVar { idov_var = var ; idov_data = data } ->
+      one_var var data
+  | InLineDataFull ({ idf_vars = vars ; idf_values = values } as idf) ->
+      try full_data vars values
+      with
+        Invalid_argument "List.fold_left2" ->
+          error (Missing_values_in_inline_data idf)
+
+;;
+
+
 let rec eval_triples =
   let eval_join ctx acc triple =
     let o = eval_triple ctx triple in
@@ -1686,7 +1734,7 @@ and eval ctx = function
 | Aggregation _ -> assert false (* Aggregation always below AggregateJoin *)
 | Group (conds, a) -> assert false (* no group without AggregationJoin above *)
 
-| DataToMultiset datablock -> assert false (* FIXME: implement *)
+| DataToMultiset datablock -> eval_datablock datablock
 | Project _ -> assert false
 | Distinct a -> assert false
 | Reduced a -> assert false
