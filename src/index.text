@@ -1,0 +1,20 @@
+{2 Base modules}
+{!modules:
+Rdf_config
+Rdf_dot
+Rdf_ds
+Rdf_dt
+Rdf_graph
+Rdf_loc
+Rdf_misc
+Rdf_node
+Rdf_uri
+}
+
+{2 Reading and writing graphs}
+
+{!modules: Rdf_ttl Rdf_xml}
+
+{2 Sparql queries}
+
+{!modules: Rdf_sparql}

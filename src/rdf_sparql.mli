@@ -42,10 +42,11 @@ val string_of_error : error -> string
 
 (** {2 Parsing and printing Sparql queries} *)
 
-val parse_from_string : string -> Rdf_sparql_types.query
-val parse_from_file : string -> Rdf_sparql_types.query
+type query = Rdf_sparql_types.query
+val parse_from_string : string -> query
+val parse_from_file : string -> query
 
-val string_of_query : Rdf_sparql_types.query -> string
+val string_of_query : query -> string
 
 (** {2 Executing queries} *)
 
@@ -94,7 +95,7 @@ type query_result =
   @raise Error in case of error.
 *)
 val execute : ?graph: Rdf_graph.graph ->
-  base:Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> query_result
+  base:Rdf_uri.uri -> Rdf_ds.dataset -> query -> query_result
 
 (** {3 Convenient functions for querying} *)
 
@@ -102,25 +103,25 @@ val execute : ?graph: Rdf_graph.graph ->
   @raise Not_select is the query is not a SELECT.
 *)
 val select :
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> solution list
+  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> solution list
 
 (** Execute the given CONSTRUCT query.
   @raise Not_construct is the query is not a CONSTRUCT.
 *)
 val construct : ?graph: Rdf_graph.graph ->
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> Rdf_graph.graph
+  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** Execute the given ASK query.
   @raise Not_ask is the query is not a ASK.
 *)
 val ask :
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> bool
+  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> bool
 
 (** Execute the given DESCRIBE query.
   @raise Not_describe is the query is not a DESCRIBE.
 *)
 val describe : ?graph: Rdf_graph.graph ->
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> Rdf_graph.graph
+  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** {2 Predefined functions}
 

@@ -82,6 +82,8 @@ let parse_from_lexbuf source_info ?fname lexbuf =
   in
   q
 
+type query = Rdf_sparql_types.query
+
 let parse_from_string s =
   let lexbuf = Ulexing.from_utf8_string s in
   parse_from_lexbuf (Rdf_loc.source_info_string s) lexbuf

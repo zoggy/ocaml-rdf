@@ -22,7 +22,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Computing values in Sparql, mapping to RDF terms.
+(** Computing values in Sparql, mapping to/from RDF terms.
 
    A value can be an error, and propagated in computations.
 *)

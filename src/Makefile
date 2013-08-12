@@ -159,14 +159,14 @@ doc: dump.odoc
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) \
 	-t OCaml-RDF \
 	-load $^ \
-	-d ocamldoc -html
+	-d ocamldoc -html -intro index.text
 	$(CP) ../web/style.css ocamldoc/
 
 docg: dump.odoc
 	$(MKDIR) ocamldoc
 	ocamldoc $(OCAMLPP) \
 	-t OCaml-RDF \
-	-load $^ \
+	-load $^ intro index.text \
 	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
 	$(CP) ../web/style.css ocamldoc/
 
