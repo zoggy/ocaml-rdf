@@ -152,7 +152,7 @@ rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx
 #################
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
-	`ls $^ | grep -v example | grep -v test | grep -v sparql | grep -v rdf_utf8`
+	`ls $^ | grep -v example | grep -v test `
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc

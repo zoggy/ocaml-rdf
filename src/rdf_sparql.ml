@@ -30,6 +30,10 @@ type error =
 | Value_error of Rdf_dt.error
 | Eval_error of Rdf_sparql_eval.error
 | Algebra_error of Rdf_sparql_algebra.error
+| Not_select
+| Not_ask
+| Not_construct
+| Not_describe
 
 exception Error of error
 let error e = raise (Error e)
@@ -46,6 +50,11 @@ let rec string_of_error = function
 
 | Value_error e -> Rdf_dt.string_of_error e
 | Algebra_error e -> Rdf_sparql_algebra.string_of_error e
+
+| Not_select -> "Query is not a SELECT"
+| Not_ask -> "Query is not a ASK"
+| Not_construct -> "Query is not a CONSTRUCT"
+| Not_describe -> "Query is not a DESCRIBE"
 ;;
 
 
@@ -94,13 +103,16 @@ let dbg = Rdf_misc.create_log_fun
     "RDF_SPARQL_QUERY_DEBUG_LEVEL"
 ;;
 
+type solution = Rdf_sparql_ms.mu
 
 type query_result =
   Bool of bool
 | Solutions of Rdf_sparql_ms.mu list
 | Graph of Rdf_graph.graph
 
-let execute ~base dataset query =
+let construct_graph graph solutions = ();;
+
+let execute ?graph ~base dataset query =
   let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
   let q =
     match query.q_kind with
@@ -150,16 +162,62 @@ let execute ~base dataset query =
   match query.q_kind with
     Select _ -> Solutions solutions
   | Ask _ -> Bool (solutions <> [])
-  | Construct _ -> assert false
+  | Construct _ ->
+      let g =
+        match graph with
+          Some g -> g
+        | None -> Rdf_graph.open_graph base
+      in
+      construct_graph g solutions ;
+      Graph g
   | Describe _ -> assert false
 ;;
 
-let execute ~base dataset query =
-  try execute ~base dataset query
+let execute ?graph ~base dataset query =
+  try execute ?graph ~base dataset query
   with
     Rdf_dt.Error e -> error (Value_error e)
   | Rdf_sparql_eval.Error e -> error (Eval_error e)
   | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+;;
+
+let select ~base dataset query =
+  match query.q_kind with
+    Select _ ->
+      (match execute ~base dataset query with
+         Solutions l -> l
+       | _ -> assert false
+      )
+  | _ -> error Not_select
+;;
+
+let construct ?graph ~base dataset query =
+  match query.q_kind with
+    Construct _ ->
+      (match execute ?graph ~base dataset query with
+         Graph g -> g
+       | _ -> assert false
+      )
+  | _ -> error Not_construct
+;;
+
+let ask ~base dataset query =
+  match query.q_kind with
+    Ask _ ->
+      (match execute ~base dataset query with
+         Bool b -> b
+       | _ -> assert false
+      )
+  | _ -> error Not_ask
+;;
+
+let describe ~base dataset query =
+  match query.q_kind with
+    Describe _ ->
+      (match execute ~base dataset query with
+        _ -> assert false
+      )
+  | _ -> error Not_describe
 ;;
 
   
