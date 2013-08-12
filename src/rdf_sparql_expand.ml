@@ -11,7 +11,7 @@ type env =
     prefixes : Rdf_uri.uri SMap.t ;
   }
 
-type dataset = { from : Rdf_uri.uri option ; from_named : Rdf_ds.Iriset.t }
+type dataset = { from : Rdf_uri.uri option ; from_named : Rdf_uri.Uriset.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 
@@ -433,10 +433,10 @@ let build_dataset =
       { ds with from = Some ir.ir_iri }
   | NamedGraphClause (Iriref ir) ->
       { ds with
-        from_named = Rdf_ds.Iriset.add ir.ir_iri ds.from_named }
+        from_named = Rdf_uri.Uriset.add ir.ir_iri ds.from_named }
   in
   let build clauses = List.fold_left iter
-    { from = None ; from_named = Rdf_ds.Iriset.empty } clauses
+    { from = None ; from_named = Rdf_uri.Uriset.empty } clauses
   in
   function
     Select q -> build q.select_dataset

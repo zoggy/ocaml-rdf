@@ -87,8 +87,8 @@ let string_of_error = function
     "Missing values in inline data"
 ;;
 
-module Irimap = Rdf_ds.Irimap
-module Iriset = Rdf_ds.Iriset
+module Irimap = Rdf_uri.Urimap
+module Iriset = Rdf_uri.Uriset
 
 type context =
     { base : Rdf_uri.uri ;

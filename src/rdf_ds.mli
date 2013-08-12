@@ -22,36 +22,45 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** *)
+(** Datasets.
 
-module Irimap = Rdf_uri.Urimap
-module Iriset = Rdf_uri.Uriset
+A dataset is composed of:
+- a default graph,
+- a set of named graphs,
+- a function to get a graph by its IRI.
+*)
 
+(** This exception indicates that a graph could not be retrieved.
+  It can be raised by functions retrieving graphs, in a {!dataset}
+  structure. The URI of the graph and an error message must be provided.
+*)
 exception Could_not_retrieve_graph of Rdf_uri.uri * string
-let could_not_retrieve_graph uri msg =
-  raise (Could_not_retrieve_graph (uri, msg))
-;;
 
-type dataset =
-  { default : Rdf_graph.graph ;
-    named : Iriset.t ;
-    get_named : Rdf_uri.uri -> Rdf_graph.graph ;
-  }
+(** This function raises the {!Could_not_retrieve_graph} exception. *)
+val could_not_retrieve_graph : Rdf_uri.uri -> string -> 'a
 
-let simple_dataset ?(named=[]) default =
-  let named_set = List.fold_left (fun set (uri,_) -> Iriset.add uri set) Iriset.empty named in
-  let named = List.fold_left (fun map (uri,g) -> Irimap.add uri g map) Irimap.empty named in
-  let get_named uri =
-    try Irimap.find uri named
-    with Not_found ->
-        could_not_retrieve_graph uri
-          ("Unknown graph "^(Rdf_uri.string uri))
-  in
-  { default ; named = named_set ; get_named }
-;;
+(** A dataset. *)
+type dataset = {
+  default : Rdf_graph.graph; (** The default graph. *)
+  named : Rdf_uri.Uriset.t; (** The set of named graphs. *)
+  get_named : Rdf_uri.uri -> Rdf_graph.graph;
+    (** The function to get a graph by its name (URI).
+       The function must raise {!Could_not_retrieve_graph} in case of error. *)
+}
 
-let dataset ?get_named ?(named=Iriset.empty) default =
-  match get_named with
-    None -> simple_dataset default
-  | Some get_named -> { default ; named ; get_named }
-;;
+(** [simple_dataset graph] returns a dataset with [graph] as default graph.
+  @params named can be used to specify named graphs. The [get_named] function
+  is created from this closed list of named graphs and raise {!Could_not_retrieve_graph}
+  in case a required graph is not part of the list. *)
+val simple_dataset :
+  ?named:(Rdf_uri.uri * Rdf_graph.graph) list -> Rdf_graph.graph -> dataset
+
+(** [dataset graph] returns a dataset with [graph] as default graph.
+  @params named is used to specify the sef of named graphs, but it
+  does not create a get_named function.
+  @params get_named is the function to retrieve graph by name (URI). If it
+  is not provided, the default function always raises {!Could_not_retrieve_graph}.
+*)
+val dataset :
+  ?get_named:(Rdf_uri.uri -> Rdf_graph.graph) ->
+    ?named:Rdf_uri.Uriset.t-> Rdf_graph.graph -> dataset
