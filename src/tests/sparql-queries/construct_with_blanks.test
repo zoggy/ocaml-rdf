@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "Templates with blank nodes"
+(* Description of the test *)
+descr = "From http://www.w3.org/TR/sparql11-query/#templatesWithBNodes"
+(* File containing the query *)
+query = "construct_with_blanks.spq"
+(* File containing the default graph *)
+default_graph = "construct_with_blanks.ttl"
+

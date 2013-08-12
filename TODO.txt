@@ -13,7 +13,8 @@
 
 * subqueries
 
-* CONSTRUCT
 * DESCRIBE
 
 * VALUES
+
+* ability to define extension functions
