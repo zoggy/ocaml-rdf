@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "optional"
+(* Description of the test *)
+descr = ""
+(* File containing the query *)
+query = "optional.spq"
+(* File containing the default graph *)
+default_graph = "optional.ttl"
+

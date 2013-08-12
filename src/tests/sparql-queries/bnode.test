@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "bnode"
+(* Description of the test *)
+descr = ""
+(* File containing the query *)
+query = "bnode.spq"
+(* File containing the default graph *)
+default_graph = "bnode.ttl"
+

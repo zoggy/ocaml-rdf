@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "isiri"
+(* Description of the test *)
+descr = ""
+(* File containing the query *)
+query = "isiri.spq"
+(* File containing the default graph *)
+default_graph = "isiri.ttl"
+

@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "encode_for_uri"
+(* Description of the test *)
+descr = ""
+(* File containing the query *)
+query = "encode_for_uri.spq"
+(* File containing the default graph *)
+default_graph = "encode_for_uri.ttl"
+

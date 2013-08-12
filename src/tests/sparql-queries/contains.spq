@@ -1,0 +1,4 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT (contains(?name,"lic") as ?true) (contains(?name,"foo") as ?false)
+ WHERE { ?x foaf:name  ?name ;
+       }
