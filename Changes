@@ -1,5 +1,7 @@
-Next release:
+Release 0.6
   * fix: add ulex and menhirLib in META dependencies
+  * add: execution of sparql 1.1 queries
+  * various fixes and adds
 
 Release 0.5:
   * add: turtle parser
