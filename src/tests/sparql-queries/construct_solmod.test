@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "Solution Modifiers and CONSTRUCT"
+(* Description of the test *)
+descr = "From http://www.w3.org/TR/sparql11-query/#SolModandCONSTRUCT"
+(* File containing the query *)
+query = "construct_solmod.spq"
+(* File containing the default graph *)
+default_graph = "construct_solmod.ttl"
+
