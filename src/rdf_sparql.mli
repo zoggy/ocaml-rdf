@@ -121,4 +121,14 @@ val ask :
 *)
 val describe : ?graph: Rdf_graph.graph ->
   base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> Rdf_graph.graph
-  
+
+(** {2 Predefined functions}
+
+These are the functions named by an URI,
+{{:http://www.w3.org/TR/sparql11-query/#expressions} see details here}. *)
+
+(** A function takes a list of values and return a value. *)
+type uri_fun = Rdf_dt.value list -> Rdf_dt.value
+
+val uri_funs : unit -> uri_fun Rdf_uri.Urimap.t
+val add_uri_fun : Rdf_uri.uri -> uri_fun -> unit

@@ -208,13 +208,14 @@ let fun_datetime = function
   [] | _::_::_ -> error (Invalid_fun_argument xsd_datetime)
 | [v] -> Rdf_dt.datetime v
 
-let funs = [
+let uri_funs = [
     xsd_datetime, fun_datetime ;
   ];;
 
-let funs = List.fold_left
-  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty funs;;
+let uri_funs = ref (List.fold_left
+  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty uri_funs);;
 
+let add_uri_fun uri f = uri_funs := Irimap.add uri f !uri_funs;;
 
 (** Builtin functions; they take an expression evaluation function
   in parameter, as all arguments must not be always evaluated,
@@ -1006,7 +1007,7 @@ and eval_funcall ctx mu c =
         Iriref ir -> ir.ir_iri
       | _ -> assert false
     in
-    try Irimap.find iri funs
+    try Irimap.find iri !uri_funs
     with Not_found -> error (Unknown_fun iri)
   in
   let args = List.map (eval_expr ctx mu) c.func_args.argl in

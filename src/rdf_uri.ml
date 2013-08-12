@@ -68,3 +68,4 @@ let neturl uri = uri;;
 let of_neturl uri = uri;;
 
 module Urimap = Map.Make (struct type t = uri let compare = compare end);;
+module Uriset = Set.Make (struct type t = uri let compare = compare end);;

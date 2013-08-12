@@ -358,4 +358,10 @@ let describe ?graph ~base dataset query =
   | _ -> error Not_describe
 ;;
 
+type uri_fun = Rdf_dt.value list -> Rdf_dt.value
+
+let uri_funs () = !Rdf_sparql_eval.uri_funs;;
+let add_uri_fun = Rdf_sparql_eval.add_uri_fun;;
+
+
   

@@ -1,9 +1,7 @@
 (** Datasets. *)
 
-module Irimap = Map.Make
-  (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
-module Iriset = Set.Make
-  (struct type t = Rdf_uri.uri let compare = Rdf_uri.compare end)
+module Irimap = Rdf_uri.Urimap
+module Iriset = Rdf_uri.Uriset
 
 exception Could_not_retrieve_graph of Rdf_uri.uri * string
 let could_not_retrieve_graph uri msg =

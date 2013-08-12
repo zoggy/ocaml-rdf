@@ -65,3 +65,4 @@ val neturl : uri -> Neturl.url
 val of_neturl : Neturl.url -> uri
 
 module Urimap : Map.S with type key = uri
+module Uriset : Set.S with type elt = uri

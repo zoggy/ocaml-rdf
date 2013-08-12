@@ -13,5 +13,4 @@
 
 - subqueries
 - DESCRIBE
-- ability to define extension functions
 - check of variable scope: http://www.w3.org/TR/sparql11-query/#variableScope
