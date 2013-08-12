@@ -104,6 +104,10 @@ let string_of_query q =
 
 type solution = Rdf_sparql_ms.mu
 
+let get_term sol v = Rdf_sparql_ms.mu_find_varname v sol;;
+let is_bound sol v = try ignore(get_term sol v); true with Not_found -> false;;
+let solution_fold = Rdf_sparql_ms.mu_fold ;;
+
 type query_result =
   Bool of bool
 | Solutions of Rdf_sparql_ms.mu list
@@ -297,7 +301,13 @@ let execute ?graph ~base dataset query =
       in
       construct_graph g template solutions ;
       Graph g
-  | Describe _ -> assert false
+  | Describe _ ->
+      let g =
+        match graph with
+          Some g -> g
+        | None -> Rdf_graph.open_graph base
+      in
+      Graph g
 ;;
 
 let execute ?graph ~base dataset query =
@@ -338,10 +348,10 @@ let ask ~base dataset query =
   | _ -> error Not_ask
 ;;
 
-let describe ~base dataset query =
+let describe ?graph ~base dataset query =
   match query.q_kind with
     Describe _ ->
-      (match execute ~base dataset query with
+      (match execute ?graph ~base dataset query with
         _ -> assert false
       )
   | _ -> error Not_describe

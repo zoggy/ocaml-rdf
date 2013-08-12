@@ -89,6 +89,7 @@ let mu_merge =
     let mu_bnodes = VMap.merge merge_bnodes mu1.mu_bnodes mu2.mu_bnodes in
     { mu_bindings ; mu_bnodes }
 
+let mu_find_varname name mu = SMap.find name mu.mu_bindings
 let mu_find_var v mu = SMap.find v.var_name mu.mu_bindings
 
 let mu_project =

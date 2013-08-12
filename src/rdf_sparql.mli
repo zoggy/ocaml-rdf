@@ -49,7 +49,25 @@ val string_of_query : Rdf_sparql_types.query -> string
 
 (** {2 Executing queries} *)
 
-type solution = Rdf_sparql_ms.mu
+(** {3 Solutions} *)
+
+type solution
+
+(** [get_term solution varname] returns the {!Rdf_node.node} bound to
+  [varname] in the solution.
+  @raise Not_found if the variable is not bound. *)
+val get_term : solution -> string -> Rdf_node.node
+
+(** [is_bound solution varname] returns whether the given variable name
+  is bound in the solution. *)
+val is_bound : solution -> string -> bool
+
+(** [solution_fold f sol acc] is
+  [f var1 term1 (f var2 term2 (...) acc)], folding over the bindings
+  of the solution.*)
+val solution_fold : (string -> Rdf_node.node -> 'a-> 'a) -> solution -> 'a -> 'a
+
+(** {3 Querying} *)
 
 type query_result =
   Bool of bool
@@ -60,37 +78,43 @@ type query_result =
   [base] as base uri. The form of the result depends on the kind of query:
   - Select queries return a [Solution solutions]
   - Ask queries return a [Bool bool]
-  - Construct queries return [Graph g]. If a graph is provided, it is filled
-    and the same graph is returned; else a new graph (in memory) is created,
-    filled and returned. If the graph is created, it uri is the [base] uri provided.
-  - Describe queries return ...[FIXME: to be completed].
+  - Construct queries return [Graph g].
+  - Describe queries return a description graph.
 
-  @raise {!Error} in case of error.
+  For [Construct] and [Describe] queries, if a graph is provided, it is filled
+  and the same graph is returned; else a new graph (in memory) is created,
+  filled and returned. If the graph is created, it uri is the [base] uri provided.
+
+  {b Warning:} Describe queries are not implemented yet.
+
+  @raise Error in case of error.
 *)
 val execute : ?graph: Rdf_graph.graph ->
   base:Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> query_result
 
+(** {3 Convenient functions for querying} *)
+
 (** Execute the given SELECT query.
-  @raise [Not_select] is the query is not a SELECT.
+  @raise Not_select is the query is not a SELECT.
 *)
 val select :
   base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> solution list
 
 (** Execute the given CONSTRUCT query.
-  @raise [Not_construct] is the query is not a CONSTRUCT.
+  @raise Not_construct is the query is not a CONSTRUCT.
 *)
 val construct : ?graph: Rdf_graph.graph ->
   base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> Rdf_graph.graph
 
 (** Execute the given ASK query.
-  @raise [Not_ask] is the query is not a ASK.
+  @raise Not_ask is the query is not a ASK.
 *)
 val ask :
   base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> bool
 
 (** Execute the given DESCRIBE query.
-  @raise [Not_describe] is the query is not a DESCRIBE.
+  @raise Not_describe is the query is not a DESCRIBE.
 *)
-val describe :
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> unit
+val describe : ?graph: Rdf_graph.graph ->
+  base: Rdf_uri.uri -> Rdf_ds.dataset -> Rdf_sparql_types.query -> Rdf_graph.graph
   
