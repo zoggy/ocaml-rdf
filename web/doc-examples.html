@@ -1,0 +1,302 @@
+<page title="Examples"
+navbar-doc="active"
+with-contents="true"
+>
+<xmlnode name=""><ixml>&lt;<name/>&gt;</ixml></xmlnode>
+<contents>
+<prepare-toc>
+<toc/>
+<section id="creategraph" title="Creating a graph">
+<p>
+An RDF graph needs a base URI, which can be used to name the graph.
+Such a URI is created using the <refdoc mod="Rdf_uri"/> module.
+Then we use the <refdoc mod="Rdf_graph" id="VALopen_graph" name="Rdf_graph.open_graph"/>
+function to create an empty graph:
+</p>
+<ocaml-eval>
+<![CDATA[let base_uri = Rdf_uri.uri "http://foo.bar.net";;
+let g = Rdf_graph.open_graph base_uri ;;]]>
+</ocaml-eval>
+<p>
+If no option is provided, the graph is created in memory.
+You can <elt href="doc-databases">create graphs stored in a MySQL or Postgresql
+datatabase</elt>.
+</p>
+<p>
+Once the graph is created, let's insert triples in the graph,
+to associate the name "Alice" and the mailbox address URI
+"mailto:alice@mbox.net" to a new blank node:
+</p>
+<ocaml-eval>
+let foaf_name = Rdf_uri.uri "http://xmlns.com/foaf/0.1/name";;
+let foaf_mbox = Rdf_uri.uri "http://xmlns.com/foaf/0.1/mbox";;
+let a = Rdf_node.Blank_ (g.Rdf_graph.new_blank_id());;
+g.Rdf_graph.add_triple
+   ~sub: a ~pred: (Rdf_node.Uri foaf_name)
+   ~obj: (Rdf_node.node_of_literal_string "Alice");;
+
+g.Rdf_graph.add_triple
+   ~sub: a ~pred: (Rdf_node.Uri foaf_mbox)
+   ~obj: (Rdf_node.Uri (Rdf_uri.uri "mailto:alice@mbox.net"));;
+</ocaml-eval>
+</section>
+</prepare-toc>
+
+<!--<p>
+A query is described in an XML document of the following form &#x21b4;
+</p>
+<prepare-toc>
+<div class="row">
+<div class="span5"><toc/></div>
+<div class="span6"><hxml><![CDATA[<?xml version="1.0"?>
+<query>
+  <sources> ... </sources>
+  <target> ... </target>
+  <filter> ...  </filter>
+</query>]]></hxml>
+You can have a look at
+<ext-a href="https://raw.github.com/zoggy/erssical/master/tests/query.xml">this example</ext-a>.
+</div>
+</div>
+<section id="query" title="&amp;lt;query&amp;gt;">
+<p>This is the top element of the query. The optional attribute <code>type</code>
+can be used to specify the type of document returned as result of the query.
+The following types are handled:
+</p>
+<ul>
+<li><code>application/rss+xml</code>: the query will return a new RSS document,</li>
+<li><code>text/calendar</code>: the query will return calendar data in Ical format,</li>
+<li><code>application/xml</code>: the query will return an XML tree based on a template.</li>
+</ul>
+<p>For any other value or if this attribute is not present, the type <code>application/rss+xml</code>
+is assumed.
+</p>
+<p>The <code>&lt;query&gt;</code> element can contain
+<code><elt href="#sources"/></code>,
+<code><elt href="#target"/></code>,
+<code><elt href="#filter"/></code> and
+<code><elt href="#template"/></code> elements.
+</p>
+</section>
+
+<section id="sources" title="&amp;lt;sources&amp;gt;">
+<p>
+This element contains the various source RSS channels, each one is defined
+by a <code>&lt;source&gt;</code> sub-element. A source RSS channel
+can be embedded or referenced by its URL.
+</p>
+<subsection id="sourceurl" title="Referenced source">
+<p>Most of the time, a source is referenced by a URL given in the <code>href</code> attribute.
+For example:
+</p>
+<hxml><![CDATA[<source href="http://zoggy.github.io/stog/index.rss"/>]]></hxml>
+<p>
+For referenced sources, it is possible to give default event information, which will
+be merged with the event information of the items when the channel is fetched. To do so,
+jus
+element. The prefix of these elements can be omitted when placed here. For example,
+the following code defines a new referenced source, and all its items will
+be added the "ocaml" keyword when the source is fetched:
+</p>
+<hxml><![CDATA[<source href="http://planet.ocamlcore.org/rss20.xml">
+  <keywords><item>ocaml</item></keywords>
+</source>]]></hxml>
+</subsection>
+
+<subsection id="sourceembed" title="Embedded source">
+<p>
+A whole RSS channel can be embedded in a <code>&lt;source&gt;</code> element, when
+no <code>href</code> attribute is present.
+To do so, just put
+<ext-a href="http://www.rss-specification.com/rss-2.0-specification.htm#requiredChannelElements">channel elements</ext-a>
+in the <code>&lt;source&gt;</code> element, for example:
+</p>
+<hxml><![CDATA[<source>
+  <title>My favorite RSS channel</title>
+  <link>http://my.favorite-channel.mine</link>
+  <description>bla bla bla</description>
+  <item> ... </item>
+  <item> ... </item>
+</source>]]></hxml>
+</subsection>
+</section>
+
+<section id="target" title="&amp;lt;target&amp;gt;">
+<p>An optional <code>&lt;target&gt;</code> element can be used to specify
+information for the final RSS channel. Most of the time, the channel information
+will be embedded in the <code>&lt;target&gt;</code> element, in the same way as for source channel,
+but the target channel can also be referenced by a URL like a referenced source.
+</p>
+<p>Example of embedded target:</p>
+<hxml><![CDATA[<target>
+  <title>Merged channel</title>
+  <link>http://mysite.net/foo.rss</link>
+  <description>Merged channel from various sources</description>
+  ...
+</target>]]></hxml>
+<p>
+When no target channel is provided, the channel information of the
+first source channel is used to build the new channel.
+</p>
+</section>
+
+<section id="filter" title="&amp;lt;filter&amp;gt;">
+<p>
+The <code>&lt;filter&gt;</code> element is used to keep only items matching some criteria.
+A filter is composed of basic filters and filter combinators.
+</p>
+<p>
+It is not possible yet to filter on all event information, as some event information
+is not yet fully specified (type, level, ...).
+</p>
+
+<subsection id="keywords" title="&amp;lt;keywords&amp;gt;">
+<p>
+The <code>&lt;keywords&gt;</code> element filters RSS items containing some keywords. Each
+keyword is specified in an <code>&lt;item&gt;</code> element. In an <code>&lt;item&gt;</code>
+element, the attribute <code>regexp="true"</code> means that the string contained in the element must
+be handled as a regular expression to match RSS item keywords.
+</p>
+<p>More than one <code>&lt;item&gt;</code> element can be present under a
+<code>&lt;keywords&gt;</code> element. By default, the RSS item must match
+<strong>all</strong> the specified <code>&lt;item&gt;</code> criteria. If the <code>&lt;keywords&gt;</code>
+element has attribute <code>connector="or"</code>, then the RSS item must match
+<strong>at least one</strong> of the <code>&lt;item&gt;</code> criteria.
+</p>
+<p>For example, the following filter will keep only RSS items having keywords matching
+the string "api" or the regular expression "o?caml":
+</p>
+<hxml><![CDATA[<filter>
+  <keywords connector="or">
+    <item>api</item>
+    <item regexp="true">o?caml</item>
+  </keywords>
+</filter>]]></hxml>
+</subsection>
+
+<subsection id="organizers" title="&amp;lt;organizers&amp;gt;">
+<p>This filter works the same way as <elt href="#keywords"/> but for the
+"organizers" information of the RSS items.
+</p>
+</subsection>
+
+<subsection id="speakers" title="&amp;lt;speakers&amp;gt;">
+<p>This filter works the same way as <elt href="#keywords"/> but for the
+"speakers" information of the RSS items.
+</p>
+</subsection>
+
+<subsection id="startdate" title="&amp;lt;startDate&amp;gt;/&amp;lt;endDate&amp;gt;">
+<p>
+The <code>&lt;startDate&gt;</code> element is used to filter RSS items according to
+their start date, or their date if no start date is specified. Two attributes,
+<code>after</code> and <code>before</code>, can be used as date and time constraints.
+</p>
+<p>
+For example, the following filter will keep only RSS items whose (start) date is
+between the 1<sup>st</sup> of May 2013 at 12h:00 and the 31<sup>st</sup> of the same month
+at 16:00:
+</p>
+<hxml><![CDATA[<filter>
+  <startDate
+    after="1 May 2013 12:00:00 +0100"
+    before="31 May 2013 16:00:00 +0100"/>
+</filter>]]></hxml>
+<p>Of course, one can specify only the attribute <code>after</code> or <code>before</code>.</p>
+<p>The <code>&lt;endDate&gt;</code> element is used to filter on the RSS item end date, if present.
+If a RSS item has no such date, then the RSS item is considered as matching the criteria.
+</p>
+</subsection>
+
+<subsection id="or" title="&amp;lt;or&amp;gt;">
+<p>
+The <code>&lt;or&gt;</code> element contains other filters. A RSS item matches this filter
+if it matches at least one of the filters defined in the <code>&lt;or&gt;</code> element.
+For example, the following filter will keep only RSS items matching the <code>&lt;keywords&gt;</code>
+filter or the <code>&lt;startDate&gt;</code> filter:
+</p>
+<hxml><![CDATA[<filter>
+  <or>
+    <keywords><item>api</item></keywords>
+    <startDate after="1 May 2012 12:00:00 +0100"/>
+  </or>
+</filter>]]></hxml>
+</subsection>
+
+<subsection id="and" title="&amp;lt;and&amp;gt;">
+<p>The <code>&lt;and&gt;</code> element is like the <elt href="#or"/> filter but RSS items
+must match all the sub-filters to be kept.
+</p>
+</subsection>
+
+<subsection id="not" title="&amp;lt;not&amp;gt;">
+<p>The <code>&lt;not&gt;</code> element also contains sub-filters. A RSS item will
+be kept if it does not match at least one sub-filter: The intersection of
+RSS items matching the sub-filters is computed, then only the complement of this intersection
+is kept.
+For example, the following filter will keep only RSS items which don't have the "api"
+keyword and start after the 1<sup>st</sup> of May 2012 at 12:00:
+</p>
+<hxml><![CDATA[<filter>
+  <not>
+    <keywords><item>api</item></keywords>
+    <startDate after="1 May 2012 12:00:00 +0100"/>
+  </not>
+</filter>
+]]></hxml>
+<p>This is equivalent to the following filter:</p>
+<hxml><![CDATA[<filter>
+  <not>
+    <and>
+      <keywords><item>api</item></keywords>
+      <startDate after="1 May 2012 12:00:00 +0100"/>
+    </and>
+  </not>
+</filter>
+]]></hxml>
+</subsection>
+</section>
+
+<section id="template" title="&amp;lt;template&amp;gt;">
+<p>
+This element contains the XML template used when querying a XML result.
+Here is an example of such a template element:
+</p>
+<hxml><![CDATA[<query type="application/xml">
+  <template tag="div" class="rss-items">
+    <div class="rss-item">
+      <span class="rss-date"><item-pub-year/>-<item-pub-month/>-<item-pub-mday/></span
+      ><span class="rss-item-title"><a href="&lt;item-url/&gt;"><item-title/></a></span>
+      <span class="rss-source">[<item-source-name/>]</span>
+    </div>
+  </template>
+</query>
+]]></hxml>
+<p>The <ixml>tag="div"</ixml> means that the root element of the result tree
+will be a "div". The additional attributes of the <xmlnode name="template"/>
+are added to this root node.
+</p>
+<p>
+The elements under the <xmlnode name="template"/> are used as template: for each
+item in the final channel (i.e. after merging and filtering), rewrite rules
+are applied and the result in added to root node of the result. Rewrite
+rules consist in replacing some XML nodes by information about the current item.
+</p>
+<p>The following nodes are replaced:</p>
+<ul>
+<li><xmlnode name="item-title"/>: title of the item,</li>
+<li><xmlnode name="item-description"/>: description of the item,</li>
+<li><xmlnode name="item-url"/>: link of the item,</li>
+<li><xmlnode name="item-pubdate"/>: publication date of the item,</li>
+<li><xmlnode name="item-pub-year"/>: year of the publication date of the item;
+you can also use <xmlnode name="item-pub-month"/>, <xmlnode name="item-pub-mday"/>, <xmlnode name="item-pub-hour"/>,
+<xmlnode name="item-pub-minute"/>, and <xmlnode name="item-pub-second"/> elements,</li>
+<li><xmlnode name="item-author"/>: author of the item,</li>
+<li><xmlnode name="item-source-url"/>: url of the source channel,</li>
+<li><xmlnode name="item-source-name"/>: name of the source channel.</li>
+</ul>
+</section>
+</prepare-toc>
+-->
+</contents>
+</page>

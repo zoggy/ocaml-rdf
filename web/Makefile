@@ -1,7 +1,10 @@
-STOG=stog
+MKSTOG=mk-stog
+MKSTOG_OCAML_SESSION=mk-stog-ocaml-session
+STOG=./mystog --stog-ocaml-session "$(STOG_OCAML_SESSION)  -I ../src"
+STOG_OCAML_SESSION=./mystog-ocaml-session
 DEST_DIR=/tmp/ocaml-rdf
 BASE_URL_OPTION=
-STOG_OPTIONS=-d $(DEST_DIR) $(BASE_URL_OPTION) --package stog.disqus
+STOG_OPTIONS=-d $(DEST_DIR) $(BASE_URL_OPTION)
 LESSC=lessc
 CP=cp -f
 
@@ -19,6 +22,14 @@ site: style.css
 
 test:
 	$(MAKE) BASE_URL_OPTION="--site-url file://$(DEST_DIR)" site
+
+stog:$(STOG) $(STOG_OCAML_SESSION)
+.PHONY:$(STOG) $(STOG_OCAML_SESSION)
+$(STOG):
+	$(MKSTOG) -o $@ -package stog.disqus,stog-writing,rdf -linkall
+
+$(STOG_OCAML_SESSION):
+	$(MKSTOG_OCAML_SESSION) -o $@ -package rdf
 
 clean:
 	rm -fr .stog/cache
