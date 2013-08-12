@@ -1,5 +1,0 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT ?name (bnode(?site) as ?website)
- WHERE { ?x foaf:name  ?name ;
-            foaf:website  ?site .
-       }

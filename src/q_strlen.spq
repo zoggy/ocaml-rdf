@@ -1,4 +1,0 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT (strlen(?name) as ?x)
- WHERE { _:a foaf:name  ?name ;
-       }

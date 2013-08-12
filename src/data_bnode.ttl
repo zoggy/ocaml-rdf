@@ -1,5 +1,0 @@
-@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
-
-_:a  foaf:name       "Alice".
-_:a  foaf:website    "http://alice.me".
-_:a  foaf:website    "http://github.com/alice".

@@ -1,7 +1,0 @@
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-SELECT ?name
-  (md5(?name) as ?md5)
-  (sha1(?name) as ?sha1)
-  (sha256(?name) as ?sha256)
- WHERE { ?x foaf:name  ?name ;
-       }
