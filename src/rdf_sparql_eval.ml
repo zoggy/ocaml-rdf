@@ -1555,14 +1555,16 @@ and eval_triple ctx (x, path, y) =
 
 and eval ctx = function
 | BGP triples ->
-      let om = eval_triples ctx triples in
-      (*__print_omega om;*)
-      om
+    let om = eval_triples ctx triples in
+    (* prerr_endline "BGP:"; __print_omega om;*)
+    om
 
 | Join (a1, a2) ->
     let o1 = eval ctx a1 in
     let o2 = eval ctx a2 in
-    join_omega ctx o1 o2
+    let o = join_omega ctx o1 o2 in
+    (* prerr_endline "JOIN:"; __print_omega o;*)
+    o
 
 | LeftJoin (a1, a2, filters) ->
     let o1 = eval ctx a1 in

@@ -48,7 +48,7 @@ let load_file file =
     title = title#get ;
     desc = Rdf_misc.opt_of_string desc#get ;
     query = mk_filename query#get ;
-    default_graph = Rdf_misc.opt_of_string default_graph#get ;
+    default_graph = Rdf_misc.map_opt mk_filename (Rdf_misc.opt_of_string default_graph#get) ;
     named ;
   }
 ;;

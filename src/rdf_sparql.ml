@@ -25,6 +25,11 @@
 open Rdf_sparql_types;;
 open Rdf_sparql_eval;;
 
+let dbg = Rdf_misc.create_log_fun
+  ~prefix: "Rdf_sparql"
+    "RDF_SPARQL_DEBUG_LEVEL"
+;;
+
 type error =
 | Parse_error of Rdf_loc.loc * string
 | Value_error of Rdf_dt.error
@@ -97,20 +102,126 @@ let string_of_query q =
   Buffer.contents b
 ;;
 
-
-let dbg = Rdf_misc.create_log_fun
-  ~prefix: "Rdf_sparql_eval"
-    "RDF_SPARQL_QUERY_DEBUG_LEVEL"
-;;
-
 type solution = Rdf_sparql_ms.mu
 
 type query_result =
   Bool of bool
 | Solutions of Rdf_sparql_ms.mu list
 | Graph of Rdf_graph.graph
+;;
 
-let construct_graph graph solutions = ();;
+module SMap = Rdf_sparql_types.SMap;;
+
+let var_or_term_apply_sol sol bnode_map = function
+  Rdf_sparql_types.Var v ->
+    (
+     try (Rdf_sparql_ms.mu_find_var v sol, bnode_map)
+     with Not_found ->
+       failwith ("Unbound variable "^v.var_name)
+    )
+| Rdf_sparql_types.GraphTerm t ->
+    match t with
+    | GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermIri (Iriref ir) -> (Rdf_node.Uri (ir.ir_iri), bnode_map)
+    | GraphTermLit lit
+    | GraphTermNumeric lit
+    | GraphTermBoolean lit -> (Rdf_node.Literal lit.rdf_lit, bnode_map)
+    | GraphTermBlank { bnode_label = None }
+    | GraphTermNil ->
+       let label = Rdf_sparql_ms.gen_blank_id () in
+       (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+    | GraphTermBlank { bnode_label = Some label } ->
+        begin
+          let (label, bnode_map) =
+            try (SMap.find label bnode_map, bnode_map)
+            with Not_found ->
+                let new_label = Rdf_sparql_ms.gen_blank_id () in
+                let map = SMap.add label new_label bnode_map in
+                (new_label, map)
+          in
+          (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+        end
+    | GraphTermNode _ -> assert false
+;;
+
+let add_solution_to_graph graph template =
+  let triples =
+    List.fold_left
+      Rdf_sparql_algebra.translate_triples_same_subject_path [] template
+  in
+  dbg ~level: 2
+    (fun () -> "construct "^(string_of_int (List.length triples))^" triple(s) per solution");
+  let build_triple sol (triples, bnode_map) (sub, path, obj) =
+    try
+      let pred =
+        match path with
+          Rdf_sparql_algebra.Var v -> Rdf_sparql_types.Var v
+        | Rdf_sparql_algebra.Iri iriref ->
+            Rdf_sparql_types.GraphTerm
+              (Rdf_sparql_types.GraphTermIri (Rdf_sparql_types.Iriref iriref))
+        | _ -> failwith "Invalid predicate spec in template"
+      in
+      let (sub, bnode_map) =
+        let (node, bnode_map) = var_or_term_apply_sol sol bnode_map sub in
+        match node with
+          Rdf_node.Literal _ -> failwith "Invalid subject (literal)"
+        | _ -> (node, bnode_map)
+      in
+      let (pred, bnode_map) =
+        let (node, bnode_map) = var_or_term_apply_sol sol bnode_map pred in
+        match node with
+          Rdf_node.Literal _ -> failwith "Invalid predicate (literal)"
+        | _ -> (node, bnode_map)
+      in
+      let (obj, bnode_map) = var_or_term_apply_sol sol bnode_map obj in
+      ((sub, pred, obj) :: triples, bnode_map)
+    with
+      e ->
+        dbg ~level: 2 (fun _ -> Printexc.to_string e);
+        (triples, bnode_map)
+  in
+  let insert (sub,pred,obj) = graph.Rdf_graph.add_triple ~sub ~pred ~obj in
+  let f sol =
+    (*Rdf_sparql_ms.SMap.iter
+      (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+      sol.Rdf_sparql_ms.mu_bindings;
+    print_newline();
+    *)
+    let (triples,_) =
+      List.fold_left (build_triple sol) ([], SMap.empty) triples
+    in
+    List.iter insert triples
+  in
+  f
+;;
+
+let construct_template c =
+  match c.constr_template with
+    Some t -> t
+  | None ->
+      match c.constr_where with
+        Constr_ggp _ -> assert false
+      | Constr_template t -> t
+;;
+
+let construct_graph graph template solutions =
+  dbg ~level: 1
+    (fun () -> "construct graph with "^(string_of_int (List.length solutions))^" solution(s)");
+  List.iter (add_solution_to_graph graph template) solutions
+;;
+
+let construct_project_vars =
+  let f_var f acc v = Rdf_sparql_types.VarSet.add v acc in
+  let visitor = { Rdf_sparql_vis.default with Rdf_sparql_vis.var = f_var } in
+  let map_to_selvar v =
+    { sel_var_loc = v.var_loc ; sel_var_expr = None ; sel_var = v }
+  in
+  fun template ->
+    let vars = List.fold_left (visitor.Rdf_sparql_vis.triples_same_subject visitor)
+      Rdf_sparql_types.VarSet.empty template
+    in
+    List.map  map_to_selvar (Rdf_sparql_types.VarSet.elements vars)
+;;
 
 let execute ?graph ~base dataset query =
   let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
@@ -129,12 +240,27 @@ let execute ?graph ~base dataset query =
           query_values = None ;
         }
     | Construct c ->
+        let template = construct_template c in
         let w =
           match c.constr_where with
             Constr_ggp ggp -> ggp
-          | Constr_template _ -> assert false (* FIXME: implement *)
+          | Constr_template triples ->
+              let loc = Rdf_loc.dummy_loc in
+              GGPSub
+                { ggp_sub_loc = loc ;
+                  ggp_sub_elts =
+                    [
+                      Triples { triples_loc = loc ; triples = triples }
+                    ]
+                }
         in
-        { Rdf_sparql_algebra.query_proj = None ;
+        (* project solutions according to variables used in template *)
+        let proj =
+          { sel_flag = None ;
+            sel_vars = SelectVars (construct_project_vars template) ;
+          }
+        in
+        { Rdf_sparql_algebra.query_proj = Some proj ;
           query_where = w ;
           query_modifier = c.constr_modifier ;
           query_values = None ;
@@ -162,13 +288,14 @@ let execute ?graph ~base dataset query =
   match query.q_kind with
     Select _ -> Solutions solutions
   | Ask _ -> Bool (solutions <> [])
-  | Construct _ ->
+  | Construct c ->
+      let template = construct_template c in
       let g =
         match graph with
           Some g -> g
         | None -> Rdf_graph.open_graph base
       in
-      construct_graph g solutions ;
+      construct_graph g template solutions ;
       Graph g
   | Describe _ -> assert false
 ;;

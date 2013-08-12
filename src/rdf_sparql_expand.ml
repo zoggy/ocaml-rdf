@@ -278,6 +278,11 @@ and expand_graph_term env = function
   | GraphTermLit lit -> GraphTermLit (expand_rdf_literal env lit)
   | GraphTermNumeric lit -> GraphTermNumeric (expand_rdf_literal env lit)
   | GraphTermBoolean lit -> GraphTermBoolean (expand_rdf_literal env lit)
+  | GraphTermBlank ({ bnode_label = None } as b) ->
+      (* set a fresh id, needed to distinguish this anonymous blank
+        from others un solution union *)
+      let label = Rdf_sparql_ms.gen_blank_id () in
+      GraphTermBlank { b with bnode_label = Some label }
   | GraphTermBlank b -> GraphTermBlank b
   | GraphTermNil -> GraphTermNil
   | GraphTermNode _ -> assert false
