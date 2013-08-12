@@ -1062,7 +1062,63 @@ let extend_omega ctx o var expr =
   let eval mu = Rdf_dt.to_node (eval_expr ctx mu expr) in
   Rdf_sparql_ms.omega_extend eval o var
 
-let sort_sequence ctx l = l
+
+let rec build_sort_comp_fun = function
+| OrderAsc e ->
+    begin
+      fun ctx mu1 mu2 ->
+        let v1 = eval_expr ctx mu1 e in
+        let v2 = eval_expr ctx mu2 e in
+        sortby_compare v1 v2
+    end
+| OrderDesc e ->
+    begin
+      fun ctx mu1 mu2 ->
+        let v1 = eval_expr ctx mu1 e in
+        let v2 = eval_expr ctx mu2 e in
+        sortby_compare v2 v1
+    end
+| OrderVar v ->
+    begin
+      fun ctx mu1 mu2 ->
+        let v1 =
+          try Rdf_dt.of_node (Rdf_sparql_ms.mu_find_var v mu1)
+          with e -> Rdf_dt.Err (Rdf_dt.Exception e)
+        in
+        let v2 =
+          try Rdf_dt.of_node (Rdf_sparql_ms.mu_find_var v mu2)
+          with e -> Rdf_dt.Err (Rdf_dt.Exception e)
+        in
+        sortby_compare v1 v2
+    end
+| OrderConstr t ->
+    match t with
+      (ConstrExpr e) ->
+        build_sort_comp_fun (OrderAsc e)
+    | (ConstrBuiltInCall bic) ->
+        let e = { expr_loc = Rdf_loc.dummy_loc ; expr = EBic bic } in
+        build_sort_comp_fun (OrderAsc e)
+    | (ConstrFunctionCall fc) ->
+        let e = { expr_loc = Rdf_loc.dummy_loc ; expr = EFuncall fc } in
+        build_sort_comp_fun (OrderAsc e)
+;;
+
+let sort_solutions =
+  let rec sort ctx mu1 mu2 = function
+    [] -> 0
+  | f :: q ->
+      match f ctx mu1 mu2 with
+        0 -> sort ctx mu1 mu2 q
+      | n -> n
+  in
+  fun ctx comp_funs mu1 mu2 -> sort ctx mu1 mu2 comp_funs
+;;
+
+let sort_sequence ctx order_conds solutions =
+  let comp_funs = List.map build_sort_comp_fun order_conds in
+  let compare = sort_solutions ctx comp_funs in
+  List.sort compare solutions
+;;
 
 let project_sequence vars l =
   let vars = Rdf_sparql_algebra.VS.fold
@@ -1640,7 +1696,7 @@ and eval ctx = function
 and eval_list ctx = function
   | OrderBy (a, order_conds) ->
       let l = eval_list ctx a in
-      sort_sequence ctx l (* FIXME: implement *)
+      sort_sequence ctx order_conds l
   | Project (a, vars) ->
       let l = eval_list ctx a in
       project_sequence vars l
