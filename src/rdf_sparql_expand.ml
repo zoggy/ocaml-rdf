@@ -23,8 +23,12 @@ let iriref_a =
 ;;
 
 let expand_iri env = function
-  | (Iriref _) as t -> t
-  | PrefixedName pname ->
+| (Iriref iriref) ->
+    let neturl = Rdf_uri.neturl iriref.ir_iri in
+    let base = Rdf_uri.neturl env.base in
+    let neturl = Neturl.ensure_absolute_url ~base neturl in
+    Iriref { iriref with ir_iri = Rdf_uri.of_neturl neturl }
+| PrefixedName pname ->
     let base =
       match pname.pname_ns.pname_ns_name with
         "" -> env.base
