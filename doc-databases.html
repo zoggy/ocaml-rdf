@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : Using database backends for graphs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/style.css"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
 <rssfeed/>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/download.html">Download</a></li>
-    <li class="active"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -35,7 +35,7 @@
 
 
 <ul class="toc"><li class="toc-section"><a href="#mysql">MySQL backend</a></li><li class="toc-section"><a href="#postgresql">Postgresql backend</a></li></ul>
-<p id="Twobackendsa"><a class="paragraph-url" href="#Twobackendsa"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Twobackendsa"><a class="paragraph-url" href="#Twobackendsa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Two backends are available to store graphs in databases rather than
 in memory: MySQL and Postgresql. This allows to create persistent
 graphs.
@@ -45,12 +45,12 @@ optional parameter of
 .
 </p>
 <div class="section"><div class="section-title" id="mysql">MySQL backend</div>
-<p id="UsingtheMySQ"><a class="paragraph-url" href="#UsingtheMySQ"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="UsingtheMySQ"><a class="paragraph-url" href="#UsingtheMySQ"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Using the MySQL backend requires to link with the <code>rdf.mysql</code>
 ocamlfind package. Then, after creating a database with proper rights
 on the server, the following code creates a graph in the database:
 </p>
-<pre id="letoptionsst" class="code-ocaml"><a class="paragraph-url" href="#letoptionsst"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
+<pre id="letoptionsst" class="code-ocaml"><a class="paragraph-url" href="#letoptionsst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
   <span class="hl opt">[</span>
     <span class="hl str">&quot;storage&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mysql&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* the type of storage, here mysql backend *)</span>
     <span class="hl str">&quot;database&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mydb&quot;</span><span class="hl opt">;</span> <span class="hl com">(* database name *)</span>
@@ -60,7 +60,7 @@ on the server, the following code creates a graph in the database:
     <span class="hl str">&quot;port&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;3306&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* port *)</span>
   <span class="hl opt">]</span>
 <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> graph <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph ~options <span class="hl opt">(</span><span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://hello.fr&quot;</span><span class="hl opt">) ;;</span></div></pre>
-<p id="Thebackendcr"><a class="paragraph-url" href="#Thebackendcr"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Thebackendcr"><a class="paragraph-url" href="#Thebackendcr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The backend creates various tables:
 </p>
 <ul>
@@ -70,11 +70,11 @@ The backend creates various tables:
 <li>a table &quot;bnodes&quot;, to store hashes of blank nodes,</li>
 <li>a table &quot;resources&quot;, to store hashes of URIs.</li>
 </ul>
-<p id="ThegraphNtab"><a class="paragraph-url" href="#ThegraphNtab"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="ThegraphNtab"><a class="paragraph-url" href="#ThegraphNtab"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The &quot;graphN&quot; tables contain triples, composed of references to
 hashes. This model is copied from the Redland's Librdf library.
 </p>
-<p id="Allthecommon"><a class="paragraph-url" href="#Allthecommon"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Allthecommon"><a class="paragraph-url" href="#Allthecommon"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 All the common tables are created at connection time, and the
 table of each graph in created when the graph is created.
 When 
@@ -86,7 +86,7 @@ this graph is used, with all existing triples.
 </div>
 
 <div class="section"><div class="section-title" id="postgresql">Postgresql backend</div>
-<p id="ThePostgresq"><a class="paragraph-url" href="#ThePostgresq"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="ThePostgresq"><a class="paragraph-url" href="#ThePostgresq"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The Postgresql backend works the same way as the MySQL backend.
 Using the MySQL backend requires to link with the <code>rdf.postgresql</code>
 ocamlfind package.
@@ -95,7 +95,7 @@ the <code>options</code> parameter of
 <a href="refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 :
 </p>
-<pre id="letoptionssto" class="code-ocaml"><a class="paragraph-url" href="#letoptionssto"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
+<pre id="letoptionssto" class="code-ocaml"><a class="paragraph-url" href="#letoptionssto"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
   <span class="hl opt">[</span>
     <span class="hl str">&quot;storage&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;postgresql&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* the type of storage, here postresql backend *)</span>
     <span class="hl str">&quot;database&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mydb&quot;</span><span class="hl opt">;</span> <span class="hl com">(* database name *)</span>
@@ -114,8 +114,8 @@ the <code>options</code> parameter of
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/jquery.js">_</script>
-<script type="text/javascript" src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/bootstrap-collapse.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
 
 </body>
 </html>

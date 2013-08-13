@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : Executing Sparql queries</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/style.css"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
 <rssfeed/>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/download.html">Download</a></li>
-    <li class="active"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -34,21 +34,21 @@
 
 
 
-<p id="OCamlRDFimpl"><a class="paragraph-url" href="#OCamlRDFimpl"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="OCamlRDFimpl"><a class="paragraph-url" href="#OCamlRDFimpl"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 OCaml-RDF implements <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/">Sparql 1.1 Query</a></span>.
-<a href="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/doc-todo.html#limitations">Some features are missing</a> but it's already quite complete.
+<a href="http://zoggy.github.io/ocaml-rdf/doc-todo.html#limitations">Some features are missing</a> but it's already quite complete.
 The main module of the implementation is 
 <a href="refdoc/Rdf_sparql.html">Rdf_sparql</a>
 . We consider
 this module open in the examples below:
 </p>
-<pre id="openRdf_spar" class="code-ocaml"><a class="paragraph-url" href="#openRdf_spar"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">open</span> <span class="hl kwd">Rdf_sparql</span><span class="hl opt">;;</span></div></pre>
+<pre id="openRdf_spar" class="code-ocaml"><a class="paragraph-url" href="#openRdf_spar"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">open</span> <span class="hl kwd">Rdf_sparql</span><span class="hl opt">;;</span></div></pre>
 <ul class="toc"><li class="toc-section"><a href="#parsing">Parsing and printing queries</a></li><li class="toc-section"><a href="#dataset">Datasets</a></li><li class="toc-section"><a href="#execution">Executing a query</a></li><li class="toc-section"><a href="#construct">CONSTRUCT queries</a></li></ul>
 <div class="section"><div class="section-title" id="parsing">Parsing and printing queries</div>
-<p id="Theexamplebe"><a class="paragraph-url" href="#Theexamplebe"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Theexamplebe"><a class="paragraph-url" href="#Theexamplebe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The example below parses a Sparql query, then prints it:
 </p>
-<pre id="letquerytryp" class="code-ocaml"><a class="paragraph-url" href="#letquerytryp"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> query <span class="hl opt">=</span>
+<pre id="letquerytryp" class="code-ocaml"><a class="paragraph-url" href="#letquerytryp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> query <span class="hl opt">=</span>
   <span class="hl kwa">try</span> parse_from_string
     <span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="hl str">     SELECT ?name ?mbox ?hpage</span>
@@ -61,36 +61,36 @@ The example below parses a Sparql query, then prints it:
 </div>
 
 <div class="section"><div class="section-title" id="dataset">Datasets</div>
-<p id="ASparqlquery"><a class="paragraph-url" href="#ASparqlquery"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="ASparqlquery"><a class="paragraph-url" href="#ASparqlquery"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 A Sparql query is executed on a
 <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/#rdfDataset"><em>dataset</em></a></span>,
 which is composed of a default (unnamed) graph, and other (named) graphs each associated
 to an URI.
 </p>
-<p id="TheRdf_dsdat"><a class="paragraph-url" href="#TheRdf_dsdat"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>The 
+<p id="TheRdf_dsdat"><a class="paragraph-url" href="#TheRdf_dsdat"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>The 
 <a href="refdoc/Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a>
  type represents a dataset and contain
 a default graph (which can be empty), a set of graph names (i.e. a set or URIs), and
 a function to get a graph by its URI.
 </p>
-<p id="Theexamplebel"><a class="paragraph-url" href="#Theexamplebel"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>The example below loads a graph from the file <code>optional.ttl</code> then
+<p id="Theexamplebel"><a class="paragraph-url" href="#Theexamplebel"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>The example below loads a graph from the file <code>optional.ttl</code> then
 creates a dataset with graph as default graph, and no named graphs:
 </p>
-<pre id="letbaseRdf_u" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_u"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://foo.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g base <span class="hl str">&quot;optional.ttl&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> dataset <span class="hl opt">=</span> <span class="hl kwc">Rdf_ds</span><span class="hl opt">.</span>simple_dataset g <span class="hl opt">;;</span></div></pre>
-<p id="Hereisthecon"><a class="paragraph-url" href="#Hereisthecon"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>Here is the content of our graph:</p>
+<pre id="letbaseRdf_u" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_u"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://foo.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g base <span class="hl str">&quot;optional.ttl&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> dataset <span class="hl opt">=</span> <span class="hl kwc">Rdf_ds</span><span class="hl opt">.</span>simple_dataset g <span class="hl opt">;;</span></div></pre>
+<p id="Hereisthecon"><a class="paragraph-url" href="#Hereisthecon"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>Here is the content of our graph:</p>
 
-<pre id="prefixfoafht" class="code-ocaml"><a class="paragraph-url" href="#prefixfoafht"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+<pre id="prefixfoafht" class="code-ocaml"><a class="paragraph-url" href="#prefixfoafht"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-381018578 foaf:name &quot;Bob&quot; .
-_:genid1-381018578 foaf:mbox &lt;mailto:bob@work.example&gt; .
-_:genid0-745087316 foaf:name &quot;Alice&quot; .
-_:genid0-745087316 foaf:homepage &lt;http://work.example.org/alice/&gt; .
+_:genid1-749753734 foaf:name &quot;Bob&quot; .
+_:genid1-749753734 foaf:mbox &lt;mailto:bob@work.example&gt; .
+_:genid0-522521808 foaf:name &quot;Alice&quot; .
+_:genid0-522521808 foaf:homepage &lt;http://work.example.org/alice/&gt; .
 </div></pre>
 
 </div>
 
 <div class="section"><div class="section-title" id="execution">Executing a query</div>
-<p id="Thefollowing"><a class="paragraph-url" href="#Thefollowing"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Thefollowing"><a class="paragraph-url" href="#Thefollowing"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The following code executes the query parsed above, on the dataset
 defined in previous section. Since this is a SELECT query, the
 
@@ -98,14 +98,14 @@ defined in previous section. Since this is a SELECT query, the
   function returns a <code>Solutions</code>
 constructor with the sequence of solutions.
 </p>
-<pre id="letresexecut" class="code-ocaml"><a class="paragraph-url" href="#letresexecut"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> res <span class="hl opt">=</span> execute ~base dataset query<span class="hl opt">;;</span></div><div class="ocaml-toplevel">val res : Rdf_sparql.query_result = Solutions [&lt;abstr&gt;; &lt;abstr&gt;]</div></pre>
-<p id="Sinceweknowt"><a class="paragraph-url" href="#Sinceweknowt"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<pre id="letresexecut" class="code-ocaml"><a class="paragraph-url" href="#letresexecut"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> res <span class="hl opt">=</span> execute ~base dataset query<span class="hl opt">;;</span></div><div class="ocaml-toplevel">val res : Rdf_sparql.query_result = Solutions [&lt;abstr&gt;; &lt;abstr&gt;]</div></pre>
+<p id="Sinceweknowt"><a class="paragraph-url" href="#Sinceweknowt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Since we know that our query is a SELECT, we can use a convenient function
 which will ensure that the query is a SELECT and return directly the sequence
 of solutions:
 </p>
-<pre id="letsolutions" class="code-ocaml"><a class="paragraph-url" href="#letsolutions"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> solutions <span class="hl opt">=</span> select ~base dataset query <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val solutions : Rdf_sparql.solution list = [&lt;abstr&gt;; &lt;abstr&gt;]</div></pre>
-<p id="Letsdisplayt"><a class="paragraph-url" href="#Letsdisplayt"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<pre id="letsolutions" class="code-ocaml"><a class="paragraph-url" href="#letsolutions"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> solutions <span class="hl opt">=</span> select ~base dataset query <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val solutions : Rdf_sparql.solution list = [&lt;abstr&gt;; &lt;abstr&gt;]</div></pre>
+<p id="Letsdisplayt"><a class="paragraph-url" href="#Letsdisplayt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Let's display the result. A solution, of type 
 <a href="refdoc/Rdf_sparql.html#TYPEsolution">Rdf_sparql.solution</a>
 ,
@@ -114,7 +114,7 @@ is a map from variable name (string) to
 .
 Let's print the solutions we obtained.
 </p>
-<pre id="letprint_sol" class="code-ocaml"><a class="paragraph-url" href="#letprint_sol"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> print_sol <span class="hl opt">=</span>
+<pre id="letprint_sol" class="code-ocaml"><a class="paragraph-url" href="#letprint_sol"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> print_sol <span class="hl opt">=</span>
   <span class="hl kwa">let</span> print varname term <span class="hl opt">=</span>
      <span class="hl kwc">Printf</span><span class="hl opt">.</span>printf <span class="hl str">&quot;%s =&gt; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> varname <span class="hl opt">(</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>string_of_node term<span class="hl opt">)</span>
   <span class="hl kwa">in</span>
@@ -133,7 +133,7 @@ name =&gt; &quot;Bob&quot;
 </div>
 
 <div class="section"><div class="section-title" id="construct">CONSTRUCT queries</div>
-<p id="Insteadofret"><a class="paragraph-url" href="#Insteadofret"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a>
+<p id="Insteadofret"><a class="paragraph-url" href="#Insteadofret"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Instead of returning a sequence of solutions, CONSTRUCT queries return
 a graph. In the example below, we give an existing graph, in which triples
 will be added. If we do not give a graph, a new (in memory) graph is returned.
@@ -141,7 +141,7 @@ We begin by creating a new graph which will receive the new triples,
 then parse the CONSTRUCT query, then execute it. Then we show the resulting
 graph.
 </p>
-<pre id="letg2Rdf_gra" class="code-ocaml"><a class="paragraph-url" href="#letg2Rdf_gra"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> g2 <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> query <span class="hl opt">=</span> parse_from_string
+<pre id="letg2Rdf_gra" class="code-ocaml"><a class="paragraph-url" href="#letg2Rdf_gra"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> g2 <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> query <span class="hl opt">=</span> parse_from_string
   <span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="hl str">   CONSTRUCT { ?x foaf:name ?name ; foaf:mbox ?mbox . }</span>
 <span class="hl str">   WHERE  { ?x foaf:name  ?name .</span>
@@ -149,7 +149,7 @@ graph.
 <span class="hl str">       OPTIONAL { ?x foaf:homepage ?hpage }</span>
 <span class="hl str">  }&quot;</span><span class="hl opt">;;</span></div><div>construct ~graph<span class="hl opt">:</span> g2 ~base dataset query<span class="hl opt">;;</span></div></pre>
 
-<pre id="prefixrdfhtt" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhtt"><img src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+<pre id="prefixrdfhtt" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhtt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 _:__b2__ &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
 _:__b2__ &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@work.example&gt; .
 _:__b1__ &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
@@ -165,8 +165,8 @@ _:__b1__ &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/jquery.js">_</script>
-<script type="text/javascript" src="file:///home/guesdon/devel/ocaml-rdf/web/../../ocaml-rdf-pages/bootstrap-collapse.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
 
 </body>
 </html>
