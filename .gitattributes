@@ -4,6 +4,7 @@ header export-ignore
 .gitignore export-ignore
 web export-ignore
 draft export-ignore
+examples export-ignore
 
 
 
