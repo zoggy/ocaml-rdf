@@ -2,6 +2,6 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix ex: <http://example.org/stuff/1.0/> .
 <http://www.w3.org/TR/rdf-syntax-grammar> dc:title "RDF/XML Syntax Specification (Revised)" .
-<http://www.w3.org/TR/rdf-syntax-grammar> <editor> _:genid1-351383214 .
-_:genid1-351383214 ex:homePage <http://purl.org/net/dajobe/> .
-_:genid1-351383214 ex:fullName "Dave Beckett" .
+<http://www.w3.org/TR/rdf-syntax-grammar> <editor> _:genid1-915317278 .
+_:genid1-915317278 ex:homePage <http://purl.org/net/dajobe/> .
+_:genid1-915317278 ex:fullName "Dave Beckett" .
