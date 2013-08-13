@@ -127,7 +127,9 @@ g.Rdf_graph.transaction_start();;
 let pred = Rdf_node.Uri (Rdf_uri.uri "http://example.org/stuff/1.0/fullName") ;;
 match g.Rdf_graph.find ~pred () with
 | (sub,_,obj) :: _ ->
+  (* remove a triple *)
   g.Rdf_graph.rem_triple ~sub ~pred ~obj;
+  (* add a new triple, with a different name *)
   g.Rdf_graph.add_triple ~sub ~pred
     ~obj: (Rdf_node.node_of_literal_string "Jean Dupont")
 | _ -> assert false;;
