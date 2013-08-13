@@ -1,5 +1,5 @@
 version = "@VERSION@"
-description = "Handling RDF graphs"
+description = "RDF and Sparql with OCaml"
 requires = "netstring,uuidm,xmlm,ulex,cryptokit,pcre,menhirLib"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
