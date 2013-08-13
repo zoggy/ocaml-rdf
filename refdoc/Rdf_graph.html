@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_dt.html">
+<link rel="next" href="Rdf_loc.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><link title="Options" rel="Section" href="#2_Options">
+<link title="Creating storages" rel="Section" href="#2_Creatingstorages">
+<link title="Registering storages" rel="Section" href="#2_Registeringstorages">
+<link title="Graph creation" rel="Section" href="#2_Graphcreation">
+<title>OCaml-RDF : Rdf_graph</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_dt.html" title="Rdf_dt">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_loc.html" title="Rdf_loc">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_graph.html">Rdf_graph</a></h1>
+<pre><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info">
+Graph abstraction.
+<p>
+
+  The graph provides an abstraction of the storage used (memory, database, ...).
+  The graph is modified in place.
+<p>
+
+  Example of usage:
+   <pre class="codepre"><code class="code">let options =
+  [
+    "storage", "mysql" ;
+    "database", "mydb";
+    "user", "john" ;
+  ]
+in
+let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
+graph.add_triple
+  ~sub: (Rdf_node.node_of_uri_string "http://john.net")
+  ~pred: (Rdf_node.node_of_uri_string "http://relations.org/hasMailbox")
+  ~obj: (Rdf_node.node_of_literal_string "john@john.net");
+...
+</code></pre><br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Options">Options</h2><br>
+<pre><span id="TYPEoptions"><span class="keyword">type</span> <code class="type"></code>options</span> = <code class="type">(string * string) list</code> </pre>
+
+<pre><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -> string -> <a href="Rdf_graph.html#TYPEoptions">options</a> -> string</code></pre><div class="info">
+<code class="code">get_options name options</code> returns the value associated to the
+  option with the given name, in option list.
+  If the option name is not found in the list, the function raises
+  the <code class="code">Failure</code> exception with a message about the missing option.<br>
+</div>
+<div class="param_info"><code class="code">def</code> : can be used to specify a default value; in this case, if
+  the option name was not found in list, the default value is
+  returned instead of raising <code class="code">Failure</code>.</div>
+<br>
+<h2 id="2_Creatingstorages">Creating storages</h2>
+<p>
+
+This is useful only to create your own storage.<br>
+<pre><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
+A storage is a module with this interface.
+</div>
+<pre><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre>
+<div class="info">
+This is the exception raised by the module we get when applying
+  <a href="Rdf_graph.Make.html"><code class="code">Rdf_graph.Make</code></a> on a storage.
+<p>
+
+  Each call to a <a href="Rdf_graph.Storage.html"><code class="code">Rdf_graph.Storage</code></a> function is embedded so that the
+  <a href="Rdf_graph.html#EXCEPTIONStorage_error"><code class="code">Rdf_graph.Storage_error</code></a> exception is raised when an error occurs in
+  a storage function.
+  The exception provides the name of the storage, the error message
+  (obtained with <a href="Rdf_graph.Storage.html#VALstring_of_error"><code class="code">Rdf_graph.Storage.string_of_error</code></a>) and the original exception.
+<p>
+
+  Refer to the documentation of <a href="Rdf_graph.Storage.html"><code class="code">Rdf_graph.Storage</code></a> for information about
+  the functions provided by the resulting module.<br>
+</div>
+<pre><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br>
+<h2 id="2_Registeringstorages">Registering storages</h2><br>
+<pre><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -> unit</code></pre><div class="info">
+Add a storage to the list of registered storages.<br>
+</div>
+<pre><code><span id="TYPEgraph"><span class="keyword">type</span> <code class="type"></code>graph</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.name">name</span>&nbsp;:<code class="type">unit -> <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.add_triple">add_triple</span>&nbsp;:<code class="type">sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.rem_triple">rem_triple</span>&nbsp;:<code class="type">sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.add_triple_t">add_triple_t</span>&nbsp;:<code class="type"><a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> * <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> * <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.rem_triple_t">rem_triple_t</span>&nbsp;:<code class="type"><a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> * <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> * <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.subjects_of">subjects_of</span>&nbsp;:<code class="type">pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.predicates_of">predicates_of</span>&nbsp;:<code class="type">sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.objects_of">objects_of</span>&nbsp;:<code class="type">sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.find">find</span>&nbsp;:<code class="type">?sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -><br>       ?pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> ?obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit -> <a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.exists">exists</span>&nbsp;:<code class="type">?sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -><br>       ?pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> ?obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit -> bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.exists_t">exists_t</span>&nbsp;:<code class="type"><a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> -> bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.subjects">subjects</span>&nbsp;:<code class="type">unit -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.predicates">predicates</span>&nbsp;:<code class="type">unit -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.objects">objects</span>&nbsp;:<code class="type">unit -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.transaction_start">transaction_start</span>&nbsp;:<code class="type">unit -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.transaction_commit">transaction_commit</span>&nbsp;:<code class="type">unit -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.transaction_rollback">transaction_rollback</span>&nbsp;:<code class="type">unit -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.new_blank_id">new_blank_id</span>&nbsp;:<code class="type">unit -> <a href="Rdf_node.html#TYPEblank_id">Rdf_node.blank_id</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTgraph.namespaces">namespaces</span>&nbsp;:<code class="type">unit -> (<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code class="code">Rdf_graph.open_graph</code></a>. It contains
+  the same functions as in <a href="Rdf_graph.Graph.html"><code class="code">Rdf_graph.Graph</code></a>, except the graph data is hidden,
+  like in a class interface.
+  Refer to the documentation of <a href="Rdf_graph.Storage.html"><code class="code">Rdf_graph.Storage</code></a> for information about
+  the functions in the fields.<br>
+</div>
+
+<br>
+<h2 id="2_Graphcreation">Graph creation</h2><br>
+<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -> <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info">
+<code class="code">open_graph ~options uri_name</code> creates a new graph. The storage used
+  is specified by the "storage" option. For example, having <code class="code">("storage", "mysql")</code>
+  in the options indicates to use the storage "mysql".
+<p>
+
+  If the specified storage is not registered, the function raises <code class="code">Failure</code>.
+  Other options may be used by each storage.
+<p>
+
+  To make sure the storage you want to use is registered, beware of linking the
+  corresponding module in your executable, either by using the <code class="code">-linkall</code> option
+  or by adding a reference to the module in your code.<br>
+</div>
+<pre><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -> <a href="Rdf_graph.html#TYPEgraph">graph</a> -> unit</code></pre><div class="info">
+<code class="code">merge g1 g2</code> add triples from <code class="code">g2</code> to <code class="code">g1</code>.<br>
+</div>
+</body></html>

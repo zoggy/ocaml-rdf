@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_sparql_map.html">
+<link rel="next" href="Rdf_sparql_print.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_sparql_ms</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_sparql_map.html" title="Rdf_sparql_map">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_sparql_print.html" title="Rdf_sparql_print">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_ms.html">Rdf_sparql_ms</a></h1>
+<pre><span class="keyword">module</span> Rdf_sparql_ms: <code class="code">sig</code> <a href="Rdf_sparql_ms.html">..</a> <code class="code">end</code></pre><div class="info">
+</div>
+<hr width="100%">
+<pre><span id="VALdbg"><span class="keyword">val</span> dbg</span> : <code class="type">?loc:string -> ?level:int -> (unit -> string) -> unit</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.SMap.html">SMap</a>: <code class="type"><a href="Rdf_sparql_types.SMap.html">Rdf_sparql_types.SMap</a></code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.SSet.html">SSet</a>: <code class="type"><a href="Rdf_sparql_types.SSet.html">Rdf_sparql_types.SSet</a></code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.VMap.html">VMap</a>: <code class="type"><a href="Rdf_dt.VMap.html">Rdf_dt.VMap</a></code></pre><pre><code><span id="TYPEmu"><span class="keyword">type</span> <code class="type"></code>mu</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmu.mu_bindings">mu_bindings</span>&nbsp;:<code class="type"><a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> SMap.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTmu.mu_bnodes">mu_bnodes</span>&nbsp;:<code class="type">string VMap.t</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+A solution mapping : variable -&gt; rdf term<br>
+</div>
+
+<pre><span id="VALmu_0"><span class="keyword">val</span> mu_0</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALmu_add"><span class="keyword">val</span> mu_add</span> : <code class="type">SMap.key -><br>       <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALmu_copy"><span class="keyword">val</span> mu_copy</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALmu"><span class="keyword">val</span> mu</span> : <code class="type">SMap.key -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALgen_blank_id"><span class="keyword">val</span> gen_blank_id</span> : <code class="type">unit -> string</code></pre><pre><span id="VALget_bnode"><span class="keyword">val</span> get_bnode</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> VMap.key -> <a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a></code></pre><pre><span id="VALmu_compare"><span class="keyword">val</span> mu_compare</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> int</code></pre><pre><span id="EXCEPTIONIncompatible_mus"><span class="keyword">exception</span> Incompatible_mus</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre><span id="EXCEPTIONCannot_extend_mu"><span class="keyword">exception</span> Cannot_extend_mu</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a></code></pre>
+<pre><span id="VALmu_merge"><span class="keyword">val</span> mu_merge</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALmu_find_varname"><span class="keyword">val</span> mu_find_varname</span> : <code class="type">SMap.key -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></pre><pre><span id="VALmu_find_var"><span class="keyword">val</span> mu_find_var</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></pre><pre><span id="VALmu_project"><span class="keyword">val</span> mu_project</span> : <code class="type">SSet.t -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre><pre><span id="VALmu_fold"><span class="keyword">val</span> mu_fold</span> : <code class="type">(SMap.key -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> 'a -> 'a) -><br>       <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> 'a -> 'a</code></pre><pre><span id="VALmu_iter"><span class="keyword">val</span> mu_iter</span> : <code class="type">(SMap.key -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit) -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> unit</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.MuOrdered.html">MuOrdered</a>: <code class="code">sig</code> <a href="Rdf_sparql_ms.MuOrdered.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.MuSet.html">MuSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_ms.MuOrdered.html">MuOrdered</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.MuNOrdered.html">MuNOrdered</a>: <code class="code">sig</code> <a href="Rdf_sparql_ms.MuNOrdered.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.Multimu.html">Multimu</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_ms.MuNOrdered.html">MuNOrdered</a></code><code class="code">)</code></pre><pre><span id="TYPEmultiset"><span class="keyword">type</span> <code class="type"></code>multiset</span> = <code class="type">Multimu.t</code> </pre>
+<div class="info">
+A Multiset is a set of pairs (int, mu)<br>
+</div>
+
+<pre><span id="VALomega_add"><span class="keyword">val</span> omega_add</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_add_if_not_present"><span class="keyword">val</span> omega_add_if_not_present</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_0"><span class="keyword">val</span> omega_0</span> : <code class="type">Multimu.t</code></pre><pre><span id="VALomega"><span class="keyword">val</span> omega</span> : <code class="type">SMap.key -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> Multimu.t</code></pre><pre><span id="VALcard_mu"><span class="keyword">val</span> card_mu</span> : <code class="type">Multimu.t -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> int</code></pre><pre><span id="VALomega_filter"><span class="keyword">val</span> omega_filter</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> bool) -><br>       Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_join"><span class="keyword">val</span> omega_join</span> : <code class="type">?pred:(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> bool) -><br>       Multimu.t -> Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_union"><span class="keyword">val</span> omega_union</span> : <code class="type">Multimu.t -> Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_diff_pred"><span class="keyword">val</span> omega_diff_pred</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> bool) -><br>       Multimu.t -> Multimu.t -> Multimu.t</code></pre><pre><span id="EXCEPTIONNot_disjoint"><span class="keyword">exception</span> Not_disjoint</span></pre>
+<pre><span id="VALmu_disjoint_doms"><span class="keyword">val</span> mu_disjoint_doms</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> bool</code></pre><pre><span id="VALomega_minus"><span class="keyword">val</span> omega_minus</span> : <code class="type">Multimu.t -> Multimu.t -> Multimu.t</code></pre><pre><span id="VALomega_extend"><span class="keyword">val</span> omega_extend</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a>) -><br>       Multimu.t -> <a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -> Multimu.t</code></pre><pre><span id="VALomega_fold"><span class="keyword">val</span> omega_fold</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> 'a -> 'a) -> Multimu.t -> 'a -> 'a</code></pre><pre><span id="VALomega_iter"><span class="keyword">val</span> omega_iter</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> unit) -> Multimu.t -> unit</code></pre><pre><span id="VALomega_exists"><span class="keyword">val</span> omega_exists</span> : <code class="type">(<a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -> bool) -> Multimu.t -> bool</code></pre></body></html>

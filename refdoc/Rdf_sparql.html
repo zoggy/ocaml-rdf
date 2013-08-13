@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_rdf.html">
+<link rel="next" href="Rdf_sparql_algebra.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><link title="Error handling" rel="Section" href="#2_Errorhandling">
+<link title="Parsing and printing Sparql queries" rel="Section" href="#2_ParsingandprintingSparqlqueries">
+<link title="Executing queries" rel="Section" href="#2_Executingqueries">
+<link title="Predefined functions" rel="Section" href="#2_Predefinedfunctions">
+<link title="Solutions" rel="Subsection" href="#3_Solutions">
+<link title="Querying" rel="Subsection" href="#3_Querying">
+<link title="Convenient functions for querying" rel="Subsection" href="#3_Convenientfunctionsforquerying">
+<title>OCaml-RDF : Rdf_sparql</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_rdf.html" title="Rdf_rdf">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_sparql_algebra.html" title="Rdf_sparql_algebra">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql.html">Rdf_sparql</a></h1>
+<pre><span class="keyword">module</span> Rdf_sparql: <code class="code">sig</code> <a href="Rdf_sparql.html">..</a> <code class="code">end</code></pre><div class="info">
+Sparql queries.<br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Errorhandling">Error handling</h2><br>
+<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Parse_error"><span class="constructor">Parse_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a> * string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Value_error"><span class="constructor">Value_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">Rdf_dt.error</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Eval_error"><span class="constructor">Eval_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_eval.html#TYPEerror">Rdf_sparql_eval.error</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Algebra_error"><span class="constructor">Algebra_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_algebra.html#TYPEerror">Rdf_sparql_algebra.error</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Not_select"><span class="constructor">Not_select</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Not_ask"><span class="constructor">Not_ask</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Not_construct"><span class="constructor">Not_construct</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Not_describe"><span class="constructor">Not_describe</span></span></code></td>
+
+</tr></table>
+
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a></code></pre>
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a> -> string</code></pre><br>
+<h2 id="2_ParsingandprintingSparqlqueries">Parsing and printing Sparql queries</h2><br>
+<pre><span id="TYPEquery"><span class="keyword">type</span> <code class="type"></code>query</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a></code> </pre>
+
+<pre><span id="VALparse_from_string"><span class="keyword">val</span> parse_from_string</span> : <code class="type">string -> <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre><span id="VALparse_from_file"><span class="keyword">val</span> parse_from_file</span> : <code class="type">string -> <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre><span id="VALstring_of_query"><span class="keyword">val</span> string_of_query</span> : <code class="type"><a href="Rdf_sparql.html#TYPEquery">query</a> -> string</code></pre><br>
+<h2 id="2_Executingqueries">Executing queries</h2><br>
+<br>
+<h3 id="3_Solutions">Solutions</h3><br>
+<pre><span id="TYPEsolution"><span class="keyword">type</span> <code class="type"></code>solution</span> </pre>
+
+<pre><span id="VALget_term"><span class="keyword">val</span> get_term</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -> string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></pre><div class="info">
+<code class="code">get_term solution varname</code> returns the <a href="Rdf_node.html#TYPEnode"><code class="code">Rdf_node.node</code></a> bound to
+  <code class="code">varname</code> in the solution.<br>
+<b>Raises</b> <code>Not_found</code> if the variable is not bound.<br>
+</div>
+<pre><span id="VALis_bound"><span class="keyword">val</span> is_bound</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -> string -> bool</code></pre><div class="info">
+<code class="code">is_bound solution varname</code> returns whether the given variable name
+  is bound in the solution.<br>
+</div>
+<pre><span id="VALsolution_fold"><span class="keyword">val</span> solution_fold</span> : <code class="type">(string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> 'a -> 'a) -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> -> 'a -> 'a</code></pre><div class="info">
+<code class="code">solution_fold f sol acc</code> is
+  <code class="code">f var1 term1 (f var2 term2 (...) acc)</code>, folding over the bindings
+  of the solution.<br>
+</div>
+<pre><span id="VALsolution_iter"><span class="keyword">val</span> solution_iter</span> : <code class="type">(string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit) -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> -> unit</code></pre><div class="info">
+<code class="code">solution_iter f solution</code> calls <code class="code">f</code> on each pair <code class="code">(varname, term)</code>
+  of the <code class="code">solution</code>.<br>
+</div>
+<br>
+<h3 id="3_Querying">Querying</h3><br>
+<pre><code><span id="TYPEquery_result"><span class="keyword">type</span> <code class="type"></code>query_result</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTquery_result.Bool"><span class="constructor">Bool</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTquery_result.Solutions"><span class="constructor">Solutions</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTquery_result.Graph"><span class="constructor">Graph</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></code></td>
+
+</tr></table>
+
+
+<pre><span id="VALexecute"><span class="keyword">val</span> execute</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -><br>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_sparql.html#TYPEquery_result">query_result</a></code></pre><div class="info">
+<code class="code">execute ~base dataset q</code> executes the sparql query <code class="code">q</code> on <code class="code">dataset</code>, using
+  <code class="code">base</code> as base uri. The form of the result depends on the kind of query:<ul>
+<li>Select queries return a <code class="code">Solution solutions</code></li>
+<li>Ask queries return a <code class="code">Bool bool</code></li>
+<li>Construct queries return <code class="code">Graph g</code>.</li>
+<li>Describe queries return a description graph.</li>
+</ul>
+
+  For <code class="code">Construct</code> and <code class="code">Describe</code> queries, if a graph is provided, it is filled
+  and the same graph is returned; else a new graph (in memory) is created,
+  filled and returned. If the graph is created, it uri is the <code class="code">base</code> uri provided.
+<p>
+
+  <b>Warning:</b> Describe queries are not implemented yet.<br>
+<b>Raises</b> <code>Error</code> in case of error.<br>
+</div>
+<br>
+<h3 id="3_Convenientfunctionsforquerying">Convenient functions for querying</h3><br>
+<pre><span id="VALselect"><span class="keyword">val</span> select</span> : <code class="type">base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -><br>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></pre><div class="info">
+Execute the given SELECT query.<br>
+<b>Raises</b> <code>Not_select</code> is the query is not a SELECT.<br>
+</div>
+<pre><span id="VALconstruct"><span class="keyword">val</span> construct</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
+Execute the given CONSTRUCT query.<br>
+<b>Raises</b> <code>Not_construct</code> is the query is not a CONSTRUCT.<br>
+</div>
+<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> bool</code></pre><div class="info">
+Execute the given ASK query.<br>
+<b>Raises</b> <code>Not_ask</code> is the query is not a ASK.<br>
+</div>
+<pre><span id="VALdescribe"><span class="keyword">val</span> describe</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
+Execute the given DESCRIBE query.<br>
+<b>Raises</b> <code>Not_describe</code> is the query is not a DESCRIBE.<br>
+</div>
+<br>
+<h2 id="2_Predefinedfunctions">Predefined functions</h2>
+<p>
+
+These are the functions named by an URI,
+<a href="http://www.w3.org/TR/sparql11-query/#expressions"> see details here</a>.<br>
+<pre><span id="TYPEuri_fun"><span class="keyword">type</span> <code class="type"></code>uri_fun</span> = <code class="type"><a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a> list -> <a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a></code> </pre>
+<div class="info">
+A function takes a list of values and return a value.<br>
+</div>
+
+<pre><span id="VALuri_funs"><span class="keyword">val</span> uri_funs</span> : <code class="type">unit -> <a href="Rdf_sparql.html#TYPEuri_fun">uri_fun</a> Rdf_uri.Urimap.t</code></pre><pre><span id="VALadd_uri_fun"><span class="keyword">val</span> add_uri_fun</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_sparql.html#TYPEuri_fun">uri_fun</a> -> unit</code></pre></body></html>

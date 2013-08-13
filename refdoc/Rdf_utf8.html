@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_uri.html">
+<link rel="next" href="Rdf_xml.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_utf8</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_uri.html" title="Rdf_uri">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_xml.html" title="Rdf_xml">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_utf8.html">Rdf_utf8</a></h1>
+<pre><span class="keyword">module</span> Rdf_utf8: <code class="code">sig</code> <a href="Rdf_utf8.html">..</a> <code class="code">end</code></pre><div class="info">
+Handling UTF-8 strings.<br>
+</div>
+<hr width="100%">
+<pre><span id="VALutf8_nb_bytes_of_char"><span class="keyword">val</span> utf8_nb_bytes_of_char</span> : <code class="type">char -> int</code></pre><div class="info">
+Return the number of bytes taken by a the first byte
+  (as character) of a UTF-8 character.<br>
+</div>
+<pre><span id="VALutf8_index_of_char"><span class="keyword">val</span> utf8_index_of_char</span> : <code class="type">string -> int -> int</code></pre><div class="info">
+<code class="code">utf8_index_of_char str n</code> returns the position in byte
+  of the <code class="code">n</code>th character. <code class="code">n</code> is 0-based.<br>
+<b>Raises</b> <code>Not_found</code> if there is no <code class="code">n</code>th character.<br>
+</div>
+<pre><span id="VALutf8_char_of_index"><span class="keyword">val</span> utf8_char_of_index</span> : <code class="type">string -> int -> int</code></pre><div class="info">
+<code class="code">utf8_char_of_index str n</code> returns the utf8 character
+  position corresponding to the given byte index <code class="code">n</code>.<br>
+</div>
+<pre><span id="VALutf8_string_length"><span class="keyword">val</span> utf8_string_length</span> : <code class="type">string -> int</code></pre><div class="info">
+<code class="code">utf8_string_length str</code> returns the number of utf8
+  characters in <code class="code">str</code>.<br>
+</div>
+<pre><span id="VALutf8_substr"><span class="keyword">val</span> utf8_substr</span> : <code class="type">string -> int -> int -> string</code></pre><div class="info">
+<code class="code">utf8_substr str pos l</code> returns the substring of <code class="code">str</code>
+  from utf8 position <code class="code">pos</code> to <code class="code">pos+l-1</code>.<br>
+</div>
+<pre><span id="VALutf8_is_prefix"><span class="keyword">val</span> utf8_is_prefix</span> : <code class="type">string -> string -> bool</code></pre><div class="info">
+<code class="code">utf8_is_prefix s1 s2</code> returns whether <code class="code">s2</code> is prefix of <code class="code">s1</code>.<br>
+</div>
+<pre><span id="VALutf8_is_suffix"><span class="keyword">val</span> utf8_is_suffix</span> : <code class="type">string -> string -> bool</code></pre><div class="info">
+<code class="code">utf8_is_suffix s1 s2</code> returns whether <code class="code">s2</code> is suffix of <code class="code">s1</code>.<br>
+</div>
+<pre><span id="VALutf8_substr_pos"><span class="keyword">val</span> utf8_substr_pos</span> : <code class="type">string -> string -> int option</code></pre><div class="info">
+<code class="code">utf8_substr_pos s1 s2</code> returns <code class="code">Some n</code> if <code class="code">s2</code> is found
+  at position <code class="code">n</code> in <code class="code">s1</code>, starting to search from the beginning
+  of <code class="code">s1</code>. Else return <code class="code">None</code>.<br>
+</div>
+<pre><span id="VALutf8_contains"><span class="keyword">val</span> utf8_contains</span> : <code class="type">string -> string -> bool</code></pre><div class="info">
+<code class="code">utf8_contains s1 s2</code> returns whether <code class="code">s1</code> contains <code class="code">s2</code>.<br>
+</div>
+<pre><span id="VALutf8_strbefore"><span class="keyword">val</span> utf8_strbefore</span> : <code class="type">string -> string -> string</code></pre><div class="info">
+<code class="code">utf8_strbefore s1 s2</code> returns the substring before <code class="code">s2</code> in <code class="code">s1</code>.
+  See <a href="http://www.w3.org/TR/sparql11-query/#func-strbefore">details</a>.<br>
+</div>
+<pre><span id="VALutf8_strafter"><span class="keyword">val</span> utf8_strafter</span> : <code class="type">string -> string -> string</code></pre><div class="info">
+<code class="code">utf8_strafter s1 s2</code> returns the substring after <code class="code">s2</code> in <code class="code">s1</code>.
+  See <a href="http://www.w3.org/TR/sparql11-query/#func-strafter">details</a>.<br>
+</div>
+<pre><span id="VALutf8_char_of_code"><span class="keyword">val</span> utf8_char_of_code</span> : <code class="type">int -> string</code></pre><div class="info">
+<code class="code">utf8_char_of_code n</code> return the UTF8 character from a given codepoint.<br>
+</div>
+<pre><span id="VALutf8_string_get_bol"><span class="keyword">val</span> utf8_string_get_bol</span> : <code class="type">string -> (int * int) list</code></pre><div class="info">
+<code class="code">utf8_string_get_bol str</code> returns the list of pairs
+  <code class="code">(line number, char position)</code> giving the position of beginning of each line
+  in the given string.<br>
+</div>
+<pre><span id="VALutf8_count_nl"><span class="keyword">val</span> utf8_count_nl</span> : <code class="type">string -> int</code></pre><div class="info">
+<code class="code">utf8_count_nl str</code> returns the number of newline \n characters found
+  in the given UTF-8 string.<br>
+</div>
+<pre><span id="VALutf8_escape"><span class="keyword">val</span> utf8_escape</span> : <code class="type">string -> string</code></pre><div class="info">
+<code class="code">utf8_escape str</code> escapes some characters by \n, \r, \b, \t, \quotes
+ and \\ but do not escape \u.<br>
+</div>
+</body></html>

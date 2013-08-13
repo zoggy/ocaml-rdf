@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_ttl.html">
+<link rel="next" href="Rdf_ulex.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_ttl_types</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_ttl.html" title="Rdf_ttl">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_ulex.html" title="Rdf_ulex">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_ttl_types.html">Rdf_ttl_types</a></h1>
+<pre><span class="keyword">module</span> Rdf_ttl_types: <code class="code">sig</code> <a href="Rdf_ttl_types.html">..</a> <code class="code">end</code></pre><div class="info">
+</div>
+<hr width="100%">
+<pre><span class="keyword">module</span> <a href="Rdf_ttl_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre><pre><code><span id="TYPEcontext"><span class="keyword">type</span> <code class="type"></code>context</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontext.base">base</span>&nbsp;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontext.prefixes">prefixes</span>&nbsp;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> SMap.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontext.gstate">gstate</span>&nbsp;:<code class="type"><a href="Rdf_xml.html#TYPEglobal_state">Rdf_xml.global_state</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre><span id="TYPEuriref"><span class="keyword">type</span> <code class="type"></code>uriref</span> = <code class="type">string</code> </pre>
+
+<pre><code><span id="TYPEdirective"><span class="keyword">type</span> <code class="type"></code>directive</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdirective.Prefix"><span class="constructor">Prefix</span></span> <span class="keyword">of</span> <code class="type">string option * <a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdirective.Base"><span class="constructor">Base</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPEqname"><span class="keyword">type</span> <code class="type"></code>qname</span> = <code class="type">string option * string option</code> </pre>
+
+<pre><code><span id="TYPEresource"><span class="keyword">type</span> <code class="type"></code>resource</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTresource.Uriref"><span class="constructor">Uriref</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTresource.Qname"><span class="constructor">Qname</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEqname">qname</a></code></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPElanguage"><span class="keyword">type</span> <code class="type"></code>language</span> = <code class="type">string</code> </pre>
+
+<pre><code><span id="TYPEliteral"><span class="keyword">type</span> <code class="type"></code>literal</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTliteral.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_ttl_types.html#TYPElanguage">language</a> option * <a href="Rdf_ttl_types.html#TYPEresource">resource</a> option</code></code></td>
+
+</tr></table>
+
+
+<pre><code><span id="TYPEobject_"><span class="keyword">type</span> <code class="type"></code>object_</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTobject_.Obj_res"><span class="constructor">Obj_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTobject_.Obj_blank"><span class="constructor">Obj_blank</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEblank">blank</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTobject_.Obj_literal"><span class="constructor">Obj_literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEliteral">literal</a></code></code></td>
+
+</tr></table>
+
+
+<pre><code><span id="TYPEblank"><span class="keyword">type</span> <code class="type"></code>blank</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblank.NodeId"><span class="constructor">NodeId</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblank.Empty"><span class="constructor">Empty</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblank.PredObjs"><span class="constructor">PredObjs</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEpredobj">predobj</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTblank.Collection"><span class="constructor">Collection</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEobject_">object_</a> list</code></code></td>
+
+</tr></table>
+
+
+<pre><code><span id="TYPEpred"><span class="keyword">type</span> <code class="type"></code>pred</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpred.Pred_res"><span class="constructor">Pred_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpred.Pred_a"><span class="constructor">Pred_a</span></span></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPEpredobj"><span class="keyword">type</span> <code class="type"></code>predobj</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEpred">pred</a> * <a href="Rdf_ttl_types.html#TYPEobject_">object_</a> list</code> </pre>
+
+<pre><code><span id="TYPEsubject"><span class="keyword">type</span> <code class="type"></code>subject</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsubject.Sub_res"><span class="constructor">Sub_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsubject.Sub_blank"><span class="constructor">Sub_blank</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEblank">blank</a></code></code></td>
+
+</tr></table>
+
+
+<pre><code><span id="TYPEstatement"><span class="keyword">type</span> <code class="type"></code>statement</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.Directive"><span class="constructor">Directive</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEdirective">directive</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.Triples"><span class="constructor">Triples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEsubject">subject</a> * <a href="Rdf_ttl_types.html#TYPEpredobj">predobj</a> list</code></code></td>
+
+</tr></table>
+
+
+<pre><span id="TYPEturtle"><span class="keyword">type</span> <code class="type"></code>turtle</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEstatement">statement</a> list</code> </pre>
+
+</body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Rdf_mem.html">
+<link rel="next" href="Rdf_my.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_misc</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Rdf_mem.html" title="Rdf_mem">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Rdf_my.html" title="Rdf_my">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_misc.html">Rdf_misc</a></h1>
+<pre><span class="keyword">module</span> Rdf_misc: <code class="code">sig</code> <a href="Rdf_misc.html">..</a> <code class="code">end</code></pre><div class="info">
+Misc functions.<br>
+</div>
+<hr width="100%">
+<pre><span id="VALstring_of_opt"><span class="keyword">val</span> string_of_opt</span> : <code class="type">string option -> string</code></pre><pre><span id="VALopt_of_string"><span class="keyword">val</span> opt_of_string</span> : <code class="type">string -> string option</code></pre><pre><span id="VALmap_opt"><span class="keyword">val</span> map_opt</span> : <code class="type">('a -> 'b) -> 'a option -> 'b option</code></pre><pre><span id="VALopt_compare"><span class="keyword">val</span> opt_compare</span> : <code class="type">('a -> 'a -> int) -> 'a option -> 'a option -> int</code></pre><pre><span id="VALcreate_log_fun"><span class="keyword">val</span> create_log_fun</span> : <code class="type">?prefix:string -><br>       ?print:(string -> unit) -><br>       string -> ?loc:string -> ?level:int -> (unit -> string) -> unit</code></pre><div class="info">
+Creating a log function.
+  <code class="code">create_log_fun env_var</code> get the log level (an integer) from the given
+  environment variable, and returns a function to print messages.
+  This function takes a level (default is 1) and a function returning
+  the message do print. The function is called only if the log level is
+  higher than or equal to the given level.
+  The <code class="code">loc</code> parameter of the returned function can be used to indicate
+  an additional string to print before the log message.
+  If the environment variable is empty or does not contain an integer,
+  then the log level is set to 0.<br>
+</div>
+<div class="param_info"><code class="code">prefix</code> : can be used to indicate a string prefixing every message</div>
+<div class="param_info"><code class="code">print</code> : can be given to the function build the log function, to
+  indicate an alternative way to display the message; default is to call
+  <code class="code">prerr_endline</code>.</div>
+<pre><span id="VALcreate_log_fun_with_set"><span class="keyword">val</span> create_log_fun_with_set</span> : <code class="type">?prefix:string -><br>       ?print:(string -> unit) -><br>       string -><br>       (?loc:string -> ?level:int -> (unit -> string) -> unit) * (int -> unit)</code></pre><div class="info">
+Same as <code class="code">create_log_fun</code> but also return a function to change
+       the log level.<br>
+</div>
+<pre><span id="VALcompare_list"><span class="keyword">val</span> compare_list</span> : <code class="type">('a -> 'a -> int) -> 'a list -> 'a list -> int</code></pre><pre><span id="VALstring_of_file"><span class="keyword">val</span> string_of_file</span> : <code class="type">string -> string</code></pre><div class="info">
+<code class="code">string_of_file filename</code> returns the content of <code class="code">filename</code>
+   in the form of one string.<br>
+<b>Author(s):</b> Maxence Guesdon<br>
+<b>Version:</b> 1.0<br>
+<b>Raises</b> <code>Sys_error</code> if the file could not be opened.<br>
+</div>
+</body></html>

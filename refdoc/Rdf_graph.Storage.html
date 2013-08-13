@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Rdf_graph.Graph.html">
+<link rel="Up" href="Rdf_graph.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
+<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
+<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
+<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
+<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
+<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
+<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
+<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
+<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
+<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
+<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
+<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
+<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
+<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
+<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
+<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
+<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
+<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
+<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
+<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
+<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
+<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
+<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
+<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
+<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
+<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
+<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
+<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><link title="Errors" rel="Section" href="#3_Errors">
+<link title="Creation and modification" rel="Section" href="#3_Creationandmodification">
+<link title="Querying the graph" rel="Section" href="#3_Queryingthegraph">
+<link title="Transactions" rel="Section" href="#3_Transactions">
+<title>OCaml-RDF : Rdf_graph.Storage</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Rdf_graph.html" title="Rdf_graph">Up</a>
+&nbsp;<a class="post" href="Rdf_graph.Graph.html" title="Rdf_graph.Graph">Next</a>
+</div>
+<h1>Module type <a href="type_Rdf_graph.Storage.html">Rdf_graph.Storage</a></h1>
+<pre><span class="keyword">module type</span> Storage = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
+A storage is a module with this interface.<br>
+</div>
+<hr width="100%">
+<pre><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type">string</code></pre><div class="info">
+The name of the storage, for example "mysql".<br>
+</div>
+<pre><span id="TYPEg"><span class="keyword">type</span> <code class="type"></code>g</span> </pre>
+<div class="info">
+The type of the graph, abstract. It usually includes
+      all information needed by the other functions, as various
+      graphs of the same kind can be used in the same application.<br>
+</div>
+
+<br>
+<h3 id="3_Errors">Errors</h3><br>
+<pre><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> </pre>
+<div class="info">
+A specific type for errors.<br>
+</div>
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_graph.Storage.html#TYPEerror">error</a></code></pre>
+<div class="info">
+This is the exception raised by the functions of the module
+      in case of error.<br>
+</div>
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEerror">error</a> -> string</code></pre><div class="info">
+This function returns a message from the given error.<br>
+</div>
+<br>
+<h3 id="3_Creationandmodification">Creation and modification</h3><br>
+<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -> <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_graph.Storage.html#TYPEg">g</a></code></pre><div class="info">
+Creationg of the graph. The graph has a name which is a URI.<br>
+</div>
+<pre><span id="VALgraph_name"><span class="keyword">val</span> graph_name</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><div class="info">
+Access to the graph name, as specified at its creation.<br>
+</div>
+<pre><span id="VALadd_triple"><span class="keyword">val</span> add_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -><br>       sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code></pre><div class="info">
+Adding a triple to the graph.<br>
+</div>
+<pre><span id="VALrem_triple"><span class="keyword">val</span> rem_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -><br>       sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit</code></pre><div class="info">
+Removing a triple from the graph.<br>
+</div>
+<pre><span id="VALadd_triple_t"><span class="keyword">val</span> add_triple_t</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> -> unit</code></pre><div class="info">
+Adding a triple to the graph, curryfied form.<br>
+</div>
+<pre><span id="VALrem_triple_t"><span class="keyword">val</span> rem_triple_t</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> -> unit</code></pre><div class="info">
+Removing a triple from the graph, curryfied form.<br>
+</div>
+<br>
+<h3 id="3_Queryingthegraph">Querying the graph</h3><br>
+<pre><span id="VALsubjects_of"><span class="keyword">val</span> subjects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -><br>       pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+<code class="code">subjects_of g ~pred ~obj</code> returns the list of nodes which are
+      subjects in triples with the specified predicate and object.<br>
+</div>
+<pre><span id="VALpredicates_of"><span class="keyword">val</span> predicates_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -><br>       sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+<code class="code">predicates_of g ~sub ~obj</code> returns the list of nodes which are
+      predicates in triples with the specified subject and object.<br>
+</div>
+<pre><span id="VALobjects_of"><span class="keyword">val</span> objects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -><br>       sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+<code class="code">objects_of g ~sub ~pred</code> returns the list of nodes which are
+      objects in triples with the specified subject and predicate.<br>
+</div>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -><br>       ?pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -><br>       ?obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> list</code></pre><div class="info">
+<code class="code">find ?sub ?pred ?obj g</code> returns the list of triples matching the
+         constraints given by the optional subject, predicate and object.
+         One can specify, zero, one, two or three of these nodes.<br>
+</div>
+<pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">?sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -><br>       ?pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> ?obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_graph.Storage.html#TYPEg">g</a> -> bool</code></pre><div class="info">
+Same as <a href="Rdf_graph.Storage.html#VALfind"><code class="code">Rdf_graph.Storage.find</code></a> but only returns <code class="code">true</code> if at least one triple
+      of the graph matches the constraints.<br>
+</div>
+<pre><span id="VALexists_t"><span class="keyword">val</span> exists_t</span> : <code class="type"><a href="Rdf_node.html#TYPEtriple">Rdf_node.triple</a> -> <a href="Rdf_graph.Storage.html#TYPEg">g</a> -> bool</code></pre><div class="info">
+Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="code">Rdf_graph.Storage.exists</code></a>.<br>
+</div>
+<pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+Return the list of nodes appearing in subject position.<br>
+</div>
+<pre><span id="VALpredicates"><span class="keyword">val</span> predicates</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+Return the list of nodes appearing in predicate position.<br>
+</div>
+<pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> list</code></pre><div class="info">
+Return the list of nodes appearing in object position.<br>
+</div>
+<br>
+<h3 id="3_Transactions">Transactions</h3><br>
+<pre><span id="VALtransaction_start"><span class="keyword">val</span> transaction_start</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> unit</code></pre><div class="info">
+Start a transaction. All storage may not support transactions.<br>
+</div>
+<pre><span id="VALtransaction_commit"><span class="keyword">val</span> transaction_commit</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> unit</code></pre><div class="info">
+Commit.<br>
+</div>
+<pre><span id="VALtransaction_rollback"><span class="keyword">val</span> transaction_rollback</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> unit</code></pre><div class="info">
+Rollback.<br>
+</div>
+<pre><span id="VALnew_blank_id"><span class="keyword">val</span> new_blank_id</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -> <a href="Rdf_node.html#TYPEblank_id">Rdf_node.blank_id</a></code></pre><div class="info">
+Forging a new, unique blank node id.<br>
+</div>
+</body></html>
