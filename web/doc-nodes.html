@@ -1,0 +1,49 @@
+<page title="RDF terms and URIs"
+navbar-doc="active"
+with-contents="true"
+>
+<contents>
+<p>
+RDF graph nodes are represented by the <reftyp mod="Rdf_node" name="node"/> type.
+These nodes are RDF terms: URI, literal or blank node. In the graph, the predicate
+of a triple is also a node, even though by now the RDF specification only
+authorize URIs.
+</p>
+<p>
+The <refmod mod="Rdf_node"/> module defines functions to create and print nodes.
+For example, <refval mod="Rdf_node" name="mk_literal_int"/> creates a literal
+RDF term from an integer, setting the URI of the datatype to <code>&lt;xsd:integer&gt;</code>:
+</p>
+<ocaml-eval toplevel="true">
+let int_lit = Rdf_node.mk_literal_int 42;;
+let node42 = Rdf_node.Literal int_lit;;
+</ocaml-eval>
+<p>
+Let's get a string representation of the node:
+</p>
+<ocaml-eval toplevel="true">
+print_endline (Rdf_node.string_of_node node42) ;;
+</ocaml-eval>
+<p>
+The <refmod mod="Rdf_uri"/> module defines the type <reftyp mod="Rdf_uri" name="uri"/>
+to represent URIs and contains functions to create URIs and perform other
+manipulations:
+</p>
+<ocaml-eval toplevel="true">
+let uri_s = "http://foo.bar.net/";;
+let uri = Rdf_uri.uri uri_s;;
+let uri2 = Rdf_uri.set_fragment uri "id42";;
+Rdf_uri.compare uri uri2;;
+Rdf_uri.string uri2;;
+</ocaml-eval>
+<p>
+The <refmod mod="Rdf_rdf"/> module defines some commonly used URIs:
+datatypes, classes, property names, ...:
+</p>
+<ocaml-eval toplevel="true">
+Rdf_uri.string (Rdf_rdf.xsd_integer);;
+Rdf_uri.string (Rdf_rdf.xsd_double);;
+Rdf_uri.string (Rdf_rdf.rdf_about);;
+</ocaml-eval>
+</contents>
+</page>

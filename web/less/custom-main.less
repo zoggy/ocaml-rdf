@@ -188,3 +188,23 @@ div.elt-intro p {
   display: inline ;
 }
 
+pre {
+  font-size: 1em * @decreaseFontSizeFactor * @decreaseFontSizeFactor ;
+  line-height: @baseLineHeight * @decreaseFontSizeFactor ;
+}
+
+.code-ocaml {
+ font-weight: bold;
+}
+
+.ocaml-toplevel {
+  color: lighten(@textColor, 20);
+  font-weight: lighter ;
+/*
+  padding-left: 0.5em;
+  margin-left: 2px;
+  border-style: solid ;
+  border-width: 0 0 0 3px;
+  border-color: lighten(@textColor, 40);
+*/
+}

@@ -16,6 +16,14 @@ with-contents="true"
 <stog:refdoc mod="" id="" name="">
 <a href="refdoc/&lt;mod/&gt;.html&lt;if id=&quot;&quot;&gt;&lt;main_/&gt;&lt;main_&gt;#&lt;id/&gt;&lt;/main_&gt;&lt;/if&gt;"><if name=""><mod/><name/></if></a>
 </stog:refdoc>
+<stog:refmod mod=""><refdoc mod="&lt;mod/&gt;"/></stog:refmod>
+<stog:refval mod="" name=""><refdoc mod="&lt;mod/&gt;" id="VAL&lt;name/&gt;" name="&lt;mod/&gt;.&lt;name/&gt;"/></stog:refval>
+<stog:reftyp mod="" name=""><refdoc mod="&lt;mod/&gt;" id="TYPE&lt;name/&gt;" name="&lt;mod/&gt;.&lt;name/&gt;"/></stog:reftyp>
+<stog:showttl graph="">
+<ocaml-eval show-stdout="true" show-code="false" defer_="1">
+print_string(Rdf_ttl.to_string <graph/>);;flush stdout;;
+</ocaml-eval>
+</stog:showttl>
 <contents>
 <p>
 OCaml-RDF is an <ext-a href="http://www.ocaml.org/">OCaml</ext-a> library to manipulate

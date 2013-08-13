@@ -5705,6 +5705,25 @@ div.elt-intro {
 div.elt-intro p {
   display: inline ;
 }
+pre {
+  font-size: 0.790321em;
+  line-height: 18.669pt;
+}
+.code-ocaml {
+  font-weight: bold;
+}
+.ocaml-toplevel {
+  color: #666666;
+  font-weight: lighter ;
+  /*
+  padding-left: 0.5em;
+  margin-left: 2px;
+  border-style: solid ;
+  border-width: 0 0 0 3px;
+  border-color: lighten(@textColor, 40);
+*/
+
+}
 .author-photo {
   max-height: 120px;
 }
@@ -5751,12 +5770,13 @@ pre.hl {
 }
 .hl.kwa {
   color: #1c45d6;
+  /*font-weight: bold;*/
 }
 .hl.kwb {
   color: #ed0f54;
 }
 .hl.kwc {
-  color: #26abe8;
+  color: #2697e8;
 }
 .hl.kwd {
   color: #1c45d6;

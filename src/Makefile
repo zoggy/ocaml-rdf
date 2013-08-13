@@ -160,7 +160,7 @@ doc: dump.odoc
 	-t OCaml-RDF \
 	-load $^ \
 	-d ocamldoc -html -intro index.text
-	$(CP) ../web/style.css ocamldoc/
+	#$(CP) ../web/style.css ocamldoc/
 
 docg: dump.odoc
 	$(MKDIR) ocamldoc
