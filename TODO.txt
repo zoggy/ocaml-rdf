@@ -16,3 +16,4 @@
 - check of variable scope: http://www.w3.org/TR/sparql11-query/#variableScope
 - doc rdf_utf8
 - doc rdf_rdf
+- 4th field in graphs: data

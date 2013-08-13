@@ -3,6 +3,117 @@ navbar-doc="active"
 with-contents="true"
 >
 <contents>
+<prepare-toc>
+<p>
+OCaml-RDF implements <ext-a href="http://www.w3.org/TR/sparql11-query/">Sparql 1.1 Query</ext-a>.
+<page href="doc-todo#limitations">Some features are missing</page> but it's already quite complete.
+The main module of the implementation is <refmod mod="Rdf_sparql"/>. We consider
+this module open in the examples below:
+</p>
+<ocaml-eval>open Rdf_sparql;;</ocaml-eval>
+<toc/>
+<section id="parsing" title="Parsing and printing queries">
+<p>
+The example below parses a Sparql query, then prints it:
+</p>
+<ocaml-eval><![CDATA[
+let query =
+  try parse_from_string
+    "PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+     SELECT ?name ?mbox ?hpage
+     WHERE  { ?x foaf:name  ?name .
+         OPTIONAL { ?x foaf:mbox ?mbox } .
+         OPTIONAL { ?x foaf:homepage ?hpage }
+       }"
+  with Error e -> failwith (string_of_error e)
+;;
+print_endline (string_of_query query);;]]>
+</ocaml-eval>
+</section>
 
+<section id="dataset" title="Datasets">
+<p>
+A Sparql query is executed on a
+<ext-a href="http://www.w3.org/TR/sparql11-query/#rdfDataset"><em>dataset</em></ext-a>,
+which is composed of a default (unnamed) graph, and other (named) graphs each associated
+to an URI.
+</p>
+<p>The <reftyp mod="Rdf_ds" name="dataset"/> type represents a dataset and contain
+a default graph (which can be empty), a set of graph names (i.e. a set or URIs), and
+a function to get a graph by its URI.
+</p>
+<p>The example below loads a graph from the file <code>optional.ttl</code> then
+creates a dataset with graph as default graph, and no named graphs:
+</p>
+<ocaml-eval>
+let base = Rdf_uri.uri "http://foo.net";;
+let g = Rdf_graph.open_graph base ;;
+Rdf_ttl.from_file g base "optional.ttl";;
+let dataset = Rdf_ds.simple_dataset g ;;
+</ocaml-eval>
+<p>Here is the content of our graph:</p>
+<showttl graph="g"/>
+</section>
+
+<section id="execution" title="Executing a query">
+<p>
+The following code executes the query parsed above, on the dataset
+defined in previous section. Since this is a SELECT query, the
+<refval mod="Rdf_sparql" name="execute"/>  function returns a <code>Solutions</code>
+constructor with the sequence of solutions.
+</p>
+<ocaml-eval toplevel="true">
+let res = execute ~base dataset query;;
+</ocaml-eval>
+<p>
+Since we know that our query is a SELECT, we can use a convenient function
+which will ensure that the query is a SELECT and return directly the sequence
+of solutions:
+</p>
+<ocaml-eval toplevel="true">
+let solutions = select ~base dataset query ;;
+</ocaml-eval>
+<p>
+Let's display the result. A solution, of type <reftyp mod="Rdf_sparql" name="solution"/>,
+is a map from variable name (string) to <reftyp mod="Rdf_node" name="node"/>.
+Let's print the solutions we obtained.
+</p>
+<ocaml-eval toplevel="true">
+let print_sol =
+  let print varname term =
+     Printf.printf "%s => %s\n" varname (Rdf_node.string_of_node term)
+  in
+  fun sol ->
+    print_endline "Solution:";
+    solution_iter print sol ;
+    print_newline();;
+List.iter print_sol solutions;;
+</ocaml-eval>
+</section>
+
+<section id="construct" title="CONSTRUCT queries">
+<p>
+Instead of returning a sequence of solutions, CONSTRUCT queries return
+a graph. In the example below, we give an existing graph, in which triples
+will be added. If we do not give a graph, a new (in memory) graph is returned.
+We begin by creating a new graph which will receive the new triples,
+then parse the CONSTRUCT query, then execute it. Then we show the resulting
+graph.
+</p>
+<ocaml-eval><![CDATA[
+let g2 = Rdf_graph.open_graph base ;;
+let query = parse_from_string
+  "PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+   CONSTRUCT { ?x foaf:name ?name ; foaf:mbox ?mbox . }
+   WHERE  { ?x foaf:name  ?name .
+       OPTIONAL { ?x foaf:mbox ?mbox } .
+       OPTIONAL { ?x foaf:homepage ?hpage }
+  }";;
+construct ~graph: g2 ~base dataset query;;
+]]></ocaml-eval>
+<showttl graph="g2"/>
+</section>
+
+</prepare-toc>
 </contents>
 </page>

@@ -3,11 +3,79 @@ navbar-doc="active"
 with-contents="true"
 >
 <contents>
+<prepare-toc>
+<toc/>
 <p>
 Two backends are available to store graphs in databases rather than
 in memory: MySQL and Postgresql. This allows to create persistent
 graphs.
-The choice of the backend is made
+The choice of the backend is made with the <code>options</code>
+optional parameter of <refval mod="Rdf_graph" name="open_graph"/>.
 </p>
+<section id="mysql" title="MySQL backend">
+<p>
+Using the MySQL backend requires to link with the <code>rdf.mysql</code>
+ocamlfind package. Then, after creating a database with proper rights
+on the server, the following code creates a graph in the database:
+</p>
+<ocaml-eval error-exc="false">
+let options =
+  [
+    "storage", "mysql" ; (* the type of storage, here mysql backend *)
+    "database", "mydb"; (* database name *)
+    "user", "john" ; (* user used to connect the database *)
+    "password", "foobar" ; (* password *)
+    "host", "myhost.foo.net" ; (* hostname *)
+    "port", "3306" ; (* port *)
+  ]
+;;
+let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") ;;
+</ocaml-eval>
+<p>
+The backend creates various tables:
+</p>
+<ul>
+<li>one table per graph ("graph1", "graph2", ...),</li>
+<li>a table "graphs" to associate URIs to stored graphs,</li>
+<li>a table "literals", to store hashes of literals,</li>
+<li>a table "bnodes", to store hashes of blank nodes,</li>
+<li>a table "resources", to store hashes of URIs.</li>
+</ul>
+<p>
+The "graphN" tables contain triples, composed of references to
+hashes. This model is copied from the Redland's Librdf library.
+</p>
+<p>
+All the common tables are created at connection time, and the
+table of each graph in created when the graph is created.
+When <refval mod="Rdf_graph" name="open_graph"/> is called with
+an URI corresponding to an existing graph in the database, then
+this graph is used, with all existing triples.
+</p>
+</section>
+
+<section id="postgresql" title="Postgresql backend">
+<p>
+The Postgresql backend works the same way as the MySQL backend.
+Using the MySQL backend requires to link with the <code>rdf.postgresql</code>
+ocamlfind package.
+To create or open a graph stored in a Postgresql database, use
+the <code>options</code> parameter of <refval mod="Rdf_graph" name="open_graph"/>:
+</p>
+<ocaml-eval error-exc="false">
+let options =
+  [
+    "storage", "postgresql" ; (* the type of storage, here postresql backend *)
+    "database", "mydb"; (* database name *)
+    "user", "john" ; (* user used to connect the database *)
+    "password", "foobar" ; (* password *)
+    "host", "myhost.foo.net" ; (* hostname *)
+    "port", "3306" ; (* port *)
+  ]
+;;
+let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") ;;
+</ocaml-eval>
+</section>
+</prepare-toc>
 </contents>
 </page>
