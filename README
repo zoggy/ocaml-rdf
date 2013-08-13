@@ -1,0 +1,3 @@
+OCaml-RDF is an OCaml library to manipulate RDF Graphs. Il also
+implements Sparql.
+More information on http://zoggy.github.com/ocaml-rdf
