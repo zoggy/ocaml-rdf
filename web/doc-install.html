@@ -19,12 +19,16 @@ Compiling OCaml-RDF requires the following software to be installed:
 <li><ext-a href="http://projects.camlcity.org/projects/findlib.html">Findlib &gt;= 1.3.3</ext-a> (should work with priori versions),</li>
 <li><ext-a href="http://projects.camlcity.org/projects/ocamlnet.html/">OCamlnet &gt;= 3.6.5</ext-a>,</li>
 <!--<li><ext-a href="http://ocurl.forge.ocamlcore.org/">OCurl &gt;= 0.5.6</ext-a> (not tested with prior versions),</li>-->
-<li><ext-a href="http://raevnos.pennmush.org/code/ocaml-mysql/">OCaml-MySQL &gt;= 1.0.4</ext-a> (not tested with prior versions) for MySQL backend,</li>
+<li><ext-a href="https://forge.ocamlcore.org/projects/ocaml-mysql/">OCaml-MySQL &gt;= 1.1.1</ext-a> (not tested with prior versions) for MySQL backend,</li>
 <li><ext-a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</ext-a> (not tested with prior versions) for Postgresql backend,</li>
 <li><ext-a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.0</ext-a>,</li>
 <li><ext-a href="http://erratique.ch/software/uuidm">Uuidm &gt;= 0.95</ext-a>,</li>
 <li><ext-a href="http://alain.frisch.fr/soft.html#ulex">ulex &gt;= 1.1</ext-a> (not tested with prior versions),</li>
 <li><ext-a href="http://gallium.inria.fr/~fpottier/menhir">Menhir &gt;= 20120123</ext-a> (not tested with prior versions),</li>
+
+<li><ext-a href="http://pauillac.inria.fr/~xleroy/software.html#cryptokit">Cryptokit &gt;= 1.7</ext-a> (not tested with prior versions),</li>
+<li><ext-a href="https://bitbucket.org/mmottl/pcre-ocaml">PCRE-OCaml &gt;= 7.0.2</ext-a> (not tested with prior versions),</li>
+
 <li>[optional] <ext-a href="https://forge.ocamlcore.org/projects/config-file/">Config-file &gt;= 1.1</ext-a> to run the test suite,</li>
 <li>[optional] <ext-a href="http://zoggy.github.com/stog">Stog &gt;= 0.8.0</ext-a> for the documentation.</li>
 </ul>
@@ -39,7 +43,8 @@ $ make all
 $ make install # with sufficient rights
 </sh>
 <p>
-This will install the packages rdf, rdf.mysql and rdf.postgresql with ocamlfind.
+This will install the packages <code>rdf</code>,
+<code>rdf.mysql</code> and <code>rdf.postgresql</code> with ocamlfind.
 </p>
 </subsection>
 </section>
