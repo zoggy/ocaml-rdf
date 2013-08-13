@@ -138,6 +138,28 @@ match g.Rdf_graph.find ~pred () with
 <ocaml-eval>g.Rdf_graph.transaction_rollback();;</ocaml-eval>
 <showttl graph="g"/>
 </section>
+
+<section id="dot" title="Dot output">
+<p>
+RDF graphs can be dumped in Graphviz (dot) format, with the
+<refmod mod="Rdf_dot"/> module. The following code
+generate the dot code, then creates a .svg file by running
+a dot command. The result is inserted in below.
+</p>
+<ocaml-eval><![CDATA[
+let dot_file = "example.dot";;
+let svg_file = (Filename.chop_extension dot_file)^".svg";;
+let dot_code = Rdf_dot.dot_of_graph g;;
+let () =
+  let oc = open_out dot_file in
+  output_string oc dot_code;
+  close_out oc;;
+let com = Printf.sprintf "dot -Grankdir=TB -Tsvg -o %s %s"
+  (Filename.quote svg_file) (Filename.quote dot_file);;
+if Sys.command com <> 0 then failwith "Exec error";;
+]]></ocaml-eval>
+<img src="example.svg"/>
+</section>
 </prepare-toc>
 </contents>
 </page>
