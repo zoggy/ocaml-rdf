@@ -187,6 +187,14 @@ let from_lexbuf g ~base source_info ?fname lexbuf =
         raise (Error (Parse_error (loc, lexeme)))
   in
   let (ctx, g) = apply_statements ctx g statements in
+  (* add namespaces *)
+  let add_ns prefix uri =
+    let sub = Rdf_node.Uri uri in
+    let pred = Rdf_node.Uri Rdf_rdf.ordf_ns in
+    let obj = Rdf_node.node_of_literal_string prefix in
+    g.add_triple ~sub ~pred ~obj
+  in
+  Rdf_ttl_types.SMap.iter add_ns ctx.prefixes ;
   g
 
 let from_string g ~base s =
@@ -209,22 +217,49 @@ let string_of_triple ~sub ~pred ~obj =
   (Rdf_node.string_of_node obj)^" ."
 ;;
 
-let to_ print g =
-  List.iter (fun (sub, pred, obj) -> print (string_of_triple ~sub ~pred ~obj)) (g.find ())
+let string_of_triple_ns ns ~sub ~pred ~obj =
+  let string_of node =
+    match node with
+    | Rdf_node.Literal _
+    | Rdf_node.Blank | Rdf_node.Blank_ _ -> Rdf_node.string_of_node node
+    | Rdf_node.Uri uri ->
+        let s = Rdf_uri.string uri in
+        match Rdf_dot.apply_namespaces ns s with
+          ("",uri) -> "<" ^ uri ^ ">"
+        | (pref,s) -> pref ^ ":" ^ s
+  in
+  let sub = string_of sub in
+  let pred = string_of pred in
+  let obj = string_of obj in
+  sub ^ " " ^ pred ^ " " ^ obj^ " ."
+;;
 
-let to_string g =
+let f_triple ns print (sub, pred, obj) =
+  match Rdf_node.Ord_type.compare pred (Rdf_node.Uri Rdf_rdf.ordf_ns) with
+    0 -> ()
+  | _ -> print (string_of_triple_ns ns ~sub ~pred ~obj)
+;;
+
+let string_of_namespace (pref,uri) = "@prefix "^pref^": <"^uri^"> .";;
+
+let to_ ?namespaces print g =
+  let ns = Rdf_dot.build_namespaces ?namespaces g in
+  List.iter (fun ns -> print (string_of_namespace ns)) ns;
+  List.iter (f_triple ns print) (g.find ())
+
+let to_string ?namespaces g =
   let b = Buffer.create 256 in
   let print s = Buffer.add_string b (s^"\n") in
-  to_ print g;
+  to_ ?namespaces print g;
   Buffer.contents b
 ;;
 
 
-let to_file g file =
+let to_file ?namespaces g file =
   let oc = open_out_bin file in
   try
     let print s = output_string oc (s^"\n") in
-    to_ print g;
+    to_ ?namespaces print g;
     close_out oc
   with e ->
       close_out oc;

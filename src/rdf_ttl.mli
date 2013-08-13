@@ -34,6 +34,9 @@ val from_file : Rdf_graph.graph -> base:Rdf_uri.uri -> string -> Rdf_graph.graph
 val string_of_triple :
   sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> string
 
-val to_ : (string -> unit) -> Rdf_graph.graph -> unit
-val to_string : Rdf_graph.graph -> string
-val to_file : Rdf_graph.graph -> string -> unit
+val to_ : ?namespaces: (Rdf_uri.uri * string) list ->
+  (string -> unit) -> Rdf_graph.graph -> unit
+val to_string : ?namespaces: (Rdf_uri.uri * string) list ->
+  Rdf_graph.graph -> string
+val to_file : ?namespaces: (Rdf_uri.uri * string) list ->
+  Rdf_graph.graph -> string -> unit
