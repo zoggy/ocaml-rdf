@@ -72,7 +72,7 @@ dummy:
 ###########
 HEADFILES=configure.in configure \
 	master.Makefile.in Makefile src/Makefile checkocaml.ml \
-	src/*.ml src/*.mli src/rdf_config.ml.in
+	src/*.ml src/*.mli src/*.mly src/*.mll src/rdf_config.ml.in
 
 headers: dummy
 	headache -h header -c ~/.headache_config $(HEADFILES)
@@ -95,14 +95,14 @@ uninstall: dummy
 ###########
 # web site
 ###########
-WEBDEST=zoggy@forge.ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
-installweb:
-	scp -r web/index.html web/style.css src/ocamldoc $(WEBDEST)
+#WEBDEST=zoggy@forge.ocamlcore.org:/home/groups/ocaml-rdf/htdocs/
+#installweb:
+#	scp -r web/index.html web/style.css src/ocamldoc $(WEBDEST)
 ###########
 # archive
 ###########
 archive:
-	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > /tmp/ocaml-rdf-$(VERSION).tar.gz
+	git archive --prefix=ocaml-rdf-$(VERSION)/ HEAD | gzip > ../ocaml-rdf-pages/ocaml-rdf-$(VERSION).tar.gz
 
 ###########################
 # additional dependencies
