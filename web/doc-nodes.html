@@ -9,6 +9,10 @@ These nodes are RDF terms: URI, literal or blank node. In the graph, the predica
 of a triple is also a node, even though by now the RDF specification only
 authorize URIs.
 </p>
+<p class="alert alert-warning">
+All strings are considered to be UTF8-encoded. The <refmod mod="Rdf_utf8"/> module
+provides some functions to manipulate UTF8 strings.
+</p>
 <p>
 The <refmod mod="Rdf_node"/> module defines functions to create and print nodes.
 For example, <refval mod="Rdf_node" name="mk_literal_int"/> creates a literal

@@ -8,7 +8,9 @@ Rdf_graph
 Rdf_loc
 Rdf_misc
 Rdf_node
+Rdf_rdf
 Rdf_uri
+Rdf_utf8
 }
 
 {2 Reading and writing graphs}
