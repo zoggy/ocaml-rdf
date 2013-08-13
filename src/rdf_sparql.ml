@@ -122,7 +122,23 @@ module SMap = Rdf_sparql_types.SMap;;
 let var_or_term_apply_sol sol bnode_map = function
   Rdf_sparql_types.Var v ->
     (
-     try (Rdf_sparql_ms.mu_find_var v sol, bnode_map)
+     try
+       let node = Rdf_sparql_ms.mu_find_var v sol in
+       match node with
+         Rdf_node.Blank_ label ->
+           begin
+             let label = Rdf_node.string_of_blank_id label in
+             let (label, bnode_map) =
+               try (SMap.find label bnode_map, bnode_map)
+               with Not_found ->
+                   let new_label = Rdf_sparql_ms.gen_blank_id () in
+                   let map = SMap.add label new_label bnode_map in
+                   (new_label, map)
+             in
+             (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+        end
+       | Rdf_node.Blank -> assert false
+       | node -> (node, bnode_map)
      with Not_found ->
        failwith ("Unbound variable "^v.var_name)
     )
