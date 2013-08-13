@@ -124,10 +124,13 @@ Rdf_ttl.from_file g base "example.ttl";;
 <p>Now let's start a transaction, and modify the graph:</p>
 <ocaml-eval>
 g.Rdf_graph.transaction_start();;
-g.Rdf_graph.add_triple
-  ~sub: (Rdf_node.Uri base)
-  ~pred: (Rdf_node.Uri foaf_name)
-  ~obj: (Rdf_node.node_of_literal_string "Charlie");;
+let pred = Rdf_node.Uri (Rdf_uri.uri "http://example.org/stuff/1.0/fullName") ;;
+match g.Rdf_graph.find ~pred () with
+| (sub,_,obj) :: _ ->
+  g.Rdf_graph.rem_triple ~sub ~pred ~obj;
+  g.Rdf_graph.add_triple ~sub ~pred
+    ~obj: (Rdf_node.node_of_literal_string "Jean Dupont")
+| _ -> assert false;;
 </ocaml-eval>
 <p>Now the graph looks like:</p>
 <showttl graph="g"/>
