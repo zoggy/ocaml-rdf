@@ -90,12 +90,13 @@ RDF_LIBS=$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_MYSQL) $(LIB_MYSQL_CMXS) \
 	$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS)
 RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) $(LIB_POSTGRESQL_BYTE)
 
-TOOLS=rdf_to_svgs
-
 all: opt byte
 opt: $(RDF_LIBS)
 byte: $(RDF_LIBS_BYTE)
-tools:$(TOOLS)
+tools: $(LIB_RDF)
+	cd tools && $(MAKE) all
+
+.PHONY: tools
 
 $(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
 	$(OCAMLFIND) ocamlopt -a -linkall -o $@ $(LIB_RDF_CMXFILES)
@@ -133,14 +134,9 @@ test_xml: $(LIB_RDF) test_xml.cmx
 test_ttl: $(LIB_RDF) test_ttl.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_ttl.cmx
 
-rdf_to_ttl: $(LIB_RDF) rdf_to_ttl.cmx
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) rdf_to_ttl.cmx
-
 test_sparql: $(LIB_RDF) test_sparql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_sparql.cmx
 
-rdf_to_svgs: $(LIB_RDF) tools/rdf_to_svgs.cmx
-	$(OCAMLFIND) ocamlopt -package netstring,xmlm -linkpkg -linkall -o $@ $^
 
 test_uncodepoint: rdf_utf8.cmx rdf_sparql_lex.cmx test_uncodepoint.ml
 	$(OCAMLFIND) ocamlopt -package ulex -linkpkg -linkall -o $@ $^
@@ -186,6 +182,7 @@ clean:: dummy
 	$(RM) *.cm* *.a *.o *.annot
 	$(RM) dump.odoc
 	$(RM) test_mysql
+	cd tools && $(MAKE) clean
 
 .depend depend:
 	$(RM) .depend

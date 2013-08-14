@@ -71,8 +71,10 @@ dummy:
 # Headers
 ###########
 HEADFILES=configure.in configure \
-	master.Makefile.in Makefile src/Makefile checkocaml.ml \
-	src/*.ml src/*.mli src/*.mly src/*.mll src/rdf_config.ml.in
+	master.Makefile.in Makefile src/Makefile web/Makefile src/tools/Makefile \
+	checkocaml.ml \
+	src/*.ml src/*.mli src/*.mly src/*.mll src/rdf_config.ml.in \
+	src/tools/*.ml
 
 headers: dummy
 	headache -h header -c ~/.headache_config $(HEADFILES)
