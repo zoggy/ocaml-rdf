@@ -75,13 +75,13 @@ let solutions = select ~base dataset query ;;
 </ocaml-eval>
 <p>
 Let's display the result. A solution, of type <reftyp mod="Rdf_sparql" name="solution"/>,
-is a map from variable name (string) to <reftyp mod="Rdf_node" name="node"/>.
+is a map from variable name (string) to <reftyp mod="Rdf_term" name="term"/>.
 Let's print the solutions we obtained.
 </p>
 <ocaml-eval toplevel="true">
 let print_sol =
   let print varname term =
-     Printf.printf "%s => %s\n" varname (Rdf_node.string_of_node term)
+     Printf.printf "%s => %s\n" varname (Rdf_term.string_of_term term)
   in
   fun sol ->
     print_endline "Solution:";

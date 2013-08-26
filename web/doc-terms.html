@@ -4,29 +4,28 @@ with-contents="true"
 >
 <contents>
 <p>
-RDF graph nodes are represented by the <reftyp mod="Rdf_node" name="node"/> type.
-These nodes are RDF terms: URI, literal or blank node. In the graph, the predicate
-of a triple is also a node, even though by now the RDF specification only
-authorize URIs.
+RDF graph terms are represented by the <reftyp mod="Rdf_term" name="term"/> type.
+These are RDF terms: URI, literal or blank node. In the graph, the predicate
+of a triple can only be a URI.
 </p>
 <p class="alert alert-warning">
 All strings are considered to be UTF8-encoded. The <refmod mod="Rdf_utf8"/> module
 provides some functions to manipulate UTF8 strings.
 </p>
 <p>
-The <refmod mod="Rdf_node"/> module defines functions to create and print nodes.
-For example, <refval mod="Rdf_node" name="mk_literal_int"/> creates a literal
+The <refmod mod="Rdf_term"/> module defines functions to create and print RDF terms.
+For example, <refval mod="Rdf_term" name="mk_literal_int"/> creates a literal
 RDF term from an integer, setting the URI of the datatype to <code>&lt;xsd:integer&gt;</code>:
 </p>
 <ocaml-eval toplevel="true">
-let int_lit = Rdf_node.mk_literal_int 42;;
-let node42 = Rdf_node.Literal int_lit;;
+let int_lit = Rdf_term.mk_literal_int 42;;
+let term42 = Rdf_term.Literal int_lit;;
 </ocaml-eval>
 <p>
-Let's get a string representation of the node:
+Let's get a string representation of the term:
 </p>
 <ocaml-eval toplevel="true">
-print_endline (Rdf_node.string_of_node node42) ;;
+print_endline (Rdf_term.string_of_term term42) ;;
 </ocaml-eval>
 <p>
 The <refmod mod="Rdf_uri"/> module defines the type <reftyp mod="Rdf_uri" name="uri"/>

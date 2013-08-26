@@ -1,18 +1,24 @@
-Release 0.6
-  * fix: add ulex and menhirLib in META dependencies
-  * add: execution of sparql 1.1 queries
-  * various fixes and adds
+Next release:
+* Rdf_node renamed to Rdf_term
+* Rdf_node.node renamed to Rdf_term.term
+* Rdf_node.NSet renamed to Rdf_term.TSet
+* In triples, predicate are now URIs of not any term.
+
+Release 0.6.0:
+* fix: add ulex and menhirLib in META dependencies
+* add: execution of sparql 1.1 queries
+* various fixes and adds
 
 Release 0.5:
-  * add: turtle parser
-  * mod: Rdf_uri.uri raises Rdf_uri.Invalid_url instead of Neturl.Malformed_URL
-  * add: Rdf_dot.dot_of_uri
-  * add: ?href parameter to Rdf_dot.dot_of_graph
-  * add: tools/rdf_to_svgs
+* add: turtle parser
+* mod: Rdf_uri.uri raises Rdf_uri.Invalid_url instead of Neturl.Malformed_URL
+* add: Rdf_dot.dot_of_uri
+* add: ?href parameter to Rdf_dot.dot_of_graph
+* add: tools/rdf_to_svgs
 
 Release 0.4:
-  * use string concatenation instead of sprintf
-  * fix: change default graph kind: memory -> mem; linkall option
+* use string concatenation instead of sprintf
+* fix: change default graph kind: memory -> mem; linkall option
 
 Release 0.3:
-  * add: Rdf_graph.merge
+* add: Rdf_graph.merge
