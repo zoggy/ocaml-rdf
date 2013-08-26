@@ -17,3 +17,6 @@
 - doc rdf_utf8
 - doc rdf_rdf
 - 4th field in graphs: data
+
+- validate turtle parser:
+    https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html
