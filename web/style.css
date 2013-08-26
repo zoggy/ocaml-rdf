@@ -213,12 +213,12 @@ body {
   background-color: #eeeeff;
 }
 a {
-  color: #aa0000;
+  color: #008800;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #f60000;
+  color: #00d400;
   text-decoration: underline;
 }
 .img-rounded {
@@ -2478,14 +2478,14 @@ table th[class*="span"],
 .dropdown-submenu:focus > a {
   text-decoration: none;
   color: #ffffff;
-  background-color: #a00000;
-  background-image: -moz-linear-gradient(top, #aa0000, #910000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aa0000), to(#910000));
-  background-image: -webkit-linear-gradient(top, #aa0000, #910000);
-  background-image: -o-linear-gradient(top, #aa0000, #910000);
-  background-image: linear-gradient(to bottom, #aa0000, #910000);
+  background-color: #007e00;
+  background-image: -moz-linear-gradient(top, #008800, #006f00);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008800), to(#006f00));
+  background-image: -webkit-linear-gradient(top, #008800, #006f00);
+  background-image: -o-linear-gradient(top, #008800, #006f00);
+  background-image: linear-gradient(to bottom, #008800, #006f00);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0000', endColorstr='#ff910000', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008800', endColorstr='#ff006f00', GradientType=0);
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -2493,14 +2493,14 @@ table th[class*="span"],
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #a00000;
-  background-image: -moz-linear-gradient(top, #aa0000, #910000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aa0000), to(#910000));
-  background-image: -webkit-linear-gradient(top, #aa0000, #910000);
-  background-image: -o-linear-gradient(top, #aa0000, #910000);
-  background-image: linear-gradient(to bottom, #aa0000, #910000);
+  background-color: #007e00;
+  background-image: -moz-linear-gradient(top, #008800, #006f00);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008800), to(#006f00));
+  background-image: -webkit-linear-gradient(top, #008800, #006f00);
+  background-image: -o-linear-gradient(top, #008800, #006f00);
+  background-image: linear-gradient(to bottom, #008800, #006f00);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0000', endColorstr='#ff910000', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008800', endColorstr='#ff006f00', GradientType=0);
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -2825,17 +2825,17 @@ input[type="button"].btn-block {
 .btn-primary {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #aa1700;
-  background-image: -moz-linear-gradient(top, #aa0000, #aa3900);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aa0000), to(#aa3900));
-  background-image: -webkit-linear-gradient(top, #aa0000, #aa3900);
-  background-image: -o-linear-gradient(top, #aa0000, #aa3900);
-  background-image: linear-gradient(to bottom, #aa0000, #aa3900);
+  background-color: #008812;
+  background-image: -moz-linear-gradient(top, #008800, #00882d);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008800), to(#00882d));
+  background-image: -webkit-linear-gradient(top, #008800, #00882d);
+  background-image: -o-linear-gradient(top, #008800, #00882d);
+  background-image: linear-gradient(to bottom, #008800, #00882d);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0000', endColorstr='#ffaa3900', GradientType=0);
-  border-color: #aa3900 #aa3900 #5e1f00;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008800', endColorstr='#ff00882d', GradientType=0);
+  border-color: #00882d #00882d #003c14;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #aa3900;
+  *background-color: #00882d;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -2847,12 +2847,12 @@ input[type="button"].btn-block {
 .btn-primary.disabled,
 .btn-primary[disabled] {
   color: #ffffff;
-  background-color: #aa3900;
-  *background-color: #913000;
+  background-color: #00882d;
+  *background-color: #006f25;
 }
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #772800 \9;
+  background-color: #00551c \9;
 }
 .btn-warning {
   color: #ffffff;
@@ -3051,14 +3051,14 @@ input[type="submit"].btn.btn-mini {
 .btn-link {
   border-color: transparent;
   cursor: pointer;
-  color: #aa0000;
+  color: #008800;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #f60000;
+  color: #00d400;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3199,7 +3199,7 @@ input[type="submit"].btn.btn-mini {
   background-color: #e6e6e6;
 }
 .btn-group.open .btn-primary.dropdown-toggle {
-  background-color: #aa3900;
+  background-color: #00882d;
 }
 .btn-group.open .btn-warning.dropdown-toggle {
   background-color: #f89406;
@@ -3394,7 +3394,7 @@ input[type="submit"].btn.btn-mini {
 .nav-list > .active > a:focus {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #aa0000;
+  background-color: #008800;
 }
 .nav-list [class^="icon-"],
 .nav-list [class*=" icon-"] {
@@ -3477,7 +3477,7 @@ input[type="submit"].btn.btn-mini {
 .nav-pills > .active > a:hover,
 .nav-pills > .active > a:focus {
   color: #ffffff;
-  background-color: #aa0000;
+  background-color: #008800;
 }
 .nav-stacked > li {
   float: none;
@@ -3532,14 +3532,14 @@ input[type="submit"].btn.btn-mini {
   border-radius: 6px;
 }
 .nav .dropdown-toggle .caret {
-  border-top-color: #aa0000;
-  border-bottom-color: #aa0000;
+  border-top-color: #008800;
+  border-bottom-color: #008800;
   margin-top: 6px;
 }
 .nav .dropdown-toggle:hover .caret,
 .nav .dropdown-toggle:focus .caret {
-  border-top-color: #f60000;
-  border-bottom-color: #f60000;
+  border-top-color: #00d400;
+  border-bottom-color: #00d400;
 }
 /* move down carets for tabs */
 .nav-tabs .dropdown-toggle .caret {
@@ -3699,15 +3699,15 @@ input[type="submit"].btn.btn-mini {
   min-height: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #a00000;
-  background-image: -moz-linear-gradient(top, #aa0000, #910000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#aa0000), to(#910000));
-  background-image: -webkit-linear-gradient(top, #aa0000, #910000);
-  background-image: -o-linear-gradient(top, #aa0000, #910000);
-  background-image: linear-gradient(to bottom, #aa0000, #910000);
+  background-color: #007e00;
+  background-image: -moz-linear-gradient(top, #008800, #006f00);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#008800), to(#006f00));
+  background-image: -webkit-linear-gradient(top, #008800, #006f00);
+  background-image: -o-linear-gradient(top, #008800, #006f00);
+  background-image: linear-gradient(to bottom, #008800, #006f00);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffaa0000', endColorstr='#ff910000', GradientType=0);
-  border: 1px solid #530000;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff008800', endColorstr='#ff006f00', GradientType=0);
+  border: 1px solid #003100;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -3740,7 +3740,7 @@ input[type="submit"].btn.btn-mini {
   font-size: 20px;
   font-weight: 200;
   color: #eeeeff;
-  text-shadow: 0 1px 0 #aa0000;
+  text-shadow: 0 1px 0 #008800;
 }
 .navbar .brand:hover,
 .navbar .brand:focus {
@@ -3761,8 +3761,8 @@ input[type="submit"].btn.btn-mini {
 .navbar .divider-vertical {
   height: 40px;
   margin: 0 9px;
-  border-left: 1px solid #910000;
-  border-right: 1px solid #aa0000;
+  border-left: 1px solid #006f00;
+  border-right: 1px solid #008800;
 }
 .navbar .btn,
 .navbar .btn-group {
@@ -3904,7 +3904,7 @@ input[type="submit"].btn.btn-mini {
   padding: 9.5px 15px 9.5px;
   color: #eeeeff;
   text-decoration: none;
-  text-shadow: 0 1px 0 #aa0000;
+  text-shadow: 0 1px 0 #008800;
 }
 .navbar .nav .dropdown-toggle .caret {
   margin-top: 8px;
@@ -3920,7 +3920,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav > .active > a:focus {
   color: #d5d5ff;
   text-decoration: none;
-  background-color: #770000;
+  background-color: #005500;
   -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
@@ -3933,17 +3933,17 @@ input[type="submit"].btn.btn-mini {
   margin-right: 5px;
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #860000;
-  background-image: -moz-linear-gradient(top, #910000, #770000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#910000), to(#770000));
-  background-image: -webkit-linear-gradient(top, #910000, #770000);
-  background-image: -o-linear-gradient(top, #910000, #770000);
-  background-image: linear-gradient(to bottom, #910000, #770000);
+  background-color: #006400;
+  background-image: -moz-linear-gradient(top, #006f00, #005500);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#006f00), to(#005500));
+  background-image: -webkit-linear-gradient(top, #006f00, #005500);
+  background-image: -o-linear-gradient(top, #006f00, #005500);
+  background-image: linear-gradient(to bottom, #006f00, #005500);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff910000', endColorstr='#ff770000', GradientType=0);
-  border-color: #770000 #770000 #2b0000;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff006f00', endColorstr='#ff005500', GradientType=0);
+  border-color: #005500 #005500 #000900;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  *background-color: #770000;
+  *background-color: #005500;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -3958,12 +3958,12 @@ input[type="submit"].btn.btn-mini {
 .navbar .btn-navbar.disabled,
 .navbar .btn-navbar[disabled] {
   color: #ffffff;
-  background-color: #770000;
-  *background-color: #5e0000;
+  background-color: #005500;
+  *background-color: #003c00;
 }
 .navbar .btn-navbar:active,
 .navbar .btn-navbar.active {
-  background-color: #440000 \9;
+  background-color: #002200 \9;
 }
 .navbar .btn-navbar .icon-bar {
   display: block;
@@ -4022,7 +4022,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav li.dropdown.open > .dropdown-toggle,
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
-  background-color: #770000;
+  background-color: #005500;
   color: #d5d5ff;
 }
 .navbar .nav li.dropdown > .dropdown-toggle .caret {
@@ -4744,7 +4744,7 @@ input[type="submit"].btn.btn-mini {
 }
 a.thumbnail:hover,
 a.thumbnail:focus {
-  border-color: #aa0000;
+  border-color: #008800;
   -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
@@ -5254,6 +5254,7 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+/*#aa0000;*/
 /*#777;*/
 /*#777;*/
 /*@grayDark;*/
@@ -5264,12 +5265,12 @@ a.badge:focus {
 	----------------------*/
 .rounded-box {
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
 }
 div.eqn {
   margin-left: auto;
@@ -5305,12 +5306,12 @@ div.theorem {
   margin-right: auto;
   width: 100%;
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
   background-color: #eeeeff;
   border-width: 0 2px 0 2px;
 }
@@ -5334,12 +5335,12 @@ div.lemma {
   margin-right: auto;
   width: 100%;
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
   background-color: #eeeeff;
   border-width: 0 2px 0 2px;
 }
@@ -5363,12 +5364,12 @@ div.prop {
   margin-right: auto;
   width: 100%;
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
   background-color: #eeeeff;
   border-width: 0 2px 0 2px;
 }
@@ -5392,12 +5393,12 @@ div.remark {
   margin-right: auto;
   width: 100%;
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
   background-color: #eeeeff;
   border-width: 0 2px 0 2px;
 }
@@ -5421,12 +5422,12 @@ div.proof {
   margin-right: auto;
   width: 100%;
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
   background-color: #eeeeff;
   border-width: 0 2px 0 2px;
   border-width: 0 ;
@@ -5645,12 +5646,12 @@ a.paragraph-url {
 }
 *:target {
   padding: 0 3px 2px;
-  border: 1px solid #910000;
+  border: 1px solid #006f00;
   display: block;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background-color: #fff6f6;
+  background-color: #d5ffd5;
 }
 p:hover a.paragraph-url {
   display: inline ;
