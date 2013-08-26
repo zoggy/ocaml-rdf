@@ -7,8 +7,8 @@ Rdf_dt
 Rdf_graph
 Rdf_loc
 Rdf_misc
-Rdf_node
 Rdf_rdf
+Rdf_term
 Rdf_uri
 Rdf_utf8
 }

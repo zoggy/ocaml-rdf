@@ -22,9 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Nodes. *)
+(** RDF terms. *)
 
-(** Literal nodes contain a value, a optional language and an optional data type URI. *)
+(** Literal terms contain a value, a optional language and an optional data type URI. *)
 type literal = {
   lit_value : string;
   lit_language : string option;
@@ -47,7 +47,7 @@ module Ord_type : sig type t = term val compare : term -> term -> int end
 module TSet : Set.S with type elt = term
 module TMap : Map.S with type key = term
 
-(** A RDF triple is just ... a triple (term, uri, term). *)
+(** A RDF triple is triple (term, uri, term). *)
 type triple = term * Rdf_uri.uri * term
 
 (** Get a string from a blank term id. *)
@@ -71,7 +71,6 @@ val term_of_datetime : ?d:float -> unit -> term
 
 (** Parse a literal to get a datetime. *)
 val datetime_of_literal : literal -> Netdate.t
-
 
 (** Create a boolean literal with type uri from the given boolean. *)
 val mk_literal_bool : bool -> literal
