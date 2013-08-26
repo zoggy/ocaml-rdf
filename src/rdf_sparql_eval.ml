@@ -24,7 +24,7 @@
 
 (** *)
 
-module N = Rdf_node
+module N = Rdf_term
 open Rdf_dt
 open Rdf_sparql_types
 open Rdf_sparql_algebra
@@ -38,8 +38,8 @@ let () = Random.self_init();;
 
 type error =
 | Unbound_variable of var
-| Not_a_integer of Rdf_node.literal
-| Not_a_double_or_decimal of Rdf_node.literal
+| Not_a_integer of Rdf_term.literal
+| Not_a_double_or_decimal of Rdf_term.literal
 | Type_mismatch of Rdf_dt.value * Rdf_dt.value
 | Invalid_fun_argument of Rdf_uri.uri
 | Unknown_fun of Rdf_uri.uri
@@ -60,9 +60,9 @@ let string_of_error = function
     Printf.sprintf "%sUnbound variable %S"
       (Rdf_loc.string_of_loc v.var_loc) v.var_name
 | Not_a_integer lit ->
-    "Not an integer: "^(Rdf_node.string_of_literal lit)
+    "Not an integer: "^(Rdf_term.string_of_literal lit)
 | Not_a_double_or_decimal lit ->
-    "Not an double: "^(Rdf_node.string_of_literal lit)
+    "Not an double: "^(Rdf_term.string_of_literal lit)
 | Type_mismatch (v1, v2) -> (* FIXME: show values *)
     "Type mismatch"
 | Invalid_fun_argument uri ->
@@ -123,14 +123,14 @@ let context ~base ?from ?(from_named=Iriset.empty) dataset =
 
 module GExprOrdered =
   struct
-    type t = Rdf_node.node option list
+    type t = Rdf_term.term option list
     let compare =
       let comp a b =
         match a, b with
           None, None -> 0
         | Some _, None -> 1
         | None, Some _ -> -1
-        | Some a, Some b -> Rdf_node.Ord_type.compare a b
+        | Some a, Some b -> Rdf_term.Ord_type.compare a b
       in
       Rdf_misc.compare_list comp
   end
@@ -1029,7 +1029,7 @@ and eval_in =
       let v0 = eval_expr ctx mu e0 in
       List.fold_right (eval eval_expr ctx mu v0) l (Bool false)
 
-and ebv_lit v = Rdf_node.mk_literal_bool (ebv v)
+and ebv_lit v = Rdf_term.mk_literal_bool (ebv v)
 
 let eval_filter ctx mu c =
   let e =
@@ -1361,11 +1361,11 @@ let filter_of_var_or_term = function
   Rdf_sparql_types.Var v -> (Some v.var_name, None)
 | GraphTerm t ->
     match t with
-      GraphTermIri (Iriref ir) -> (None, Some (Rdf_node.Uri ir.ir_iri))
+      GraphTermIri (Iriref ir) -> (None, Some (Rdf_term.Uri ir.ir_iri))
     | GraphTermIri (PrefixedName _) -> assert false
     | GraphTermLit lit
     | GraphTermNumeric lit
-    | GraphTermBoolean lit -> (None, Some (Rdf_node.Literal lit.rdf_lit))
+    | GraphTermBoolean lit -> (None, Some (Rdf_term.Literal lit.rdf_lit))
     | GraphTermBlank bn ->
          let s =
            match bn.bnode_label with
@@ -1393,19 +1393,19 @@ let eval_simple_triple =
     let (vp, pred) =
       match path with
         Var v -> (Some v.var_name, None)
-      | Iri ir -> (None, Some (Rdf_node.Uri ir.ir_iri))
+      | Iri ir -> (None, Some ir.ir_iri)
       | _ -> assert false
     in
     let f acc (s,p,o) =
       dbg ~level: 3
         (fun () ->
            "simple_triple__f("^
-             (Rdf_node.string_of_node s)^", "^
-             (Rdf_node.string_of_node p)^", "^
-             (Rdf_node.string_of_node o)^")"
+             (Rdf_term.string_of_term s)^", "^
+             (Rdf_uri.string p)^", "^
+             (Rdf_term.string_of_term o)^")"
         );
       let mu = add Rdf_sparql_ms.mu_0 s vx in
-      let mu = add mu p vp in
+      let mu = add mu (Rdf_term.Uri p) vp in
       let mu = add mu o vy in
       Rdf_sparql_ms.omega_add mu acc
     in
@@ -1415,7 +1415,7 @@ let eval_simple_triple =
 
 let __print_mu mu =
   Rdf_sparql_ms.SMap.iter
-    (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+    (fun name term -> print_string (name^"->"^(Rdf_term.string_of_term term)^" ; "))
     mu.Rdf_sparql_ms.mu_bindings;
   print_newline ()
 ;;
@@ -1424,8 +1424,8 @@ let __print_omega o =
   Rdf_sparql_ms.omega_iter __print_mu o;;
 
 let active_graph_subjects_and_objects ctx =
-  let add set node = Rdf_node.NSet.add node set in
-  let set = List.fold_left add Rdf_node.NSet.empty (ctx.active.Rdf_graph.subjects ()) in
+  let add set node = Rdf_term.TSet.add node set in
+  let set = List.fold_left add Rdf_term.TSet.empty (ctx.active.Rdf_graph.subjects ()) in
   List.fold_left add set (ctx.active.Rdf_graph.objects ())
 ;;
 
@@ -1433,12 +1433,12 @@ let eval_datablock =
   let mu_add = Rdf_sparql_ms.mu_add in
   let add_var_value mu v = function
     DataBlockValueIri (PrefixedName _) -> assert false
-  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_node.Uri ir.ir_iri) mu
+  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_term.Uri ir.ir_iri) mu
   | DataBlockValueRdf lit
   | DataBlockValueNumeric lit
   | DataBlockValueBoolean lit ->
       let lit = lit.rdf_lit in
-      mu_add v.var_name (Rdf_node.Literal lit) mu
+      mu_add v.var_name (Rdf_term.Literal lit) mu
   | DataBlockValueUndef -> mu
   in
 
@@ -1498,7 +1498,7 @@ and eval_triple_path_zero_or_one ctx x p y =
         None -> ms_one
       | Some term ->
         let pred (_,mu) =
-          try Rdf_node.compare (Rdf_sparql_ms.mu_find_var v mu) term = 0
+          try Rdf_term.compare (Rdf_sparql_ms.mu_find_var v mu) term = 0
           with Not_found -> false
         in
         if Rdf_sparql_ms.Multimu.exists pred ms_one then
@@ -1518,7 +1518,7 @@ and eval_triple_path_zero_or_one ctx x p y =
       let (_, term1) = filter_of_var_or_term x in
       let (_, term2) = filter_of_var_or_term y in
       if not (Rdf_sparql_ms.Multimu.is_empty ms_one) or
-        Rdf_misc.opt_compare Rdf_node.compare term1 term2 = 0
+        Rdf_misc.opt_compare Rdf_term.compare term1 term2 = 0
       then
         Rdf_sparql_ms.omega_0
       else
@@ -1535,7 +1535,7 @@ and eval_triple_path_zero_or_one ctx x p y =
         let mu = Rdf_sparql_ms.mu_add v2.var_name node mu in
         Rdf_sparql_ms.omega_add_if_not_present mu ms
       in
-      Rdf_node.NSet.fold f all_sub_and_obj ms_one
+      Rdf_term.TSet.fold f all_sub_and_obj ms_one
 
 and eval_reachable =
   let node_of_graphterm t =
@@ -1545,10 +1545,10 @@ and eval_reachable =
   in
   let rec iter ctx term path var (seen, acc_ms) =
     let node = node_of_graphterm term in
-    match Rdf_node.NSet.mem node seen with
+    match Rdf_term.TSet.mem node seen with
       true -> (seen, acc_ms)
     | false ->
-        let seen = Rdf_node.NSet.add node seen in
+        let seen = Rdf_term.TSet.add node seen in
         let ms = eval_triple ctx (term, path, Rdf_sparql_types.Var var) in
         (* for each solution, use the node associated to var as
            starting point for next iteration *)
@@ -1569,7 +1569,7 @@ and eval_reachable =
         else
           Rdf_sparql_ms.Multimu.empty
       in
-      iter ctx term path var (Rdf_node.NSet.empty, ms_start)
+      iter ctx term path var (Rdf_term.TSet.empty, ms_start)
     in
     ms
 
@@ -1588,7 +1588,7 @@ and eval_triple_path_or_more ctx ~zero x p y =
       let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
       let solutions = eval_reachable ~zero ctx x p v in
       let pred mu =
-        try Rdf_node.compare (Rdf_sparql_ms.mu_find_var v mu) node = 0
+        try Rdf_term.compare (Rdf_sparql_ms.mu_find_var v mu) node = 0
         with Not_found -> false
       in
       if Rdf_sparql_ms.omega_exists pred solutions then
@@ -1608,14 +1608,14 @@ and eval_triple_path_or_more ctx ~zero x p y =
         in
         Rdf_sparql_ms.omega_fold f ms acc_ms
       in
-      Rdf_node.NSet.fold f all_sub_and_obj Rdf_sparql_ms.Multimu.empty
+      Rdf_term.TSet.fold f all_sub_and_obj Rdf_sparql_ms.Multimu.empty
 
 and eval_triple_path_nps ctx x iris y =
   (* compute the triples and remove solutions where the predicate
      is one of the iris. *)
   let forbidden = List.fold_left
-     (fun set iriref -> Rdf_node.NSet.add (Rdf_node.Uri iriref.ir_iri) set)
-     Rdf_node.NSet.empty iris
+     (fun set iriref -> Rdf_term.TSet.add (Rdf_term.Uri iriref.ir_iri) set)
+     Rdf_term.TSet.empty iris
   in
   (* we use a dummy variable to access the predicate in each solution *)
   let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
@@ -1623,7 +1623,7 @@ and eval_triple_path_nps ctx x iris y =
   let pred mu =
     try
       let p = Rdf_sparql_ms.mu_find_var v mu in
-      not (Rdf_node.NSet.mem p forbidden)
+      not (Rdf_term.TSet.mem p forbidden)
     with Not_found -> false
   in
   Rdf_sparql_ms.omega_filter pred ms
@@ -1705,7 +1705,7 @@ and eval ctx = function
         in
         let f_mu mu o =
           dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Rdf_uri.string iri)));
-          let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_node.Uri iri) mu in
+          let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_term.Uri iri) mu in
           Rdf_sparql_ms.omega_add mu o
         in
         let omega = Rdf_sparql_ms.omega_fold f_mu omega Rdf_sparql_ms.Multimu.empty in

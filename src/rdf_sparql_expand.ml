@@ -95,7 +95,7 @@ let expand_rdf_literal env t =
         PrefixedName _ -> assert false
       | Iriref i ->
           { rdf_lit_loc = t.rdf_lit_loc ;
-            rdf_lit = { t.rdf_lit with Rdf_node.lit_type = Some i.ir_iri } ;
+            rdf_lit = { t.rdf_lit with Rdf_term.lit_type = Some i.ir_iri } ;
             rdf_lit_type = Some (Iriref i) ;
           }
 ;;

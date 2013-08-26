@@ -29,7 +29,7 @@
 
 type error =
   | Type_error of value * string (** The value has not the given expected "type" *)
-  | Invalid_literal of Rdf_node.literal (** Invalid literal: bad integer string for an integer, ...*)
+  | Invalid_literal of Rdf_term.literal (** Invalid literal: bad integer string for an integer, ...*)
   | Exception of exn (** To keep the original exception which resulted in an error. *)
 
 and value =
@@ -116,11 +116,11 @@ val ltrl : value -> value
 val numeric : value -> value
 
 (** [of_literal lit] returns a value from a literal node. *)
-val of_literal : Rdf_node.literal -> value
+val of_literal : Rdf_term.literal -> value
 
 (** [of_node node] returns a value from an RDF node. *)
-val of_node : Rdf_node.node -> value
+val of_node : Rdf_term.term -> value
 
 (** [to_node v] converts the given value to an RDF node.
   If [v] is [Error e], then exception [e] is raised.*)
-val to_node : value -> Rdf_node.node
+val to_node : value -> Rdf_term.term

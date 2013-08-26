@@ -34,29 +34,30 @@ type literal = {
 (** Type for blank node ids. *)
 type blank_id
 
-(** Various kinds of nodes. *)
-type node =
+(** Various kinds of terms. *)
+type term =
   | Uri of Rdf_uri.uri
   | Literal of literal
   | Blank
   | Blank_ of blank_id
 
-val compare : node -> node -> int
+val compare : term -> term -> int
 
-module Ord_type : sig type t = node val compare : node -> node -> int end
-module NSet : Set.S with type elt = node
+module Ord_type : sig type t = term val compare : term -> term -> int end
+module TSet : Set.S with type elt = term
+module TMap : Map.S with type key = term
 
-(** A RDF triple is just ... a triple of nodes. *)
-type triple = node * node * node
+(** A RDF triple is just ... a triple (term, uri, term). *)
+type triple = term * Rdf_uri.uri * term
 
-(** Get a string from a blank node id. *)
+(** Get a string from a blank term id. *)
 val string_of_blank_id : blank_id -> string
 
-(** Make a blank node id from a string. *)
+(** Make a blank term id from a string. *)
 val blank_id_of_string : string -> blank_id
 
 (** Shortcut for [Uri (Rdf_uri.uri string)]. *)
-val node_of_uri_string : string -> node
+val term_of_uri_string : string -> term
 
 (** Creation of a literal. *)
 val mk_literal : ?typ:Rdf_uri.uri -> ?lang:string -> string -> literal
@@ -65,8 +66,8 @@ val mk_literal : ?typ:Rdf_uri.uri -> ?lang:string -> string -> literal
   If no date is given, [Unix.time()] is used.*)
 val mk_literal_datetime : ?d:float -> unit -> literal
 
-(** Create a literal node from the given datetime. (see {!mk_literal_datetime}). *)
-val node_of_datetime : ?d:float -> unit -> node
+(** Create a literal term from the given datetime. (see {!mk_literal_datetime}). *)
+val term_of_datetime : ?d:float -> unit -> term
 
 (** Parse a literal to get a datetime. *)
 val datetime_of_literal : literal -> Netdate.t
@@ -85,16 +86,16 @@ val mk_literal_double : float -> literal
 val bool_of_literal : literal -> bool
 
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
-val node_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> node
+val term_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> term
 
 (** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)] *)
-val node_of_int : int -> node
+val term_of_int : int -> term
 
 (** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_double float)] *)
-val node_of_double : float -> node
+val term_of_double : float -> term
 
-(** Create a literal node from the given boolean. (see {!mk_literal_bool}). *)
-val node_of_bool : bool -> node
+(** Create a literal term from the given boolean. (see {!mk_literal_bool}). *)
+val term_of_bool : bool -> term
 
 (** [quote_str str] returns the given string [str] between quotes, with
   correct literal string escapes. *)
@@ -103,12 +104,12 @@ val quote_str : string -> string
 (** Create a string from the given RDF literal, using turtle syntax. *)
 val string_of_literal : literal -> string
 
-(** Create a string for the given node, using RDF turtle syntax conventions.
+(** Create a string for the given term, using RDF turtle syntax conventions.
   @see <http://www.w3.org/TeamSubmission/turtle/#language> the description of turtle language. *)
-val string_of_node : node -> string
+val string_of_term : term -> string
 
-(** [node_hash node] returns an int64 identifiying (hopefully unically)) a given node. *)
-val node_hash : node -> int64
+(** [term_hash term] returns an int64 identifiying (hopefully unically)) a given term. *)
+val term_hash : term -> int64
 
 (** Literal "true" with according type. *)
 val lit_true : literal

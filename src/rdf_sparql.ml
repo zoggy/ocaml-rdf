@@ -125,9 +125,9 @@ let var_or_term_apply_sol sol bnode_map = function
      try
        let node = Rdf_sparql_ms.mu_find_var v sol in
        match node with
-         Rdf_node.Blank_ label ->
+         Rdf_term.Blank_ label ->
            begin
-             let label = Rdf_node.string_of_blank_id label in
+             let label = Rdf_term.string_of_blank_id label in
              let (label, bnode_map) =
                try (SMap.find label bnode_map, bnode_map)
                with Not_found ->
@@ -135,9 +135,9 @@ let var_or_term_apply_sol sol bnode_map = function
                    let map = SMap.add label new_label bnode_map in
                    (new_label, map)
              in
-             (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+             (Rdf_term.Blank_ (Rdf_term.blank_id_of_string label), bnode_map)
         end
-       | Rdf_node.Blank -> assert false
+       | Rdf_term.Blank -> assert false
        | node -> (node, bnode_map)
      with Not_found ->
        failwith ("Unbound variable "^v.var_name)
@@ -145,14 +145,14 @@ let var_or_term_apply_sol sol bnode_map = function
 | Rdf_sparql_types.GraphTerm t ->
     match t with
     | GraphTermIri (PrefixedName _) -> assert false
-    | GraphTermIri (Iriref ir) -> (Rdf_node.Uri (ir.ir_iri), bnode_map)
+    | GraphTermIri (Iriref ir) -> (Rdf_term.Uri (ir.ir_iri), bnode_map)
     | GraphTermLit lit
     | GraphTermNumeric lit
-    | GraphTermBoolean lit -> (Rdf_node.Literal lit.rdf_lit, bnode_map)
+    | GraphTermBoolean lit -> (Rdf_term.Literal lit.rdf_lit, bnode_map)
     | GraphTermBlank { bnode_label = None }
     | GraphTermNil ->
        let label = Rdf_sparql_ms.gen_blank_id () in
-       (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+       (Rdf_term.Blank_ (Rdf_term.blank_id_of_string label), bnode_map)
     | GraphTermBlank { bnode_label = Some label } ->
         begin
           let (label, bnode_map) =
@@ -162,7 +162,7 @@ let var_or_term_apply_sol sol bnode_map = function
                 let map = SMap.add label new_label bnode_map in
                 (new_label, map)
           in
-          (Rdf_node.Blank_ (Rdf_node.blank_id_of_string label), bnode_map)
+          (Rdf_term.Blank_ (Rdf_term.blank_id_of_string label), bnode_map)
         end
     | GraphTermNode _ -> assert false
 ;;
@@ -187,14 +187,15 @@ let add_solution_to_graph graph template =
       let (sub, bnode_map) =
         let (node, bnode_map) = var_or_term_apply_sol sol bnode_map sub in
         match node with
-          Rdf_node.Literal _ -> failwith "Invalid subject (literal)"
+          Rdf_term.Literal _ -> failwith "Invalid subject (literal)"
         | _ -> (node, bnode_map)
       in
       let (pred, bnode_map) =
         let (node, bnode_map) = var_or_term_apply_sol sol bnode_map pred in
         match node with
-          Rdf_node.Literal _ -> failwith "Invalid predicate (literal)"
-        | _ -> (node, bnode_map)
+        | Rdf_term.Uri uri -> (uri, bnode_map)
+        | Rdf_term.Literal _ -> failwith "Invalid predicate (literal)"
+        | Rdf_term.Blank | Rdf_term.Blank_ _ -> failwith "Invalid predicate (blank)"
       in
       let (obj, bnode_map) = var_or_term_apply_sol sol bnode_map obj in
       ((sub, pred, obj) :: triples, bnode_map)
@@ -206,7 +207,7 @@ let add_solution_to_graph graph template =
   let insert (sub,pred,obj) = graph.Rdf_graph.add_triple ~sub ~pred ~obj in
   let f sol =
     (*Rdf_sparql_ms.SMap.iter
-      (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+      (fun name term -> print_string (name^"->"^(Rdf_term.string_of_node term)^" ; "))
       sol.Rdf_sparql_ms.mu_bindings;
     print_newline();
     *)

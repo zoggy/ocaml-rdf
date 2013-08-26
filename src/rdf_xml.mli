@@ -33,7 +33,7 @@ type tree = E of Xmlm.tag * tree list | D of string
 
 (** Type of current state when walking through the xml tree. *)
 type state =
-  { subject : Rdf_node.node option ;
+  { subject : Rdf_term.term option ;
     predicate : Rdf_uri.uri option ;
     xml_base : Rdf_uri.uri ;
     xml_lang : string option ;
@@ -44,11 +44,11 @@ type state =
 (** Global state of the analysis. *)
 type global_state =
   {
-    blanks : Rdf_node.blank_id SMap.t ;
+    blanks : Rdf_term.blank_id SMap.t ;
     gnamespaces : string Rdf_uri.Urimap.t ;
   }
 
-val get_blank_node : Rdf_graph.graph -> global_state -> SMap.key -> Rdf_node.node * global_state
+val get_blank_node : Rdf_graph.graph -> global_state -> SMap.key -> Rdf_term.term * global_state
 
 val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
 

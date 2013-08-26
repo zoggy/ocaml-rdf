@@ -25,7 +25,7 @@
 (** *)
 
 open Rdf_uri;;
-open Rdf_node;;
+open Rdf_term;;
 
 type options = (string * string) list
 let get_option ?def name l =
@@ -49,29 +49,29 @@ module type Storage =
     val open_graph : ?options: (string * string) list -> uri -> g
     val graph_name : g -> uri
 
-    val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
-    val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
+    val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: node -> obj: node -> node list
-    val predicates_of : g -> sub: node -> obj: node -> node list
-    val objects_of : g -> sub: node -> pred: node -> node list
+    val subjects_of : g -> pred: uri -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> uri list
+    val objects_of : g -> sub: term -> pred: uri -> term list
 
-    val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
-    val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
+    val find : ?sub: term -> ?pred: uri -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: uri -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
-    val subjects : g -> node list
-    val predicates : g -> node list
-    val objects : g -> node list
+    val subjects : g -> term list
+    val predicates : g -> uri list
+    val objects : g -> term list
 
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
 
-    val new_blank_id : g -> Rdf_node.blank_id
+    val new_blank_id : g -> Rdf_term.blank_id
   end
 
 exception Storage_error of string * string * exn
@@ -119,29 +119,29 @@ module type Graph =
     val open_graph : ?options: (string * string) list -> uri -> g
     val graph_name : g -> uri
 
-    val add_triple : g -> sub: node -> pred: node -> obj: node -> unit
-    val rem_triple : g -> sub: node -> pred: node -> obj: node -> unit
+    val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: node -> obj: node -> node list
-    val predicates_of : g -> sub: node -> obj: node -> node list
-    val objects_of : g -> sub: node -> pred: node -> node list
+    val subjects_of : g -> pred: uri -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> uri list
+    val objects_of : g -> sub: term -> pred: uri -> term list
 
-    val find : ?sub: node -> ?pred: node -> ?obj: node -> g -> triple list
-    val exists : ?sub: node -> ?pred: node -> ?obj: node -> g -> bool
+    val find : ?sub: term -> ?pred: uri -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: uri -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
-    val subjects : g -> node list
-    val predicates : g -> node list
-    val objects : g -> node list
+    val subjects : g -> term list
+    val predicates : g -> uri list
+    val objects : g -> term list
 
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
 
-    val new_blank_id : g -> Rdf_node.blank_id
+    val new_blank_id : g -> Rdf_term.blank_id
   end
 
 let storages = ref [];;
@@ -154,23 +154,23 @@ let add_storage m =
 type graph =
   {
     name : unit -> uri ;
-    add_triple : sub: node -> pred: node -> obj: node -> unit ;
-    rem_triple : sub: node -> pred: node -> obj: node -> unit ;
-    add_triple_t : (node * node * node) -> unit ;
-    rem_triple_t : (node * node * node) -> unit ;
-    subjects_of : pred: node -> obj: node -> node list ;
-    predicates_of : sub: node -> obj: node -> node list ;
-    objects_of : sub: node -> pred: node -> node list ;
-    find : ?sub: node -> ?pred: node -> ?obj: node -> unit -> triple list ;
-    exists : ?sub: node -> ?pred: node -> ?obj: node -> unit -> bool ;
+    add_triple : sub: term -> pred: uri -> obj: term -> unit ;
+    rem_triple : sub: term -> pred: uri -> obj: term -> unit ;
+    add_triple_t : triple -> unit ;
+    rem_triple_t : triple -> unit ;
+    subjects_of : pred: uri -> obj: term -> term list ;
+    predicates_of : sub: term -> obj: term -> uri list ;
+    objects_of : sub: term -> pred: uri -> term list ;
+    find : ?sub: term -> ?pred: uri -> ?obj: term -> unit -> triple list ;
+    exists : ?sub: term -> ?pred: uri -> ?obj: term -> unit -> bool ;
     exists_t : triple -> bool ;
-    subjects : unit -> node list ;
-    predicates : unit -> node list ;
-    objects : unit -> node list ;
+    subjects : unit -> term list ;
+    predicates : unit -> uri list ;
+    objects : unit -> term list ;
     transaction_start : unit -> unit ;
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
-    new_blank_id : unit -> Rdf_node.blank_id ;
+    new_blank_id : unit -> Rdf_term.blank_id ;
     namespaces : unit -> (uri * string) list ;
   }
 
@@ -184,7 +184,7 @@ let open_graph ?(options=[]) name =
   let module S = (val storage) in
   let g = S.open_graph ~options name in
   let namespaces () =
-    let triples = S.find ~pred: (Uri Rdf_rdf.ordf_ns) g in
+    let triples = S.find ~pred: (Rdf_rdf.ordf_ns) g in
     let f  (sub, _ , obj) =
       let uri = match sub with
         | Uri uri -> uri
@@ -222,19 +222,19 @@ let open_graph ?(options=[]) name =
 
 module Bid_map = Map.Make
   (struct
-     type t = Rdf_node.blank_id
+     type t = Rdf_term.blank_id
      let compare id1 id2 =
        Pervasives.compare
-         (Rdf_node.string_of_blank_id id1)
-         (Rdf_node.string_of_blank_id id2)
+         (Rdf_term.string_of_blank_id id1)
+         (Rdf_term.string_of_blank_id id2)
    end
   );;
 
 let merge g1 g2 =
   let map bid_map x =
     match x with
-      Rdf_node.Uri _
-    | Rdf_node.Literal _
+      Rdf_term.Uri _
+    | Rdf_term.Literal _
     | Blank -> (bid_map, x)
     | Blank_ id ->
         let (id2, bid_map) =
@@ -248,7 +248,7 @@ let merge g1 g2 =
   in
   let f bid_map (sub,pred,obj) =
     let (bid_map, sub) = map bid_map sub in
-    let (bid_map, pred) = map bid_map pred in
+    let (bid_map, _) = map bid_map (Rdf_term.Uri pred) in
     let (bid_map, obj) = map bid_map obj in
     g1.add_triple ~sub ~pred ~obj;
     bid_map

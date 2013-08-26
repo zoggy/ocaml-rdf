@@ -24,9 +24,9 @@
 
 (** *)
 
-open Rdf_node;;
+open Rdf_term;;
 
-module Node_set = Set.Make(Rdf_node.Ord_type)
+module Node_set = Set.Make(Rdf_term.Ord_type)
 module Urimap = Rdf_uri.Urimap;;
 module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
 
@@ -73,7 +73,7 @@ let dot_of_graph ?namespaces ?href ?uri g =
     match uri with
       None -> g.Rdf_graph.find ()
     | Some uri ->
-        let node = Rdf_node.Uri uri in
+        let node = Rdf_term.Uri uri in
         let to_uri = g.Rdf_graph.find ~sub: node () in
         let from_uri = g.Rdf_graph.find ~obj: node () in
         to_uri @ from_uri
@@ -108,10 +108,10 @@ let dot_of_graph ?namespaces ?href ?uri g =
     "N" ^ (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
-    match Rdf_node.Ord_type.compare pred (Uri Rdf_rdf.ordf_ns) with
+    match Rdf_uri.compare pred Rdf_rdf.ordf_ns with
       0 -> set
     | _ ->
-        Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label pred);
+        Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Uri pred));
         Node_set.add sub (Node_set.add obj set)
   in
   let set = List.fold_left f Node_set.empty triples in

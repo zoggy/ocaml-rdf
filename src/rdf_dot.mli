@@ -50,11 +50,11 @@ val build_namespaces :
 *)
 val dot_of_graph :
   ?namespaces:(Rdf_uri.uri * string) list ->
-  ?href:(Rdf_node.node -> string option) -> Rdf_graph.graph -> string
+  ?href:(Rdf_term.term -> string option) -> Rdf_graph.graph -> string
 
 (** Same as {!dot_of_graph} but return code to represent only the triples
   having the given URI as subject or object. *)
 val dot_of_uri :
-  ?namespaces:(Rdf_uri.uri * string) list -> ?href:(Rdf_node.node -> string option) ->
+  ?namespaces:(Rdf_uri.uri * string) list -> ?href:(Rdf_term.term -> string option) ->
     Rdf_graph.graph -> Rdf_uri.uri -> string
 

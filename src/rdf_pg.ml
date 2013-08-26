@@ -26,7 +26,7 @@
 
 module PG = Postgresql;;
 
-open Rdf_node;;
+open Rdf_term;;
 
 let dbg = Rdf_misc.create_log_fun
   ~prefix: "Rdf_pg"
@@ -109,13 +109,13 @@ let connect options =
   | PG.Bad -> raise (Error "Connexion error")
 ;;
 
-let hash_of_node dbd ?(add=false) node =
-  let hash = Rdf_node.node_hash node in
+let hash_of_term dbd ?(add=false) term =
+  let hash = Rdf_term.term_hash term in
   if add then
     begin
       let test_query =
         "SELECT COUNT(*) FROM " ^
-          (match node with
+          (match term with
              Uri _ -> "resources"
            | Literal _ -> "literals"
            | Blank_ _ | Blank -> "bnodes"
@@ -127,7 +127,7 @@ let hash_of_node dbd ?(add=false) node =
       match getvalue res 0 0 with
         s when int_of_string s = 0 ->
           let pre_query =
-            match node with
+            match term with
               Uri uri ->
                 "resources (id, value) values ("^
                   (Int64.to_string hash) ^", '" ^
@@ -141,7 +141,7 @@ let hash_of_node dbd ?(add=false) node =
             | Blank_ id ->
                 "bnodes (id, value) values (" ^
                   (Int64.to_string hash) ^", '" ^
-                  (dbd#escape_string (Rdf_node.string_of_blank_id id)) ^ "')"
+                  (dbd#escape_string (Rdf_term.string_of_blank_id id)) ^ "')"
             | Blank -> assert false
           in
           let query = "INSERT INTO " ^ pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
@@ -151,6 +151,11 @@ let hash_of_node dbd ?(add=false) node =
   hash
 ;;
 
+
+let to_uri = function
+  Rdf_term.Uri uri -> uri
+| t -> failwith ("Not a URI:"^(Rdf_term.string_of_term t))
+;;
 
 let table_options = "WITHOUT OIDS";;
 let creation_queries =
@@ -195,7 +200,7 @@ let table_exists dbd table =
   with Error _ -> false
 ;;
 
-let prepared_node_of_hash = "node_of_hash";;
+let prepared_term_of_hash = "term_of_hash";;
 let prepared_count_triples = "count_triples";;
 let prepared_insert_triple = "insert_triple";;
 let prepared_delete_triple = "delete_triple";;
@@ -206,7 +211,7 @@ let prepared_subject = "subject" ;;
 let prepared_predicate = "predicate";;
 let prepared_object = "object";;
 
-let make_select_node_list table col clause =
+let make_select_term_list table col clause =
   "SELECT "^col^" FROM "^table^" where "^clause
 ;;
 
@@ -221,7 +226,7 @@ let prepare_queries dbd table =
      SELECT NULL, NULL, value, language, datatype FROM literals where id=$2 UNION ALL \
      SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3 LIMIT 1"
   in
-  prepare_query dbd prepared_node_of_hash query;
+  prepare_query dbd prepared_term_of_hash query;
 
   let query =
     "SELECT COUNT(*) FROM "^table^" WHERE subject=$1 AND predicate=$2 AND object=$3"
@@ -240,19 +245,19 @@ let prepare_queries dbd table =
 
   let query =
     let clause = "predicate=$1 AND object=$2" in
-    make_select_node_list table "subject" clause
+    make_select_term_list table "subject" clause
   in
   prepare_query dbd prepared_subjects_of query;
 
   let query =
     let clause = "subject=$1 AND object=$2" in
-    make_select_node_list table "predicate" clause
+    make_select_term_list table "predicate" clause
   in
   prepare_query dbd prepared_predicates_of query;
 
   let query =
     let clause = "subject=$1 AND predicate=$2" in
-    make_select_node_list table "object" clause
+    make_select_term_list table "object" clause
   in
   prepare_query dbd prepared_objects_of query;
 
@@ -292,47 +297,47 @@ let init_graph dbd name =
   table
 ;;
 
-let node_of_hash dbd hash =
+let term_of_hash dbd hash =
   let s_hash = Int64.to_string hash in
-  let res = exec_prepared dbd prepared_node_of_hash [ s_hash ; s_hash ; s_hash ] in
+  let res = exec_prepared dbd prepared_term_of_hash [ s_hash ; s_hash ; s_hash ] in
   match res#ntuples with
   | 1 ->
       begin
         match getisnull res 0 0 with
           false ->
             let name = getvalue res 0 0 in
-            Blank_ (Rdf_node.blank_id_of_string name)
+            Blank_ (Rdf_term.blank_id_of_string name)
         | true ->
             match getisnull res 0 1 with
               false ->
                 let uri = getvalue res 0 1 in
-                Rdf_node.node_of_uri_string uri
+                Rdf_term.term_of_uri_string uri
             | true ->
                match get_tuple res 0 with
                  [| _ ; _ ; value ; lang ; typ |] ->
                    let typ = Rdf_misc.map_opt
                       Rdf_uri.uri (Rdf_misc.opt_of_string typ)
                     in
-                    Rdf_node.node_of_literal_string
+                    Rdf_term.term_of_literal_string
                     ?lang: (Rdf_misc.opt_of_string lang)
                     ?typ value
                 | _ ->
                     raise (Error "Bad field number in results")
       end
   | n when n < 1 ->
-      let msg = "No node with hash \""^(Int64.to_string hash)^"\"" in
+      let msg = "No term with hash \""^(Int64.to_string hash)^"\"" in
       raise (Error msg)
   | _ ->
-      let msg = "More than one node found with hash \""^(Int64.to_string hash)^"\"" in
+      let msg = "More than one term found with hash \""^(Int64.to_string hash)^"\"" in
       raise (Error msg)
 ;;
 
-let query_node_list g stmt params =
+let query_term_list g stmt params =
   let res = exec_prepared g.g_dbd stmt params in
   let size = res#ntuples in
   let rec iter n acc =
     if n < size then
-      let acc = (node_of_hash g.g_dbd (Int64.of_string (getvalue res n 0))) :: acc in
+      let acc = (term_of_hash g.g_dbd (Int64.of_string (getvalue res n 0))) :: acc in
       iter (n+1) acc
     else
       acc
@@ -351,9 +356,9 @@ let query_triple_list g where_clause =
       match get_tuple res n with
         [| sub ; pred ; obj |] ->
           let acc =
-            (node_of_hash g.g_dbd (Int64.of_string sub),
-             node_of_hash g.g_dbd (Int64.of_string pred),
-             node_of_hash g.g_dbd (Int64.of_string obj)) :: acc
+            (term_of_hash g.g_dbd (Int64.of_string sub),
+             to_uri (term_of_hash g.g_dbd (Int64.of_string pred)),
+             term_of_hash g.g_dbd (Int64.of_string obj)) :: acc
           in
           iter (n+1) acc
       | _ -> raise (Error "Invalid result: bad number of fields")
@@ -374,9 +379,9 @@ let open_graph ?(options=[]) name =
 ;;
 
 let add_triple g ~sub ~pred ~obj =
-  let sub = hash_of_node g.g_dbd ~add:true sub in
-  let pred = hash_of_node g.g_dbd ~add:true pred in
-  let obj = hash_of_node g.g_dbd ~add:true obj in
+  let sub = hash_of_term g.g_dbd ~add:true sub in
+  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred) in
+  let obj = hash_of_term g.g_dbd ~add:true obj in
   let params = [ Int64.to_string sub ; Int64.to_string pred; Int64.to_string obj] in
   (* do not insert if already present *)
   let res = exec_prepared g.g_dbd prepared_count_triples params in
@@ -386,9 +391,9 @@ let add_triple g ~sub ~pred ~obj =
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
-  let sub = hash_of_node g.g_dbd ~add:false sub in
-  let pred = hash_of_node g.g_dbd ~add:false pred in
-  let obj = hash_of_node g.g_dbd ~add:false obj in
+  let sub = hash_of_term g.g_dbd ~add:false sub in
+  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred) in
+  let obj = hash_of_term g.g_dbd ~add:false obj in
   ignore(exec_prepared g.g_dbd
    prepared_delete_triple
    [ Int64.to_string sub; Int64.to_string pred; Int64.to_string obj]
@@ -396,35 +401,41 @@ let rem_triple g ~sub ~pred ~obj =
 ;;
 
 let subjects_of g ~pred ~obj =
-  query_node_list g prepared_subjects_of
-  [ Int64.to_string (hash_of_node g.g_dbd pred) ;
-    Int64.to_string (hash_of_node g.g_dbd obj) ]
+  query_term_list g prepared_subjects_of
+  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
+    Int64.to_string (hash_of_term g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  query_node_list g prepared_predicates_of
-  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
-    Int64.to_string (hash_of_node g.g_dbd obj) ]
+  List.map to_uri
+    (query_term_list g prepared_predicates_of
+     [ Int64.to_string (hash_of_term g.g_dbd sub) ;
+       Int64.to_string (hash_of_term g.g_dbd obj) ]
+    )
 ;;
 
 let objects_of g ~sub ~pred =
-  query_node_list g prepared_objects_of
-  [ Int64.to_string (hash_of_node g.g_dbd sub) ;
-    Int64.to_string (hash_of_node g.g_dbd pred) ]
+  query_term_list g prepared_objects_of
+  [ Int64.to_string (hash_of_term g.g_dbd sub) ;
+    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
   let mk_cond field = function
     None -> []
-  | Some node ->
-      [field^"="^(Int64.to_string (hash_of_node g.g_dbd node))]
+  | Some term ->
+      [field^"="^(Int64.to_string (hash_of_term g.g_dbd term))]
   in
   match sub, pred, obj with
     None, None, None -> "TRUE"
   | _ ->
+      let pred_cond = match pred with
+        None -> []
+        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri p)))]
+      in
       let l =
         (mk_cond "subject" sub) @
-        (mk_cond "predicate" pred) @
+        pred_cond @
         (mk_cond "object" obj)
       in
       String.concat " AND " l
@@ -444,9 +455,9 @@ let exists ?sub ?pred ?obj g =
   size > 0
 ;;
 
-let subjects g = query_node_list g prepared_subject [];;
-let predicates g = query_node_list g prepared_predicate [];;
-let objects g = query_node_list g prepared_object [];;
+let subjects g = query_term_list g prepared_subject [];;
+let predicates g = List.map to_uri (query_term_list g prepared_predicate []);;
+let objects g = query_term_list g prepared_object [];;
 
 let transaction_start g =
   dbg ~level: 1 (fun () -> "Start transaction");
@@ -479,7 +490,7 @@ let new_blank_id g =
     int_of_string (getvalue res 0 0)
   in
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
-  Rdf_node.blank_id_of_string
+  Rdf_term.blank_id_of_string
     ("genid"^(string_of_int cardinal)^"-"^(string_of_int (Random.int max_int)))
 ;;
 

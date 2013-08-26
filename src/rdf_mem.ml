@@ -29,53 +29,54 @@ let dbg = Rdf_misc.create_log_fun
     "RDF_MEM_DEBUG_LEVEL"
 ;;
 
-open Rdf_node;;
+open Rdf_term;;
 
-module Triples =
+module Triples = functor (Map1 : Map.S) ->
+  functor (Map2 : Map.S) ->
+  functor (Set : Set.S) ->
   struct
-    module Set = Set.Make(Rdf_node.Ord_type)
-    module Map = Map.Make(Rdf_node.Ord_type)
-    type t = Set.t Map.t Map.t
-    let empty = Map.empty
+    module Set = Set
+    module Map = Map1
+    type t = Set.t Map2.t Map1.t
+    let empty = Map1.empty
 
     let add t x y z =
       let m =
-        try Map.find x t
-        with Not_found -> Map.empty
+        try Map1.find x t
+        with Not_found -> Map2.empty
       in
       let set =
-        try Set.add z (Map.find y m)
+        try Set.add z (Map2.find y m)
         with Not_found -> Set.singleton z
       in
-      let m = Map.add y set m in
-      Map.add x m t
+      let m = Map2.add y set m in
+      Map1.add x m t
 
     let rem t x y z =
       let m =
-        try Map.find x t
-        with Not_found -> Map.empty
+        try Map1.find x t
+        with Not_found -> Map2.empty
       in
       try
-        let set = Set.remove z (Map.find y m) in
-        let m = Map.add y set m in
-        Map.add x m t
+        let set = Set.remove z (Map2.find y m) in
+        let m = Map2.add y set m in
+        Map1.add x m t
       with
         Not_found -> t
 
     let find t x y =
-      try Map.find y (Map.find x t)
+      try Map2.find y (Map1.find x t)
       with Not_found -> Set.empty
 
-    let find_list t x y =
-      Set.fold (fun elt acc -> elt :: acc) (find t x y) []
+    let find_list t x y = Set.elements (find t x y)
 
     let find2_list t x z =
       let f y set acc =
         if Set.mem z set then y :: acc else acc
       in
       try
-        let m = Map.find x t in
-        Map.fold f m []
+        let m = Map1.find x t in
+        Map2.fold f m []
       with Not_found -> []
 
 
@@ -84,29 +85,32 @@ module Triples =
       Set.fold (fz x y) set acc
 
     let triples_x t x acc =
-      try Map.fold (triples_y x) (Map.find x t) acc
+      try Map2.fold (triples_y x) (Map1.find x t) acc
       with Not_found -> acc
 
     let triples =
       let fx elt map acc =
-        Map.fold (triples_y elt) map acc
+        Map2.fold (triples_y elt) map acc
       in
-      fun t -> Map.fold fx t []
+      fun t -> Map1.fold fx t []
 
     let x_list =
       let pred _ set = not (Set.is_empty set) in
       let fx elt map acc =
-        if Map.exists pred map then elt :: acc else acc
+        if Map2.exists pred map then elt :: acc else acc
       in
-      fun t -> Map.fold fx t []
+      fun t -> Map1.fold fx t []
   end
 ;;
+module Triples_s_p = Triples(Rdf_term.TMap)(Rdf_uri.Urimap)(Rdf_term.TSet);;
+module Triples_p_o = Triples(Rdf_uri.Urimap)(Rdf_term.TMap)(Rdf_term.TSet);;
+module Triples_o_s = Triples(Rdf_term.TMap)(Rdf_term.TMap)(Rdf_uri.Uriset);;
 
 type t =
   { g_name : Rdf_uri.uri ; (* graph name *)
-    mutable g_set_sub : Triples.t ; (* sub -> (pred -> obj set) *)
-    mutable g_set_pred : Triples.t ; (* pred -> (obj -> sub set) *)
-    mutable g_set_obj : Triples.t ; (* obj -> (pred -> sub set) *)
+    mutable g_set_sub : Triples_s_p.t ; (* sub -> (pred -> obj set) *)
+    mutable g_set_pred : Triples_p_o.t ; (* pred -> (obj -> sub set) *)
+    mutable g_set_obj : Triples_o_s.t ; (* obj -> (sub -> pred set) *)
     mutable g_in_transaction : t option ; (* Some t: t is the state before starting the transaction *)
   }
 
@@ -116,40 +120,40 @@ let string_of_error s = s;;
 
 let open_graph ?(options=[]) name =
   { g_name = name ;
-    g_set_sub = Triples.empty;
-    g_set_pred = Triples.empty;
-    g_set_obj = Triples.empty;
+    g_set_sub = Triples_s_p.empty;
+    g_set_pred = Triples_p_o.empty;
+    g_set_obj = Triples_o_s.empty;
     g_in_transaction = None ;
   }
 ;;
 
 let add_triple g ~sub ~pred ~obj =
-  g.g_set_sub <- Triples.add g.g_set_sub sub pred obj ;
-  g.g_set_pred <- Triples.add g.g_set_pred pred obj sub ;
-  g.g_set_obj <- Triples.add g.g_set_obj obj pred sub
+  g.g_set_sub <- Triples_s_p.add g.g_set_sub sub pred obj ;
+  g.g_set_pred <- Triples_p_o.add g.g_set_pred pred obj sub ;
+  g.g_set_obj <- Triples_o_s.add g.g_set_obj obj sub pred ;
 ;;
 
 let rem_triple g ~sub ~pred ~obj =
-  g.g_set_sub <- Triples.rem g.g_set_sub sub pred obj ;
-  g.g_set_pred <- Triples.rem g.g_set_pred pred obj sub ;
-  g.g_set_obj <- Triples.rem g.g_set_obj obj pred sub
+  g.g_set_sub <- Triples_s_p.rem g.g_set_sub sub pred obj ;
+  g.g_set_pred <- Triples_p_o.rem g.g_set_pred pred obj sub ;
+  g.g_set_obj <- Triples_o_s.rem g.g_set_obj obj sub pred ;
 ;;
 
-let subjects_of g ~pred ~obj = Triples.find_list g.g_set_pred pred obj ;;
+let subjects_of g ~pred ~obj = Triples_p_o.find_list g.g_set_pred pred obj ;;
 
-let predicates_of g ~sub ~obj = Triples.find2_list g.g_set_pred sub obj ;;
+let predicates_of g ~sub ~obj = Triples_o_s.find_list g.g_set_obj obj sub ;;
 
-let objects_of g ~sub ~pred = Triples.find_list g.g_set_sub sub pred ;;
+let objects_of g ~sub ~pred = Triples_s_p.find_list g.g_set_sub sub pred ;;
 
 
 let find ?sub ?pred ?obj g =
   match sub, pred, obj with
-    None, None, None -> Triples.triples g.g_set_sub
-  | Some sub, None, None -> Triples.triples_x g.g_set_sub sub []
+    None, None, None -> Triples_s_p.triples g.g_set_sub
+  | Some sub, None, None -> Triples_s_p.triples_x g.g_set_sub sub []
   | None, Some pred, None ->
-      List.rev_map (fun (p,o,s) -> (s, p, o)) (Triples.triples_x g.g_set_pred pred [])
+      List.rev_map (fun (p,o,s) -> (s, p, o)) (Triples_p_o.triples_x g.g_set_pred pred [])
   | None, None, Some obj ->
-      List.rev_map (fun (o,p,s) -> (s, p, o)) (Triples.triples_x g.g_set_obj obj [])
+      List.rev_map (fun (o,s,p) -> (s, p, o)) (Triples_o_s.triples_x g.g_set_obj obj [])
   | Some sub, Some pred, None ->
       List.map (fun o -> (sub, pred, o)) (objects_of g ~sub ~pred)
   | Some sub, None, Some obj ->
@@ -157,17 +161,17 @@ let find ?sub ?pred ?obj g =
   | None, Some pred, Some obj ->
       List.map (fun s -> (s, pred, obj)) (subjects_of g ~pred ~obj)
   | Some sub, Some pred, Some obj ->
-      let set = Triples.find g.g_set_pred pred obj in
-      if Triples.Set.mem sub set then [sub, pred, obj] else []
+      let set = Triples_p_o.find g.g_set_pred pred obj in
+      if Triples_p_o.Set.mem sub set then [sub, pred, obj] else []
 ;;
 
 let exists ?sub ?pred ?obj g =
   match find ?sub ?pred ?obj g with [] -> false | _ -> true
 ;;
 
-let subjects g = Triples.x_list g.g_set_sub;;
-let predicates g = Triples.x_list g.g_set_pred;;
-let objects g = Triples.x_list g.g_set_obj;;
+let subjects g = Triples_s_p.x_list g.g_set_sub;;
+let predicates g = Triples_p_o.x_list g.g_set_pred;;
+let objects g = Triples_o_s.x_list g.g_set_obj;;
 
 let transaction_start g =
   let old =
@@ -201,11 +205,11 @@ let new_blank_id g =
   let max_int = Int32.to_int (Int32.div Int32.max_int (Int32.of_int 2)) in
   let s =
     "genid"^
-      (string_of_int (Triples.Map.cardinal g.g_set_sub))
+      (string_of_int (Triples_s_p.Map.cardinal g.g_set_sub))
       ^ "-" ^
       (string_of_int (Random.int max_int))
   in
-  Rdf_node.blank_id_of_string s
+  Rdf_term.blank_id_of_string s
 ;;
 
 module Mem =

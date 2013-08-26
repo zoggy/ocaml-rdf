@@ -104,7 +104,7 @@ let mk_dataset spec =
 
 let print_solution solution =
   Rdf_sparql.solution_iter
-    (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+    (fun name term -> print_string (name^"->"^(Rdf_term.string_of_term term)^" ; "))
     solution;
   print_newline()
 ;;

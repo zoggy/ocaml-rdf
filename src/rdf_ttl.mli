@@ -32,7 +32,7 @@ val from_string : Rdf_graph.graph -> base:Rdf_uri.uri -> string -> Rdf_graph.gra
 val from_file : Rdf_graph.graph -> base:Rdf_uri.uri -> string -> Rdf_graph.graph
 
 val string_of_triple :
-  sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> string
+  sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> string
 
 val to_ : ?namespaces: (Rdf_uri.uri * string) list ->
   (string -> unit) -> Rdf_graph.graph -> unit

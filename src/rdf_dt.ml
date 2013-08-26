@@ -24,11 +24,11 @@
 
 (** *)
 
-open Rdf_node
+open Rdf_term
 
 type error =
     | Type_error of value * string
-    | Invalid_literal of Rdf_node.literal
+    | Invalid_literal of Rdf_term.literal
     | Exception of exn
 
 and value =
@@ -52,15 +52,15 @@ let string_of_value = function
   Err _ -> "<err>"
 | Blank id -> "_:"^id
 | Iri uri -> "<"^(Rdf_uri.string uri)^">"
-| String s -> Rdf_node.quote_str s
+| String s -> Rdf_term.quote_str s
 | Int n -> string_of_int n
 | Float f -> string_of_float f
 | Bool true -> "true"
 | Bool false -> "false"
 | Datetime t -> Netdate.format ~fmt: date_fmt t
-| Ltrl (s,None) -> Rdf_node.quote_str s
-| Ltrl (s, Some lang) -> (Rdf_node.quote_str s)^"@"^lang
-| Ltrdt (s, uri) -> (Rdf_node.quote_str s)^"^^"^(Rdf_uri.string uri)
+| Ltrl (s,None) -> Rdf_term.quote_str s
+| Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
+| Ltrdt (s, uri) -> (Rdf_term.quote_str s)^"^^"^(Rdf_uri.string uri)
 ;;
 
 module ValueOrdered =
@@ -114,7 +114,7 @@ let rec string_of_error = function
 | Type_error (v, str) ->
    "Value "^(string_of_value v)^" has not the expected type "^str
 | Invalid_literal lit ->
-   "Invalid literal "^(Rdf_node.string_of_literal lit)
+   "Invalid literal "^(Rdf_term.string_of_literal lit)
 | Exception (Error e) ->
     string_of_error e
 | Exception e ->
@@ -363,20 +363,20 @@ let of_literal lit =
   _ -> error (Invalid_literal lit)
 
 let of_node = function
-  Rdf_node.Uri t -> Iri t
-| Rdf_node.Literal lit -> of_literal lit
-| Rdf_node.Blank_ label -> Blank (Rdf_node.string_of_blank_id label)
-| Rdf_node.Blank -> assert false
+  Rdf_term.Uri t -> Iri t
+| Rdf_term.Literal lit -> of_literal lit
+| Rdf_term.Blank_ label -> Blank (Rdf_term.string_of_blank_id label)
+| Rdf_term.Blank -> assert false
 
 let to_node = function
 | Err e -> error e
-| Iri t -> Rdf_node.Uri t
-| Blank label -> Rdf_node.Blank_ (Rdf_node.blank_id_of_string label)
-| String s -> Rdf_node.node_of_literal_string ~typ: Rdf_rdf.xsd_string s
-| Int n -> Rdf_node.node_of_int n
-| Float f -> Rdf_node.node_of_double f
-| Bool b -> Rdf_node.node_of_bool b
-| Datetime d -> Rdf_node.node_of_datetime ~d: (Netdate.since_epoch d) ()
-| Ltrl (s,lang) -> Rdf_node.node_of_literal_string ?lang s
-| Ltrdt (s, typ) -> Rdf_node.node_of_literal_string ~typ s
+| Iri t -> Rdf_term.Uri t
+| Blank label -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string label)
+| String s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_string s
+| Int n -> Rdf_term.term_of_int n
+| Float f -> Rdf_term.term_of_double f
+| Bool b -> Rdf_term.term_of_bool b
+| Datetime d -> Rdf_term.term_of_datetime ~d: (Netdate.since_epoch d) ()
+| Ltrl (s,lang) -> Rdf_term.term_of_literal_string ?lang s
+| Ltrdt (s, typ) -> Rdf_term.term_of_literal_string ~typ s
 

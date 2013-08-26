@@ -38,9 +38,9 @@ let options =
 in
 let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
 graph.add_triple
-  ~sub: (Rdf_node.node_of_uri_string "http://john.net")
-  ~pred: (Rdf_node.node_of_uri_string "http://relations.org/hasMailbox")
-  ~obj: (Rdf_node.node_of_literal_string "john\@john.net");
+  ~sub: (Rdf_term.term_of_uri_string "http://john.net")
+  ~pred: (Rdf_uri.uri "http://relations.org/hasMailbox")
+  ~obj: (Rdf_term.term_of_literal_string "john\@john.net");
 ...
 ]}
 *)
@@ -97,60 +97,60 @@ module type Storage =
     (** Adding a triple to the graph. *)
     val add_triple :
       g ->
-      sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit
+      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
 
     (** Removing a triple from the graph. *)
     val rem_triple :
       g ->
-      sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit
+      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
 
     (** Adding a triple to the graph, curryfied form. *)
-    val add_triple_t : g -> Rdf_node.triple -> unit
+    val add_triple_t : g -> Rdf_term.triple -> unit
 
     (** Removing a triple from the graph, curryfied form. *)
-    val rem_triple_t : g -> Rdf_node.triple -> unit
+    val rem_triple_t : g -> Rdf_term.triple -> unit
 
     (** {3 Querying the graph} *)
 
     (** [subjects_of g ~pred ~obj] returns the list of nodes which are
       subjects in triples with the specified predicate and object. *)
     val subjects_of :
-      g -> pred:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list
+      g -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list
 
     (** [predicates_of g ~sub ~obj] returns the list of nodes which are
       predicates in triples with the specified subject and object. *)
     val predicates_of :
-      g -> sub:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list
+      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list
 
     (** [objects_of g ~sub ~pred] returns the list of nodes which are
       objects in triples with the specified subject and predicate. *)
     val objects_of :
-      g -> sub:Rdf_node.node -> pred:Rdf_node.node -> Rdf_node.node list
+      g -> sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list
 
     (** [find ?sub ?pred ?obj g] returns the list of triples matching the
          constraints given by the optional subject, predicate and object.
          One can specify, zero, one, two or three of these nodes. *)
     val find :
-      ?sub:Rdf_node.node ->
-      ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> g -> Rdf_node.triple list
+      ?sub:Rdf_term.term ->
+      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
 
     (** Same as {!find} but only returns [true] if at least one triple
       of the graph matches the constraints. *)
     val exists :
-      ?sub:Rdf_node.node ->
-      ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> g -> bool
+      ?sub:Rdf_term.term ->
+      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> bool
 
     (** Curryfied version of {!exists}. *)
-    val exists_t : Rdf_node.triple -> g -> bool
+    val exists_t : Rdf_term.triple -> g -> bool
 
     (** Return the list of nodes appearing in subject position. *)
-    val subjects : g -> Rdf_node.node list
+    val subjects : g -> Rdf_term.term list
 
     (** Return the list of nodes appearing in predicate position. *)
-    val predicates : g -> Rdf_node.node list
+    val predicates : g -> Rdf_uri.uri list
 
     (** Return the list of nodes appearing in object position. *)
-    val objects : g -> Rdf_node.node list
+    val objects : g -> Rdf_term.term list
 
     (** {3 Transactions} *)
 
@@ -164,7 +164,7 @@ module type Storage =
     val transaction_rollback : g -> unit
 
     (** Forging a new, unique blank node id. *)
-    val new_blank_id : g -> Rdf_node.blank_id
+    val new_blank_id : g -> Rdf_term.blank_id
   end
 
 (** This is the exception raised by the module we get when applying
@@ -188,32 +188,32 @@ module type Graph =
     val graph_name : g -> Rdf_uri.uri
     val add_triple :
       g ->
-      sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit
+      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
     val rem_triple :
       g ->
-      sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit
-    val add_triple_t : g -> Rdf_node.triple -> unit
-    val rem_triple_t : g -> Rdf_node.triple -> unit
+      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
+    val add_triple_t : g -> Rdf_term.triple -> unit
+    val rem_triple_t : g -> Rdf_term.triple -> unit
     val subjects_of :
-      g -> pred:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list
+      g -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list
     val predicates_of :
-      g -> sub:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list
+      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list
     val objects_of :
-      g -> sub:Rdf_node.node -> pred:Rdf_node.node -> Rdf_node.node list
+      g -> sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list
     val find :
-      ?sub:Rdf_node.node ->
-      ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> g -> Rdf_node.triple list
+      ?sub:Rdf_term.term ->
+      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
     val exists :
-      ?sub:Rdf_node.node ->
-      ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> g -> bool
-    val exists_t : Rdf_node.triple -> g -> bool
-    val subjects : g -> Rdf_node.node list
-    val predicates : g -> Rdf_node.node list
-    val objects : g -> Rdf_node.node list
+      ?sub:Rdf_term.term ->
+      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> bool
+    val exists_t : Rdf_term.triple -> g -> bool
+    val subjects : g -> Rdf_term.term list
+    val predicates : g -> Rdf_uri.uri list
+    val objects : g -> Rdf_term.term list
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
-    val new_blank_id : g -> Rdf_node.blank_id
+    val new_blank_id : g -> Rdf_term.blank_id
   end
 module Make : functor (S : Storage) -> Graph with type g = S.g
 
@@ -230,29 +230,29 @@ val add_storage : (module Storage) -> unit
 type graph = {
   name : unit -> Rdf_uri.uri;
   add_triple :
-    sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit;
+    sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit;
   rem_triple :
-    sub:Rdf_node.node -> pred:Rdf_node.node -> obj:Rdf_node.node -> unit;
-  add_triple_t : Rdf_node.node * Rdf_node.node * Rdf_node.node -> unit;
-  rem_triple_t : Rdf_node.node * Rdf_node.node * Rdf_node.node -> unit;
-  subjects_of : pred:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list;
+    sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit;
+  add_triple_t : Rdf_term.triple -> unit;
+  rem_triple_t : Rdf_term.triple -> unit;
+  subjects_of : pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list;
   predicates_of :
-    sub:Rdf_node.node -> obj:Rdf_node.node -> Rdf_node.node list;
-  objects_of : sub:Rdf_node.node -> pred:Rdf_node.node -> Rdf_node.node list;
+    sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list;
+  objects_of : sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list;
   find :
-    ?sub:Rdf_node.node ->
-    ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> unit -> Rdf_node.triple list;
+    ?sub:Rdf_term.term ->
+    ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> unit -> Rdf_term.triple list;
   exists :
-    ?sub:Rdf_node.node ->
-    ?pred:Rdf_node.node -> ?obj:Rdf_node.node -> unit -> bool;
-  exists_t : Rdf_node.triple -> bool;
-  subjects : unit -> Rdf_node.node list;
-  predicates : unit -> Rdf_node.node list;
-  objects : unit -> Rdf_node.node list;
+    ?sub:Rdf_term.term ->
+    ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> unit -> bool;
+  exists_t : Rdf_term.triple -> bool;
+  subjects : unit -> Rdf_term.term list;
+  predicates : unit -> Rdf_uri.uri list;
+  objects : unit -> Rdf_term.term list;
   transaction_start : unit -> unit;
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
-  new_blank_id : unit -> Rdf_node.blank_id ;
+  new_blank_id : unit -> Rdf_term.blank_id ;
   namespaces : unit -> (Rdf_uri.uri * string) list ;
 }
 

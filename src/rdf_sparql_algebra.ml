@@ -458,7 +458,7 @@ and translate_query_level q =
        if has_implicit_grouping q then
          (
           let lit = { rdf_lit_loc = Rdf_loc.dummy_loc ;
-                      rdf_lit = Rdf_node.mk_literal_int 1 ;
+                      rdf_lit = Rdf_term.mk_literal_int 1 ;
                       rdf_lit_type = None ;
                     }
           in
@@ -568,7 +568,7 @@ let string_of_var_or_term = function
     | GraphTermLit lit
     | GraphTermNumeric lit
     | GraphTermBoolean lit ->
-       Rdf_node.string_of_literal lit.rdf_lit
+       Rdf_term.string_of_literal lit.rdf_lit
     | GraphTermBlank bn ->
         begin
           match bn.bnode_label with
@@ -576,7 +576,7 @@ let string_of_var_or_term = function
           | Some s -> "_:"^s
         end
     | GraphTermNil -> "()"
-    | GraphTermNode node -> Rdf_node.string_of_node node
+    | GraphTermNode node -> Rdf_term.string_of_term node
 
 let rec string_of_path = function
   Var v ->  "?"^v.var_name

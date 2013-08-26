@@ -78,7 +78,7 @@ type query_prolog = query_prolog_decl list ;;
 
 type rdf_literal =
   { rdf_lit_loc : loc ;
-    rdf_lit : Rdf_node.literal ;
+    rdf_lit : Rdf_term.literal ;
     rdf_lit_type : iri option ; (* must be resolved after parsing *)
   }
 ;;
@@ -376,7 +376,7 @@ and graph_term =
   | GraphTermBoolean of rdf_literal
   | GraphTermBlank of blank_node
   | GraphTermNil
-  | GraphTermNode of Rdf_node.node (** not parsed, but used in evaluation of paths *)
+  | GraphTermNode of Rdf_term.term (** not parsed, but used in evaluation of paths *)
 
 and var_or_term =
   | Var of var

@@ -33,7 +33,7 @@ type literal = {
   }
 type blank_id = string
 
-type node =
+type term =
   | Uri of Rdf_uri.uri
   | Literal of literal
   | Blank
@@ -41,16 +41,16 @@ type node =
 
 
 
-type triple = node * node * node
+type triple = term * Rdf_uri.uri * term
 
 let string_of_blank_id id = id;;
 let blank_id_of_string str = str;;
 
-let node_of_uri_string s = Uri (Rdf_uri.uri s);;
+let term_of_uri_string s = Uri (Rdf_uri.uri s);;
 let mk_literal ?typ ?lang v =
   { lit_value = v ; lit_language = lang ; lit_type = typ ; }
 ;;
-let node_of_literal_string ?typ ?lang v =
+let term_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
@@ -59,7 +59,7 @@ let mk_literal_datetime ?(d=Unix.time()) () =
   mk_literal ~typ: (Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#dateTime") v
 ;;
 
-let node_of_datetime ?d () =
+let term_of_datetime ?d () =
   Literal (mk_literal_datetime ?d ())
 ;;
 
@@ -78,9 +78,9 @@ let mk_literal_double f =
   mk_literal ~typ: Rdf_rdf.xsd_double (string_of_float f)
 ;;
 
-let node_of_int n = Literal (mk_literal_int n)
-let node_of_double f = Literal (mk_literal_double f)
-let node_of_bool b = Literal (mk_literal_bool b);;
+let term_of_int n = Literal (mk_literal_int n)
+let term_of_double f = Literal (mk_literal_double f)
+let term_of_bool b = Literal (mk_literal_bool b);;
 
 let bool_of_literal lit =
   match lit.lit_value with
@@ -123,7 +123,7 @@ let string_of_literal lit =
      | Some t -> "^^<" ^ (Rdf_uri.string t) ^ ">"
     )
 
-let string_of_node = function
+let string_of_term = function
 | Uri uri -> "<" ^ (Rdf_uri.string uri) ^ ">"
 | Literal lit -> string_of_literal lit
 | Blank -> "_"
@@ -141,7 +141,7 @@ let int64_hash str =
   !hash
 ;;
 
-let node_hash = function
+let term_hash = function
   Uri uri -> int64_hash ("R" ^ (Rdf_uri.string uri))
 | Literal lit ->
     int64_hash (
@@ -154,8 +154,8 @@ let node_hash = function
 | Blank_ id -> int64_hash ("B" ^ (string_of_blank_id id))
 ;;
 
-let compare node1 node2 =
-  match node1, node2 with
+let compare term1 term2 =
+  match term1, term2 with
     Uri uri1, Uri uri2 -> Rdf_uri.compare uri1 uri2
   | Uri _, _ -> 1
   | _, Uri _ -> -1
@@ -189,11 +189,12 @@ let compare node1 node2 =
 
 module Ord_type =
   struct
-    type t = node
+    type t = term
     let compare = compare
   end;;
 
-module NSet = Set.Make (Ord_type);;
+module TSet = Set.Make (Ord_type);;
+module TMap = Map.Make (Ord_type);;
 
 let lit_true = mk_literal_bool true
 let lit_false = mk_literal_bool false

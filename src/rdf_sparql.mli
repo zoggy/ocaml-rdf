@@ -54,10 +54,10 @@ val string_of_query : query -> string
 
 type solution
 
-(** [get_term solution varname] returns the {!Rdf_node.node} bound to
+(** [get_term solution varname] returns the {!Rdf_term.term} bound to
   [varname] in the solution.
   @raise Not_found if the variable is not bound. *)
-val get_term : solution -> string -> Rdf_node.node
+val get_term : solution -> string -> Rdf_term.term
 
 (** [is_bound solution varname] returns whether the given variable name
   is bound in the solution. *)
@@ -66,11 +66,11 @@ val is_bound : solution -> string -> bool
 (** [solution_fold f sol acc] is
   [f var1 term1 (f var2 term2 (...) acc)], folding over the bindings
   of the solution.*)
-val solution_fold : (string -> Rdf_node.node -> 'a-> 'a) -> solution -> 'a -> 'a
+val solution_fold : (string -> Rdf_term.term -> 'a-> 'a) -> solution -> 'a -> 'a
 
 (** [solution_iter f solution] calls [f] on each pair [(varname, term)]
   of the [solution]. *)
-val solution_iter : (string -> Rdf_node.node -> unit) -> solution -> unit
+val solution_iter : (string -> Rdf_term.term -> unit) -> solution -> unit
 
 (** {3 Querying} *)
 

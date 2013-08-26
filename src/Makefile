@@ -51,7 +51,7 @@ LIB_RDF_CMOFILES= \
 	rdf_loc.cmo \
 	rdf_uri.cmo \
 	rdf_rdf.cmo \
-	rdf_node.cmo \
+	rdf_term.cmo \
 	rdf_graph.cmo \
 	rdf_ds.cmo \
 	rdf_mem.cmo \

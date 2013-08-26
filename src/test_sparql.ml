@@ -58,7 +58,7 @@ let eval_query ?data query =
   | Rdf_sparql.Solutions sols ->
       let f_sol sol =
         Rdf_sparql.solution_iter
-          (fun name term -> print_string (name^"->"^(Rdf_node.string_of_node term)^" ; "))
+          (fun name term -> print_string (name^"->"^(Rdf_term.string_of_term term)^" ; "))
           sol;
         print_newline()
       in

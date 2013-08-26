@@ -91,12 +91,12 @@ let print_query_prolog b decls =
   List.iter (print_query_prolog_decl b) decls
 ;;
 
-let print_string_lit b s = p b (Rdf_node.quote_str s)
+let print_string_lit b s = p b (Rdf_term.quote_str s)
 
 let print_rdf_literal b t =
-  match t.rdf_lit.Rdf_node.lit_type with
+  match t.rdf_lit.Rdf_term.lit_type with
     Some uri when Rdf_uri.equal uri Rdf_rdf.xsd_integer ->
-      p b t.rdf_lit.Rdf_node.lit_value
+      p b t.rdf_lit.Rdf_term.lit_value
   | _ ->
       let lit = t.rdf_lit in
       let lit, s_type =
@@ -104,11 +104,11 @@ let print_rdf_literal b t =
           None -> lit, None
         | Some iri ->
             (
-             { lit with Rdf_node.lit_type = None },
+             { lit with Rdf_term.lit_type = None },
              Some (fun () -> p b "^^" ; print_iri b iri)
         )
       in
-      p b (Rdf_node.string_of_node (Rdf_node.Literal lit));
+      p b (Rdf_term.string_of_term (Rdf_term.Literal lit));
       match s_type with
         None -> ()
       | Some f -> f ()

@@ -78,15 +78,15 @@ let rec mk_blank ctx g = function
     let (node, gstate) = Rdf_xml.get_blank_node g ctx.gstate id in
     (node, { ctx with gstate }, g)
 | Empty ->
-    let node = Rdf_node.Blank_ (g.new_blank_id ()) in
+    let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     (node, ctx, g)
 | PredObjs l ->
-    let node = Rdf_node.Blank_ (g.new_blank_id ()) in
+    let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = List.fold_left (insert_sub_predobj node) (ctx, g) l in
     (node, ctx, g)
-| Collection [] -> (Rdf_node.Uri Rdf_rdf.rdf_nil, ctx, g)
+| Collection [] -> (Rdf_term.Uri Rdf_rdf.rdf_nil, ctx, g)
 | Collection objects ->
-    let node = Rdf_node.Blank_ (g.new_blank_id ()) in
+    let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = mk_collection ctx g node objects in
     (node, ctx, g)
 
@@ -94,23 +94,22 @@ and mk_collection ctx g node = function
   [] -> assert false
 | h :: q ->
    let (obj, ctx, g) = mk_object_node ctx g h in
-   g.add_triple ~sub: node
-        ~pred: (Rdf_node.Uri Rdf_rdf.rdf_first) ~obj;
+   g.add_triple ~sub: node ~pred: Rdf_rdf.rdf_first ~obj;
    match q with
      [] ->
         g.add_triple ~sub: node
-         ~pred: (Rdf_node.Uri Rdf_rdf.rdf_rest)
-         ~obj: (Rdf_node.Uri Rdf_rdf.rdf_nil);
+         ~pred: Rdf_rdf.rdf_rest
+         ~obj: (Rdf_term.Uri Rdf_rdf.rdf_nil);
        (ctx, g)
    | _ ->
-       let obj = Rdf_node.Blank_ (g.new_blank_id ()) in
+       let obj = Rdf_term.Blank_ (g.new_blank_id ()) in
         g.add_triple ~sub: node
-          ~pred: (Rdf_node.Uri Rdf_rdf.rdf_rest)
+          ~pred: Rdf_rdf.rdf_rest
           ~obj ;
        mk_collection ctx g obj q
 
 and mk_object_node ctx g = function
-  | Obj_res res -> (Rdf_node.Uri (uri_of_resource ctx res), ctx, g)
+  | Obj_res res -> (Rdf_term.Uri (uri_of_resource ctx res), ctx, g)
   | Obj_blank b -> mk_blank ctx g b
   | Obj_literal (String (s, lang, typ)) ->
        let typ =
@@ -118,8 +117,8 @@ and mk_object_node ctx g = function
            None -> None
          | Some r -> Some (uri_of_resource ctx r)
        in
-       let lit = Rdf_node.mk_literal ?typ ?lang s in
-       (Rdf_node.Literal lit, ctx, g)
+       let lit = Rdf_term.mk_literal ?typ ?lang s in
+       (Rdf_term.Literal lit, ctx, g)
 
 and insert_pred sub pred (ctx, g) obj =
   let (obj, ctx, g) = mk_object_node ctx g obj in
@@ -129,15 +128,15 @@ and insert_pred sub pred (ctx, g) obj =
 and insert_sub_predobj sub (ctx, g) (pred, objs) =
   let pred =
     match pred with
-      Pred_res r -> Rdf_node.Uri (uri_of_resource ctx r)
-    | Pred_a -> Rdf_node.Uri Rdf_rdf.rdf_type
+      Pred_res r -> uri_of_resource ctx r
+    | Pred_a -> Rdf_rdf.rdf_type
   in
   List.fold_left (insert_pred sub pred) (ctx, g) objs
 
 and insert_sub_predobjs ctx g sub l =
   let (sub, ctx, g) =
     match sub with
-      Sub_res r -> (Rdf_node.Uri (uri_of_resource ctx r), ctx, g)
+      Sub_res r -> (Rdf_term.Uri (uri_of_resource ctx r), ctx, g)
     | Sub_blank b -> mk_blank ctx g b
   in
   List.fold_left (insert_sub_predobj sub) (ctx, g) l
@@ -189,9 +188,9 @@ let from_lexbuf g ~base source_info ?fname lexbuf =
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
   let add_ns prefix uri =
-    let sub = Rdf_node.Uri uri in
-    let pred = Rdf_node.Uri Rdf_rdf.ordf_ns in
-    let obj = Rdf_node.node_of_literal_string prefix in
+    let sub = Rdf_term.Uri uri in
+    let pred = Rdf_rdf.ordf_ns in
+    let obj = Rdf_term.term_of_literal_string prefix in
     g.add_triple ~sub ~pred ~obj
   in
   Rdf_ttl_types.SMap.iter add_ns ctx.prefixes ;
@@ -212,30 +211,30 @@ let from_file g ~base file =
 ;;
 
 let string_of_triple ~sub ~pred ~obj =
-  (Rdf_node.string_of_node sub)^" "^
-  (Rdf_node.string_of_node pred)^" "^
-  (Rdf_node.string_of_node obj)^" ."
+  (Rdf_term.string_of_term sub)^" "^
+  (Rdf_term.string_of_term (Rdf_term.Uri pred))^" "^
+  (Rdf_term.string_of_term obj)^" ."
 ;;
 
 let string_of_triple_ns ns ~sub ~pred ~obj =
-  let string_of node =
-    match node with
-    | Rdf_node.Literal _
-    | Rdf_node.Blank | Rdf_node.Blank_ _ -> Rdf_node.string_of_node node
-    | Rdf_node.Uri uri ->
+  let string_of term =
+    match term with
+    | Rdf_term.Literal _
+    | Rdf_term.Blank | Rdf_term.Blank_ _ -> Rdf_term.string_of_term term
+    | Rdf_term.Uri uri ->
         let s = Rdf_uri.string uri in
         match Rdf_dot.apply_namespaces ns s with
           ("",uri) -> "<" ^ uri ^ ">"
         | (pref,s) -> pref ^ ":" ^ s
   in
   let sub = string_of sub in
-  let pred = string_of pred in
+  let pred = string_of (Rdf_term.Uri pred) in
   let obj = string_of obj in
   sub ^ " " ^ pred ^ " " ^ obj^ " ."
 ;;
 
 let f_triple ns print (sub, pred, obj) =
-  match Rdf_node.Ord_type.compare pred (Rdf_node.Uri Rdf_rdf.ordf_ns) with
+  match Rdf_uri.compare pred Rdf_rdf.ordf_ns with
     0 -> ()
   | _ -> print (string_of_triple_ns ns ~sub ~pred ~obj)
 ;;

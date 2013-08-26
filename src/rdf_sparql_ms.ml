@@ -37,7 +37,7 @@ module VMap = Rdf_dt.VMap;;
 
 (** A solution mapping : variable -> rdf term *)
 type mu = {
-    mu_bindings : Rdf_node.node SMap.t ;
+    mu_bindings : Rdf_term.term SMap.t ;
     mutable mu_bnodes : string VMap.t ;
   }
 
@@ -59,7 +59,7 @@ let get_bnode mu value =
     Rdf_dt.Blank label
 ;;
 
-let mu_compare mu1 mu2 = SMap.compare Rdf_node.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
+let mu_compare mu1 mu2 = SMap.compare Rdf_term.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
 
 exception Incompatible_mus of string
 exception Cannot_extend_mu of var
@@ -70,7 +70,7 @@ let mu_merge =
     | None, x -> x
     | x, None -> x
     | Some t1, Some t2 ->
-        match Rdf_node.Ord_type.compare t1 t2 with
+        match Rdf_term.Ord_type.compare t1 t2 with
           0 -> Some t1
         | _ -> raise (Incompatible_mus var)
   in
