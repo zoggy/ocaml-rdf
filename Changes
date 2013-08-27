@@ -1,4 +1,6 @@
 Next release:
+* fix: remove graph debug dump which was performed at each
+  sparql query evaluation
 * Rdf_node renamed to Rdf_term
 * Rdf_node.node renamed to Rdf_term.term
 * Rdf_node.NSet renamed to Rdf_term.TSet
