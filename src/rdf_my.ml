@@ -36,6 +36,7 @@ type t =
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
+    g_transactions : bool ;
   }
 
 type error = string
@@ -126,58 +127,37 @@ let db_of_options options =
   { Mysql.dbhost = dbhost ; dbname ; dbport ; dbpwd ; dbuser ; dbsocket = None }
 
 ;;
-let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;
 
-let hash_of_term dbd ?(add=false) term =
-  let hash = Rdf_term.term_hash term in
-  if add then
-    begin
-      let test_query =
-        "SELECT COUNT(*) FROM " ^
-          (match term with
-             Uri _ -> "resources"
-           | Literal _ -> "literals"
-           | Blank_ _ | Blank -> "bnodes"
-          ) ^
-          " WHERE id=" ^
-          (Int64.to_string hash)
-      in
-      match Mysql.fetch (exec_query dbd test_query) with
-        Some [| Some s |] when int_of_string s = 0 ->
-          let pre_query =
-            match term with
-              Uri uri ->
-                "resources (id, value) values ("^
-                  (Int64.to_string hash) ^
-                  ", " ^ (quote_str (Rdf_uri.string uri)) ^ ")"
-            | Literal lit ->
-                "literals (id, value, language, datatype) values (" ^
-                  (Int64.to_string hash) ^ ", " ^
-                  (quote_str lit.lit_value) ^ ", " ^
-                  (quote_str (Rdf_misc.string_of_opt lit.lit_language)) ^ ", " ^
-                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))) ^ ")"
-            | Blank_ id ->
-                "bnodes (id, value) values (" ^
-                (Int64.to_string hash) ^ ", " ^
-                  (quote_str (Rdf_term.string_of_blank_id id)) ^ ")"
-            | Blank -> assert false
-          in
-          let query = "INSERT INTO " ^ pre_query (* ON DUPLICATE KEY UPDATE value=value*) in
-          ignore(exec_query dbd query)
-      | _ -> ()
-    end;
-  hash
+let hash_of_term dbd ?(add=false) = function
+| Rdf_term.Uri uri -> "U"^(Rdf_uri.string uri)
+| Rdf_term.Blank -> assert false
+| Rdf_term.Blank_ id -> "B"^(Rdf_term.string_of_blank_id id)
+| Rdf_term.Literal lit ->
+    let uri = Rdf_misc.map_opt Rdf_uri.string lit.lit_type in
+    "L"^(Marshal.to_string (lit.lit_value, lit.lit_language, uri) [])
 ;;
 
+let term_of_hash dbd hash =
+  match hash.[0] with
+    'U' -> Rdf_term.Uri (Rdf_uri.uri ~check: false (String.sub hash 1 (String.length hash - 1)))
+  | 'B' -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string (String.sub hash 1 (String.length hash -1)))
+  | 'L' ->
+      let (v,lang,uri) = Marshal.from_string hash 1 in
+      Rdf_term.Literal
+        { Rdf_term.lit_value = v ;
+          lit_language = lang ;
+          lit_type = Rdf_misc.map_opt (Rdf_uri.uri ~check: false) uri ;
+        }
+  | c -> raise (Error ("Bad term header '"^(String.make 1 c)^"'"))
+;;
+
+let mysql_quote_dbd dbd s =  "\""^(Mysql.real_escape dbd s)^"\""
+let mysql_quote g s =  mysql_quote_dbd g.g_dbd s
 
 let table_options engine = " ENGINE="^engine^" DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
-    "CREATE TABLE IF NOT EXISTS bnodes (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=33" ;
-    "CREATE TABLE IF NOT EXISTS resources (id bigint PRIMARY KEY NOT NULL, value text NOT NULL) AVG_ROW_LENGTH=80";
-    "CREATE TABLE IF NOT EXISTS literals (id bigint PRIMARY KEY NOT NULL, value longtext NOT NULL,
-                                          language text, datatype text)  AVG_ROW_LENGTH=50" ;
   ]
 ;;
 
@@ -193,7 +173,7 @@ let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
 let rec graph_table_of_graph_name ?(first=true) dbd uri =
   let name = Rdf_uri.string uri in
-  let query = "SELECT id FROM graphs WHERE name = " ^(quote_str name) in
+  let query = "SELECT id FROM graphs WHERE name = " ^(mysql_quote_dbd dbd name) in
   let res = exec_query dbd query in
   match Mysql.fetch res with
     Some [| Some id |] -> graph_table_of_id (int_of_string id)
@@ -201,7 +181,7 @@ let rec graph_table_of_graph_name ?(first=true) dbd uri =
       let msg = Printf.sprintf "Could not get table name for graph %S" name in
       raise (Error msg)
   | _ ->
-      let query = "INSERT INTO graphs (name) VALUES (" ^ (quote_str name) ^ ")" in
+      let query = "INSERT INTO graphs (name) VALUES (" ^(mysql_quote_dbd dbd name)  ^ ")" in
       ignore(exec_query dbd query);
       graph_table_of_graph_name ~first: false dbd uri
 ;;
@@ -212,7 +192,6 @@ let table_exists dbd table =
   with Error _ -> false
 ;;
 
-let prepared_term_of_hash = "term_of_hash";;
 let prepared_count_triples = "count_triples";;
 let prepared_insert_triple = "insert_triple";;
 let prepared_delete_triple = "delete_triple";;
@@ -233,17 +212,12 @@ let to_uri = function
 ;;
 
 let prepare_query dbd name query =
-  let q = "PREPARE "^name^" FROM " ^ (quote_str query) in
+  let q = "PREPARE "^name^" FROM " ^ (mysql_quote_dbd dbd query) in
    ignore(exec_query dbd q)
 ;;
 
 let prepare_queries dbd table =
   dbg ~level: 1 (fun () -> "Preparing queries...");
-  let query = "SELECT NULL, value, NULL, NULL, NULL FROM resources where id=? LIMIT 1 UNION ALL \
-     SELECT NULL, NULL, value, language, datatype FROM literals where id=? LIMIT 1 UNION ALL \
-     SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=? LIMIT 1"
-  in
-  prepare_query dbd prepared_term_of_hash query;
 
   let query =
     "SELECT COUNT(*) FROM "^table^" WHERE subject=? AND predicate=? AND object=?"
@@ -294,65 +268,32 @@ let init_graph dbd engine name =
     begin
       let query =
         "CREATE TABLE IF NOT EXISTS "^table^" (\
-         subject bigint NOT NULL, predicate bigint NOT NULL, \
-         object bigint NOT NULL,\
-         KEY SubjectPredicate (subject,predicate),\
-         KEY PredicateObject (predicate,object),\
-         KEY SubjectObject (subject,object)\
-        ) "^(table_options engine)^" AVG_ROW_LENGTH=59"
+         subject text NOT NULL, predicate text NOT NULL, \
+         object text NOT NULL,\
+         KEY SubjectPredicate (subject(100),predicate(100)),\
+         KEY PredicateObject (predicate(100),object(100)),\
+         KEY SubjectObject (subject(100),object(100))\
+        ) "^(table_options engine)^" AVG_ROW_LENGTH=250"
       in
       ignore(exec_query dbd query);
-(*
-      let query = Printf.sprintf
-        "ALTER TABLE %s ADD UNIQUE INDEX (subject, predicate, object)" table
-      in
-      ignore(exec_query dbd query)
-*)
     end;
   prepare_queries dbd table;
   table
 ;;
 
-let term_of_hash dbd hash =
-  let s_hash = Int64.to_string hash in
-  let res = exec_prepared dbd prepared_term_of_hash [ s_hash ; s_hash ; s_hash ] in
-  let size = Mysql.size res in
-  match Int64.compare size Int64.one with
-    n when n > 0 ->
-      let msg = "No term with hash \"" ^(Int64.to_string hash)^ "\"" in
-      raise (Error msg)
-  | 0 ->
-      begin
-        match Mysql.fetch res with
-          None -> assert false (* already tested: there is at least one row *)
-        | Some t ->
-            match t with
-              [| Some name ; None ; None ; None ; None |] ->
-                Blank_ (Rdf_term.blank_id_of_string name)
-            | [| None ; Some uri ; None ; None ; None |] ->
-                Rdf_term.term_of_uri_string uri
-            | [| None ; None ; Some value ; lang ; typ |] ->
-                let typ = Rdf_misc.map_opt
-                  (Rdf_uri.uri ~check: false)
-                  (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
-                in
-                Rdf_term.term_of_literal_string
-                ?lang: (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt lang))
-                ?typ value
-            | _ ->
-                let msg = "Bad result for term with hash \"" ^ (Int64.to_string hash) ^"\"" in
-                raise (Error msg)
-      end
-  | _ ->
-      let msg = "More than one term found with hash \"" ^ (Int64.to_string hash) ^ "\"" in
-      raise (Error msg)
-;;
-
 let query_term_list g stmt params =
   let res = exec_prepared g.g_dbd stmt params in
   let f = function
-  | [| Some hash |] ->
-      term_of_hash g.g_dbd (Mysql.int642ml hash)
+  | [| Some hash |] -> term_of_hash g.g_dbd (Mysql.blob2ml hash)
+  | _ -> raise (Error "Invalid result: NULL hash or too many fields")
+  in
+  Mysql.map res ~f
+;;
+
+let query_pred_list g stmt params =
+  let res = exec_prepared g.g_dbd stmt params in
+  let f = function
+  | [| Some s |] -> Rdf_uri.uri ~check: false (Mysql.blob2ml s)
   | _ -> raise (Error "Invalid result: NULL hash or too many fields")
   in
   Mysql.map res ~f
@@ -365,9 +306,9 @@ let query_triple_list g where_clause =
   let res = exec_query g.g_dbd query in
   let f = function
   | [| Some sub ; Some pred ; Some obj |] ->
-      (term_of_hash g.g_dbd (Mysql.int642ml sub),
-       to_uri (term_of_hash g.g_dbd (Mysql.int642ml pred)),
-       term_of_hash g.g_dbd (Mysql.int642ml obj)
+      (term_of_hash g.g_dbd (Mysql.blob2ml sub),
+       Rdf_uri.uri ~check: false (Mysql.blob2ml pred),
+       term_of_hash g.g_dbd (Mysql.blob2ml obj)
       )
   | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
   in
@@ -386,14 +327,20 @@ let open_graph ?(options=[]) name =
     g_table = table_name ;
     g_dbd = dbd ;
     g_in_transaction = false ;
+    g_transactions = engine = "InnoDB" ;
   }
 ;;
 
 let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:true sub in
-  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred) in
+  let pred = Rdf_uri.string pred in
   let obj = hash_of_term g.g_dbd ~add:true obj in
-  let params = [ Int64.to_string sub ; Int64.to_string pred ; Int64.to_string obj] in
+  let params = [
+    mysql_quote g sub ;
+    mysql_quote g pred ;
+    mysql_quote g obj
+    ]
+  in
   (* do not insert if already present *)
   let res = exec_prepared g.g_dbd prepared_count_triples params in
   match Mysql.fetch res with
@@ -404,39 +351,43 @@ let add_triple g ~sub ~pred ~obj =
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:false sub in
-  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred) in
+  let pred = Rdf_uri.string pred in
   let obj = hash_of_term g.g_dbd ~add:false obj in
   ignore(exec_prepared g.g_dbd
    prepared_delete_triple
-   [ Int64.to_string sub; Int64.to_string pred; Int64.to_string obj]
+   [ mysql_quote g sub;
+     mysql_quote g pred;
+     mysql_quote g obj
+   ]
   )
 ;;
 
 let subjects_of g ~pred ~obj =
   query_term_list g prepared_subjects_of
-  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
-    Int64.to_string (hash_of_term g.g_dbd obj) ]
+  [ mysql_quote g (Rdf_uri.string pred) ;
+    mysql_quote g (hash_of_term g.g_dbd obj) ;
+  ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  List.map to_uri
-    (query_term_list g prepared_predicates_of
-     [ Int64.to_string (hash_of_term g.g_dbd sub) ;
-       Int64.to_string (hash_of_term g.g_dbd obj) ]
-    )
+  query_pred_list g prepared_predicates_of
+   [ mysql_quote g (hash_of_term g.g_dbd sub) ;
+     mysql_quote g (hash_of_term g.g_dbd obj) ;
+   ]
 ;;
 
 let objects_of g ~sub ~pred =
   query_term_list g prepared_objects_of
-  [ Int64.to_string (hash_of_term g.g_dbd sub) ;
-    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ]
+  [ mysql_quote g (hash_of_term g.g_dbd sub) ;
+    mysql_quote g (Rdf_uri.string pred) ;
+  ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
   let mk_cond field = function
     None -> []
   | Some term ->
-      [field ^"="^(Int64.to_string (hash_of_term g.g_dbd term))]
+      [field ^"="^(mysql_quote g (hash_of_term g.g_dbd term))]
   in
   match sub, pred, obj with
     None, None, None -> "TRUE"
@@ -444,7 +395,7 @@ let mk_where_clause ?sub ?pred ?obj g =
       let pred_cond =
         match pred with
           None -> []
-        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri p)))]
+        | Some p -> ["predicate="^(mysql_quote g (Rdf_uri.string p) )]
       in
       let l =
         (mk_cond "subject" sub) @
@@ -472,13 +423,15 @@ let exists ?sub ?pred ?obj g =
 ;;
 
 let subjects g = query_term_list g prepared_subject [];;
-let predicates g = List.map to_uri (query_term_list g prepared_predicate []);;
+let predicates g = query_pred_list g prepared_predicate [];;
 let objects g = query_term_list g prepared_object [];;
 
 let transaction_start g =
+  if not g.g_transactions then
+    raise (Error "Transactions not supported by this engine.");
   if g.g_in_transaction then
-    raise (Error "Already in a transaction. Nested transactions not allowed.");
-  ignore(exec_query g.g_dbd "START TRANSACTION");
+      raise (Error "Already in a transaction. Nested transactions not allowed.");
+    ignore(exec_query g.g_dbd "START TRANSACTION");
   g.g_in_transaction <- true
 ;;
 
