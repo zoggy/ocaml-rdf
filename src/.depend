@@ -38,10 +38,10 @@ rdf_sparql_algebra.cmo : rdf_uri.cmi rdf_term.cmi rdf_sparql_vis.cmo \
 rdf_sparql_algebra.cmx : rdf_uri.cmx rdf_term.cmx rdf_sparql_vis.cmx \
     rdf_sparql_types.cmx rdf_sparql_print.cmx rdf_sparql_map.cmx rdf_rdf.cmx \
     rdf_loc.cmx
-rdf_sparql_eval.cmo : rdf_utf8.cmi rdf_uri.cmi rdf_ttl.cmi rdf_term.cmi \
+rdf_sparql_eval.cmo : rdf_utf8.cmi rdf_uri.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql_ms.cmo rdf_sparql_algebra.cmo rdf_rdf.cmi \
     rdf_misc.cmi rdf_loc.cmi rdf_graph.cmi rdf_dt.cmi rdf_ds.cmi
-rdf_sparql_eval.cmx : rdf_utf8.cmx rdf_uri.cmx rdf_ttl.cmx rdf_term.cmx \
+rdf_sparql_eval.cmx : rdf_utf8.cmx rdf_uri.cmx rdf_term.cmx \
     rdf_sparql_types.cmx rdf_sparql_ms.cmx rdf_sparql_algebra.cmx rdf_rdf.cmx \
     rdf_misc.cmx rdf_loc.cmx rdf_graph.cmx rdf_dt.cmx rdf_ds.cmx
 rdf_sparql_expand.cmo : rdf_xml.cmi rdf_uri.cmi rdf_term.cmi \

@@ -30,42 +30,60 @@ let syntax =
   { stx with Neturl.url_enable_fragment = Neturl.Url_part_allowed }
 ;;
 
-type uri = Neturl.url;;
+type uri =
+  | String of string
+  | Parsed of Neturl.url;;
 
 exception Invalid_url of string
 
-let string uri = Neturl.string_of_url uri;;
-let uri s =
+let string = function
+  String s -> s
+| Parsed u -> Neturl.string_of_url u
+;;
+
+let parse s =
   try Neturl.url_of_string syntax s
   with Neturl.Malformed_URL ->
-    raise (Invalid_url s)
+      raise (Invalid_url s)
+;;
+let get_parsed = function String s -> parse s | Parsed u -> u ;;
+
+let uri ?(check=true) s = if check then Parsed (parse s) else String s;;
 
 let concat uri s =
-  let path = (Neturl.url_path uri)@[s] in
-  Neturl.modify_url ~path uri
+  match uri with
+    Parsed uri ->
+      let path = (Neturl.url_path uri)@[s] in
+      Parsed (Neturl.modify_url ~path uri)
+  | String u -> String (u^"/"^s)
 ;;
 
 let parent uri =
+  let uri = get_parsed uri in
   let path = Neturl.url_path uri in
   let path =
     match List.rev path with
       [] -> []
     | _ :: q -> List.rev q
   in
-  Neturl.modify_url ~path uri
+  Parsed (Neturl.modify_url ~path uri)
 ;;
 
 let set_fragment uri fragment =
-  Neturl.modify_url ~fragment uri
+  let uri = get_parsed uri in
+  Parsed (Neturl.modify_url ~fragment uri)
 ;;
 
-let path uri = Neturl.url_path uri;;
+let path uri =
+  Neturl.url_path (get_parsed uri)
+;;
 
 let compare uri1 uri2 = Pervasives.compare (string uri1) (string uri2);;
+
 let equal u1 u2 = compare u1 u2 = 0;;
 
-let neturl uri = uri;;
-let of_neturl uri = uri;;
+let neturl uri = get_parsed uri;;
+let of_neturl uri = Parsed uri;;
 
 module Urimap = Map.Make (struct type t = uri let compare = compare end);;
 module Uriset = Set.Make (struct type t = uri let compare = compare end);;

@@ -138,14 +138,14 @@ let hash_of_term dbd ?(add=false) = function
 
 let term_of_hash dbd hash =
   match hash.[0] with
-    'U' -> Rdf_term.Uri (Rdf_uri.uri (String.sub hash 1 (String.length hash - 1)))
+    'U' -> Rdf_term.Uri (Rdf_uri.uri ~check: false (String.sub hash 1 (String.length hash - 1)))
   | 'B' -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string (String.sub hash 1 (String.length hash -1)))
   | 'L' ->
       let (v,lang,uri) = Marshal.from_string hash 1 in
       Rdf_term.Literal
         { Rdf_term.lit_value = v ;
           lit_language = lang ;
-          lit_type = Rdf_misc.map_opt Rdf_uri.uri uri ;
+          lit_type = Rdf_misc.map_opt (Rdf_uri.uri ~check: false) uri ;
         }
 ;;
 
@@ -389,7 +389,8 @@ let query_triple_list g where_clause =
   let f = function
   | [| Some sub ; Some pred ; Some obj |] ->
       (term_of_hash g.g_dbd (Mysql.blob2ml sub),
-       to_uri (term_of_hash g.g_dbd (Mysql.blob2ml pred)),
+       Rdf_uri.uri ~check: false (Mysql.blob2ml pred),
+       (*to_uri (term_of_hash g.g_dbd (Mysql.blob2ml pred)),*)
        term_of_hash g.g_dbd (Mysql.blob2ml obj)
       )
   | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
@@ -414,7 +415,7 @@ let open_graph ?(options=[]) name =
 
 let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:true sub in
-  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred) in
+  let pred = Rdf_uri.string pred (*hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred)*) in
   let obj = hash_of_term g.g_dbd ~add:true obj in
   let params = [
     mysql_quote g sub ;
@@ -432,7 +433,7 @@ let add_triple g ~sub ~pred ~obj =
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:false sub in
-  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred) in
+  let pred = Rdf_uri.string pred (*hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred)*) in
   let obj = hash_of_term g.g_dbd ~add:false obj in
   ignore(exec_prepared g.g_dbd
    prepared_delete_triple
@@ -445,7 +446,7 @@ let rem_triple g ~sub ~pred ~obj =
 
 let subjects_of g ~pred ~obj =
   query_term_list g prepared_subjects_of
-  [ mysql_quote g (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
+  [ mysql_quote g (Rdf_uri.string pred) (*(hash_of_term g.g_dbd (Rdf_term.Uri pred)) *);
     mysql_quote g (hash_of_term g.g_dbd obj) ;
   ]
 ;;
@@ -462,7 +463,7 @@ let predicates_of g ~sub ~obj =
 let objects_of g ~sub ~pred =
   query_term_list g prepared_objects_of
   [ mysql_quote g (hash_of_term g.g_dbd sub) ;
-    mysql_quote g (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
+    mysql_quote g (Rdf_uri.string pred) (*(hash_of_term g.g_dbd (Rdf_term.Uri pred))*) ;
   ]
 ;;
 
@@ -478,7 +479,7 @@ let mk_where_clause ?sub ?pred ?obj g =
       let pred_cond =
         match pred with
           None -> []
-        | Some p -> ["predicate="^(mysql_quote g (hash_of_term g.g_dbd (Rdf_term.Uri p)))]
+        | Some p -> ["predicate="^(mysql_quote g (Rdf_uri.string p) (* (hash_of_term g.g_dbd (Rdf_term.Uri p))*))]
       in
       let l =
         (mk_cond "subject" sub) @
