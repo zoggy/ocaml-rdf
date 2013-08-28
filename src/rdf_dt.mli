@@ -115,12 +115,12 @@ val ltrl : value -> value
   if the value is not already [Int] or [Float]. *)
 val numeric : value -> value
 
-(** [of_literal lit] returns a value from a literal node. *)
+(** [of_literal lit] returns a value from a literal term. *)
 val of_literal : Rdf_term.literal -> value
 
-(** [of_node node] returns a value from an RDF node. *)
-val of_node : Rdf_term.term -> value
+(** [of_term term] returns a value from an RDF term. *)
+val of_term : Rdf_term.term -> value
 
-(** [to_node v] converts the given value to an RDF node.
+(** [to_term v] converts the given value to an RDF term.
   If [v] is [Error e], then exception [e] is raised.*)
-val to_node : value -> Rdf_term.term
+val to_term : value -> Rdf_term.term

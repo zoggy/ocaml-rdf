@@ -895,8 +895,8 @@ let get_built_in_fun name =
 
 let eval_var mu v =
   try
-    let node = Rdf_sparql_ms.mu_find_var v mu in
-    Rdf_dt.of_node node
+    let term = Rdf_sparql_ms.mu_find_var v mu in
+    Rdf_dt.of_term term
   with Not_found -> error (Unbound_variable v)
 ;;
 
@@ -1063,7 +1063,7 @@ let leftjoin_omega =
 let minus_omega o1 o2 = Rdf_sparql_ms.omega_minus o1 o2
 
 let extend_omega ctx o var expr =
-  let eval mu = Rdf_dt.to_node (eval_expr ctx mu expr) in
+  let eval mu = Rdf_dt.to_term (eval_expr ctx mu expr) in
   Rdf_sparql_ms.omega_extend eval o var
 
 
@@ -1086,11 +1086,11 @@ let rec build_sort_comp_fun = function
     begin
       fun ctx mu1 mu2 ->
         let v1 =
-          try Rdf_dt.of_node (Rdf_sparql_ms.mu_find_var v mu1)
+          try Rdf_dt.of_term (Rdf_sparql_ms.mu_find_var v mu1)
           with e -> Rdf_dt.Err (Rdf_dt.Exception e)
         in
         let v2 =
-          try Rdf_dt.of_node (Rdf_sparql_ms.mu_find_var v mu2)
+          try Rdf_dt.of_term (Rdf_sparql_ms.mu_find_var v mu2)
           with e -> Rdf_dt.Err (Rdf_dt.Exception e)
         in
         sortby_compare v1 v2
@@ -1178,7 +1178,7 @@ let group_omega =
       | Some e, Some v -> assert false (* what to evaluate ? *)
   in
   let eval_one ctx mu e =
-    try Some(Rdf_dt.to_node (eval_expr ctx mu e))
+    try Some(Rdf_dt.to_term (eval_expr ctx mu e))
     with _ -> None
   in
 
@@ -1341,7 +1341,7 @@ let aggregation ctx agg groups =
 let aggregate_join =
   let compute_agg ctx ms (i,acc_mu) = function
     Aggregation agg ->
-      let term = Rdf_dt.to_node (eval_agg ctx agg ms) in
+      let term = Rdf_dt.to_term (eval_agg ctx agg ms) in
       let var = "__agg"^(string_of_int i) in
       (i+1, Rdf_sparql_ms.mu_add var term acc_mu)
   | _ -> assert false

@@ -362,13 +362,13 @@ let of_literal lit =
   with
   _ -> error (Invalid_literal lit)
 
-let of_node = function
+let of_term = function
   Rdf_term.Uri t -> Iri t
 | Rdf_term.Literal lit -> of_literal lit
 | Rdf_term.Blank_ label -> Blank (Rdf_term.string_of_blank_id label)
 | Rdf_term.Blank -> assert false
 
-let to_node = function
+let to_term = function
 | Err e -> error e
 | Iri t -> Rdf_term.Uri t
 | Blank label -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string label)
