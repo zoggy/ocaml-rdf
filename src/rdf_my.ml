@@ -36,6 +36,7 @@ type t =
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
+    g_transactions : bool ;
   }
 
 type error = string
@@ -327,6 +328,7 @@ let open_graph ?(options=[]) name =
     g_table = table_name ;
     g_dbd = dbd ;
     g_in_transaction = false ;
+    g_transactions = engine = "InnoDB" ;
   }
 ;;
 
@@ -426,9 +428,11 @@ let predicates g = query_pred_list g prepared_predicate [];;
 let objects g = query_term_list g prepared_object [];;
 
 let transaction_start g =
+  if not g.g_transactions then
+    raise (Error "Transactions not supported by this engine.");
   if g.g_in_transaction then
-    raise (Error "Already in a transaction. Nested transactions not allowed.");
-  ignore(exec_query g.g_dbd "START TRANSACTION");
+      raise (Error "Already in a transaction. Nested transactions not allowed.");
+    ignore(exec_query g.g_dbd "START TRANSACTION");
   g.g_in_transaction <- true
 ;;
 
