@@ -1,4 +1,6 @@
 Next release:
+* add: MySQL backend now support the "engine" option, default is INNODB,
+  but it can be "MyISAM" (faster, but does not support transactions)
 * fix: remove graph debug dump which was performed at each
   sparql query evaluation
 * Rdf_node renamed to Rdf_term

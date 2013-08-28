@@ -170,7 +170,7 @@ let hash_of_term dbd ?(add=false) term =
 ;;
 
 
-let table_options = " ENGINE=InnoDB DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
+let table_options engine = " ENGINE="^engine^" DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
@@ -181,8 +181,9 @@ let creation_queries =
   ]
 ;;
 
-let init_db db =
+let init_db db engine =
   let dbd = Mysql.connect db in
+  let table_options = table_options engine in
   List.iter
   (fun q -> ignore (exec_query dbd (q^table_options))) creation_queries;
   dbd
@@ -287,7 +288,7 @@ let prepare_queries dbd table =
   prepare_query dbd prepared_object query;
   dbg ~level: 1 (fun () -> "done")
 ;;
-let init_graph dbd name =
+let init_graph dbd engine name =
   let table = graph_table_of_graph_name dbd name in
   if not (table_exists dbd table) then
     begin
@@ -298,7 +299,7 @@ let init_graph dbd name =
          KEY SubjectPredicate (subject,predicate),\
          KEY PredicateObject (predicate,object),\
          KEY SubjectObject (subject,object)\
-        ) "^table_options^" AVG_ROW_LENGTH=59"
+        ) "^(table_options engine)^" AVG_ROW_LENGTH=59"
       in
       ignore(exec_query dbd query);
 (*
@@ -375,8 +376,12 @@ let query_triple_list g where_clause =
 
 let open_graph ?(options=[]) name =
   let db = db_of_options options in
-  let dbd = init_db db in
-  let table_name = init_graph dbd name in
+  let engine =
+    try List.assoc "engine" options
+    with Not_found -> "InnoDB"
+  in
+  let dbd = init_db db engine in
+  let table_name = init_graph dbd engine name in
   { g_name = name ;
     g_table = table_name ;
     g_dbd = dbd ;
