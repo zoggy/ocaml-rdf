@@ -160,6 +160,8 @@ let ebv = function
 
 
 let rec compare ?(sameterm=false) v1 v2 =
+  (*prerr_endline
+    ("compare v1="^(Rdf_dt.string_of_value v1)^" v2="^(Rdf_dt.string_of_value v2));*)
   match v1, v2 with
   | Err _, _ -> 1
   | _, Err _ -> -1
@@ -1119,6 +1121,10 @@ let sort_solutions =
 ;;
 
 let sort_sequence ctx order_conds solutions =
+  (*prerr_endline
+    (Printf.sprintf "sort_sequence: %d solutions, %d order_conds"
+      (List.length solutions) (List.length order_conds));
+   *)
   let comp_funs = List.map build_sort_comp_fun order_conds in
   let compare = sort_solutions ctx comp_funs in
   List.sort compare solutions

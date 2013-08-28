@@ -303,7 +303,7 @@ let execute ?graph ~base dataset query =
   in
   let algebra = Rdf_sparql_algebra.translate_query_level q in
   dbg ~level: 2 (fun () -> Rdf_sparql_algebra.string_of_algebra algebra);
-  dbg ~level: 2 (fun () -> Rdf_ttl.to_string dataset.Rdf_ds.default);
+  dbg ~level: 4 (fun () -> Rdf_ttl.to_string dataset.Rdf_ds.default);
   let ctx = Rdf_sparql_eval.context ~base
     ?from: ds.Rdf_sparql_expand.from
         ~from_named: ds.Rdf_sparql_expand.from_named dataset

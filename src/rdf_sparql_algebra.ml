@@ -614,6 +614,19 @@ let print_group_condition b = function
     | Some e, Some v -> print_expr b e; p b (" as "^(string_of_var v))
 ;;
 
+let print_order_cond b = function
+  OrderAsc e -> p b "ASC(" ; print_expr b e ; p b ")"
+| OrderDesc e -> p b "DESC(" ; print_expr b e ; p b ")"
+| OrderConstr e -> p b "DESC(<constraint>)"
+| OrderVar v -> p b (string_of_var v)
+;;
+
+let print_order_conds b l =
+  List.iter
+   (fun c -> print_order_cond b c; p b ", ")
+   l
+;;
+
 let rec print mg b = function
 | BGP triples ->
     let mg2 = mg ^ "  " in
@@ -718,7 +731,9 @@ let rec print mg b = function
     let mg2 = mg ^ "  " in
     p b (mg^"OrderBy(\n");
     print mg2 b a;
-    p b (",\n"^mg2^" <conds>)")
+    p b (",\n"^mg2);
+    print_order_conds b l;
+    p b ")"
 
 let string_of_algebra a =
   let b = Buffer.create 256 in
