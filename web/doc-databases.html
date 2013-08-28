@@ -14,6 +14,11 @@ optional parameter of <refval mod="Rdf_graph" name="open_graph"/>.
 </p>
 <section id="mysql" title="MySQL backend">
 <p>
+The MySQL backend comes in two flavours, corresponding to two
+representations in the database, <code>mysql</code> and
+<code>mysql2</code> (see below).
+</p>
+<p>
 Using the MySQL backend requires to link with the <code>rdf.mysql</code>
 ocamlfind package. Then, after creating a database with proper rights
 on the server, the following code creates a graph in the database:
@@ -32,11 +37,14 @@ let options =
 let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") ;;
 </ocaml-eval>
 <p>
-The backend creates various tables:
+Both backends create a table "graphs" to associate URIs to stored graphs.
+</p>
+<subsection id="mysql1" title="&quot;mysql&quot; backend">
+<p>
+This backend creates various tables:
 </p>
 <ul>
 <li>one table per graph ("graph1", "graph2", ...),</li>
-<li>a table "graphs" to associate URIs to stored graphs,</li>
 <li>a table "literals", to store hashes of literals,</li>
 <li>a table "bnodes", to store hashes of blank nodes,</li>
 <li>a table "resources", to store hashes of URIs.</li>
@@ -52,6 +60,45 @@ When <refval mod="Rdf_graph" name="open_graph"/> is called with
 an URI corresponding to an existing graph in the database, then
 this graph is used, with all existing triples.
 </p>
+</subsection>
+<subsection id="mysql2" title="&quot;mysql2&quot; backend">
+<p>
+This backend is about 12 times faster for querying, but about
+5 times slower for inserting. In this backend, only one table per
+graph is created, storing complete information about triples.
+This takes more place but requires less queries to retrieve
+complete parts of the triples.
+</p>
+<p>
+To use this backend, just specify <code>"mysql2"</code> as
+for the <code>"storage"</code> option.
+</p>
+</subsection>
+<subsection id="mysqlengine" title="Engine">
+<p>
+The default engine used to store MySQL tables is InnoDB, which allows
+transactions, but is quite slow.
+</p>
+<p>
+The <code>"engine"</code> option can be used to specify another engine,
+usually "MyISAM". With this engine, transactions are not allowed, though.
+Here is an example to use the <code>mysql2</code> backend with MyISAM tables:
+</p>
+<ocaml-eval error-exc="false">
+let options =
+  [
+    "storage", "mysql2" ; (* the type of storage, here mysql backend *)
+    "database", "mydb"; (* database name *)
+    "user", "john" ; (* user used to connect the database *)
+    "password", "foobar" ; (* password *)
+    "host", "myhost.foo.net" ; (* hostname *)
+    "port", "3306" ; (* port *)
+    "engine", "MyISAM" ;
+  ]
+;;
+let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") ;;
+</ocaml-eval>
+</subsection>
 </section>
 
 <section id="postgresql" title="Postgresql backend">

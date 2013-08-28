@@ -1,4 +1,5 @@
 Next release:
+* add: new "mysql2" backend, faster for queries but slower for insertions.
 * add: MySQL backend now support the "engine" option, default is INNODB,
   but it can be "MyISAM" (faster, but does not support transactions)
 * fix: remove graph debug dump which was performed at each
