@@ -36,8 +36,10 @@ val string : uri -> string
 
 (** Create a URI from a string.
      @raise Invalid_url in case the string does not represent a valid URL.
+     @param check can be specified to [false] to prevent URI parsing.
+     Parsing will be done later if needed, and may then raise [Invalid_url].
 *)
-val uri : string -> uri
+val uri : ?check: bool -> string -> uri
 
 (** Add the given string to the path of the given URI, using '/' as separator. *)
 val concat : uri -> string -> uri
