@@ -219,8 +219,24 @@ let string_of_triple ~sub ~pred ~obj =
 let string_of_triple_ns ns ~sub ~pred ~obj =
   let string_of term =
     match term with
-    | Rdf_term.Literal _
     | Rdf_term.Blank | Rdf_term.Blank_ _ -> Rdf_term.string_of_term term
+    | Rdf_term.Literal lit ->
+        (Rdf_term.quote_str lit.Rdf_term.lit_value) ^
+          (match lit.Rdf_term.lit_language with
+             None -> ""
+           | Some l -> "@" ^ l
+          ) ^
+          (match lit.Rdf_term.lit_type with
+             None -> ""
+           | Some uri ->
+               let uri = Rdf_uri.string uri in
+               let s =
+                 match Rdf_dot.apply_namespaces ns uri with
+                   ("",uri) -> "<"^uri^">"
+                 | (pref,s) -> pref ^ ":" ^ s
+               in
+               "^^" ^ s
+          )
     | Rdf_term.Uri uri ->
         let s = Rdf_uri.string uri in
         match Rdf_dot.apply_namespaces ns s with
