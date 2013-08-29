@@ -48,7 +48,7 @@ type test = {
   result : result ;
   }
 
-let load_file file =
+let load_file ?graph_options file =
   verb ("Loading file "^file);
   let group = new C.group in
   let base = new C.option_cp C.string_wrappers ~group ["base"] None "Base uri" in
@@ -72,6 +72,13 @@ let load_file file =
       else
         file
   in
+  let options =
+    match graph_options with
+      None -> options#get
+    | Some s ->
+       let wr = C.list_wrappers (C.tuple2_wrappers C.string_wrappers C.string_wrappers) in
+       wr.C.of_raw (C.Raw.of_string s)
+  in
   let named = List.map (fun (uri, s) -> (Rdf_uri.uri uri, mk_filename s)) named#get in
   { base = Rdf_misc.map_opt Rdf_uri.uri base#get ;
     title = title#get ;
@@ -79,7 +86,7 @@ let load_file file =
     query = mk_filename query#get ;
     default_graph = Rdf_misc.map_opt mk_filename (Rdf_misc.opt_of_string default_graph#get) ;
     named ;
-    options = options#get ;
+    options ;
   }
 ;;
 

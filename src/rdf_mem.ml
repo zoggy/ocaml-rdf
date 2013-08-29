@@ -100,6 +100,12 @@ module Triples = functor (Map1 : Map.S) ->
         if Map2.exists pred map then elt :: acc else acc
       in
       fun t -> Map1.fold fx t []
+
+    let cardinal =
+      let f_map2 _ set acc = acc + Set.cardinal set in
+      let f_map _ map acc = Map2.fold f_map2 map acc in
+      fun t -> Map1.fold f_map t 0
+
   end
 ;;
 module Triples_s_p = Triples(Rdf_term.TMap)(Rdf_uri.Urimap)(Rdf_term.TSet);;
@@ -212,7 +218,7 @@ let new_blank_id g =
   Rdf_term.blank_id_of_string s
 ;;
 
-let graph_size g = Triples_s_p.Map.cardinal g.g_set_sub;;
+let graph_size g = Triples_s_p.cardinal g.g_set_sub;;
 
 module Mem =
   struct

@@ -145,7 +145,7 @@ test_uncodepoint: rdf_utf8.cmx rdf_sparql_lex.cmx test_uncodepoint.ml
 rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx rdf_sparql_test_main.cmx
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall $(COMPFLAGS) $^
 
-rdf_sparql_bench: $(LIB_RDF) rdf_sparql_test.cmx rdf_sparql_bench.cmx
+rdf_sparql_bench: $(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL) rdf_sparql_test.cmx rdf_sparql_bench.cmx
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall $(COMPFLAGS) $^
 
 # Documentation :

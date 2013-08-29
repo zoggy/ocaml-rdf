@@ -13,6 +13,7 @@ let prop_duration = prop_"duration";;
 let prop_datasize = prop_"dataSize";;
 let prop_result = prop_"result";;
 let prop_error = prop_"error";;
+let prop_id = prop_"id";;
 let type_op_sparql = prop_"sparqlQuery";;
 let type_op_import = prop_"import";;
 
@@ -42,7 +43,7 @@ let store_operation g op =
     let options = List.filter
       (function
          ("name",_) | ("database",_) | ("user",_)
-       | ("password",_) | ("host",_) | ("port",_) -> false
+       | ("password",_) | ("host",_) | ("port",_) | ("id",_) -> false
        | _ -> true
       )
       op.spec.options
@@ -53,13 +54,20 @@ let store_operation g op =
          options
       )
   in
+  let option_id =
+    try List.assoc "id" op.spec.options
+    with Not_found -> Digest.to_hex (Digest.string options_string)
+  in
+
   add ~pred: prop_options ~obj: (Rdf_term.term_of_literal_string options_string);
+
   (match op.duration with
     None -> ()
   | Some d -> add ~pred: prop_duration ~obj: (Rdf_term.term_of_double d)
   );
 
   add ~pred: prop_datasize ~obj: (Rdf_term.term_of_int op.datasize);
+  add ~pred: prop_id ~obj: (Rdf_term.term_of_literal_string option_id);
 
   let res =
     match op.kind, op.spec.default_graph with
@@ -85,19 +93,19 @@ let store_operation g op =
         res
   in
   match res with
-          Rdf_sparql_test.Error s ->
-            add ~pred: prop_error ~obj: (Rdf_term.term_of_literal_string s)
-        | Ok x ->
-            let obj =
-              match x with
-                Bool b -> Rdf_term.term_of_bool b
-              | Solutions l -> Rdf_term.term_of_int (List.length l)
-              | Graph g ->
-                  let file = Filename.temp_file ~temp_dir: (Sys.getcwd()) "result" ".ttl" in
-                  Rdf_ttl.to_file g file ;
-                  Rdf_term.term_of_literal_string file
-            in
-            add ~pred: prop_result ~obj
+    Rdf_sparql_test.Error s ->
+      add ~pred: prop_error ~obj: (Rdf_term.term_of_literal_string s)
+  | Ok x ->
+      let obj =
+        match x with
+          Bool b -> Rdf_term.term_of_bool b
+        | Solutions l -> Rdf_term.term_of_int (List.length l)
+        | Graph g ->
+            let file = Filename.temp_file ~temp_dir: (Sys.getcwd()) "result" ".ttl" in
+            Rdf_ttl.to_file g file ;
+            Rdf_term.term_of_literal_string file
+      in
+      add ~pred: prop_result ~obj
 ;;
 
 let run_sparql_test spec =
@@ -134,6 +142,7 @@ let run_sparql_test spec =
 ;;
 
 let run_import_test spec =
+  prerr_endline "importing";
   let spec_base =
     match spec.base with
       None -> Rdf_uri.uri "http://localhost/"
@@ -151,7 +160,7 @@ let run_import_test spec =
           None -> failwith "No default graph to import"
         | Some file ->
             let g = Rdf_graph.open_graph spec_base in
-            ignore(Rdf_ttl.from_file g file);
+            ignore(Rdf_ttl.from_file g spec_base file);
             g
       in
       let t_start = get_time () in
@@ -179,38 +188,168 @@ let run_import_test spec =
   store_operation g op ;
   g
 ;;
+let sparql_select g q =
+  let q = Rdf_sparql.parse_from_string q in
+  let dataset = Rdf_ds.simple_dataset g in
+  Rdf_sparql.select ~base dataset q
+;;
 
-type mode = Import | Sparql
+module SMap = Rdf_xml.SMap;;
+type import_stats = (int * float option SMap.t) list
+
+let us = Rdf_uri.string ;;
+
+let options_ids g =
+  let q = "SELECT DISTINCT ?id
+           WHERE { _:a <"^(us prop_id)^"> ?id. }
+           ORDER BY DESC(?id)"
+  in
+  List.fold_left
+    (fun acc sol ->
+       let term = Rdf_sparql.get_term sol "id" in
+       match Rdf_dt.string (Rdf_dt.of_term term) with
+         Rdf_dt.String s -> (s, term) :: acc
+       | _ -> acc
+    ) []
+    (sparql_select g q)
+;;
+
+let import_stats g =
+  let qsizes =
+    "SELECT DISTINCT ?size
+     WHERE { ?run <"^(us prop_datasize)^"> ?size .
+             ?run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_import)^"> .}
+     ORDER BY DESC(?size)"
+  in
+  let sols = sparql_select g qsizes in
+  let f_op n acc (s, term) =
+    let q = "SELECT (AVG(?dur) as ?duration)
+      WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term)^".
+              _:run <"^(us prop_datasize)^"> "^(string_of_int n)^" .
+              _:run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_import)^"> .
+              _:run <"^(us prop_duration)^"> ?dur .
+              FILTER (?dur > 0.0)
+            }"
+    in
+    match sparql_select g q with
+      [] -> SMap.add s None acc
+    | [sol] ->
+        begin
+          match Rdf_dt.float (Rdf_dt.of_term (Rdf_sparql.get_term sol "duration")) with
+            Rdf_dt.Float d -> SMap.add s (Some d) acc
+          | _ -> SMap.add s None acc
+        end
+    | _ -> assert false
+  in
+  let options_ids = options_ids g in
+  let f_size n =
+    (n, List.fold_left (f_op n) SMap.empty options_ids)
+  in
+  let f_size acc sol =
+    match Rdf_dt.int (Rdf_dt.of_term (Rdf_sparql.get_term sol "size")) with
+      Rdf_dt.Int n -> (f_size n) :: acc
+    | _ -> acc
+  in
+  List.fold_left f_size [] sols
+
+;;
+
+let report g outfile =
+  let oc = open_out outfile in
+  let p s = output_string oc s in
+  let pn s = output_string oc s; output_string oc "\n" in
+  pn "<page\ntitle=\"Benchmarks\"\n>";
+  pn "<prepare-toc><toc/>";
+  pn "<section id=\"import\" title=\"Importing triples\">";
+
+  let ids = options_ids g in
+  pn "<table>";
+  p "<tr><td>Size</td>";
+  List.iter (fun (s,_) -> p ("<td>"^s^"</td>")) ids;
+  pn "</tr>";
+
+  let f_import (size, map) =
+    p "<tr><td><strong>";
+    p (string_of_int size);
+    p "</strong></td>";
+    SMap.iter
+      (fun _ dopt ->
+        p "<td>";
+        p (match dopt with None -> " " | Some d -> string_of_float d);
+        p "</td>"
+      )
+      map;
+    pn "</tr></table>"
+  in
+  List.iter f_import (import_stats g);
+  pn "</section>";
+
+  pn "<section id=\"sparql\" title=\"Executin sparql queries\">";
+
+  pn "</section>";
+
+  pn "</prepare-toc>";
+  pn "</page>";
+  close_out oc
+;;
+
+type mode = Import | Sparql | Html of string
 let mode = ref Sparql;;
+
+let graph_options = ref None;;
 
 let options = [
     option_result ;
+
     "--import", Arg.Unit (fun () -> mode := Import),
     " perform an import test instead of a sparql test" ;
+
+    "--goptions", Arg.String (fun s -> graph_options := Some s),
+    "<s> override the graph_options of the spec files." ;
+
+    "--html", Arg.String (fun s -> mode := Html s),
+    "<file> read benchmark graph and output stog page to <file>" ;
   ]
 ;;
 
 let usage_string = Printf.sprintf
-  "Usage: %s [options] <test files>\nwhere options are:" Sys.argv.(0);;
+  "Usage: %s [options] [<test files>]\nwhere options are:" Sys.argv.(0);;
 
 let main () =
   let files = ref [] in
   Arg.parse options (fun f -> files := f :: !files) usage_string;
-  match List.rev !files with
-    [] -> prerr_endline (Arg.usage_string options usage_string); exit 1
-  | files ->
-      let specs = List.map Rdf_sparql_test.load_file files in
-      let run_test =
-        match !mode with
-          Sparql -> run_sparql_test
-        | Import -> run_import_test
-      in
-      let graphs = List.map run_test specs in
-      let g = Rdf_graph.open_graph base in
-      if Sys.file_exists !result_file then
-        ignore(Rdf_ttl.from_file g ~base !result_file);
-      List.iter (Rdf_graph.merge g) graphs;
-      Rdf_ttl.to_file g !result_file
+  match !mode with
+    Html file ->
+      begin
+        try
+          let g = Rdf_graph.open_graph base in
+          ignore(Rdf_ttl.from_file g ~base !result_file);
+          report g file
+        with
+        Rdf_sparql.Error e ->
+            prerr_endline (Rdf_sparql.string_of_error e);
+            exit 1
+      end
+  | _ ->
+      match List.rev !files with
+        [] -> prerr_endline (Arg.usage_string options usage_string); exit 1
+      | files ->
+          let specs = List.map
+            (Rdf_sparql_test.load_file ?graph_options: !graph_options)
+              files
+          in
+          let run_test =
+            match !mode with
+              Sparql -> run_sparql_test
+            | Import -> run_import_test
+            | Html _ -> assert false
+          in
+          let graphs = List.map run_test specs in
+          let g = Rdf_graph.open_graph base in
+          if Sys.file_exists !result_file then
+            ignore(Rdf_ttl.from_file g ~base !result_file);
+          List.iter (Rdf_graph.merge g) graphs;
+          Rdf_ttl.to_file g !result_file
 ;;
 
 (*c==v=[Misc.safe_main]=1.0====*)
