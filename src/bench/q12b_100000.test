@@ -1,0 +1,11 @@
+(* URI of graph *)
+base = "http://localhost/100000"
+(* Title of the test *)
+title = "Q12b/100000"
+(* Description of the test *)
+descr = "Q1 on 100000 triples"
+(* File containing the query *)
+query = "q12b.sparql"
+(* File containing the default graph *)
+default_graph = "data_100000.ttl"
+
