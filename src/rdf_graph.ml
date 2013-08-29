@@ -48,6 +48,7 @@ module type Storage =
 
     val open_graph : ?options: (string * string) list -> uri -> g
     val graph_name : g -> uri
+    val graph_size : g -> int
 
     val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
     val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
@@ -86,6 +87,7 @@ module Make (S : Storage) =
 
     let open_graph ?options name = embed (S.open_graph ?options) name
     let graph_name = embed S.graph_name
+    let graph_size = embed S.graph_size
 
     let add_triple g ~sub ~pred ~obj = embed (fun g -> S.add_triple g ~sub ~pred ~obj) g
     let rem_triple g ~sub ~pred ~obj = embed (fun g -> S.rem_triple g ~sub ~pred ~obj) g
@@ -118,6 +120,7 @@ module type Graph =
 
     val open_graph : ?options: (string * string) list -> uri -> g
     val graph_name : g -> uri
+    val graph_size : g -> int
 
     val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
     val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
@@ -154,6 +157,7 @@ let add_storage m =
 type graph =
   {
     name : unit -> uri ;
+    size : unit -> int ;
     add_triple : sub: term -> pred: uri -> obj: term -> unit ;
     rem_triple : sub: term -> pred: uri -> obj: term -> unit ;
     add_triple_t : triple -> unit ;
@@ -199,6 +203,7 @@ let open_graph ?(options=[]) name =
     List.map f triples
   in
   { name = (fun () -> S.graph_name g) ;
+    size = (fun () -> S.graph_size g) ;
     add_triple = S.add_triple g ;
     rem_triple = S.rem_triple g ;
     add_triple_t = S.add_triple_t g ;

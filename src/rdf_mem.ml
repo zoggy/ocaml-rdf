@@ -212,6 +212,8 @@ let new_blank_id g =
   Rdf_term.blank_id_of_string s
 ;;
 
+let graph_size g = Triples_s_p.Map.cardinal g.g_set_sub;;
+
 module Mem =
   struct
     let name = "mem"
@@ -221,6 +223,7 @@ module Mem =
     let string_of_error = string_of_error
 
     let graph_name g = g.g_name
+    let graph_size g = graph_size g
 
     let open_graph = open_graph
 

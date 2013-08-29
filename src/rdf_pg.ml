@@ -210,6 +210,7 @@ let prepared_objects_of = "objects_of";;
 let prepared_subject = "subject" ;;
 let prepared_predicate = "predicate";;
 let prepared_object = "object";;
+let prepared_cardinal = "cardinal";;
 
 let make_select_term_list table col clause =
   "SELECT "^col^" FROM "^table^" where "^clause
@@ -227,6 +228,10 @@ let prepare_queries dbd table =
      SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=$3 LIMIT 1"
   in
   prepare_query dbd prepared_term_of_hash query;
+
+
+  let query = "SELECT COUNT(*) FROM "^table in
+  prepare_query dbd prepared_cardinal query;
 
   let query =
     "SELECT COUNT(*) FROM "^table^" WHERE subject=$1 AND predicate=$2 AND object=$3"
@@ -446,6 +451,12 @@ let find ?sub ?pred ?obj g =
   query_triple_list g clause
 ;;
 
+
+let graph_size g =
+  let res = exec_prepared g.g_dbd prepared_cardinal [] in
+  int_of_string (getvalue res 0 0)
+;;
+
 let exists ?sub ?pred ?obj g =
   let query = "SELECT COUNT(*) FROM %"^g.g_table^
     " where " ^ (mk_where_clause ?sub ?pred ?obj g)
@@ -503,6 +514,7 @@ module Postgresql =
     let string_of_error s = s
 
     let graph_name g = g.g_name
+    let graph_size = graph_size
 
     let open_graph = open_graph
 

@@ -289,6 +289,7 @@ module Mysql =
     let string_of_error s = s
 
     let graph_name g = g.g_name
+    let graph_size g = Rdf_my.graph_size g
 
     let open_graph = open_graph
 

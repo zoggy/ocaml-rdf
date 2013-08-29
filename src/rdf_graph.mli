@@ -94,6 +94,9 @@ module type Storage =
     (** Access to the graph name, as specified at its creation. *)
     val graph_name : g -> Rdf_uri.uri
 
+    (** Return the number of triples in the graph. *)
+    val graph_size : g -> int
+
     (** Adding a triple to the graph. *)
     val add_triple :
       g ->
@@ -186,6 +189,7 @@ module type Graph =
     type g
     val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> g
     val graph_name : g -> Rdf_uri.uri
+    val graph_size : g -> int
     val add_triple :
       g ->
       sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
@@ -229,6 +233,7 @@ val add_storage : (module Storage) -> unit
   the functions in the fields.*)
 type graph = {
   name : unit -> Rdf_uri.uri;
+  size : unit -> int ;
   add_triple :
     sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit;
   rem_triple :

@@ -170,6 +170,7 @@ let prepared_objects_of = "objects_of";;
 let prepared_subject = "subject" ;;
 let prepared_predicate = "predicate";;
 let prepared_object = "object";;
+let prepared_cardinal = "cardinal";;
 
 let make_select_term_list table col clause =
   "SELECT "^col^" FROM "^table^" where "^clause
@@ -184,6 +185,9 @@ let prepare_queries dbd ?(more=[]) table =
   dbg ~level: 1 (fun () -> "Preparing queries...");
 
   List.iter (fun (name, q) -> prepare_query dbd name q) more;
+
+  let query = "SELECT COUNT(*) FROM "^table in
+  prepare_query dbd prepared_cardinal query;
 
   let query =
     "SELECT COUNT(*) FROM "^table^" WHERE subject=? AND predicate=? AND object=?"
@@ -227,6 +231,13 @@ let prepare_queries dbd ?(more=[]) table =
   let query = "SELECT object from " ^ table in
   prepare_query dbd prepared_object query;
   dbg ~level: 1 (fun () -> "done")
+;;
+
+let graph_size g =
+  let res = exec_prepared g.g_dbd prepared_cardinal [] in
+  match Mysql.fetch res with
+    Some [| Some s |] -> int_of_string s
+  | _ -> 0
 ;;
 
 let exists mk_where_clause ?sub ?pred ?obj g =
