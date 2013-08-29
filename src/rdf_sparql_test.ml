@@ -32,7 +32,7 @@ open Rdf_sparql;;
 let verb = print_endline;;
 
 type test_spec =
-  { base : Rdf_uri.uri ;
+  { base : Rdf_uri.uri option ;
     title : string ;
     desc : string option;
     query : string ;
@@ -51,7 +51,7 @@ type test = {
 let load_file file =
   verb ("Loading file "^file);
   let group = new C.group in
-  let base = new C.string_cp ~group ["base"] "http://localhost/" "Base uri" in
+  let base = new C.option_cp C.string_wrappers ~group ["base"] None "Base uri" in
   let title = new C.string_cp ~group ["title"] "" "Title of the test" in
   let desc = new C.string_cp ~group ["descr"] "" "Description of the test" in
   let query = new C.string_cp ~group ["query"] "" "File containing the query" in
@@ -73,7 +73,7 @@ let load_file file =
         file
   in
   let named = List.map (fun (uri, s) -> (Rdf_uri.uri uri, mk_filename s)) named#get in
-  { base = Rdf_uri.uri base#get ;
+  { base = Rdf_misc.map_opt Rdf_uri.uri base#get ;
     title = title#get ;
     desc = Rdf_misc.opt_of_string desc#get ;
     query = mk_filename query#get ;
@@ -93,15 +93,24 @@ let load_ttl g base file =
 ;;
 
 let mk_dataset spec =
+  let base =
+    match spec.base with
+      None -> Rdf_uri.uri "http://localhost/"
+    | Some uri -> uri
+  in
   let default =
-    let g = Rdf_graph.open_graph ~options: spec.options spec.base in
+    let g = Rdf_graph.open_graph ~options: spec.options base in
     match spec.default_graph with
        None -> g
-     | Some file -> load_ttl g spec.base file
+     | Some file ->
+        let size = g.Rdf_graph.size () in
+        if size <= 0 then
+          ignore(load_ttl g base file);
+        g
   in
   let f (uri, file) =
-    let g = Rdf_graph.open_graph spec.base in
-    let g = load_ttl g spec.base file in
+    let g = Rdf_graph.open_graph base in
+    let g = load_ttl g base file in
     (uri, g)
   in
   let named = List.map f spec.named in
