@@ -27,11 +27,7 @@
 open Rdf_term;;
 open Rdf_my;;
 
-let dbg = Rdf_misc.create_log_fun
-  ~prefix: "Rdf_my"
-    "RDF_MY_DEBUG_LEVEL"
-;;
-
+let dbg = Rdf_my.dbg;;
 
 let table_options engine = " ENGINE="^engine^" DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
 let creation_queries =
