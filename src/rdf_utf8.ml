@@ -173,7 +173,10 @@ let utf8_char_of_code n =
       let y_mask = 0b0000011111000000 in
       let y_part = (n land y_mask) lsr 6 in
       let y = 0b11000000 lor y_part in
-      Printf.sprintf "%c%c" (Char.chr y) (Char.chr z)
+      let s = "12" in
+      s.[0] <- Char.chr y ;
+      s.[1] <- Char.chr z ;
+      s
     else
       let y_mask = 0b111111000000 in
       let y_part = (n land y_mask) lsr 6 in
@@ -182,7 +185,11 @@ let utf8_char_of_code n =
         let x_mask = 0b1111 lsl 12 in
         let x_part = (n land x_mask) lsr 12 in
         let x = 0b11100000 lor x_part in
-        Printf.sprintf "%c%c%c" (Char.chr x) (Char.chr y) (Char.chr z)
+        let s = "123" in
+        s.[0] <- Char.chr x ;
+        s.[1] <- Char.chr y ;
+        s.[2] <- Char.chr z ;
+        s
       else
         if n <= 0x10FFFF then
           let x_mask = 0b111111 lsl 12 in
@@ -191,7 +198,12 @@ let utf8_char_of_code n =
           let w_mask = 0b111 lsl 18 in
           let w_part = (n land w_mask) lsr 18 in
           let w = 0b11110000 lor w_part in
-          Printf.sprintf "%c%c%c%c" (Char.chr w) (Char.chr x) (Char.chr y) (Char.chr z)
+          let s = "1234" in
+          s.[0] <- Char.chr w ;
+          s.[1] <- Char.chr x ;
+          s.[2] <- Char.chr y ;
+          s.[3] <- Char.chr z ;
+          s
         else
           failwith (Printf.sprintf "UTF-8 code out of range: %x" n)
 ;;
