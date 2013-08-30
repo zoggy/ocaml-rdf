@@ -161,18 +161,15 @@ let compare term1 term2 =
   | _, Uri _ -> -1
   | Literal lit1, Literal lit2 ->
       begin
-        match Pervasives.compare lit1.lit_value lit2.lit_value with
+        match String.compare lit1.lit_value lit2.lit_value with
           0 ->
             begin
-              match Pervasives.compare lit1.lit_language lit2.lit_language with
+              match Rdf_misc.opt_compare String.compare
+                lit1.lit_language lit2.lit_language
+              with
                 0 ->
-                  begin
-                    match lit1.lit_type, lit2.lit_type with
-                      None, None -> 0
-                    | None, _ -> 1
-                    | _, None -> -1
-                    | Some uri1, Some uri2 -> Rdf_uri.compare uri1 uri2
-                  end
+                  Rdf_misc.opt_compare Rdf_uri.compare
+                    lit1.lit_type lit2.lit_type
               | n -> n
             end
         | n -> n
@@ -183,7 +180,7 @@ let compare term1 term2 =
   | Blank, _ -> 1
       | _, Blank -> -1
   | Blank_ id1, Blank_ id2 ->
-      Pervasives.compare
+      String.compare
         (string_of_blank_id id1)
         (string_of_blank_id id2)
 

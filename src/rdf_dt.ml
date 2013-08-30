@@ -71,7 +71,7 @@ module ValueOrdered =
         Err e1, Err e2 -> Pervasives.compare e1 e2
       | Err _, _ -> 1
       | _, Err _ -> -1
-      | Blank l1, Blank l2 -> Pervasives.compare l1 l2
+      | Blank l1, Blank l2 -> String.compare l1 l2
       | Blank _, _ -> 1
       | _, Blank _ -> -1
       | Iri uri1, Iri uri2 -> Rdf_uri.compare uri1 uri2
@@ -80,10 +80,15 @@ module ValueOrdered =
       | String s1, String s2
       | Ltrl (s1, None), Ltrl (s2, None)
       | String s1, Ltrl (s2, None)
-      | Ltrl (s1, None), String s2 -> Pervasives.compare s1 s2
+      | Ltrl (s1, None), String s2 -> String.compare s1 s2
       | String _, _ -> 1
       | _, String _ -> -1
-      | Ltrl (s1, Some l1), Ltrl (s2, Some l2) -> Pervasives.compare (s1, l1) (s2, l2)
+      | Ltrl (s1, Some l1), Ltrl (s2, Some l2) ->
+          begin
+            match String.compare s1 s2 with
+              0 -> String.compare l1 l2
+            | n -> n
+          end
       | Ltrl _, _ -> 1
       | _, Ltrl _ -> -1
       | Int n1, Int n2 -> Pervasives.compare n1 n2
@@ -99,7 +104,7 @@ module ValueOrdered =
       | Datetime _, _ -> 1
       | _, Datetime _ -> -1
       | Ltrdt (s1, uri1), Ltrdt (s2, uri2) ->
-          (match Pervasives.compare s1 s2 with
+          (match String.compare s1 s2 with
              0 -> Rdf_uri.compare uri1 uri2
            | n -> n)
        (*| Ltrdt _, _ -> 1

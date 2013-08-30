@@ -229,7 +229,7 @@ module Bid_map = Map.Make
   (struct
      type t = Rdf_term.blank_id
      let compare id1 id2 =
-       Pervasives.compare
+       String.compare
          (Rdf_term.string_of_blank_id id1)
          (Rdf_term.string_of_blank_id id2)
    end

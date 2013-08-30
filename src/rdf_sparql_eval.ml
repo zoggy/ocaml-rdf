@@ -166,10 +166,10 @@ let rec compare ?(sameterm=false) v1 v2 =
   | Err _, _ -> 1
   | _, Err _ -> -1
   | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
-  | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> Pervasives.compare s1 s2
+  | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> String.compare s1 s2
   | String s1, String s2
   | Ltrl (s1, None), String s2
-  | String s1, Ltrl (s2, None) -> Pervasives.compare s1 s2
+  | String s1, Ltrl (s2, None) -> String.compare s1 s2
   | Int n1, Int n2 -> Pervasives.compare n1 n2
   | Int _, Float _ -> compare (Rdf_dt.float v1) v2
   | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
@@ -179,8 +179,8 @@ let rec compare ?(sameterm=false) v1 v2 =
       Pervasives.compare (Netdate.since_epoch t1) (Netdate.since_epoch t2)
   | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
       begin
-        match Pervasives.compare lang1 lang2 with
-          0 -> Pervasives.compare l1 l2
+        match Rdf_misc.opt_compare String.compare lang1 lang2 with
+          0 -> String.compare l1 l2
         | n -> n
       end
   | Ltrdt (s1, dt1), Ltrdt (s2, dt2) ->
@@ -188,7 +188,7 @@ let rec compare ?(sameterm=false) v1 v2 =
        match Rdf_uri.compare dt1 dt2 with
          0 ->
            if sameterm then
-             Pervasives.compare s1 s2
+             String.compare s1 s2
            else
              error (Cannot_compare_for_datatype dt1)
        | _ -> error (Type_mismatch (v1, v2))

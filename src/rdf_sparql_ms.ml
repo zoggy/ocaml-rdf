@@ -70,19 +70,19 @@ let mu_merge =
     | None, x -> x
     | x, None -> x
     | Some t1, Some t2 ->
-        match Rdf_term.Ord_type.compare t1 t2 with
+        match Rdf_term.compare t1 t2 with
           0 -> Some t1
         | _ -> raise (Incompatible_mus var)
   in
   let merge_bnodes v label1 label2 =
     match label1, label2 with
       None, x | x, None -> x
-    | Some l1, Some l2 ->
-        match Pervasives.compare l1 l2 with
+    | Some l1, Some l2 -> Some l1
+        (*match Pervasives.compare l1 l2 with
           0 -> Some l1
         | _ ->
           (*dbg ~loc: "warning" ~level:2 (fun () -> "Merging mus: bnodes label maps differ");*)
-          Some l1
+          Some l1*)
   in
   fun mu1 mu2 ->
     let mu_bindings = SMap.merge f mu1.mu_bindings mu2.mu_bindings in
