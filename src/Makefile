@@ -146,7 +146,7 @@ rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx rdf_sparql_test_main.cmx
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall $(COMPFLAGS) $^
 
 rdf_sparql_bench: $(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL) rdf_sparql_test.cmx rdf_sparql_bench.cmx
-		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -p -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
 # Documentation :
 #################
@@ -227,7 +227,7 @@ rdf_sparql_lex.ml: rdf_sparql_lex.mll
 	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
-	$(MENHIR) --explain --infer --base rdf_sparql_parser $^ # --trace
+	$(MENHIR) --explain --infer --base rdf_sparql_parser $^  #--trace
 
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<

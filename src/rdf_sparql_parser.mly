@@ -33,7 +33,7 @@ let mk_loc start stop =
   }
 ;;
 
-let mk_lit = Rdf_node.mk_literal ;;
+let mk_lit = Rdf_term.mk_literal ;;
 let xsd_integer = Rdf_rdf.xsd_integer;;
 let xsd_double = Rdf_rdf.xsd_double;;
 let xsd_decimal = Rdf_rdf.xsd_decimal;;
@@ -823,7 +823,7 @@ function_call:
   }
 ;
 
-
+(*
 expression:
   e=and_expression { e }
 | e1=and_expression PIPEPIPE e2=and_expression {
@@ -833,17 +833,33 @@ expression:
 ;
 
 and_expression:
-  e=value_logical { e }
 | e1=value_logical AMPAMP e2=value_logical
   {
     { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
       expr = EBin (e1, EAnd, e2) ;
     }
   }
+| e=value_logical { e }
+;
+*)
+expression: e=value_logical { e }
 ;
 
 value_logical:
   e = relational_expression { e }
+
+| e1=value_logical AMPAMP e2=value_logical
+  {
+    { expr_loc = mk_loc $startpos(e1) $endpos(e2) ;
+      expr = EBin (e1, EAnd, e2) ;
+    }
+  }
+| e1=value_logical PIPEPIPE e2=value_logical {
+    let loc = mk_loc $startpos(e1) $endpos(e2) in
+    { expr_loc = loc ; expr = EBin (e1, EOr, e2) }
+  }
+;
+
 ;
 
 relational_expression:
@@ -920,10 +936,10 @@ numexp:
 | e1=expression lit=numeric_literal_positive {
     let loc = mk_loc $startpos(e1) $endpos(lit) in
     let lit2 =
-      let s = lit.Rdf_node.lit_value in
+      let s = lit.Rdf_term.lit_value in
       let len = String.length s in
       (* remove starting '+' *)
-      { lit with Rdf_node.lit_value = String.sub s 1 (len - 1) }
+      { lit with Rdf_term.lit_value = String.sub s 1 (len - 1) }
     in
     let e2 =
       let loc = mk_loc $startpos(lit) $endpos(lit) in
@@ -939,10 +955,10 @@ numexp:
 | e1=expression lit=numeric_literal_negative {
     let loc = mk_loc $startpos(e1) $endpos(lit) in
     let lit2 =
-      let s = lit.Rdf_node.lit_value in
+      let s = lit.Rdf_term.lit_value in
       let len = String.length s in
       (* remove starting '-' *)
-      { lit with Rdf_node.lit_value = String.sub s 1 (len - 1) }
+      { lit with Rdf_term.lit_value = String.sub s 1 (len - 1) }
     in
     let e2 =
       let loc = mk_loc $startpos(lit) $endpos(lit) in
