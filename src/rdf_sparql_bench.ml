@@ -19,12 +19,6 @@ let type_op_import = prop_"import";;
 
 let get_time () = Unix.gettimeofday ();;
 
-let result_file = ref "benchmark_results.ttl";;
-let option_result =
-  ("--result", Arg.Set_string result_file,
-   "<file> append results in graph of <file>; default is "^ !result_file
-  )
-;;
 
 type operation_kind = Import of result | Sparql_query of result
 type operation =
@@ -33,6 +27,7 @@ type operation =
     kind : operation_kind ;
     duration : float option ;
     spec : test_spec ;
+    id : string option ;
   }
 
 let store_operation g op =
@@ -54,11 +49,6 @@ let store_operation g op =
          options
       )
   in
-  let option_id =
-    try List.assoc "id" op.spec.options
-    with Not_found -> Digest.to_hex (Digest.string options_string)
-  in
-
   add ~pred: prop_options ~obj: (Rdf_term.term_of_literal_string options_string);
 
   (match op.duration with
@@ -67,7 +57,11 @@ let store_operation g op =
   );
 
   add ~pred: prop_datasize ~obj: (Rdf_term.term_of_int op.datasize);
-  add ~pred: prop_id ~obj: (Rdf_term.term_of_literal_string option_id);
+
+  (match op.id with
+    None -> ()
+  | Some id -> add ~pred: prop_id ~obj: (Rdf_term.term_of_literal_string id)
+  );
 
   let res =
     match op.kind, op.spec.default_graph with
@@ -108,7 +102,7 @@ let store_operation g op =
       add ~pred: prop_result ~obj
 ;;
 
-let run_sparql_test spec =
+let run_sparql_test ?id spec =
   let (duration, res, size) =
     try
       let dataset = Rdf_sparql_test.mk_dataset spec in
@@ -133,7 +127,7 @@ let run_sparql_test spec =
   in
   let op = {
       kind = Sparql_query res ; datasize = size ;
-      spec ; duration ;
+      spec ; duration ; id ;
     }
   in
   let g = Rdf_graph.open_graph base in
@@ -141,8 +135,7 @@ let run_sparql_test spec =
   g
 ;;
 
-let run_import_test spec =
-  prerr_endline "importing";
+let run_import_test ?id spec =
   let spec_base =
     match spec.base with
       None -> Rdf_uri.uri "http://localhost/"
@@ -160,6 +153,7 @@ let run_import_test spec =
           None -> failwith "No default graph to import"
         | Some file ->
             let g = Rdf_graph.open_graph spec_base in
+            prerr_endline ("loading graph from "^file);
             ignore(Rdf_ttl.from_file g spec_base file);
             g
       in
@@ -181,7 +175,7 @@ let run_import_test spec =
   in
   let op = {
       kind = Import res ; datasize = size ;
-      spec ; duration ;
+      spec ; duration ; id ;
     }
   in
   let g = Rdf_graph.open_graph base in
@@ -279,9 +273,10 @@ let report g outfile =
         p "</td>"
       )
       map;
-    pn "</tr></table>"
+    pn "</tr>"
   in
   List.iter f_import (import_stats g);
+  pn "</table>";
   pn "</section>";
 
   pn "<section id=\"sparql\" title=\"Executing sparql queries\">";
@@ -298,17 +293,24 @@ let mode = ref Sparql;;
 
 let graph_options = ref None;;
 
+let result_file = ref "benchmark_results.ttl";;
+let id = ref None;;
+
 let options = [
-    option_result ;
+    "--id", Arg.String (fun s -> id := Some s),
+    "id associate id to this run";
+
+    "--result", Arg.Set_string result_file,
+    "file append results in graph of <file>; default is "^ !result_file ;
 
     "--import", Arg.Unit (fun () -> mode := Import),
     " perform an import test instead of a sparql test" ;
 
     "--goptions", Arg.String (fun s -> graph_options := Some s),
-    "<s> override the graph_options of the spec files." ;
+    "s override the graph_options of the spec files." ;
 
     "--html", Arg.String (fun s -> mode := Html s),
-    "<file> read benchmark graph and output stog page to <file>" ;
+    "file read benchmark graph and output stog page to <file>" ;
   ]
 ;;
 
@@ -344,7 +346,8 @@ let main () =
             | Import -> run_import_test
             | Html _ -> assert false
           in
-          let graphs = List.map run_test specs in
+          let id = !id in
+          let graphs = List.map (run_test ?id) specs in
           let g = Rdf_graph.open_graph base in
           if Sys.file_exists !result_file then
             ignore(Rdf_ttl.from_file g ~base !result_file);

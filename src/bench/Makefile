@@ -1,10 +1,10 @@
 BENCH=../rdf_sparql_bench
 
-OP_MYSQL='[("storage","mysql");("engine","InnoDB");("database","rdfbench");("user","rdf"),("id","mysqlinnodb")]'
-OP_MYSQL_ISAM='[("storage","mysql");("engine","MyISAM");("database","rdfbenchisam");("user","rdf");("id","mysqlisam")]'
-OP_MYSQL2='[("storage","mysql2");("engine","InnoDB");("database","rdfbench2");("user","rdf");("id","mysql2innodb")]'
-OP_MYSQL2_ISAM='[("storage","mysql2");("engine","MyISAM");("database","rdfbench2isam");("user","rdf");("id","mysql2isam")]'
-OP_MEM='[("storage","mem"),("id","mem")]'
+OP_MYSQL='[("storage","mysql");("engine","InnoDB");("database","rdfbench");("user","rdf")]' --id 'mysql(innodb)'
+OP_MYSQL_ISAM='[("storage","mysql");("engine","MyISAM");("database","rdfbenchisam");("user","rdf")]' --id 'mysql(isam)'
+OP_MYSQL2='[("storage","mysql2");("engine","InnoDB");("database","rdfbench2");("user","rdf")]' --id 'mysql2(innodb)'
+OP_MYSQL2_ISAM='[("storage","mysql2");("engine","MyISAM");("database","rdfbench2isam");("user","rdf")]' --id 'mysql2(isam)'
+OP_MEM='[("storage","mem")]' --id 'mem'
 
 BACKENDS=OP_MYSQL OP_MYSQL_ISAM OP_MYSQL2 OP_MYSQL2_ISAM OP_MEM
 
