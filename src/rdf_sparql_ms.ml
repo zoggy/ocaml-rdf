@@ -81,7 +81,7 @@ let mu_merge =
         match Pervasives.compare l1 l2 with
           0 -> Some l1
         | _ ->
-          dbg ~loc: "warning" ~level:2 (fun () -> "Merging mus: bnodes label maps differ");
+          (*dbg ~loc: "warning" ~level:2 (fun () -> "Merging mus: bnodes label maps differ");*)
           Some l1
   in
   fun mu1 mu2 ->

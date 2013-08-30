@@ -28,7 +28,7 @@ open Rdf_term;;
 
 module Node_set = Set.Make(Rdf_term.Ord_type)
 module Urimap = Rdf_uri.Urimap;;
-module SSet = Set.Make (struct type t = string let compare = Pervasives.compare end);;
+module SSet = Set.Make (struct type t = string let compare = String.compare end);;
 
 let apply_namespaces namespaces uri =
   let len_uri = String.length uri in

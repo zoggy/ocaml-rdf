@@ -3,6 +3,7 @@
 open Rdf_sparql_test;;
 open Rdf_sparql;;
 
+
 let base = Rdf_uri.uri "http://localhost/ocamml-rdf-bench";;
 let prop_ = Rdf_uri.concat base;;
 

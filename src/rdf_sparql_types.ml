@@ -25,7 +25,10 @@
 (** *)
 
 module OrderedString =
-  struct type t = string let compare = Pervasives.compare end
+  struct
+    type t = string
+    let compare = String.compare
+  end
 
 module SSet = Set.Make(OrderedString)
 module SMap = Map.Make(OrderedString)

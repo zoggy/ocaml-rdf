@@ -74,7 +74,7 @@ let path uri =
   Neturl.url_path (neturl uri)
 ;;
 
-let compare = Pervasives.compare
+let compare = String.compare
 
 let equal u1 u2 = u1 = u2 ;;
 

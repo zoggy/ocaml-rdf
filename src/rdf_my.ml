@@ -43,7 +43,7 @@ type error = string
 exception Error = Mysql.Error
 let string_of_error s = s;;
 
-module SMap = Map.Make (struct type t = string let compare = Pervasives.compare end);;
+module SMap = Map.Make (struct type t = string let compare = String.compare end);;
 
 (*
 let prep_times = ref SMap.empty;;
