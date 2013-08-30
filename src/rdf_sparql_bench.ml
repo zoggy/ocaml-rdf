@@ -284,7 +284,7 @@ let report g outfile =
   List.iter f_import (import_stats g);
   pn "</section>";
 
-  pn "<section id=\"sparql\" title=\"Executin sparql queries\">";
+  pn "<section id=\"sparql\" title=\"Executing sparql queries\">";
 
   pn "</section>";
 

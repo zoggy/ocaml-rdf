@@ -242,27 +242,6 @@ let rec main line = lexer
 | '"' ->
     (*prerr_endline "entering dquoted string";*)
     string_dquote (Buffer.create 256) line lexbuf
-(*
-| string_literal1 ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  String_literal1 (String.sub s 1 (len - 2))
-
-| string_literal2 ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  String_literal2 (String.sub s 1 (len - 2))
-
-| string_literal_long1 ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  String_literal1 (String.sub s 3 (len - 6))
-
-| string_literal_long2 ->
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  String_literal1 (String.sub s 3 (len - 6))
-*)
 
 | integer -> line, Integer (Ulexing.utf8_lexeme lexbuf)
 | decimal -> line, Decimal (Ulexing.utf8_lexeme lexbuf)

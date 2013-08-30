@@ -33,12 +33,8 @@ let regexp character = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex
 let regexp character_noquotes = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' character | [0x20-0x21] | [0x23-0x5B] | [0x5D-0x10FFFF]
 let regexp character_nogt = "\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex | '\\' | [0x20-0x3D] | [0x3F-0x5B] | [0x5D-0x10FFFF]
 
-(*let regexp echaracter = character | '\t' | '\n' | '\r'*)
-let regexp echaracter_noquotes = character_noquotes | '\t' | '\n' | '\r'
-
-let regexp scharacter = echaracter_noquotes | "\\\""
 let regexp longstring_delim = 0x22 0x22 0x22
-let regexp string = 0x22 scharacter* 0x22
+let regexp string_delim = 0x22
 
 let regexp ucharacter = ( character_nogt) | "\\>"
 let regexp relativeURI = ucharacter*
@@ -71,23 +67,50 @@ let rec longstring b line = lexer
 | longstring_delim ->
     line, String_ (Buffer.contents b)
 | '\\' character ->
-    let s = Ulexing.utf8_lexeme lexbuf in
-    (* unescape some characters *)
-    (match s.[1] with
-       'n' -> Buffer.add_char b '\n'
-     | 'r' -> Buffer.add_char b '\r'
-     | 't' -> Buffer.add_char b '\t'
-     | '\\' -> Buffer.add_char b '\\'
-     | '"' -> Buffer.add_char b '"'
-     | _ -> Buffer.add_string b s
-    );
-    longstring b line lexbuf
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  (match s.[1] with
+     'n' -> Buffer.add_char b '\n'
+   | 'r' -> Buffer.add_char b '\r'
+   | 't' -> Buffer.add_char b '\t'
+   | '\\' -> Buffer.add_char b '\\'
+   | 'b' -> Buffer.add_char b (Char.chr 0x8)
+   | 'f' -> Buffer.add_char b (Char.chr 0xc)
+   | '"' -> Buffer.add_char b '"'
+   | _ -> Buffer.add_string b s
+  );
+  longstring b line lexbuf
 | ('"' | ( [^'"' '\\'] | '\n')* ) ->
     let s = Ulexing.utf8_lexeme lexbuf in
     Buffer.add_string b s ;
     longstring b (line + Rdf_utf8.utf8_count_nl s) lexbuf
 | eof ->
    failwith "Unterminated long string"
+;;
+
+let rec string b line = lexer
+| '"' ->
+    line, String_ (Buffer.contents b)
+| '\\' character ->
+  let s = Ulexing.utf8_lexeme lexbuf in
+  (* unescape some characters *)
+  (match s.[1] with
+     'n' -> Buffer.add_char b '\n'
+   | 'r' -> Buffer.add_char b '\r'
+   | 't' -> Buffer.add_char b '\t'
+   | '\\' -> Buffer.add_char b '\\'
+   | '"' -> Buffer.add_char b '"'
+   | 'b' -> Buffer.add_char b (Char.chr 0x8)
+   | 'f' -> Buffer.add_char b (Char.chr 0xc)
+     | _ -> Buffer.add_string b s
+  );
+  string b line lexbuf
+| eof ->
+   failwith "Unterminated string"
+| _ ->
+    let s = Ulexing.utf8_lexeme lexbuf in
+    Buffer.add_string b s ;
+    string b (line + Rdf_utf8.utf8_count_nl s) lexbuf
 ;;
 
 let rec main line = lexer
@@ -153,9 +176,7 @@ let rec main line = lexer
       let s = Ulexing.utf8_lexeme lexbuf in
       line, Identifier s
 | longstring_delim -> longstring (Buffer.create 256) line lexbuf
-| string ->
-   let s = Ulexing.utf8_lexeme lexbuf in
-   line, String_ (String.sub s 1 (String.length s - 2))
+| string_delim -> string (Buffer.create 256) line lexbuf
 | eof -> line, EOF
 | _ ->
   let s = Ulexing.utf8_lexeme lexbuf in

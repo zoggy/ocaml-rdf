@@ -18,6 +18,10 @@ rdf_misc.cmo : rdf_misc.cmi
 rdf_misc.cmx : rdf_misc.cmi
 rdf_my.cmo : rdf_uri.cmi rdf_term.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_my.cmx : rdf_uri.cmx rdf_term.cmx rdf_misc.cmx rdf_graph.cmx
+rdf_my1.cmo : rdf_uri.cmi rdf_term.cmi rdf_my.cmo rdf_misc.cmi rdf_graph.cmi
+rdf_my1.cmx : rdf_uri.cmx rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx
+rdf_my2.cmo : rdf_uri.cmi rdf_term.cmi rdf_my.cmo rdf_misc.cmi rdf_graph.cmi
+rdf_my2.cmx : rdf_uri.cmx rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx
 rdf_pg.cmo : rdf_uri.cmi rdf_term.cmi rdf_misc.cmi rdf_graph.cmi
 rdf_pg.cmx : rdf_uri.cmx rdf_term.cmx rdf_misc.cmx rdf_graph.cmx
 rdf_rdf.cmo : rdf_uri.cmi rdf_rdf.cmi
@@ -38,6 +42,12 @@ rdf_sparql_algebra.cmo : rdf_uri.cmi rdf_term.cmi rdf_sparql_vis.cmo \
 rdf_sparql_algebra.cmx : rdf_uri.cmx rdf_term.cmx rdf_sparql_vis.cmx \
     rdf_sparql_types.cmx rdf_sparql_print.cmx rdf_sparql_map.cmx rdf_rdf.cmx \
     rdf_loc.cmx
+rdf_sparql_bench.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ttl.cmi rdf_term.cmi \
+    rdf_sparql_test.cmo rdf_sparql.cmi rdf_rdf.cmi rdf_misc.cmi rdf_graph.cmi \
+    rdf_dt.cmi rdf_ds.cmi
+rdf_sparql_bench.cmx : rdf_xml.cmx rdf_uri.cmx rdf_ttl.cmx rdf_term.cmx \
+    rdf_sparql_test.cmx rdf_sparql.cmx rdf_rdf.cmx rdf_misc.cmx rdf_graph.cmx \
+    rdf_dt.cmx rdf_ds.cmx
 rdf_sparql_eval.cmo : rdf_utf8.cmi rdf_uri.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql_ms.cmo rdf_sparql_algebra.cmo rdf_rdf.cmi \
     rdf_misc.cmi rdf_loc.cmi rdf_graph.cmi rdf_dt.cmi rdf_ds.cmi
@@ -72,6 +82,8 @@ rdf_sparql_test.cmo : rdf_uri.cmi rdf_ttl.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql.cmi rdf_misc.cmi rdf_graph.cmi rdf_ds.cmi
 rdf_sparql_test.cmx : rdf_uri.cmx rdf_ttl.cmx rdf_term.cmx \
     rdf_sparql_types.cmx rdf_sparql.cmx rdf_misc.cmx rdf_graph.cmx rdf_ds.cmx
+rdf_sparql_test_main.cmo : rdf_ttl.cmi rdf_sparql_test.cmo rdf_sparql.cmi
+rdf_sparql_test_main.cmx : rdf_ttl.cmx rdf_sparql_test.cmx rdf_sparql.cmx
 rdf_sparql_types.cmo : rdf_uri.cmi rdf_term.cmi rdf_loc.cmi
 rdf_sparql_types.cmx : rdf_uri.cmx rdf_term.cmx rdf_loc.cmx
 rdf_sparql_vis.cmo : rdf_sparql_types.cmo
