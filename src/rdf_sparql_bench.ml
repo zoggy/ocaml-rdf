@@ -9,6 +9,7 @@ let prop_ = Rdf_uri.concat base;;
 let prop_options = prop_"graphOptions";;
 let prop_source = prop_"source";;
 let prop_query = prop_"query";;
+let prop_query_file = prop_"queryFile";;
 let prop_duration = prop_"duration";;
 let prop_datasize = prop_"dataSize";;
 let prop_result = prop_"result";;
@@ -27,7 +28,7 @@ type operation =
     kind : operation_kind ;
     duration : float option ;
     spec : test_spec ;
-    id : string option ;
+    id : string ;
   }
 
 let store_operation g op =
@@ -58,10 +59,7 @@ let store_operation g op =
 
   add ~pred: prop_datasize ~obj: (Rdf_term.term_of_int op.datasize);
 
-  (match op.id with
-    None -> ()
-  | Some id -> add ~pred: prop_id ~obj: (Rdf_term.term_of_literal_string id)
-  );
+  add ~pred: prop_id ~obj: (Rdf_term.term_of_literal_string op.id);
 
   let res =
     match op.kind, op.spec.default_graph with
@@ -74,6 +72,8 @@ let store_operation g op =
         add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Uri type_op_sparql);
         add ~pred: prop_query
           ~obj: (Rdf_term.term_of_literal_string (Rdf_misc.string_of_file op.spec.query));
+        add ~pred: prop_query_file
+          ~obj: (Rdf_term.term_of_literal_string op.spec.query);
         let source =
           match op.spec.default_graph with
           | Some file -> Rdf_term.term_of_literal_string file
@@ -102,13 +102,14 @@ let store_operation g op =
       add ~pred: prop_result ~obj
 ;;
 
-let run_sparql_test ?id spec =
+let run_sparql_test ~id spec =
   let (duration, res, size) =
     try
       let dataset = Rdf_sparql_test.mk_dataset spec in
       let query = Rdf_sparql.parse_from_file spec.query in
-      let t_start = get_time () in
       let base = match spec.base with None -> Rdf_uri.uri "http://localhost/" | Some u -> u in
+      prerr_endline "Running sparql query";
+      let t_start = get_time () in
       let res = Rdf_sparql.execute base dataset query in
       let t_stop = get_time () in
       let duration = t_stop -. t_start in
@@ -135,7 +136,7 @@ let run_sparql_test ?id spec =
   g
 ;;
 
-let run_import_test ?id spec =
+let run_import_test ~id spec =
   let spec_base =
     match spec.base with
       None -> Rdf_uri.uri "http://localhost/"
@@ -183,6 +184,7 @@ let run_import_test ?id spec =
   g
 ;;
 let sparql_select g q =
+  (*prerr_endline q;*)
   let q = Rdf_sparql.parse_from_string q in
   let dataset = Rdf_ds.simple_dataset g in
   Rdf_sparql.select ~base dataset q
@@ -193,59 +195,143 @@ type import_stats = (int * float option SMap.t) list
 
 let us = Rdf_uri.string ;;
 
-let options_ids g =
+let ids g =
   let q = "SELECT DISTINCT ?id
            WHERE { _:a <"^(us prop_id)^"> ?id. }
            ORDER BY DESC(?id)"
   in
   List.fold_left
     (fun acc sol ->
-       let term = Rdf_sparql.get_term sol "id" in
-       match Rdf_dt.string (Rdf_dt.of_term term) with
-         Rdf_dt.String s -> (s, term) :: acc
-       | _ -> acc
+       let id = Rdf_sparql.get_string sol "id" in
+       id :: acc
     ) []
     (sparql_select g q)
 ;;
 
-let import_stats g =
-  let qsizes =
+let sizes_of_op g ?(clause="") op =
+  let q =
     "SELECT DISTINCT ?size
      WHERE { ?run <"^(us prop_datasize)^"> ?size .
-             ?run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_import)^"> .}
+             ?run <"^(us Rdf_rdf.rdf_type)^"> <"^(us op)^"> .
+             "^clause^"}
      ORDER BY DESC(?size)"
   in
-  let sols = sparql_select g qsizes in
-  let f_op n acc (s, term) =
+  let sols = sparql_select g q in
+  List.fold_left
+    (fun acc sol -> Rdf_sparql.get_int sol "size" :: acc)
+    [] sols
+;;
+
+let import_stats ids g =
+  let sizes = sizes_of_op g type_op_import in
+  let f_op size acc id =
+    let term_id = Rdf_term.term_of_literal_string id in
     let q = "SELECT (AVG(?dur) as ?duration)
-      WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term)^".
-              _:run <"^(us prop_datasize)^"> "^(string_of_int n)^" .
+      WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term_id)^".
+              _:run <"^(us prop_datasize)^"> "^(string_of_int size)^" .
               _:run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_import)^"> .
               _:run <"^(us prop_duration)^"> ?dur .
               FILTER (?dur > 0.0)
             }"
     in
     match sparql_select g q with
-      [] -> SMap.add s None acc
+      [] -> SMap.add id None acc
     | [sol] ->
         begin
-          match Rdf_dt.float (Rdf_dt.of_term (Rdf_sparql.get_term sol "duration")) with
-            Rdf_dt.Float d -> SMap.add s (Some d) acc
-          | _ -> SMap.add s None acc
+          try SMap.add id (Some (get_float sol "duration")) acc
+          with _ -> SMap.add id None acc
         end
     | _ -> assert false
   in
-  let options_ids = options_ids g in
-  let f_size n =
-    (n, List.fold_left (f_op n) SMap.empty options_ids)
+  let f_size size =
+    (size, List.fold_left (f_op size) SMap.empty ids)
   in
-  let f_size acc sol =
-    match Rdf_dt.int (Rdf_dt.of_term (Rdf_sparql.get_term sol "size")) with
-      Rdf_dt.Int n -> (f_size n) :: acc
-    | _ -> acc
-  in
-  List.fold_left f_size [] sols
+  List.map f_size sizes
+;;
 
+let queries g =
+  let q = "SELECT DISTINCT ?qfile ?query
+           WHERE { _:a <"^(us prop_query)^"> ?query.
+                   _:a <"^(us prop_query_file)^"> ?qfile .
+                 }
+           ORDER BY DESC(?qfile)"
+  in
+  List.fold_left
+    (fun acc sol ->
+       let qfile = Rdf_sparql.get_string sol "qfile" in
+       let query = Rdf_sparql.get_string sol "query" in
+       (qfile, query) :: acc
+    ) []
+    (sparql_select g q)
+;;
+
+type sparql_stat =
+  { query_file : string ;
+    query : string ;
+    backend_durations : (int * float option SMap.t) list ; (* size * (duration by id) *)
+  }
+
+let sparql_stat ids g (qfile, query) =
+  let term_file = Rdf_term.term_of_literal_string qfile in
+  let clause =
+    "_:run <"^(us prop_query_file)^"> "^(Rdf_term.string_of_term term_file)^"."
+  in
+  let sizes = sizes_of_op g ~clause type_op_sparql in
+  let f_id size map id =
+    let term_id = Rdf_term.term_of_literal_string id in
+    let q = "SELECT (AVG(?dur) as ?duration)
+       WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term_id)^".
+              _:run <"^(us prop_datasize)^"> "^(string_of_int size)^" .
+              _:run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_sparql)^"> .
+              "^clause^"
+              _:run <"^(us prop_duration)^"> ?dur .
+              FILTER (?dur > 0.0)
+            }"
+    in
+    match sparql_select g q with
+      [] -> SMap.add id None map
+    | [sol] ->
+        begin
+          try SMap.add id (Some (get_float sol "duration")) map
+          with _ -> SMap.add id None map
+        end
+    | _ -> assert false
+  in
+  let f_size size =
+    let map = List.fold_left (f_id size) SMap.empty ids in
+    (size, map)
+  in
+  let backend_durations = List.map f_size sizes in
+   { query_file = qfile ; query ; backend_durations }
+;;
+
+let sparql_stats ids g =
+  let queries = queries g in
+  List.map (sparql_stat ids g) queries
+;;
+
+let print_duration_table p pn ids str rows =
+  (* ensure ids are in the same order as in duration maps *)
+  let ids = List.fold_left (fun map id -> SMap.add id 0 map) SMap.empty ids in
+  pn "<table class=\"table table-bordered\">";
+  p "<thead><th>Nb. of triples</th>";
+  SMap.iter (fun s _ -> p ("<th>"^s^"</th>")) ids;
+  pn "</thead>";
+  let f_row (size, map) =
+    p "<tr><td><strong>";
+    p (string_of_int size);
+    p "</strong></td>";
+    SMap.iter
+      (fun _ dopt ->
+         p "<td>";
+         p (match dopt with None -> " " | Some d -> str d);
+         p "</td>"
+      )
+      map;
+    pn "</tr>";
+  in
+  List.iter f_row rows;
+  pn "</table>";
 ;;
 
 let report g outfile =
@@ -254,33 +340,29 @@ let report g outfile =
   let pn s = output_string oc s; output_string oc "\n" in
   pn "<page\ntitle=\"Benchmarks\"\n>";
   pn "<prepare-toc><toc/>";
+  pn "<p>Execution times are in seconds. Executions were run on
+    a personal machine (Intel 1.87GHz, 64 bits debian). Times
+    on their own are not important. Only ratios between backends
+    are interesting.</p>";
+
+  let ids = ids g in
+
   pn "<section id=\"import\" title=\"Importing triples\">";
-
-  let ids = options_ids g in
-  pn "<table>";
-  p "<tr><td>Size</td>";
-  List.iter (fun (s,_) -> p ("<td>"^s^"</td>")) ids;
-  pn "</tr>";
-
-  let f_import (size, map) =
-    p "<tr><td><strong>";
-    p (string_of_int size);
-    p "</strong></td>";
-    SMap.iter
-      (fun _ dopt ->
-        p "<td>";
-        p (match dopt with None -> " " | Some d -> string_of_float d);
-        p "</td>"
-      )
-      map;
-    pn "</tr>"
-  in
-  List.iter f_import (import_stats g);
-  pn "</table>";
+  print_duration_table p pn ids
+   (fun d -> Printf.sprintf "%.2f" d)
+   (import_stats ids g);
   pn "</section>";
 
   pn "<section id=\"sparql\" title=\"Executing sparql queries\">";
-
+  let f_sparql t =
+    let file = Filename.basename t.query_file in
+    pn ("<subsection id=\""^file^"\" title=\""^file^"\">");
+    print_duration_table p pn ids
+      (fun d -> Printf.sprintf "%.4f" d)
+      t.backend_durations ;
+    pn "</subsection>";
+  in
+  List.iter f_sparql (sparql_stats ids g);
   pn "</section>";
 
   pn "</prepare-toc>";
@@ -336,23 +418,25 @@ let main () =
       match List.rev !files with
         [] -> prerr_endline (Arg.usage_string options usage_string); exit 1
       | files ->
-          let specs = List.map
-            (Rdf_sparql_test.load_file ?graph_options: !graph_options)
-              files
-          in
-          let run_test =
-            match !mode with
-              Sparql -> run_sparql_test
-            | Import -> run_import_test
-            | Html _ -> assert false
-          in
-          let id = !id in
-          let graphs = List.map (run_test ?id) specs in
-          let g = Rdf_graph.open_graph base in
-          if Sys.file_exists !result_file then
-            ignore(Rdf_ttl.from_file g ~base !result_file);
-          List.iter (Rdf_graph.merge g) graphs;
-          Rdf_ttl.to_file g !result_file
+          match !id with
+            None -> failwith "No id provided. Please use --id option."
+          | Some id ->
+              let specs = List.map
+                (Rdf_sparql_test.load_file ?graph_options: !graph_options)
+                  files
+              in
+              let run_test =
+                match !mode with
+                  Sparql -> run_sparql_test
+                | Import -> run_import_test
+                | Html _ -> assert false
+              in
+              let graphs = List.map (run_test ~id) specs in
+              let g = Rdf_graph.open_graph base in
+              if Sys.file_exists !result_file then
+                ignore(Rdf_ttl.from_file g ~base !result_file);
+              List.iter (Rdf_graph.merge g) graphs;
+              Rdf_ttl.to_file g !result_file
 ;;
 
 (*c==v=[Misc.safe_main]=1.0====*)
@@ -364,5 +448,4 @@ let safe_main main =
       prerr_endline s;
       exit 1
 (*/c==v=[Misc.safe_main]=1.0====*)
-
 let () = safe_main main;;

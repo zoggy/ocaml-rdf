@@ -72,6 +72,28 @@ val solution_fold : (string -> Rdf_term.term -> 'a-> 'a) -> solution -> 'a -> 'a
   of the [solution]. *)
 val solution_iter : (string -> Rdf_term.term -> unit) -> solution -> unit
 
+(** {4 Convenient functions to access solution bindings.}
+
+All these functions can raise {!Rdf_dt.Error} exceptions in case
+the term bounded to the variable name is not compatible with the
+asked type.
+
+The functions are just calls to Rdf_dt functions. For example,
+{!get_int} retrieve the bounded term with {!get_term},
+then calls {!Rdf_dt.of_term} to get a {!Rdf_dt.value}, than
+calls {!Rdf_dt.int} to retrieve an [Int n] value, then return [n].
+ *)
+
+val get_string : solution -> string -> string
+val get_iri : solution -> string -> Rdf_uri.uri
+val get_int : solution -> string -> int
+val get_float : solution -> string -> float
+val get_bool : solution -> string -> bool
+val get_datetime : solution -> string -> Netdate.t
+
+(** Same as {!get_string} but the associated language tag is kep, if any. *)
+val get_ltrl : solution -> string -> string * string option
+
 (** {3 Querying} *)
 
 type query_result =

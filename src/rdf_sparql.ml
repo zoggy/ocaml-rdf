@@ -107,6 +107,60 @@ let string_of_query q =
 type solution = Rdf_sparql_ms.mu
 
 let get_term sol v = Rdf_sparql_ms.mu_find_varname v sol;;
+let get_string_literal sol v =
+  Rdf_dt.string_literal (Rdf_dt.of_term (get_term sol v))
+;;
+
+let get_string sol v =
+  match Rdf_dt.string (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.String s -> s
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_iri sol v =
+  match Rdf_dt.int (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Iri uri -> uri
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_int sol v =
+  match Rdf_dt.int (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Int n -> n
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_float sol v =
+  match Rdf_dt.float (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Float d -> d
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_bool sol v =
+  match Rdf_dt.bool (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Bool b-> b
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_datetime sol v =
+  match Rdf_dt.datetime (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Datetime t -> t
+  | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+let get_ltrl sol v =
+  match Rdf_dt.ltrl (Rdf_dt.of_term (get_term sol v)) with
+    Rdf_dt.Ltrl (s,lang) -> (s, lang)
+  | Rdf_dt.Err e  -> raise (Rdf_dt.Error e)
+  | _ -> assert false
+;;
+
+
 let is_bound sol v = try ignore(get_term sol v); true with Not_found -> false;;
 let solution_fold = Rdf_sparql_ms.mu_fold ;;
 let solution_iter = Rdf_sparql_ms.mu_iter ;;
