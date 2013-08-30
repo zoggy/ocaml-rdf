@@ -63,8 +63,8 @@ let string_of_error = function
     "Not an integer: "^(Rdf_term.string_of_literal lit)
 | Not_a_double_or_decimal lit ->
     "Not an double: "^(Rdf_term.string_of_literal lit)
-| Type_mismatch (v1, v2) -> (* FIXME: show values *)
-    "Type mismatch"
+| Type_mismatch (v1, v2) ->
+    "Type mismatch: "^(Rdf_dt.string_of_value v1)^" <!> "^(Rdf_dt.string_of_value v2)
 | Invalid_fun_argument uri ->
     "Invalid argument for function "^(Rdf_uri.string uri)
 | Unknown_fun uri ->
@@ -193,7 +193,8 @@ let rec compare ?(sameterm=false) v1 v2 =
              error (Cannot_compare_for_datatype dt1)
        | _ -> error (Type_mismatch (v1, v2))
       )
-  | _, _ -> error (Type_mismatch (v1, v2))
+  | _, _ -> Rdf_dt.ValueOrdered.compare v1 v2
+     (*error (Type_mismatch (v1, v2))*)
 
 (** Implement the sorting order used in sparql order by clause:
   http://www.w3.org/TR/sparql11-query/#modOrderBy *)
