@@ -89,6 +89,7 @@ let store_operation g op =
   in
   match res with
     Rdf_sparql_test.Error s ->
+      prerr_endline s;
       add ~pred: prop_error ~obj: (Rdf_term.term_of_literal_string s)
   | Ok x ->
       let obj =
