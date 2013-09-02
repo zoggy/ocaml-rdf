@@ -6,7 +6,7 @@ OP_MYSQL2='[("storage","mysql2");("engine","InnoDB");("database","rdfbench2");("
 OP_MYSQL2_ISAM='[("storage","mysql2");("engine","MyISAM");("database","rdfbench2isam");("user","rdf")]' --id 'mysql2(isam)'
 OP_MEM='[("storage","mem")]' --id 'mem'
 
-BACKENDS=OP_MYSQL OP_MYSQL_ISAM OP_MYSQL2 OP_MYSQL2_ISAM OP_MEM
+BACKENDS=OP_MYSQL2 OP_MYSQL2_ISAM OP_MYSQL OP_MYSQL_ISAM OP_MEM
 
 all: import sparql
 
@@ -21,17 +21,17 @@ COM_IMPORT=$(BENCH) --import q$(QUERY)_$(SIZE).test --goptions
 
 import:
 	$(COM_IMPORT) $(OP_MEM)
-	$(COM_IMPORT) $(OP_MYSQL)
-	$(COM_IMPORT) $(OP_MYSQL_ISAM)
 	$(COM_IMPORT) $(OP_MYSQL2)
 	$(COM_IMPORT) $(OP_MYSQL2_ISAM)
+	$(COM_IMPORT) $(OP_MYSQL)
+	$(COM_IMPORT) $(OP_MYSQL_ISAM)
 
 sparql:
 	$(COM_SPARQL) $(OP_MEM)
-	$(COM_SPARQL) $(OP_MYSQL)
-	$(COM_SPARQL) $(OP_MYSQL_ISAM)
 	$(COM_SPARQL) $(OP_MYSQL2)
 	$(COM_SPARQL) $(OP_MYSQL2_ISAM)
+	$(COM_SPARQL) $(OP_MYSQL)
+	$(COM_SPARQL) $(OP_MYSQL_ISAM)
 
 
 SIZES=1000 10000 20000 50000 100000 500000 1000000
