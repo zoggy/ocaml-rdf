@@ -1722,12 +1722,14 @@ and eval_triple ctx mu (x, path, y) =
              bnode_label = Some id ;
            })
       in
-      let bgp = BGP [ (x, p1, blank) ; (blank, p2, y) ] in
-      eval ctx bgp
+      eval_triples ctx [ (x, p1, blank) ; (blank, p2, y) ]
   | Alt (p1, p2) ->
-      let bgp1 = BGP [ (x, p1, y) ] in
+      let o1 = eval_triples ctx [ (x, p1, y) ] in
+      let o2 = eval_triples ctx [ (x, p2, y) ] in
+      union_omega o1 o2
+      (*let bgp1 = BGP [ (x, p1, y) ] in
       let bgp2 = BGP [ (x, p2, y) ] in
-      eval ctx (Union (bgp1, bgp2))
+      eval ctx (Union (bgp1, bgp2))*)
   | ZeroOrOne p ->
       eval_triple_path_zero_or_one ctx mu x p y
   | ZeroOrMore p ->
@@ -1737,7 +1739,7 @@ and eval_triple ctx mu (x, path, y) =
   | NPS iris ->
       eval_triple_path_nps ctx mu x iris y
 
-and eval ctx = function
+let rec eval ctx = function
 | BGP triples ->
     let om = eval_triples ctx triples in
     (*prerr_endline "BGP:"; __print_omega om;*)
