@@ -1364,8 +1364,14 @@ let aggregate_join =
 
 let cons h q = h :: q ;;
 
-let filter_of_var_or_term = function
-  Rdf_sparql_types.Var v -> (Some v.var_name, None)
+let filter_of_var_or_term mu = function
+  Rdf_sparql_types.Var v ->
+    begin
+      try
+        let term = Rdf_sparql_ms.mu_find_var v mu in
+        (None, Some term)
+      with Not_found -> (Some v.var_name, None)
+    end
 | GraphTerm t ->
     match t with
       GraphTermIri (Iriref ir) -> (None, Some (Rdf_term.Uri ir.ir_iri))
@@ -1374,12 +1380,17 @@ let filter_of_var_or_term = function
     | GraphTermNumeric lit
     | GraphTermBoolean lit -> (None, Some (Rdf_term.Literal lit.rdf_lit))
     | GraphTermBlank bn ->
-         let s =
-           match bn.bnode_label with
-             None -> None
-           | Some s -> Some ("?"^s)
-         in
-         (s, None)
+        begin
+          match bn.bnode_label with
+            None -> (None, None)
+          | Some s ->
+              let var_name = "?"^s in
+              let v = { var_name ; var_loc = Rdf_loc.dummy_loc } in
+              try
+                let term = Rdf_sparql_ms.mu_find_var v mu in
+                (None, Some term)
+              with Not_found -> (Some var_name, None)
+        end
     | GraphTermNil -> (None, None)
     | GraphTermNode node -> (None, Some node)
 
@@ -1388,18 +1399,28 @@ let eval_simple_triple =
     None -> mu
   | Some name -> Rdf_sparql_ms.mu_add name term mu
   in
-  fun ctx x path y ->
+  fun ctx mu x path y ->
     (*Rdf_ttl.to_file ctx.active "/tmp/t.ttl";*)
     dbg ~level: 2
       (fun () ->
          "eval_simple_triple "^
          (Rdf_sparql_algebra.string_of_triple (x, path, y))
       );
-    let (vx, sub) = filter_of_var_or_term x in
-    let (vy, obj) = filter_of_var_or_term y in
+    let (vx, sub) = filter_of_var_or_term mu x in
+    let (vy, obj) = filter_of_var_or_term mu y in
     let (vp, pred) =
       match path with
-        Var v -> (Some v.var_name, None)
+        Var v ->
+          begin
+            try
+              let term = Rdf_sparql_ms.mu_find_var v mu in
+              match term with
+                Rdf_term.Uri uri -> (None, Some uri)
+              | _ -> (* bad result, let's filter with an invalid url *)
+                  (None, Some (Rdf_uri.uri ~check: false "_"))
+            with Not_found ->
+                (Some v.var_name, None)
+          end
       | Iri ir -> (None, Some ir.ir_iri)
       | _ -> assert false
     in
@@ -1411,7 +1432,7 @@ let eval_simple_triple =
              (Rdf_uri.string p)^", "^
              (Rdf_term.string_of_term o)^")"
         );
-      let mu = add Rdf_sparql_ms.mu_0 s vx in
+      let mu = add mu s vx in
       let mu = add mu (Rdf_term.Uri p) vp in
       let mu = add mu o vy in
       Rdf_sparql_ms.omega_add mu acc
@@ -1480,18 +1501,69 @@ let eval_datablock =
 
 ;;
 
+let triple_constraint_score =
+  let score_of_node = function
+    T.Var _ -> 0
+  | T.GraphTerm t ->
+      match t with
+        T.GraphTermBlank _ -> 0
+      | T.GraphTermNil -> 0
+      | T.GraphTermIri _
+      | T.GraphTermLit _
+      | T.GraphTermNumeric _
+      | T.GraphTermBoolean _ -> 2
+      | T.GraphTermNode _ -> assert false
+  in
+  let rec score_of_path = function
+    | Var _ -> 0
+    | Iri _ -> 1
+    | Inv p -> score_of_path p
+    | _ -> 0
+  in
+  fun (sub, path, obj) ->
+    let score_sub = score_of_node sub in
+    let score_pred = score_of_path path in
+    let score_obj = score_of_node obj in
+    score_sub + score_pred + score_obj
+;;
+
+(* Sorting to have the most constraint triples first. *)
+let sort_triples =
+  let sort t1 t2 =
+    Pervasives.compare
+      (triple_constraint_score t2)
+      (triple_constraint_score t1)
+  in
+  List.sort sort
+;;
 
 let rec eval_triples =
-  let eval_join ctx acc triple =
-    let o = eval_triple ctx triple in
-    Rdf_sparql_ms.omega_join acc o
+  let rec iter_join ctx acc_mus mu triples =
+    (*prerr_endline ("iter_join triples="^(string_of_int (List.length triples)));
+    prerr_endline ("acc_mus: "^(string_of_int (List.length acc_mus)));*)
+    match triples with
+      [] ->
+        (*prerr_endline "concat";*)
+        mu :: acc_mus
+    | triple :: q ->
+        let o = eval_triple ctx mu triple in
+        (*prerr_endline  ("card(o)="^(string_of_int (Rdf_sparql_ms.Multimu.cardinal o)));*)
+        Rdf_sparql_ms.omega_fold
+          (fun mu acc_mus -> iter_join ctx acc_mus mu q)
+          o acc_mus
+
   in
   fun ctx -> function
     | [] -> Rdf_sparql_ms.omega_0
-    | l -> List.fold_left (eval_join ctx) Rdf_sparql_ms.omega_0 l
+    | l ->
+        (*prerr_endline ("triples: "^(string_of_int (List.length l)));*)
+        let sorted = sort_triples l in
+        let mus = iter_join ctx [] Rdf_sparql_ms.mu_0 sorted in
+        List.fold_left (fun o mu -> Rdf_sparql_ms.omega_add mu o)
+          Rdf_sparql_ms.Multimu.empty mus
 
-and eval_triple_path_zero_or_one ctx x p y =
-  let ms_one = eval_simple_triple ctx x p y in
+and eval_triple_path_zero_or_one ctx mu x p y =
+  let ms_one = eval_simple_triple ctx mu x p y in
   match x, y with
   | T.Var v, ((GraphTerm _) as t)
   | ((GraphTerm _) as t), T.Var v ->
@@ -1499,7 +1571,7 @@ and eval_triple_path_zero_or_one ctx x p y =
        eval(Path(X:term, ZeroOrOnePath(P), Y:var)) = { (Y, yn) | yn = X or {(Y, yn)} in eval(Path(X,P,Y)) }
        eval(Path(X:var, ZeroOrOnePath(P), Y:term)) = { (X, xn) | xn = Y or {(X, xn)} in eval(Path(X,P,Y)) }
      *)
-     let (_, term) = filter_of_var_or_term t in
+     let (_, term) = filter_of_var_or_term mu t in
      (
       match term with
         None -> ms_one
@@ -1522,8 +1594,8 @@ and eval_triple_path_zero_or_one ctx x p y =
           { {} } if X = Y or eval(Path(X,P,Y)) is not empty
           { } othewise
       *)
-      let (_, term1) = filter_of_var_or_term x in
-      let (_, term2) = filter_of_var_or_term y in
+      let (_, term1) = filter_of_var_or_term mu x in
+      let (_, term2) = filter_of_var_or_term mu y in
       if not (Rdf_sparql_ms.Multimu.is_empty ms_one) or
         Rdf_misc.opt_compare Rdf_term.compare term1 term2 = 0
       then
@@ -1545,55 +1617,55 @@ and eval_triple_path_zero_or_one ctx x p y =
       Rdf_term.TSet.fold f all_sub_and_obj ms_one
 
 and eval_reachable =
-  let node_of_graphterm t =
-      match filter_of_var_or_term t with
+  let node_of_graphterm mu0 t =
+      match filter_of_var_or_term mu0 t with
         (_, None) -> assert false
       | (_, Some node) -> node
   in
-  let rec iter ctx term path var (seen, acc_ms) =
-    let node = node_of_graphterm term in
+  let rec iter ctx mu0 term path var (seen, acc_ms) =
+    let node = node_of_graphterm mu0 term in
     match Rdf_term.TSet.mem node seen with
       true -> (seen, acc_ms)
     | false ->
         let seen = Rdf_term.TSet.add node seen in
-        let ms = eval_triple ctx (term, path, Rdf_sparql_types.Var var) in
+        let ms = eval_triple ctx mu0 (term, path, Rdf_sparql_types.Var var) in
         (* for each solution, use the node associated to var as
            starting point for next iteration *)
         let f mu (seen, acc_ms) =
           try
             let acc_ms = Rdf_sparql_ms.omega_add_if_not_present mu acc_ms in
             let node = Rdf_sparql_ms.mu_find_var var mu in
-            iter ctx (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
+            iter ctx mu0 (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
           with Not_found -> (seen, acc_ms)
         in
         Rdf_sparql_ms.omega_fold f ms (seen, acc_ms)
   in
-  fun ?(zero=false) ctx term path var ->
+  fun ?(zero=false) ctx mu0 term path var ->
     let (_,ms) =
       let ms_start =
         if zero then
-          Rdf_sparql_ms.omega var.var_name (node_of_graphterm term)
+          Rdf_sparql_ms.omega var.var_name (node_of_graphterm mu0 term)
         else
           Rdf_sparql_ms.Multimu.empty
       in
-      iter ctx term path var (Rdf_term.TSet.empty, ms_start)
+      iter ctx mu0 term path var (Rdf_term.TSet.empty, ms_start)
     in
     ms
 
-and eval_triple_path_or_more ctx ~zero x p y =
+and eval_triple_path_or_more ctx mu ~zero x p y =
   match x, y with
   | GraphTerm _, T.Var v ->
-      eval_reachable ~zero ctx x p v
+      eval_reachable ~zero ctx mu x p v
   | T.Var v, GraphTerm _ ->
-      eval_reachable ~zero ctx x (Inv p) v
+      eval_reachable ~zero ctx mu x (Inv p) v
   | GraphTerm _, GraphTerm _ ->
       let node =
-        match filter_of_var_or_term y with
+        match filter_of_var_or_term mu y with
           (_, None) ->  assert false
         | (_, Some node) -> node
       in
       let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
-      let solutions = eval_reachable ~zero ctx x p v in
+      let solutions = eval_reachable ~zero ctx mu x p v in
       let pred mu =
         try Rdf_term.compare (Rdf_sparql_ms.mu_find_var v mu) node = 0
         with Not_found -> false
@@ -1607,7 +1679,7 @@ and eval_triple_path_or_more ctx ~zero x p y =
       let all_sub_and_obj = active_graph_subjects_and_objects ctx in
       let f node acc_ms =
         let term = GraphTerm (GraphTermNode node) in
-        let ms = eval_reachable ~zero ctx term p v2 in
+        let ms = eval_reachable ~zero ctx mu term p v2 in
         (* add (v1 -> node) to each returned solution *)
         let f mu acc_ms =
           let mu = Rdf_sparql_ms.mu_add v1.var_name node mu in
@@ -1617,7 +1689,7 @@ and eval_triple_path_or_more ctx ~zero x p y =
       in
       Rdf_term.TSet.fold f all_sub_and_obj Rdf_sparql_ms.Multimu.empty
 
-and eval_triple_path_nps ctx x iris y =
+and eval_triple_path_nps ctx mu x iris y =
   (* compute the triples and remove solutions where the predicate
      is one of the iris. *)
   let forbidden = List.fold_left
@@ -1626,7 +1698,7 @@ and eval_triple_path_nps ctx x iris y =
   in
   (* we use a dummy variable to access the predicate in each solution *)
   let v = { var_loc = Rdf_loc.dummy_loc ; var_name = "__"^(Rdf_sparql_ms.gen_blank_id()) } in
-  let ms = eval_simple_triple ctx x (Var v) y in
+  let ms = eval_simple_triple ctx mu x (Var v) y in
   let pred mu =
     try
       let p = Rdf_sparql_ms.mu_find_var v mu in
@@ -1636,11 +1708,11 @@ and eval_triple_path_nps ctx x iris y =
   Rdf_sparql_ms.omega_filter pred ms
 
 (* See http://www.w3.org/TR/sparql11-query/#PropertyPathPatterns *)
-and eval_triple ctx (x, path, y) =
+and eval_triple ctx mu (x, path, y) =
   match path with
     Var _
-  | Iri _ -> eval_simple_triple ctx x path y
-  | Inv p -> eval_triple ctx (y, p, x)
+  | Iri _ -> eval_simple_triple ctx mu x path y
+  | Inv p -> eval_triple ctx mu (y, p, x)
   | Seq (p1, p2) ->
       let blank =
         let id = Rdf_sparql_ms.gen_blank_id () in
@@ -1657,18 +1729,18 @@ and eval_triple ctx (x, path, y) =
       let bgp2 = BGP [ (x, p2, y) ] in
       eval ctx (Union (bgp1, bgp2))
   | ZeroOrOne p ->
-      eval_triple_path_zero_or_one ctx x p y
+      eval_triple_path_zero_or_one ctx mu x p y
   | ZeroOrMore p ->
-      eval_triple_path_or_more ~zero: true ctx x p y
+      eval_triple_path_or_more ~zero: true ctx mu x p y
   | OneOrMore p ->
-      eval_triple_path_or_more ~zero: false ctx x p y
+      eval_triple_path_or_more ~zero: false ctx mu x p y
   | NPS iris ->
-      eval_triple_path_nps ctx x iris y
+      eval_triple_path_nps ctx mu x iris y
 
 and eval ctx = function
 | BGP triples ->
     let om = eval_triples ctx triples in
-    (* prerr_endline "BGP:"; __print_omega om;*)
+    (*prerr_endline "BGP:"; __print_omega om;*)
     om
 
 | Join (a1, a2) ->
