@@ -35,11 +35,15 @@ module SSet = Rdf_sparql_types.SSet
 
 module VMap = Rdf_dt.VMap;;
 
+
+exception Incompatible_mus of string
+exception Cannot_extend_mu of var
+
 (** A solution mapping : variable -> rdf term *)
 type mu = {
-    mu_bindings : Rdf_term.term SMap.t ;
-    mutable mu_bnodes : string VMap.t ;
-  }
+  mu_bindings : Rdf_term.term SMap.t ;
+  mutable mu_bnodes : string VMap.t ;
+}
 
 let mu_0 = { mu_bindings = SMap.empty ; mu_bnodes = VMap.empty }
 let mu_add v t mu = { mu with mu_bindings = SMap.add v t mu.mu_bindings }
@@ -61,8 +65,6 @@ let get_bnode mu value =
 
 let mu_compare mu1 mu2 = SMap.compare Rdf_term.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
 
-exception Incompatible_mus of string
-exception Cannot_extend_mu of var
 
 let mu_merge =
   let f var term1 term2 =
