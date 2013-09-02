@@ -1527,14 +1527,42 @@ let triple_constraint_score =
     score_sub + score_pred + score_obj
 ;;
 
+let triple_vars =
+  let add = Rdf_sparql_types.SSet.add in
+  let rec of_path set = function
+    Var v -> add v.var_name set
+  | Iri _ -> set
+  | Inv p -> of_path set p
+  | Alt (p1, p2) -> of_path (of_path set p1) p2
+  | Seq (p1, p2) -> of_path (of_path set p1) p2
+  | ZeroOrMore p -> of_path set p
+  | OneOrMore p -> of_path set p
+  | ZeroOrOne p -> of_path set p
+  | NPS _ -> set
+  in
+  let of_node set = function
+    T.Var v -> add v.var_name set
+  | T.GraphTerm (GraphTermBlank { bnode_label = Some s }) -> add ("?"^s) set
+  | _ -> set
+  in
+  fun (x,path,y) ->
+    of_node (of_path (of_node Rdf_sparql_types.SSet.empty y) path) x
+;;
+
 (* Sorting to have the most constraint triples first. *)
 let sort_triples =
-  let sort t1 t2 =
-    Pervasives.compare
-      (triple_constraint_score t2)
-      (triple_constraint_score t1)
+  let add_data triple =
+    (triple, triple_constraint_score triple, triple_vars triple)
   in
-  List.sort sort
+  let sort (t1,sc1,vars1) (t2,sc2,vars2) =
+    match sc1 - sc2 with
+      0 -> Rdf_sparql_types.SSet.compare vars1 vars2
+    | n -> n
+  in
+  let proj (t,_,_) = t in
+  fun l ->
+    let l = List.map add_data l in
+    List.map proj (List.sort sort l)
 ;;
 
 let rec eval_triples =
