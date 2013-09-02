@@ -1549,14 +1549,16 @@ let triple_vars =
     of_node (of_path (of_node Rdf_sparql_types.SSet.empty y) path) x
 ;;
 
-(* Sorting to have the most constraint triples first. *)
 let sort_triples =
   let add_data triple =
     (triple, triple_constraint_score triple, triple_vars triple)
   in
   let sort (t1,sc1,vars1) (t2,sc2,vars2) =
+    (* sort: the least constraints first *)
     match sc1 - sc2 with
-      0 -> Rdf_sparql_types.SSet.compare vars1 vars2
+      0 ->
+        (* then sort by variables used in triples*)
+        Rdf_sparql_types.SSet.compare vars1 vars2
     | n -> n
   in
   let proj (t,_,_) = t in
