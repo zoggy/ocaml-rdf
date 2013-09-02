@@ -315,7 +315,7 @@ let sparql_stats ids g =
 let print_duration_table p pn ids str rows =
   (* ensure ids are in the same order as in duration maps *)
   let ids = List.fold_left (fun map id -> SMap.add id 0 map) SMap.empty ids in
-  pn "<table class=\"table table-bordered\">";
+  pn "<table class=\"table table-bordered table-condensed\">";
   p "<thead><th>Nb. of triples</th>";
   SMap.iter (fun s _ -> p ("<th>"^s^"</th>")) ids;
   pn "</thead>";
@@ -359,6 +359,7 @@ let report g outfile =
   let f_sparql t =
     let file = Filename.basename t.query_file in
     pn ("<subsection id=\""^file^"\" title=\""^file^"\">");
+    pn ("<hcode lang=\"sql\"><![CDATA["^t.query^"]]></hcode>");
     print_duration_table p pn ids
       (fun d -> Printf.sprintf "%.4f" d)
       t.backend_durations ;
