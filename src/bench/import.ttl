@@ -1,0 +1,127 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+_:genid9-990874620 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/id> "mem" .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mem" .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/duration> "1.64845705032"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid9-990874620 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid8-590597721 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/id> "mysql2(innodb)" .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=InnoDB" .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/duration> "553.78310895"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid8-590597721 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid7-345807921 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/id> "mysql2(isam)" .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=MyISAM" .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/duration> "12.9674580097"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid7-345807921 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid6-145101039 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/id> "mysql2(isam)" .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=MyISAM" .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/duration> "1.24496293068"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid6-145101039 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid5-1053194198 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/id> "mysql(isam)" .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=MyISAM" .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/duration> "1.60840415955"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid5-1053194198 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid4-622420317 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/id> "mem" .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mem" .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/duration> "0.162228107452"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid4-622420317 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid3-261134146 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/id> "mysql(innodb)" .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=InnoDB" .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/duration> "19.7438049316"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid3-261134146 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid2-615616793 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/id> "mysql2(innodb)" .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=InnoDB" .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/duration> "15.3293480873"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid2-615616793 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid15-942369349 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/id> "mysql2(isam)" .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=MyISAM" .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/duration> "78.6849009991"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid15-942369349 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid13-103865712 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/id> "mysql(isam)" .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=MyISAM" .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/duration> "12.8023629189"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid13-103865712 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid12-638534391 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/id> "mysql(innodb)" .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=InnoDB" .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/duration> "802.816108942"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid12-638534391 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid11-202839984 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/id> "mysql(innodb)" .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=InnoDB" .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/duration> "158.061284065"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid11-202839984 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid10-316960884 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/id> "mem" .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mem" .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/duration> "9.77584791183"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid10-316960884 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid1-483599879 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/id> "mysql(isam)" .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql ; engine=MyISAM" .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/duration> "60.8430891037"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid1-483599879 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid0-180910423 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/id> "mysql2(innodb)" .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=mysql2 ; engine=InnoDB" .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/duration> "102.409939051"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid0-180910423 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid3-119571856 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/source> "./data_50000.ttl" .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/id> "postgresql" .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=postgresql" .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/duration> "709.77624917"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid3-119571856 <http://localhost/ocamml-rdf-bench/dataSize> "50177"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid1-560187532 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/source> "./data_1000.ttl" .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/id> "postgresql" .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=postgresql" .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/duration> "18.8154909611"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid1-560187532 <http://localhost/ocamml-rdf-bench/dataSize> "1294"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:genid0-449683077 rdf:type <http://localhost/ocamml-rdf-bench/import> .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/source> "./data_10000.ttl" .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/result> "1"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/id> "postgresql" .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/graphOptions> "storage=postgresql" .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/duration> "146.653810024"^^<http://www.w3.org/2001/XMLSchema#double> .
+_:genid0-449683077 <http://localhost/ocamml-rdf-bench/dataSize> "10312"^^<http://www.w3.org/2001/XMLSchema#integer> .
