@@ -1501,30 +1501,46 @@ let eval_datablock =
 
 ;;
 
+(* score of pattern selectivity, copied from
+  https://bitbucket.org/dotnetrdf/dotnetrdf/wiki/DeveloperGuide/SPARQL/SPARQL%20Optimization. *)
 let triple_constraint_score =
-  let score_of_node = function
-    T.Var _ -> 0
+  let of_var mu v =
+    try ignore(Rdf_sparql_ms.mu_find_var v mu); true
+    with Not_found -> false
+  in
+  let of_node mu = function
+    T.Var v -> of_var mu v
   | T.GraphTerm t ->
       match t with
-        T.GraphTermBlank _ -> 0
-      | T.GraphTermNil -> 0
+        T.GraphTermBlank { bnode_label = Some s } ->
+          of_var mu { var_name = "?"^s ; var_loc = Rdf_loc.dummy_loc }
+      | T.GraphTermBlank _ -> false
+      | T.GraphTermNil -> false
       | T.GraphTermIri _
       | T.GraphTermLit _
       | T.GraphTermNumeric _
-      | T.GraphTermBoolean _ -> 2
+      | T.GraphTermBoolean _ -> true
       | T.GraphTermNode _ -> assert false
   in
-  let rec score_of_path = function
-    | Var _ -> 0
-    | Iri _ -> 1
-    | Inv p -> score_of_path p
-    | _ -> 0
+  let rec of_path mu = function
+    | Var v -> of_var mu v
+    | Iri _ -> true
+    | Inv p -> of_path mu p
+    | _ -> false
   in
-  fun (sub, path, obj) ->
-    let score_sub = score_of_node sub in
-    let score_pred = score_of_path path in
-    let score_obj = score_of_node obj in
-    score_sub + score_pred + score_obj
+  fun mu (sub, path, obj) ->
+    let sub = of_node mu sub in
+    let pred = of_path mu path in
+    let obj = of_node mu obj in
+    match (sub, pred, obj) with
+      true, true, true -> 7
+    | true, true, false -> 6
+    | true, false, true -> 4
+    | false, true, true -> 4
+    | true, false, false -> 3
+    | false, true, false -> 2
+    | false, false, true -> 1
+    | false, false, false -> 0
 ;;
 
 let triple_vars =
@@ -1550,25 +1566,26 @@ let triple_vars =
 ;;
 
 let sort_triples =
-  let add_data triple =
-    (triple, triple_constraint_score triple, triple_vars triple)
+  let add_data mu triple =
+    (triple, triple_constraint_score mu triple, triple_vars triple)
   in
   let sort (t1,sc1,vars1) (t2,sc2,vars2) =
-    (* sort: the least constraints first *)
-    match sc1 - sc2 with
+    (* sort: the most constrained first *)
+    match sc2 - sc1 with
       0 ->
         (* then sort by variables used in triples*)
         Rdf_sparql_types.SSet.compare vars1 vars2
     | n -> n
   in
-  let proj (t,_,_) = t in
-  fun l ->
-    let l = List.map add_data l in
+  let proj (t,s,_) = t in
+  fun mu l ->
+    let l = List.map (add_data mu) l in
     List.map proj (List.sort sort l)
 ;;
 
 let rec eval_triples =
   let rec iter_join ctx acc_mus mu triples =
+    let triples = sort_triples mu triples in
     (*prerr_endline ("iter_join triples="^(string_of_int (List.length triples)));
     prerr_endline ("acc_mus: "^(string_of_int (List.length acc_mus)));*)
     match triples with
@@ -1587,8 +1604,7 @@ let rec eval_triples =
     | [] -> Rdf_sparql_ms.omega_0
     | l ->
         (*prerr_endline ("triples: "^(string_of_int (List.length l)));*)
-        let sorted = sort_triples l in
-        let mus = iter_join ctx [] Rdf_sparql_ms.mu_0 sorted in
+        let mus = iter_join ctx [] Rdf_sparql_ms.mu_0 l in
         List.fold_left (fun o mu -> Rdf_sparql_ms.omega_add mu o)
           Rdf_sparql_ms.Multimu.empty mus
 
