@@ -220,6 +220,24 @@ let new_blank_id g =
 
 let graph_size g = Triples_s_p.cardinal g.g_set_sub;;
 
+module Mem_BGP =
+  struct
+    let to_uri (sub,pred,obj) = (sub, Rdf_term.Uri pred, obj)
+    type term = Rdf_term.term
+    type g = t
+    let term _ t = t
+    let rdfterm _ t = t
+    let compare _ = Rdf_term.compare
+    let subjects = subjects
+    let objects = objects
+    let find ?sub ?pred ?obj g =
+      match pred with
+        None -> List.map to_uri (find ?sub ?obj g)
+      | Some (Rdf_term.Uri uri) ->
+         List.map to_uri (find ?sub ~pred: uri ?obj g)
+      | _ -> []
+  end
+
 module Mem =
   struct
     let name = "mem"
@@ -256,6 +274,8 @@ module Mem =
     let transaction_rollback = transaction_rollback
 
     let new_blank_id = new_blank_id
+
+    module BGP = Mem_BGP
   end;;
 
 Rdf_graph.add_storage (module Mem : Rdf_graph.Storage);;

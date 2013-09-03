@@ -504,6 +504,23 @@ let new_blank_id g =
   Rdf_term.blank_id_of_string
     ("genid"^(string_of_int cardinal)^"-"^(string_of_int (Random.int max_int)))
 ;;
+module BGP =
+  struct    
+    let to_uri (sub,pred,obj) = (sub, Rdf_term.Uri pred, obj)
+    type term = Rdf_term.term
+    type g = t
+    let term _ t = t
+    let rdfterm _ t = t
+    let compare _ = Rdf_term.compare
+    let subjects = subjects
+    let objects = objects
+    let find ?sub ?pred ?obj g =
+      match pred with
+        None -> List.map to_uri (find ?sub ?obj g)
+      | Some (Rdf_term.Uri uri) ->
+         List.map to_uri (find ?sub ~pred: uri ?obj g)
+      | _ -> []
+  end
 
 module Postgresql =
   struct
@@ -541,6 +558,8 @@ module Postgresql =
     let transaction_rollback = transaction_rollback
 
     let new_blank_id = new_blank_id
+    
+    module BGP = BGP
   end;;
 
 Rdf_graph.add_storage (module Postgresql : Rdf_graph.Storage);;

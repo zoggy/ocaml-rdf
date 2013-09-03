@@ -36,6 +36,23 @@ let get_option ?def name l =
       | Some v -> v
 ;;
 
+(** Interface to query Basic Graph Patterns (BGP) in a graph. *)
+module type Storage_BGP =
+  sig
+    type g
+    type term
+    val term : g -> Rdf_term.term -> term
+    val compare : g -> term -> term -> int
+    val rdfterm : g -> term -> Rdf_term.term
+    val subjects : g -> term list
+    val objects : g -> term list
+    val find :
+        ?sub:term ->
+        ?pred: term ->
+        ?obj:term -> g -> (term * term * term) list
+  end
+;;
+
 module type Storage =
   sig
     val name : string
@@ -73,6 +90,8 @@ module type Storage =
     val transaction_rollback : g -> unit
 
     val new_blank_id : g -> Rdf_term.blank_id
+
+    module BGP : Storage_BGP with type g = g
   end
 
 exception Storage_error of string * string * exn
@@ -112,6 +131,8 @@ module Make (S : Storage) =
     let transaction_rollback = embed S.transaction_rollback
 
     let new_blank_id = embed S.new_blank_id
+
+    module BGP = S.BGP
   end
 
 module type Graph =
@@ -145,6 +166,8 @@ module type Graph =
     val transaction_rollback : g -> unit
 
     val new_blank_id : g -> Rdf_term.blank_id
+
+    module BGP : Storage_BGP with type g = g
   end
 
 let storages = ref [];;
@@ -176,6 +199,7 @@ type graph =
     transaction_rollback : unit -> unit ;
     new_blank_id : unit -> Rdf_term.blank_id ;
     namespaces : unit -> (uri * string) list ;
+    bgp : (module Rdf_bgp.S) ;
   }
 
 
@@ -202,6 +226,19 @@ let open_graph ?(options=[]) name =
     in
     List.map f triples
   in
+  let module P =
+    struct
+      type term = S.BGP.term
+      type g = S.g
+      let term = S.BGP.term g
+      let compare = S.BGP.compare g
+      let rdfterm = S.BGP.rdfterm g
+      let subjects () = S.BGP.subjects g
+      let objects () = S.BGP.objects g
+      let find ?sub ?pred ?obj () = S.BGP.find ?sub ?pred ?obj g
+    end
+  in
+  let module BGP = Rdf_bgp.Make (P) in
   { name = (fun () -> S.graph_name g) ;
     size = (fun () -> S.graph_size g) ;
     add_triple = S.add_triple g ;
@@ -222,6 +259,7 @@ let open_graph ?(options=[]) name =
     transaction_rollback = (fun () -> S.transaction_rollback g) ;
     new_blank_id = (fun () -> S.new_blank_id g) ;
     namespaces = namespaces ;
+    bgp = (module BGP : Rdf_bgp.S) ;
   }
 ;;
 

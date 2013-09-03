@@ -1,5 +1,9 @@
 kw_to_re.cmo :
 kw_to_re.cmx :
+rdf_bgp.cmo : rdf_term.cmi rdf_sparql_types.cmo rdf_sparql_ms.cmo \
+    rdf_sparql_algebra.cmo rdf_misc.cmi rdf_loc.cmi rdf_bgp.cmi
+rdf_bgp.cmx : rdf_term.cmx rdf_sparql_types.cmx rdf_sparql_ms.cmx \
+    rdf_sparql_algebra.cmx rdf_misc.cmx rdf_loc.cmx rdf_bgp.cmi
 rdf_config.cmo : rdf_config.cmi
 rdf_config.cmx : rdf_config.cmi
 rdf_dot.cmo : rdf_uri.cmi rdf_term.cmi rdf_rdf.cmi rdf_graph.cmi rdf_dot.cmi
@@ -8,8 +12,10 @@ rdf_ds.cmo : rdf_uri.cmi rdf_graph.cmi rdf_ds.cmi
 rdf_ds.cmx : rdf_uri.cmx rdf_graph.cmx rdf_ds.cmi
 rdf_dt.cmo : rdf_uri.cmi rdf_term.cmi rdf_rdf.cmi rdf_dt.cmi
 rdf_dt.cmx : rdf_uri.cmx rdf_term.cmx rdf_rdf.cmx rdf_dt.cmi
-rdf_graph.cmo : rdf_uri.cmi rdf_term.cmi rdf_rdf.cmi rdf_graph.cmi
-rdf_graph.cmx : rdf_uri.cmx rdf_term.cmx rdf_rdf.cmx rdf_graph.cmi
+rdf_graph.cmo : rdf_uri.cmi rdf_term.cmi rdf_rdf.cmi rdf_bgp.cmi \
+    rdf_graph.cmi
+rdf_graph.cmx : rdf_uri.cmx rdf_term.cmx rdf_rdf.cmx rdf_bgp.cmx \
+    rdf_graph.cmi
 rdf_loc.cmo : rdf_utf8.cmi rdf_misc.cmi rdf_loc.cmi
 rdf_loc.cmx : rdf_utf8.cmx rdf_misc.cmx rdf_loc.cmi
 rdf_mem.cmo : rdf_uri.cmi rdf_term.cmi rdf_misc.cmi rdf_graph.cmi
@@ -44,16 +50,16 @@ rdf_sparql_algebra.cmx : rdf_uri.cmx rdf_term.cmx rdf_sparql_vis.cmx \
     rdf_loc.cmx
 rdf_sparql_bench.cmo : rdf_xml.cmi rdf_uri.cmi rdf_ttl.cmi rdf_term.cmi \
     rdf_sparql_test.cmo rdf_sparql.cmi rdf_rdf.cmi rdf_misc.cmi rdf_graph.cmi \
-    rdf_dt.cmi rdf_ds.cmi
+    rdf_ds.cmi
 rdf_sparql_bench.cmx : rdf_xml.cmx rdf_uri.cmx rdf_ttl.cmx rdf_term.cmx \
     rdf_sparql_test.cmx rdf_sparql.cmx rdf_rdf.cmx rdf_misc.cmx rdf_graph.cmx \
-    rdf_dt.cmx rdf_ds.cmx
+    rdf_ds.cmx
 rdf_sparql_eval.cmo : rdf_utf8.cmi rdf_uri.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql_ms.cmo rdf_sparql_algebra.cmo rdf_rdf.cmi \
-    rdf_misc.cmi rdf_loc.cmi rdf_graph.cmi rdf_dt.cmi rdf_ds.cmi
+    rdf_misc.cmi rdf_loc.cmi rdf_graph.cmi rdf_dt.cmi rdf_ds.cmi rdf_bgp.cmi
 rdf_sparql_eval.cmx : rdf_utf8.cmx rdf_uri.cmx rdf_term.cmx \
     rdf_sparql_types.cmx rdf_sparql_ms.cmx rdf_sparql_algebra.cmx rdf_rdf.cmx \
-    rdf_misc.cmx rdf_loc.cmx rdf_graph.cmx rdf_dt.cmx rdf_ds.cmx
+    rdf_misc.cmx rdf_loc.cmx rdf_graph.cmx rdf_dt.cmx rdf_ds.cmx rdf_bgp.cmx
 rdf_sparql_expand.cmo : rdf_xml.cmi rdf_uri.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql_ms.cmo rdf_sparql_algebra.cmo rdf_rdf.cmi \
     rdf_misc.cmi rdf_loc.cmi
@@ -128,11 +134,12 @@ test_uncodepoint.cmo : rdf_sparql_lex.cmi
 test_uncodepoint.cmx : rdf_sparql_lex.cmx
 test_xml.cmo : rdf_xml.cmi rdf_uri.cmi rdf_graph.cmi rdf_dot.cmi
 test_xml.cmx : rdf_xml.cmx rdf_uri.cmx rdf_graph.cmx rdf_dot.cmx
+rdf_bgp.cmi : rdf_term.cmi rdf_sparql_ms.cmo rdf_sparql_algebra.cmo
 rdf_config.cmi :
 rdf_dot.cmi : rdf_uri.cmi rdf_term.cmi rdf_graph.cmi
 rdf_ds.cmi : rdf_uri.cmi rdf_graph.cmi
 rdf_dt.cmi : rdf_uri.cmi rdf_term.cmi
-rdf_graph.cmi : rdf_uri.cmi rdf_term.cmi
+rdf_graph.cmi : rdf_uri.cmi rdf_term.cmi rdf_bgp.cmi
 rdf_loc.cmi :
 rdf_misc.cmi :
 rdf_rdf.cmi : rdf_uri.cmi

@@ -53,6 +53,16 @@ LIB_RDF_CMOFILES= \
 	rdf_uri.cmo \
 	rdf_rdf.cmo \
 	rdf_term.cmo \
+	rdf_dt.cmo \
+	rdf_sparql_types.cmo \
+	rdf_sparql_ms.cmo \
+	rdf_sparql_vis.cmo \
+	rdf_sparql_parser.cmo \
+	rdf_sparql_lex.cmo \
+	rdf_sparql_map.cmo \
+	rdf_sparql_print.cmo \
+	rdf_sparql_algebra.cmo \
+	rdf_bgp.cmo \
 	rdf_graph.cmo \
 	rdf_ds.cmo \
 	rdf_mem.cmo \
@@ -63,15 +73,6 @@ LIB_RDF_CMOFILES= \
 	rdf_ttl_parser.cmo \
 	rdf_ttl_lex.cmo \
 	rdf_ttl.cmo \
-	rdf_dt.cmo \
-	rdf_sparql_types.cmo \
-	rdf_sparql_vis.cmo \
-	rdf_sparql_parser.cmo \
-	rdf_sparql_lex.cmo \
-	rdf_sparql_map.cmo \
-	rdf_sparql_print.cmo \
-	rdf_sparql_algebra.cmo \
-	rdf_sparql_ms.cmo \
 	rdf_sparql_expand.cmo \
 	rdf_sparql_eval.cmo \
 	rdf_sparql.cmo

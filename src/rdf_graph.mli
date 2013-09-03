@@ -63,6 +63,23 @@ val get_option : ?def:string -> string -> options -> string
 
 This is useful only to create your own storage. *)
 
+(** Interface to query Basic Graph Patterns (BGP) in a graph. *)
+module type Storage_BGP =
+  sig
+    type g
+    type term
+    val term : g -> Rdf_term.term -> term
+    val compare : g -> term -> term -> int
+    val rdfterm : g -> term -> Rdf_term.term
+    val subjects : g -> term list
+    val objects : g -> term list
+    val find :
+        ?sub:term ->
+        ?pred:term ->
+        ?obj:term -> g -> (term * term * term) list
+  end
+;;
+
 (** A storage is a module with this interface. *)
 module type Storage =
   sig
@@ -168,6 +185,8 @@ module type Storage =
 
     (** Forging a new, unique blank node id. *)
     val new_blank_id : g -> Rdf_term.blank_id
+
+    module BGP : Storage_BGP with type g = g
   end
 
 (** This is the exception raised by the module we get when applying
@@ -218,6 +237,8 @@ module type Graph =
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
     val new_blank_id : g -> Rdf_term.blank_id
+
+    module BGP : Storage_BGP with type g = g
   end
 module Make : functor (S : Storage) -> Graph with type g = S.g
 
@@ -259,6 +280,7 @@ type graph = {
   transaction_rollback : unit -> unit;
   new_blank_id : unit -> Rdf_term.blank_id ;
   namespaces : unit -> (Rdf_uri.uri * string) list ;
+  bgp : (module Rdf_bgp.S) ;
 }
 
 (** {2 Graph creation} *)

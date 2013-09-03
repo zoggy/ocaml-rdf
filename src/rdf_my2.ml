@@ -220,6 +220,25 @@ let subjects g = query_term_list g prepared_subject [];;
 let predicates g = query_pred_list g prepared_predicate [];;
 let objects g = query_term_list g prepared_object [];;
 
+
+module MyBGP =
+  struct
+    let to_uri (sub,pred,obj) = (sub, Rdf_term.Uri pred, obj)
+    type term = Rdf_term.term
+    type g = t
+    let term _ t = t
+    let rdfterm _ t = t
+    let compare _ = Rdf_term.compare
+    let subjects = subjects
+    let objects = objects
+    let find ?sub ?pred ?obj g =
+      match pred with
+        None -> List.map to_uri (find ?sub ?obj g)
+      | Some (Rdf_term.Uri uri) ->
+          List.map to_uri (find ?sub ~pred: uri ?obj g)
+      | _ -> []
+  end
+
 module Mysql =
   struct
     let name = "mysql2"
@@ -256,6 +275,8 @@ module Mysql =
     let transaction_rollback = Rdf_my.transaction_rollback
 
     let new_blank_id = Rdf_my.new_blank_id
+
+    module BGP = MyBGP
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;

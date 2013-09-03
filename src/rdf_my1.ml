@@ -161,12 +161,37 @@ let term_of_hash dbd hash =
       raise (Error msg)
 ;;
 
+let query_hash_list g stmt params =
+  let res = Rdf_my.exec_prepared g.g_dbd stmt params in
+  let f = function
+  | [| Some hash |] -> Mysql.int642ml hash
+  | _ -> raise (Error "Invalid result: NULL hash or too many fields")
+  in
+  Mysql.map res ~f
+;;
+
 let query_term_list g stmt params =
   let res = Rdf_my.exec_prepared g.g_dbd stmt params in
   let f = function
   | [| Some hash |] ->
       term_of_hash g.g_dbd (Mysql.int642ml hash)
   | _ -> raise (Error "Invalid result: NULL hash or too many fields")
+  in
+  Mysql.map res ~f
+;;
+
+let query_hash_triple_list g where_clause =
+  let query =
+    "SELECT subject, predicate, object FROM "^g.g_table^" where " ^ where_clause (* removed DISTINCT *)
+  in
+  let res = exec_query g.g_dbd query in
+  let f = function
+  | [| Some sub ; Some pred ; Some obj |] ->
+      (Mysql.int642ml sub,
+       Mysql.int642ml pred,
+       Mysql.int642ml obj
+      )
+  | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
   in
   Mysql.map res ~f
 ;;
@@ -269,6 +294,23 @@ let mk_where_clause ?sub ?pred ?obj g =
       String.concat " AND " l
 ;;
 
+let mk_hash_where_clause ?sub ?pred ?obj g =
+  let mk_cond field = function
+    None -> []
+  | Some term ->
+      [field ^"="^(Int64.to_string term)]
+  in
+  match sub, pred, obj with
+    None, None, None -> "TRUE"
+  | _ ->
+      let l =
+        (mk_cond "subject" sub) @
+        (mk_cond "predicate" pred) @
+        (mk_cond "object" obj)
+      in
+      String.concat " AND " l
+;;
+
 let find ?sub ?pred ?obj g =
   let clause = mk_where_clause ?sub ?pred ?obj g in
   query_triple_list g clause
@@ -279,6 +321,20 @@ let exists = Rdf_my.exists mk_where_clause;;
 let subjects g = query_term_list g Rdf_my.prepared_subject [];;
 let predicates g = List.map to_uri (query_term_list g Rdf_my.prepared_predicate []);;
 let objects g = query_term_list g Rdf_my.prepared_object [];;
+
+module MyBGP =
+  struct
+    type term = Int64.t
+    type g = t
+    let term g t = hash_of_term g.g_dbd ~add: false t
+    let rdfterm g t = term_of_hash g.g_dbd t
+    let compare _ = Int64.compare
+    let subjects g = query_hash_list g Rdf_my.prepared_subject []
+    let objects g = query_hash_list g Rdf_my.prepared_object []
+    let find ?sub ?pred ?obj g =
+       let clause = mk_hash_where_clause ?sub ?pred ?obj g in
+       query_hash_triple_list g clause
+  end
 
 module Mysql =
   struct
@@ -316,6 +372,8 @@ module Mysql =
     let transaction_rollback = Rdf_my.transaction_rollback
 
     let new_blank_id = Rdf_my.new_blank_id
+
+    module BGP = MyBGP
   end;;
 
 Rdf_graph.add_storage (module Mysql : Rdf_graph.Storage);;
