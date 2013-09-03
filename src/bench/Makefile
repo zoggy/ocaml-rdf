@@ -4,9 +4,10 @@ OP_MYSQL='[("storage","mysql");("engine","InnoDB");("database","rdfbench");("use
 OP_MYSQL_ISAM='[("storage","mysql");("engine","MyISAM");("database","rdfbenchisam");("user","rdf")]' --id 'mysql(isam)'
 OP_MYSQL2='[("storage","mysql2");("engine","InnoDB");("database","rdfbench2");("user","rdf")]' --id 'mysql2(innodb)'
 OP_MYSQL2_ISAM='[("storage","mysql2");("engine","MyISAM");("database","rdfbench2isam");("user","rdf")]' --id 'mysql2(isam)'
+OP_PGSQL='[("storage","postgresql");("database","rdfbench");("user","rdf");("host","localhost");("password","bench"]' --id 'postgresql'
 OP_MEM='[("storage","mem")]' --id 'mem'
 
-BACKENDS=OP_MYSQL2 OP_MYSQL2_ISAM OP_MYSQL OP_MYSQL_ISAM OP_MEM
+BACKENDS=OP_MYSQL2 OP_MYSQL2_ISAM OP_MYSQL OP_MYSQL_ISAM OP_PGSQL OP_MEM
 
 all: import sparql
 
@@ -25,6 +26,7 @@ import:
 	$(COM_IMPORT) $(OP_MYSQL2_ISAM)
 	$(COM_IMPORT) $(OP_MYSQL)
 	$(COM_IMPORT) $(OP_MYSQL_ISAM)
+	$(COM_IMPORT) $(OP_PGSQL)
 
 sparql:
 	$(COM_SPARQL) $(OP_MEM)
@@ -32,7 +34,7 @@ sparql:
 	$(COM_SPARQL) $(OP_MYSQL2_ISAM)
 	$(COM_SPARQL) $(OP_MYSQL)
 	$(COM_SPARQL) $(OP_MYSQL_ISAM)
-
+	$(COM_SPARQL) $(OP_PGSQL)
 
 SIZES=1000 10000 20000 50000 100000 500000 1000000
 

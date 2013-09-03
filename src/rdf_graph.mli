@@ -63,7 +63,14 @@ val get_option : ?def:string -> string -> options -> string
 
 This is useful only to create your own storage. *)
 
-(** Interface to query Basic Graph Patterns (BGP) in a graph. *)
+(** Interface to query Basic Graph Patterns (BGP) in a graph.
+  Here the term representation is abstracted, so that it can
+  be for example an id in a database table, which will make
+  triple matching and joining faster when matching a BGP by
+  querying the real terms only for the result of the whole
+  BGP, instead of retrieving terms and joining results of each
+  triple.
+   *)
 module type Storage_BGP =
   sig
     type g

@@ -337,6 +337,20 @@ let term_of_hash dbd hash =
       raise (Error msg)
 ;;
 
+
+let query_hash_list g stmt params =
+  let res = exec_prepared g.g_dbd stmt params in
+  let size = res#ntuples in
+  let rec iter n acc =
+    if n < size then
+      let acc = (Int64.of_string (getvalue res n 0)) :: acc in
+      iter (n+1) acc
+    else
+      acc
+  in
+  iter 0 []
+;;
+
 let query_term_list g stmt params =
   let res = exec_prepared g.g_dbd stmt params in
   let size = res#ntuples in
@@ -349,6 +363,30 @@ let query_term_list g stmt params =
   in
   iter 0 []
 ;;
+
+let query_hash_triple_list g where_clause =
+  let query =
+    "SELECT subject, predicate, object FROM "^g.g_table^" where "^where_clause (* removed DISTINCT *)
+  in
+  let res = exec_query g.g_dbd query in
+  let size = res#ntuples in
+  let rec iter n acc =
+    if n < size then
+      match get_tuple res n with
+        [| sub ; pred ; obj |] ->
+          let acc =
+            (Int64.of_string sub,
+             Int64.of_string pred,
+             Int64.of_string obj) :: acc
+          in
+          iter (n+1) acc
+      | _ -> raise (Error "Invalid result: bad number of fields")
+    else
+      acc
+  in
+  iter 0 []
+;;
+
 
 let query_triple_list g where_clause =
   let query =
@@ -372,6 +410,7 @@ let query_triple_list g where_clause =
   in
   iter 0 []
 ;;
+
 
 let open_graph ?(options=[]) name =
   let dbd = init_db options in
@@ -423,6 +462,23 @@ let objects_of g ~sub ~pred =
   query_term_list g prepared_objects_of
   [ Int64.to_string (hash_of_term g.g_dbd sub) ;
     Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ]
+;;
+
+let mk_hash_where_clause ?sub ?pred ?obj g =
+  let mk_cond field = function
+    None -> []
+  | Some term ->
+      [field^"="^(Int64.to_string term)]
+  in
+  match sub, pred, obj with
+    None, None, None -> "TRUE"
+  | _ ->
+      let l =
+        (mk_cond "subject" sub) @
+        (mk_cond "predicate" pred) @
+        (mk_cond "object" obj)
+      in
+      String.concat " AND " l
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
@@ -505,21 +561,17 @@ let new_blank_id g =
     ("genid"^(string_of_int cardinal)^"-"^(string_of_int (Random.int max_int)))
 ;;
 module BGP =
-  struct    
-    let to_uri (sub,pred,obj) = (sub, Rdf_term.Uri pred, obj)
-    type term = Rdf_term.term
+  struct
+    type term = Int64.t
     type g = t
-    let term _ t = t
-    let rdfterm _ t = t
-    let compare _ = Rdf_term.compare
-    let subjects = subjects
-    let objects = objects
+    let term g t = hash_of_term g.g_dbd ~add: false t
+    let rdfterm g t = term_of_hash g.g_dbd t
+    let compare _ = Int64.compare
+    let subjects g = query_hash_list g prepared_subject []
+    let objects g = query_hash_list g prepared_object []
     let find ?sub ?pred ?obj g =
-      match pred with
-        None -> List.map to_uri (find ?sub ?obj g)
-      | Some (Rdf_term.Uri uri) ->
-         List.map to_uri (find ?sub ~pred: uri ?obj g)
-      | _ -> []
+       let clause = mk_hash_where_clause ?sub ?pred ?obj g in
+       query_hash_triple_list g clause
   end
 
 module Postgresql =
@@ -558,7 +610,7 @@ module Postgresql =
     let transaction_rollback = transaction_rollback
 
     let new_blank_id = new_blank_id
-    
+
     module BGP = BGP
   end;;
 
