@@ -315,7 +315,7 @@ let sparql_stats ids g =
 let print_duration_table p pn ids str rows =
   (* ensure ids are in the same order as in duration maps *)
   let ids = List.fold_left (fun map id -> SMap.add id 0 map) SMap.empty ids in
-  pn "<table class=\"table table-bordered table-condensed\">";
+  pn "<table class=\"table table-bordered table-condensed table-bench\">";
   p "<thead><th>Nb. of triples</th>";
   SMap.iter (fun s _ -> p ("<th>"^s^"</th>")) ids;
   pn "</thead>";
@@ -343,9 +343,8 @@ let report g outfile =
   pn "<page\ntitle=\"Benchmarks\"\n>";
   pn "<prepare-toc><toc/>";
   pn "<p>Execution times are in seconds. Executions were run on
-    a personal machine (Intel 1.87GHz, 64 bits debian). Times
-    on their own are not important. Only ratios between backends
-    are interesting.</p>";
+    a personal machine (8 cores, Intel 1.87GHz, 64 bits debian).
+    </p><p>Mysql version: 5.5.31</p><p>Postgresql version: 9.3</p>";
 
   let ids = ids g in
 

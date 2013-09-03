@@ -5725,6 +5725,15 @@ pre {
 */
 
 }
+.table-bench {
+  font-size: 0.889em;
+}
+.table-bench td {
+  text-align: center ;
+}
+.table-bench th {
+  text-align: center ;
+}
 .author-photo {
   max-height: 120px;
 }
