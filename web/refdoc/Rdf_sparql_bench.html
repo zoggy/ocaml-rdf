@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_sparql_bench</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_sparql_algebra.html" title="Rdf_sparql_algebra">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_sparql_eval.html" title="Rdf_sparql_eval">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_bench.html">Rdf_sparql_bench</a></h1>
+<pre><span class="keyword">module</span> Rdf_sparql_bench: <code class="code">sig</code> <a href="Rdf_sparql_bench.html">..</a> <code class="code">end</code></pre><div class="info">
+Main module of the rdf_sparql_bench tool.<br/>
+</div>
+<hr width="100%"/>
+<pre><span id="VALbase"><span class="keyword">val</span> base</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_"><span class="keyword">val</span> prop_</span> : <code class="type">string -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_options"><span class="keyword">val</span> prop_options</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_source"><span class="keyword">val</span> prop_source</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_query"><span class="keyword">val</span> prop_query</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_query_file"><span class="keyword">val</span> prop_query_file</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_duration"><span class="keyword">val</span> prop_duration</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_datasize"><span class="keyword">val</span> prop_datasize</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_result"><span class="keyword">val</span> prop_result</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_error"><span class="keyword">val</span> prop_error</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALprop_id"><span class="keyword">val</span> prop_id</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALtype_op_sparql"><span class="keyword">val</span> type_op_sparql</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALtype_op_import"><span class="keyword">val</span> type_op_import</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><pre><span id="VALget_time"><span class="keyword">val</span> get_time</span> : <code class="type">unit -&gt; float</code></pre><pre><code><span id="TYPEoperation_kind"><span class="keyword">type</span> operation_kind</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation_kind.Import"><span class="constructor">Import</span></span> <span class="keyword">of</span> <code class="type">Rdf_sparql_test.result</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation_kind.Sparql_query"><span class="constructor">Sparql_query</span></span> <span class="keyword">of</span> <code class="type">Rdf_sparql_test.result</code></code></td>
+
+</tr></table>
+
+
+<pre><code><span id="TYPEoperation"><span class="keyword">type</span> operation</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation.datasize">datasize</span>&#160;:<code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation.kind">kind</span>&#160;:<code class="type"><a href="Rdf_sparql_bench.html#TYPEoperation_kind">operation_kind</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation.duration">duration</span>&#160;:<code class="type">float option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation.spec">spec</span>&#160;:<code class="type">Rdf_sparql_test.test_spec</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELToperation.id">id</span>&#160;:<code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre><span id="VALstore_operation"><span class="keyword">val</span> store_operation</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_sparql_bench.html#TYPEoperation">operation</a> -&gt; unit</code></pre><pre><span id="VALrun_sparql_test"><span class="keyword">val</span> run_sparql_test</span> : <code class="type">id:string -&gt; Rdf_sparql_test.test_spec -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALrun_import_test"><span class="keyword">val</span> run_import_test</span> : <code class="type">id:string -&gt; Rdf_sparql_test.test_spec -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALsparql_select"><span class="keyword">val</span> sparql_select</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; <a href="Rdf_sparql.html#TYPEsolution">Rdf_sparql.solution</a> list</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_bench.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre><pre><span id="TYPEimport_stats"><span class="keyword">type</span> import_stats</span> = <code class="type">(int * float option SMap.t) list</code> </pre>
+
+<pre><span id="VALus"><span class="keyword">val</span> us</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string</code></pre><pre><span id="VALids"><span class="keyword">val</span> ids</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string list</code></pre><pre><span id="VALsizes_of_op"><span class="keyword">val</span> sizes_of_op</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?clause:string -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; int list</code></pre><pre><span id="VALimport_stats"><span class="keyword">val</span> import_stats</span> : <code class="type">SMap.key list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (int * float option SMap.t) list</code></pre><pre><span id="VALqueries"><span class="keyword">val</span> queries</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (string * string) list</code></pre><pre><code><span id="TYPEsparql_stat"><span class="keyword">type</span> sparql_stat</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsparql_stat.query_file">query_file</span>&#160;:<code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsparql_stat.query">query</span>&#160;:<code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsparql_stat.backend_durations">backend_durations</span>&#160;:<code class="type">(int * float option SMap.t) list</code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre><span id="VALsparql_stat"><span class="keyword">val</span> sparql_stat</span> : <code class="type">SMap.key list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string * string -&gt; <a href="Rdf_sparql_bench.html#TYPEsparql_stat">sparql_stat</a></code></pre><pre><span id="VALsparql_stats"><span class="keyword">val</span> sparql_stats</span> : <code class="type">SMap.key list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_sparql_bench.html#TYPEsparql_stat">sparql_stat</a> list</code></pre><pre><span id="VALprint_duration_table"><span class="keyword">val</span> print_duration_table</span> : <code class="type">(string -&gt; unit) -&gt;<br/>       (string -&gt; unit) -&gt;<br/>       SMap.key list -&gt;<br/>       ('a -&gt; string) -&gt; (int * 'a option SMap.t) list -&gt; unit</code></pre><pre><span id="VALreport"><span class="keyword">val</span> report</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre><pre><code><span id="TYPEmode"><span class="keyword">type</span> mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Import"><span class="constructor">Import</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Sparql"><span class="constructor">Sparql</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Html"><span class="constructor">Html</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+<pre><span id="VALmode"><span class="keyword">val</span> mode</span> : <code class="type"><a href="Rdf_sparql_bench.html#TYPEmode">mode</a> Pervasives.ref</code></pre><pre><span id="VALgraph_options"><span class="keyword">val</span> graph_options</span> : <code class="type">string option Pervasives.ref</code></pre><pre><span id="VALresult_file"><span class="keyword">val</span> result_file</span> : <code class="type">string Pervasives.ref</code></pre><pre><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">string option Pervasives.ref</code></pre><pre><span id="VALoptions"><span class="keyword">val</span> options</span> : <code class="type">(string * Arg.spec * string) list</code></pre><pre><span id="VALusage_string"><span class="keyword">val</span> usage_string</span> : <code class="type">string</code></pre><pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">unit -&gt; unit</code></pre><pre><span id="VALsafe_main"><span class="keyword">val</span> safe_main</span> : <code class="type">(unit -&gt; 'a) -&gt; 'a</code></pre></div></contents></ocamldoc>

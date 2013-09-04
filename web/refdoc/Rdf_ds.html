@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_ds</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_dot.html" title="Rdf_dot">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_dt.html" title="Rdf_dt">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_ds.html">Rdf_ds</a></h1>
+<pre><span class="keyword">module</span> Rdf_ds: <code class="code">sig</code> <a href="Rdf_ds.html">..</a> <code class="code">end</code></pre><div class="info">
+Datasets.
+<div class="vertical-space"> </div>
+
+A dataset is composed of:<ul>
+<li>a default graph,</li>
+<li>a set of named graphs,</li>
+<li>a function to get a graph by its IRI.</li>
+</ul>
+<br/>
+</div>
+<hr width="100%"/>
+<pre><span id="EXCEPTIONCould_not_retrieve_graph"><span class="keyword">exception</span> Could_not_retrieve_graph</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string</code></pre>
+<div class="info">
+This exception indicates that a graph could not be retrieved.
+  It can be raised by functions retrieving graphs, in a <a href="Rdf_ds.html#VALdataset"><code class="code">Rdf_ds.dataset</code></a>
+  structure. The URI of the graph and an error message must be provided.<br/>
+</div>
+<pre><span id="VALcould_not_retrieve_graph"><span class="keyword">val</span> could_not_retrieve_graph</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; 'a</code></pre><div class="info">
+This function raises the <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a> exception.<br/>
+</div>
+<pre><code><span id="TYPEdataset"><span class="keyword">type</span> dataset</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdataset.default">default</span>&#160;:<code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The default graph.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdataset.named">named</span>&#160;:<code class="type">Rdf_uri.Uriset.t</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The set of named graphs.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdataset.get_named">get_named</span>&#160;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The function to get a graph by its name (URI).
+       The function must raise <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a> in case of error.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info">
+A dataset.<br/>
+</div>
+
+<pre><span id="VALsimple_dataset"><span class="keyword">val</span> simple_dataset</span> : <code class="type">?named:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
+<code class="code">simple_dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
+</div>
+<pre><span id="VALdataset"><span class="keyword">val</span> dataset</span> : <code class="type">?get_named:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) -&gt;<br/>       ?named:Rdf_uri.Uriset.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
+<code class="code">dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
+</div>
+</div></contents></ocamldoc>

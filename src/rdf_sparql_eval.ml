@@ -211,12 +211,12 @@ let fun_datetime = function
   [] | _::_::_ -> error (Invalid_fun_argument xsd_datetime)
 | [v] -> Rdf_dt.datetime v
 
-let uri_funs = [
+let uri_funs_ = [
     xsd_datetime, fun_datetime ;
   ];;
 
 let uri_funs = ref (List.fold_left
-  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty uri_funs);;
+  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty uri_funs_);;
 
 let add_uri_fun uri f = uri_funs := Irimap.add uri f !uri_funs;;
 

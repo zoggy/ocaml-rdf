@@ -1,0 +1,228 @@
+<ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_pg.PG</title><contents><div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;oid&#160;=&#160;int<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;large_object&#160;=&#160;<span class="constructor">Postgresql</span>.large_object<br/>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">FFormat</span>&#160;:&#160;<span class="keyword">sig</span>&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Postgresql</span>.<span class="constructor">FFormat</span>.t&#160;=&#160;<span class="constructor">TEXT</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BINARY</span>&#160;<span class="keyword">end</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;ftype&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Postgresql</span>.ftype&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BOOL</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BYTEA</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CHAR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NAME</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INT8</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INT2</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INT2VECTOR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INT4</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGPROC</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TEXT</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OID</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TID</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">XID</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CID</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OIDVECTOR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">POINT</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LSEG</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PATH</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BOX</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">POLYGON</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LINE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">FLOAT4</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">FLOAT8</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ABSTIME</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">RELTIME</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TINTERVAL</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">UNKNOWN</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CIRCLE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CASH</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">MACADDR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INET</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CIDR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ACLITEM</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BPCHAR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VARCHAR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DATE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TIME</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TIMESTAMP</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TIMESTAMPTZ</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INTERVAL</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TIMETZ</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BIT</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VARBIT</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NUMERIC</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REFCURSOR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGPROCEDURE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGOPER</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGOPERATOR</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGCLASS</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">REGTYPE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">RECORD</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">CSTRING</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ANY</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ANYARRAY</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VOID</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TRIGGER</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LANGUAGE_HANDLER</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">INTERNAL</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OPAQUE</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ANYELEMENT</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;result_status&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Postgresql</span>.result_status&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Empty_query</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Command_ok</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Tuples_ok</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Copy_out</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Copy_in</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bad_response</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Nonfatal_error</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Fatal_error</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;getline_result&#160;=&#160;<span class="constructor">Postgresql</span>.getline_result&#160;=&#160;<span class="constructor">EOF</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LineRead</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">BufFull</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;getline_async_result&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Postgresql</span>.getline_async_result&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">EndOfData</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NoData</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataRead</span>&#160;<span class="keyword">of</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PartDataRead</span>&#160;<span class="keyword">of</span>&#160;int<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;seek_cmd&#160;=&#160;<span class="constructor">Postgresql</span>.seek_cmd&#160;=&#160;<span class="constructor">SEEK_SET</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">SEEK_CUR</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">SEEK_END</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;error&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Postgresql</span>.error&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Field_out_of_range</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;int<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Tuple_out_of_range</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;int<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Binary</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Connection_failure</span>&#160;<span class="keyword">of</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Unexpected_status</span>&#160;<span class="keyword">of</span>&#160;result_status&#160;*&#160;string&#160;*&#160;result_status&#160;list<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Cancel_failure</span>&#160;<span class="keyword">of</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Error</span>&#160;<span class="keyword">of</span>&#160;error<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_error&#160;:&#160;error&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Oid</span>&#160;<span class="keyword">of</span>&#160;oid<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;unescape_bytea&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">external</span>&#160;ftype_of_oid&#160;:&#160;oid&#160;<span class="keywordsign">-&gt;</span>&#160;ftype&#160;=&#160;<span class="string">"ftype_of_oid_stub"</span><br/>
+&#160;&#160;<span class="keyword">external</span>&#160;oid_of_ftype&#160;:&#160;ftype&#160;<span class="keywordsign">-&gt;</span>&#160;oid&#160;=&#160;<span class="string">"oid_of_ftype_stub"</span><br/>
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_ftype&#160;:&#160;ftype&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;ftype_of_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;ftype<br/>
+&#160;&#160;<span class="keyword">external</span>&#160;result_status&#160;:&#160;result_status&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;=&#160;<span class="string">"PQresStatus_stub"</span><br/>
+&#160;&#160;<span class="keyword">val</span>&#160;invalid_oid&#160;:&#160;oid<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;null&#160;:&#160;string<br/>
+&#160;&#160;<span class="keyword">class</span>&#160;<span class="keyword">type</span>&#160;result&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="keyword">object</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;binary_tuples&#160;:&#160;bool<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;cmd_status&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;cmd_tuples&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;error&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;fformat&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">FFormat</span>.t<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;fmod&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;fname&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;fnumber&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;fsize&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;ftype&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;ftype<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_all&#160;:&#160;string&#160;array&#160;array<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_all_lst&#160;:&#160;string&#160;list&#160;list<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_escaped_value&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_fnames&#160;:&#160;string&#160;array<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_fnames_lst&#160;:&#160;string&#160;list<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_tuple&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;array<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_tuple_lst&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;list<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;getisnull&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;getlength&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;getvalue&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;nfields&#160;:&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;nparams&#160;:&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;ntuples&#160;:&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;oid_value&#160;:&#160;oid<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;paramtype&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;ftype<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;status&#160;:&#160;result_status<br/>
+&#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;connection_status&#160;=&#160;<span class="constructor">Postgresql</span>.connection_status&#160;=&#160;<span class="constructor">Ok</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bad</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;conninfo_option&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Postgresql</span>.conninfo_option&#160;=&#160;{<br/>
+&#160;&#160;&#160;&#160;cio_keyword&#160;:&#160;string;<br/>
+&#160;&#160;&#160;&#160;cio_envvar&#160;:&#160;string&#160;option;<br/>
+&#160;&#160;&#160;&#160;cio_compiled&#160;:&#160;string&#160;option;<br/>
+&#160;&#160;&#160;&#160;cio_val&#160;:&#160;string&#160;option;<br/>
+&#160;&#160;&#160;&#160;cio_label&#160;:&#160;string;<br/>
+&#160;&#160;&#160;&#160;cio_dispchar&#160;:&#160;string;<br/>
+&#160;&#160;&#160;&#160;cio_dispsize&#160;:&#160;int;<br/>
+&#160;&#160;}<br/>
+&#160;&#160;<span class="keyword">external</span>&#160;conndefaults&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;conninfo_option&#160;array<br/>
+&#160;&#160;&#160;&#160;=&#160;<span class="string">"PQconndefaults_stub"</span><br/>
+&#160;&#160;<span class="keyword">class</span>&#160;connection&#160;:<br/>
+&#160;&#160;&#160;&#160;?host:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?hostaddr:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?port:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?dbname:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?user:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?password:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?options:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?tty:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?requiressl:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;?conninfo:string&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;unit&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keyword">object</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;backend_pid&#160;:&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;consume_input&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;copy_in_channel&#160;:&#160;in_channel&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;copy_out&#160;:&#160;(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;copy_out_channel&#160;:&#160;out_channel&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;db&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;describe_prepared&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;empty_result&#160;:&#160;result_status&#160;<span class="keywordsign">-&gt;</span>&#160;result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;endcopy&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;error_message&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;escape_bytea&#160;:&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;escape_string&#160;:&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;exec&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?expect:result_status&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?params:string&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;?binary_params:bool&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;exec_prepared&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?expect:result_status&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?params:string&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;?binary_params:bool&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;finish&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;flush&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;get_result&#160;:&#160;result&#160;option<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;getline&#160;:&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;getline_result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;getline_async&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;getline_async_result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;host&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;is_busy&#160;:&#160;bool<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;is_nonblocking&#160;:&#160;bool<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_close&#160;:&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_creat&#160;:&#160;oid<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_export&#160;:&#160;oid&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_import&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;oid<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_open&#160;:&#160;oid&#160;<span class="keywordsign">-&gt;</span>&#160;large_object<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_read&#160;:&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_read_ba&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;large_object&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?len:int&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(char,&#160;<span class="constructor">Bigarray</span>.int8_unsigned_elt,&#160;<span class="constructor">Bigarray</span>.c_layout)<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bigarray</span>.<span class="constructor">Array1</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_seek&#160;:&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?whence:seek_cmd&#160;<span class="keywordsign">-&gt;</span>&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_tell&#160;:&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_unlink&#160;:&#160;oid&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_write&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;lo_write_ba&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?len:int&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(char,&#160;<span class="constructor">Bigarray</span>.int8_unsigned_elt,&#160;<span class="constructor">Bigarray</span>.c_layout)<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bigarray</span>.<span class="constructor">Array1</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;large_object&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;notifies&#160;:&#160;(string&#160;*&#160;int)&#160;option<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;options&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pass&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;port&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;prepare&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;result<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;putline&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;putnbytes&#160;:&#160;?pos:int&#160;<span class="keywordsign">-&gt;</span>&#160;?len:int&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;request_cancel&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;reset&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;send_query&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;?params:string&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;?binary_params:bool&#160;array&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;set_nonblocking&#160;:&#160;bool&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;set_notice_processor&#160;:&#160;(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;socket&#160;:&#160;int<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;status&#160;:&#160;connection_status<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;try_reset&#160;:&#160;unit<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;tty&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;user&#160;:&#160;string<br/>
+&#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
+<span class="keyword">end</span></code></div></contents></ocamldoc>

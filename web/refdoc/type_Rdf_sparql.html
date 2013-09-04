@@ -1,0 +1,53 @@
+<ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_sparql</title><contents><div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;error&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Parse_error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_loc</span>.loc&#160;*&#160;string<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Value_error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_dt</span>.error<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Eval_error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_eval</span>.error<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Algebra_error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.error<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Not_select</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Not_ask</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Not_construct</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Not_describe</span><br/>
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql</span>.error<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_error&#160;:&#160;<span class="constructor">Rdf_sparql</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;query&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.query<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;parse_from_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;parse_from_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_query&#160;:&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;solution<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_term&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;is_bound&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;solution_fold&#160;:<br/>
+&#160;&#160;&#160;&#160;(string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;solution_iter&#160;:<br/>
+&#160;&#160;&#160;&#160;(string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_string&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_iri&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_uri</span>.uri<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_int&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_float&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;float<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_bool&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_datetime&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Netdate</span>.t<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;get_ltrl&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;*&#160;string&#160;option<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;query_result&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bool</span>&#160;<span class="keyword">of</span>&#160;bool<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Solutions</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;list<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Graph</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_graph</span>.graph<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;execute&#160;:<br/>
+&#160;&#160;&#160;&#160;?graph:<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;base:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_ds</span>.dataset&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query_result<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;select&#160;:<br/>
+&#160;&#160;&#160;&#160;base:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_ds</span>.dataset&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;construct&#160;:<br/>
+&#160;&#160;&#160;&#160;?graph:<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;base:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_ds</span>.dataset&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_graph</span>.graph<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;ask&#160;:&#160;base:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_ds</span>.dataset&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;describe&#160;:<br/>
+&#160;&#160;&#160;&#160;?graph:<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;base:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_ds</span>.dataset&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_graph</span>.graph<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;uri_fun&#160;=&#160;<span class="constructor">Rdf_dt</span>.value&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;uri_funs&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.uri_fun&#160;<span class="constructor">Rdf_uri</span>.<span class="constructor">Urimap</span>.t<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;add_uri_fun&#160;:&#160;<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.uri_fun&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
+<span class="keyword">end</span></code></div></contents></ocamldoc>

@@ -17,8 +17,10 @@ style.css: less/*.less
 site: style.css
 	$(STOG) $(STOG_OPTIONS) .
 	$(CP) style.css $(DEST_DIR)/style.css
-	mkdir -p $(DEST_DIR)/refdoc
-	(cd .. && make doc) && cp -r ../src/ocamldoc/* $(DEST_DIR)/refdoc/
+
+ocamldoc:
+	rm -f refdoc/*html ref-doc/style.css
+	(cd ../src && make docstog)
 
 test:
 	$(MAKE) BASE_URL_OPTION="--site-url file://$(DEST_DIR)" site

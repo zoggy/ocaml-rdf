@@ -125,6 +125,7 @@ a.paragraph-url {
 
 .target() {
  .rounded-box () ;
+ display: inline ;
 }
 
 *:target { .target() ; }
@@ -210,9 +211,46 @@ pre {
 }
 
 .table-bench {
-  font-size: 1em * @decreaseFontSizeFactor ;
+  font-size: 1em ;/* * @decreaseFontSizeFactor ; */
 }
 .table-bench {
   td { text-align: center ; }
   th { text-align: center ; }
+}
+
+.ocamldoc-page {
+  font-size: 1em * @decreaseFontSizeFactor ;
+  line-height: @baseLineHeight * @decreaseFontSizeFactor * @decreaseFontSizeFactor * @decreaseFontSizeFactor * @decreaseFontSizeFactor ;
+}
+
+
+.ocamldoc-page {
+  @import "ocamldoc.less";
+  code {
+    font-size: 10pt;
+    border-width: 0;
+    background-color: transparent ;
+    color: @textColor ;
+    font-weight: bold ;
+  }
+  .code { background-color: transparent ; font-weight: bold ;}
+  pre {
+    padding : 8pt 0 2pt 0;
+    border-width: 0;
+    background-color: transparent ;
+    white-space: pre-wrap;
+    line-height: @baseLineHeight * @decreaseFontSizeFactor ;
+    margin-bottom: 0;
+    font-weight: bold ;
+  }
+  .info, .param_info { font-size : 1em  * @decreaseFontSizeFactor ; }
+  a { color: @linkColor ; }
+  /*table.indextable { margin-top: -2em; }*/
+  div.vertical-space { height: @baseLineHeight * @decreaseFontSizeFactor * @decreaseFontSizeFactor * @decreaseFontSizeFactor; }
+
+  b { font-weight: normal ; color: @red ; }
+  .section-title { margin-bottom: -0.2em; }
+  .subsection-title { margin-bottom: -1em; }
+  .subsubsection-title { margin-bottom: -1em ; }
+
 }

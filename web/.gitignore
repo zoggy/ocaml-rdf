@@ -3,3 +3,4 @@ mystog-ocaml-session
 example.dot
 example.ttl
 .stog/cache
+refdoc/style.css

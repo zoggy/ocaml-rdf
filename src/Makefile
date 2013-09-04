@@ -171,6 +171,14 @@ docg: dump.odoc
 	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
 	$(CP) ../web/style.css ocamldoc/
 
+docstog: dump.odoc
+	$(MKDIR) ../web/refdoc
+	ocamldoc.opt $(OCAMLPP) \
+	-t "OCaml-RDF reference documentation" \
+	-load $^ -intro index.text \
+	-d ../web/refdoc -g odoc_stog.cmxs \
+	-g odoc_depgraph.cmxs -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
+
 dot: dep.dot
 dep.dot: dump.odoc
 	$(OCAMLDOC) -load $< -o $@ -dot -dot-reduce

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_xml</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_utf8.html" title="Rdf_utf8">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;</div>
+<h1>Module <a href="type_Rdf_xml.html">Rdf_xml</a></h1>
+<pre><span class="keyword">module</span> Rdf_xml: <code class="code">sig</code> <a href="Rdf_xml.html">..</a> <code class="code">end</code></pre><div class="info">
+Reading and writing RDF/XML.<br/>
+</div>
+<hr width="100%"/>
+<pre><span id="EXCEPTIONInvalid_rdf"><span class="keyword">exception</span> Invalid_rdf</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_xml.SMap.html">SMap</a>: <code class="type">Map.S</code><code class="type">  with type key = string</code></pre><pre><code><span id="TYPEtree"><span class="keyword">type</span> tree</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtree.E"><span class="constructor">E</span></span> <span class="keyword">of</span> <code class="type">Xmlm.tag * <a href="Rdf_xml.html#TYPEtree">tree</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtree.D"><span class="constructor">D</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info">
+The type of XML tree walked through to fill the graph.<br/>
+</div>
+
+<pre><code><span id="TYPEstate"><span class="keyword">type</span> state</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.subject">subject</span>&#160;:<code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.predicate">predicate</span>&#160;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.xml_base">xml_base</span>&#160;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.xml_lang">xml_lang</span>&#160;:<code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.datatype">datatype</span>&#160;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.namespaces">namespaces</span>&#160;:<code class="type">string Rdf_uri.Urimap.t</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+Type of current state when walking through the xml tree.<br/>
+</div>
+
+<pre><code><span id="TYPEglobal_state"><span class="keyword">type</span> global_state</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTglobal_state.blanks">blanks</span>&#160;:<code class="type"><a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a> SMap.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTglobal_state.gnamespaces">gnamespaces</span>&#160;:<code class="type">string Rdf_uri.Urimap.t</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+Global state of the analysis.<br/>
+</div>
+
+<pre><span id="VALget_blank_node"><span class="keyword">val</span> get_blank_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt;<br/>       SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre><pre><span id="VALinput_node"><span class="keyword">val</span> input_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre><pre><span id="VALinput_prop"><span class="keyword">val</span> input_prop</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int</code></pre><div class="info">
+Fill a graph from a current state, a pair (global state, li counter),
+  and a property node.<br/>
+</div>
+<pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; unit</code></pre><pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; unit</code></pre><pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>

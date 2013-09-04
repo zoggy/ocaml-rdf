@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_ttl</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_term.html" title="Rdf_term">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_ttl_types.html" title="Rdf_ttl_types">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_ttl.html">Rdf_ttl</a></h1>
+<pre><span class="keyword">module</span> Rdf_ttl: <code class="code">sig</code> <a href="Rdf_ttl.html">..</a> <code class="code">end</code></pre><div class="info">
+Reading and writing Turtle.<br/>
+</div>
+<hr width="100%"/>
+<pre><code><span id="TYPEerror"><span class="keyword">type</span> error</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Parse_error"><span class="constructor">Parse_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a> * string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Unknown_namespace"><span class="constructor">Unknown_namespace</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a></code></pre>
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a> -&gt; string</code></pre><pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALstring_of_triple"><span class="keyword">val</span> string_of_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string</code></pre><pre><span id="VALto_"><span class="keyword">val</span> to_</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -&gt;<br/>       (string -&gt; unit) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre><pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>

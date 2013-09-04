@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_uri</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_ulex.html" title="Rdf_ulex">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_utf8.html" title="Rdf_utf8">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_uri.html">Rdf_uri</a></h1>
+<pre><span class="keyword">module</span> Rdf_uri: <code class="code">sig</code> <a href="Rdf_uri.html">..</a> <code class="code">end</code></pre><div class="info">
+URIs.<br/>
+</div>
+<hr width="100%"/>
+<pre><span id="TYPEuri"><span class="keyword">type</span> uri</span> </pre>
+<div class="info">
+URIs are abstract. <b>Do not compare with generic comparison
+  functions</b> (<code class="code">Pervasives.compare</code>, (=), ...) as it contains
+  functional values. Use <a href="Rdf_uri.html#VALequal"><code class="code">Rdf_uri.equal</code></a> or <a href="Rdf_uri.html#VALcompare"><code class="code">Rdf_uri.compare</code></a>.<br/>
+</div>
+
+<pre><span id="EXCEPTIONInvalid_url"><span class="keyword">exception</span> Invalid_url</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string</code></pre><div class="info">
+Create a string from a URI.<br/>
+</div>
+<pre><span id="VALuri"><span class="keyword">val</span> uri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+Create a URI from a string.<br/>
+<b>Raises</b> <code>Invalid_url</code> in case the string does not represent a valid URL.<br/>
+</div>
+<div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent URI parsing.
+     Parsing will be done later if needed, and may then raise <code class="code">Invalid_url</code>.</div>
+<pre><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+Add the given string to the path of the given URI, using '/' as separator.<br/>
+</div>
+<pre><span id="VALparent"><span class="keyword">val</span> parent</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+Return a new URI with the path modified to parent path of the original URI.<br/>
+</div>
+<pre><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+Modify the fragment part of the URI.<br/>
+</div>
+<pre><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string list</code></pre><div class="info">
+Get the path part of the URI.<br/>
+</div>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; int</code></pre><div class="info">
+Comparison of two URIs, as usual.<br/>
+</div>
+<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; bool</code></pre><div class="info">
+Equality over URIs.<br/>
+</div>
+<pre><span id="VALneturl"><span class="keyword">val</span> neturl</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; Neturl.url</code></pre><div class="info">
+Get a <code class="code">Neturl.url</code> from the given URI. (<code class="code">Neturl.url</code>
+  is the underlying represention of URIs).<br/>
+</div>
+<pre><span id="VALof_neturl"><span class="keyword">val</span> of_neturl</span> : <code class="type">Neturl.url -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+Get a <a href="Rdf_uri.html#VALuri"><code class="code">Rdf_uri.uri</code></a> from the given <code class="code">Neturl.url</code>.<br/>
+</div>
+<pre><span class="keyword">module</span> <a href="Rdf_uri.Urimap.html">Urimap</a>: <code class="type">Map.S</code><code class="type">  with type key = uri</code></pre><pre><span class="keyword">module</span> <a href="Rdf_uri.Uriset.html">Uriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = uri</code></pre></div></contents></ocamldoc>

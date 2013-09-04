@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_bgp.P</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="Rdf_bgp.html" title="Rdf_bgp">Up</a>
+&#160;<a class="post" href="Rdf_bgp.S.html" title="Rdf_bgp.S">Next</a>
+</div>
+<h1>Module type <a href="type_Rdf_bgp.P.html">Rdf_bgp.P</a></h1>
+<pre><span class="keyword">module type</span> P = <code class="code">sig</code> <a href="Rdf_bgp.P.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+<pre><span id="TYPEg"><span class="keyword">type</span> g</span> </pre>
+
+<pre><span id="TYPEterm"><span class="keyword">type</span> term</span> </pre>
+
+<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_bgp.P.html#TYPEterm">term</a></code></pre><pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt; <a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt; int</code></pre><pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type"><a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type">unit -&gt; <a href="Rdf_bgp.P.html#TYPEterm">term</a> list</code></pre><pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type">unit -&gt; <a href="Rdf_bgp.P.html#TYPEterm">term</a> list</code></pre><pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt;<br/>       ?pred:<a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt;<br/>       ?obj:<a href="Rdf_bgp.P.html#TYPEterm">term</a> -&gt;<br/>       unit -&gt; (<a href="Rdf_bgp.P.html#TYPEterm">term</a> * <a href="Rdf_bgp.P.html#TYPEterm">term</a> * <a href="Rdf_bgp.P.html#TYPEterm">term</a>) list</code></pre></div></contents></ocamldoc>

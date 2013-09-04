@@ -1,0 +1,347 @@
+<page
+title="Benchmarks"
+>
+<prepare-toc><toc/>
+<p>Execution times are in seconds. Executions were run on
+    a personal machine (8 cores, Intel 1.87GHz, 64 bits debian). Times
+    on their own are not important. Only ratios between backends
+    are interesting.</p><p>Mysql version: 5.5.31</p><p>Postgresql version: 9.3</p>
+<section id="import" title="Importing triples">
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.16</td><td>19.74</td><td>1.61</td><td>15.33</td><td>1.24</td><td>18.82</td></tr>
+<tr><td><strong>10312</strong></td><td>1.65</td><td>158.06</td><td>12.80</td><td>102.41</td><td>12.97</td><td>146.65</td></tr>
+<tr><td><strong>50177</strong></td><td>9.78</td><td>802.82</td><td>60.84</td><td>553.78</td><td>78.68</td><td>709.78</td></tr>
+</table>
+</section>
+<section id="sparql" title="Executing sparql queries">
+<subsection id="q1.sparql" title="q1.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX bench:   <http://localhost/vocabulary/bench/>
+PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT ?yr
+WHERE {
+  ?journal rdf:type bench:Journal .
+  ?journal dc:title "Journal 1 (1940)"^^xsd:string .
+  ?journal dcterms:issued ?yr 
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0002</td><td>0.0040</td><td>0.0159</td><td>0.0028</td><td>0.0366</td><td>0.0054</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0002</td><td>0.0389</td><td>0.0157</td><td>0.2066</td><td>0.0326</td><td>0.0073</td></tr>
+</table>
+</subsection>
+<subsection id="q10.sparql" title="q10.sparql">
+<hcode lang="sql"><![CDATA[PREFIX person: <http://localhost/persons/>
+
+SELECT ?subject ?predicate
+WHERE {
+  ?subject ?predicate person:Paul_Erdoes
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0002</td><td>0.0275</td><td>0.0274</td><td>0.0003</td><td>0.0004</td><td>0.0576</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0004</td><td>0.1938</td><td>0.0919</td><td>0.0187</td><td>0.0072</td><td>0.1872</td></tr>
+</table>
+</subsection>
+<subsection id="q11.sparql" title="q11.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?ee
+WHERE {
+  ?publication rdfs:seeAlso ?ee
+}
+ORDER BY ?ee
+LIMIT 10
+OFFSET 50
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0007</td><td>0.0568</td><td>0.0579</td><td>0.0289</td><td>0.0029</td><td> </td></tr>
+<tr><td><strong>10312</strong></td><td>0.0073</td><td>1.2086</td><td>0.8143</td><td>0.0181</td><td>0.0195</td><td> </td></tr>
+</table>
+</subsection>
+<subsection id="q2.sparql" title="q2.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX swrc:    <http://swrc.ontoware.org/ontology#>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX bench:   <http://localhost/vocabulary/bench/>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?inproc ?author ?booktitle ?title 
+       ?proc ?ee ?page ?url ?yr ?abstract
+WHERE {
+  ?inproc rdf:type bench:Inproceedings .
+  ?inproc dc:creator ?author .
+  ?inproc bench:booktitle ?booktitle .
+  ?inproc dc:title ?title .
+  ?inproc dcterms:partOf ?proc .
+  ?inproc rdfs:seeAlso ?ee .
+  ?inproc swrc:pages ?page .
+  ?inproc foaf:homepage ?url .
+  ?inproc dcterms:issued ?yr 
+  OPTIONAL {
+    ?inproc bench:abstract ?abstract
+  }
+}
+ORDER BY ?yr
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0003</td><td>0.0323</td><td>0.0410</td><td>0.0012</td><td>0.0020</td><td>0.0116</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0156</td><td>1.2382</td><td>1.1114</td><td>0.7882</td><td>0.8508</td><td>1.6513</td></tr>
+</table>
+</subsection>
+<subsection id="q3a.sparql" title="q3a.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX bench: <http://localhost/vocabulary/bench/>
+PREFIX swrc:  <http://swrc.ontoware.org/ontology#>
+
+SELECT ?article
+WHERE {
+  ?article rdf:type bench:Article .
+  ?article ?property ?value 
+  FILTER (?property=swrc:pages) 
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0065</td><td>1.4149</td><td>1.1625</td><td>0.1208</td><td>0.1168</td><td>1.7079</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0489</td><td>8.5637</td><td>7.9743</td><td>0.4944</td><td>0.6275</td><td>11.2243</td></tr>
+</table>
+</subsection>
+<subsection id="q3b.sparql" title="q3b.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX bench: <http://localhost/vocabulary/bench/>
+PREFIX swrc:  <http://swrc.ontoware.org/ontology#>
+
+SELECT ?article
+WHERE {
+  ?article rdf:type bench:Article .
+  ?article ?property ?value
+  FILTER (?property=swrc:month)
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0062</td><td>0.8016</td><td>0.8062</td><td>0.0168</td><td>0.0175</td><td>1.7198</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0467</td><td>8.2799</td><td>7.9893</td><td>0.5117</td><td>0.6313</td><td>11.0293</td></tr>
+</table>
+</subsection>
+<subsection id="q3c.sparql" title="q3c.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX swrc:  <http://swrc.ontoware.org/ontology#>
+PREFIX bench: <http://localhost/vocabulary/bench/>
+
+SELECT ?article
+WHERE {
+  ?article rdf:type bench:Article .
+  ?article ?property ?value
+  FILTER (?property=swrc:isbn)
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0062</td><td>0.7957</td><td>0.7996</td><td>0.0164</td><td>0.0155</td><td>1.7276</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0469</td><td>8.1709</td><td>7.9649</td><td>0.4967</td><td>0.6329</td><td>11.0010</td></tr>
+</table>
+</subsection>
+<subsection id="q4.sparql" title="q4.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX bench:   <http://localhost/vocabulary/bench/>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX swrc:    <http://swrc.ontoware.org/ontology#>
+
+SELECT DISTINCT ?name1 ?name2 
+WHERE {
+  ?article1 rdf:type bench:Article .
+  ?article2 rdf:type bench:Article .
+  ?article1 dc:creator ?author1 .
+  ?author1 foaf:name ?name1 .
+  ?article2 dc:creator ?author2 .
+  ?author2 foaf:name ?name2 .
+  ?article1 swrc:journal ?journal .
+  ?article2 swrc:journal ?journal
+  FILTER (?name1<?name2)
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td> </td><td> </td><td> </td><td> </td><td> </td><td>53.4882</td></tr>
+<tr><td><strong>10312</strong></td><td>5.9325</td><td>195.9548</td><td>194.9858</td><td>98.3981</td><td>122.8666</td><td>1029.1790</td></tr>
+</table>
+</subsection>
+<subsection id="q5a.sparql" title="q5a.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+PREFIX bench: <http://localhost/vocabulary/bench/>
+PREFIX dc:    <http://purl.org/dc/elements/1.1/>
+
+SELECT DISTINCT ?person ?name
+WHERE {
+  ?article rdf:type bench:Article .
+  ?article dc:creator ?person .
+  ?inproc rdf:type bench:Inproceedings .
+  ?inproc dc:creator ?person2 .
+  ?person foaf:name ?name .
+  ?person2 foaf:name ?name2
+  FILTER (?name=?name2)
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0023</td><td>0.0979</td><td>0.0921</td><td>0.1441</td><td>0.1661</td><td>0.3579</td></tr>
+<tr><td><strong>10312</strong></td><td>6.2391</td><td>505.9913</td><td>504.7691</td><td>43.8619</td><td>44.1354</td><td>2796.4195</td></tr>
+</table>
+</subsection>
+<subsection id="q5b.sparql" title="q5b.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf:  <http://xmlns.com/foaf/0.1/>
+PREFIX bench: <http://localhost/vocabulary/bench/>
+PREFIX dc:    <http://purl.org/dc/elements/1.1/>
+
+SELECT DISTINCT ?person ?name
+WHERE {
+  ?article rdf:type bench:Article .
+  ?article dc:creator ?person .
+  ?inproc rdf:type bench:Inproceedings .
+  ?inproc dc:creator ?person .
+  ?person foaf:name ?name
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0018</td><td>0.0384</td><td>0.0405</td><td>0.0376</td><td>0.0401</td><td>0.3636</td></tr>
+<tr><td><strong>10312</strong></td><td>0.6388</td><td>63.7996</td><td>60.7683</td><td>80.0545</td><td>134.3813</td><td>133.1467</td></tr>
+</table>
+</subsection>
+<subsection id="q6.sparql" title="q6.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?yr ?name ?document
+WHERE {
+  ?class rdfs:subClassOf foaf:Document .
+  ?document rdf:type ?class .
+  ?document dcterms:issued ?yr .
+  ?document dc:creator ?author .
+  ?author foaf:name ?name
+  OPTIONAL {
+    ?class2 rdfs:subClassOf foaf:Document .
+    ?document2 rdf:type ?class2 .
+    ?document2 dcterms:issued ?yr2 .
+    ?document2 dc:creator ?author2 
+    FILTER (?author=?author2 && ?yr2<?yr)
+  } FILTER (!bound(?author2))
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0029</td><td>0.1117</td><td>0.1073</td><td>0.1113</td><td>0.1353</td><td>0.5289</td></tr>
+<tr><td><strong>10312</strong></td><td>0.5046</td><td>2.7521</td><td>2.6545</td><td>2.2379</td><td>2.9141</td><td>5.6959</td></tr>
+</table>
+</subsection>
+<subsection id="q7.sparql" title="q7.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT DISTINCT ?title
+WHERE {
+  ?class rdfs:subClassOf foaf:Document .
+  ?doc rdf:type ?class .
+  ?doc dc:title ?title .
+  ?bag2 ?member2 ?doc .
+  ?doc2 dcterms:references ?bag2
+  OPTIONAL {
+    ?class3 rdfs:subClassOf foaf:Document .
+    ?doc3 rdf:type ?class3 .
+    ?doc3 dcterms:references ?bag3 .
+    ?bag3 ?member3 ?doc
+    OPTIONAL {
+      ?class4 rdfs:subClassOf foaf:Document .
+      ?doc4 rdf:type ?class4 .
+      ?doc4 dcterms:references ?bag4 .
+      ?bag4 ?member4 ?doc3
+    } FILTER (!bound(?doc4))
+  } FILTER (!bound(?doc3))
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0028</td><td>0.1680</td><td>0.1481</td><td>0.1746</td><td>0.2512</td><td>0.4723</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0957</td><td>3.7156</td><td>3.5057</td><td>3.9144</td><td>5.7322</td><td>10.6598</td></tr>
+</table>
+</subsection>
+<subsection id="q8.sparql" title="q8.sparql">
+<hcode lang="sql"><![CDATA[PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#> 
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc:   <http://purl.org/dc/elements/1.1/>
+
+SELECT DISTINCT ?name
+WHERE {
+  ?erdoes rdf:type foaf:Person .
+  ?erdoes foaf:name "Paul Erdoes"^^xsd:string .
+  {
+    ?document dc:creator ?erdoes .
+    ?document dc:creator ?author .
+    ?document2 dc:creator ?author .
+    ?document2 dc:creator ?author2 .
+    ?author2 foaf:name ?name
+    FILTER (?author!=?erdoes &&
+            ?document2!=?document &&
+            ?author2!=?erdoes &&
+            ?author2!=?author)
+  } UNION {
+    ?document dc:creator ?erdoes.
+    ?document dc:creator ?author.
+    ?author foaf:name ?name
+    FILTER (?author!=?erdoes)
+  }
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.2031</td><td>19.8570</td><td>19.6055</td><td>1.5871</td><td>1.6281</td><td>48.2623</td></tr>
+<tr><td><strong>10312</strong></td><td>2.5863</td><td>220.4084</td><td>220.4392</td><td>17.6872</td><td>18.3942</td><td>754.3227</td></tr>
+</table>
+</subsection>
+<subsection id="q9.sparql" title="q9.sparql">
+<hcode lang="sql"><![CDATA[PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT DISTINCT ?predicate
+WHERE {
+  {
+    ?person rdf:type foaf:Person .
+    ?subject ?predicate ?person
+  } UNION {
+    ?person rdf:type foaf:Person .
+    ?person ?predicate ?object
+  }
+}
+]]></hcode>
+<table class="table table-bordered table-condensed table-bench">
+<thead><th>Nb. of triples</th><th>mem</th><th>mysql(innodb)</th><th>mysql(isam)</th><th>mysql2(innodb)</th><th>mysql2(isam)</th><th>postgresql</th></thead>
+<tr><td><strong>1294</strong></td><td>0.0023</td><td>0.5524</td><td>0.4454</td><td>0.3426</td><td>0.1613</td><td>0.8973</td></tr>
+<tr><td><strong>10312</strong></td><td>0.0381</td><td>12.2784</td><td>6.2686</td><td>16.8698</td><td>5.6067</td><td>9.2525</td></tr>
+</table>
+</subsection>
+</section>
+</prepare-toc>
+</page>

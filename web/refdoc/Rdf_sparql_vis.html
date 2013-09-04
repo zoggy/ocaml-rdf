@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_sparql_vis</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_sparql_types.html" title="Rdf_sparql_types">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_term.html" title="Rdf_term">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_vis.html">Rdf_sparql_vis</a></h1>
+<pre><span class="keyword">module</span> Rdf_sparql_vis: <code class="code">sig</code> <a href="Rdf_sparql_vis.html">..</a> <code class="code">end</code></pre><div class="info">
+</div>
+<hr width="100%"/>
+<pre><span class="keyword">module</span> <a href="Rdf_sparql_vis.T.html">T</a>: <code class="type">Rdf_sparql_types</code></pre><pre><span id="VALmap_opt"><span class="keyword">val</span> map_opt</span> : <code class="type">('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b option -&gt; 'a</code></pre><pre><span id="TYPEvisitor_fun"><span class="keyword">type</span> <code class="type">('acc, 't)</code> visitor_fun</span> = <code class="type">'acc <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'acc -&gt; 't -&gt; 'acc</code> </pre>
+
+<pre><code><span id="TYPEvisitor"><span class="keyword">type</span> <code class="type">'a</code> visitor</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.var">var</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.iriref">iriref</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.prefixed_name">prefixed_name</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEprefixed_name">Rdf_sparql_types.prefixed_name</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.iri">iri</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEiri">Rdf_sparql_types.iri</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.rdf_literal">rdf_literal</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPErdf_literal">Rdf_sparql_types.rdf_literal</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.data_block_value">data_block_value</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEdata_block_value">Rdf_sparql_types.data_block_value</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.data_full_block_value">data_full_block_value</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEdata_full_block_value">Rdf_sparql_types.data_full_block_value</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.inline_data_one_var">inline_data_one_var</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEinline_data_one_var">Rdf_sparql_types.inline_data_one_var</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.inline_data_full">inline_data_full</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEinline_data_full">Rdf_sparql_types.inline_data_full</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.datablock">datablock</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEdatablock">Rdf_sparql_types.datablock</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.values_clause">values_clause</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEvalues_clause">Rdf_sparql_types.values_clause</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.var_or_iri">var_or_iri</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEvar_or_iri">Rdf_sparql_types.var_or_iri</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.blank_node">blank_node</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEblank_node">Rdf_sparql_types.blank_node</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.select_var">select_var</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEselect_var">Rdf_sparql_types.select_var</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.select_vars">select_vars</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEselect_vars">Rdf_sparql_types.select_vars</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.select_clause">select_clause</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEselect_clause">Rdf_sparql_types.select_clause</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.dataset_clause">dataset_clause</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEdataset_clause">Rdf_sparql_types.dataset_clause</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.arg_list">arg_list</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEarg_list">Rdf_sparql_types.arg_list</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.function_call">function_call</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEfunction_call">Rdf_sparql_types.function_call</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.binary_op">binary_op</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEbinary_op">Rdf_sparql_types.binary_op</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.expr">expr</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEexpr">Rdf_sparql_types.expr</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.expression">expression</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEexpression">Rdf_sparql_types.expression</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.built_in_call">built_in_call</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEbuilt_in_call">Rdf_sparql_types.built_in_call</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.aggregate">aggregate</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEaggregate">Rdf_sparql_types.aggregate</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.group_var">group_var</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgroup_var">Rdf_sparql_types.group_var</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.group_condition">group_condition</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgroup_condition">Rdf_sparql_types.group_condition</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.constraint_">constraint_</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEconstraint_">Rdf_sparql_types.constraint_</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.order_condition">order_condition</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEorder_condition">Rdf_sparql_types.order_condition</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.limit_offset_clause">limit_offset_clause</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPElimit_offset_clause">Rdf_sparql_types.limit_offset_clause</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.solution_modifier">solution_modifier</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEsolution_modifier">Rdf_sparql_types.solution_modifier</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.bind">bind</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEbind">Rdf_sparql_types.bind</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.service_graph_pattern">service_graph_pattern</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEservice_graph_pattern">Rdf_sparql_types.service_graph_pattern</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.graph_graph_pattern">graph_graph_pattern</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgraph_graph_pattern">Rdf_sparql_types.graph_graph_pattern</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.graph_pattern_elt">graph_pattern_elt</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgraph_pattern_elt">Rdf_sparql_types.graph_pattern_elt</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.graph_term">graph_term</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgraph_term">Rdf_sparql_types.graph_term</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.var_or_term">var_or_term</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEvar_or_term">Rdf_sparql_types.var_or_term</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path_one_in_prop_set">path_one_in_prop_set</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath_one_in_prop_set">Rdf_sparql_types.path_one_in_prop_set</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path_primary">path_primary</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath_primary">Rdf_sparql_types.path_primary</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path_elt">path_elt</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath_elt">Rdf_sparql_types.path_elt</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path_elt_or_inverse">path_elt_or_inverse</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">Rdf_sparql_types.path_elt_or_inverse</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path_sequence">path_sequence</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath_sequence">Rdf_sparql_types.path_sequence</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.path">path</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEpath">Rdf_sparql_types.path</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.verb">verb</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEverb">Rdf_sparql_types.verb</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.triples_node">triples_node</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEtriples_node">Rdf_sparql_types.triples_node</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.graph_node">graph_node</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgraph_node">Rdf_sparql_types.graph_node</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.prop_object_list">prop_object_list</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEprop_object_list">Rdf_sparql_types.prop_object_list</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.triples_block">triples_block</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEtriples_block">Rdf_sparql_types.triples_block</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.triples_same_subject">triples_same_subject</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEtriples_same_subject">Rdf_sparql_types.triples_same_subject</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.ggp_sub">ggp_sub</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEggp_sub">Rdf_sparql_types.ggp_sub</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.group_graph_pattern">group_graph_pattern</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">Rdf_sparql_types.group_graph_pattern</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&#160;&#160;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvisitor.sub_select">sub_select</span>&#160;:<code class="type">('a, <a href="Rdf_sparql_types.html#TYPEsub_select">Rdf_sparql_types.sub_select</a>) <a href="Rdf_sparql_vis.html#TYPEvisitor_fun">visitor_fun</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre><span id="VALvar"><span class="keyword">val</span> var</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALiriref"><span class="keyword">val</span> iriref</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALprefixed_name"><span class="keyword">val</span> prefixed_name</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEiri">Rdf_sparql_types.iri</a> -&gt; 'a</code></pre><pre><span id="VALrdf_literal"><span class="keyword">val</span> rdf_literal</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALdata_block_value"><span class="keyword">val</span> data_block_value</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEdata_block_value">Rdf_sparql_types.data_block_value</a> -&gt; 'a</code></pre><pre><span id="VALdata_full_block_value"><span class="keyword">val</span> data_full_block_value</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEdata_full_block_value">Rdf_sparql_types.data_full_block_value</a> -&gt; 'a</code></pre><pre><span id="VALinline_data_one_var"><span class="keyword">val</span> inline_data_one_var</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEinline_data_one_var">Rdf_sparql_types.inline_data_one_var</a> -&gt; 'a</code></pre><pre><span id="VALinline_data_full"><span class="keyword">val</span> inline_data_full</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEinline_data_full">Rdf_sparql_types.inline_data_full</a> -&gt; 'a</code></pre><pre><span id="VALdatablock"><span class="keyword">val</span> datablock</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEdatablock">Rdf_sparql_types.datablock</a> -&gt; 'a</code></pre><pre><span id="VALvalues_clause"><span class="keyword">val</span> values_clause</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEdatablock">Rdf_sparql_types.datablock</a> option -&gt; 'a</code></pre><pre><span id="VALvar_or_iri"><span class="keyword">val</span> var_or_iri</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEvar_or_iri">Rdf_sparql_types.var_or_iri</a> -&gt; 'a</code></pre><pre><span id="VALblank_node"><span class="keyword">val</span> blank_node</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALselect_var"><span class="keyword">val</span> select_var</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEselect_var">Rdf_sparql_types.select_var</a> -&gt; 'a</code></pre><pre><span id="VALselect_vars"><span class="keyword">val</span> select_vars</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEselect_vars">Rdf_sparql_types.select_vars</a> -&gt; 'a</code></pre><pre><span id="VALselect_clause"><span class="keyword">val</span> select_clause</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEselect_clause">Rdf_sparql_types.select_clause</a> -&gt; 'a</code></pre><pre><span id="VALdataset_clause"><span class="keyword">val</span> dataset_clause</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEdataset_clause">Rdf_sparql_types.dataset_clause</a> -&gt; 'a</code></pre><pre><span id="VALarg_list"><span class="keyword">val</span> arg_list</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEarg_list">Rdf_sparql_types.arg_list</a> -&gt; 'a</code></pre><pre><span id="VALfunction_call"><span class="keyword">val</span> function_call</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; T.function_call -&gt; 'a</code></pre><pre><span id="VALbinary_op"><span class="keyword">val</span> binary_op</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALexpr"><span class="keyword">val</span> expr</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEexpr">Rdf_sparql_types.expr</a> -&gt; 'a</code></pre><pre><span id="VALexpression"><span class="keyword">val</span> expression</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; T.expression -&gt; 'a</code></pre><pre><span id="VALbuilt_in_call"><span class="keyword">val</span> built_in_call</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEbuilt_in_call">Rdf_sparql_types.built_in_call</a> -&gt; 'a</code></pre><pre><span id="VALaggregate"><span class="keyword">val</span> aggregate</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEaggregate">Rdf_sparql_types.aggregate</a> -&gt; 'a</code></pre><pre><span id="VALgroup_var"><span class="keyword">val</span> group_var</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgroup_var">Rdf_sparql_types.group_var</a> -&gt; 'a</code></pre><pre><span id="VALgroup_condition"><span class="keyword">val</span> group_condition</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgroup_condition">Rdf_sparql_types.group_condition</a> -&gt; 'a</code></pre><pre><span id="VALconstraint_"><span class="keyword">val</span> constraint_</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEconstraint_">Rdf_sparql_types.constraint_</a> -&gt; 'a</code></pre><pre><span id="VALorder_condition"><span class="keyword">val</span> order_condition</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEorder_condition">Rdf_sparql_types.order_condition</a> -&gt; 'a</code></pre><pre><span id="VALlimit_offset_clause"><span class="keyword">val</span> limit_offset_clause</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'b</code></pre><pre><span id="VALsolution_modifier"><span class="keyword">val</span> solution_modifier</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEsolution_modifier">Rdf_sparql_types.solution_modifier</a> -&gt; 'a</code></pre><pre><span id="VALbind"><span class="keyword">val</span> bind</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEbind">Rdf_sparql_types.bind</a> -&gt; 'a</code></pre><pre><span id="VALservice_graph_pattern"><span class="keyword">val</span> service_graph_pattern</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEservice_graph_pattern">Rdf_sparql_types.service_graph_pattern</a> -&gt; 'a</code></pre><pre><span id="VALgraph_graph_pattern"><span class="keyword">val</span> graph_graph_pattern</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgraph_graph_pattern">Rdf_sparql_types.graph_graph_pattern</a> -&gt; 'a</code></pre><pre><span id="VALgraph_pattern_elt"><span class="keyword">val</span> graph_pattern_elt</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgraph_pattern_elt">Rdf_sparql_types.graph_pattern_elt</a> -&gt; 'a</code></pre><pre><span id="VALgraph_term"><span class="keyword">val</span> graph_term</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgraph_term">Rdf_sparql_types.graph_term</a> -&gt; 'a</code></pre><pre><span id="VALvar_or_term"><span class="keyword">val</span> var_or_term</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEvar_or_term">Rdf_sparql_types.var_or_term</a> -&gt; 'a</code></pre><pre><span id="VALpath_one_in_prop_set"><span class="keyword">val</span> path_one_in_prop_set</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_one_in_prop_set">Rdf_sparql_types.path_one_in_prop_set</a> -&gt; 'a</code></pre><pre><span id="VALpath_primary"><span class="keyword">val</span> path_primary</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_primary">Rdf_sparql_types.path_primary</a> -&gt; 'a</code></pre><pre><span id="VALpath_elt"><span class="keyword">val</span> path_elt</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_elt">Rdf_sparql_types.path_elt</a> -&gt; 'a</code></pre><pre><span id="VALpath_elt_or_inverse"><span class="keyword">val</span> path_elt_or_inverse</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">Rdf_sparql_types.path_elt_or_inverse</a> -&gt; 'a</code></pre><pre><span id="VALpath_sequence"><span class="keyword">val</span> path_sequence</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">Rdf_sparql_types.path_elt_or_inverse</a> list -&gt; 'a</code></pre><pre><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEpath_sequence">Rdf_sparql_types.path_sequence</a> list -&gt; 'a</code></pre><pre><span id="VALverb"><span class="keyword">val</span> verb</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEverb">Rdf_sparql_types.verb</a> -&gt; 'a</code></pre><pre><span id="VALtriples_node"><span class="keyword">val</span> triples_node</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEtriples_node">Rdf_sparql_types.triples_node</a> -&gt; 'a</code></pre><pre><span id="VALgraph_node"><span class="keyword">val</span> graph_node</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgraph_node">Rdf_sparql_types.graph_node</a> -&gt; 'a</code></pre><pre><span id="VALprop_object_list"><span class="keyword">val</span> prop_object_list</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEprop_object_list">Rdf_sparql_types.prop_object_list</a> -&gt; 'a</code></pre><pre><span id="VALtriples_block"><span class="keyword">val</span> triples_block</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEtriples_block">Rdf_sparql_types.triples_block</a> -&gt; 'a</code></pre><pre><span id="VALtriples_same_subject"><span class="keyword">val</span> triples_same_subject</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEtriples_same_subject">Rdf_sparql_types.triples_same_subject</a> -&gt; 'a</code></pre><pre><span id="VALggp_sub"><span class="keyword">val</span> ggp_sub</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEggp_sub">Rdf_sparql_types.ggp_sub</a> -&gt; 'a</code></pre><pre><span id="VALgroup_graph_pattern"><span class="keyword">val</span> group_graph_pattern</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">Rdf_sparql_types.group_graph_pattern</a> -&gt; 'a</code></pre><pre><span id="VALsub_select"><span class="keyword">val</span> sub_select</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a> -&gt; 'a -&gt; <a href="Rdf_sparql_types.html#TYPEsub_select">Rdf_sparql_types.sub_select</a> -&gt; 'a</code></pre><pre><span id="VALdefault"><span class="keyword">val</span> default</span> : <code class="type">'a <a href="Rdf_sparql_vis.html#TYPEvisitor">visitor</a></code></pre></div></contents></ocamldoc>

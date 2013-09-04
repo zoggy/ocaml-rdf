@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_graph.Storage_BGP</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="Rdf_graph.html" title="Rdf_graph">Up</a>
+&#160;<a class="post" href="Rdf_graph.Storage.html" title="Rdf_graph.Storage">Next</a>
+</div>
+<h1>Module type <a href="type_Rdf_graph.Storage_BGP.html">Rdf_graph.Storage_BGP</a></h1>
+<pre><span class="keyword">module type</span> Storage_BGP = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre><div class="info">
+Interface to query Basic Graph Patterns (BGP) in a graph.
+  Here the term representation is abstracted, so that it can
+  be for example an id in a database table, which will make
+  triple matching and joining faster when matching a BGP by
+  querying the real terms only for the result of the whole
+  BGP, instead of retrieving terms and joining results of each
+  triple.<br/>
+</div>
+<hr width="100%"/>
+<pre><span id="TYPEg"><span class="keyword">type</span> g</span> </pre>
+
+<pre><span id="TYPEterm"><span class="keyword">type</span> term</span> </pre>
+
+<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a></code></pre><pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt;<br/>       <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; int</code></pre><pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> list</code></pre><pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> list</code></pre><pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       ?pred:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       ?obj:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       <a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt;<br/>       (<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> * <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> *<br/>        <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a>)<br/>       list</code></pre></div></contents></ocamldoc>
