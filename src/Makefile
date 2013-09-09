@@ -128,7 +128,7 @@ $(LIB_POSTGRESQL_CMXS): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMXFILES)
 $(LIB_POSTGRESQL_BYTE): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMOFILES)
 
-test_mysql: $(RDF_LIBS) rdf_test_mysql.cmx
+test_mysql: $(LIB_RDF) $(LIB_MYSQL) rdf_test_mysql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall $(COMPFLAGS) rdf_test_mysql.cmx
 
 test_xml: $(LIB_RDF) test_xml.cmx

@@ -122,6 +122,7 @@ let init_graph dbd engine name =
       SELECT value, NULL, NULL, NULL, NULL FROM bnodes where id=? LIMIT 1" ;
     ]
   in
+  Rdf_my.create_namespaces_table dbd table ;
   Rdf_my.prepare_queries dbd ~more table;
   table
 ;;
@@ -372,6 +373,11 @@ module Mysql =
     let transaction_rollback = Rdf_my.transaction_rollback
 
     let new_blank_id = Rdf_my.new_blank_id
+
+    let namespaces = Rdf_my.namespaces
+    let add_namespace = Rdf_my.add_namespace
+    let rem_namespace = Rdf_my.rem_namespace
+    let set_namespaces = Rdf_my.set_namespaces
 
     module BGP = MyBGP
   end;;

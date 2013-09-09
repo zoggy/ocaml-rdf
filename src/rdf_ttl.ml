@@ -187,12 +187,7 @@ let from_lexbuf g ~base source_info ?fname lexbuf =
   in
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
-  let add_ns prefix uri =
-    let sub = Rdf_term.Uri uri in
-    let pred = Rdf_rdf.ordf_ns in
-    let obj = Rdf_term.term_of_literal_string prefix in
-    g.add_triple ~sub ~pred ~obj
-  in
+  let add_ns prefix uri = g.add_namespace uri prefix in
   Rdf_ttl_types.SMap.iter add_ns ctx.prefixes ;
   g
 
@@ -250,9 +245,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
 ;;
 
 let f_triple ns print (sub, pred, obj) =
-  match Rdf_uri.compare pred Rdf_rdf.ordf_ns with
-    0 -> ()
-  | _ -> print (string_of_triple_ns ns ~sub ~pred ~obj)
+  print (string_of_triple_ns ns ~sub ~pred ~obj)
 ;;
 
 let string_of_namespace (pref,uri) = "@prefix "^pref^": <"^uri^"> .";;

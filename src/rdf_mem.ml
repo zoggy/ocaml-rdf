@@ -30,6 +30,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 open Rdf_term;;
+module SMap = Rdf_types.SMap;;
 
 module Triples = functor (Map1 : Map.S) ->
   functor (Map2 : Map.S) ->
@@ -118,6 +119,7 @@ type t =
     mutable g_set_pred : Triples_p_o.t ; (* pred -> (obj -> sub set) *)
     mutable g_set_obj : Triples_o_s.t ; (* obj -> (sub -> pred set) *)
     mutable g_in_transaction : t option ; (* Some t: t is the state before starting the transaction *)
+    mutable g_ns : Rdf_uri.uri SMap.t ;
   }
 
 type error = string
@@ -130,6 +132,7 @@ let open_graph ?(options=[]) name =
     g_set_pred = Triples_p_o.empty;
     g_set_obj = Triples_o_s.empty;
     g_in_transaction = None ;
+    g_ns = SMap.empty ;
   }
 ;;
 
@@ -186,6 +189,7 @@ let transaction_start g =
       g_set_pred = g.g_set_pred ;
       g_set_obj = g.g_set_obj ;
       g_in_transaction = g.g_in_transaction ;
+      g_ns = g.g_ns ;
     }
   in
   g.g_in_transaction <- Some old
@@ -274,6 +278,14 @@ module Mem =
     let transaction_rollback = transaction_rollback
 
     let new_blank_id = new_blank_id
+
+    let namespaces g =
+      SMap.fold (fun name uri acc -> (uri, name) :: acc) g.g_ns []
+    let add_namespace g uri name = g.g_ns <- SMap.add name uri g.g_ns
+    let rem_namespace g name = g.g_ns <- SMap.remove name g.g_ns
+    let set_namespaces g l =
+      g.g_ns <- List.fold_left
+        (fun map (uri, name) -> SMap.add name uri map) SMap.empty l
 
     module BGP = Mem_BGP
   end;;

@@ -1524,7 +1524,4 @@ and eval_list ctx = function
   | a ->
       let o = eval ctx a in
       Rdf_sparql_ms.omega_fold cons o []
-
-
-
-
+;;

@@ -24,14 +24,8 @@
 
 (** Rdf constants.
 
-  One to keep namespaces in a graph.
   The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
-
-(** This is the uri used as predicate to store namespaces in a graph.
-  Having the namespaces is useful when dumping graphs in rdf/xml
-  or turtle. *)
-val ordf_ns : Rdf_uri.uri
 
 val rdf_ : string -> Rdf_uri.uri
 val xsd_ : string -> Rdf_uri.uri

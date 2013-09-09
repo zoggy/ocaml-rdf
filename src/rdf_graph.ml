@@ -91,6 +91,11 @@ module type Storage =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
+    val namespaces : g -> (uri * string) list
+    val add_namespace : g -> uri -> string -> unit
+    val rem_namespace : g -> string -> unit
+    val set_namespaces : g -> (uri * string) list -> unit
+
     module BGP : Storage_BGP with type g = g
   end
 
@@ -132,6 +137,10 @@ module Make (S : Storage) =
 
     let new_blank_id = embed S.new_blank_id
 
+    let namespaces = embed S.namespaces
+    let add_namespace = embed S.add_namespace
+    let rem_namespace = embed S.rem_namespace
+    let set_namespaces = embed S.set_namespaces
     module BGP = S.BGP
   end
 
@@ -167,6 +176,11 @@ module type Graph =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
+    val namespaces : g -> (uri * string) list
+    val add_namespace : g -> uri -> string -> unit
+    val rem_namespace : g -> string -> unit
+    val set_namespaces : g -> (uri * string) list -> unit
+
     module BGP : Storage_BGP with type g = g
   end
 
@@ -198,7 +212,12 @@ type graph =
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
     new_blank_id : unit -> Rdf_term.blank_id ;
+
     namespaces : unit -> (uri * string) list ;
+    add_namespace : uri -> string -> unit ;
+    rem_namespace : string -> unit ;
+    set_namespaces : (uri * string) list -> unit ;
+
     bgp : (module Rdf_bgp.S) ;
   }
 
@@ -211,21 +230,6 @@ let open_graph ?(options=[]) name =
   in
   let module S = (val storage) in
   let g = S.open_graph ~options name in
-  let namespaces () =
-    let triples = S.find ~pred: (Rdf_rdf.ordf_ns) g in
-    let f  (sub, _ , obj) =
-      let uri = match sub with
-        | Uri uri -> uri
-        | _ -> failwith "Invalid namespace uri"
-      in
-      let prefix = match obj with
-        | Literal lit -> lit.lit_value
-        | _ -> failwith "Invalid namespace prefix"
-      in
-      (uri, prefix)
-    in
-    List.map f triples
-  in
   let module P =
     struct
       type term = S.BGP.term
@@ -258,7 +262,10 @@ let open_graph ?(options=[]) name =
     transaction_commit = (fun () -> S.transaction_commit g) ;
     transaction_rollback = (fun () -> S.transaction_rollback g) ;
     new_blank_id = (fun () -> S.new_blank_id g) ;
-    namespaces = namespaces ;
+    namespaces = (fun () -> S.namespaces g) ;
+    add_namespace = S.add_namespace g ;
+    rem_namespace = S.rem_namespace g ;
+    set_namespaces = S.set_namespaces g ;
     bgp = (module BGP : Rdf_bgp.S) ;
   }
 ;;

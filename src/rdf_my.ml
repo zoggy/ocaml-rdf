@@ -155,10 +155,21 @@ let rec graph_table_of_graph_name ?(first=true) dbd uri =
       graph_table_of_graph_name ~first: false dbd uri
 ;;
 
+let nstable_of_graph_table table = table ^"_ns";;
+
 let table_exists dbd table =
   let query = "SELECT 1 FROM " ^ table in
   try ignore(exec_query dbd query); true
   with Error _ -> false
+;;
+
+let create_namespaces_table dbd table =
+  let table = nstable_of_graph_table table in
+  let query = "CREATE TABLE IF NOT EXISTS "^table^" (\
+    uri text NOT NULL, \
+    name varchar(255) NOt NULL)"
+  in
+  ignore(exec_query dbd query)
 ;;
 
 let prepared_count_triples = "count_triples";;
@@ -171,6 +182,10 @@ let prepared_subject = "subject" ;;
 let prepared_predicate = "predicate";;
 let prepared_object = "object";;
 let prepared_cardinal = "cardinal";;
+
+let prepared_namespaces = "namespaces";;
+let prepared_delete_namespace = "delete_namespace";;
+let prepared_insert_namespace = "insert_namespace";;
 
 let make_select_term_list table col clause =
   "SELECT "^col^" FROM "^table^" where "^clause
@@ -185,6 +200,8 @@ let prepare_queries dbd ?(more=[]) table =
   dbg ~level: 1 (fun () -> "Preparing queries...");
 
   List.iter (fun (name, q) -> prepare_query dbd name q) more;
+
+  let nstable = nstable_of_graph_table table in
 
   let query = "SELECT COUNT(*) FROM "^table in
   prepare_query dbd prepared_cardinal query;
@@ -230,7 +247,48 @@ let prepare_queries dbd ?(more=[]) table =
 
   let query = "SELECT object from " ^ table in
   prepare_query dbd prepared_object query;
+
+  let query = "SELECT uri, name FROM "^nstable in
+  prepare_query dbd prepared_namespaces query;
+
+  let query = "DELETE FROM "^nstable^" WHERE NAME=?" in
+  prepare_query dbd prepared_delete_namespace query;
+
+  let query = "INSERT INTO "^nstable^" (uri, name) VALUES (?, ?)" in
+  prepare_query dbd prepared_insert_namespace query;
+
   dbg ~level: 1 (fun () -> "done")
+;;
+
+let namespaces g =
+  let res = exec_prepared g.g_dbd prepared_namespaces [] in
+  let f = function
+  | [| Some uri ; Some name|] ->
+      (Rdf_uri.uri ~check: false (Mysql.blob2ml uri), Mysql.str2ml name)
+  | _ -> raise (Error "namespaces - invalid result: NULL value of bad number of fields")
+  in
+  Mysql.map res ~f
+;;
+
+let rem_namespace g name =
+  let params = [ mysql_quote g name ] in
+  ignore(exec_prepared g.g_dbd prepared_delete_namespace params)
+;;
+
+let add_namespace g uri name =
+  rem_namespace g name ;
+  let params = [
+      mysql_quote g (Rdf_uri.string uri);
+      mysql_quote g name ;
+    ]
+  in
+  ignore(exec_prepared g.g_dbd prepared_insert_namespace params)
+;;
+
+let set_namespaces g l =
+  List.iter (fun (_,name) -> rem_namespace g name) (namespaces g);
+  let f (uri, name) = add_namespace g uri name in
+  List.iter f l
 ;;
 
 let graph_size g =

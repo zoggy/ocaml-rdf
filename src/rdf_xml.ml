@@ -393,12 +393,7 @@ let input_tree g ~base t =
     | t -> input_node g state gstate t
   in
   (* add namespaces *)
-  let add_ns uri prefix =
-    let sub = Uri uri in
-    let pred = Rdf_rdf.ordf_ns in
-    let obj = Rdf_term.term_of_literal_string prefix in
-    g.add_triple ~sub ~pred ~obj
-  in
+  let add_ns uri prefix = g.add_namespace uri prefix in
   Urimap.iter add_ns gstate.gnamespaces
 ;;
 
@@ -453,18 +448,15 @@ let output g =
     E ((("",Rdf_uri.string pred_uri),atts),children)
   in
   let f_triple acc (sub, pred, obj) =
-    match Rdf_uri.compare pred Rdf_rdf.ordf_ns with
-      0 -> acc
-    | _ ->
-        let atts =
-          match sub with
-            Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
-          | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id]
-          | Blank -> assert false
-          | Literal _ -> assert false
-        in
-        let xml_prop = xml_prop pred obj in
-        (E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
+    let atts =
+      match sub with
+        Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
+      | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id]
+      | Blank -> assert false
+      | Literal _ -> assert false
+    in
+    let xml_prop = xml_prop pred obj in
+    (E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
   in
   let xmls = List.fold_left f_triple [] (g.find ()) in
   E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),[]), xmls)

@@ -193,6 +193,13 @@ module type Storage =
     (** Forging a new, unique blank node id. *)
     val new_blank_id : g -> Rdf_term.blank_id
 
+    (** {3 Namespaces} *)
+
+    val namespaces : g -> (Rdf_uri.uri * string) list
+    val add_namespace : g -> Rdf_uri.uri -> string -> unit
+    val rem_namespace : g -> string -> unit
+    val set_namespaces : g -> (Rdf_uri.uri * string) list -> unit
+
     module BGP : Storage_BGP with type g = g
   end
 
@@ -245,6 +252,11 @@ module type Graph =
     val transaction_rollback : g -> unit
     val new_blank_id : g -> Rdf_term.blank_id
 
+    val namespaces : g -> (Rdf_uri.uri * string) list
+    val add_namespace : g -> Rdf_uri.uri -> string -> unit
+    val rem_namespace : g -> string -> unit
+    val set_namespaces : g -> (Rdf_uri.uri * string) list -> unit
+
     module BGP : Storage_BGP with type g = g
   end
 module Make : functor (S : Storage) -> Graph with type g = S.g
@@ -286,7 +298,12 @@ type graph = {
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
   new_blank_id : unit -> Rdf_term.blank_id ;
+
   namespaces : unit -> (Rdf_uri.uri * string) list ;
+  add_namespace : Rdf_uri.uri -> string -> unit ;
+  rem_namespace : string -> unit ;
+  set_namespaces : (Rdf_uri.uri * string) list -> unit ;
+
   bgp : (module Rdf_bgp.S) ;
 }
 

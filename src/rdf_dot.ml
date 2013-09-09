@@ -108,11 +108,8 @@ let dot_of_graph ?namespaces ?href ?uri g =
     "N" ^ (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
-    match Rdf_uri.compare pred Rdf_rdf.ordf_ns with
-      0 -> set
-    | _ ->
-        Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Uri pred));
-        Node_set.add sub (Node_set.add obj set)
+    Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Uri pred));
+    Node_set.add sub (Node_set.add obj set)
   in
   let set = List.fold_left f Node_set.empty triples in
   let f_node node =
