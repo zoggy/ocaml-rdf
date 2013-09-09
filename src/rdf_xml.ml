@@ -130,7 +130,7 @@ let is_element uri (pref,loc) =
 
 (** {2 Input} *)
 
-module SMap = Map.Make (struct type t = string let compare = String.compare end);;
+module SMap = Rdf_types.SMap;;
 module Urimap = Rdf_uri.Urimap;;
 
 type state =
