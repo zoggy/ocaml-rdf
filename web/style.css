@@ -5738,11 +5738,13 @@ pre {
   text-align: center ;
 }
 .ocamldoc-page {
-  font-size: 1em /** @decreaseFontSizeFactor */;
-  line-height: 16.596741pt /** @decreaseFontSizeFactor * @decreaseFontSizeFactor */;
+  font-size: 0.889em;
+  line-height: 13.116752943861002pt;
 }
 .ocamldoc-page {
   /*pre { margin-bottom: 4px; font-family: monospace; }*/
+
+  /*table.indextable { margin-top: -2em; }*/
 
 }
 .ocamldoc-page img.depgraph {
@@ -5843,13 +5845,8 @@ pre {
   padding: 2px;
 }
 .ocamldoc-page h4 {
-  font-size: 20pt ;
-  border: 1px solid #000000;
-  margin-top: 5px;
-  margin-bottom: 2px;
-  text-align: center;
-  background-color: #90EDFF ;
-  padding: 2px;
+  font-size: 1.125em;
+  margin-bottom: 1pt;
 }
 .ocamldoc-page h5 {
   font-size: 20pt ;
@@ -5972,15 +5969,21 @@ pre {
 .ocamldoc-page a {
   color: #008800;
 }
-.ocamldoc-page table.indextable {
-  margin-top: -2em;
-}
 .ocamldoc-page div.vertical-space {
   height: 14.754502749000002pt;
 }
 .ocamldoc-page b {
   font-weight: normal ;
   color: #9d261d;
+}
+.ocamldoc-page .section-title {
+  margin-bottom: -0.2em;
+}
+.ocamldoc-page .subsection-title {
+  margin-bottom: -1em;
+}
+.ocamldoc-page .subsubsection-title {
+  margin-bottom: -1em;
 }
 .author-photo {
   max-height: 120px;

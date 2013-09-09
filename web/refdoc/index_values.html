@@ -12,6 +12,22 @@
 <tr><td align="left"><br/>A</td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALadd">add</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_pg.Postgresql.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my2.Mysql.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_my2.Mysql.html">Rdf_my2.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my1.Mysql.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_my1.Mysql.html">Rdf_my1.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_mem.Mem.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_mem.Mem.html">Rdf_mem.Mem</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Storage.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_graph.Storage.html">Rdf_graph.Storage</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Graph.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_graph.html#VALadd_storage">add_storage</a> [<a href="Rdf_graph.html">Rdf_graph</a>]</td>
 <td><div class="info">
 Add a storage to the list of registered storages.
@@ -103,8 +119,6 @@ Execute the given ASK query.
 </td></tr>
 <tr><td align="left"><br/>B</td></tr>
 <tr><td><a href="Kw_to_re.html#VALb">b</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALbase">base</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_bnode">bi_bnode</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -328,6 +342,10 @@ Same as <code class="code">create_log_fun</code> but also return a function to c
        the log level.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_pg.html#VALcreate_namespaces_table">create_namespaces_table</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALcreate_namespaces_table">create_namespaces_table</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALcreation_queries">creation_queries</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my2.html#VALcreation_queries">creation_queries</a> [<a href="Rdf_my2.html">Rdf_my2</a>]</td>
@@ -786,8 +804,6 @@ Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.ge
   <code class="code">varname</code> in the solution.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALget_time">get_time</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALget_tuple">get_tuple</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALgetisnull">getisnull</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -820,8 +836,6 @@ Access to the graph name, as specified at its creation.
 <tr><td><a href="Rdf_sparql_vis.html#VALgraph_node">graph_node</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALgraph_node">graph_node</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALgraph_options">graph_options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALgraph_pattern_elt">graph_pattern_elt</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
@@ -884,12 +898,6 @@ Return the number of triples in the graph.
 <tr><td><a href="Rdf_my1.html#VALhash_of_term">hash_of_term</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br/>I</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALid">id</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALids">ids</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALimport_stats">import_stats</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALinit_db">init_db</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my2.html#VALinit_db">init_db</a> [<a href="Rdf_my2.html">Rdf_my2</a>]</td>
@@ -980,8 +988,6 @@ Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code><
 </div>
 </td></tr>
 <tr><td align="left"><br/>M</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALmain">main</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALmake_select_term_list">make_select_term_list</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my.html#VALmake_select_term_list">make_select_term_list</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
@@ -1040,8 +1046,6 @@ Create an integer literal.
 <td></td></tr>
 <tr><td><a href="Rdf_my1.html#VALmk_where_clause">mk_where_clause</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALmode">mode</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALmu">mu</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALmu_0">mu_0</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
@@ -1084,6 +1088,22 @@ Create an integer literal.
 The name of the storage, for example "mysql".
 </div>
 </td></tr>
+<tr><td><a href="Rdf_pg.Postgresql.html#VALnamespaces">namespaces</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALnamespaces">namespaces</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my2.Mysql.html#VALnamespaces">namespaces</a> [<a href="Rdf_my2.Mysql.html">Rdf_my2.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my1.Mysql.html#VALnamespaces">namespaces</a> [<a href="Rdf_my1.Mysql.html">Rdf_my1.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALnamespaces">namespaces</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_mem.Mem.html#VALnamespaces">namespaces</a> [<a href="Rdf_mem.Mem.html">Rdf_mem.Mem</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Storage.html#VALnamespaces">namespaces</a> [<a href="Rdf_graph.Storage.html">Rdf_graph.Storage</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Graph.html#VALnamespaces">namespaces</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_uri.html#VALneturl">neturl</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Get a <code class="code">Neturl.url</code> from the given URI.
@@ -1109,6 +1129,10 @@ Forging a new, unique blank node id.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALnew_blank_id">new_blank_id</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALnstable_of_graph_table">nstable_of_graph_table</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALnstable_of_graph_table">nstable_of_graph_table</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_dt.html#VALnumeric">numeric</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
 <td><div class="info">
@@ -1249,17 +1273,10 @@ Creationg of the graph.
 <td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALopt_of_string">opt_of_string</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALoptions">options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALorder_condition">order_condition</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALorder_condition">order_condition</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_rdf.html#VALordf_ns">ordf_ns</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
-<td><div class="info">
-This is the uri used as predicate to store namespaces in a graph.
-</div>
-</td></tr>
 <tr><td align="left"><br/>P</td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALp">p</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
@@ -1380,13 +1397,25 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_my.html#VALprepared_count_triples">prepared_count_triples</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALprepared_delete_namespace">prepared_delete_namespace</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALprepared_delete_namespace">prepared_delete_namespace</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALprepared_delete_triple">prepared_delete_triple</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my.html#VALprepared_delete_triple">prepared_delete_triple</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALprepared_insert_namespace">prepared_insert_namespace</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALprepared_insert_namespace">prepared_insert_namespace</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALprepared_insert_triple">prepared_insert_triple</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my.html#VALprepared_insert_triple">prepared_insert_triple</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALprepared_namespaces">prepared_namespaces</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALprepared_namespaces">prepared_namespaces</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALprepared_object">prepared_object</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
@@ -1447,8 +1476,6 @@ Return the list of nodes appearing in predicate position.
 <tr><td><a href="Rdf_sparql_print.html#VALprint_dataset_clause">print_dataset_clause</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_describe_query">print_describe_query</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprint_duration_table">print_duration_table</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_expr">print_expr</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
@@ -1564,33 +1591,11 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALproject_sequence">project_sequence</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_">prop_</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_datasize">prop_datasize</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_duration">prop_duration</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_error">prop_error</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_id">prop_id</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALprop_object_list">prop_object_list</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALprop_object_list">prop_object_list</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_options">prop_options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_query">prop_query</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_query_file">prop_query_file</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_result">prop_result</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_source">prop_source</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>Q</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALqueries">queries</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALquery_hash_list">query_hash_list</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my1.html#VALquery_hash_list">query_hash_list</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
@@ -1696,6 +1701,22 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALrem">rem</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_pg.Postgresql.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my2.Mysql.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_my2.Mysql.html">Rdf_my2.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my1.Mysql.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_my1.Mysql.html">Rdf_my1.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_mem.Mem.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_mem.Mem.html">Rdf_mem.Mem</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Storage.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_graph.Storage.html">Rdf_graph.Storage</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Graph.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALrem_triple">rem_triple</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALrem_triple">rem_triple</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -1734,18 +1755,8 @@ Removing a triple from the graph, curryfied form.
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALrem_triple_t">rem_triple_t</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALreport">report</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALresult_file">result_file</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALrun_import_test">run_import_test</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALrun_sparql_test">run_sparql_test</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>S</td></tr>
 <tr><td><a href="Kw_to_re.html#VALs">s</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsafe_main">safe_main</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALselect">select</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
@@ -1773,13 +1784,27 @@ Execute the given SELECT query.
 Modify the fragment part of the URI.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_pg.Postgresql.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my2.Mysql.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_my2.Mysql.html">Rdf_my2.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my1.Mysql.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_my1.Mysql.html">Rdf_my1.Mysql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_mem.Mem.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_mem.Mem.html">Rdf_mem.Mem</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Storage.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_graph.Storage.html">Rdf_graph.Storage</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_graph.Graph.html#VALset_namespaces">set_namespaces</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_ds.html#VALsimple_dataset">simple_dataset</a> [<a href="Rdf_ds.html">Rdf_ds</a>]</td>
 <td><div class="info">
 <code class="code">simple_dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsizes_of_op">sizes_of_op</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALslice">slice</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALsolution_fold">solution_fold</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
@@ -1822,14 +1847,6 @@ From the given utf8 string and start and stop characters, return
   the corresponding location.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_select">sparql_select</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_stat">sparql_stat</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_stats">sparql_stats</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALstore_operation">store_operation</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_uri.html#VALstring">string</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Create a string from a URI.
@@ -2197,10 +2214,6 @@ Translate group graph pattern as explained here:
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALtriples_y">triples_y</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALtype_op_import">type_op_import</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALtype_op_sparql">type_op_sparql</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>U</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALunion_omega">union_omega</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -2214,10 +2227,6 @@ Create a URI from a string.
 <tr><td><a href="Rdf_sparql.html#VALuri_funs">uri_funs</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALuri_funs_">uri_funs_</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALus">us</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALusage_string">usage_string</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_char_of_code">utf8_char_of_code</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">

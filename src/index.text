@@ -9,6 +9,7 @@ Rdf_loc
 Rdf_misc
 Rdf_rdf
 Rdf_term
+Rdf_types
 Rdf_uri
 Rdf_utf8
 }
