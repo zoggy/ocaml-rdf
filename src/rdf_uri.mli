@@ -44,6 +44,11 @@ val uri : ?check: bool -> string -> uri
 (** Add the given string to the path of the given URI, using '/' as separator. *)
 val concat : uri -> string -> uri
 
+(** Append the given strng to the given URI.
+     @param check can be specified to [false] to prevent URI parsing.
+*)
+val append : ?check: bool -> uri -> string -> uri
+
 (** Return a new URI with the path modified to parent path of the original URI. *)
 val parent : uri -> uri
 

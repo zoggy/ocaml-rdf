@@ -54,6 +54,8 @@ let concat uri s =
   of_neturl (Neturl.modify_url ~path uri)
 ;;
 
+let append ?check u s = uri ?check ((string u)^s);;
+
 let parent uri =
   let uri = neturl uri in
   let path = Neturl.url_path uri in
