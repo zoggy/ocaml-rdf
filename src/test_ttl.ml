@@ -60,6 +60,7 @@ let main () =
   in
   let dot = Rdf_dot.dot_of_graph g in
   (*print_string dot;*)
+  g.Rdf_graph.set_namespaces [];
   print_string (Rdf_ttl.to_string g);
   let oc = open_out "/tmp/foo.dot" in
   output_string oc dot;

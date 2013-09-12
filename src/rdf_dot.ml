@@ -45,7 +45,7 @@ let apply_namespaces namespaces uri =
 ;;
 
 let build_namespaces ?(namespaces=[]) g =
-  let l = (Rdf_rdf.rdf_"", "rdf") :: (g.Rdf_graph.namespaces ()) @ namespaces in
+  let l = (g.Rdf_graph.namespaces ()) @ namespaces in
   let f (map, set) (uri, pref) =
     try
       ignore(Urimap.find uri map);

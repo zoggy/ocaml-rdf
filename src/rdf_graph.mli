@@ -319,6 +319,9 @@ type graph = {
   To make sure the storage you want to use is registered, beware of linking the
   corresponding module in your executable, either by using the [-linkall] option
   or by adding a reference to the module in your code.
+
+  The ["rdf"] namespace is automatically added at creation time,
+  associated to [http://www.w3.org/1999/02/22-rdf-syntax-ns#].
 *)
 val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> graph
 

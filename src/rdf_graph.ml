@@ -243,6 +243,7 @@ let open_graph ?(options=[]) name =
     end
   in
   let module BGP = Rdf_bgp.Make (P) in
+  let g =
   { name = (fun () -> S.graph_name g) ;
     size = (fun () -> S.graph_size g) ;
     add_triple = S.add_triple g ;
@@ -268,6 +269,9 @@ let open_graph ?(options=[]) name =
     set_namespaces = S.set_namespaces g ;
     bgp = (module BGP : Rdf_bgp.S) ;
   }
+  in
+  g.add_namespace (Rdf_rdf.rdf_"") "rdf";
+  g
 ;;
 
 module Bid_map = Map.Make

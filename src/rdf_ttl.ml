@@ -35,7 +35,7 @@ exception Error of error
 
 let string_of_error = function
   Parse_error (loc, s) ->
-    Printf.sprintf "%sParse error on lexeme %S" (Rdf_loc.string_of_loc loc) s
+    (Rdf_loc.string_of_loc loc) ^ s
 | Unknown_namespace s ->
     "Unknown namespace '" ^ s ^ "'"
 ;;
@@ -183,7 +183,12 @@ let from_lexbuf g ~base source_info ?fname lexbuf =
         let (start, stop) = Ulexing.loc lexbuf in
         let loc = source_info start stop in
         let lexeme = Ulexing.utf8_lexeme lexbuf in
-        raise (Error (Parse_error (loc, lexeme)))
+        let msg = Printf.sprintf "Parse error on lexeme %S" lexeme in
+        raise (Error (Parse_error (loc, msg)))
+    | Failure msg ->
+        let (start, stop) = Ulexing.loc lexbuf in
+        let loc = source_info start stop in
+        raise (Error (Parse_error (loc, msg)))
   in
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
@@ -203,6 +208,30 @@ let from_file g ~base file =
   with e ->
       close_in ic;
       raise e
+;;
+
+let escape_reserved_chars =
+  let rec iter b len s i =
+    if i >= len then
+      ()
+    else
+      begin
+        let size = Rdf_utf8.utf8_nb_bytes_of_char s.[i] in
+        (match size with
+          1 when Rdf_types.CSet.mem s.[i] Rdf_ttl_lex.reserved_chars ->
+            Buffer.add_char b '\\' ;
+            Buffer.add_char b s.[i]
+        | _ ->
+            Buffer.add_string b (String.sub s i size)
+        );
+        iter b len s (i+size)
+      end
+  in
+  fun s ->
+    let len = String.length s in
+    let b = Buffer.create len in
+    iter b len s 0;
+    Buffer.contents b
 ;;
 
 let string_of_triple ~sub ~pred ~obj =
@@ -228,7 +257,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
                let s =
                  match Rdf_dot.apply_namespaces ns uri with
                    ("",uri) -> "<"^uri^">"
-                 | (pref,s) -> pref ^ ":" ^ s
+                 | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
                in
                "^^" ^ s
           )
@@ -236,7 +265,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
         let s = Rdf_uri.string uri in
         match Rdf_dot.apply_namespaces ns s with
           ("",uri) -> "<" ^ uri ^ ">"
-        | (pref,s) -> pref ^ ":" ^ s
+        | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
   in
   let sub = string_of sub in
   let pred = string_of (Rdf_term.Uri pred) in

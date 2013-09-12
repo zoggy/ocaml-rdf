@@ -236,7 +236,6 @@ let utf8_count_nl =
   fun s -> iter (String.length s) s 0 0
 ;;
 
-(** Escape some characters by \n, \r, \b, \t, \quotes and \\ but do not escape \u. *)
 let utf8_escape =
   let rec iter b len s i =
     if i >= len then
@@ -251,7 +250,7 @@ let utf8_escape =
           | '\r' -> Buffer.add_string b "\\r"
           | '\t' -> Buffer.add_string b "\\t"
           | '"' -> Buffer.add_string b "\\\""
-          | '\\' when i < len - 1 && s.[i] <> 'u' && s.[i] <> 'U' ->
+          | '\\' when i < len - 1 && s.[i+1] <> 'u' && s.[i+1] <> 'U' ->
               Buffer.add_string b "\\\\"
           | c ->
             Buffer.add_string b (String.sub s i size);
@@ -266,3 +265,53 @@ let utf8_escape =
     Buffer.contents b
 ;;
 
+let utf8_unescape =
+ let escaped_chars = List.fold_left
+   (fun map (c1, c2) -> Rdf_types.CMap.add c1 c2 map)
+   Rdf_types.CMap.empty
+   [ 'b', '\b' ;
+     'f', Char.chr 0x0c ;
+     'n', '\n' ;
+     'r', '\r' ;
+     't', '\t' ;
+     '"', '"' ;
+     '\'', '\'' ;
+     '\\', '\\' ;
+   ]
+ in
+ let rec iter b len s i =
+   if i >= len then
+      ()
+    else
+      begin
+        let size = utf8_nb_bytes_of_char s.[i] in
+        let next =
+          match size, s.[i] with
+            1, '\\' ->
+              if i + size < len then
+                try
+                  let c = Rdf_types.CMap.find s.[i+size] escaped_chars in
+                  Buffer.add_char b c;
+                  i+size+1
+                with
+                  Not_found ->
+                    Buffer.add_char b s.[i];
+                    i + size
+              else
+                (
+                 Buffer.add_char b s.[i] ;
+                 i + size
+                )
+          | _ ->
+              Buffer.add_string b (String.sub s i size);
+              i + size
+        in
+        iter b len s next
+      end
+ in
+ fun s ->
+   let len = String.length s in
+    let b = Buffer.create len in
+    iter b len s 0 ;
+    Buffer.contents b
+;;

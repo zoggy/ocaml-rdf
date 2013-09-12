@@ -45,7 +45,7 @@ let error e = raise (Error e)
 
 let rec string_of_error = function
   Parse_error (loc, s) ->
-    Printf.sprintf "%s%s" (Rdf_loc.string_of_loc loc) s
+    (Rdf_loc.string_of_loc loc) ^ s
 
 | Value_error (Rdf_dt.Exception (Rdf_dt.Error e)) ->
     string_of_error (Value_error e)

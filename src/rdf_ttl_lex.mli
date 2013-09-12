@@ -24,4 +24,6 @@
 
 (** Unicode lexer *)
 
+val reserved_chars : Rdf_types.CSet.t
+
 val main : int -> Ulexing.lexbuf -> int * Rdf_ttl_parser.token

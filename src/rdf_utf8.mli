@@ -84,3 +84,7 @@ val utf8_count_nl : string -> int
 (** [utf8_escape str] escapes some characters by \n, \r, \b, \t, \quotes
  and \\ but do not escape \u. *)
 val utf8_escape : string -> string
+
+(** [utf8_unescape str] unescape the following escaped characters:
+  \n, \r, \b, \t, \quotes, \' and \\. *)
+val utf8_unescape : string -> string
