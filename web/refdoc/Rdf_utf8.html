@@ -66,7 +66,11 @@ Return the number of bytes taken by a the first byte
   in the given UTF-8 string.<br/>
 </div>
 <pre><span id="VALutf8_escape"><span class="keyword">val</span> utf8_escape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
-<code class="code">utf8_escape str</code> escapes some characters by \n, \r, \b, \t, \quotes
- and \\ but do not escape \u.<br/>
+<code class="code">utf8_escape str</code> \-escapes the following characters : \n, \r, \b, \t, \f,
+  \(quotes), \' and \\ but does not escape \u nor \U.<br/>
+</div>
+<pre><span id="VALutf8_unescape"><span class="keyword">val</span> utf8_unescape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+<code class="code">utf8_unescape str</code> unescape the following escaped characters:
+  \n, \r, \b, \t, \quotes, \' and \\.<br/>
 </div>
 </div></contents></ocamldoc>

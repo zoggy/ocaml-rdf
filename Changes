@@ -1,4 +1,5 @@
 Next release:
+* fix: upgrade turtle parser/printer to W3C RC of 2013/02/19
 * do not store namespaces in the graph itself (that was a very bad idea)
 * add: new "mysql2" backend, faster for queries but slower for insertions.
 * add: MySQL backend now support the "engine" option, default is INNODB,

@@ -269,7 +269,11 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 
   To make sure the storage you want to use is registered, beware of linking the
   corresponding module in your executable, either by using the <code class="code">-linkall</code> option
-  or by adding a reference to the module in your code.<br/>
+  or by adding a reference to the module in your code.
+<div class="vertical-space"> </div>
+
+  The <code class="code">"rdf"</code> namespace is automatically added at creation time,
+  associated to <code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code>.<br/>
 </div>
 <pre><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info">
 <code class="code">merge g1 g2</code> add triples from <code class="code">g2</code> to <code class="code">g1</code>.<br/>
