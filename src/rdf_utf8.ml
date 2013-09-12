@@ -249,7 +249,9 @@ let utf8_escape =
           | '\n' -> Buffer.add_string b "\\n"
           | '\r' -> Buffer.add_string b "\\r"
           | '\t' -> Buffer.add_string b "\\t"
+          | '\x0c' -> Buffer.add_string b "\\f"
           | '"' -> Buffer.add_string b "\\\""
+          | '\'' -> Buffer.add_string b "'"
           | '\\' when i < len - 1 && s.[i+1] <> 'u' && s.[i+1] <> 'U' ->
               Buffer.add_string b "\\\\"
           | c ->

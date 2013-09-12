@@ -118,7 +118,9 @@ let rec main line = lexer
 | '.' -> line, DOT
 | "@prefix" -> line, AT_PREFIX
 | "@base" -> line, AT_BASE
-| '@' -> line, AT
+| langtag ->
+      let s = Ulexing.utf8_lexeme lexbuf in
+      line, At_identifier s
 | "^^" -> line, HATHAT
 | boolean ->
       let s = Ulexing.utf8_lexeme lexbuf in
@@ -160,9 +162,6 @@ let rec main line = lexer
   in
   line, Qname_ (s1, s2)
 
-| langtag ->
-      let s = Ulexing.utf8_lexeme lexbuf in
-      line, Identifier s
 | string_literal_quote
 | string_literal_single_quote ->
     let s = Ulexing.utf8_lexeme lexbuf in

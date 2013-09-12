@@ -28,7 +28,7 @@
 open Rdf_ttl_types
 
 %}
-%token SEMICOLON COMMA DOT HATHAT AT
+%token SEMICOLON COMMA DOT HATHAT
 %token AT_PREFIX AT_BASE
 %token EMPTY_BRACKETS
 %token A
@@ -39,6 +39,7 @@ open Rdf_ttl_types
 
 %token <string> Uriref_
 %token <string> Identifier
+%token <string> At_identifier
 %token <string option * string option> Qname_
 %token <string> Bname
 %token <string> String_
@@ -125,7 +126,7 @@ literal:
 | Boolean { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_boolean))) }
 ;
 
-at_identifier: AT Identifier { $2 }
+at_identifier: At_identifier { $1 }
 ;
 
 datatype: HATHAT resource { $2 }
