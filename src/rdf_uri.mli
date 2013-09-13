@@ -25,8 +25,7 @@
 (** URIs. *)
 
 (** URIs are abstract. {b Do not compare with generic comparison
-  functions} ([Pervasives.compare], (=), ...) as it contains
-  functional values. Use {!equal} or {!compare}. *)
+  functions} ([Pervasives.compare], (=), ...). Use {!equal} or {!compare}. *)
 type uri
 
 exception Invalid_url of string
