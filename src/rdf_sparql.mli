@@ -82,10 +82,12 @@ The functions are just calls to Rdf_dt functions. For example,
 {!get_int} retrieve the bounded term with {!get_term},
 then calls {!Rdf_dt.of_term} to get a {!Rdf_dt.value}, than
 calls {!Rdf_dt.int} to retrieve an [Int n] value, then return [n].
- *)
+*)
 
 val get_string : solution -> string -> string
-val get_iri : solution -> string -> Rdf_uri.uri
+
+(** See comment of {!Rdf_dt.iri}. *)
+val get_iri : solution -> Rdf_uri.uri -> string -> Rdf_uri.uri
 val get_int : solution -> string -> int
 val get_float : solution -> string -> float
 val get_bool : solution -> string -> bool

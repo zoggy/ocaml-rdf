@@ -118,8 +118,8 @@ let get_string sol v =
   | _ -> assert false
 ;;
 
-let get_iri sol v =
-  match Rdf_dt.int (Rdf_dt.of_term (get_term sol v)) with
+let get_iri sol base v =
+  match Rdf_dt.iri base (Rdf_dt.of_term (get_term sol v)) with
     Rdf_dt.Iri uri -> uri
   | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
   | _ -> assert false
