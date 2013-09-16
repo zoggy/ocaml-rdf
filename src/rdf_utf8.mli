@@ -88,3 +88,15 @@ val utf8_escape : string -> string
 (** [utf8_unescape str] unescape the following escaped characters:
   \n, \r, \b, \t, \quotes, \' and \\. *)
 val utf8_unescape : string -> string
+
+(** [utf8_lowercase s] returns a new string, with some characters
+  mapped to corresponding lowercase characters.
+  @warning By now, it only applies OCaml's [Char.lowercase] on one byte long characters.
+*)
+val utf8_lowercase : string -> string
+
+(** [utf8_uppercase s] returns a new string, with some characters
+  mapped to corresponding uppercase characters.
+  @warning By now, it only applies OCaml's [Char.uppercase] on one byte long characters.
+*)
+val utf8_uppercase : string -> string

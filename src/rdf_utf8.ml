@@ -317,3 +317,31 @@ let utf8_unescape =
     iter b len s 0 ;
     Buffer.contents b
 ;;
+
+let utf8_lowercase s =
+  let s = String.copy s in
+  let len = String.length s in
+  let i = ref 0 in
+  while !i < len do
+    match utf8_nb_bytes_of_char s.[!i] with
+      1 -> s.[!i] <- Char.lowercase s.[!i]; incr i
+    | n -> i := !i + n
+  done;
+  s
+;;
+
+let utf8_uppercase s =
+  let s = String.copy s in
+  let len = String.length s in
+  let i = ref 0 in
+  while !i < len do
+    match utf8_nb_bytes_of_char s.[!i] with
+      1 -> s.[!i] <- Char.uppercase s.[!i]; incr i
+    | n -> i := !i + n
+  done;
+  s
+;;
+
+
+
+

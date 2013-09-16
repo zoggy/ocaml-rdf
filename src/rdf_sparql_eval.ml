@@ -834,6 +834,32 @@ let bi_sha256 s =
   String (String.lowercase t#get_string)
 ;;
 
+let bi_lcase name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      (try
+         let (s,_) = Rdf_dt.string_literal (eval_expr ctx mu e) in
+         String (Rdf_utf8.utf8_lowercase s)
+       with e -> Err (Rdf_dt.Exception e)
+      )
+  | l -> error (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
+let bi_ucase name =
+  let f eval_expr ctx mu = function
+    [e] ->
+      (try
+         let (s,_) = Rdf_dt.string_literal (eval_expr ctx mu e) in
+         String (Rdf_utf8.utf8_uppercase s)
+       with e -> Err (Rdf_dt.Exception e)
+      )
+  | l -> error (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let built_in_funs =
   let l =
     [
@@ -857,6 +883,7 @@ let built_in_funs =
       "ISURI", bi_isiri ;
       "LANG", bi_lang ;
       "LANGMATCHES", bi_langmatches ;
+      "LCASE", bi_lcase ;
       "MD5", bi_hash bi_md5 ;
       "MINUTES", bi_on_date bi_date_minutes ;
       "MONTH", bi_on_date bi_date_month ;
@@ -879,6 +906,7 @@ let built_in_funs =
       "STRSTARTS", bi_strstarts ;
       "STRUUID", bi_struuid ;
       "SUBSTR", bi_substr ;
+      "UCASE", bi_ucase ;
       "URI", bi_iri ;
       "YEAR", bi_on_date bi_date_year ;
     ]
