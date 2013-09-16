@@ -112,8 +112,11 @@ module Make (P : P) =
       in
       let proj (t,s,_) = t in
       fun mu l ->
-        let l = List.map (add_data mu) l in
-        List.map proj (List.sort sort l)
+        match l with
+          [] | [_] -> l
+        | _ ->
+            let l = List.map (add_data mu) l in
+            List.map proj (List.sort sort l)
 
 
     let filter_of_var_or_term mu = function
@@ -139,6 +142,7 @@ module Make (P : P) =
                   let var_name = "?"^s in
                   try
                     let term = Mu.find var_name mu in
+                    (*prerr_endline ("blank("^var_name^")=>"^(Rdf_term.string_of_term (P.rdfterm term)));*)
                     (None, Some term)
                   with Not_found -> (Some var_name, None)
             end
@@ -185,7 +189,8 @@ module Make (P : P) =
           mu :: acc
         in
         (* FIXME: we will use a fold in the graph when it is implemented *)
-        List.fold_left f [] (P.find ?sub ?pred ?obj ())
+        let matches = P.find ?sub ?pred ?obj () in
+        List.fold_left f [] matches
 
 
     let active_graph_subjects_and_objects () =
@@ -201,6 +206,14 @@ module Make (P : P) =
     let rec eval_triples =
       let rec iter_join triples acc_mus mu =
         let triples = sort_triples mu triples in
+        (*(match triples with
+           [] -> ()
+         | _ ->
+             prerr_endline "sorted triples:";
+             List.iter (fun t ->
+                prerr_endline (Rdf_sparql_algebra.string_of_triple t))
+               triples
+        );*)
         (*prerr_endline ("iter_join triples="^(string_of_int (List.length triples)));
            prerr_endline ("acc_mus: "^(string_of_int (List.length acc_mus)));*)
         match triples with
