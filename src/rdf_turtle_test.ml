@@ -113,13 +113,13 @@ let align_score mapped (sub, pred, obj) =
     Blank_ b1, Blank_ b2 ->
       (
        match is_mapped b1, is_mapped b2 with
-         false, false -> 0
-       | true, false -> 1
-       | false, true -> 2
-       | true, true -> 3
+         false, false -> 3
+       | true, false -> 2
+       | false, true -> 1
+       | true, true -> 0
       )
-  | Blank_ b, _ -> if is_mapped b then 3 else 0
-  | _, Blank_ b -> if is_mapped b then 2 else 0
+  | Blank_ b, _ -> if is_mapped b then 2 else 0
+  | _, Blank_ b -> if is_mapped b then 1 else 0
   | _ -> 0
 ;;
 
