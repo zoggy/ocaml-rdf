@@ -34,7 +34,7 @@ type context =
 type iriref = string
 
 type directive =
-  | Prefix of string option * iriref
+  | Prefix of string * iriref
   | Base of iriref
 
 type qname = string option * string option

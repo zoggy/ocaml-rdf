@@ -65,9 +65,9 @@ directive:
 ;
 
 prefixID:
-| AT_PREFIX n=option(Identifier) iri=iriref DOT
+| AT_PREFIX n=Identifier iri=iriref DOT
     { Prefix (n, iri) }
-| PREFIX n=option(Identifier) iri=iriref
+| PREFIX n=Identifier iri=iriref
     { Prefix (n, iri) }
 ;
 
@@ -133,7 +133,9 @@ verb:
 ;
 
 literal:
-| String_ lang=option(at_identifier) dt=option(datatype) { String ($1, lang, dt) }
+| String_ { String ($1, None, None) }
+| String_ lang=at_identifier { String ($1, Some lang, None) }
+| String_ dt=datatype { String ($1, None, Some dt) }
 | Integer { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_integer))) }
 | Decimal { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_decimal))) }
 | Double { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_double))) }

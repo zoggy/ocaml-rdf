@@ -143,8 +143,7 @@ and insert_sub_predobjs ctx g sub l =
 ;;
 
 let apply_statement (ctx, g) = function
-  Directive (Prefix (s_opt, uri)) ->
-    let s = match s_opt with None -> "" | Some s -> s in
+  Directive (Prefix (s, uri)) ->
     (*prerr_endline (Printf.sprintf "Directive (Prefix (%S, %s))" s uri);*)
     let uri = uri_of_uriref ctx uri in
     (*prerr_endline (Printf.sprintf "uri=%s" (Rdf_uri.string uri));*)

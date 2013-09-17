@@ -150,6 +150,9 @@ rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx rdf_sparql_test_main.cmx
 rdf_sparql_bench: $(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL) rdf_sparql_test.cmx rdf_sparql_bench.cmx
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
+rdf_turtle_test: $(LIB_RDF) rdf_turtle_test.cmx
+		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+
 # Documentation :
 #################
 dump.odoc: *.mli *.ml

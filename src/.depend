@@ -92,8 +92,10 @@ rdf_sparql_test.cmo : rdf_uri.cmi rdf_ttl.cmi rdf_term.cmi \
     rdf_sparql_types.cmo rdf_sparql.cmi rdf_misc.cmi rdf_graph.cmi rdf_ds.cmi
 rdf_sparql_test.cmx : rdf_uri.cmx rdf_ttl.cmx rdf_term.cmx \
     rdf_sparql_types.cmx rdf_sparql.cmx rdf_misc.cmx rdf_graph.cmx rdf_ds.cmx
-rdf_sparql_test_main.cmo : rdf_ttl.cmi rdf_sparql_test.cmo rdf_sparql.cmi
-rdf_sparql_test_main.cmx : rdf_ttl.cmx rdf_sparql_test.cmx rdf_sparql.cmx
+rdf_sparql_test_main.cmo : rdf_uri.cmi rdf_ttl.cmi rdf_sparql_test.cmo \
+    rdf_sparql.cmi
+rdf_sparql_test_main.cmx : rdf_uri.cmx rdf_ttl.cmx rdf_sparql_test.cmx \
+    rdf_sparql.cmx
 rdf_sparql_types.cmo : rdf_uri.cmi rdf_term.cmi rdf_loc.cmi
 rdf_sparql_types.cmx : rdf_uri.cmx rdf_term.cmx rdf_loc.cmx
 rdf_sparql_vis.cmo : rdf_sparql_types.cmo
@@ -122,6 +124,10 @@ rdf_ttl_parser.cmx : rdf_uri.cmx rdf_ttl_types.cmx rdf_rdf.cmx \
     rdf_ttl_parser.cmi
 rdf_ttl_types.cmo : rdf_xml.cmi rdf_uri.cmi
 rdf_ttl_types.cmx : rdf_xml.cmx rdf_uri.cmx
+rdf_turtle_test.cmo : rdf_uri.cmi rdf_ttl.cmi rdf_sparql.cmi rdf_rdf.cmi \
+    rdf_graph.cmi rdf_ds.cmi
+rdf_turtle_test.cmx : rdf_uri.cmx rdf_ttl.cmx rdf_sparql.cmx rdf_rdf.cmx \
+    rdf_graph.cmx rdf_ds.cmx
 rdf_types.cmo : rdf_types.cmi
 rdf_types.cmx : rdf_types.cmi
 rdf_ulex.cmo : rdf_ulex.cmi
