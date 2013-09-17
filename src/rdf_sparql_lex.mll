@@ -434,26 +434,13 @@ let int_of_hex c =
   | _ -> failwith (Printf.sprintf "Invalid hex character %C" c)
 ;;
 
-let int_of_hexcp s =
-  let rec iter f acc p =
-    if p < 0 then
-      acc
-    else
-      (
-       let acc = acc + (int_of_hex s.[p]) * f in
-       iter (f * 16) acc (p-1)
-      )
-  in
-  iter 1 0 (String.length s - 1)
-;;
-
 let rec codepoint b = lexer
 | codepoint_u
 | codepoint_U ->
     let lexeme = Ulexing.utf8_lexeme lexbuf in
     (* remove \u or \U from the beginning of the lexeme *)
     let hex = String.sub lexeme 2 (String.length lexeme - 2) in
-    let cp = int_of_hexcp hex in
+    let cp = Int64.of_string ("0x"^hex) in
     Buffer.add_string b (Rdf_utf8.utf8_char_of_code cp);
     codepoint b lexbuf
 | codepoint_any ->

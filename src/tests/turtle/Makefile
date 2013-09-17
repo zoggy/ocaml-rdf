@@ -7,6 +7,13 @@ all: good bad
 
 good:
 	@(../../test_ttl -b $(BASE) test.nt > test.mine && /bin/echo -e $(OK) test.nt ) || /bin/echo -e $(KO) test.nt;
+	@for i in base1 base2 escapedNamespace1 prefix1 type; do \
+		(../../test_ttl -b $(BASE) $${i}.ttl > $${i}.mine && \
+		grep -v "_:" $${i}.out | sort > $${i}.out-sorted && \
+		grep -v "_:" $${i}.mine | sort > $${i}.mine-sorted && \
+		diff $${i}.out-sorted $${i}.mine-sorted \
+		&& /bin/echo -e $(OK) "$$i" ) || /bin/echo -e $(KO) "$$i"; \
+	done
 	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 30; do \
 		(../../test_ttl -b $(BASE) test-$${i}.ttl > test-$${i}.mine && \
 		grep -v "_:" test-$${i}.out | sort > test-$${i}.out-sorted && \

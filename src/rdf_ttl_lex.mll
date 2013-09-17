@@ -136,7 +136,9 @@ let rec main line = lexer
       line, Double s
 | iriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, Uriref_ (String.sub s 1 (String.length s - 2))
+      let iri = String.sub s 1 (String.length s - 2) in
+      let iri = Rdf_utf8.utf8_unescape iri in
+      line, Uriref_ iri
 | pname_ns ->
       let s = Ulexing.utf8_lexeme lexbuf in
       (*prerr_endline (Printf.sprintf "pname_ns %s" s);*)

@@ -70,7 +70,7 @@ val utf8_strbefore : string -> string -> string
 val utf8_strafter : string -> string -> string
 
 (** [utf8_char_of_code n] return the UTF8 character from a given codepoint. *)
-val utf8_char_of_code : int -> string
+val utf8_char_of_code : int64 -> string
 
 (** [utf8_string_get_bol str] returns the list of pairs
   [(line number, char position)] giving the position of beginning of each line
@@ -86,7 +86,7 @@ val utf8_count_nl : string -> int
 val utf8_escape : string -> string
 
 (** [utf8_unescape str] unescape the following escaped characters:
-  \n, \r, \b, \t, \quotes, \' and \\. *)
+  \n, \r, \b, \t, \f, \quotes, \' and \\, and also \u... and \U... sequences . *)
 val utf8_unescape : string -> string
 
 (** [utf8_lowercase s] returns a new string, with some characters

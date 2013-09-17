@@ -163,49 +163,50 @@ let utf8_strafter s1 = function
 
 (** conversions algorithm from [http://en.wikipedia.org/wiki/UTF-8]. *)
 let utf8_char_of_code n =
-  if n < 128 then
-    String.make 1 (Char.chr n)
+  let n_int = Int64.to_int n in
+  if Int64.compare n (Int64.of_int 128) < 0 then
+    String.make 1 (Char.chr n_int)
   else
-    let z_mask = 0b00111111 in
-    let z_part = (n land z_mask) in
-    let z = 0b10000000 lor z_part in
-    if n <= 0x0007FF then
-      let y_mask = 0b0000011111000000 in
-      let y_part = (n land y_mask) lsr 6 in
-      let y = 0b11000000 lor y_part in
+    let z_mask = Int64.of_int 0b00111111 in
+    let z_part = Int64.logand n z_mask in
+    let z = Int64.logor (Int64.of_int 0b10000000) z_part in
+    if Int64.compare n (Int64.of_int 0x0007FF) <= 0 then
+      let y_mask = Int64.of_int 0b0000011111000000 in
+      let y_part = Int64.shift_right_logical (Int64.logand n y_mask) 6 in
+      let y = Int64.logor (Int64.of_int 0b11000000) y_part in
       let s = "12" in
-      s.[0] <- Char.chr y ;
-      s.[1] <- Char.chr z ;
+      s.[0] <- Char.chr (Int64.to_int y) ;
+      s.[1] <- Char.chr (Int64.to_int z) ;
       s
     else
-      let y_mask = 0b111111000000 in
-      let y_part = (n land y_mask) lsr 6 in
-      let y = 0b10000000 lor y_part in
-      if n <= 0x00FFFF then
-        let x_mask = 0b1111 lsl 12 in
-        let x_part = (n land x_mask) lsr 12 in
-        let x = 0b11100000 lor x_part in
+      let y_mask = Int64.of_int 0b111111000000 in
+      let y_part = Int64.shift_right_logical (Int64.logand n y_mask) 6 in
+      let y = Int64.logor (Int64.of_int 0b10000000) y_part in
+      if Int64.compare n (Int64.of_int 0x00FFFF) <= 0 then
+        let x_mask = Int64.of_int (0b1111 lsl 12) in
+        let x_part = Int64.shift_right_logical (Int64.logand n x_mask) 12 in
+        let x = Int64.logor (Int64.of_int 0b11100000) x_part in
         let s = "123" in
-        s.[0] <- Char.chr x ;
-        s.[1] <- Char.chr y ;
-        s.[2] <- Char.chr z ;
+        s.[0] <- Char.chr (Int64.to_int x) ;
+        s.[1] <- Char.chr (Int64.to_int y) ;
+        s.[2] <- Char.chr (Int64.to_int z) ;
         s
       else
-        if n <= 0x10FFFF then
-          let x_mask = 0b111111 lsl 12 in
-          let x_part = (n land x_mask) lsr 12 in
-          let x = 0b10000000 lor x_part in
-          let w_mask = 0b111 lsl 18 in
-          let w_part = (n land w_mask) lsr 18 in
-          let w = 0b11110000 lor w_part in
+        if Int64.compare n (Int64.of_int 0x10FFFF) <= 0 then
+          let x_mask = Int64.of_int (0b111111 lsl 12) in
+          let x_part = Int64.shift_right_logical (Int64.logand n x_mask) 12 in
+          let x = Int64.logor (Int64.of_int 0b10000000) x_part in
+          let w_mask = Int64.of_int (0b111 lsl 18) in
+          let w_part = Int64.shift_right_logical (Int64.logand n w_mask) 18 in
+          let w = Int64.logor (Int64.of_int 0b11110000) w_part in
           let s = "1234" in
-          s.[0] <- Char.chr w ;
-          s.[1] <- Char.chr x ;
-          s.[2] <- Char.chr y ;
-          s.[3] <- Char.chr z ;
+          s.[0] <- Char.chr (Int64.to_int w) ;
+          s.[1] <- Char.chr (Int64.to_int x) ;
+          s.[2] <- Char.chr (Int64.to_int y) ;
+          s.[3] <- Char.chr (Int64.to_int z) ;
           s
         else
-          failwith (Printf.sprintf "UTF-8 code out of range: %x" n)
+          failwith ("UTF-8 code out of range: "^ (Int64.to_string n))
 ;;
 
 let utf8_string_get_bol =
@@ -268,6 +269,11 @@ let utf8_escape =
 ;;
 
 let utf8_unescape =
+ let int64_of_chars s start len =
+   let s2 = "0x"^(String.sub s start len) in
+   try Int64.of_string s2
+   with _ -> failwith ("Invalid UTF8 code: "^s)
+ in
  let escaped_chars = List.fold_left
    (fun map (c1, c2) -> Rdf_types.CMap.add c1 c2 map)
    Rdf_types.CMap.empty
@@ -297,8 +303,18 @@ let utf8_unescape =
                   i+size+1
                 with
                   Not_found ->
-                    Buffer.add_char b s.[i];
-                    i + size
+                    match s.[i+size] with
+                    | 'u' when i+size+4 < len ->
+                        let code = int64_of_chars s (i+size+1) 4 in
+                        Buffer.add_string b (utf8_char_of_code code);
+                        i+size+5
+                    | 'U' when i+size+8 < len ->
+                        let code = int64_of_chars s (i+size+1) 8 in
+                        Buffer.add_string b (utf8_char_of_code code);
+                        i+size+9
+                    | c ->
+                      Buffer.add_char b s.[i];
+                      i + size
               else
                 (
                  Buffer.add_char b s.[i] ;
