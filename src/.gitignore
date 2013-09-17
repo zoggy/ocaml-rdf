@@ -4,6 +4,7 @@ test_sparql
 test_mysql
 rdf_sparql_test
 rdf_sparql_bench
+rdf_turtle_test
 tools/*.cm*
 tools/*.o
 tools/*.annot
