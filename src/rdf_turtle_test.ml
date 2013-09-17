@@ -2,7 +2,7 @@
   @see http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite
 *)
 
-let base = Rdf_uri.uri "http://example/base/";;
+let base = Rdf_uri.uri "http://www.w3.org/2013/TurtleTests/";;
 
 let rdfs_uri = Rdf_uri.uri "http://www.w3.org/2000/01/rdf-schema#";;
 let rdfs_ = Rdf_uri.append rdfs_uri;;
@@ -94,21 +94,29 @@ let blank_node_labels g =
     Rdf_term.Blank_ s -> Rdf_types.SSet.add (Rdf_term.string_of_blank_id s) acc
   | _ -> acc
   in
-  let set =
-    List.fold_left f
-      (List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.subjects()))
-      (g.Rdf_graph.objects())
+  let set1 =
+    List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.subjects())
   in
-  Rdf_types.SSet.elements set
+  let set2 =
+    List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.objects())
+  in
+  (Rdf_types.SSet.elements set1, Rdf_types.SSet.elements set2)
 ;;
 
-let make_blank_map l1 l2 =
-  if List.length l1 <> List.length l2 then
-    failwith ("graphs don't have the same number of blank nodes");
-  let f acc label1 label2 =
-    Rdf_types.SMap.add label1 label2 acc
+let make_blank_map (l1_sub, l1_obj) (l2_sub, l2_obj) =
+  let f acc l1 l2 =
+    if List.length l1 <> List.length l2 then
+      failwith ("graphs don't have the same number of blank nodes");
+    let f acc label1 label2 =
+      if Rdf_types.SMap.mem label1 acc then
+        acc
+      else
+        Rdf_types.SMap.add label1 label2 acc
+    in
+    List.fold_left2 f acc l1 l2
   in
-  List.fold_left2 f Rdf_types.SMap.empty l1 l2
+  let map = f Rdf_types.SMap.empty l1_sub l2_sub in
+  f map l1_obj l2_obj
 ;;
 
 let map_blanks map g =
@@ -135,7 +143,9 @@ let isomorph_graphs g1 g2 =
    let included g1 g2 =
      let f (sub, pred, obj) =
        match g2.Rdf_graph.find ~sub ~pred ~obj () with
-         [] -> false
+         [] ->
+           prerr_endline ("Triple not found: "^(Rdf_ttl.string_of_triple ~sub ~pred ~obj));
+           false
        | _ -> true
      in
      List.for_all f (g1.Rdf_graph.find ())
@@ -151,8 +161,8 @@ let run_test (test, action, typ) =
   in
   let result =
     try
-      let g = Rdf_graph.open_graph base in
-      ignore(Rdf_ttl.from_file g base in_file);
+      let g = Rdf_graph.open_graph action in
+      ignore(Rdf_ttl.from_file g ~base: action in_file);
       Ok g
     with
       e ->
@@ -177,17 +187,22 @@ let run_test (test, action, typ) =
   | Ok g, SyntaxPos ->
       prerr_endline ("OK "^(Rdf_uri.string test))
   | Ok g, EvalPos result ->
-       let res_file =
-         match List.rev (Rdf_uri.path result) with
-           file :: _ -> file
-         | [] -> assert false
-       in
-       let gres = Rdf_graph.open_graph base in
-       ignore(Rdf_ttl.from_file gres base res_file) ;
+      let res_file =
+        match List.rev (Rdf_uri.path result) with
+          file :: _ -> file
+        | [] -> assert false
+      in
+      let gres = Rdf_graph.open_graph action in
+      ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
+      let file = (Filename.chop_extension in_file)^".out" in
+      g.Rdf_graph.set_namespaces [];
+      Rdf_ttl.to_file g file;
        if isomorph_graphs g gres then
          prerr_endline ("OK "^(Rdf_uri.string test))
        else
+        (
          prerr_endline ("*** KO "^(Rdf_uri.string test))
+        )
 ;;
 
 let run_tests g =
