@@ -89,35 +89,6 @@ let tests g =
   List.fold_left f [] (exec_select g q)
 ;;
 
-let blank_node_labels g =
-  let f acc = function
-    Rdf_term.Blank_ s -> Rdf_types.SSet.add (Rdf_term.string_of_blank_id s) acc
-  | _ -> acc
-  in
-  let set1 =
-    List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.subjects())
-  in
-  let set2 =
-    List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.objects())
-  in
-  (Rdf_types.SSet.elements set1, Rdf_types.SSet.elements set2)
-;;
-
-let make_blank_map (l1_sub, l1_obj) (l2_sub, l2_obj) =
-  let f acc l1 l2 =
-    if List.length l1 <> List.length l2 then
-      failwith ("graphs don't have the same number of blank nodes");
-    let f acc label1 label2 =
-      if Rdf_types.SMap.mem label1 acc then
-        acc
-      else
-        Rdf_types.SMap.add label1 label2 acc
-    in
-    List.fold_left2 f acc l1 l2
-  in
-  let map = f Rdf_types.SMap.empty l1_sub l2_sub in
-  f map l1_obj l2_obj
-;;
 
 let map_blanks map g =
   let map_term = function
@@ -134,23 +105,138 @@ let map_blanks map g =
   List.iter f (g.Rdf_graph.find ())
 ;;
 
-let isomorph_graphs g1 g2 =
-   let labels1 = blank_node_labels g1 in
-   let labels2 = blank_node_labels g2 in
-   let map = make_blank_map labels1 labels2 in
-   map_blanks map g1;
+open Rdf_term;;
 
-   let included g1 g2 =
-     let f (sub, pred, obj) =
-       match g2.Rdf_graph.find ~sub ~pred ~obj () with
-         [] ->
-           prerr_endline ("Triple not found: "^(Rdf_ttl.string_of_triple ~sub ~pred ~obj));
-           false
-       | _ -> true
-     in
-     List.for_all f (g1.Rdf_graph.find ())
-   in
-   included g1 g2 && included g2 g1
+let align_score mapped (sub, pred, obj) =
+  let is_mapped b = Rdf_types.SSet.mem (Rdf_term.string_of_blank_id b) mapped in
+  match sub, obj with
+    Blank_ b1, Blank_ b2 ->
+      (
+       match is_mapped b1, is_mapped b2 with
+         false, false -> 0
+       | true, false -> 1
+       | false, true -> 2
+       | true, true -> 3
+      )
+  | Blank_ b, _ -> if is_mapped b then 3 else 0
+  | _, Blank_ b -> if is_mapped b then 2 else 0
+  | _ -> 0
+;;
+
+
+let sort_triples_for_align =
+  let comp (s1, (_,p1,_)) (s2, (_,p2,_)) =
+    match s1 - s2 with
+      0 -> Rdf_uri.compare p1 p2
+    | n -> n
+  in
+  fun mapped l ->
+    let l = List.map (fun t -> (align_score mapped t, t)) l in
+    let l = List.sort comp l in
+    List.map snd l
+;;
+
+let triples_differ (s1, p1, o1) (s2, p2, o2) =
+  let msg = "Triples differ:\n  "^
+    (Rdf_ttl.string_of_triple ~sub: s1 ~pred: p1 ~obj: o1)^"\n  "^
+      (Rdf_ttl.string_of_triple ~sub: s2 ~pred: p2 ~obj: o2)
+  in
+  failwith msg
+;;
+
+let add_binding bindings mapped b1 b2 =
+  let s1 = Rdf_term.string_of_blank_id b1 in
+  let s2 = Rdf_term.string_of_blank_id b2 in
+  match String.compare s1 s2 with
+    0 -> (bindings, mapped)
+  | _ ->
+      try
+        let mapped_s1 = Rdf_types.SMap.find s1 bindings in
+        if mapped_s1 = s2 then
+          (bindings, mapped)
+        else
+          failwith ("bindings differ")
+      with
+        Not_found ->
+          let bindings = Rdf_types.SMap.add s1 s2 bindings in
+          let mapped = Rdf_types.SSet.add s2 mapped in
+          (bindings, mapped)
+;;
+
+let bind bindings mapped ((s1, p1, o1) as t1) ((s2, p2, o2) as t2) =
+  match Rdf_uri.compare p1 p2 with
+    n when n <> 0 -> triples_differ t1 t2
+  | _ ->
+      let (bindings, mapped) =
+        match s1, s2 with
+          Blank_ b1, Blank_ b2 -> add_binding bindings mapped b1 b2
+        | Blank_ _, _
+        | _, Blank_ _ -> triples_differ t1 t2
+        | _, _ -> (bindings, mapped)
+      in
+      match o1, o2 with
+        Blank_ b1, Blank_ b2 -> add_binding bindings mapped b1 b2
+      | Blank_ _, _
+      | _, Blank_ _ -> triples_differ t1 t2
+      | _, _ -> (bindings, mapped)
+;;
+
+let map_triple bindings (sub,pred,obj) =
+  let map_term = function
+    Blank_ b ->
+      (
+       try Blank_
+          (Rdf_term.blank_id_of_string (Rdf_types.SMap.find (Rdf_term.string_of_blank_id b) bindings))
+       with Not_found -> Blank_ b
+      )
+  | x -> x
+  in
+  let sub = map_term sub in
+  let obj = map_term obj in
+  (sub, pred, obj)
+;;
+
+let make_blank_map g1 g2 =
+  let t1 = g1.Rdf_graph.find () in
+  let t2 = g2.Rdf_graph.find () in
+  let t1 = sort_triples_for_align Rdf_types.SSet.empty t1 in
+  let t2 = sort_triples_for_align Rdf_types.SSet.empty t2 in
+  let rec iter bindings mapped = function
+    [], [] -> bindings
+  | [], _
+  | _, [] -> failwith "Graphs don't have the same number of triples"
+  | t1 :: q1, t2 :: q2 ->
+      let (bindings, mapped) = bind bindings mapped t1 t2 in
+      let q1 = List.map (map_triple bindings) q1 in
+      let q1 = sort_triples_for_align mapped q1 in
+      let q2 = sort_triples_for_align mapped q2 in
+      iter bindings mapped (q1, q2)
+  in
+  iter Rdf_types.SMap.empty Rdf_types.SSet.empty (t1, t2)
+;;
+
+let isomorph_graphs g1 g2 =
+  try
+    let map = make_blank_map g1 g2 in
+    map_blanks map g1;
+
+    let included g1 g2 =
+      let f (sub, pred, obj) =
+        match g2.Rdf_graph.find ~sub ~pred ~obj () with
+          [] ->
+            prerr_endline ("Triple not found: "^(Rdf_ttl.string_of_triple ~sub ~pred ~obj));
+            g2.Rdf_graph.set_namespaces [];
+            prerr_endline (Rdf_ttl.to_string g2);
+            false
+        | _ -> true
+      in
+      List.for_all f (g1.Rdf_graph.find ())
+    in
+    included g1 g2 && included g2 g1
+  with
+    Failure msg ->
+      prerr_endline msg ;
+      false
 ;;
 
 let run_test (test, action, typ) =
@@ -194,13 +280,18 @@ let run_test (test, action, typ) =
       in
       let gres = Rdf_graph.open_graph action in
       ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
-      let file = (Filename.chop_extension in_file)^".out" in
-      g.Rdf_graph.set_namespaces [];
-      Rdf_ttl.to_file g file;
-       if isomorph_graphs g gres then
-         prerr_endline ("OK "^(Rdf_uri.string test))
-       else
+      if isomorph_graphs g gres then
+        prerr_endline ("OK "^(Rdf_uri.string test))
+      else
         (
+         let file = (Filename.chop_extension in_file)^".out" in
+         g.Rdf_graph.set_namespaces [];
+         Rdf_ttl.to_file g file;
+
+         let file2 = (Filename.chop_extension in_file)^".out2" in
+         gres.Rdf_graph.set_namespaces [];
+         Rdf_ttl.to_file gres file2;
+
          prerr_endline ("*** KO "^(Rdf_uri.string test))
         )
 ;;
