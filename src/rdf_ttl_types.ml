@@ -31,25 +31,25 @@ type context =
     prefixes : Rdf_uri.uri SMap.t ;
     gstate : Rdf_xml.global_state ;
   }
-type uriref = string
+type iriref = string
 
 type directive =
-  | Prefix of string option * uriref
-  | Base of uriref
+  | Prefix of string option * iriref
+  | Base of iriref
 
 type qname = string option * string option
 
-type resource =
-  | Uriref of uriref
+type iri =
+  | Iriref of iriref
   | Qname of qname
 
 type language = string
 
 type literal =
-  | String of string * language option * resource option
+  | String of string * language option * iri option
 
 type object_ =
-  | Obj_res of resource
+  | Obj_iri of iri
   | Obj_blank of blank
   | Obj_literal of literal
 
@@ -59,12 +59,12 @@ and blank =
  | PredObjs of predobj list
  | Collection of object_ list
 
-and pred = Pred_res of resource | Pred_a
+and pred = Pred_iri of iri | Pred_a
 
 and predobj = pred * object_ list
 
 type subject =
-  | Sub_res of resource
+  | Sub_iri of iri
   | Sub_blank of blank
 
 type statement =

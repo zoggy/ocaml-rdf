@@ -50,7 +50,7 @@ let uri_of_uriref ctx s =
 ;;
 
 let uri_of_resource ctx = function
-  Uriref uri -> uri_of_uriref ctx uri
+  Iriref uri -> uri_of_uriref ctx uri
 | Qname (p, n) ->
     (*prerr_endline
       (Printf.sprintf "Qname(%S, %S)"
@@ -109,7 +109,7 @@ and mk_collection ctx g node = function
        mk_collection ctx g obj q
 
 and mk_object_node ctx g = function
-  | Obj_res res -> (Rdf_term.Uri (uri_of_resource ctx res), ctx, g)
+  | Obj_iri res -> (Rdf_term.Uri (uri_of_resource ctx res), ctx, g)
   | Obj_blank b -> mk_blank ctx g b
   | Obj_literal (String (s, lang, typ)) ->
        let typ =
@@ -128,7 +128,7 @@ and insert_pred sub pred (ctx, g) obj =
 and insert_sub_predobj sub (ctx, g) (pred, objs) =
   let pred =
     match pred with
-      Pred_res r -> uri_of_resource ctx r
+      Pred_iri r -> uri_of_resource ctx r
     | Pred_a -> Rdf_rdf.rdf_type
   in
   List.fold_left (insert_pred sub pred) (ctx, g) objs
@@ -136,7 +136,7 @@ and insert_sub_predobj sub (ctx, g) (pred, objs) =
 and insert_sub_predobjs ctx g sub l =
   let (sub, ctx, g) =
     match sub with
-      Sub_res r -> (Rdf_term.Uri (uri_of_resource ctx r), ctx, g)
+      Sub_iri r -> (Rdf_term.Uri (uri_of_resource ctx r), ctx, g)
     | Sub_blank b -> mk_blank ctx g b
   in
   List.fold_left (insert_sub_predobj sub) (ctx, g) l

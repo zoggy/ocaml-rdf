@@ -101,6 +101,9 @@ let regexp anon = '[' ws* ']'
 let regexp comment = '#' ( [^0xA 0xD] )*
 let regexp boolean = "true" | "false"
 
+let regexp sparql_base = ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')
+let regexp sparql_prefix = ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')
+
 let rec main line = lexer
 | 'a' -> line, A
 | "\r\n" -> main (line+1) lexbuf
@@ -108,9 +111,9 @@ let rec main line = lexer
 | '\n' -> main (line+1) lexbuf
 | comment -> main line lexbuf
 | ws -> main line lexbuf
+| anon -> line, ANON
 | '(' -> line, LEFT_PAR
 | ')' -> line, RIGHT_PAR
-| "[]" -> line, EMPTY_BRACKETS
 | '[' -> line, LEFT_BRACKET
 | ']' -> line, RIGHT_BRACKET
 | ',' -> line, COMMA
@@ -118,6 +121,8 @@ let rec main line = lexer
 | '.' -> line, DOT
 | "@prefix" -> line, AT_PREFIX
 | "@base" -> line, AT_BASE
+| sparql_prefix -> line, PREFIX
+| sparql_base -> line, BASE
 | langtag ->
       let s = Ulexing.utf8_lexeme lexbuf in
       line, At_identifier s
@@ -138,7 +143,7 @@ let rec main line = lexer
       let s = Ulexing.utf8_lexeme lexbuf in
       let iri = String.sub s 1 (String.length s - 2) in
       let iri = Rdf_utf8.utf8_unescape iri in
-      line, Uriref_ iri
+      line, Iriref_ iri
 | pname_ns ->
       let s = Ulexing.utf8_lexeme lexbuf in
       (*prerr_endline (Printf.sprintf "pname_ns %s" s);*)

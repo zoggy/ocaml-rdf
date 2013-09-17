@@ -30,14 +30,14 @@ open Rdf_ttl_types
 %}
 %token SEMICOLON COMMA DOT HATHAT
 %token AT_PREFIX AT_BASE
-%token EMPTY_BRACKETS
-%token A
+%token PREFIX  BASE
+%token A ANON
 %token EOF
 
 %token LEFT_PAR RIGHT_PAR
 %token LEFT_BRACKET RIGHT_BRACKET
 
-%token <string> Uriref_
+%token <string> Iriref_
 %token <string> Identifier
 %token <string> At_identifier
 %token <string option * string option> Qname_
@@ -55,7 +55,7 @@ open Rdf_ttl_types
 %public main : list(statement) EOF { $1 }
 
 statement:
-  directive DOT { Directive $1 }
+  directive { Directive $1 }
 | triples DOT { let (a,b) = $1 in Triples (a, b) }
 ;
 
@@ -65,35 +65,37 @@ directive:
 ;
 
 prefixID:
-  AT_PREFIX n=option(Identifier) uri=uriref
-    { Prefix (n, uri) }
-base:
-| AT_BASE uri=uriref
-    { Base uri }
+| AT_PREFIX n=option(Identifier) iri=iriref DOT
+    { Prefix (n, iri) }
+| PREFIX n=option(Identifier) iri=iriref
+    { Prefix (n, iri) }
 ;
 
-triples: subject predobjs { ($1, $2) }
+base:
+| AT_BASE iri=iriref DOT
+    { Base iri }
+| BASE iri=iriref
+    { Base iri }
+;
+
+triples:
+| subject predobjs { ($1, $2) }
+| blanknodepropertylist l=option(predobjs)
+   { (Sub_blank $1, match l with None -> [] | Some l -> l) }
 ;
 
 subject:
-| resource { Sub_res $1 }
-| blank { Sub_blank $1 }
+| iri { Sub_iri $1 }
+| blanknode { Sub_blank $1 }
+| collection { Sub_blank (Collection $1) }
 ;
 
-predobjs:
-  separated_nonempty_list(SEMICOLON, predobj) option(SEMICOLON) { $1 }
+iri:
+| iriref { Iriref $1 }
+| prefixedName { $1 }
 ;
 
-predobj: verb separated_nonempty_list(COMMA, object_) { ($1, $2) }
-;
-
-verb:
-| resource { Pred_res $1 }
-| A { Pred_a }
-;
-
-resource:
-| uriref { Uriref $1 }
+prefixedName:
 | Qname_ { let (a, b) = $1 in Qname (a, b) }
 | Identifier {
     let p = match $1 with "" -> None | s -> Some s in
@@ -101,36 +103,53 @@ resource:
   }
 ;
 
-blank:
+blanknode:
 | Bname { NodeId $1 }
-| EMPTY_BRACKETS { Empty }
-| LEFT_BRACKET predobjs RIGHT_BRACKET { PredObjs $2 }
-| collection { Collection $1 }
+| ANON { Empty }
 ;
 
-collection:
-| LEFT_PAR list(object_) RIGHT_PAR { $2 }
+collection: LEFT_PAR list(object_) RIGHT_PAR { $2 }
+;
+
+predobjs:
+| predobj { [ $1 ] }
+| predobj SEMICOLON { [ $1 ] }
+| predobj SEMICOLON predobjs { $1 :: $3 }
+;
+
+predobj: verb separated_nonempty_list(COMMA, object_) { ($1, $2) }
 ;
 
 object_:
-| resource { Obj_res $1 }
-| blank { Obj_blank $1 }
+| iri { Obj_iri $1 }
+| blanknode { Obj_blank $1 }
+| collection { Obj_blank (Collection $1) }
+| blanknodepropertylist { Obj_blank $1 }
 | literal { Obj_literal $1 }
+;
+
+verb:
+| iri { Pred_iri $1 }
+| A { Pred_a }
 ;
 
 literal:
 | String_ lang=option(at_identifier) dt=option(datatype) { String ($1, lang, dt) }
-| Integer { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_integer))) }
-| Decimal { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_decimal))) }
-| Double { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_double))) }
-| Boolean { String ($1, None, Some (Uriref (Rdf_uri.string Rdf_rdf.xsd_boolean))) }
+| Integer { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_integer))) }
+| Decimal { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_decimal))) }
+| Double { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_double))) }
+| Boolean { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_boolean))) }
+;
+
+blanknodepropertylist:
+| LEFT_BRACKET predobjs RIGHT_BRACKET { PredObjs $2 }
 ;
 
 at_identifier: At_identifier { $1 }
 ;
 
-datatype: HATHAT resource { $2 }
+datatype: HATHAT iri { $2 }
 ;
 
-uriref: uri=Uriref_ { uri }
+iriref: iri=Iriref_ { iri }
 ;
