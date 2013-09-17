@@ -112,9 +112,8 @@ collection: LEFT_PAR list(object_) RIGHT_PAR { $2 }
 ;
 
 predobjs:
-| predobj { [ $1 ] }
-| predobj SEMICOLON { [ $1 ] }
-| predobj SEMICOLON predobjs { $1 :: $3 }
+| predobj nonempty_list(SEMICOLON) predobjs { $1 :: $3 }
+| predobj list(SEMICOLON) { [ $1 ] }
 ;
 
 predobj: verb separated_nonempty_list(COMMA, object_) { ($1, $2) }
