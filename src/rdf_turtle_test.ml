@@ -89,6 +89,59 @@ let tests g =
   List.fold_left f [] (exec_select g q)
 ;;
 
+let blank_node_labels g =
+  let f acc = function
+    Rdf_term.Blank_ s -> Rdf_types.SSet.add (Rdf_term.string_of_blank_id s) acc
+  | _ -> acc
+  in
+  let set =
+    List.fold_left f
+      (List.fold_left f Rdf_types.SSet.empty (g.Rdf_graph.subjects()))
+      (g.Rdf_graph.objects())
+  in
+  Rdf_types.SSet.elements set
+;;
+
+let make_blank_map l1 l2 =
+  if List.length l1 <> List.length l2 then
+    failwith ("graphs don't have the same number of blank nodes");
+  let f acc label1 label2 =
+    Rdf_types.SMap.add label1 label2 acc
+  in
+  List.fold_left2 f Rdf_types.SMap.empty l1 l2
+;;
+
+let map_blanks map g =
+  let map_term = function
+    Rdf_term.Blank_ s ->
+      Rdf_term.Blank_ (Rdf_term.blank_id_of_string (Rdf_types.SMap.find (Rdf_term.string_of_blank_id s) map))
+  | t -> t
+  in
+  let f (sub, pred, obj) =
+    g.Rdf_graph.rem_triple ~sub ~pred ~obj ;
+    let sub = map_term sub in
+    let obj = map_term obj in
+    g.Rdf_graph.add_triple ~sub ~pred ~obj
+  in
+  List.iter f (g.Rdf_graph.find ())
+;;
+
+let isomorph_graphs g1 g2 =
+   let labels1 = blank_node_labels g1 in
+   let labels2 = blank_node_labels g2 in
+   let map = make_blank_map labels1 labels2 in
+   map_blanks map g1;
+
+   let included g1 g2 =
+     let f (sub, pred, obj) =
+       match g2.Rdf_graph.find ~sub ~pred ~obj () with
+         [] -> false
+       | _ -> true
+     in
+     List.for_all f (g1.Rdf_graph.find ())
+   in
+   included g1 g2 && included g2 g1
+;;
 
 let run_test (test, action, typ) =
   let in_file =
@@ -96,16 +149,6 @@ let run_test (test, action, typ) =
       file :: _ -> file
     | [] -> assert false
   in
-(*
-  let res_file =
-    match result with
-      None -> None
-    | Some u ->
-        match List.rev (Rdf_uri.path u) with
-          file :: _ -> Some file
-        | [] -> assert false
-  in
-*)
   let result =
     try
       let g = Rdf_graph.open_graph base in
@@ -128,10 +171,23 @@ let run_test (test, action, typ) =
       prerr_endline ("OK "^(Rdf_uri.string test))
   | Error msg, _ ->
       prerr_endline ("*** KO "^(Rdf_uri.string test)^":\n"^msg)
-  | Ok _, SyntaxNeg ->
+  | Ok _, SyntaxNeg
+  | Ok _, EvalNeg ->
       prerr_endline ("*** KO "^(Rdf_uri.string test))
-  | Ok g, _ ->
+  | Ok g, SyntaxPos ->
       prerr_endline ("OK "^(Rdf_uri.string test))
+  | Ok g, EvalPos result ->
+       let res_file =
+         match List.rev (Rdf_uri.path result) with
+           file :: _ -> file
+         | [] -> assert false
+       in
+       let gres = Rdf_graph.open_graph base in
+       ignore(Rdf_ttl.from_file gres base res_file) ;
+       if isomorph_graphs g gres then
+         prerr_endline ("OK "^(Rdf_uri.string test))
+       else
+         prerr_endline ("*** KO "^(Rdf_uri.string test))
 ;;
 
 let run_tests g =
