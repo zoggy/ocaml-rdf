@@ -30,7 +30,7 @@ module OrderedString =
     let compare = String.compare
   end
 
-module SSet = Set.Make(OrderedString)
+module SSet = Rdf_types.SSet
 module SMap = Rdf_types.SMap
 
 type loc = Rdf_loc.loc =
