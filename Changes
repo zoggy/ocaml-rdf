@@ -1,4 +1,10 @@
 Next release:
+* mod: Rdf_uri.Invalid_url renamed to Invalid_uri
+* mod: Rdf_ttl.from_* do not return a graph, as the given one
+  is modified in place.
+* mod: The base argument of Rdf_ttl.from_* and Rdf_xml.from_* is
+  now optional; if not given, the graph name is used as base.
+* add: more common namespaces in Rdf_rdf
 * partial fix: implement simple version of Sparql's builtin funs LCASE and UCASE
 * fix: upgrade turtle parser/printer to W3C RC of 2013/02/19
 * do not store namespaces in the graph itself (that was a very bad idea)

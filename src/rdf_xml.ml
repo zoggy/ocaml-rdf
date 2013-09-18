@@ -374,7 +374,7 @@ and input_prop g state (gstate, li) t =
                       (gstate, li)
 ;;
 
-let input_tree g ~base t =
+let input_tree g ?(base=g.Rdf_graph.name()) t =
   let state = {
       subject = None ; predicate = None ;
       xml_base = base ; xml_lang = None ;
@@ -397,20 +397,20 @@ let input_tree g ~base t =
   Urimap.iter add_ns gstate.gnamespaces
 ;;
 
-let from_string g ~base s =
+let from_string g ?base s =
   let i = Xmlm.make_input ~strip: true (`String (0, s)) in
   let (_,tree) = in_tree i in
-  input_tree g ~base tree
+  input_tree g ?base tree
 ;;
 
-let from_file g ~base file =
+let from_file g ?base file =
   let ic = open_in file in
   let i = Xmlm.make_input ~strip: true (`Channel ic) in
   let (_,tree) =
     try let t = in_tree i in close_in ic; t
     with e -> close_in ic; raise e
   in
-  input_tree g ~base tree
+  input_tree g ?base tree
 ;;
 
 (** {2 Output} *)

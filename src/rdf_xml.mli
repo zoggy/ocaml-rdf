@@ -56,8 +56,11 @@ val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
   and a property node. *)
 val input_prop : Rdf_graph.graph -> state -> (global_state * int) -> tree -> (global_state * int)
 
-val from_string : Rdf_graph.graph -> base: Rdf_uri.uri -> string -> unit
-val from_file : Rdf_graph.graph -> base: Rdf_uri.uri -> string -> unit
+(** Input graph from string.  Default base is the graph name. *)
+val from_string : Rdf_graph.graph -> ?base: Rdf_uri.uri -> string -> unit
+
+(** Same as {!from_string} but read from the given file. *)
+val from_file : Rdf_graph.graph -> ?base: Rdf_uri.uri -> string -> unit
 
 val to_string :
   ?namespaces: (Rdf_uri.uri * string) list -> Rdf_graph.graph -> string

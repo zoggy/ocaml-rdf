@@ -33,14 +33,14 @@ let syntax =
 type uri = string
 
 
-exception Invalid_url of string
+exception Invalid_uri of string
 
 let string x = x;;
 
 let neturl s =
   try Neturl.url_of_string syntax s
   with Neturl.Malformed_URL ->
-      raise (Invalid_url s)
+      raise (Invalid_uri s)
 ;;
 
 let of_neturl uri = Neturl.string_of_url uri;;

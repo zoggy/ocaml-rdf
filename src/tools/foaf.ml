@@ -28,7 +28,7 @@ let main () =
   let sols = Rdf_sparql.select base dataset q in
   let f_sol sol =
     Rdf_sparql.solution_iter
-      (fun v term -> print_string (v^"=>"^(Rdf_node.string_of_node term)^" "))
+      (fun v term -> print_string (v^"=>"^(Rdf_term.string_of_term term)^" "))
       sol;
     print_newline()
   in

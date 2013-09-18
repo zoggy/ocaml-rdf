@@ -164,7 +164,7 @@ let apply_statements ctx g l =
 open Lexing;;
 
 
-let from_lexbuf g ~base source_info ?fname lexbuf =
+let from_lexbuf g ?(base=g.Rdf_graph.name()) source_info ?fname lexbuf =
   let gstate = {
       Rdf_xml.blanks = SMap.empty ;
       gnamespaces = Rdf_uri.Urimap.empty ;
@@ -192,18 +192,18 @@ let from_lexbuf g ~base source_info ?fname lexbuf =
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
   let add_ns prefix uri = g.add_namespace uri prefix in
-  Rdf_ttl_types.SMap.iter add_ns ctx.prefixes ;
-  g
-
-let from_string g ~base s =
-  let lexbuf = Ulexing.from_utf8_string s in
-  from_lexbuf g ~base (Rdf_loc.source_info_string s) lexbuf
+  Rdf_ttl_types.SMap.iter add_ns ctx.prefixes
 ;;
 
-let from_file g ~base file =
+let from_string g ?base s =
+  let lexbuf = Ulexing.from_utf8_string s in
+  from_lexbuf g ?base (Rdf_loc.source_info_string s) lexbuf
+;;
+
+let from_file g ?base file =
   let ic = open_in file in
   let lexbuf = Ulexing.from_utf8_channel ic in
-  try from_lexbuf g ~base (Rdf_loc.source_info_file file) ~fname: file lexbuf
+  try from_lexbuf g ?base (Rdf_loc.source_info_file file) ~fname: file lexbuf
   with e ->
       close_in ic;
       raise e

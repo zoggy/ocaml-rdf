@@ -28,7 +28,7 @@
   functions} ([Pervasives.compare], (=), ...). Use {!equal} or {!compare}. *)
 type uri
 
-exception Invalid_url of string
+exception Invalid_uri of string
 
 (** Create a string from a URI. *)
 val string : uri -> string

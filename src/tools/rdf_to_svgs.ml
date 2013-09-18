@@ -48,7 +48,7 @@ let main () =
   ignore (Sys.command ("mkdir -p "^(Filename.quote outdir)));
   let subjects = g.Rdf_graph.subjects () in
   let href = function
-    Rdf_node.Uri uri ->
+    Rdf_term.Uri uri ->
       let hex = Digest.to_hex (Digest.string (Rdf_uri.string uri)) in
       let svg_file = hex^".svg" in
       if Filename.is_relative outdir then
@@ -58,7 +58,7 @@ let main () =
   | _ -> None
   in
   let f = function
-    Rdf_node.Uri uri ->
+    Rdf_term.Uri uri ->
       let hex = Digest.to_hex (Digest.string (Rdf_uri.string uri)) in
       let dot_file = (Filename.concat outdir hex)^".dot" in
       let svg_file = (Filename.concat outdir hex)^".svg" in
