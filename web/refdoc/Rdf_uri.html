@@ -13,11 +13,10 @@ URIs.<br/>
 <pre><span id="TYPEuri"><span class="keyword">type</span> uri</span> </pre>
 <div class="info">
 URIs are abstract. <b>Do not compare with generic comparison
-  functions</b> (<code class="code">Pervasives.compare</code>, (=), ...) as it contains
-  functional values. Use <a href="Rdf_uri.html#VALequal"><code class="code">Rdf_uri.equal</code></a> or <a href="Rdf_uri.html#VALcompare"><code class="code">Rdf_uri.compare</code></a>.<br/>
+  functions</b> (<code class="code">Pervasives.compare</code>, (=), ...). Use <a href="Rdf_uri.html#VALequal"><code class="code">Rdf_uri.equal</code></a> or <a href="Rdf_uri.html#VALcompare"><code class="code">Rdf_uri.compare</code></a>.<br/>
 </div>
 
-<pre><span id="EXCEPTIONInvalid_url"><span class="keyword">exception</span> Invalid_url</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre><span id="EXCEPTIONInvalid_uri"><span class="keyword">exception</span> Invalid_uri</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 <pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string</code></pre><div class="info">
 Create a string from a URI.<br/>
 </div>

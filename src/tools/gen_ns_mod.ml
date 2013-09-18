@@ -1,5 +1,6 @@
 (** Generate OCaml code defining uris from a RDFs graph. *)
 
+(*
 let caml_kw = List.fold_right
   Rdf_types.SSet.add
     [
@@ -15,7 +16,7 @@ let caml_kw = List.fold_right
     ]
     Rdf_types.SSet.empty
 ;;
-
+*)
 
 let caml_id s =
   let len = String.length s in
@@ -24,7 +25,8 @@ let caml_id s =
       'a'..'z' | 'A'..'Z' | '0'..'9' | '_' -> ()
     | _ -> s.[i] <- '_'
   done;
-  if Rdf_types.SSet.mem s caml_kw then s^"_" else s
+  s
+  (*if Rdf_types.SSet.mem s caml_kw then s^"_" else s*)
 ;;
 
 let get_properties g =
@@ -35,7 +37,7 @@ let get_properties g =
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
-        FILTER (?type IN (rdf:Property, rdfs:Class))
+        FILTER (?type IN (rdf:Property, rdfs:Class, rdfs:Datatype))
       }
       ORDER BY LCASE(STR(?prop))"
   in
@@ -70,7 +72,7 @@ let get_under s1 s2 =
 let gen_impl ?(comments=true) oc prefix base props =
   let p s = output_string oc s in
   let pc s = if comments then p ("(** "^s^" *)\n") else () in
-  pc ("Properties of ["^(Rdf_uri.string base)^"]");
+  pc ("Elements of ["^(Rdf_uri.string base)^"]");
   p "\n";
   pc ("["^(Rdf_uri.string base)^"]");
   p ("let "^prefix^" = Rdf_uri.uri \""^(Rdf_uri.string base)^"\";;\n");
@@ -86,7 +88,7 @@ let gen_impl ?(comments=true) oc prefix base props =
 let gen_intf oc prefix base props =
   let p s = output_string oc s in
   let pc s = p ("(** "^s^" *)\n") in
-  pc ("Properties of ["^(Rdf_uri.string base)^"]");
+  pc ("Elements of ["^(Rdf_uri.string base)^"]");
   p "\n";
   pc ("["^(Rdf_uri.string base)^"]");
   p ("val "^prefix^" : Rdf_uri.uri\n");
@@ -129,6 +131,7 @@ let usage = Printf.sprintf "Usage: %s [options] <prefix> <base_uri> <file>" Sys.
 let main () =
   let load = ref Rdf_xml.from_file in
   let file_prefix = ref None in
+  let read_base = ref None in
   let args = ref [] in
   Arg.parse
     [
@@ -137,6 +140,9 @@ let main () =
 
       "-f", Arg.String (fun s -> file_prefix := Some s),
       " <s> generate code in <s>.ml and <s>.mli" ;
+
+      "-b", Arg.String (fun s -> read_base := Some s),
+      " <uri> use <uri> as base used when reading graph, default is <base_uri>" ;
     ]
     (fun s -> args := s :: !args)
     (usage^"\nwhere options are:");
@@ -148,7 +154,11 @@ let main () =
           let prefix = caml_id prefix in
           let options = [ "storage", "mem" ] in
           let g = Rdf_graph.open_graph ~options base_uri in
-          !load g file ;
+          let base = match !read_base with
+              None -> base_uri
+            | Some s -> Rdf_uri.uri s
+          in
+          !load g ~base file ;
           generate ?file: !file_prefix prefix base_uri g
         with
           Rdf_uri.Invalid_uri s -> failwith ("Invalid uri: "^s)

@@ -53,6 +53,10 @@ LIB_RDF_CMOFILES= \
 	rdf_loc.cmo \
 	rdf_uri.cmo \
 	rdf_rdf.cmo \
+	rdf_doap.cmo \
+	rdf_earl.cmo \
+	rdf_foaf.cmo \
+	rdf_rdfs.cmo \
 	rdf_term.cmo \
 	rdf_dt.cmo \
 	rdf_sparql_types.cmo \
@@ -157,7 +161,7 @@ rdf_turtle_test: $(LIB_RDF) rdf_turtle_test.cmx
 #################
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
-	`ls $^ | grep -v example | grep -v test | grep -v _parser.ml | grep -v _lex.ml`
+	`ls $^ | grep -v example | grep -v test | grep -v bench | grep -v _parser.ml | grep -v _lex.ml`
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc

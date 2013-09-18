@@ -125,8 +125,6 @@ Execute the given ASK query.
 <tr><td align="left"><br/>B</td></tr>
 <tr><td><a href="Kw_to_re.html#VALb">b</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALbase">base</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_bnode">bi_bnode</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_coalesce">bi_coalesce</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -168,6 +166,8 @@ Execute the given ASK query.
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_lang">bi_lang</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_langmatches">bi_langmatches</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALbi_lcase">bi_lcase</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_md5">bi_md5</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -219,6 +219,8 @@ See http://www.w3.org/TR/xpath-functions/#regex-syntax
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_struuid">bi_struuid</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_substr">bi_substr</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALbi_ucase">bi_ucase</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALbinary_op">binary_op</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
@@ -421,6 +423,10 @@ Parse a literal to get a datetime.
 <td></td></tr>
 <tr><td><a href="Rdf_mem.html#VALdbg">dbg</a> [<a href="Rdf_mem.html">Rdf_mem</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_rdf.html#VALdc">dc</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_rdf.html#VALdc_">dc_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALdefault">default</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALdefault">default</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
@@ -434,6 +440,258 @@ Execute the given DESCRIBE query.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALdo_opt">do_opt</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap">doap</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+<code class="code">http://usefulinc.com/ns/doap#</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_">doap_</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_ArchRepository">doap_ArchRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+GNU Arch source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_BKRepository">doap_BKRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+BitKeeper source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_BazaarBranch">doap_BazaarBranch</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Bazaar source code branch.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_CVSRepository">doap_CVSRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+CVS source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_DarcsRepository">doap_DarcsRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+darcs source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_GitRepository">doap_GitRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Git source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_HgRepository">doap_HgRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Mercurial source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_Project">doap_Project</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_Repository">doap_Repository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_SVNRepository">doap_SVNRepository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Subversion source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_Specification">doap_Specification</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A specification of a system's aspects, technical or otherwise.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_Version">doap_Version</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Version information of a project release.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_anon_root">doap_anon_root</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Repository for anonymous access.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_audience">doap_audience</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Description of target user base
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_blog">doap_blog</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+URI of a blog related to a project
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_browse">doap_browse</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Web browser interface to repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_bug_database">doap_bug_database</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Bug tracker for a project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_category">doap_category</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A category of project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_created">doap_created</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Date when something was created, in YYYY-MM-DD form.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_description">doap_description</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Plain text description of a project, of 2-4 sentences in length.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_developer">doap_developer</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Developer of software for the project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_documenter">doap_documenter</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Contributor of documentation to the project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_download_mirror">doap_download_mirror</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Mirror of software download web page.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_download_page">doap_download_page</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Web page from which the project software can be downloaded.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_file_release">doap_file_release</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+URI of download associated with this release.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_helper">doap_helper</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Project contributor.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_homepage">doap_homepage</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+URL of a project's homepage, associated with exactly one project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_implements">doap_implements</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A specification that a project implements.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_language">doap_language</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+ISO language code a project has been translated into
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_license">doap_license</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+The URI of an RDF description of the license the software is distributed under.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_location">doap_location</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Location of a repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_mailing_list">doap_mailing_list</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Mailing list home page or email address.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_maintainer">doap_maintainer</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Maintainer of a project, a project leader.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_module">doap_module</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Module name of a repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_name">doap_name</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A name of something.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_old_homepage">doap_old_homepage</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+URL of a project's past homepage, associated with exactly one project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_os">doap_os</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Operating system that a project is limited to.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_platform">doap_platform</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Indicator of software platform (non-OS specific), e.g.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_programming_language">doap_programming_language</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Programming language a project is implemented in or intended for use with.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_release">doap_release</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A project release.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_repository">doap_repository</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Source code repository.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_revision">doap_revision</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Revision identifier of a software release.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_screenshots">doap_screenshots</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Web page with screenshots of project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_service_endpoint">doap_service_endpoint</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+The URI of a web service endpoint where software as a service may be accessed
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_shortdesc">doap_shortdesc</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Short (8 or 9 words) plain text description of a project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_tester">doap_tester</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+A tester or other quality control contributor.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_translator">doap_translator</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Contributor of translations to the project.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_vendor">doap_vendor</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+Vendor organization: commercial, free or otherwise
+</div>
+</td></tr>
+<tr><td><a href="Rdf_doap.html#VALdoap_wiki">doap_wiki</a> [<a href="Rdf_doap.html">Rdf_doap</a>]</td>
+<td><div class="info">
+URL of Wiki for collaborative discussion of project.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_dot.html#VALdot_of_graph">dot_of_graph</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
 <td><div class="info">
 <code class="code">dot_of_graph graph</code> returns the Graphviz code to represent the given <code class="code">graph</code>.
@@ -451,6 +709,133 @@ Dummy location.
 </div>
 </td></tr>
 <tr><td align="left"><br/>E</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl">earl</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+<code class="code">http://www.w3.org/ns/earl#</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_">earl_</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_Assertion">earl_Assertion</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+a statement that embodies the results of a test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_Assertor">earl_Assertor</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+an entity such as a person, a software tool, an organization, or any other grouping that carries out a test collectively
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_CannotTell">earl_CannotTell</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of outcomes to denote an undetermined outcome
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_Fail">earl_Fail</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of outcomes to denote failing a test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_NotApplicable">earl_NotApplicable</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of outcomes to denote the test is not applicable
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_NotTested">earl_NotTested</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of outcomes to denote the test has not been carried out
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_OutcomeValue">earl_OutcomeValue</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+a discrete value that describes a resulting condition from carrying out the test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_Pass">earl_Pass</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of outcomes to denote passing a test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_Software">earl_Software</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+any piece of software such as an authoring tool, browser, or evaluation tool
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestCase">earl_TestCase</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+an atomic test, usually one that is a partial test for a requirement
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestCriterion">earl_TestCriterion</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+a testable statement, usually one that can be passed or failed
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestMode">earl_TestMode</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+describes how a test was carried out
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestRequirement">earl_TestRequirement</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+a higher-level requirement that is tested by executing one or more sub-tests
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestResult">earl_TestResult</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the actual result of performing the test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_TestSubject">earl_TestSubject</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+the class of things that have been tested against some test criterion
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_assertedBy">earl_assertedBy</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+assertor of an assertion
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_info">earl_info</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+additional warnings or error messages in a human-readable form
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_mainAssertor">earl_mainAssertor</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+assertor that is primarily responsible for performing the test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_mode">earl_mode</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+mode in which the test was performed
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_outcome">earl_outcome</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+outcome of performing the test
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_pointer">earl_pointer</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+location within a test subject that are most relevant to a test result
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_result">earl_result</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+result of an assertion
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_subject">earl_subject</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+test subject of an assertion
+</div>
+</td></tr>
+<tr><td><a href="Rdf_earl.html#VALearl_test">earl_test</a> [<a href="Rdf_earl.html">Rdf_earl</a>]</td>
+<td><div class="info">
+test criterion of an assertion
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALebv">ebv</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td><div class="info">
 Evaluate boolean expression.
@@ -761,16 +1146,410 @@ Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="cod
 Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for floats.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf">foaf</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+<code class="code">http://xmlns.com/foaf/0.1/</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_">foaf_</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Agent">foaf_Agent</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An agent (eg.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Document">foaf_Document</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A document.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Group">foaf_Group</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A class of Agents.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Image">foaf_Image</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An image.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_LabelProperty">foaf_LabelProperty</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A foaf:LabelProperty is any RDF property with texual values that serve as labels.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_OnlineAccount">foaf_OnlineAccount</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An online account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_OnlineChatAccount">foaf_OnlineChatAccount</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An online chat account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_OnlineEcommerceAccount">foaf_OnlineEcommerceAccount</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An online e-commerce account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_OnlineGamingAccount">foaf_OnlineGamingAccount</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An online gaming account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Organization">foaf_Organization</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An organization.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Person">foaf_Person</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_PersonalProfileDocument">foaf_PersonalProfileDocument</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A personal profile RDF document.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_Project">foaf_Project</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A project (a collective endeavour of some kind).
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_account">foaf_account</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates an account held by this agent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_accountName">foaf_accountName</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates the name (identifier) associated with this online account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_accountServiceHomepage">foaf_accountServiceHomepage</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates a homepage of the service provide for this online account.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_age">foaf_age</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The age in years of some agent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_aimChatID">foaf_aimChatID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An AIM chat ID
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_based_near">foaf_based_near</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A location that something is based near, for some broadly human notion of near.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_birthday">foaf_birthday</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The birthday of this Agent, represented in mm-dd string form, eg.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_currentProject">foaf_currentProject</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A current project this person works on.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_depiction">foaf_depiction</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A depiction of some thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_depicts">foaf_depicts</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A thing depicted in this representation.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_dnaChecksum">foaf_dnaChecksum</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A checksum for the DNA of some thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_familyName">foaf_familyName</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The family name of some person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_family_name">foaf_family_name</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The family name of some person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_firstName">foaf_firstName</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The first name of a person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_focus">foaf_focus</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The underlying or 'focal' entity associated with some SKOS-described concept.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_fundedBy">foaf_fundedBy</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An organization funding a project or person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_geekcode">foaf_geekcode</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A textual geekcode for this person, see http://www.geekcode.com/geek.html
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_gender">foaf_gender</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The gender of this Agent (typically but not necessarily 'male' or 'female').
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_givenName">foaf_givenName</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The given name of some person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_givenname">foaf_givenname</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The given name of some person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_holdsAccount">foaf_holdsAccount</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates an account held by this agent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_homepage">foaf_homepage</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A homepage for some thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_icqChatID">foaf_icqChatID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An ICQ chat ID
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_img">foaf_img</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An image that can be used to represent some thing (ie.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_interest">foaf_interest</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A page about a topic of interest to this person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_isPrimaryTopicOf">foaf_isPrimaryTopicOf</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A document that this thing is the primary topic of.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_jabberID">foaf_jabberID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A jabber ID for something.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_knows">foaf_knows</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A person known by this person (indicating some level of reciprocated interaction between the parties).
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_lastName">foaf_lastName</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The last name of a person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_logo">foaf_logo</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A logo representing some thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_made">foaf_made</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Something that was made by this agent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_maker">foaf_maker</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An agent that made this thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_mbox">foaf_mbox</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A personal mailbox, ie.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_mbox_sha1sum">foaf_mbox_sha1sum</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The sha1sum of the URI of an Internet mailbox associated with exactly one owner, the first owner of the mailbox.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_member">foaf_member</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates a member of a Group
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_membershipClass">foaf_membershipClass</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Indicates the class of individuals that are a member of a Group
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_msnChatID">foaf_msnChatID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An MSN chat ID
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_myersBriggs">foaf_myersBriggs</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A Myers Briggs (MBTI) personality classification.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_name">foaf_name</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A name for some thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_nick">foaf_nick</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A short informal nickname characterising an agent (includes login identifiers, IRC and other chat nicknames).
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_openid">foaf_openid</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+An OpenID for an Agent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_page">foaf_page</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A page or document about this thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_pastProject">foaf_pastProject</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A project this person has previously worked on.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_phone">foaf_phone</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel).
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_plan">foaf_plan</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A .plan comment, in the tradition of finger and '.plan' files.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_primaryTopic">foaf_primaryTopic</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The primary topic of some page or document.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_publications">foaf_publications</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A link to the publications of this person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_schoolHomepage">foaf_schoolHomepage</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A homepage of a school attended by the person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_sha1">foaf_sha1</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A sha1sum hash, in hex.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_skypeID">foaf_skypeID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A Skype ID
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_status">foaf_status</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A string expressing what the user is happy for the general public (normally) to know about their current activity.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_surname">foaf_surname</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+The surname of some person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_theme">foaf_theme</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A theme.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_thumbnail">foaf_thumbnail</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A derived thumbnail image.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_tipjar">foaf_tipjar</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A tipjar document for this agent, describing means for payment and reward.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_title">foaf_title</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+Title (Mr, Mrs, Ms, Dr.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_topic">foaf_topic</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A topic of some page or document.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_topic_interest">foaf_topic_interest</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A thing of interest to this person.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_weblog">foaf_weblog</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A weblog of some thing (whether person, group, company etc.).
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_workInfoHomepage">foaf_workInfoHomepage</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A work info homepage of some person; a page about their work for some organization.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_workplaceHomepage">foaf_workplaceHomepage</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A workplace homepage of some person; the homepage of an organization they work for.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_foaf.html#VALfoaf_yahooChatID">foaf_yahooChatID</a> [<a href="Rdf_foaf.html">Rdf_foaf</a>]</td>
+<td><div class="info">
+A Yahoo chat ID
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALfresh_var">fresh_var</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_xml.html#VALfrom_file">from_file</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given file.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_ttl.html#VALfrom_file">from_file</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Same as <a href="Rdf_ttl.html#VALfrom_string"><code class="code">Rdf_ttl.from_string</code></a> but read from the given file.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_xml.html#VALfrom_string">from_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Input graph from string.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_ttl.html#VALfrom_string">from_string</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Input graph from string.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALfun_datetime">fun_datetime</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALfunction_call">function_call</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
@@ -795,7 +1574,10 @@ Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> bu
 <tr><td><a href="Rdf_sparql.html#VALget_int">get_int</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_iri">get_iri</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
-<td></td></tr>
+<td><div class="info">
+See comment of <a href="Rdf_dt.html#VALiri"><code class="code">Rdf_dt.iri</code></a>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_ltrl">get_ltrl</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
 Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.get_string</code></a> but the associated language tag is kep, if any.
@@ -815,8 +1597,6 @@ Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.ge
   <code class="code">varname</code> in the solution.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALget_time">get_time</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALget_tuple">get_tuple</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALgetisnull">getisnull</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -849,8 +1629,6 @@ Access to the graph name, as specified at its creation.
 <tr><td><a href="Rdf_sparql_vis.html#VALgraph_node">graph_node</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALgraph_node">graph_node</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALgraph_options">graph_options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALgraph_pattern_elt">graph_pattern_elt</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
@@ -913,12 +1691,6 @@ Return the number of triples in the graph.
 <tr><td><a href="Rdf_my1.html#VALhash_of_term">hash_of_term</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br/>I</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALid">id</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALids">ids</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALimport_stats">import_stats</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALinit_db">init_db</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my2.html#VALinit_db">init_db</a> [<a href="Rdf_my2.html">Rdf_my2</a>]</td>
@@ -1009,8 +1781,6 @@ Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code><
 </div>
 </td></tr>
 <tr><td align="left"><br/>M</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALmain">main</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALmake_select_term_list">make_select_term_list</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my.html#VALmake_select_term_list">make_select_term_list</a> [<a href="Rdf_my.html">Rdf_my</a>]</td>
@@ -1068,8 +1838,6 @@ Create an integer literal.
 <tr><td><a href="Rdf_my2.html#VALmk_where_clause">mk_where_clause</a> [<a href="Rdf_my2.html">Rdf_my2</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my1.html#VALmk_where_clause">mk_where_clause</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALmode">mode</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALmu">mu</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
 <td></td></tr>
@@ -1298,8 +2066,6 @@ Creationg of the graph.
 <td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALopt_of_string">opt_of_string</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALoptions">options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALorder_condition">order_condition</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALorder_condition">order_condition</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
@@ -1504,8 +2270,6 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_describe_query">print_describe_query</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprint_duration_table">print_duration_table</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_expr">print_expr</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALprint_expr">print_expr</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
@@ -1620,33 +2384,11 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALproject_sequence">project_sequence</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_">prop_</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_datasize">prop_datasize</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_duration">prop_duration</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_error">prop_error</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_id">prop_id</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALprop_object_list">prop_object_list</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALprop_object_list">prop_object_list</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_options">prop_options</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_query">prop_query</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_query_file">prop_query_file</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_result">prop_result</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALprop_source">prop_source</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>Q</td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALqueries">queries</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALquery_hash_list">query_hash_list</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my1.html#VALquery_hash_list">query_hash_list</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
@@ -1678,6 +2420,8 @@ Return the list of nodes appearing in predicate position.
 <tr><td><a href="Rdf_pg.html#VALquote_str">quote_str</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
 <td></td></tr>
 <tr><td align="left"><br/>R</td></tr>
+<tr><td><a href="Rdf_rdf.html#VALrdf">rdf</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALrdf_">rdf_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALrdf_Alt">rdf_Alt</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
@@ -1736,6 +2480,88 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALrdf_value">rdf_value</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs">rdfs</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+<code class="code">http://www.w3.org/2000/01/rdf-schema#</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_">rdfs_</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_Class">rdfs_Class</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class of classes.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_Container">rdfs_Container</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class of RDF containers.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_ContainerMembershipProperty">rdfs_ContainerMembershipProperty</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_Datatype">rdfs_Datatype</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class of RDF datatypes.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_Literal">rdfs_Literal</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class of literal values, eg.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_Resource">rdfs_Resource</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The class resource, everything.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_comment">rdfs_comment</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+A description of the subject resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_domain">rdfs_domain</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+A domain of the subject property.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_isDefinedBy">rdfs_isDefinedBy</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The defininition of the subject resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_label">rdfs_label</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+A human-readable name for the subject.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_member">rdfs_member</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+A member of the subject resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_range">rdfs_range</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+A range of the subject property.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_seeAlso">rdfs_seeAlso</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+Further information about the subject resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_subClassOf">rdfs_subClassOf</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The subject is a subclass of a class.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_rdfs.html#VALrdfs_subPropertyOf">rdfs_subPropertyOf</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
+<td><div class="info">
+The subject is a subproperty of a property.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_pg.BGP.html#VALrdfterm">rdfterm</a> [<a href="Rdf_pg.BGP.html">Rdf_pg.BGP</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_my2.MyBGP.html#VALrdfterm">rdfterm</a> [<a href="Rdf_my2.MyBGP.html">Rdf_my2.MyBGP</a>]</td>
@@ -1806,18 +2632,8 @@ Removing a triple from the graph, curryfied form.
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALrem_triple_t">rem_triple_t</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALreport">report</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALresult_file">result_file</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALrun_import_test">run_import_test</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALrun_sparql_test">run_sparql_test</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>S</td></tr>
 <tr><td><a href="Kw_to_re.html#VALs">s</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsafe_main">safe_main</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALselect">select</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
@@ -1866,8 +2682,6 @@ Modify the fragment part of the URI.
 <code class="code">simple_dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsizes_of_op">sizes_of_op</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALslice">slice</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALsolution_fold">solution_fold</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
@@ -1910,14 +2724,6 @@ From the given utf8 string and start and stop characters, return
   the corresponding location.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_select">sparql_select</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_stat">sparql_stat</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALsparql_stats">sparql_stats</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALstore_operation">store_operation</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_uri.html#VALstring">string</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Create a string from a URI.
@@ -2285,10 +3091,6 @@ Translate group graph pattern as explained here:
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALtriples_y">triples_y</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALtype_op_import">type_op_import</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALtype_op_sparql">type_op_sparql</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
 <tr><td align="left"><br/>U</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALunion_omega">union_omega</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -2302,10 +3104,6 @@ Create a URI from a string.
 <tr><td><a href="Rdf_sparql.html#VALuri_funs">uri_funs</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALuri_funs_">uri_funs_</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALus">us</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_bench.html#VALusage_string">usage_string</a> [<a href="Rdf_sparql_bench.html">Rdf_sparql_bench</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_char_of_code">utf8_char_of_code</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
@@ -2349,6 +3147,12 @@ Create a URI from a string.
 <tr><td><a href="Rdf_utf8.html#VALutf8_is_suffix">utf8_is_suffix</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_is_suffix s1 s2</code> returns whether <code class="code">s2</code> is suffix of <code class="code">s1</code>.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_lowercase">utf8_lowercase</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_lowercase s</code> returns a new string, with some characters
+  mapped to corresponding lowercase characters.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_nb_bytes_of_char">utf8_nb_bytes_of_char</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
@@ -2396,7 +3200,13 @@ Return the number of bytes taken by a the first byte
 <tr><td><a href="Rdf_utf8.html#VALutf8_unescape">utf8_unescape</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_unescape str</code> unescape the following escaped characters:
-  \n, \r, \b, \t, \quotes, \' and \\.
+  \n, \r, \b, \t, \f, \quotes, \' and \\, and also \u...
+</div>
+</td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_uppercase">utf8_uppercase</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_uppercase s</code> returns a new string, with some characters
+  mapped to corresponding uppercase characters.
 </div>
 </td></tr>
 <tr><td align="left"><br/>V</td></tr>
@@ -2426,6 +3236,8 @@ Return the number of bytes taken by a the first byte
 <td></td></tr>
 <tr><td align="left"><br/>X</td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALx_list">x_list</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_rdf.html#VALxsd">xsd</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALxsd_">xsd_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>

@@ -117,7 +117,7 @@ let mk_dataset spec =
   in
   let f (uri, file) =
     let g = Rdf_graph.open_graph base in
-    let g = load_ttl g base file in
+    load_ttl g base file ;
     (uri, g)
   in
   let named = List.map f spec.named in

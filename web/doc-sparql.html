@@ -48,7 +48,7 @@ creates a dataset with graph as default graph, and no named graphs:
 <ocaml-eval>
 let base = Rdf_uri.uri "http://foo.net";;
 let g = Rdf_graph.open_graph base ;;
-Rdf_ttl.from_file g base "optional.ttl";;
+Rdf_ttl.from_file g "optional.ttl";;
 let dataset = Rdf_ds.simple_dataset g ;;
 </ocaml-eval>
 <p>Here is the content of our graph:</p>

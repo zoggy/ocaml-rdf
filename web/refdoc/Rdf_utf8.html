@@ -53,7 +53,7 @@ Return the number of bytes taken by a the first byte
 <code class="code">utf8_strafter s1 s2</code> returns the substring after <code class="code">s2</code> in <code class="code">s1</code>.
   See <a href="http://www.w3.org/TR/sparql11-query/#func-strafter">details</a>.<br/>
 </div>
-<pre><span id="VALutf8_char_of_code"><span class="keyword">val</span> utf8_char_of_code</span> : <code class="type">int -&gt; string</code></pre><div class="info">
+<pre><span id="VALutf8_char_of_code"><span class="keyword">val</span> utf8_char_of_code</span> : <code class="type">int64 -&gt; string</code></pre><div class="info">
 <code class="code">utf8_char_of_code n</code> return the UTF8 character from a given codepoint.<br/>
 </div>
 <pre><span id="VALutf8_string_get_bol"><span class="keyword">val</span> utf8_string_get_bol</span> : <code class="type">string -&gt; (int * int) list</code></pre><div class="info">
@@ -71,6 +71,14 @@ Return the number of bytes taken by a the first byte
 </div>
 <pre><span id="VALutf8_unescape"><span class="keyword">val</span> utf8_unescape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_unescape str</code> unescape the following escaped characters:
-  \n, \r, \b, \t, \quotes, \' and \\.<br/>
+  \n, \r, \b, \t, \f, \quotes, \' and \\, and also \u... and \U... sequences .<br/>
+</div>
+<pre><span id="VALutf8_lowercase"><span class="keyword">val</span> utf8_lowercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+<code class="code">utf8_lowercase s</code> returns a new string, with some characters
+  mapped to corresponding lowercase characters.<br/>
+</div>
+<pre><span id="VALutf8_uppercase"><span class="keyword">val</span> utf8_uppercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+<code class="code">utf8_uppercase s</code> returns a new string, with some characters
+  mapped to corresponding uppercase characters.<br/>
 </div>
 </div></contents></ocamldoc>

@@ -34,40 +34,40 @@
 }
 
 
-<pre><span id="TYPEuriref"><span class="keyword">type</span> uriref</span> = <code class="type">string</code> </pre>
+<pre><span id="TYPEiriref"><span class="keyword">type</span> iriref</span> = <code class="type">string</code> </pre>
 
 <pre><code><span id="TYPEdirective"><span class="keyword">type</span> directive</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdirective.Prefix"><span class="constructor">Prefix</span></span> <span class="keyword">of</span> <code class="type">string option * <a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+<code><span id="TYPEELTdirective.Prefix"><span class="constructor">Prefix</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_ttl_types.html#TYPEiriref">iriref</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdirective.Base"><span class="constructor">Base</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+<code><span id="TYPEELTdirective.Base"><span class="constructor">Base</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEiriref">iriref</a></code></code></td>
 
 </tr></table>
 
 
 <pre><span id="TYPEqname"><span class="keyword">type</span> qname</span> = <code class="type">string option * string option</code> </pre>
 
-<pre><code><span id="TYPEresource"><span class="keyword">type</span> resource</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTresource.Uriref"><span class="constructor">Uriref</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEuriref">uriref</a></code></code></td>
+<code><span id="TYPEELTiri.Iriref"><span class="constructor">Iriref</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEiriref">iriref</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTresource.Qname"><span class="constructor">Qname</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEqname">qname</a></code></code></td>
+<code><span id="TYPEELTiri.Qname"><span class="constructor">Qname</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEqname">qname</a></code></code></td>
 
 </tr></table>
 
@@ -79,7 +79,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTliteral.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_ttl_types.html#TYPElanguage">language</a> option * <a href="Rdf_ttl_types.html#TYPEresource">resource</a> option</code></code></td>
+<code><span id="TYPEELTliteral.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_ttl_types.html#TYPElanguage">language</a> option * <a href="Rdf_ttl_types.html#TYPEiri">iri</a> option</code></code></td>
 
 </tr></table>
 
@@ -89,7 +89,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTobject_.Obj_res"><span class="constructor">Obj_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+<code><span id="TYPEELTobject_.Obj_iri"><span class="constructor">Obj_iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
@@ -144,7 +144,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpred.Pred_res"><span class="constructor">Pred_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+<code><span id="TYPEELTpred.Pred_iri"><span class="constructor">Pred_iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
@@ -163,7 +163,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTsubject.Sub_res"><span class="constructor">Sub_res</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEresource">resource</a></code></code></td>
+<code><span id="TYPEELTsubject.Sub_iri"><span class="constructor">Sub_iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>

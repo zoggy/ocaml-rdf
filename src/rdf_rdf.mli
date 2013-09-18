@@ -37,21 +37,8 @@ val rdf_ : string -> uri
 val xsd : uri
 val xsd_ : string -> uri
 
-
-val doap : uri
-val doap_ : string -> uri
-
 val dc : uri
 val dc_ : string -> uri
-
-val earl : uri
-val earl_ : string -> uri
-
-val rdfs : uri
-val rdfs_ : string -> uri
-
-val foaf : uri
-val foaf_ : string -> uri
 
 (** {3 Syntax names} *)
 

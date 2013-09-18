@@ -97,7 +97,7 @@ RDF/XML file <code>example.rdf</code> and exporting to a Turtle file
 <ocaml-eval toplevel="true">
 let base = Rdf_uri.uri "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
-Rdf_xml.from_file g base "example.rdf";;
+Rdf_xml.from_file g "example.rdf";;
 Rdf_ttl.to_file g "example.ttl";;
 </ocaml-eval>
 </section>
@@ -117,7 +117,7 @@ and <code>transaction_rollback</code> of the the
 <ocaml-eval>
 let base = Rdf_uri.uri "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
-Rdf_ttl.from_file g base "example.ttl";;
+Rdf_ttl.from_file g "example.ttl";;
 </ocaml-eval>
 <p>This is our loaded data:</p>
 <showttl graph="g"/>
