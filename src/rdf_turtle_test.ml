@@ -106,42 +106,125 @@ let map_blanks map g =
 ;;
 
 open Rdf_term;;
+(*ORDRE A CORRIGER - utiliser une représentation intermédiaire
+NE PAS SUBSTITUER LES BLANK IDS
+*)
+type align_form =
+  ATT of term * Rdf_uri.uri * term
+| ABT of string * Rdf_uri.uri * term
+| ATB of term * Rdf_uri.uri * string
+| ABB of string * Rdf_uri.uri * string
+;;
 
-let align_score mapped (sub, pred, obj) =
-  let is_mapped b = Rdf_types.SSet.mem (Rdf_term.string_of_blank_id b) mapped in
+let align_form mapped (sub, pred, obj) =
+  let is_mapped b = Rdf_types.SSet.mem b mapped in
   match sub, obj with
     Blank_ b1, Blank_ b2 ->
+      let s1 = Rdf_term.string_of_blank_id b1 in
+      let s2 = Rdf_term.string_of_blank_id b2 in
       (
-       match is_mapped b1, is_mapped b2 with
-         false, false -> 3
-       | true, false -> 2
-       | false, true -> 1
-       | true, true -> 0
+       match is_mapped s1, is_mapped s2 with
+         false, false -> ABB (s1, pred, s2)
+       | true, false -> ATB (sub, pred, s2)
+       | false, true -> ABT (s1, pred, obj)
+       | true, true -> ATT (sub, pred, obj)
       )
-  | Blank_ b, _ -> if is_mapped b then 2 else 0
-  | _, Blank_ b -> if is_mapped b then 1 else 0
-  | _ -> 0
+  | Blank_ b, _ ->
+      let s = Rdf_term.string_of_blank_id b in
+      if is_mapped s then
+        ATT (sub, pred, obj)
+      else
+        ABT (s, pred, obj)
+  | _, Blank_ b ->
+      let s = Rdf_term.string_of_blank_id b in
+      if is_mapped s then
+        ATT (sub, pred, obj)
+      else
+        ATB (sub, pred, s)
+  | _ ->
+      ATT (sub, pred, obj)
 ;;
 
 
 let sort_triples_for_align =
-  let comp (s1, (_,p1,_)) (s2, (_,p2,_)) =
-    match s1 - s2 with
-      0 -> Rdf_uri.compare p1 p2
-    | n -> n
+  let comp (f1, _) (f2, _) =
+    match f1, f2 with
+      ATT (s1, p1, o1), ATT (s2, p2, o2) ->
+        begin
+          match Rdf_uri.compare p1 p2 with
+            0 ->
+              (match Rdf_term.compare s1 s2 with
+                 0 -> Rdf_term.compare o1 o2
+               | n -> n
+              )
+          | n -> n
+        end
+    | ATT _, _ -> 1
+    | _, ATT _ -> -1
+    | ATB (s1, p1, o1), ATB (s2, p2, o2) ->
+        begin
+          match Rdf_uri.compare p1 p2 with
+            0 ->
+              (match Rdf_term.compare s1 s2 with
+                 0 -> String.compare o1 o2
+               | n -> n
+              )
+          | n -> n
+        end
+    | ATB _, _ -> 1
+    | _, ATB _ -> -1
+    | ABT (s1, p1, o1), ABT (s2, p2, o2) ->
+        begin
+          match Rdf_uri.compare p1 p2 with
+            0 ->
+              (match Rdf_term.compare o1 o2 with
+                 0 -> String.compare s1 s2
+               | n -> n
+              )
+          | n -> n
+        end
+    | ABT _, _ -> 1
+    | _, ABT _ -> -1
+    | ABB (s1,p1,o1), ABB (s2,p2,o2) ->
+        begin
+          match Rdf_uri.compare p1 p2 with
+            0 ->
+              (match String.compare s1 s2 with
+                 0 -> String.compare o1 o2
+               | n -> n
+              )
+          | n -> n
+        end
   in
   fun mapped l ->
-    let l = List.map (fun t -> (align_score mapped t, t)) l in
+    let l = List.map (fun t -> (align_form mapped t, t)) l in
     let l = List.sort comp l in
-    List.map snd l
+    (* rev_map because we sorted with blanks first, because
+      of the use of Rdf_term.compare *)
+    List.rev_map snd l
 ;;
 
-let triples_differ (s1, p1, o1) (s2, p2, o2) =
-  let msg = "Triples differ:\n  "^
-    (Rdf_ttl.string_of_triple ~sub: s1 ~pred: p1 ~obj: o1)^"\n  "^
-      (Rdf_ttl.string_of_triple ~sub: s2 ~pred: p2 ~obj: o2)
-  in
-  failwith msg
+let triples_differ (s1, p1, o1) (s2, p2, o2) rest1 rest2 =
+  let b = Buffer.create 256 in
+  Buffer.add_string b "Triples differ:\n  ";
+  Buffer.add_string b (Rdf_ttl.string_of_triple ~sub: s1 ~pred: p1 ~obj: o1);
+  Buffer.add_string b "\n  ";
+  Buffer.add_string b (Rdf_ttl.string_of_triple ~sub: s2 ~pred: p2 ~obj: o2);
+  Buffer.add_string b "\n  Rest1:";
+  List.iter
+    (fun (sub,pred,obj) ->
+       Buffer.add_string b "\n  ";
+       Buffer.add_string b (Rdf_ttl.string_of_triple ~sub ~pred ~obj)
+    )
+    rest1 ;
+  Buffer.add_string b "\n  Rest2:";
+  List.iter
+    (fun (sub,pred,obj) ->
+       Buffer.add_string b "\n  ";
+       Buffer.add_string b (Rdf_ttl.string_of_triple ~sub ~pred ~obj)
+    )
+    rest2 ;
+  failwith (Buffer.contents b)
 ;;
 
 let add_binding bindings mapped b1 b2 =
@@ -163,21 +246,21 @@ let add_binding bindings mapped b1 b2 =
           (bindings, mapped)
 ;;
 
-let bind bindings mapped ((s1, p1, o1) as t1) ((s2, p2, o2) as t2) =
+let bind bindings mapped ((s1, p1, o1) as t1) ((s2, p2, o2) as t2) q1 q2 =
   match Rdf_uri.compare p1 p2 with
-    n when n <> 0 -> triples_differ t1 t2
+    n when n <> 0 -> triples_differ t1 t2 q1 q2
   | _ ->
       let (bindings, mapped) =
         match s1, s2 with
           Blank_ b1, Blank_ b2 -> add_binding bindings mapped b1 b2
         | Blank_ _, _
-        | _, Blank_ _ -> triples_differ t1 t2
+        | _, Blank_ _ -> triples_differ t1 t2 q1 q2
         | _, _ -> (bindings, mapped)
       in
       match o1, o2 with
         Blank_ b1, Blank_ b2 -> add_binding bindings mapped b1 b2
       | Blank_ _, _
-      | _, Blank_ _ -> triples_differ t1 t2
+      | _, Blank_ _ -> triples_differ t1 t2 q1 q2
       | _, _ -> (bindings, mapped)
 ;;
 
@@ -201,12 +284,18 @@ let make_blank_map g1 g2 =
   let t2 = g2.Rdf_graph.find () in
   let t1 = sort_triples_for_align Rdf_types.SSet.empty t1 in
   let t2 = sort_triples_for_align Rdf_types.SSet.empty t2 in
+  (*prerr_endline "make_blank_map";
+  prerr_endline " sorted triples1:";
+  List.iter (fun (sub,pred,obj) -> prerr_endline ("  "^(Rdf_ttl.string_of_triple ~sub ~pred ~obj))) t1 ;
+  prerr_endline " sorted triples2:";
+  List.iter (fun (sub,pred,obj) -> prerr_endline ("  "^(Rdf_ttl.string_of_triple ~sub ~pred ~obj))) t2 ;
+  *)
   let rec iter bindings mapped = function
     [], [] -> bindings
   | [], _
   | _, [] -> failwith "Graphs don't have the same number of triples"
   | t1 :: q1, t2 :: q2 ->
-      let (bindings, mapped) = bind bindings mapped t1 t2 in
+      let (bindings, mapped) = bind bindings mapped t1 t2 q1 q2 in
       let q1 = List.map (map_triple bindings) q1 in
       let q1 = sort_triples_for_align mapped q1 in
       let q2 = sort_triples_for_align mapped q2 in
@@ -215,7 +304,7 @@ let make_blank_map g1 g2 =
   iter Rdf_types.SMap.empty Rdf_types.SSet.empty (t1, t2)
 ;;
 
-let isomorph_graphs g1 g2 =
+let isomorphic_graphs g1 g2 =
   try
     let map = make_blank_map g1 g2 in
     map_blanks map g1;
@@ -280,7 +369,7 @@ let run_test (test, action, typ) =
       in
       let gres = Rdf_graph.open_graph action in
       ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
-      if isomorph_graphs g gres then
+      if isomorphic_graphs g gres then
         prerr_endline ("OK "^(Rdf_uri.string test))
       else
         (
