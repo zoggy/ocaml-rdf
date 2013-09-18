@@ -112,7 +112,7 @@ module MuSet = Set.Make(MuOrdered)
 module MuNOrdered =
   struct
     type t = int * mu
-    let compare (n1, _) (n2, _) = Pervasives.compare n1 n2
+    let compare (n1, _) (n2, _) = n1 - n2
   end
 
 module Multimu = Set.Make(MuNOrdered)

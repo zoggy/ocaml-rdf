@@ -91,7 +91,7 @@ module ValueOrdered =
           end
       | Ltrl _, _ -> 1
       | _, Ltrl _ -> -1
-      | Int n1, Int n2 -> Pervasives.compare n1 n2
+      | Int n1, Int n2 -> n1 - n2
       | Int _, _ -> 1
       | _, Int _ -> -1
       | Float f1, Float f2 -> Pervasives.compare f1 f2
