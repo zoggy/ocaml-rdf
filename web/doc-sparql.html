@@ -18,7 +18,7 @@ The example below parses a Sparql query, then prints it:
 </p>
 <ocaml-eval><![CDATA[
 let query =
-  try parse_from_string
+  try query_from_string
     "PREFIX foaf: <http://xmlns.com/foaf/0.1/>
      SELECT ?name ?mbox ?hpage
      WHERE  { ?x foaf:name  ?name .
@@ -102,7 +102,7 @@ graph.
 </p>
 <ocaml-eval><![CDATA[
 let g2 = Rdf_graph.open_graph base ;;
-let query = parse_from_string
+let query = query_from_string
   "PREFIX foaf: <http://xmlns.com/foaf/0.1/>
    CONSTRUCT { ?x foaf:name ?name ; foaf:mbox ?mbox . }
    WHERE  { ?x foaf:name  ?name .

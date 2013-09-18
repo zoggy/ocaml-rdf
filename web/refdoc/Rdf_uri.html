@@ -22,10 +22,10 @@ Create a string from a URI.<br/>
 </div>
 <pre><span id="VALuri"><span class="keyword">val</span> uri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Create a URI from a string.<br/>
-<b>Raises</b> <code>Invalid_url</code> in case the string does not represent a valid URL.<br/>
+<b>Raises</b> <code>Invalid_uri</code> in case the string does not represent a valid URL.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent URI parsing.
-     Parsing will be done later if needed, and may then raise <code class="code">Invalid_url</code>.</div>
+     Parsing will be done later if needed, and may then raise <code class="code">Invalid_uri</code>.</div>
 <pre><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Add the given string to the path of the given URI, using '/' as separator.<br/>
 </div>

@@ -200,6 +200,8 @@ module type Storage =
     val rem_namespace : g -> string -> unit
     val set_namespaces : g -> (Rdf_uri.uri * string) list -> unit
 
+    (** {3 Evaluating basic graph patterns} *)
+
     module BGP : Storage_BGP with type g = g
   end
 

@@ -1,4 +1,5 @@
 Next release:
+* mod: Rdf_sparql.parse_from_*  renamed to query_from_*
 * mod: Rdf_uri.Invalid_url renamed to Invalid_uri
 * mod: Rdf_ttl.from_* do not return a graph, as the given one
   is modified in place.
