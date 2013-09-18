@@ -31,7 +31,7 @@ module OrderedString =
   end
 
 module SSet = Set.Make(OrderedString)
-module SMap = Map.Make(OrderedString)
+module SMap = Rdf_types.SMap
 
 type loc = Rdf_loc.loc =
   { loc_start : Lexing.position ;
