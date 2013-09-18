@@ -79,8 +79,8 @@ let parse_query parse ?data source =
       exit 1
 ;;
 
-let parse_query_string = parse_query Rdf_sparql.parse_from_string;;
-let parse_query_file = parse_query Rdf_sparql.parse_from_file;;
+let parse_query_string = parse_query Rdf_sparql.query_from_string;;
+let parse_query_file = parse_query Rdf_sparql.query_from_file;;
 let load_ttl_data = ref None;;
 
 let files = ref [];;
@@ -109,7 +109,7 @@ let main () =
     | Some file ->
         let base = Rdf_uri.uri "http://localhost/" in
         let graph = Rdf_graph.open_graph base in
-        try Some (Rdf_ttl.from_file graph ~base file)
+        try Rdf_ttl.from_file graph file; Some graph
         with
         | Rdf_ttl.Error e ->
             prerr_endline (Rdf_ttl.string_of_error e);

@@ -103,6 +103,15 @@ byte: $(RDF_LIBS_BYTE)
 tools: $(LIB_RDF)
 	cd tools && $(MAKE) all
 
+testtools: \
+	test_ttl \
+	test_xml \
+	rdf_sparql_bench \
+	rdf_sparql_test \
+	test_mysql \
+	test_sparql \
+	rdf_turtle_test
+
 .PHONY: tools
 
 $(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)

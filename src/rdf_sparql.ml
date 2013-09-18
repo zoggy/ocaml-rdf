@@ -63,7 +63,7 @@ let rec string_of_error = function
 ;;
 
 
-let parse_from_lexbuf source_info ?fname lexbuf =
+let query_from_lexbuf source_info ?fname lexbuf =
   let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in
   let q =
     try parse lexbuf
@@ -84,15 +84,15 @@ let parse_from_lexbuf source_info ?fname lexbuf =
 
 type query = Rdf_sparql_types.query
 
-let parse_from_string s =
+let query_from_string s =
   let lexbuf = Ulexing.from_utf8_string s in
-  parse_from_lexbuf (Rdf_loc.source_info_string s) lexbuf
+  query_from_lexbuf (Rdf_loc.source_info_string s) lexbuf
 ;;
 
-let parse_from_file file =
+let query_from_file file =
   let ic = open_in file in
   let lexbuf = Ulexing.from_utf8_channel ic in
-  try parse_from_lexbuf (Rdf_loc.source_info_file file) ~fname: file lexbuf
+  try query_from_lexbuf (Rdf_loc.source_info_file file) ~fname: file lexbuf
   with e ->
       close_in ic;
       raise e

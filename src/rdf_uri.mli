@@ -34,9 +34,9 @@ exception Invalid_uri of string
 val string : uri -> string
 
 (** Create a URI from a string.
-     @raise Invalid_url in case the string does not represent a valid URL.
+     @raise Invalid_uri in case the string does not represent a valid URL.
      @param check can be specified to [false] to prevent URI parsing.
-     Parsing will be done later if needed, and may then raise [Invalid_url].
+     Parsing will be done later if needed, and may then raise [Invalid_uri].
 *)
 val uri : ?check: bool -> string -> uri
 

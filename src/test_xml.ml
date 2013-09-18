@@ -44,7 +44,7 @@ let main () =
   in
   let options = [ "storage", "mem" ] in
   let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
-  Rdf_xml.from_file g (Rdf_uri.uri file) file;
+  Rdf_xml.from_file g ~base: (Rdf_uri.uri file) file;
   let dot = Rdf_dot.dot_of_graph g in
   print_string dot;
   Rdf_xml.to_file g "/tmp/foo.rdf"

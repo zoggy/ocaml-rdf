@@ -108,7 +108,7 @@ let run_sparql_test ~id spec =
   let (duration, res, size) =
     try
       let dataset = Rdf_sparql_test.mk_dataset spec in
-      let query = Rdf_sparql.parse_from_file spec.query in
+      let query = Rdf_sparql.query_from_file spec.query in
       let base = match spec.base with None -> Rdf_uri.uri "http://localhost/" | Some u -> u in
       prerr_endline "Running sparql query";
       let t_start = get_time () in
@@ -157,7 +157,7 @@ let run_import_test ~id spec =
         | Some file ->
             let g = Rdf_graph.open_graph spec_base in
             prerr_endline ("loading graph from "^file);
-            ignore(Rdf_ttl.from_file g spec_base file);
+            ignore(Rdf_ttl.from_file g file);
             g
       in
       let t_start = get_time () in
@@ -187,7 +187,7 @@ let run_import_test ~id spec =
 ;;
 let sparql_select g q =
   (*prerr_endline q;*)
-  let q = Rdf_sparql.parse_from_string q in
+  let q = Rdf_sparql.query_from_string q in
   let dataset = Rdf_ds.simple_dataset g in
   Rdf_sparql.select ~base dataset q
 ;;

@@ -43,8 +43,8 @@ val string_of_error : error -> string
 (** {2 Parsing and printing Sparql queries} *)
 
 type query = Rdf_sparql_types.query
-val parse_from_string : string -> query
-val parse_from_file : string -> query
+val query_from_string : string -> query
+val query_from_file : string -> query
 
 val string_of_query : query -> string
 

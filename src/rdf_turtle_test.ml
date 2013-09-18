@@ -25,7 +25,7 @@ let test_stx_neg = rdft_"TestTurtleNegativeSyntax";;
 
 let namespaces =
   [ "rdf", Rdf_rdf.rdf ;
-    "rdfs", Rdf_rdf.rdfs ;
+    "rdfs", Rdf_rdfs.rdfs ;
     "mf", mf_uri ;
     "qt", qt_uri ;
     "rdft", rdft_uri ;
@@ -50,7 +50,7 @@ let exec_select g q =
        q
   in
   try
-    let q = Rdf_sparql.parse_from_string q in
+    let q = Rdf_sparql.query_from_string q in
     Rdf_sparql.select ~base ds q
   with
     Rdf_sparql.Error e ->
@@ -341,7 +341,7 @@ let run_test (test, action, typ) =
         let msg_e =
           match e with
             Rdf_ttl.Error e -> Rdf_ttl.string_of_error e
-          | Rdf_uri.Invalid_url s -> "Invalid_url: "^s
+          | Rdf_uri.Invalid_uri s -> "Invalid uri: "^s
           | e -> raise e
         in
         let msg = (Rdf_uri.string test) ^ "\n" ^ msg_e in

@@ -5,7 +5,7 @@ open Rdf_sparql_test;;
 let run_test spec =
   try
     let dataset = mk_dataset spec in
-    let query = Rdf_sparql.parse_from_file spec.query in
+    let query = Rdf_sparql.query_from_file spec.query in
     let base = match spec.base with
       None -> Rdf_uri.uri "http://foo.bar"
     | Some uri -> uri
