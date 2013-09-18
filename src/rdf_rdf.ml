@@ -24,10 +24,11 @@
 
 (** *)
 
-let rdf_ s = Rdf_uri.uri ("http://www.w3.org/1999/02/22-rdf-syntax-ns#"^s);;
-let xsd_ s = Rdf_uri.uri ("http://www.w3.org/2001/XMLSchema#"^s);;
+let rdf = Rdf_uri.uri "http://www.w3.org/1999/02/22-rdf-syntax-ns#";;
+let rdf_ = Rdf_uri.append rdf ;;
 
-
+let xsd = Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#";;
+let xsd_ = Rdf_uri.append xsd ;;
 
 let rdf_about = rdf_"about";;
 let rdf_datatype = rdf_"datatype";;
@@ -69,4 +70,20 @@ let xsd_boolean = xsd_"boolean";;
 let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
 let rdf_langstring = rdf_"rdf:langString"
+
+let doap = Rdf_uri.uri "http://usefulinc.com/ns/doap#";;
+let doap_ = Rdf_uri.append doap ;;
+
+let dc = Rdf_uri.uri "http://purl.org/dc/terms/";;
+let dc_ = Rdf_uri.append dc ;;
+
+let earl = Rdf_uri.uri "http://www.w3.org/ns/earl#";;
+let earl_ = Rdf_uri.append earl ;;
+
+let rdfs = Rdf_uri.uri "http://www.w3.org/2000/01/rdf-schema#";;
+let rdfs_ = Rdf_uri.append rdfs ;;
+
+let foaf = Rdf_uri.uri "http://xmlns.com/foaf/0.1/";;
+let foaf_ = Rdf_uri.append foaf ;;
+
 

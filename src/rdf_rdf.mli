@@ -27,52 +27,76 @@
   The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
 
-val rdf_ : string -> Rdf_uri.uri
-val xsd_ : string -> Rdf_uri.uri
+open Rdf_uri ;;
+
+(** {3 Common namespaces} *)
+
+val rdf : uri
+val rdf_ : string -> uri
+
+val xsd : uri
+val xsd_ : string -> uri
+
+
+val doap : uri
+val doap_ : string -> uri
+
+val dc : uri
+val dc_ : string -> uri
+
+val earl : uri
+val earl_ : string -> uri
+
+val rdfs : uri
+val rdfs_ : string -> uri
+
+val foaf : uri
+val foaf_ : string -> uri
 
 (** {3 Syntax names} *)
 
-val rdf_about : Rdf_uri.uri
-val rdf_datatype : Rdf_uri.uri
-val rdf_Description : Rdf_uri.uri
-val rdf_ID : Rdf_uri.uri
-val rdf_li : Rdf_uri.uri
-val rdf_nodeID : Rdf_uri.uri
-val rdf_RDF : Rdf_uri.uri
-val rdf_parseType : Rdf_uri.uri
-val rdf_resource : Rdf_uri.uri
+val rdf_about : uri
+val rdf_datatype : uri
+val rdf_Description : uri
+val rdf_ID : uri
+val rdf_li : uri
+val rdf_nodeID : uri
+val rdf_RDF : uri
+val rdf_parseType : uri
+val rdf_resource : uri
 
 (** {3 Class names} *)
 
-val rdf_Alt : Rdf_uri.uri
-val rdf_Bag : Rdf_uri.uri
-val rdf_List : Rdf_uri.uri
-val rdf_Property : Rdf_uri.uri
-val rdf_Seq : Rdf_uri.uri
-val rdf_Statement : Rdf_uri.uri
-val rdf_XMLLiteral : Rdf_uri.uri
+val rdf_Alt : uri
+val rdf_Bag : uri
+val rdf_List : uri
+val rdf_Property : uri
+val rdf_Seq : uri
+val rdf_Statement : uri
+val rdf_XMLLiteral : uri
 
 (** {3 Property names} *)
 
-val rdf_subject : Rdf_uri.uri
-val rdf_predicate : Rdf_uri.uri
-val rdf_object : Rdf_uri.uri
-val rdf_type : Rdf_uri.uri
-val rdf_value : Rdf_uri.uri
-val rdf_first : Rdf_uri.uri
-val rdf_rest : Rdf_uri.uri
-val rdf_n : int -> Rdf_uri.uri
+val rdf_subject : uri
+val rdf_predicate : uri
+val rdf_object : uri
+val rdf_type : uri
+val rdf_value : uri
+val rdf_first : uri
+val rdf_rest : uri
+val rdf_n : int -> uri
 
 (** {3 Resource names} *)
 
-val rdf_nil : Rdf_uri.uri
+val rdf_nil : uri
 
 (** {3 XML Schema datatypes} *)
 
-val xsd_integer : Rdf_uri.uri
-val xsd_double : Rdf_uri.uri
-val xsd_decimal : Rdf_uri.uri
-val xsd_boolean : Rdf_uri.uri
-val xsd_string : Rdf_uri.uri
-val xsd_datetime : Rdf_uri.uri
-val rdf_langstring : Rdf_uri.uri
+val xsd_integer : uri
+val xsd_double : uri
+val xsd_decimal : uri
+val xsd_boolean : uri
+val xsd_string : uri
+val xsd_datetime : uri
+val rdf_langstring : uri
+

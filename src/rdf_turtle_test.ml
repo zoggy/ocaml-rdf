@@ -4,9 +4,6 @@
 
 let base = Rdf_uri.uri "http://www.w3.org/2013/TurtleTests/";;
 
-let rdfs_uri = Rdf_uri.uri "http://www.w3.org/2000/01/rdf-schema#";;
-let rdfs_ = Rdf_uri.append rdfs_uri;;
-
 let mf_uri = Rdf_uri.uri "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
 let mf_ = Rdf_uri.append mf_uri ;;
 
@@ -27,8 +24,8 @@ let test_stx_pos = rdft_"TestTurtlePositiveSyntax";;
 let test_stx_neg = rdft_"TestTurtleNegativeSyntax";;
 
 let namespaces =
-  [ "rdf", Rdf_rdf.rdf_"" ;
-    "rdfs", rdfs_uri ;
+  [ "rdf", Rdf_rdf.rdf ;
+    "rdfs", Rdf_rdf.rdfs ;
     "mf", mf_uri ;
     "qt", qt_uri ;
     "rdft", rdft_uri ;
