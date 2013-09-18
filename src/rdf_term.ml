@@ -184,14 +184,14 @@ let compare term1 term2 =
         (string_of_blank_id id1)
         (string_of_blank_id id2)
 
-module Ord_type =
+module Ordered_term =
   struct
     type t = term
     let compare = compare
   end;;
 
-module TSet = Set.Make (Ord_type);;
-module TMap = Map.Make (Ord_type);;
+module TSet = Set.Make (Ordered_term);;
+module TMap = Map.Make (Ordered_term);;
 
 let lit_true = mk_literal_bool true
 let lit_false = mk_literal_bool false

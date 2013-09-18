@@ -63,8 +63,9 @@ let get_bnode mu value =
     Rdf_dt.Blank label
 ;;
 
-let mu_compare mu1 mu2 = SMap.compare Rdf_term.Ord_type.compare mu1.mu_bindings mu2.mu_bindings
-
+let mu_compare mu1 mu2 =
+  SMap.compare Rdf_term.compare mu1.mu_bindings mu2.mu_bindings
+;;
 
 let mu_merge =
   let f var term1 term2 =

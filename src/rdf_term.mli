@@ -43,7 +43,7 @@ type term =
 
 val compare : term -> term -> int
 
-module Ord_type : sig type t = term val compare : term -> term -> int end
+module Ordered_term : sig type t = term val compare : term -> term -> int end
 module TSet : Set.S with type elt = term
 module TMap : Map.S with type key = term
 

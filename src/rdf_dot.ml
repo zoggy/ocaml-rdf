@@ -26,7 +26,6 @@
 
 open Rdf_term;;
 
-module Node_set = Set.Make(Rdf_term.Ord_type)
 module Urimap = Rdf_uri.Urimap;;
 module SSet = Set.Make (struct type t = string let compare = String.compare end);;
 
@@ -109,9 +108,9 @@ let dot_of_graph ?namespaces ?href ?uri g =
   in
   let f set (sub, pred, obj) =
     Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Uri pred));
-    Node_set.add sub (Node_set.add obj set)
+    Rdf_term.TSet.add sub (Rdf_term.TSet.add obj set)
   in
-  let set = List.fold_left f Node_set.empty triples in
+  let set = List.fold_left f Rdf_term.TSet.empty triples in
   let f_node node =
     Printf.bprintf b "%s [ label=%S %s];\n" (id node) (label node)
       (match href with
@@ -122,7 +121,7 @@ let dot_of_graph ?namespaces ?href ?uri g =
            | Some s -> ", href=\""^s^"\""
       )
   in
-  Node_set.iter f_node set;
+  Rdf_term.TSet.iter f_node set;
   Buffer.add_string b "}\n";
   Buffer.contents b
 ;;

@@ -130,7 +130,7 @@ module GExprOrdered =
           None, None -> 0
         | Some _, None -> 1
         | None, Some _ -> -1
-        | Some a, Some b -> Rdf_term.Ord_type.compare a b
+        | Some a, Some b -> Rdf_term.compare a b
       in
       Rdf_misc.compare_list comp
   end
