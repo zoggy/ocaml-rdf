@@ -18,7 +18,6 @@ let caml_kw = List.fold_right
 
 
 let caml_id s =
-  let s = String.uncapitalize s in
   let len = String.length s in
   for i = 0 to len - 1 do
     match s.[i] with
@@ -33,11 +32,12 @@ let get_properties g =
    "PREFIX rdf: <"^(Rdf_uri.string Rdf_rdf.rdf)^">
     PREFIX rdfs: <"^(Rdf_uri.string Rdf_rdf.rdfs)^">
     SELECT ?prop ?comment ?comment_en
-      { ?prop a rdf:Property ;
+      { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
+        FILTER (?type IN (rdf:Property, rdfs:Class))
       }
-      ORDER BY DESC(LCASE(?prop))"
+      ORDER BY LCASE(STR(?prop))"
   in
   let ds = Rdf_ds.simple_dataset g in
   let q = Rdf_sparql.parse_from_string q in
