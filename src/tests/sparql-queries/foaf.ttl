@@ -1,0 +1,14 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix knows: <http://xmlns.com/foaf/0.1/knows>.
+@base <http://friends.net/>.
+
+<alice> foaf:name "Alice".
+<bob> foaf:name "Bob".
+<charlie> foaf:name "Charlie".
+<edith> foaf:name "Edith".
+<dave> foaf:name "Dave".
+
+<alice> foaf:knows <bob> , <charlie> .
+<bob> foaf:knows <charlie>, <dave> .
+<charlie> foaf:knows <edith> .
+

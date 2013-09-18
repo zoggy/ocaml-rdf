@@ -1,0 +1,7 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+BASE <http://friends.net/>
+SELECT (CONCAT(?name, " knows ", ?known ) as ?x)
+ WHERE { ?p foaf:knows+ ?q .
+         ?p foaf:name ?name .
+         ?q foaf:name ?known .
+       }

@@ -1454,7 +1454,7 @@ let rec eval ctx = function
     let om = M.eval_bgp triples in
     (*prerr_endline "BGP:"; __print_omega om;*)
     om
-
+| Join (BGP [], a) -> eval ctx a
 | Join (a1, a2) ->
     let o1 = eval ctx a1 in
     let o2 = eval ctx a2 in

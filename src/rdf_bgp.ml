@@ -3,7 +3,7 @@
 
 let dbg = Rdf_misc.create_log_fun
   ~prefix: "Rdf_bgp"
-    "RDF_BGP"
+    "RDF_BGP_DEBUG_LEVEL"
 ;;
 
 open Rdf_sparql_types;;
@@ -283,48 +283,68 @@ module Make (P : P) =
                 TSet.fold f all_sub_and_obj ms_one
 
     and eval_reachable =
-                let term_of_graphterm mu0 t =
-                  match filter_of_var_or_term mu0 t with
-                    (_, None) -> assert false
-                  | (_, Some term) -> term
-                in
-                let rec iter mu0 gterm path var (seen, acc_ms) =
-                  let term = term_of_graphterm mu0 gterm in
-                  match TSet.mem term seen with
-                    true -> (seen, acc_ms)
-                  | false ->
-                      let seen = TSet.add term seen in
-                      let ms = eval_triple mu0 (gterm, path, Rdf_sparql_types.Var var) in
-                      (* for each solution, use the term associated to var as
-                         starting point for next iteration *)
-                      let f (seen, acc_ms) mu =
-                        try
-                          let acc_ms = add_if_not_present mu acc_ms in
-                          let node = P.rdfterm (Mu.find var.var_name mu) in
-                          iter mu0 (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
-                        with Not_found -> (seen, acc_ms)
-                      in
-                      List.fold_left f (seen, acc_ms) ms
-                in
-                fun ?(zero=false) mu0 term path var ->
-                  let (_,ms) =
-                    let ms_start =
-                      if zero then
-                        [ Mu.singleton var.var_name (term_of_graphterm mu0 term) ]
-                      else
-                        []
-                    in
-                    iter mu0 term path var (TSet.empty, ms_start)
+            let term_of_graphterm mu0 t =
+              match filter_of_var_or_term mu0 t with
+                (_, None) -> assert false
+              | (_, Some term) -> term
+            in
+            let rec iter mu0 gterm path var (seen, acc_ms) =
+              let term = term_of_graphterm mu0 gterm in
+              match TSet.mem term seen with
+                true -> (seen, acc_ms)
+              | false ->
+                  let seen = TSet.add term seen in
+                  let ms = eval_triple mu0 (gterm, path, Rdf_sparql_types.Var var) in
+                  (* for each solution, use the term associated to var as
+                     starting point for next iteration *)
+                  let f (seen, acc_ms) mu =
+                    try
+                      let acc_ms = add_if_not_present mu acc_ms in
+                      let node = P.rdfterm (Mu.find var.var_name mu) in
+                      iter mu0 (GraphTerm (GraphTermNode node)) path var (seen, acc_ms)
+                    with Not_found -> (seen, acc_ms)
                   in
-                  ms
+                  List.fold_left f (seen, acc_ms) ms
+            in
+            fun ?(zero=false) mu0 term path var ->
+              (*dbg ~level: 2
+                (fun () ->
+                   "eval_reachable card(mu0)="^(string_of_int (SMap.cardinal mu0))^
+                     " term="^(Rdf_term.string_of_term (P.rdfterm (term_of_graphterm mu0 term)))^
+                     ", var="^var.var_name^"\nmu="^
+                     (String.concat ", "
+                      (SMap.fold
+                       (fun key v acc ->
+                          (Printf.sprintf "%s=%s" key (Rdf_term.string_of_term (P.rdfterm v)))::acc)
+                         mu0 []
+                      )
+                     )
+                );
+              *)
+              let (_,ms) =
+                let ms_start =
+                  if zero then
+                    [ Mu.singleton var.var_name (term_of_graphterm mu0 term) ]
+                  else
+                    []
+                in
+                iter mu0 term path var (TSet.empty, ms_start)
+              in
+              ms
 
     and eval_triple_path_or_more mu ~zero x p y =
       match x, y with
       | GraphTerm _, Var v ->
+          (*dbg ~level: 2 (fun () -> "eval_triple_path_or_more GraphTerm-V");*)
           eval_reachable ~zero mu x p v
       | Var v, GraphTerm _ ->
-          eval_reachable ~zero mu x (A.Inv p) v
+          (*dbg ~level: 2 (fun () -> "eval_triple_path_or_more V-GraphTerm");*)
+          begin
+            let p = match p with A.Inv p -> p | p -> A.Inv p in
+            eval_reachable ~zero mu y p v
+          end
       | GraphTerm _, GraphTerm _ ->
+          (*dbg ~level: 2 (fun () -> "eval_triple_path_or_more GraphTerm-GraphTerm");*)
           let term =
             match filter_of_var_or_term mu y with
               (_, None) ->  assert false
@@ -342,11 +362,16 @@ module Make (P : P) =
             []
 
       | Var v1, Var v2 ->
+          (*dbg ~level: 2 (fun () -> "eval_triple_path_or_more V-V");*)
           let all_sub_and_obj = active_graph_subjects_and_objects () in
+          (*dbg ~level: 2 (fun () -> "card(all_sub_and_obj)="^(string_of_int (TSet.cardinal all_sub_and_obj)));*)
           let f term acc_ms =
             let ms = eval_reachable ~zero mu
               (GraphTerm (GraphTermNode (P.rdfterm term))) p v2
             in
+            (*dbg ~level:2
+              (fun () -> "eval_triple_path_or_more (Var "^v1.var_name^") _ (Var "^v2.var_name^") card(ms)="^(string_of_int (List.length ms)));
+            *)
             (* add (v1 -> term) to each returned solution *)
             let f acc_ms mu =
               let mu = Mu.add v1.var_name term mu in
@@ -402,7 +427,27 @@ module Make (P : P) =
       | A.ZeroOrMore p ->
           eval_triple_path_or_more ~zero: true mu x p y
       | A.OneOrMore p ->
-          eval_triple_path_or_more ~zero: false mu x p y
+          (* dbg ~level: 2 (fun () -> "OneOrMore");*)
+          let ms = eval_triple_path_or_more ~zero: false mu x p y in
+          (*dbg ~level: 2
+            (fun () ->
+               "OneOrMore: ms="^
+               (String.concat "\n"
+                  (List.map
+                    (fun mu ->
+                       (String.concat ", "
+                        (SMap.fold
+                         (fun key v acc ->
+                            (Printf.sprintf "%s=%s" key (Rdf_term.string_of_term (P.rdfterm v)))::acc)
+                           mu []
+                        )
+                       )
+                    )
+                    ms)
+                 )
+            );
+             *)
+          ms
       | A.NPS iris ->
           eval_triple_path_nps mu x iris y
 

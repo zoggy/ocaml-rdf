@@ -295,10 +295,15 @@ and translate_subselect t =
 
 and translate_ggp_sub t =
     let (filters, l) = collect_and_remove_filters t.ggp_sub_elts in
+    let join a1 a2 =
+      match a1 with
+        BGP [] -> a2
+      | _ -> Join (a1, a2)
+    in
     let f g elt =
       match elt with
-      | T.Triples l -> Join(g, translate_triples_block l)
-      | T.Union l -> Join(g, translate_union l)
+      | T.Triples l -> join g (translate_triples_block l)
+      | T.Union l -> join g (translate_union l)
       | T.Optional g2 ->
           (
            match translate_ggp g2 with
@@ -306,10 +311,10 @@ and translate_ggp_sub t =
            | g2 -> LeftJoin(g, g2, [])
           )
       | T.Minus g2 -> Minus(g, translate_ggp g2)
-      | T.GGP t -> Join(g, Graph(t.graphgp_name, translate_ggp t.graphgp_pat))
+      | T.GGP t -> join g (Graph(t.graphgp_name, translate_ggp t.graphgp_pat))
       | T.Bind bind -> Extend (g, bind.bind_var, bind.bind_expr)
-      | T.Service s -> Join (g, translate_service s)
-      | T.InlineData d -> Join (g, translate_inline_data d)
+      | T.Service s -> join g (translate_service s)
+      | T.InlineData d -> join g (translate_inline_data d)
       | T.Filter c -> assert false
     in
     let g = List.fold_left f (BGP []) l in
@@ -317,8 +322,30 @@ and translate_ggp_sub t =
       [] -> g
     | _ -> Filter (g, filters)
 
-and translate_triples_block t =
-  BGP (List.fold_left translate_triples_same_subject_path [] t.triples)
+and translate_triples_block =
+  let rec contain_path = function
+  | Var _ | Iri _ | NPS _ -> false
+  | Inv p -> contain_path p
+  | Seq (p1, p2) | Alt (p1, p2) -> contain_path p1 || contain_path p2
+  | ZeroOrOne _ | ZeroOrMore _ | OneOrMore _ -> true
+  in
+  let join a1 a2 =
+    match a1 with
+      BGP [] -> a2
+    | _ -> Join (a1, a2)
+  in
+  let rec split_triples acc simple = function
+     [] -> join acc (BGP simple)
+  | triple :: q ->
+     let (_,p,_) = triple in
+     if contain_path p then
+       split_triples (join acc (BGP [triple])) simple q
+     else
+       split_triples acc (triple :: simple) q
+  in
+  function t ->
+    let triples = List.fold_left translate_triples_same_subject_path [] t.triples in
+    split_triples (BGP []) [] triples
 
 and translate_union l =
   match l with
