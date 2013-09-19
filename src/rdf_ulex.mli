@@ -24,6 +24,11 @@
 
 (** Utilities to use Ulex. *)
 
+val lexpos : Lexing.position -> Ulexing.lexbuf -> Lexing.position
+val lexpos_nl : Lexing.position -> Ulexing.lexbuf -> Lexing.position
+
+exception Parse_error of exn * Lexing.position
+
 val menhir_with_ulex :
-  ('a, 'b) MenhirLib.Convert.traditional -> (int -> Ulexing.lexbuf -> int * 'a) ->
+  ('a, 'b) MenhirLib.Convert.traditional -> (Lexing.position -> Ulexing.lexbuf -> Lexing.position * 'a) ->
     ?fname: string -> Ulexing.lexbuf -> 'b

@@ -63,22 +63,24 @@ let rec string_of_error = function
 ;;
 
 
-let query_from_lexbuf source_info ?fname lexbuf =
+let query_from_lexbuf ?fname lexbuf =
   let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in
   let q =
     try parse lexbuf
-    with
-    (*| MenhirLib.TableInterpreter.Accept _ *)
-    | Rdf_sparql_parser.Error ->
-        let (start, stop) = Ulexing.loc lexbuf in
-        let loc = source_info start stop in
-        let lexeme = Ulexing.utf8_lexeme lexbuf in
-        let msg = Printf.sprintf "Parse error on lexeme %S" lexeme in
-        raise (Error (Parse_error (loc, msg)))
-    | Failure msg ->
-        let (start, stop) = Ulexing.loc lexbuf in
-        let loc = source_info start stop in
-        raise (Error (Parse_error (loc, msg)))
+    with Rdf_ulex.Parse_error (e, pos)->
+        let msg =
+          match e with
+            Rdf_sparql_parser.Error ->
+              let lexeme = Ulexing.utf8_lexeme lexbuf in
+              Printf.sprintf "Parse error on lexeme %S" lexeme
+          | Failure msg ->
+              msg
+          | Rdf_uri.Invalid_uri msg ->
+              "Invalid URI "^msg
+          | e -> Printexc.to_string e
+        in
+        let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
+        error (Parse_error (loc,msg))
   in
   q
 
@@ -86,13 +88,13 @@ type query = Rdf_sparql_types.query
 
 let query_from_string s =
   let lexbuf = Ulexing.from_utf8_string s in
-  query_from_lexbuf (Rdf_loc.source_info_string s) lexbuf
+  query_from_lexbuf lexbuf
 ;;
 
 let query_from_file file =
   let ic = open_in file in
   let lexbuf = Ulexing.from_utf8_channel ic in
-  try query_from_lexbuf (Rdf_loc.source_info_file file) ~fname: file lexbuf
+  try query_from_lexbuf ~fname: file lexbuf
   with e ->
       close_in ic;
       raise e

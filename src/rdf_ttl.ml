@@ -164,7 +164,7 @@ let apply_statements ctx g l =
 open Lexing;;
 
 
-let from_lexbuf g ?(base=g.Rdf_graph.name()) source_info ?fname lexbuf =
+let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
   let gstate = {
       Rdf_xml.blanks = SMap.empty ;
       gnamespaces = Rdf_uri.Urimap.empty ;
@@ -178,16 +178,20 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) source_info ?fname lexbuf =
   let parse = Rdf_ulex.menhir_with_ulex Rdf_ttl_parser.main Rdf_ttl_lex.main ?fname in
   let statements =
     try parse lexbuf
-    with Rdf_ttl_parser.Error ->
-        let (start, stop) = Ulexing.loc lexbuf in
-        let loc = source_info start stop in
-        let lexeme = Ulexing.utf8_lexeme lexbuf in
-        let msg = Printf.sprintf "Parse error on lexeme %S" lexeme in
-        raise (Error (Parse_error (loc, msg)))
-    | Failure msg ->
-        let (start, stop) = Ulexing.loc lexbuf in
-        let loc = source_info start stop in
-        raise (Error (Parse_error (loc, msg)))
+    with Rdf_ulex.Parse_error (e, pos)->
+        let msg =
+          match e with
+            Rdf_ttl_parser.Error ->
+              let lexeme = Ulexing.utf8_lexeme lexbuf in
+              Printf.sprintf "Parse error on lexeme %S" lexeme
+          | Failure msg ->
+              msg
+          | Rdf_uri.Invalid_uri msg ->
+              "Invalid URI "^msg
+          | e -> Printexc.to_string e
+        in
+        let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
+        raise (Error (Parse_error (loc,msg)))
   in
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
@@ -197,13 +201,13 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) source_info ?fname lexbuf =
 
 let from_string g ?base s =
   let lexbuf = Ulexing.from_utf8_string s in
-  from_lexbuf g ?base (Rdf_loc.source_info_string s) lexbuf
+  from_lexbuf g ?base lexbuf
 ;;
 
 let from_file g ?base file =
   let ic = open_in file in
   let lexbuf = Ulexing.from_utf8_channel ic in
-  try from_lexbuf g ?base (Rdf_loc.source_info_file file) ~fname: file lexbuf
+  try from_lexbuf g ?base ~fname: file lexbuf
   with e ->
       close_in ic;
       raise e

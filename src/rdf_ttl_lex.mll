@@ -104,54 +104,58 @@ let regexp boolean = "true" | "false"
 let regexp sparql_base = ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')
 let regexp sparql_prefix = ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')
 
-let rec main line = lexer
-| 'a' -> line, A
-| "\r\n" -> main (line+1) lexbuf
-| '\r' -> main line lexbuf
-| '\n' -> main (line+1) lexbuf
-| comment -> main line lexbuf
-| ws -> main line lexbuf
-| anon -> line, ANON
-| '(' -> line, LEFT_PAR
-| ')' -> line, RIGHT_PAR
-| '[' -> line, LEFT_BRACKET
-| ']' -> line, RIGHT_BRACKET
-| ',' -> line, COMMA
-| ';' -> line, SEMICOLON
-| '.' -> line, DOT
-| "@prefix" -> line, AT_PREFIX
-| "@base" -> line, AT_BASE
-| sparql_prefix -> line, PREFIX
-| sparql_base -> line, BASE
+let lexpos = Rdf_ulex.lexpos
+let lexpos_nl = Rdf_ulex.lexpos_nl
+
+
+let rec main pos = lexer
+| 'a' -> lexpos pos lexbuf, A
+| "\r\n" -> main (lexpos_nl pos lexbuf) lexbuf
+| '\r' -> main (lexpos pos lexbuf) lexbuf
+| '\n' -> main (lexpos_nl pos lexbuf) lexbuf
+| comment -> main (lexpos pos lexbuf) lexbuf
+| ws -> main (lexpos_nl pos lexbuf) lexbuf
+| anon -> (lexpos_nl pos lexbuf), ANON
+| '(' -> (lexpos pos lexbuf), LEFT_PAR
+| ')' -> (lexpos pos lexbuf), RIGHT_PAR
+| '[' -> (lexpos pos lexbuf), LEFT_BRACKET
+| ']' -> (lexpos pos lexbuf), RIGHT_BRACKET
+| ',' -> (lexpos pos lexbuf), COMMA
+| ';' -> (lexpos pos lexbuf), SEMICOLON
+| '.' -> (lexpos pos lexbuf), DOT
+| "@prefix" -> (lexpos pos lexbuf), AT_PREFIX
+| "@base" -> (lexpos pos lexbuf), AT_BASE
+| sparql_prefix -> (lexpos pos lexbuf), PREFIX
+| sparql_base -> (lexpos pos lexbuf), BASE
 | langtag ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, At_identifier s
-| "^^" -> line, HATHAT
+      (lexpos pos lexbuf), At_identifier s
+| "^^" -> (lexpos pos lexbuf), HATHAT
 | boolean ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, Boolean s
+      (lexpos pos lexbuf), Boolean s
 | integer ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, Integer s
+      (lexpos pos lexbuf), Integer s
 | decimal ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, Decimal s
+      (lexpos pos lexbuf), Decimal s
 | double ->
       let s = Ulexing.utf8_lexeme lexbuf in
-      line, Double s
+      (lexpos pos lexbuf), Double s
 | iriref ->
       let s = Ulexing.utf8_lexeme lexbuf in
       let iri = String.sub s 1 (String.length s - 2) in
       let iri = Rdf_utf8.utf8_unescape iri in
-      line, Iriref_ iri
+      (lexpos pos lexbuf), Iriref_ iri
 | pname_ns ->
       let s = Ulexing.utf8_lexeme lexbuf in
       (*prerr_endline (Printf.sprintf "pname_ns %s" s);*)
-      line, Identifier (String.sub s 0 (String.length s - 1))
+      (lexpos pos lexbuf), Identifier (String.sub s 0 (String.length s - 1))
 | blank_node_label ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let id = String.sub s 2 (String.length s - 2) in
-  line, Bname id
+  (lexpos pos lexbuf), Bname id
 | pname_ln ->
   let s = Ulexing.utf8_lexeme lexbuf in
   let p = String.index s ':' in
@@ -167,24 +171,25 @@ let rec main line = lexer
     else
       None
   in
-  line, Qname_ (s1, s2)
+  (lexpos pos lexbuf), Qname_ (s1, s2)
 
 | string_literal_quote
 | string_literal_single_quote ->
     let s = Ulexing.utf8_lexeme lexbuf in
     let s = String.sub s 1 (String.length s - 2) in
-    let line = line + Rdf_utf8.utf8_count_nl s in
-    line, String_ (Rdf_utf8.utf8_unescape s)
+    (lexpos pos lexbuf), String_ (Rdf_utf8.utf8_unescape s)
 | string_literal_long_quote
 | string_literal_long_single_quote ->
     let s = Ulexing.utf8_lexeme lexbuf in
     let s = String.sub s 3 (String.length s - 6) in
-    let line = line + Rdf_utf8.utf8_count_nl s in
-    line, String_ (Rdf_utf8.utf8_unescape s)
-| eof -> line, EOF
+    let pos = lexpos_nl pos lexbuf in
+    pos, String_ (Rdf_utf8.utf8_unescape s)
+| eof -> (lexpos pos lexbuf), EOF
 | _ ->
   let s = Ulexing.utf8_lexeme lexbuf in
-  failwith (Printf.sprintf "Lexeme %S not handled" s)
+  let pos = Rdf_ulex.lexpos_nl pos lexbuf in
+  let e = Failure (Printf.sprintf "Lexeme %S not handled" s) in
+  raise (Rdf_ulex.Parse_error (e, pos))
 ;;
 
 

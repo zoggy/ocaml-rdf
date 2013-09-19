@@ -59,6 +59,7 @@ LIB_RDF_CMOFILES= \
 	rdf_rdfs.cmo \
 	rdf_term.cmo \
 	rdf_dt.cmo \
+	rdf_ulex.cmo \
 	rdf_sparql_types.cmo \
 	rdf_sparql_ms.cmo \
 	rdf_sparql_vis.cmo \
@@ -73,7 +74,6 @@ LIB_RDF_CMOFILES= \
 	rdf_mem.cmo \
 	rdf_dot.cmo \
 	rdf_xml.cmo \
-	rdf_ulex.cmo \
 	rdf_ttl_types.cmo \
 	rdf_ttl_parser.cmo \
 	rdf_ttl_lex.cmo \

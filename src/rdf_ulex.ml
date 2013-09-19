@@ -26,6 +26,38 @@
 
 (** This code is adapted from CCSS: file ccss.ml *)
 
+let lexpos pos lexbuf =
+  let s = Ulexing.utf8_lexeme lexbuf in
+  { pos with
+    Lexing.pos_cnum = pos.Lexing.pos_cnum + (Rdf_utf8.utf8_string_length s);
+  }
+;;
+
+let lexpos_nl pos lexbuf =
+  let s = Ulexing.utf8_lexeme lexbuf in
+  let len = String.length s in
+  let rec iter pos i =
+    if i < len then
+      let pos =
+        match s.[i] with
+          '\n' ->
+            let c = pos.Lexing.pos_cnum + 1 in
+            { pos with
+              Lexing.pos_bol = c ;
+              Lexing.pos_cnum = c ;
+              Lexing.pos_lnum = pos.Lexing.pos_lnum + 1 ;
+            }
+        | _ ->
+            { pos with Lexing.pos_cnum = pos.Lexing.pos_cnum + 1 }
+      in
+      iter pos (i+(Rdf_utf8.utf8_nb_bytes_of_char s.[i]))
+    else
+      pos
+  in
+  iter pos 0
+;;
+
+exception Parse_error of exn * Lexing.position
 
 let menhir_with_ulex menhir_parser lexer ?(fname="") lexbuf =
 	let position = ref
@@ -38,21 +70,13 @@ let menhir_with_ulex menhir_parser lexer ?(fname="") lexbuf =
   in
   let lexer_maker () =
     let ante_position = !position in
-    let (nlines, token) = lexer 0 lexbuf in
-    let () = position := {
-        !position with
-        Lexing.pos_lnum = !position.Lexing.pos_lnum + nlines;
-        Lexing.pos_cnum = Ulexing.lexeme_start lexbuf;
-      }
-    in
-    let post_position = !position in
-    (token, ante_position, post_position)
-
-(*
-    let token = lexer lexbuf in
-    (token, ante_position, ante_position)
-*)
+    let (pos, token) = lexer !position lexbuf in
+    position := pos ;
+    (token, ante_position, !position)
   in
   let revised_parser = MenhirLib.Convert.Simplified.traditional2revised menhir_parser in
-  revised_parser lexer_maker
+  try revised_parser lexer_maker
+  with
+    Parse_error _ as e -> raise e
+  | e -> raise (Parse_error (e, !position))
 ;;
