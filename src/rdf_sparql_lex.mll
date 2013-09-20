@@ -439,7 +439,7 @@ let rec codepoint b = lexer
     let lexeme = Ulexing.utf8_lexeme lexbuf in
     (* remove \u or \U from the beginning of the lexeme *)
     let hex = String.sub lexeme 2 (String.length lexeme - 2) in
-    let cp = Int64.of_string ("0x"^hex) in
+    let cp = Int32.of_string ("0x"^hex) in
     Buffer.add_string b (Rdf_utf8.utf8_char_of_code cp);
     codepoint b lexbuf
 | codepoint_any ->

@@ -70,7 +70,7 @@ val utf8_strbefore : string -> string -> string
 val utf8_strafter : string -> string -> string
 
 (** [utf8_char_of_code n] return the UTF8 character from a given codepoint. *)
-val utf8_char_of_code : int64 -> string
+val utf8_char_of_code : int32 -> string
 
 (** [utf8_string_get_bol str] returns the list of pairs
   [(line number, char position)] giving the position of beginning of each line
