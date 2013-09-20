@@ -52,6 +52,7 @@ LIB_RDF_CMOFILES= \
 	rdf_misc.cmo \
 	rdf_loc.cmo \
 	rdf_uri.cmo \
+	rdf_iri.cmo \
 	rdf_rdf.cmo \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
@@ -164,6 +165,9 @@ rdf_sparql_bench: $(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL) rdf_sparql_test.cmx 
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
 rdf_turtle_test: $(LIB_RDF) rdf_turtle_test.cmx
+		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+
+test_iri: $(LIB_RDF) test_iri.cmx
 		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
 # Documentation :
