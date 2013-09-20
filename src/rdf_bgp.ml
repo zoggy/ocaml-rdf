@@ -129,7 +129,7 @@ module Make (P : P) =
         end
     | GraphTerm t ->
         match t with
-          GraphTermIri (Iriref ir) -> (None, Some (P.term (Rdf_term.Uri ir.ir_iri)))
+          GraphTermIri (Iriref ir) -> (None, Some (P.term (Rdf_term.Iri ir.ir_iri)))
         | GraphTermIri (PrefixedName _) -> assert false
         | GraphTermLit lit
         | GraphTermNumeric lit
@@ -172,7 +172,7 @@ module Make (P : P) =
                 with Not_found ->
                     (Some v.var_name, None)
               end
-          | A.Iri ir -> (None, Some (P.term (Rdf_term.Uri ir.ir_iri)))
+          | A.Iri ir -> (None, Some (P.term (Rdf_term.Iri ir.ir_iri)))
           | _ -> assert false
         in
         let f acc (s,p,o) =
@@ -385,7 +385,7 @@ module Make (P : P) =
       (* compute the triples and remove solutions where the predicate
          is one of the iris. *)
           let forbidden = List.fold_left
-            (fun set iriref -> TSet.add (P.term (Rdf_term.Uri iriref.ir_iri)) set)
+            (fun set iriref -> TSet.add (P.term (Rdf_term.Iri iriref.ir_iri)) set)
               TSet.empty iris
           in
           (* we use a dummy variable to access the predicate in each solution *)

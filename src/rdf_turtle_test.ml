@@ -2,21 +2,21 @@
   @see http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite
 *)
 
-let base = Rdf_uri.uri "http://www.w3.org/2013/TurtleTests/";;
+let base = Rdf_iri.iri "http://www.w3.org/2013/TurtleTests/";;
 
-let mf_uri = Rdf_uri.uri "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
-let mf_ = Rdf_uri.append mf_uri ;;
+let mf_iri = Rdf_iri.iri "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
+let mf_ = Rdf_iri.append mf_iri ;;
 
 let manifest = mf_"Manifest";;
 let entries = mf_"entries";;
 let action = mf_"action";;
 let result = mf_"result";;
 
-let qt_uri = Rdf_uri.uri "http://www.w3.org/2001/sw/DataAccess/tests/test-query#";;
-let qt_ = Rdf_uri.append qt_uri ;;
+let qt_iri = Rdf_iri.iri "http://www.w3.org/2001/sw/DataAccess/tests/test-query#";;
+let qt_ = Rdf_iri.append qt_iri ;;
 
-let rdft_uri = Rdf_uri.uri "http://www.w3.org/ns/rdftest#";;
-let rdft_ = Rdf_uri.append rdft_uri;;
+let rdft_iri = Rdf_iri.iri "http://www.w3.org/ns/rdftest#";;
+let rdft_ = Rdf_iri.append rdft_iri;;
 
 let test_eval = rdft_"TestTurtleEval";;
 let test_eval_neg = rdft_"TestTurtleNegativeEval";;
@@ -26,15 +26,15 @@ let test_stx_neg = rdft_"TestTurtleNegativeSyntax";;
 let namespaces =
   [ "rdf", Rdf_rdf.rdf ;
     "rdfs", Rdf_rdfs.rdfs ;
-    "mf", mf_uri ;
-    "qt", qt_uri ;
-    "rdft", rdft_uri ;
+    "mf", mf_iri ;
+    "qt", qt_iri ;
+    "rdft", rdft_iri ;
   ];;
 
 type result = Ok of Rdf_graph.graph | Error of string;;
 
 type test =
-  | EvalPos of Rdf_uri.uri
+  | EvalPos of Rdf_iri.iri
   | EvalNeg
   | SyntaxPos
   | SyntaxNeg
@@ -44,8 +44,8 @@ let exec_select g q =
   let ds = Rdf_ds.simple_dataset g in
   let q =
     List.fold_right
-      (fun (name, uri) acc ->
-        "PREFIX "^name^": <"^(Rdf_uri.string uri)^">\n"^acc)
+      (fun (name, iri) acc ->
+        "PREFIX "^name^": <"^(Rdf_iri.string iri)^">\n"^acc)
        namespaces
        q
   in
@@ -68,15 +68,15 @@ let tests g =
     let t = Rdf_sparql.get_iri sol base "type" in
     let typ =
       match t with
-      | _ when Rdf_uri.compare t test_eval = 0 ->
+      | _ when Rdf_iri.compare t test_eval = 0 ->
           EvalPos (Rdf_sparql.get_iri sol base "result")
-      | _ when Rdf_uri.compare t test_eval_neg = 0 ->
+      | _ when Rdf_iri.compare t test_eval_neg = 0 ->
           EvalNeg
-      | _ when Rdf_uri.compare t test_stx_pos = 0 ->
+      | _ when Rdf_iri.compare t test_stx_pos = 0 ->
           SyntaxPos
-      | _ when Rdf_uri.compare t test_stx_neg = 0 ->
+      | _ when Rdf_iri.compare t test_stx_neg = 0 ->
           SyntaxNeg
-      | _ -> failwith ("Unknown test type "^(Rdf_uri.string t))
+      | _ -> failwith ("Unknown test type "^(Rdf_iri.string t))
     in
     (Rdf_sparql.get_iri sol base "test",
      Rdf_sparql.get_iri sol base "action",
@@ -107,10 +107,10 @@ open Rdf_term;;
 NE PAS SUBSTITUER LES BLANK IDS
 *)
 type align_form =
-  ATT of term * Rdf_uri.uri * term
-| ABT of string * Rdf_uri.uri * term
-| ATB of term * Rdf_uri.uri * string
-| ABB of string * Rdf_uri.uri * string
+  ATT of term * Rdf_iri.iri * term
+| ABT of string * Rdf_iri.iri * term
+| ATB of term * Rdf_iri.iri * string
+| ABB of string * Rdf_iri.iri * string
 ;;
 
 let align_form mapped (sub, pred, obj) =
@@ -148,7 +148,7 @@ let sort_triples_for_align =
     match f1, f2 with
       ATT (s1, p1, o1), ATT (s2, p2, o2) ->
         begin
-          match Rdf_uri.compare p1 p2 with
+          match Rdf_iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare s1 s2 with
                  0 -> Rdf_term.compare o1 o2
@@ -160,7 +160,7 @@ let sort_triples_for_align =
     | _, ATT _ -> -1
     | ATB (s1, p1, o1), ATB (s2, p2, o2) ->
         begin
-          match Rdf_uri.compare p1 p2 with
+          match Rdf_iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare s1 s2 with
                  0 -> String.compare o1 o2
@@ -172,7 +172,7 @@ let sort_triples_for_align =
     | _, ATB _ -> -1
     | ABT (s1, p1, o1), ABT (s2, p2, o2) ->
         begin
-          match Rdf_uri.compare p1 p2 with
+          match Rdf_iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare o1 o2 with
                  0 -> String.compare s1 s2
@@ -184,7 +184,7 @@ let sort_triples_for_align =
     | _, ABT _ -> -1
     | ABB (s1,p1,o1), ABB (s2,p2,o2) ->
         begin
-          match Rdf_uri.compare p1 p2 with
+          match Rdf_iri.compare p1 p2 with
             0 ->
               (match String.compare s1 s2 with
                  0 -> String.compare o1 o2
@@ -244,7 +244,7 @@ let add_binding bindings mapped b1 b2 =
 ;;
 
 let bind bindings mapped ((s1, p1, o1) as t1) ((s2, p2, o2) as t2) q1 q2 =
-  match Rdf_uri.compare p1 p2 with
+  match Rdf_iri.compare p1 p2 with
     n when n <> 0 -> triples_differ t1 t2 q1 q2
   | _ ->
       let (bindings, mapped) =
@@ -327,7 +327,7 @@ let isomorphic_graphs g1 g2 =
 
 let run_test (test, action, typ) =
   let in_file =
-    match List.rev (Rdf_uri.path action) with
+    match List.rev (Rdf_iri.path action) with
       file :: _ -> file
     | [] -> assert false
   in
@@ -341,33 +341,33 @@ let run_test (test, action, typ) =
         let msg_e =
           match e with
             Rdf_ttl.Error e -> Rdf_ttl.string_of_error e
-          | Rdf_uri.Invalid_uri s -> "Invalid uri: "^s
+          | Rdf_iri.Invalid_iri (s,msg) -> "Invalid iri "^s^" : "^msg
           | e -> raise e
         in
-        let msg = (Rdf_uri.string test) ^ "\n" ^ msg_e in
+        let msg = (Rdf_iri.string test) ^ "\n" ^ msg_e in
         Error msg
   in
   match result, typ with
     Error msg, EvalNeg
   | Error msg, SyntaxNeg ->
-      prerr_endline ("OK "^(Rdf_uri.string test))
+      prerr_endline ("OK "^(Rdf_iri.string test))
   | Error msg, _ ->
-      prerr_endline ("*** KO "^(Rdf_uri.string test)^":\n"^msg)
+      prerr_endline ("*** KO "^(Rdf_iri.string test)^":\n"^msg)
   | Ok _, SyntaxNeg
   | Ok _, EvalNeg ->
-      prerr_endline ("*** KO "^(Rdf_uri.string test))
+      prerr_endline ("*** KO "^(Rdf_iri.string test))
   | Ok g, SyntaxPos ->
-      prerr_endline ("OK "^(Rdf_uri.string test))
+      prerr_endline ("OK "^(Rdf_iri.string test))
   | Ok g, EvalPos result ->
       let res_file =
-        match List.rev (Rdf_uri.path result) with
+        match List.rev (Rdf_iri.path result) with
           file :: _ -> file
         | [] -> assert false
       in
       let gres = Rdf_graph.open_graph action in
       ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
       if isomorphic_graphs g gres then
-        prerr_endline ("OK "^(Rdf_uri.string test))
+        prerr_endline ("OK "^(Rdf_iri.string test))
       else
         (
          let file = (Filename.chop_extension in_file)^".out" in
@@ -378,7 +378,7 @@ let run_test (test, action, typ) =
          gres.Rdf_graph.set_namespaces [];
          Rdf_ttl.to_file gres file2;
 
-         prerr_endline ("*** KO "^(Rdf_uri.string test))
+         prerr_endline ("*** KO "^(Rdf_iri.string test))
         )
 ;;
 

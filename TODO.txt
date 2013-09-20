@@ -19,3 +19,7 @@
 
 - validate turtle parser:
     https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html
+
+Rdf_iri:
+- getters
+- setters

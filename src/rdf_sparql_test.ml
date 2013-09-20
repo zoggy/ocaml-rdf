@@ -32,12 +32,12 @@ open Rdf_sparql;;
 let verb = print_endline;;
 
 type test_spec =
-  { base : Rdf_uri.uri option ;
+  { base : Rdf_iri.iri option ;
     title : string ;
     desc : string option;
     query : string ;
     default_graph : string option ;
-    named : (Rdf_uri.uri * string) list ;
+    named : (Rdf_iri.iri * string) list ;
     options : (string * string) list ;
   }
 
@@ -51,13 +51,13 @@ type test = {
 let load_file ?graph_options file =
   verb ("Loading file "^file);
   let group = new C.group in
-  let base = new C.option_cp C.string_wrappers ~group ["base"] None "Base uri" in
+  let base = new C.option_cp C.string_wrappers ~group ["base"] None "Base iri" in
   let title = new C.string_cp ~group ["title"] "" "Title of the test" in
   let desc = new C.string_cp ~group ["descr"] "" "Description of the test" in
   let query = new C.string_cp ~group ["query"] "" "File containing the query" in
   let default_graph = new C.string_cp ~group ["default_graph"] "" "File containing the default graph" in
   let named = new C.list_cp (C.tuple2_wrappers C.string_wrappers C.string_wrappers) ~group
-    [ "named_graphs"] [] "Named graphs in the form (uri, file.ttl)"
+    [ "named_graphs"] [] "Named graphs in the form (iri, file.ttl)"
   in
   let options = new C.list_cp
     (C.tuple2_wrappers C.string_wrappers C.string_wrappers) ~group
@@ -79,8 +79,8 @@ let load_file ?graph_options file =
        let wr = C.list_wrappers (C.tuple2_wrappers C.string_wrappers C.string_wrappers) in
        wr.C.of_raw (C.Raw.of_string s)
   in
-  let named = List.map (fun (uri, s) -> (Rdf_uri.uri uri, mk_filename s)) named#get in
-  { base = Rdf_misc.map_opt Rdf_uri.uri base#get ;
+  let named = List.map (fun (iri, s) -> (Rdf_iri.iri iri, mk_filename s)) named#get in
+  { base = Rdf_misc.map_opt Rdf_iri.iri base#get ;
     title = title#get ;
     desc = Rdf_misc.opt_of_string desc#get ;
     query = mk_filename query#get ;
@@ -102,8 +102,8 @@ let load_ttl g base file =
 let mk_dataset spec =
   let base =
     match spec.base with
-      None -> Rdf_uri.uri "http://localhost/"
-    | Some uri -> uri
+      None -> Rdf_iri.iri "http://localhost/"
+    | Some iri -> iri
   in
   let default =
     let g = Rdf_graph.open_graph ~options: spec.options base in
@@ -115,10 +115,10 @@ let mk_dataset spec =
           ignore(load_ttl g base file);
         g
   in
-  let f (uri, file) =
+  let f (iri, file) =
     let g = Rdf_graph.open_graph base in
     load_ttl g base file ;
-    (uri, g)
+    (iri, g)
   in
   let named = List.map f spec.named in
   Rdf_ds.simple_dataset ~named default

@@ -34,14 +34,14 @@ type error =
 and value =
   | Err of error
   | Blank of string
-  | Iri of Rdf_uri.uri
+  | Iri of Rdf_iri.iri
   | String of string
   | Int of int
   | Float of float
   | Bool of bool
   | Datetime of Netdate.t
   | Ltrl of string * string option (* optional language *)
-  | Ltrdt of string * Rdf_uri.uri (* datatyped literal, with unsupported datatype *)
+  | Ltrdt of string * Rdf_iri.iri (* datatyped literal, with unsupported datatype *)
 
 exception Error of error
 let error e = raise (Error e)
@@ -51,7 +51,7 @@ let date_fmt = "%d %b %Y %T %z"
 let string_of_value = function
   Err _ -> "<err>"
 | Blank id -> "_:"^id
-| Iri uri -> "<"^(Rdf_uri.string uri)^">"
+| Iri iri -> "<"^(Rdf_iri.string iri)^">"
 | String s -> Rdf_term.quote_str s
 | Int n -> string_of_int n
 | Float f -> string_of_float f
@@ -60,7 +60,7 @@ let string_of_value = function
 | Datetime t -> Netdate.format ~fmt: date_fmt t
 | Ltrl (s,None) -> Rdf_term.quote_str s
 | Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
-| Ltrdt (s, uri) -> (Rdf_term.quote_str s)^"^^"^(Rdf_uri.string uri)
+| Ltrdt (s, iri) -> (Rdf_term.quote_str s)^"^^"^(Rdf_iri.string iri)
 ;;
 
 module ValueOrdered =
@@ -74,7 +74,7 @@ module ValueOrdered =
       | Blank l1, Blank l2 -> String.compare l1 l2
       | Blank _, _ -> 1
       | _, Blank _ -> -1
-      | Iri uri1, Iri uri2 -> Rdf_uri.compare uri1 uri2
+      | Iri iri1, Iri iri2 -> Rdf_iri.compare iri1 iri2
       | Iri _, _ -> 1
       | _, Iri _ -> -1
       | String s1, String s2
@@ -103,9 +103,9 @@ module ValueOrdered =
       | Datetime d1, Datetime d2 -> Pervasives.compare (Netdate.since_epoch d1) (Netdate.since_epoch d2)
       | Datetime _, _ -> 1
       | _, Datetime _ -> -1
-      | Ltrdt (s1, uri1), Ltrdt (s2, uri2) ->
+      | Ltrdt (s1, iri1), Ltrdt (s2, iri2) ->
           (match String.compare s1 s2 with
-             0 -> Rdf_uri.compare uri1 uri2
+             0 -> Rdf_iri.compare iri1 iri2
            | n -> n)
        (*| Ltrdt _, _ -> 1
          | _, Ltrdt _ -> -1*)
@@ -131,17 +131,18 @@ let rec string_of_error = function
     "Exception "^s
 ;;
 
-let iri base_uri = function
+let iri base_iri = function
 | Err e -> Err e
 | Iri iri -> Iri iri
 | (String s)
 | (Ltrl (s, None)) as v ->
     begin
       try
-        let uri = Rdf_uri.uri s in
-        let netu = Rdf_uri.neturl uri in
-        let base = Rdf_uri.neturl base_uri in
-        let iri = Rdf_uri.of_neturl (Neturl.ensure_absolute_url ~base netu) in
+        (* FIXME: resolve relative IRI *)
+        let iri = Rdf_iri.iri s in
+        (*let netu = Rdf_iri.neturl iri in
+        let base = Rdf_iri.neturl base_iri in
+        let iri = Rdf_iri.of_neturl (Neturl.ensure_absolute_url ~base netu) in*)
         Iri iri
       with _ -> Err (Type_error (v, "iri"))
     end
@@ -153,7 +154,7 @@ let datatype = function
 | (Blank _)
 | (Iri _) as v -> Err (Type_error (v, "literal"))
 | v ->
-    let uri =
+    let iri =
       match v with
         String _ -> Rdf_rdf.xsd_string
       | Int _ -> Rdf_rdf.xsd_integer
@@ -162,10 +163,10 @@ let datatype = function
       | Datetime _ -> Rdf_rdf.xsd_datetime
       | Ltrl (_, None) -> Rdf_rdf.xsd_string
       | Ltrl (s, Some _) -> Rdf_rdf.rdf_langstring
-      | Ltrdt (_, uri) -> uri
+      | Ltrdt (_, iri) -> iri
       | Err _ | Blank _ | Iri _ -> assert false
     in
-    Iri uri
+    Iri iri
 ;;
 
 let string_literal v =
@@ -183,7 +184,7 @@ let string = function
     let s =
       match v with
       | Err e -> assert false
-      | Iri t -> Rdf_uri.string t
+      | Iri t -> Rdf_iri.string t
       | String s -> s
       | Int n -> string_of_int n
       | Float f -> string_of_float f
@@ -296,7 +297,7 @@ let ltrl = function
       let (s, lang) =
         match v with
         | Err e -> assert false
-        | Iri t -> (Rdf_uri.string t, None)
+        | Iri t -> (Rdf_iri.string t, None)
         | String s
         | Ltrdt (s, _) -> (s, None)
         | Ltrl (s, l) -> (s, l)
@@ -339,22 +340,22 @@ let numeric = function
 let of_literal lit =
   try
     match lit.lit_type with
-    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_boolean ->
+    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_boolean ->
         bool (String lit.lit_value)
-    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_integer ->
+    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_integer ->
         begin
           try Int (int_of_string lit.lit_value)
           with _ -> failwith ""
         end
-    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_double
-          or Rdf_uri.equal t Rdf_rdf.xsd_decimal ->
+    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_double
+          or Rdf_iri.equal t Rdf_rdf.xsd_decimal ->
         begin
           try Float (float_of_string lit.lit_value)
           with _ -> failwith ""
         end
-    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_string ->
+    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_string ->
         String lit.lit_value
-    | Some t when Rdf_uri.equal t Rdf_rdf.xsd_datetime ->
+    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_datetime ->
         Datetime (Netdate.parse lit.lit_value)
     | None ->
         begin
@@ -368,14 +369,14 @@ let of_literal lit =
   _ -> error (Invalid_literal lit)
 
 let of_term = function
-  Rdf_term.Uri t -> Iri t
+  Rdf_term.Iri t -> Iri t
 | Rdf_term.Literal lit -> of_literal lit
 | Rdf_term.Blank_ label -> Blank (Rdf_term.string_of_blank_id label)
 | Rdf_term.Blank -> assert false
 
 let to_term = function
 | Err e -> error e
-| Iri t -> Rdf_term.Uri t
+| Iri t -> Rdf_term.Iri t
 | Blank label -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string label)
 | String s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_string s
 | Int n -> Rdf_term.term_of_int n

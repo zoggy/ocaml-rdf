@@ -34,18 +34,18 @@ type tree = E of Xmlm.tag * tree list | D of string
 (** Type of current state when walking through the xml tree. *)
 type state =
   { subject : Rdf_term.term option ;
-    predicate : Rdf_uri.uri option ;
-    xml_base : Rdf_uri.uri ;
+    predicate : Rdf_iri.iri option ;
+    xml_base : Rdf_iri.iri ;
     xml_lang : string option ;
-    datatype : Rdf_uri.uri option ;
-    namespaces : string Rdf_uri.Urimap.t ;
+    datatype : Rdf_iri.iri option ;
+    namespaces : string Rdf_iri.Irimap.t ;
   }
 
 (** Global state of the analysis. *)
 type global_state =
   {
     blanks : Rdf_term.blank_id SMap.t ;
-    gnamespaces : string Rdf_uri.Urimap.t ;
+    gnamespaces : string Rdf_iri.Irimap.t ;
   }
 
 val get_blank_node : Rdf_graph.graph -> global_state -> SMap.key -> Rdf_term.term * global_state
@@ -57,14 +57,14 @@ val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
 val input_prop : Rdf_graph.graph -> state -> (global_state * int) -> tree -> (global_state * int)
 
 (** Input graph from string.  Default base is the graph name. *)
-val from_string : Rdf_graph.graph -> ?base: Rdf_uri.uri -> string -> unit
+val from_string : Rdf_graph.graph -> ?base: Rdf_iri.iri -> string -> unit
 
 (** Same as {!from_string} but read from the given file. *)
-val from_file : Rdf_graph.graph -> ?base: Rdf_uri.uri -> string -> unit
+val from_file : Rdf_graph.graph -> ?base: Rdf_iri.iri -> string -> unit
 
 val to_string :
-  ?namespaces: (Rdf_uri.uri * string) list -> Rdf_graph.graph -> string
+  ?namespaces: (Rdf_iri.iri * string) list -> Rdf_graph.graph -> string
 
 val to_file :
-  ?namespaces: (Rdf_uri.uri * string) list ->
+  ?namespaces: (Rdf_iri.iri * string) list ->
     Rdf_graph.graph -> string -> unit

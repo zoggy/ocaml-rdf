@@ -40,17 +40,19 @@ let string_of_error = function
     "Unknown namespace '" ^ s ^ "'"
 ;;
 
-let uri_of_uriref ctx s =
-  (*prerr_endline (Printf.sprintf "uri_of_uriref base=%s s=%S"
-    (Rdf_uri.string ctx.base) s);
+let iri_of_iriref ctx s =
+  (*prerr_endline (Printf.sprintf "iri_of_iriref base=%s s=%S"
+    (Rdf_iri.string ctx.base) s);
   *)
-  let url = Rdf_uri.neturl (Rdf_uri.uri s) in
-  let url = Neturl.ensure_absolute_url ~base: (Rdf_uri.neturl ctx.base) url in
-  Rdf_uri.of_neturl url
+  (* FIXME: ensure absolute IRI *)
+  (*let url = Rdf_iri.neturl (Rdf_iri.iri s) in
+  let url = Neturl.ensure_absolute_url ~base: (Rdf_iri.neturl ctx.base) url in
+  Rdf_iri.of_neturl url*)
+  Rdf_iri.iri s
 ;;
 
-let uri_of_resource ctx = function
-  Iriref uri -> uri_of_uriref ctx uri
+let iri_of_resource ctx = function
+  Iriref iri -> iri_of_iriref ctx iri
 | Qname (p, n) ->
     (*prerr_endline
       (Printf.sprintf "Qname(%S, %S)"
@@ -68,8 +70,8 @@ let uri_of_resource ctx = function
       match n with
         None -> base
       | Some n ->
-          let uri = (Rdf_uri.string base)^n in
-          Rdf_uri.uri uri
+          let iri = (Rdf_iri.string base)^n in
+          Rdf_iri.iri iri
     end
 ;;
 
@@ -84,7 +86,7 @@ let rec mk_blank ctx g = function
     let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = List.fold_left (insert_sub_predobj node) (ctx, g) l in
     (node, ctx, g)
-| Collection [] -> (Rdf_term.Uri Rdf_rdf.rdf_nil, ctx, g)
+| Collection [] -> (Rdf_term.Iri Rdf_rdf.rdf_nil, ctx, g)
 | Collection objects ->
     let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = mk_collection ctx g node objects in
@@ -99,7 +101,7 @@ and mk_collection ctx g node = function
      [] ->
         g.add_triple ~sub: node
          ~pred: Rdf_rdf.rdf_rest
-         ~obj: (Rdf_term.Uri Rdf_rdf.rdf_nil);
+         ~obj: (Rdf_term.Iri Rdf_rdf.rdf_nil);
        (ctx, g)
    | _ ->
        let obj = Rdf_term.Blank_ (g.new_blank_id ()) in
@@ -109,13 +111,13 @@ and mk_collection ctx g node = function
        mk_collection ctx g obj q
 
 and mk_object_node ctx g = function
-  | Obj_iri res -> (Rdf_term.Uri (uri_of_resource ctx res), ctx, g)
+  | Obj_iri res -> (Rdf_term.Iri (iri_of_resource ctx res), ctx, g)
   | Obj_blank b -> mk_blank ctx g b
   | Obj_literal (String (s, lang, typ)) ->
        let typ =
          match typ with
            None -> None
-         | Some r -> Some (uri_of_resource ctx r)
+         | Some r -> Some (iri_of_resource ctx r)
        in
        let lit = Rdf_term.mk_literal ?typ ?lang s in
        (Rdf_term.Literal lit, ctx, g)
@@ -128,7 +130,7 @@ and insert_pred sub pred (ctx, g) obj =
 and insert_sub_predobj sub (ctx, g) (pred, objs) =
   let pred =
     match pred with
-      Pred_iri r -> uri_of_resource ctx r
+      Pred_iri r -> iri_of_resource ctx r
     | Pred_a -> Rdf_rdf.rdf_type
   in
   List.fold_left (insert_pred sub pred) (ctx, g) objs
@@ -136,22 +138,22 @@ and insert_sub_predobj sub (ctx, g) (pred, objs) =
 and insert_sub_predobjs ctx g sub l =
   let (sub, ctx, g) =
     match sub with
-      Sub_iri r -> (Rdf_term.Uri (uri_of_resource ctx r), ctx, g)
+      Sub_iri r -> (Rdf_term.Iri (iri_of_resource ctx r), ctx, g)
     | Sub_blank b -> mk_blank ctx g b
   in
   List.fold_left (insert_sub_predobj sub) (ctx, g) l
 ;;
 
 let apply_statement (ctx, g) = function
-  Directive (Prefix (s, uri)) ->
-    (*prerr_endline (Printf.sprintf "Directive (Prefix (%S, %s))" s uri);*)
-    let uri = uri_of_uriref ctx uri in
-    (*prerr_endline (Printf.sprintf "uri=%s" (Rdf_uri.string uri));*)
-    let ctx = { ctx with prefixes = SMap.add s uri ctx.prefixes } in
+  Directive (Prefix (s, iri)) ->
+    (*prerr_endline (Printf.sprintf "Directive (Prefix (%S, %s))" s iri);*)
+    let iri = iri_of_iriref ctx iri in
+    (*prerr_endline (Printf.sprintf "iri=%s" (Rdf_iri.string iri));*)
+    let ctx = { ctx with prefixes = SMap.add s iri ctx.prefixes } in
     (ctx, g)
-| Directive (Base uri) ->
-    let uri = uri_of_uriref ctx uri in
-    let ctx = { ctx with base = uri } in
+| Directive (Base iri) ->
+    let iri = iri_of_iriref ctx iri in
+    let ctx = { ctx with base = iri } in
     (ctx, g)
 | Triples (subject, predobjs) ->
     insert_sub_predobjs ctx g subject predobjs
@@ -167,7 +169,7 @@ open Lexing;;
 let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
   let gstate = {
       Rdf_xml.blanks = SMap.empty ;
-      gnamespaces = Rdf_uri.Urimap.empty ;
+      gnamespaces = Rdf_iri.Irimap.empty ;
     }
   in
   let ctx = {
@@ -186,8 +188,8 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
               Printf.sprintf "Parse error on lexeme %S" lexeme
           | Failure msg ->
               msg
-          | Rdf_uri.Invalid_uri msg ->
-              "Invalid URI "^msg
+          | Rdf_iri.Invalid_iri (s, msg) ->
+              "Invalid IRI "^s^" : "^msg
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
@@ -195,7 +197,7 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
   in
   let (ctx, g) = apply_statements ctx g statements in
   (* add namespaces *)
-  let add_ns prefix uri = g.add_namespace uri prefix in
+  let add_ns prefix iri = g.add_namespace iri prefix in
   Rdf_ttl_types.SMap.iter add_ns ctx.prefixes
 ;;
 
@@ -239,7 +241,7 @@ let escape_reserved_chars =
 
 let string_of_triple ~sub ~pred ~obj =
   (Rdf_term.string_of_term sub)^" "^
-  (Rdf_term.string_of_term (Rdf_term.Uri pred))^" "^
+  (Rdf_term.string_of_term (Rdf_term.Iri pred))^" "^
   (Rdf_term.string_of_term obj)^" ."
 ;;
 
@@ -255,23 +257,23 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
           ) ^
           (match lit.Rdf_term.lit_type with
              None -> ""
-           | Some uri ->
-               let uri = Rdf_uri.string uri in
+           | Some iri ->
+               let iri = Rdf_iri.string iri in
                let s =
-                 match Rdf_dot.apply_namespaces ns uri with
-                   ("",uri) -> "<"^uri^">"
+                 match Rdf_dot.apply_namespaces ns iri with
+                   ("",iri) -> "<"^iri^">"
                  | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
                in
                "^^" ^ s
           )
-    | Rdf_term.Uri uri ->
-        let s = Rdf_uri.string uri in
+    | Rdf_term.Iri iri ->
+        let s = Rdf_iri.string iri in
         match Rdf_dot.apply_namespaces ns s with
-          ("",uri) -> "<" ^ uri ^ ">"
+          ("",iri) -> "<" ^ iri ^ ">"
         | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
   in
   let sub = string_of sub in
-  let pred = string_of (Rdf_term.Uri pred) in
+  let pred = string_of (Rdf_term.Iri pred) in
   let obj = string_of obj in
   sub ^ " " ^ pred ^ " " ^ obj^ " ."
 ;;
@@ -280,7 +282,7 @@ let f_triple ns print (sub, pred, obj) =
   print (string_of_triple_ns ns ~sub ~pred ~obj)
 ;;
 
-let string_of_namespace (pref,uri) = "@prefix "^pref^": <"^uri^"> .";;
+let string_of_namespace (pref,iri) = "@prefix "^pref^": <"^iri^"> .";;
 
 let to_ ?namespaces print g =
   let ns = Rdf_dot.build_namespaces ?namespaces g in

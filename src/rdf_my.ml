@@ -32,7 +32,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Rdf_uri.uri ; (* graph name *)
+  { g_name : Rdf_iri.iri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
@@ -140,8 +140,8 @@ let init_db db creation_queries =
 
 let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
-let rec graph_table_of_graph_name ?(first=true) dbd uri =
-  let name = Rdf_uri.string uri in
+let rec graph_table_of_graph_name ?(first=true) dbd iri =
+  let name = Rdf_iri.string iri in
   let query = "SELECT id FROM graphs WHERE name = " ^(mysql_quote_dbd dbd name) in
   let res = exec_query dbd query in
   match Mysql.fetch res with
@@ -152,7 +152,7 @@ let rec graph_table_of_graph_name ?(first=true) dbd uri =
   | _ ->
       let query = "INSERT INTO graphs (name) VALUES (" ^(mysql_quote_dbd dbd name)  ^ ")" in
       ignore(exec_query dbd query);
-      graph_table_of_graph_name ~first: false dbd uri
+      graph_table_of_graph_name ~first: false dbd iri
 ;;
 
 let nstable_of_graph_table table = table ^"_ns";;
@@ -166,7 +166,7 @@ let table_exists dbd table =
 let create_namespaces_table dbd table =
   let table = nstable_of_graph_table table in
   let query = "CREATE TABLE IF NOT EXISTS "^table^" (\
-    uri text NOT NULL, \
+    iri text NOT NULL, \
     name varchar(255) NOt NULL)"
   in
   ignore(exec_query dbd query)
@@ -248,13 +248,13 @@ let prepare_queries dbd ?(more=[]) table =
   let query = "SELECT object from " ^ table in
   prepare_query dbd prepared_object query;
 
-  let query = "SELECT uri, name FROM "^nstable in
+  let query = "SELECT iri, name FROM "^nstable in
   prepare_query dbd prepared_namespaces query;
 
   let query = "DELETE FROM "^nstable^" WHERE NAME=?" in
   prepare_query dbd prepared_delete_namespace query;
 
-  let query = "INSERT INTO "^nstable^" (uri, name) VALUES (?, ?)" in
+  let query = "INSERT INTO "^nstable^" (iri, name) VALUES (?, ?)" in
   prepare_query dbd prepared_insert_namespace query;
 
   dbg ~level: 1 (fun () -> "done")
@@ -263,8 +263,8 @@ let prepare_queries dbd ?(more=[]) table =
 let namespaces g =
   let res = exec_prepared g.g_dbd prepared_namespaces [] in
   let f = function
-  | [| Some uri ; Some name|] ->
-      (Rdf_uri.uri ~check: false (Mysql.blob2ml uri), Mysql.str2ml name)
+  | [| Some iri ; Some name|] ->
+      (Rdf_iri.iri ~check: false (Mysql.blob2ml iri), Mysql.str2ml name)
   | _ -> raise (Error "namespaces - invalid result: NULL value of bad number of fields")
   in
   Mysql.map res ~f
@@ -275,10 +275,10 @@ let rem_namespace g name =
   ignore(exec_prepared g.g_dbd prepared_delete_namespace params)
 ;;
 
-let add_namespace g uri name =
+let add_namespace g iri name =
   rem_namespace g name ;
   let params = [
-      mysql_quote g (Rdf_uri.string uri);
+      mysql_quote g (Rdf_iri.string iri);
       mysql_quote g name ;
     ]
   in
@@ -287,7 +287,7 @@ let add_namespace g uri name =
 
 let set_namespaces g l =
   List.iter (fun (_,name) -> rem_namespace g name) (namespaces g);
-  let f (uri, name) = add_namespace g uri name in
+  let f (iri, name) = add_namespace g iri name in
   List.iter f l
 ;;
 

@@ -27,63 +27,63 @@
   The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
 
-open Rdf_uri ;;
+open Rdf_iri ;;
 
 (** {3 Common namespaces} *)
 
-val rdf : uri
-val rdf_ : string -> uri
+val rdf : iri
+val rdf_ : string -> iri
 
-val xsd : uri
-val xsd_ : string -> uri
+val xsd : iri
+val xsd_ : string -> iri
 
-val dc : uri
-val dc_ : string -> uri
+val dc : iri
+val dc_ : string -> iri
 
 (** {3 Syntax names} *)
 
-val rdf_about : uri
-val rdf_datatype : uri
-val rdf_Description : uri
-val rdf_ID : uri
-val rdf_li : uri
-val rdf_nodeID : uri
-val rdf_RDF : uri
-val rdf_parseType : uri
-val rdf_resource : uri
+val rdf_about : iri
+val rdf_datatype : iri
+val rdf_Description : iri
+val rdf_ID : iri
+val rdf_li : iri
+val rdf_nodeID : iri
+val rdf_RDF : iri
+val rdf_parseType : iri
+val rdf_resource : iri
 
 (** {3 Class names} *)
 
-val rdf_Alt : uri
-val rdf_Bag : uri
-val rdf_List : uri
-val rdf_Property : uri
-val rdf_Seq : uri
-val rdf_Statement : uri
-val rdf_XMLLiteral : uri
+val rdf_Alt : iri
+val rdf_Bag : iri
+val rdf_List : iri
+val rdf_Property : iri
+val rdf_Seq : iri
+val rdf_Statement : iri
+val rdf_XMLLiteral : iri
 
 (** {3 Property names} *)
 
-val rdf_subject : uri
-val rdf_predicate : uri
-val rdf_object : uri
-val rdf_type : uri
-val rdf_value : uri
-val rdf_first : uri
-val rdf_rest : uri
-val rdf_n : int -> uri
+val rdf_subject : iri
+val rdf_predicate : iri
+val rdf_object : iri
+val rdf_type : iri
+val rdf_value : iri
+val rdf_first : iri
+val rdf_rest : iri
+val rdf_n : int -> iri
 
 (** {3 Resource names} *)
 
-val rdf_nil : uri
+val rdf_nil : iri
 
 (** {3 XML Schema datatypes} *)
 
-val xsd_integer : uri
-val xsd_double : uri
-val xsd_decimal : uri
-val xsd_boolean : uri
-val xsd_string : uri
-val xsd_datetime : uri
-val rdf_langstring : uri
+val xsd_integer : iri
+val xsd_double : iri
+val xsd_decimal : iri
+val xsd_boolean : iri
+val xsd_string : iri
+val xsd_datetime : iri
+val rdf_langstring : iri
 

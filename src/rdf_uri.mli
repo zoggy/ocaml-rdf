@@ -43,7 +43,7 @@ val uri : ?check: bool -> string -> uri
 (** Add the given string to the path of the given URI, using '/' as separator. *)
 val concat : uri -> string -> uri
 
-(** Append the given strng to the given URI.
+(** Append the given string to the given URI.
      @param check can be specified to [false] to prevent URI parsing.
 *)
 val append : ?check: bool -> uri -> string -> uri
@@ -70,5 +70,5 @@ val neturl : uri -> Neturl.url
 (** Get a {!uri} from the given {!Neturl.url}. *)
 val of_neturl : Neturl.url -> uri
 
-module Urimap : Map.S with type key = uri
-module Uriset : Set.S with type elt = uri
+module Irimap : Map.S with type key = uri
+module Iriset : Set.S with type elt = uri

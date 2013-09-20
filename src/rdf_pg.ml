@@ -34,7 +34,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Rdf_uri.uri ; (* graph name *)
+  { g_name : Rdf_iri.iri ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : PG.connection ;
     mutable g_in_transaction : bool ;
@@ -116,7 +116,7 @@ let hash_of_term dbd ?(add=false) term =
       let test_query =
         "SELECT COUNT(*) FROM " ^
           (match term with
-             Uri _ -> "resources"
+             Iri _ -> "resources"
            | Literal _ -> "literals"
            | Blank_ _ | Blank -> "bnodes"
           ) ^
@@ -128,16 +128,16 @@ let hash_of_term dbd ?(add=false) term =
         s when int_of_string s = 0 ->
           let pre_query =
             match term with
-              Uri uri ->
+              Iri iri ->
                 "resources (id, value) values ("^
                   (Int64.to_string hash) ^", '" ^
-                  (dbd#escape_string (Rdf_uri.string uri)) ^"')"
+                  (dbd#escape_string (Rdf_iri.string iri)) ^"')"
             | Literal lit ->
                 "literals (id, value, language, datatype) values (" ^
                   (Int64.to_string hash) ^ ", '" ^
                   (dbd#escape_string lit.lit_value) ^"', '" ^
                   (dbd#escape_string (Rdf_misc.string_of_opt lit.lit_language)) ^ "', '" ^
-                  (dbd#escape_string (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))) ^"')"
+                  (dbd#escape_string (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_iri.string lit.lit_type))) ^"')"
             | Blank_ id ->
                 "bnodes (id, value) values (" ^
                   (Int64.to_string hash) ^", '" ^
@@ -152,8 +152,8 @@ let hash_of_term dbd ?(add=false) term =
 ;;
 
 
-let to_uri = function
-  Rdf_term.Uri uri -> uri
+let to_iri = function
+  Rdf_term.Iri iri -> iri
 | t -> failwith ("Not a URI:"^(Rdf_term.string_of_term t))
 ;;
 
@@ -177,8 +177,8 @@ let init_db options =
 
 let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
-let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) uri =
-  let name = Rdf_uri.string uri in
+let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) iri =
+  let name = Rdf_iri.string iri in
   let query = "SELECT id FROM graphs WHERE name = '" ^ (dbd#escape_string name) ^ "'" in
   let res = exec_query dbd query in
   match res#ntuples with
@@ -188,7 +188,7 @@ let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) uri =
   | 0 ->
       let query = "INSERT INTO graphs (name) VALUES ('" ^ (dbd#escape_string name) ^ "')" in
       ignore(exec_query dbd query);
-      graph_table_of_graph_name ~first: false dbd uri
+      graph_table_of_graph_name ~first: false dbd iri
   | n ->
       let id = getvalue res 0 0 in
       graph_table_of_id (int_of_string id)
@@ -205,7 +205,7 @@ let table_exists dbd table =
 let create_namespaces_table dbd table =
   let table = nstable_of_graph_table table in
   let query = "CREATE TABLE IF NOT EXISTS "^table^" (\
-    uri text NOT NULL, \
+    iri text NOT NULL, \
     name varchar(255) NOt NULL)"
   in
   ignore(exec_query dbd query)
@@ -292,13 +292,13 @@ let prepare_queries dbd table =
   let query = "SELECT object from " ^ table in
   prepare_query dbd prepared_object query;
 
-  let query = "SELECT uri, name FROM "^nstable in
+  let query = "SELECT iri, name FROM "^nstable in
   prepare_query dbd prepared_namespaces query;
 
   let query = "DELETE FROM "^nstable^" WHERE NAME=?" in
   prepare_query dbd prepared_delete_namespace query;
 
-  let query = "INSERT INTO "^nstable^" (uri, name) VALUES (?, ?)" in
+  let query = "INSERT INTO "^nstable^" (iri, name) VALUES (?, ?)" in
   prepare_query dbd prepared_insert_namespace query;
 
   dbg ~level: 1 (fun () -> "done")
@@ -311,7 +311,7 @@ let namespaces g =
   let rec iter n acc =
     if n < size then
       begin
-        let v  = (Rdf_uri.uri ~check: false (getvalue res n 0), getvalue res n 1) in
+        let v  = (Rdf_iri.iri ~check: false (getvalue res n 0), getvalue res n 1) in
         iter (n+1) (v::acc)
       end
     else
@@ -325,10 +325,10 @@ let rem_namespace g name =
   ignore(exec_prepared g.g_dbd prepared_delete_namespace params)
 ;;
 
-let add_namespace g uri name =
+let add_namespace g iri name =
   rem_namespace g name ;
   let params = [
-      quote_str (Rdf_uri.string uri);
+      quote_str (Rdf_iri.string iri);
       quote_str name ;
     ]
   in
@@ -337,7 +337,7 @@ let add_namespace g uri name =
 
 let set_namespaces g l =
   List.iter (fun (_,name) -> rem_namespace g name) (namespaces g);
-  let f (uri, name) = add_namespace g uri name in
+  let f (iri, name) = add_namespace g iri name in
   List.iter f l
 ;;
 
@@ -380,13 +380,13 @@ let term_of_hash dbd hash =
         | true ->
             match getisnull res 0 1 with
               false ->
-                let uri = getvalue res 0 1 in
-                Rdf_term.term_of_uri_string uri
+                let iri = getvalue res 0 1 in
+                Rdf_term.term_of_iri_string iri
             | true ->
                match get_tuple res 0 with
                  [| _ ; _ ; value ; lang ; typ |] ->
                    let typ = Rdf_misc.map_opt
-                      Rdf_uri.uri (Rdf_misc.opt_of_string typ)
+                      Rdf_iri.iri (Rdf_misc.opt_of_string typ)
                     in
                     Rdf_term.term_of_literal_string
                     ?lang: (Rdf_misc.opt_of_string lang)
@@ -465,7 +465,7 @@ let query_triple_list g where_clause =
         [| sub ; pred ; obj |] ->
           let acc =
             (term_of_hash g.g_dbd (Int64.of_string sub),
-             to_uri (term_of_hash g.g_dbd (Int64.of_string pred)),
+             to_iri (term_of_hash g.g_dbd (Int64.of_string pred)),
              term_of_hash g.g_dbd (Int64.of_string obj)) :: acc
           in
           iter (n+1) acc
@@ -489,7 +489,7 @@ let open_graph ?(options=[]) name =
 
 let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:true sub in
-  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred) in
+  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Iri pred) in
   let obj = hash_of_term g.g_dbd ~add:true obj in
   let params = [ Int64.to_string sub ; Int64.to_string pred; Int64.to_string obj] in
   (* do not insert if already present *)
@@ -501,7 +501,7 @@ let add_triple g ~sub ~pred ~obj =
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:false sub in
-  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred) in
+  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Iri pred) in
   let obj = hash_of_term g.g_dbd ~add:false obj in
   ignore(exec_prepared g.g_dbd
    prepared_delete_triple
@@ -511,12 +511,12 @@ let rem_triple g ~sub ~pred ~obj =
 
 let subjects_of g ~pred ~obj =
   query_term_list g prepared_subjects_of
-  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
+  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri pred)) ;
     Int64.to_string (hash_of_term g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  List.map to_uri
+  List.map to_iri
     (query_term_list g prepared_predicates_of
      [ Int64.to_string (hash_of_term g.g_dbd sub) ;
        Int64.to_string (hash_of_term g.g_dbd obj) ]
@@ -526,7 +526,7 @@ let predicates_of g ~sub ~obj =
 let objects_of g ~sub ~pred =
   query_term_list g prepared_objects_of
   [ Int64.to_string (hash_of_term g.g_dbd sub) ;
-    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ]
+    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri pred)) ]
 ;;
 
 let mk_hash_where_clause ?sub ?pred ?obj g =
@@ -557,7 +557,7 @@ let mk_where_clause ?sub ?pred ?obj g =
   | _ ->
       let pred_cond = match pred with
         None -> []
-        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri p)))]
+        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri p)))]
       in
       let l =
         (mk_cond "subject" sub) @
@@ -588,7 +588,7 @@ let exists ?sub ?pred ?obj g =
 ;;
 
 let subjects g = query_term_list g prepared_subject [];;
-let predicates g = List.map to_uri (query_term_list g prepared_predicate []);;
+let predicates g = List.map to_iri (query_term_list g prepared_predicate []);;
 let objects g = query_term_list g prepared_object [];;
 
 let transaction_start g =

@@ -72,7 +72,7 @@ let output_doc_tree ns ?(decl=true) dest tree =
           []
           atts
         in
-        let ns_atts = List.map (fun (pref,uri) -> ((Xmlm.ns_xmlns, pref), uri)) ns in
+        let ns_atts = List.map (fun (pref,iri) -> ((Xmlm.ns_xmlns, pref), iri)) ns in
         E ((tag, ns_atts @ atts), subs)
   in
   let ns_prefix s = Some s in
@@ -122,43 +122,43 @@ let xmls_of_string str =
       failwith msg
 ;;
 
-let is_element uri (pref,loc) =
-  let uri2 = Rdf_uri.uri (pref^loc) in
-  Rdf_uri.compare uri uri2 = 0
+let is_element iri (pref,loc) =
+  let iri2 = Rdf_iri.iri (pref^loc) in
+  Rdf_iri.compare iri iri2 = 0
 ;;
 
 
 (** {2 Input} *)
 
 module SMap = Rdf_types.SMap;;
-module Urimap = Rdf_uri.Urimap;;
+module Irimap = Rdf_iri.Irimap;;
 
 type state =
   { subject : Rdf_term.term option ;
-    predicate : Rdf_uri.uri option ;
-    xml_base : Rdf_uri.uri ;
+    predicate : Rdf_iri.iri option ;
+    xml_base : Rdf_iri.iri ;
     xml_lang : string option ;
-    datatype : Rdf_uri.uri option ;
-    namespaces : string Urimap.t ;
+    datatype : Rdf_iri.iri option ;
+    namespaces : string Irimap.t ;
   }
 
 type global_state =
   {
     blanks : Rdf_term.blank_id SMap.t ;
-    gnamespaces : string Urimap.t ;
+    gnamespaces : string Irimap.t ;
   }
 
 exception Invalid_rdf of string
 let error s = raise (Invalid_rdf s);;
 
 let get_att att l = try Some (List.assoc att l) with Not_found -> None;;
-let get_att_uri =
+let get_att_iri =
   let rec iter pred = function
     [] -> None
   | (x,v) :: q ->
     if pred x then Some v else iter pred q
   in
-  fun uri l -> iter (is_element uri) l
+  fun iri l -> iter (is_element iri) l
 ;;
 
 let set_xml_base state = function
@@ -166,7 +166,7 @@ let set_xml_base state = function
 | E ((_,atts),_) ->
     match get_att (Xmlm.ns_xml, "base") atts with
       None -> state
-    | Some s -> { state with xml_base = Rdf_uri.uri s }
+    | Some s -> { state with xml_base = Rdf_iri.iri s }
 ;;
 let set_xml_lang state = function
   D _ -> state
@@ -183,9 +183,9 @@ let set_namespaces gstate state = function
     let f (gstate, state) ((pref,s),v) =
       if pref = Xmlm.ns_xmlns then
         begin
-          let uri = Rdf_uri.uri v in
-          let gstate = { gstate with gnamespaces = Urimap.add uri s gstate.gnamespaces } in
-          let state = { state with namespaces = Urimap.add uri s state.namespaces } in
+          let iri = Rdf_iri.iri v in
+          let gstate = { gstate with gnamespaces = Irimap.add iri s gstate.gnamespaces } in
+          let state = { state with namespaces = Irimap.add iri s state.namespaces } in
           (gstate, state)
         end
       else
@@ -205,10 +205,14 @@ let get_blank_node g gstate id =
     let gstate = { gstate with blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
-let abs_uri state uri =
-  let neturl = Rdf_uri.neturl uri in
-  let base = Rdf_uri.neturl state.xml_base in
-  Rdf_uri.of_neturl (Neturl.ensure_absolute_url ~base neturl)
+let abs_iri state iri =
+  (* FIXME: ensure absolute IRI *)
+  iri
+  (*
+  let neturl = Rdf_iri.neturl iri in
+  let base = Rdf_iri.neturl state.xml_base in
+  Rdf_iri.of_neturl (Neturl.ensure_absolute_url ~base neturl)
+  *)
 ;;
 
 let rec input_node g state gstate t =
@@ -225,13 +229,13 @@ let rec input_node g state gstate t =
       gstate
   | E (((pref,s), atts), children) ->
       let (node, gstate) =
-        match get_att_uri Rdf_rdf.rdf_about atts with
-          Some s -> (Uri (abs_uri state (Rdf_uri.uri s)), gstate)
+        match get_att_iri Rdf_rdf.rdf_about atts with
+          Some s -> (Iri (abs_iri state (Rdf_iri.iri s)), gstate)
         | None ->
-            match get_att_uri Rdf_rdf.rdf_ID atts with
-              Some id -> (Uri (Rdf_uri.uri ((Rdf_uri.string state.xml_base)^"#"^id)), gstate)
+            match get_att_iri Rdf_rdf.rdf_ID atts with
+              Some id -> (Iri (Rdf_iri.iri ((Rdf_iri.string state.xml_base)^"#"^id)), gstate)
             | None ->
-                match get_att_uri Rdf_rdf.rdf_nodeID atts with
+                match get_att_iri Rdf_rdf.rdf_nodeID atts with
                   Some id -> get_blank_node g gstate id
                 | None -> (Blank_ (g.new_blank_id ()), gstate)
       in
@@ -245,18 +249,18 @@ let rec input_node g state gstate t =
       (* add a type arc if the node is not introduced with rdf:Description *)
       if not (is_element Rdf_rdf.rdf_Description (pref,s)) then
         begin
-          let type_uri = Rdf_uri.uri (pref^s) in
-          g.add_triple ~sub: node ~pred: Rdf_rdf.rdf_type ~obj: (Uri type_uri)
+          let type_iri = Rdf_iri.iri (pref^s) in
+          g.add_triple ~sub: node ~pred: Rdf_rdf.rdf_type ~obj: (Iri type_iri)
         end;
       (* all remaining attributes define triples with literal object values *)
       let f ((pref, s), v) =
         if pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns then
           begin
-            let uri_prop = Rdf_uri.uri (pref^s) in
-            if not (List.exists (Rdf_uri.equal uri_prop) [ Rdf_rdf.rdf_about ; Rdf_rdf.rdf_ID ; Rdf_rdf.rdf_nodeID ]) then
+            let iri_prop = Rdf_iri.iri (pref^s) in
+            if not (List.exists (Rdf_iri.equal iri_prop) [ Rdf_rdf.rdf_about ; Rdf_rdf.rdf_ID ; Rdf_rdf.rdf_nodeID ]) then
               begin
                 let obj = Rdf_term.term_of_literal_string ?lang: state.xml_lang v in
-                g.add_triple ~sub: node ~pred: uri_prop ~obj
+                g.add_triple ~sub: node ~pred: iri_prop ~obj
               end
           end
       in
@@ -273,38 +277,38 @@ and input_prop g state (gstate, li) t =
       error msg
   | E (((pref,s),atts),children) ->
       let sub = match state.subject with None -> assert false | Some sub -> sub in
-      let prop_uri = Rdf_uri.uri (pref^s) in
-      let (prop_uri, li) =
-        if Rdf_uri.equal prop_uri Rdf_rdf.rdf_li then
+      let prop_iri = Rdf_iri.iri (pref^s) in
+      let (prop_iri, li) =
+        if Rdf_iri.equal prop_iri Rdf_rdf.rdf_li then
           (Rdf_rdf.rdf_n li, li + 1)
         else
-          (prop_uri, li)
+          (prop_iri, li)
       in
-      match get_att_uri Rdf_rdf.rdf_resource atts with
+      match get_att_iri Rdf_rdf.rdf_resource atts with
         Some s ->
-          let obj = Uri (abs_uri state (Rdf_uri.uri s)) in
-          g.add_triple ~sub ~pred: prop_uri ~obj ;
+          let obj = Iri (abs_iri state (Rdf_iri.iri s)) in
+          g.add_triple ~sub ~pred: prop_iri ~obj ;
           (gstate, li)
       | None ->
-          match get_att_uri Rdf_rdf.rdf_nodeID atts with
+          match get_att_iri Rdf_rdf.rdf_nodeID atts with
             Some id ->
               let (obj, gstate) = get_blank_node g gstate id in
-              g.add_triple ~sub ~pred: prop_uri ~obj ;
+              g.add_triple ~sub ~pred: prop_iri ~obj ;
               (gstate, li)
           | None ->
-          match get_att_uri Rdf_rdf.rdf_parseType atts with
+          match get_att_iri Rdf_rdf.rdf_parseType atts with
             Some "Literal" ->
               let xml = string_of_xmls
-                (Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) state.namespaces [])
+                (Irimap.fold (fun iri s acc -> (s, Rdf_iri.string iri) :: acc) state.namespaces [])
                 children
               in
               let obj = Rdf_term.term_of_literal_string ~typ: Rdf_rdf.rdf_XMLLiteral xml in
-              g.add_triple ~sub ~pred: prop_uri ~obj;
+              g.add_triple ~sub ~pred: prop_iri ~obj;
               (gstate, li)
           | Some "Resource" ->
               begin
                  let node = Blank_ (g.new_blank_id ()) in
-                 g.add_triple ~sub ~pred: prop_uri ~obj: node ;
+                 g.add_triple ~sub ~pred: prop_iri ~obj: node ;
                  let state = { state with subject = Some node ; predicate = None } in
                  List.fold_left (input_prop g state) (gstate, 1) children
               end
@@ -320,7 +324,7 @@ and input_prop g state (gstate, li) t =
                    let gstate = input_node g state gstate first in
                    match rest with
                      [] -> g.add_triple ~sub: previous
-                        ~pred: Rdf_rdf.rdf_rest ~obj: (Uri Rdf_rdf.rdf_nil);
+                        ~pred: Rdf_rdf.rdf_rest ~obj: (Iri Rdf_rdf.rdf_nil);
                         (gstate, previous)
                    | _ ->
                       let blank = Rdf_term.Blank_ (g.new_blank_id ()) in
@@ -332,22 +336,22 @@ and input_prop g state (gstate, li) t =
                     [] -> gstate
                   | _ ->
                     let blank = Rdf_term.Blank_ (g.new_blank_id ()) in
-                    g.add_triple ~sub ~pred: prop_uri ~obj: blank;
+                    g.add_triple ~sub ~pred: prop_iri ~obj: blank;
                     fst (f (gstate, blank) children)
                 in
                 (gstate, li)
               end
           | Some s -> error (Printf.sprintf "Unknown parseType %S" s)
           | None ->
-              match get_att_uri Rdf_rdf.rdf_datatype atts, children with
+              match get_att_iri Rdf_rdf.rdf_datatype atts, children with
               | Some s, [D lit] ->
-                  let typ = abs_uri state (Rdf_uri.uri s) in
+                  let typ = abs_iri state (Rdf_iri.iri s) in
                   let obj = Rdf_term.term_of_literal_string ~typ ?lang: state.xml_lang lit in
-                  g.add_triple ~sub ~pred: prop_uri ~obj;
+                  g.add_triple ~sub ~pred: prop_iri ~obj;
                   (gstate, li)
               | Some s, _ ->
                   let msg = Printf.sprintf "Property %S with datatype %S but no data"
-                    (Rdf_uri.string prop_uri) s
+                    (Rdf_iri.string prop_iri) s
                   in
                   error msg
               | None, _ ->
@@ -355,20 +359,20 @@ and input_prop g state (gstate, li) t =
                     are property relations, with ommited blank nodes *)
                   let pred ((pref,s),v) =
                     pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns &&
-                    (let uri = Rdf_uri.uri (pref^s) in not (Rdf_uri.equal uri Rdf_rdf.rdf_ID))
+                    (let iri = Rdf_iri.iri (pref^s) in not (Rdf_iri.equal iri Rdf_rdf.rdf_ID))
                   in
                   match List.filter pred atts with
                     [] ->
-                      let state = { state with predicate = Some prop_uri } in
+                      let state = { state with predicate = Some prop_iri } in
                       let gstate = List.fold_left (input_node g state) gstate children in
                       (gstate, li)
                   | l ->
                       let node = Blank_ (g.new_blank_id ()) in
-                      g.add_triple ~sub ~pred: prop_uri ~obj: node ;
+                      g.add_triple ~sub ~pred: prop_iri ~obj: node ;
                       let f ((pref,s),lit) =
                         let obj = Rdf_term.term_of_literal_string ?lang: state.xml_lang lit in
-                        let uri_prop = Rdf_uri.uri (pref^s) in
-                        g.add_triple ~sub: node ~pred: uri_prop ~obj
+                        let iri_prop = Rdf_iri.iri (pref^s) in
+                        g.add_triple ~sub: node ~pred: iri_prop ~obj
                       in
                       List.iter f l;
                       (gstate, li)
@@ -378,10 +382,10 @@ let input_tree g ?(base=g.Rdf_graph.name()) t =
   let state = {
       subject = None ; predicate = None ;
       xml_base = base ; xml_lang = None ;
-      datatype = None ; namespaces = Urimap.empty ;
+      datatype = None ; namespaces = Irimap.empty ;
     }
   in
-  let gstate = { gnamespaces = Urimap.empty ; blanks = SMap.empty } in
+  let gstate = { gnamespaces = Irimap.empty ; blanks = SMap.empty } in
   let (gstate, state) = update_state gstate state t in
   let gstate =
     match t with
@@ -393,8 +397,8 @@ let input_tree g ?(base=g.Rdf_graph.name()) t =
     | t -> input_node g state gstate t
   in
   (* add namespaces *)
-  let add_ns uri prefix = g.add_namespace uri prefix in
-  Urimap.iter add_ns gstate.gnamespaces
+  let add_ns iri prefix = g.add_namespace iri prefix in
+  Irimap.iter add_ns gstate.gnamespaces
 ;;
 
 let from_string g ?base s =
@@ -416,25 +420,25 @@ let from_file g ?base file =
 (** {2 Output} *)
 
 let output g =
-  let xml_prop pred_uri obj =
+  let xml_prop pred_iri obj =
     let (atts, children) =
       match obj with
-      | Uri uri -> ([("", Rdf_uri.string Rdf_rdf.rdf_resource), Rdf_uri.string uri], [])
-      | Blank_ id -> ([("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id], [])
+      | Iri iri -> ([("", Rdf_iri.string Rdf_rdf.rdf_resource), Rdf_iri.string iri], [])
+      | Blank_ id -> ([("", Rdf_iri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id], [])
       | Blank -> assert false
       | Literal lit ->
           let (atts, subs) =
             match lit.lit_type with
               None -> ([], [D lit.lit_value])
-            | Some uri when Rdf_uri.equal uri Rdf_rdf.rdf_XMLLiteral ->
+            | Some iri when Rdf_iri.equal iri Rdf_rdf.rdf_XMLLiteral ->
                 let subs = xmls_of_string lit.lit_value in
                 (
-                 [("",Rdf_uri.string Rdf_rdf.rdf_parseType), "Literal"],
+                 [("",Rdf_iri.string Rdf_rdf.rdf_parseType), "Literal"],
                  subs
                 )
-            | Some uri ->
+            | Some iri ->
                 (
-                 [("",Rdf_uri.string Rdf_rdf.rdf_datatype), Rdf_uri.string uri],
+                 [("",Rdf_iri.string Rdf_rdf.rdf_datatype), Rdf_iri.string iri],
                  [D lit.lit_value]
                 )
           in
@@ -445,21 +449,21 @@ let output g =
           in
           (atts, subs)
     in
-    E ((("",Rdf_uri.string pred_uri),atts),children)
+    E ((("",Rdf_iri.string pred_iri),atts),children)
   in
   let f_triple acc (sub, pred, obj) =
     let atts =
       match sub with
-        Uri uri -> [("", Rdf_uri.string Rdf_rdf.rdf_about), Rdf_uri.string uri]
-      | Blank_ id -> [("", Rdf_uri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id]
+        Iri iri -> [("", Rdf_iri.string Rdf_rdf.rdf_about), Rdf_iri.string iri]
+      | Blank_ id -> [("", Rdf_iri.string Rdf_rdf.rdf_nodeID), Rdf_term.string_of_blank_id id]
       | Blank -> assert false
       | Literal _ -> assert false
     in
     let xml_prop = xml_prop pred obj in
-    (E ((("",Rdf_uri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
+    (E ((("",Rdf_iri.string Rdf_rdf.rdf_Description), atts), [xml_prop]) :: acc)
   in
   let xmls = List.fold_left f_triple [] (g.find ()) in
-  E ((("", Rdf_uri.string Rdf_rdf.rdf_RDF),[]), xmls)
+  E ((("", Rdf_iri.string Rdf_rdf.rdf_RDF),[]), xmls)
 
 
 let to_ ?namespaces g dest =

@@ -1,6 +1,6 @@
 
-let doap = Rdf_uri.uri "http://usefulinc.com/ns/doap#";;
-let doap_ = Rdf_uri.append doap;;
+let doap = Rdf_iri.iri "http://usefulinc.com/ns/doap#";;
+let doap_ = Rdf_iri.append doap;;
 
 let doap_anon_root = doap_"anon-root" ;;
 

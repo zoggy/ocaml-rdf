@@ -41,12 +41,12 @@ type error =
 | Not_a_integer of Rdf_term.literal
 | Not_a_double_or_decimal of Rdf_term.literal
 | Type_mismatch of Rdf_dt.value * Rdf_dt.value
-| Invalid_fun_argument of Rdf_uri.uri
-| Unknown_fun of Rdf_uri.uri
+| Invalid_fun_argument of Rdf_iri.iri
+| Unknown_fun of Rdf_iri.iri
 | Invalid_built_in_fun_argument of string * expression list
 | Unknown_built_in_fun of string
 | No_term
-| Cannot_compare_for_datatype of Rdf_uri.uri
+| Cannot_compare_for_datatype of Rdf_iri.iri
 | Unhandled_regex_flag of char
 | Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 | Empty_set of string (** sparql function name *)
@@ -65,18 +65,18 @@ let string_of_error = function
     "Not an double: "^(Rdf_term.string_of_literal lit)
 | Type_mismatch (v1, v2) ->
     "Type mismatch: "^(Rdf_dt.string_of_value v1)^" <!> "^(Rdf_dt.string_of_value v2)
-| Invalid_fun_argument uri ->
-    "Invalid argument for function "^(Rdf_uri.string uri)
-| Unknown_fun uri ->
-    "Unknown function "^(Rdf_uri.string uri)
+| Invalid_fun_argument iri ->
+    "Invalid argument for function "^(Rdf_iri.string iri)
+| Unknown_fun iri ->
+    "Unknown function "^(Rdf_iri.string iri)
 | Invalid_built_in_fun_argument (name, _) ->
     "Invalid argument list for builtin function "^name
 | Unknown_built_in_fun name ->
         "Unknown builtit function "^name
 | No_term ->
     "No term"
-| Cannot_compare_for_datatype uri ->
-    "Cannot compare values of datatype "^(Rdf_uri.string uri)
+| Cannot_compare_for_datatype iri ->
+    "Cannot compare values of datatype "^(Rdf_iri.string iri)
 | Unhandled_regex_flag c ->
     "Unhandled regexp flag "^(String.make 1 c)
 | Incompatible_string_literals (v1, v2) -> (* FIXME: show values *)
@@ -87,11 +87,11 @@ let string_of_error = function
     "Missing values in inline data"
 ;;
 
-module Irimap = Rdf_uri.Urimap
-module Iriset = Rdf_uri.Uriset
+module Irimap = Rdf_iri.Irimap
+module Iriset = Rdf_iri.Iriset
 
 type context =
-    { base : Rdf_uri.uri ;
+    { base : Rdf_iri.iri ;
       named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
@@ -165,7 +165,7 @@ let rec compare ?(sameterm=false) v1 v2 =
   match v1, v2 with
   | Err _, _ -> 1
   | _, Err _ -> -1
-  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_uri.compare t1 t2
+  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_iri.compare t1 t2
   | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> String.compare s1 s2
   | String s1, String s2
   | Ltrl (s1, None), String s2
@@ -185,7 +185,7 @@ let rec compare ?(sameterm=false) v1 v2 =
       end
   | Ltrdt (s1, dt1), Ltrdt (s2, dt2) ->
       (
-       match Rdf_uri.compare dt1 dt2 with
+       match Rdf_iri.compare dt1 dt2 with
          0 ->
            if sameterm then
              String.compare s1 s2
@@ -211,14 +211,14 @@ let fun_datetime = function
   [] | _::_::_ -> error (Invalid_fun_argument xsd_datetime)
 | [v] -> Rdf_dt.datetime v
 
-let uri_funs_ = [
+let iri_funs_ = [
     xsd_datetime, fun_datetime ;
   ];;
 
-let uri_funs = ref (List.fold_left
-  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty uri_funs_);;
+let iri_funs = ref (List.fold_left
+  (fun acc (iri, f) -> Irimap.add iri f acc) Irimap.empty iri_funs_);;
 
-let add_uri_fun uri f = uri_funs := Irimap.add uri f !uri_funs;;
+let add_iri_fun iri f = iri_funs := Irimap.add iri f !iri_funs;;
 
 (** Builtin functions; they take an expression evaluation function
   in parameter, as all arguments must not be always evaluated,
@@ -419,12 +419,12 @@ let bi_strdt name =
     [e1 ; e2] ->
       (try
         let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e1) in
-        let uri =
+        let iri =
           match Rdf_dt.iri ctx.base (eval_expr ctx mu e2) with
             Rdf_dt.Iri t -> t
           | _ -> assert false
          in
-         Ltrdt (s, uri)
+         Ltrdt (s, iri)
        with e -> Err (Rdf_dt.Exception e)
       )
   | l -> error (Invalid_built_in_fun_argument (name, l))
@@ -613,7 +613,7 @@ let bi_struuid name =
   f
 ;;
 
-let bi_encode_for_uri name =
+let bi_encode_for_iri name =
   let f eval_expr ctx mu = function
     [e] ->
       (try
@@ -871,7 +871,7 @@ let built_in_funs =
       "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
       "DAY", bi_on_date bi_date_day ;
-      "ENCODE_FOR_URI", bi_encode_for_uri ;
+      "ENCODE_FOR_URI", bi_encode_for_iri ;
       "FLOOR", bi_numeric bi_num_floor ;
       "HOURS", bi_on_date bi_date_hours ;
       "IF", bi_if ;
@@ -1038,7 +1038,7 @@ and eval_funcall ctx mu c =
         Iriref ir -> ir.ir_iri
       | _ -> assert false
     in
-    try Irimap.find iri !uri_funs
+    try Irimap.find iri !iri_funs
     with Not_found -> error (Unknown_fun iri)
   in
   let args = List.map (eval_expr ctx mu) c.func_args.argl in
@@ -1407,7 +1407,7 @@ let eval_datablock =
   let mu_add = Rdf_sparql_ms.mu_add in
   let add_var_value mu v = function
     DataBlockValueIri (PrefixedName _) -> assert false
-  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_term.Uri ir.ir_iri) mu
+  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_term.Iri ir.ir_iri) mu
   | DataBlockValueRdf lit
   | DataBlockValueNumeric lit
   | DataBlockValueBoolean lit ->
@@ -1495,8 +1495,8 @@ let rec eval ctx = function
           eval ctx a
         in
         let f_mu mu o =
-          dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Rdf_uri.string iri)));
-          let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_term.Uri iri) mu in
+          dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Rdf_iri.string iri)));
+          let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_term.Iri iri) mu in
           Rdf_sparql_ms.omega_add mu o
         in
         let omega = Rdf_sparql_ms.omega_fold f_mu omega Rdf_sparql_ms.Multimu.empty in

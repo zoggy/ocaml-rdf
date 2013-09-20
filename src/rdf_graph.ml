@@ -24,7 +24,7 @@
 
 (** *)
 
-open Rdf_uri;;
+open Rdf_iri;;
 open Rdf_term;;
 
 type options = (string * string) list
@@ -63,26 +63,26 @@ module type Storage =
     exception Error of error
     val string_of_error : error -> string
 
-    val open_graph : ?options: (string * string) list -> uri -> g
-    val graph_name : g -> uri
+    val open_graph : ?options: (string * string) list -> iri -> g
+    val graph_name : g -> iri
     val graph_size : g -> int
 
-    val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
-    val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
+    val add_triple : g -> sub: term -> pred: iri -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: iri -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: uri -> obj: term -> term list
-    val predicates_of : g -> sub: term -> obj: term -> uri list
-    val objects_of : g -> sub: term -> pred: uri -> term list
+    val subjects_of : g -> pred: iri -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> iri list
+    val objects_of : g -> sub: term -> pred: iri -> term list
 
-    val find : ?sub: term -> ?pred: uri -> ?obj: term -> g -> triple list
-    val exists : ?sub: term -> ?pred: uri -> ?obj: term -> g -> bool
+    val find : ?sub: term -> ?pred: iri -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: iri -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
     val subjects : g -> term list
-    val predicates : g -> uri list
+    val predicates : g -> iri list
     val objects : g -> term list
 
     val transaction_start : g -> unit
@@ -91,10 +91,10 @@ module type Storage =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
-    val namespaces : g -> (uri * string) list
-    val add_namespace : g -> uri -> string -> unit
+    val namespaces : g -> (iri * string) list
+    val add_namespace : g -> iri -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (uri * string) list -> unit
+    val set_namespaces : g -> (iri * string) list -> unit
 
     module BGP : Storage_BGP with type g = g
   end
@@ -148,26 +148,26 @@ module type Graph =
   sig
     type g
 
-    val open_graph : ?options: (string * string) list -> uri -> g
-    val graph_name : g -> uri
+    val open_graph : ?options: (string * string) list -> iri -> g
+    val graph_name : g -> iri
     val graph_size : g -> int
 
-    val add_triple : g -> sub: term -> pred: uri -> obj: term -> unit
-    val rem_triple : g -> sub: term -> pred: uri -> obj: term -> unit
+    val add_triple : g -> sub: term -> pred: iri -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: iri -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: uri -> obj: term -> term list
-    val predicates_of : g -> sub: term -> obj: term -> uri list
-    val objects_of : g -> sub: term -> pred: uri -> term list
+    val subjects_of : g -> pred: iri -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> iri list
+    val objects_of : g -> sub: term -> pred: iri -> term list
 
-    val find : ?sub: term -> ?pred: uri -> ?obj: term -> g -> triple list
-    val exists : ?sub: term -> ?pred: uri -> ?obj: term -> g -> bool
+    val find : ?sub: term -> ?pred: iri -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: iri -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
     val subjects : g -> term list
-    val predicates : g -> uri list
+    val predicates : g -> iri list
     val objects : g -> term list
 
     val transaction_start : g -> unit
@@ -176,10 +176,10 @@ module type Graph =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
-    val namespaces : g -> (uri * string) list
-    val add_namespace : g -> uri -> string -> unit
+    val namespaces : g -> (iri * string) list
+    val add_namespace : g -> iri -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (uri * string) list -> unit
+    val set_namespaces : g -> (iri * string) list -> unit
 
     module BGP : Storage_BGP with type g = g
   end
@@ -193,30 +193,30 @@ let add_storage m =
 
 type graph =
   {
-    name : unit -> uri ;
+    name : unit -> iri ;
     size : unit -> int ;
-    add_triple : sub: term -> pred: uri -> obj: term -> unit ;
-    rem_triple : sub: term -> pred: uri -> obj: term -> unit ;
+    add_triple : sub: term -> pred: iri -> obj: term -> unit ;
+    rem_triple : sub: term -> pred: iri -> obj: term -> unit ;
     add_triple_t : triple -> unit ;
     rem_triple_t : triple -> unit ;
-    subjects_of : pred: uri -> obj: term -> term list ;
-    predicates_of : sub: term -> obj: term -> uri list ;
-    objects_of : sub: term -> pred: uri -> term list ;
-    find : ?sub: term -> ?pred: uri -> ?obj: term -> unit -> triple list ;
-    exists : ?sub: term -> ?pred: uri -> ?obj: term -> unit -> bool ;
+    subjects_of : pred: iri -> obj: term -> term list ;
+    predicates_of : sub: term -> obj: term -> iri list ;
+    objects_of : sub: term -> pred: iri -> term list ;
+    find : ?sub: term -> ?pred: iri -> ?obj: term -> unit -> triple list ;
+    exists : ?sub: term -> ?pred: iri -> ?obj: term -> unit -> bool ;
     exists_t : triple -> bool ;
     subjects : unit -> term list ;
-    predicates : unit -> uri list ;
+    predicates : unit -> iri list ;
     objects : unit -> term list ;
     transaction_start : unit -> unit ;
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
     new_blank_id : unit -> Rdf_term.blank_id ;
 
-    namespaces : unit -> (uri * string) list ;
-    add_namespace : uri -> string -> unit ;
+    namespaces : unit -> (iri * string) list ;
+    add_namespace : iri -> string -> unit ;
     rem_namespace : string -> unit ;
-    set_namespaces : (uri * string) list -> unit ;
+    set_namespaces : (iri * string) list -> unit ;
 
     bgp : (module Rdf_bgp.S) ;
   }
@@ -287,7 +287,7 @@ module Bid_map = Map.Make
 let merge g1 g2 =
   let map bid_map x =
     match x with
-      Rdf_term.Uri _
+      Rdf_term.Iri _
     | Rdf_term.Literal _
     | Blank -> (bid_map, x)
     | Blank_ id ->
@@ -302,7 +302,7 @@ let merge g1 g2 =
   in
   let f bid_map (sub,pred,obj) =
     let (bid_map, sub) = map bid_map sub in
-    let (bid_map, _) = map bid_map (Rdf_term.Uri pred) in
+    let (bid_map, _) = map bid_map (Rdf_term.Iri pred) in
     let (bid_map, obj) = map bid_map obj in
     g1.add_triple ~sub ~pred ~obj;
     bid_map

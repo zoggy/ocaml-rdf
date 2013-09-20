@@ -29,7 +29,7 @@ open Rdf_graph;;
 let string_of_triple (sub, pred, obj) =
   Printf.sprintf "%s %s %s."
   (Rdf_term.string_of_term sub)
-  (Rdf_uri.string pred)
+  (Rdf_iri.string pred)
   (Rdf_term.string_of_term obj)
 ;;
 
@@ -40,17 +40,17 @@ let main () =
       "user", "guesdon" ;
     ]
   in
-  let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
-  let pred = Rdf_uri.uri "http://dis-bonjour.org" in
+  let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
+  let pred = Rdf_iri.iri "http://dis-bonjour.org" in
   let obj = Rdf_term.term_of_literal_string "youpi" in
-  let sub = Rdf_term.term_of_uri_string "http://coucou0.net" in
+  let sub = Rdf_term.term_of_iri_string "http://coucou0.net" in
   for i = 0 to 10 do
     g.add_triple
-    ~sub: (Rdf_term.term_of_uri_string (Printf.sprintf "http://coucou%d.net" i))
+    ~sub: (Rdf_term.term_of_iri_string (Printf.sprintf "http://coucou%d.net" i))
     ~pred ~obj
   done;
   g.rem_triple
-    ~sub: (Rdf_term.term_of_uri_string "http://coucou3.net")
+    ~sub: (Rdf_term.term_of_iri_string "http://coucou3.net")
     ~pred ~obj;
   let subjects = g.subjects_of ~pred ~obj in
   List.iter (fun term -> print_endline (Rdf_term.string_of_term term)) subjects;
@@ -59,7 +59,7 @@ let main () =
   assert b;
   let b = g.exists ~sub ~obj () in
   assert b;
-  let b = not (g.exists ~obj: (Rdf_term.term_of_uri_string "http://") ()) in
+  let b = not (g.exists ~obj: (Rdf_term.term_of_iri_string "http://") ()) in
   assert b;
   let triples = g.find () in
   List.iter (fun t -> print_endline (string_of_triple t)) triples;
@@ -67,21 +67,21 @@ let main () =
   let subjects = g.subjects () in
   List.iter (fun term -> print_endline (Rdf_term.string_of_term term)) subjects;
 
-  let sub4 = Rdf_term.term_of_uri_string "http://coucou4.net" in
+  let sub4 = Rdf_term.term_of_iri_string "http://coucou4.net" in
   g.transaction_start ();
   g.rem_triple ~sub: sub4 ~pred ~obj;
   assert (not (g.exists_t (sub4, pred, obj)));
   g.transaction_rollback ();
   assert (g.exists_t (sub4, pred, obj));
 
-  g.add_namespace (Rdf_uri.uri "http://dis-bonjour.org") "bonjour" ;
-  g.add_namespace (Rdf_uri.uri "http://coucou1.net") "coucou1" ;
+  g.add_namespace (Rdf_iri.iri "http://dis-bonjour.org") "bonjour" ;
+  g.add_namespace (Rdf_iri.iri "http://coucou1.net") "coucou1" ;
   print_endline (Rdf_ttl.to_string g);
   g.rem_namespace "coucou1";
   g.rem_namespace "coucou2";
   g.set_namespaces [
-    (Rdf_uri.uri "http://coucou3.net", "coucou3");
-    (Rdf_uri.uri "http://coucou4.net", "coucou4");
+    (Rdf_iri.iri "http://coucou3.net", "coucou3");
+    (Rdf_iri.iri "http://coucou4.net", "coucou4");
   ];
   print_endline (Rdf_ttl.to_string g);
 ;;

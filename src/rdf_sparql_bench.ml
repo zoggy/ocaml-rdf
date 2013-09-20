@@ -4,8 +4,8 @@ open Rdf_sparql_test;;
 open Rdf_sparql;;
 
 
-let base = Rdf_uri.uri "http://localhost/ocamml-rdf-bench";;
-let prop_ = Rdf_uri.concat base;;
+let base = Rdf_iri.iri "http://localhost/ocamml-rdf-bench";;
+let prop_ = Rdf_iri.concat base;;
 
 let prop_options = prop_"graphOptions";;
 let prop_source = prop_"source";;
@@ -66,11 +66,11 @@ let store_operation g op =
     match op.kind, op.spec.default_graph with
       Import _, None -> assert false
     | Import res, Some file ->
-        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Uri type_op_import);
+        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri type_op_import);
         add ~pred: prop_source ~obj: (Rdf_term.term_of_literal_string file);
         res
     | Sparql_query res, _ ->
-        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Uri type_op_sparql);
+        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri type_op_sparql);
         add ~pred: prop_query
           ~obj: (Rdf_term.term_of_literal_string (Rdf_misc.string_of_file op.spec.query));
         add ~pred: prop_query_file
@@ -79,9 +79,9 @@ let store_operation g op =
           match op.spec.default_graph with
           | Some file -> Rdf_term.term_of_literal_string file
           | None ->
-              Rdf_term.Uri
+              Rdf_term.Iri
                 (match op.spec.base with
-                   None -> Rdf_uri.uri "http://localhost/"
+                   None -> Rdf_iri.iri "http://localhost/"
                  | Some u -> u)
         in
         add ~pred: prop_source ~obj: source;
@@ -109,7 +109,7 @@ let run_sparql_test ~id spec =
     try
       let dataset = Rdf_sparql_test.mk_dataset spec in
       let query = Rdf_sparql.query_from_file spec.query in
-      let base = match spec.base with None -> Rdf_uri.uri "http://localhost/" | Some u -> u in
+      let base = match spec.base with None -> Rdf_iri.iri "http://localhost/" | Some u -> u in
       prerr_endline "Running sparql query";
       let t_start = get_time () in
       let res = Rdf_sparql.execute base dataset query in
@@ -141,12 +141,12 @@ let run_sparql_test ~id spec =
 let run_import_test ~id spec =
   let spec_base =
     match spec.base with
-      None -> Rdf_uri.uri "http://localhost/"
-    | Some uri -> uri
+      None -> Rdf_iri.iri "http://localhost/"
+    | Some iri -> iri
   in
   let g = Rdf_graph.open_graph ~options: spec.options spec_base in
   if g.Rdf_graph.size () > 0 then
-    prerr_endline ("Warning: graph "^(Rdf_uri.string spec_base)^" not empty");
+    prerr_endline ("Warning: graph "^(Rdf_iri.string spec_base)^" not empty");
   let (res, duration, size) =
     try
       (* use a in-memory graph first, so that parsing time
@@ -195,7 +195,7 @@ let sparql_select g q =
 module SMap = Rdf_xml.SMap;;
 type import_stats = (int * float option SMap.t) list
 
-let us = Rdf_uri.string ;;
+let us = Rdf_iri.string ;;
 
 let ids g =
   let q = "SELECT DISTINCT ?id

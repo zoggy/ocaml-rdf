@@ -44,7 +44,25 @@ val string : iri -> string
 *)
 val iri : ?check: bool -> string -> iri
 
+(** Append the given string to the given IRI.
+     @param check can be specified to [false] to prevent IRI parsing.
+*)
+val append : ?check: bool -> iri -> string -> iri
+
+(** Add the given string to the path of the given IRI.*)
+val concat : iri -> string -> iri
+
+(** Get the path part of the IRI. *)
+val path : iri -> string list
+
 (** [to_uri iri] encode the given IRI and try to create an URI.
-  May raise [Rdf_uri.Invalid_uri] is the IRI cannot be mapped to
+  May raise [Rdf_iri.Invalid_uri] is the IRI cannot be mapped to
   an URI. *)
 val to_uri : iri -> Rdf_uri.uri
+
+val equal : iri -> iri -> bool
+
+val compare : iri -> iri -> int
+
+module Irimap : Map.S with type key = iri
+module Iriset : Set.S with type elt = iri

@@ -1,6 +1,6 @@
 
-let earl = Rdf_uri.uri "http://www.w3.org/ns/earl#";;
-let earl_ = Rdf_uri.append earl;;
+let earl = Rdf_iri.iri "http://www.w3.org/ns/earl#";;
+let earl_ = Rdf_iri.append earl;;
 
 let earl_assertedBy = earl_"assertedBy" ;;
 

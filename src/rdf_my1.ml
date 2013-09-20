@@ -49,7 +49,7 @@ let hash_of_term dbd ?(add=false) term =
       let test_query =
         "SELECT COUNT(*) FROM " ^
           (match term with
-             Uri _ -> "resources"
+             Iri _ -> "resources"
            | Literal _ -> "literals"
            | Blank_ _ | Blank -> "bnodes"
           ) ^
@@ -60,16 +60,16 @@ let hash_of_term dbd ?(add=false) term =
         Some [| Some s |] when int_of_string s = 0 ->
           let pre_query =
             match term with
-              Uri uri ->
+              Iri iri ->
                 "resources (id, value) values ("^
                   (Int64.to_string hash) ^
-                  ", " ^ (quote_str (Rdf_uri.string uri)) ^ ")"
+                  ", " ^ (quote_str (Rdf_iri.string iri)) ^ ")"
             | Literal lit ->
                 "literals (id, value, language, datatype) values (" ^
                   (Int64.to_string hash) ^ ", " ^
                   (quote_str lit.lit_value) ^ ", " ^
                   (quote_str (Rdf_misc.string_of_opt lit.lit_language)) ^ ", " ^
-                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))) ^ ")"
+                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_iri.string lit.lit_type))) ^ ")"
             | Blank_ id ->
                 "bnodes (id, value) values (" ^
                 (Int64.to_string hash) ^ ", " ^
@@ -89,8 +89,8 @@ let init_db db engine =
   Rdf_my.init_db db queries
 ;;
 
-let to_uri = function
-  Rdf_term.Uri uri -> uri
+let to_iri = function
+  Rdf_term.Iri iri -> iri
 | t -> failwith ("Not a URI:"^(Rdf_term.string_of_term t))
 ;;
 
@@ -143,11 +143,11 @@ let term_of_hash dbd hash =
             match t with
               [| Some name ; None ; None ; None ; None |] ->
                 Blank_ (Rdf_term.blank_id_of_string name)
-            | [| None ; Some uri ; None ; None ; None |] ->
-                Rdf_term.term_of_uri_string uri
+            | [| None ; Some iri ; None ; None ; None |] ->
+                Rdf_term.term_of_iri_string iri
             | [| None ; None ; Some value ; lang ; typ |] ->
                 let typ = Rdf_misc.map_opt
-                  (Rdf_uri.uri ~check: false)
+                  (Rdf_iri.iri ~check: false)
                   (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
                 in
                 Rdf_term.term_of_literal_string
@@ -205,7 +205,7 @@ let query_triple_list g where_clause =
   let f = function
   | [| Some sub ; Some pred ; Some obj |] ->
       (term_of_hash g.g_dbd (Mysql.int642ml sub),
-       to_uri (term_of_hash g.g_dbd (Mysql.int642ml pred)),
+       to_iri (term_of_hash g.g_dbd (Mysql.int642ml pred)),
        term_of_hash g.g_dbd (Mysql.int642ml obj)
       )
   | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
@@ -232,7 +232,7 @@ let open_graph ?(options=[]) name =
 
 let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:true sub in
-  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Uri pred) in
+  let pred = hash_of_term g.g_dbd ~add:true (Rdf_term.Iri pred) in
   let obj = hash_of_term g.g_dbd ~add:true obj in
   let params = [ Int64.to_string sub ; Int64.to_string pred ; Int64.to_string obj] in
   (* do not insert if already present *)
@@ -245,7 +245,7 @@ let add_triple g ~sub ~pred ~obj =
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_term g.g_dbd ~add:false sub in
-  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Uri pred) in
+  let pred = hash_of_term g.g_dbd ~add:false (Rdf_term.Iri pred) in
   let obj = hash_of_term g.g_dbd ~add:false obj in
   ignore(Rdf_my.exec_prepared g.g_dbd
    Rdf_my.prepared_delete_triple
@@ -255,12 +255,12 @@ let rem_triple g ~sub ~pred ~obj =
 
 let subjects_of g ~pred ~obj =
   query_term_list g Rdf_my.prepared_subjects_of
-  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ;
+  [ Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri pred)) ;
     Int64.to_string (hash_of_term g.g_dbd obj) ]
 ;;
 
 let predicates_of g ~sub ~obj =
-  List.map to_uri
+  List.map to_iri
     (query_term_list g Rdf_my.prepared_predicates_of
      [ Int64.to_string (hash_of_term g.g_dbd sub) ;
        Int64.to_string (hash_of_term g.g_dbd obj) ]
@@ -270,7 +270,7 @@ let predicates_of g ~sub ~obj =
 let objects_of g ~sub ~pred =
   query_term_list g Rdf_my.prepared_objects_of
   [ Int64.to_string (hash_of_term g.g_dbd sub) ;
-    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri pred)) ]
+    Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri pred)) ]
 ;;
 
 let mk_where_clause ?sub ?pred ?obj g =
@@ -285,7 +285,7 @@ let mk_where_clause ?sub ?pred ?obj g =
       let pred_cond =
         match pred with
           None -> []
-        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Uri p)))]
+        | Some p -> ["predicate="^(Int64.to_string (hash_of_term g.g_dbd (Rdf_term.Iri p)))]
       in
       let l =
         (mk_cond "subject" sub) @
@@ -320,7 +320,7 @@ let find ?sub ?pred ?obj g =
 let exists = Rdf_my.exists mk_where_clause;;
 
 let subjects g = query_term_list g Rdf_my.prepared_subject [];;
-let predicates g = List.map to_uri (query_term_list g Rdf_my.prepared_predicate []);;
+let predicates g = List.map to_iri (query_term_list g Rdf_my.prepared_predicate []);;
 let objects g = query_term_list g Rdf_my.prepared_object [];;
 
 module MyBGP =

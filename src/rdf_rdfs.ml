@@ -1,6 +1,6 @@
 
-let rdfs = Rdf_uri.uri "http://www.w3.org/2000/01/rdf-schema#";;
-let rdfs_ = Rdf_uri.append rdfs;;
+let rdfs = Rdf_iri.iri "http://www.w3.org/2000/01/rdf-schema#";;
+let rdfs_ = Rdf_iri.append rdfs;;
 
 let rdfs_Class = rdfs_"Class" ;;
 

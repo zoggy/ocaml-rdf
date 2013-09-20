@@ -87,7 +87,7 @@ calls {!Rdf_dt.int} to retrieve an [Int n] value, then return [n].
 val get_string : solution -> string -> string
 
 (** See comment of {!Rdf_dt.iri}. *)
-val get_iri : solution -> Rdf_uri.uri -> string -> Rdf_uri.uri
+val get_iri : solution -> Rdf_iri.iri -> string -> Rdf_iri.iri
 val get_int : solution -> string -> int
 val get_float : solution -> string -> float
 val get_bool : solution -> string -> bool
@@ -104,7 +104,7 @@ type query_result =
 | Graph of Rdf_graph.graph
 
 (** [execute ~base dataset q] executes the sparql query [q] on [dataset], using
-  [base] as base uri. The form of the result depends on the kind of query:
+  [base] as base iri. The form of the result depends on the kind of query:
   - Select queries return a [Solution solutions]
   - Ask queries return a [Bool bool]
   - Construct queries return [Graph g].
@@ -112,14 +112,14 @@ type query_result =
 
   For [Construct] and [Describe] queries, if a graph is provided, it is filled
   and the same graph is returned; else a new graph (in memory) is created,
-  filled and returned. If the graph is created, it uri is the [base] uri provided.
+  filled and returned. If the graph is created, it iri is the [base] iri provided.
 
   {b Warning:} Describe queries are not implemented yet.
 
   @raise Error in case of error.
 *)
 val execute : ?graph: Rdf_graph.graph ->
-  base:Rdf_uri.uri -> Rdf_ds.dataset -> query -> query_result
+  base:Rdf_iri.iri -> Rdf_ds.dataset -> query -> query_result
 
 (** {3 Convenient functions for querying} *)
 
@@ -127,33 +127,33 @@ val execute : ?graph: Rdf_graph.graph ->
   @raise Not_select is the query is not a SELECT.
 *)
 val select :
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> solution list
+  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> solution list
 
 (** Execute the given CONSTRUCT query.
   @raise Not_construct is the query is not a CONSTRUCT.
 *)
 val construct : ?graph: Rdf_graph.graph ->
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
+  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** Execute the given ASK query.
   @raise Not_ask is the query is not a ASK.
 *)
 val ask :
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> bool
+  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> bool
 
 (** Execute the given DESCRIBE query.
   @raise Not_describe is the query is not a DESCRIBE.
 *)
 val describe : ?graph: Rdf_graph.graph ->
-  base: Rdf_uri.uri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
+  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** {2 Predefined functions}
 
-These are the functions named by an URI,
+These are the functions named by an IRI,
 {{:http://www.w3.org/TR/sparql11-query/#expressions} see details here}. *)
 
 (** A function takes a list of values and return a value. *)
-type uri_fun = Rdf_dt.value list -> Rdf_dt.value
+type iri_fun = Rdf_dt.value list -> Rdf_dt.value
 
-val uri_funs : unit -> uri_fun Rdf_uri.Urimap.t
-val add_uri_fun : Rdf_uri.uri -> uri_fun -> unit
+val iri_funs : unit -> iri_fun Rdf_iri.Irimap.t
+val add_iri_fun : Rdf_iri.iri -> iri_fun -> unit

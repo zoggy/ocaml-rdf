@@ -26,17 +26,17 @@
 
 open Rdf_term;;
 
-module Urimap = Rdf_uri.Urimap;;
+module Irimap = Rdf_iri.Irimap;;
 module SSet = Rdf_types.SSet;;
 
-let apply_namespaces namespaces uri =
-  let len_uri = String.length uri in
+let apply_namespaces namespaces iri =
+  let len_iri = String.length iri in
   let rec iter = function
-    [] -> ("",uri)
+    [] -> ("",iri)
   | (pref,ns) :: q ->
       let len = String.length ns in
-      if len <= len_uri && String.sub uri 0 len = ns then
-        (pref, String.sub uri len (len_uri - len))
+      if len <= len_iri && String.sub iri 0 len = ns then
+        (pref, String.sub iri len (len_iri - len))
       else
         iter q
   in
@@ -45,43 +45,43 @@ let apply_namespaces namespaces uri =
 
 let build_namespaces ?(namespaces=[]) g =
   let l = (g.Rdf_graph.namespaces ()) @ namespaces in
-  let f (map, set) (uri, pref) =
+  let f (map, set) (iri, pref) =
     try
-      ignore(Urimap.find uri map);
-      (* this uri already has a prefix, ignore this association *)
+      ignore(Irimap.find iri map);
+      (* this iri already has a prefix, ignore this association *)
       (map, set)
     with Not_found ->
         if SSet.mem pref set then
           failwith (Printf.sprintf "%S is already the prefix of another namespace." pref)
         else
           (
-           let map = Urimap.add uri pref map in
+           let map = Irimap.add iri pref map in
            let set = SSet.add pref set in
            (map, set)
           )
   in
-  let (map, _) = List.fold_left f (Urimap.empty, SSet.empty) l in
-  Urimap.fold (fun uri s acc -> (s, Rdf_uri.string uri) :: acc) map []
+  let (map, _) = List.fold_left f (Irimap.empty, SSet.empty) l in
+  Irimap.fold (fun iri s acc -> (s, Rdf_iri.string iri) :: acc) map []
 ;;
 
-let dot_of_graph ?namespaces ?href ?uri g =
+let dot_of_graph ?namespaces ?href ?iri g =
   let namespaces = build_namespaces ?namespaces g in
   let b = Buffer.create 256 in
   Buffer.add_string b "digraph g {\nrankdir=LR;\nfontsize=10;\n";
   let triples =
-    match uri with
+    match iri with
       None -> g.Rdf_graph.find ()
-    | Some uri ->
-        let node = Rdf_term.Uri uri in
-        let to_uri = g.Rdf_graph.find ~sub: node () in
-        let from_uri = g.Rdf_graph.find ~obj: node () in
-        to_uri @ from_uri
+    | Some iri ->
+        let node = Rdf_term.Iri iri in
+        let to_iri = g.Rdf_graph.find ~sub: node () in
+        let from_iri = g.Rdf_graph.find ~obj: node () in
+        to_iri @ from_iri
   in
   let label node =
     match node with
-      Uri uri ->
-         let uri = Rdf_uri.string uri in
-         let (pref,s) = apply_namespaces namespaces uri in
+      Iri iri ->
+         let iri = Rdf_iri.string iri in
+         let (pref,s) = apply_namespaces namespaces iri in
          begin
           match pref with
             "" -> s
@@ -90,24 +90,24 @@ let dot_of_graph ?namespaces ?href ?uri g =
     | Literal lit ->
         lit.lit_value
           ^ (match lit.lit_language with None -> "" | Some s -> "^"^s)
-          ^ (match lit.lit_type with None -> "" | Some uri -> "@"^(Rdf_uri.string uri))
+          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Rdf_iri.string iri))
     | Blank_ _ | Blank -> ""
   in
   let id node =
     let s =
       match node with
-        Uri uri -> Rdf_uri.string uri
+        Iri iri -> Rdf_iri.string iri
       | Blank_ id -> "b"^(string_of_blank_id id)
       | Literal lit ->
           lit.lit_value
             ^ "^" ^ (match lit.lit_language with None -> "" | Some s -> s)
-            ^ "@" ^ (match lit.lit_type with None -> "" | Some uri -> Rdf_uri.string uri)
+            ^ "@" ^ (match lit.lit_type with None -> "" | Some iri -> Rdf_iri.string iri)
       | Blank -> assert false
     in
     "N" ^ (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
-    Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Uri pred));
+    Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Iri pred));
     Rdf_term.TSet.add sub (Rdf_term.TSet.add obj set)
   in
   let set = List.fold_left f Rdf_term.TSet.empty triples in
@@ -126,5 +126,5 @@ let dot_of_graph ?namespaces ?href ?uri g =
   Buffer.contents b
 ;;
 
-let dot_of_uri ?namespaces ?href g uri = dot_of_graph ?namespaces ?href ~uri g;;
+let dot_of_iri ?namespaces ?href g iri = dot_of_graph ?namespaces ?href ~iri g;;
 let dot_of_graph ?namespaces ?href g = dot_of_graph ?namespaces ?href g;;

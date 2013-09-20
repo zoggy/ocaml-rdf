@@ -28,7 +28,7 @@
 type literal = {
   lit_value : string;
   lit_language : string option;
-  lit_type : Rdf_uri.uri option;
+  lit_type : Rdf_iri.iri option;
 }
 
 (** Type for blank node ids. *)
@@ -36,7 +36,7 @@ type blank_id
 
 (** Various kinds of terms. *)
 type term =
-  | Uri of Rdf_uri.uri
+  | Iri of Rdf_iri.iri
   | Literal of literal
   | Blank
   | Blank_ of blank_id
@@ -47,8 +47,8 @@ module Ordered_term : sig type t = term val compare : term -> term -> int end
 module TSet : Set.S with type elt = term
 module TMap : Map.S with type key = term
 
-(** A RDF triple is triple (term, uri, term). *)
-type triple = term * Rdf_uri.uri * term
+(** A RDF triple is triple (term, iri, term). *)
+type triple = term * Rdf_iri.iri * term
 
 (** Get a string from a blank term id. *)
 val string_of_blank_id : blank_id -> string
@@ -56,13 +56,13 @@ val string_of_blank_id : blank_id -> string
 (** Make a blank term id from a string. *)
 val blank_id_of_string : string -> blank_id
 
-(** Shortcut for [Uri (Rdf_uri.uri string)]. *)
-val term_of_uri_string : string -> term
+(** Shortcut for [Iri (Rdf_iri.iri string)]. *)
+val term_of_iri_string : string -> term
 
 (** Creation of a literal. *)
-val mk_literal : ?typ:Rdf_uri.uri -> ?lang:string -> string -> literal
+val mk_literal : ?typ:Rdf_iri.iri -> ?lang:string -> string -> literal
 
-(** Create a datetime literal with type uri from the given datetime [d].
+(** Create a datetime literal with type iri from the given datetime [d].
   If no date is given, [Unix.time()] is used.*)
 val mk_literal_datetime : ?d:float -> unit -> literal
 
@@ -72,7 +72,7 @@ val term_of_datetime : ?d:float -> unit -> term
 (** Parse a literal to get a datetime. *)
 val datetime_of_literal : literal -> Netdate.t
 
-(** Create a boolean literal with type uri from the given boolean. *)
+(** Create a boolean literal with type iri from the given boolean. *)
 val mk_literal_bool : bool -> literal
 
 (** Create an integer literal. *)
@@ -85,7 +85,7 @@ val mk_literal_double : float -> literal
 val bool_of_literal : literal -> bool
 
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
-val term_of_literal_string : ?typ:Rdf_uri.uri -> ?lang:string -> string -> term
+val term_of_literal_string : ?typ:Rdf_iri.iri -> ?lang:string -> string -> term
 
 (** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)] *)
 val term_of_int : int -> term

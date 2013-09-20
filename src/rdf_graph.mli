@@ -36,10 +36,10 @@ let options =
     "user", "john" ;
   ]
 in
-let graph = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
+let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
 graph.add_triple
   ~sub: (Rdf_term.term_of_uri_string "http://john.net")
-  ~pred: (Rdf_uri.uri "http://relations.org/hasMailbox")
+  ~pred: (Rdf_iri.iri "http://relations.org/hasMailbox")
   ~obj: (Rdf_term.term_of_literal_string "john\@john.net");
 ...
 ]}
@@ -113,10 +113,10 @@ module type Storage =
     (** {3 Creation and modification} *)
 
     (** Creationg of the graph. The graph has a name which is a URI. *)
-    val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> g
+    val open_graph : ?options:(string * string) list -> Rdf_iri.iri -> g
 
     (** Access to the graph name, as specified at its creation. *)
-    val graph_name : g -> Rdf_uri.uri
+    val graph_name : g -> Rdf_iri.iri
 
     (** Return the number of triples in the graph. *)
     val graph_size : g -> int
@@ -124,12 +124,12 @@ module type Storage =
     (** Adding a triple to the graph. *)
     val add_triple :
       g ->
-      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
+      sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit
 
     (** Removing a triple from the graph. *)
     val rem_triple :
       g ->
-      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
+      sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit
 
     (** Adding a triple to the graph, curryfied form. *)
     val add_triple_t : g -> Rdf_term.triple -> unit
@@ -142,30 +142,30 @@ module type Storage =
     (** [subjects_of g ~pred ~obj] returns the list of nodes which are
       subjects in triples with the specified predicate and object. *)
     val subjects_of :
-      g -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list
+      g -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> Rdf_term.term list
 
     (** [predicates_of g ~sub ~obj] returns the list of nodes which are
       predicates in triples with the specified subject and object. *)
     val predicates_of :
-      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list
+      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_iri.iri list
 
     (** [objects_of g ~sub ~pred] returns the list of nodes which are
       objects in triples with the specified subject and predicate. *)
     val objects_of :
-      g -> sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list
+      g -> sub:Rdf_term.term -> pred:Rdf_iri.iri -> Rdf_term.term list
 
     (** [find ?sub ?pred ?obj g] returns the list of triples matching the
          constraints given by the optional subject, predicate and object.
          One can specify, zero, one, two or three of these nodes. *)
     val find :
       ?sub:Rdf_term.term ->
-      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
+      ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
 
     (** Same as {!find} but only returns [true] if at least one triple
       of the graph matches the constraints. *)
     val exists :
       ?sub:Rdf_term.term ->
-      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> bool
+      ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> g -> bool
 
     (** Curryfied version of {!exists}. *)
     val exists_t : Rdf_term.triple -> g -> bool
@@ -174,7 +174,7 @@ module type Storage =
     val subjects : g -> Rdf_term.term list
 
     (** Return the list of nodes appearing in predicate position. *)
-    val predicates : g -> Rdf_uri.uri list
+    val predicates : g -> Rdf_iri.iri list
 
     (** Return the list of nodes appearing in object position. *)
     val objects : g -> Rdf_term.term list
@@ -195,10 +195,10 @@ module type Storage =
 
     (** {3 Namespaces} *)
 
-    val namespaces : g -> (Rdf_uri.uri * string) list
-    val add_namespace : g -> Rdf_uri.uri -> string -> unit
+    val namespaces : g -> (Rdf_iri.iri * string) list
+    val add_namespace : g -> Rdf_iri.iri -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (Rdf_uri.uri * string) list -> unit
+    val set_namespaces : g -> (Rdf_iri.iri * string) list -> unit
 
     (** {3 Evaluating basic graph patterns} *)
 
@@ -222,42 +222,42 @@ exception Storage_error of string * string * exn
 module type Graph =
   sig
     type g
-    val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> g
-    val graph_name : g -> Rdf_uri.uri
+    val open_graph : ?options:(string * string) list -> Rdf_iri.iri -> g
+    val graph_name : g -> Rdf_iri.iri
     val graph_size : g -> int
     val add_triple :
       g ->
-      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
+      sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit
     val rem_triple :
       g ->
-      sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit
+      sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit
     val add_triple_t : g -> Rdf_term.triple -> unit
     val rem_triple_t : g -> Rdf_term.triple -> unit
     val subjects_of :
-      g -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list
+      g -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> Rdf_term.term list
     val predicates_of :
-      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list
+      g -> sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_iri.iri list
     val objects_of :
-      g -> sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list
+      g -> sub:Rdf_term.term -> pred:Rdf_iri.iri -> Rdf_term.term list
     val find :
       ?sub:Rdf_term.term ->
-      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
+      ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> g -> Rdf_term.triple list
     val exists :
       ?sub:Rdf_term.term ->
-      ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> g -> bool
+      ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> g -> bool
     val exists_t : Rdf_term.triple -> g -> bool
     val subjects : g -> Rdf_term.term list
-    val predicates : g -> Rdf_uri.uri list
+    val predicates : g -> Rdf_iri.iri list
     val objects : g -> Rdf_term.term list
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
     val new_blank_id : g -> Rdf_term.blank_id
 
-    val namespaces : g -> (Rdf_uri.uri * string) list
-    val add_namespace : g -> Rdf_uri.uri -> string -> unit
+    val namespaces : g -> (Rdf_iri.iri * string) list
+    val add_namespace : g -> Rdf_iri.iri -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (Rdf_uri.uri * string) list -> unit
+    val set_namespaces : g -> (Rdf_iri.iri * string) list -> unit
 
     module BGP : Storage_BGP with type g = g
   end
@@ -274,37 +274,37 @@ val add_storage : (module Storage) -> unit
   Refer to the documentation of {!Storage} for information about
   the functions in the fields.*)
 type graph = {
-  name : unit -> Rdf_uri.uri;
+  name : unit -> Rdf_iri.iri;
   size : unit -> int ;
   add_triple :
-    sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit;
+    sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit;
   rem_triple :
-    sub:Rdf_term.term -> pred:Rdf_uri.uri -> obj:Rdf_term.term -> unit;
+    sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> unit;
   add_triple_t : Rdf_term.triple -> unit;
   rem_triple_t : Rdf_term.triple -> unit;
-  subjects_of : pred:Rdf_uri.uri -> obj:Rdf_term.term -> Rdf_term.term list;
+  subjects_of : pred:Rdf_iri.iri -> obj:Rdf_term.term -> Rdf_term.term list;
   predicates_of :
-    sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_uri.uri list;
-  objects_of : sub:Rdf_term.term -> pred:Rdf_uri.uri -> Rdf_term.term list;
+    sub:Rdf_term.term -> obj:Rdf_term.term -> Rdf_iri.iri list;
+  objects_of : sub:Rdf_term.term -> pred:Rdf_iri.iri -> Rdf_term.term list;
   find :
     ?sub:Rdf_term.term ->
-    ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> unit -> Rdf_term.triple list;
+    ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> unit -> Rdf_term.triple list;
   exists :
     ?sub:Rdf_term.term ->
-    ?pred:Rdf_uri.uri -> ?obj:Rdf_term.term -> unit -> bool;
+    ?pred:Rdf_iri.iri -> ?obj:Rdf_term.term -> unit -> bool;
   exists_t : Rdf_term.triple -> bool;
   subjects : unit -> Rdf_term.term list;
-  predicates : unit -> Rdf_uri.uri list;
+  predicates : unit -> Rdf_iri.iri list;
   objects : unit -> Rdf_term.term list;
   transaction_start : unit -> unit;
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;
   new_blank_id : unit -> Rdf_term.blank_id ;
 
-  namespaces : unit -> (Rdf_uri.uri * string) list ;
-  add_namespace : Rdf_uri.uri -> string -> unit ;
+  namespaces : unit -> (Rdf_iri.iri * string) list ;
+  add_namespace : Rdf_iri.iri -> string -> unit ;
   rem_namespace : string -> unit ;
-  set_namespaces : (Rdf_uri.uri * string) list -> unit ;
+  set_namespaces : (Rdf_iri.iri * string) list -> unit ;
 
   bgp : (module Rdf_bgp.S) ;
 }
@@ -325,7 +325,7 @@ type graph = {
   The ["rdf"] namespace is automatically added at creation time,
   associated to [http://www.w3.org/1999/02/22-rdf-syntax-ns#].
 *)
-val open_graph : ?options:(string * string) list -> Rdf_uri.uri -> graph
+val open_graph : ?options:(string * string) list -> Rdf_iri.iri -> graph
 
 (** [merge g1 g2] add triples from [g2] to [g1].*)
 val merge : graph -> graph -> unit

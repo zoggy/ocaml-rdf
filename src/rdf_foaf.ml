@@ -1,6 +1,6 @@
 
-let foaf = Rdf_uri.uri "http://xmlns.com/foaf/0.1/";;
-let foaf_ = Rdf_uri.append foaf;;
+let foaf = Rdf_iri.iri "http://xmlns.com/foaf/0.1/";;
+let foaf_ = Rdf_iri.append foaf;;
 
 let foaf_account = foaf_"account" ;;
 

@@ -31,11 +31,11 @@ let map_opt = Rdf_misc.map_opt;;
 module SMap = Rdf_xml.SMap;;
 
 type env =
-  { base : Rdf_uri.uri ;
-    prefixes : Rdf_uri.uri SMap.t ;
+  { base : Rdf_iri.iri ;
+    prefixes : Rdf_iri.iri SMap.t ;
   }
 
-type dataset = { from : Rdf_uri.uri option ; from_named : Rdf_uri.Uriset.t }
+type dataset = { from : Rdf_iri.iri option ; from_named : Rdf_iri.Iriset.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 
@@ -46,12 +46,15 @@ let iriref_a =
     }
 ;;
 
+(* FIXME: implement rules when applying relative IRIs:
+  http://www.w3.org/TR/sparql11-query/#relIRIs *)
 let expand_iri env = function
-| (Iriref iriref) ->
-    let neturl = Rdf_uri.neturl iriref.ir_iri in
-    let base = Rdf_uri.neturl env.base in
+| (Iriref iriref) as x -> x
+(*    let neturl = Rdf_iri.neturl iriref.ir_iri in
+    let base = Rdf_iri.neturl env.base in
     let neturl = Neturl.ensure_absolute_url ~base neturl in
-    Iriref { iriref with ir_iri = Rdf_uri.of_neturl neturl }
+    Iriref { iriref with ir_iri = Rdf_iri.of_neturl neturl }
+*)
 | PrefixedName pname ->
     let base =
       match pname.pname_ns.pname_ns_name with
@@ -65,8 +68,8 @@ let expand_iri env = function
       match pname.pname_local with
         None -> base
       | Some l ->
-          let s = (Rdf_uri.string base ^ l.pname_local_name) in
-          Rdf_uri.uri s
+          let s = (Rdf_iri.string base ^ l.pname_local_name) in
+          Rdf_iri.iri s
     in
     Iriref { ir_loc = pname.pname_loc ; ir_iri = iri }
 ;;
@@ -457,10 +460,10 @@ let build_dataset =
       { ds with from = Some ir.ir_iri }
   | NamedGraphClause (Iriref ir) ->
       { ds with
-        from_named = Rdf_uri.Uriset.add ir.ir_iri ds.from_named }
+        from_named = Rdf_iri.Iriset.add ir.ir_iri ds.from_named }
   in
   let build clauses = List.fold_left iter
-    { from = None ; from_named = Rdf_uri.Uriset.empty } clauses
+    { from = None ; from_named = Rdf_iri.Iriset.empty } clauses
   in
   function
     Select q -> build q.select_dataset

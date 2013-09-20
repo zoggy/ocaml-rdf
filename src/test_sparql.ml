@@ -44,7 +44,7 @@ let safe_main main =
 (*/c==v=[Misc.safe_main]=1.0====*)
 
 let eval_query ?data query =
-  let base = Rdf_uri.uri "http://localhost/" in
+  let base = Rdf_iri.iri "http://localhost/" in
   let graph =
     match data with
       None -> Rdf_graph.open_graph base
@@ -107,7 +107,7 @@ let main () =
     match !load_ttl_data with
       None -> None
     | Some file ->
-        let base = Rdf_uri.uri "http://localhost/" in
+        let base = Rdf_iri.iri "http://localhost/" in
         let graph = Rdf_graph.open_graph base in
         try Rdf_ttl.from_file graph file; Some graph
         with

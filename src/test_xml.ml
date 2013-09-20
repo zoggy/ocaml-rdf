@@ -43,8 +43,8 @@ let main () =
     Sys.argv.(1)
   in
   let options = [ "storage", "mem" ] in
-  let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
-  Rdf_xml.from_file g ~base: (Rdf_uri.uri file) file;
+  let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
+  Rdf_xml.from_file g ~base: (Rdf_iri.iri file) file;
   let dot = Rdf_dot.dot_of_graph g in
   print_string dot;
   Rdf_xml.to_file g "/tmp/foo.rdf"

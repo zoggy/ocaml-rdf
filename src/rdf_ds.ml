@@ -24,28 +24,28 @@
 
 (** *)
 
-module Irimap = Rdf_uri.Urimap
-module Iriset = Rdf_uri.Uriset
+module Irimap = Rdf_iri.Irimap
+module Iriset = Rdf_iri.Iriset
 
-exception Could_not_retrieve_graph of Rdf_uri.uri * string
-let could_not_retrieve_graph uri msg =
-  raise (Could_not_retrieve_graph (uri, msg))
+exception Could_not_retrieve_graph of Rdf_iri.iri * string
+let could_not_retrieve_graph iri msg =
+  raise (Could_not_retrieve_graph (iri, msg))
 ;;
 
 type dataset =
   { default : Rdf_graph.graph ;
     named : Iriset.t ;
-    get_named : Rdf_uri.uri -> Rdf_graph.graph ;
+    get_named : Rdf_iri.iri -> Rdf_graph.graph ;
   }
 
 let simple_dataset ?(named=[]) default =
-  let named_set = List.fold_left (fun set (uri,_) -> Iriset.add uri set) Iriset.empty named in
-  let named = List.fold_left (fun map (uri,g) -> Irimap.add uri g map) Irimap.empty named in
-  let get_named uri =
-    try Irimap.find uri named
+  let named_set = List.fold_left (fun set (iri,_) -> Iriset.add iri set) Iriset.empty named in
+  let named = List.fold_left (fun map (iri,g) -> Irimap.add iri g map) Irimap.empty named in
+  let get_named iri =
+    try Irimap.find iri named
     with Not_found ->
-        could_not_retrieve_graph uri
-          ("Unknown graph "^(Rdf_uri.string uri))
+        could_not_retrieve_graph iri
+          ("Unknown graph "^(Rdf_iri.string iri))
   in
   { default ; named = named_set ; get_named }
 ;;

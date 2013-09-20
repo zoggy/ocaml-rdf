@@ -51,7 +51,7 @@ let print_list ?sep b f l =
   iter l
 ;;
 
-let print_iriref b ir = p b ("<" ^ (Rdf_uri.string ir.ir_iri) ^ ">")
+let print_iriref b ir = p b ("<" ^ (Rdf_iri.string ir.ir_iri) ^ ">")
 let print_var b v = p b ("?"^v.var_name)
 let print_bnode b bnode =
   match bnode.bnode_label with
@@ -95,7 +95,7 @@ let print_string_lit b s = p b (Rdf_term.quote_str s)
 
 let print_rdf_literal b t =
   match t.rdf_lit.Rdf_term.lit_type with
-    Some uri when Rdf_uri.equal uri Rdf_rdf.xsd_integer ->
+    Some iri when Rdf_iri.equal iri Rdf_rdf.xsd_integer ->
       p b t.rdf_lit.Rdf_term.lit_value
   | _ ->
       let lit = t.rdf_lit in

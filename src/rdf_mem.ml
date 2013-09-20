@@ -109,17 +109,17 @@ module Triples = functor (Map1 : Map.S) ->
 
   end
 ;;
-module Triples_s_p = Triples(Rdf_term.TMap)(Rdf_uri.Urimap)(Rdf_term.TSet);;
-module Triples_p_o = Triples(Rdf_uri.Urimap)(Rdf_term.TMap)(Rdf_term.TSet);;
-module Triples_o_s = Triples(Rdf_term.TMap)(Rdf_term.TMap)(Rdf_uri.Uriset);;
+module Triples_s_p = Triples(Rdf_term.TMap)(Rdf_iri.Irimap)(Rdf_term.TSet);;
+module Triples_p_o = Triples(Rdf_iri.Irimap)(Rdf_term.TMap)(Rdf_term.TSet);;
+module Triples_o_s = Triples(Rdf_term.TMap)(Rdf_term.TMap)(Rdf_iri.Iriset);;
 
 type t =
-  { g_name : Rdf_uri.uri ; (* graph name *)
+  { g_name : Rdf_iri.iri ; (* graph name *)
     mutable g_set_sub : Triples_s_p.t ; (* sub -> (pred -> obj set) *)
     mutable g_set_pred : Triples_p_o.t ; (* pred -> (obj -> sub set) *)
     mutable g_set_obj : Triples_o_s.t ; (* obj -> (sub -> pred set) *)
     mutable g_in_transaction : t option ; (* Some t: t is the state before starting the transaction *)
-    mutable g_ns : Rdf_uri.uri SMap.t ;
+    mutable g_ns : Rdf_iri.iri SMap.t ;
   }
 
 type error = string
@@ -226,7 +226,7 @@ let graph_size g = Triples_s_p.cardinal g.g_set_sub;;
 
 module Mem_BGP =
   struct
-    let to_uri (sub,pred,obj) = (sub, Rdf_term.Uri pred, obj)
+    let to_iri (sub,pred,obj) = (sub, Rdf_term.Iri pred, obj)
     type term = Rdf_term.term
     type g = t
     let term _ t = t
@@ -236,9 +236,9 @@ module Mem_BGP =
     let objects = objects
     let find ?sub ?pred ?obj g =
       match pred with
-        None -> List.map to_uri (find ?sub ?obj g)
-      | Some (Rdf_term.Uri uri) ->
-         List.map to_uri (find ?sub ~pred: uri ?obj g)
+        None -> List.map to_iri (find ?sub ?obj g)
+      | Some (Rdf_term.Iri iri) ->
+         List.map to_iri (find ?sub ~pred: iri ?obj g)
       | _ -> []
   end
 
@@ -280,12 +280,12 @@ module Mem =
     let new_blank_id = new_blank_id
 
     let namespaces g =
-      SMap.fold (fun name uri acc -> (uri, name) :: acc) g.g_ns []
-    let add_namespace g uri name = g.g_ns <- SMap.add name uri g.g_ns
+      SMap.fold (fun name iri acc -> (iri, name) :: acc) g.g_ns []
+    let add_namespace g iri name = g.g_ns <- SMap.add name iri g.g_ns
     let rem_namespace g name = g.g_ns <- SMap.remove name g.g_ns
     let set_namespaces g l =
       g.g_ns <- List.fold_left
-        (fun map (uri, name) -> SMap.add name uri map) SMap.empty l
+        (fun map (iri, name) -> SMap.add name iri map) SMap.empty l
 
     module BGP = Mem_BGP
   end;;

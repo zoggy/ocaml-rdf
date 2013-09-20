@@ -24,11 +24,11 @@
 
 (** *)
 
-let rdf = Rdf_uri.uri "http://www.w3.org/1999/02/22-rdf-syntax-ns#";;
-let rdf_ = Rdf_uri.append rdf ;;
+let rdf = Rdf_iri.iri "http://www.w3.org/1999/02/22-rdf-syntax-ns#";;
+let rdf_ = Rdf_iri.append rdf ;;
 
-let xsd = Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#";;
-let xsd_ = Rdf_uri.append xsd ;;
+let xsd = Rdf_iri.iri "http://www.w3.org/2001/XMLSchema#";;
+let xsd_ = Rdf_iri.append xsd ;;
 
 let rdf_about = rdf_"about";;
 let rdf_datatype = rdf_"datatype";;
@@ -71,8 +71,8 @@ let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
 let rdf_langstring = rdf_"rdf:langString"
 
-let dc = Rdf_uri.uri "http://purl.org/dc/terms/";;
-let dc_ = Rdf_uri.append dc ;;
+let dc = Rdf_iri.iri "http://purl.org/dc/terms/";;
+let dc_ = Rdf_iri.append dc ;;
 
 
 

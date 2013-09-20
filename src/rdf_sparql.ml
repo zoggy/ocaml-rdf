@@ -75,8 +75,8 @@ let query_from_lexbuf ?fname lexbuf =
               Printf.sprintf "Parse error on lexeme %S" lexeme
           | Failure msg ->
               msg
-          | Rdf_uri.Invalid_uri msg ->
-              "Invalid URI "^msg
+          | Rdf_iri.Invalid_iri (s, msg) ->
+              "Invalid URI "^s^" : "^msg
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
@@ -122,7 +122,7 @@ let get_string sol v =
 
 let get_iri sol base v =
   match Rdf_dt.iri base (Rdf_dt.of_term (get_term sol v)) with
-    Rdf_dt.Iri uri -> uri
+    Rdf_dt.Iri iri -> iri
   | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
   | _ -> assert false
 ;;
@@ -201,7 +201,7 @@ let var_or_term_apply_sol sol bnode_map = function
 | Rdf_sparql_types.GraphTerm t ->
     match t with
     | GraphTermIri (PrefixedName _) -> assert false
-    | GraphTermIri (Iriref ir) -> (Rdf_term.Uri (ir.ir_iri), bnode_map)
+    | GraphTermIri (Iriref ir) -> (Rdf_term.Iri (ir.ir_iri), bnode_map)
     | GraphTermLit lit
     | GraphTermNumeric lit
     | GraphTermBoolean lit -> (Rdf_term.Literal lit.rdf_lit, bnode_map)
@@ -249,7 +249,7 @@ let add_solution_to_graph graph template =
       let (pred, bnode_map) =
         let (node, bnode_map) = var_or_term_apply_sol sol bnode_map pred in
         match node with
-        | Rdf_term.Uri uri -> (uri, bnode_map)
+        | Rdf_term.Iri iri -> (iri, bnode_map)
         | Rdf_term.Literal _ -> failwith "Invalid predicate (literal)"
         | Rdf_term.Blank | Rdf_term.Blank_ _ -> failwith "Invalid predicate (blank)"
       in
@@ -433,10 +433,10 @@ let describe ?graph ~base dataset query =
   | _ -> error Not_describe
 ;;
 
-type uri_fun = Rdf_dt.value list -> Rdf_dt.value
+type iri_fun = Rdf_dt.value list -> Rdf_dt.value
 
-let uri_funs () = !Rdf_sparql_eval.uri_funs;;
-let add_uri_fun = Rdf_sparql_eval.add_uri_fun;;
+let iri_funs () = !Rdf_sparql_eval.iri_funs;;
+let add_iri_fun = Rdf_sparql_eval.add_iri_fun;;
 
 
   

@@ -29,24 +29,24 @@ let () = Random.self_init();;
 type literal = {
     lit_value : string ;
     lit_language : string option ;
-    lit_type : Rdf_uri.uri option ;
+    lit_type : Rdf_iri.iri option ;
   }
 type blank_id = string
 
 type term =
-  | Uri of Rdf_uri.uri
+  | Iri of Rdf_iri.iri
   | Literal of literal
   | Blank
   | Blank_ of blank_id
 
 
 
-type triple = term * Rdf_uri.uri * term
+type triple = term * Rdf_iri.iri * term
 
 let string_of_blank_id id = id;;
 let blank_id_of_string str = str;;
 
-let term_of_uri_string s = Uri (Rdf_uri.uri s);;
+let term_of_iri_string s = Iri (Rdf_iri.iri s);;
 let mk_literal ?typ ?lang v =
   { lit_value = v ; lit_language = lang ; lit_type = typ ; }
 ;;
@@ -56,7 +56,7 @@ let term_of_literal_string ?typ ?lang v =
 
 let mk_literal_datetime ?(d=Unix.time()) () =
   let v = Netdate.mk_internet_date d in
-  mk_literal ~typ: (Rdf_uri.uri "http://www.w3.org/2001/XMLSchema#dateTime") v
+  mk_literal ~typ: (Rdf_iri.iri "http://www.w3.org/2001/XMLSchema#dateTime") v
 ;;
 
 let term_of_datetime ?d () =
@@ -120,11 +120,11 @@ let string_of_literal lit =
     ) ^
     (match lit.lit_type with
        None -> ""
-     | Some t -> "^^<" ^ (Rdf_uri.string t) ^ ">"
+     | Some t -> "^^<" ^ (Rdf_iri.string t) ^ ">"
     )
 
 let string_of_term = function
-| Uri uri -> "<" ^ (Rdf_uri.string uri) ^ ">"
+| Iri iri -> "<" ^ (Rdf_iri.string iri) ^ ">"
 | Literal lit -> string_of_literal lit
 | Blank -> "_"
 | Blank_ id ->  "_:" ^ (string_of_blank_id id)
@@ -142,13 +142,13 @@ let int64_hash str =
 ;;
 
 let term_hash = function
-  Uri uri -> int64_hash ("R" ^ (Rdf_uri.string uri))
+  Iri iri -> int64_hash ("R" ^ (Rdf_iri.string iri))
 | Literal lit ->
     int64_hash (
      "L" ^
        lit.lit_value ^ "<" ^
        (Rdf_misc.string_of_opt lit.lit_language) ^ ">" ^
-       (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_uri.string lit.lit_type))
+       (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_iri.string lit.lit_type))
     )
 | Blank -> assert false
 | Blank_ id -> int64_hash ("B" ^ (string_of_blank_id id))
@@ -156,9 +156,9 @@ let term_hash = function
 
 let compare term1 term2 =
   match term1, term2 with
-    Uri uri1, Uri uri2 -> Rdf_uri.compare uri1 uri2
-  | Uri _, _ -> 1
-  | _, Uri _ -> -1
+    Iri iri1, Iri iri2 -> Rdf_iri.compare iri1 iri2
+  | Iri _, _ -> 1
+  | _, Iri _ -> -1
   | Literal lit1, Literal lit2 ->
       begin
         match String.compare lit1.lit_value lit2.lit_value with
@@ -168,7 +168,7 @@ let compare term1 term2 =
                 lit1.lit_language lit2.lit_language
               with
                 0 ->
-                  Rdf_misc.opt_compare Rdf_uri.compare
+                  Rdf_misc.opt_compare Rdf_iri.compare
                     lit1.lit_type lit2.lit_type
               | n -> n
             end
