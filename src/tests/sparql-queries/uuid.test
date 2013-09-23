@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "uuid"
+(* Description of the test *)
+descr = ""
+(* File containing the query *)
+query = "uuid.spq"
+(* File containing the default graph *)
+default_graph = "uuid.ttl"
+

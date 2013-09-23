@@ -613,6 +613,17 @@ let bi_struuid name =
   f
 ;;
 
+let bi_uuid name =
+  let f _ _ _ = function
+    [] ->
+      let uuid = Uuidm.create `V4 in
+      let uuid = Uuidm.to_string uuid in
+      Rdf_dt.Iri (Rdf_iri.iri ("urn:uuid:"^uuid))
+  | l -> error (Invalid_built_in_fun_argument (name, l))
+  in
+  f
+;;
+
 let bi_encode_for_iri name =
   let f eval_expr ctx mu = function
     [e] ->
@@ -908,6 +919,7 @@ let built_in_funs =
       "SUBSTR", bi_substr ;
       "UCASE", bi_ucase ;
       "URI", bi_iri ;
+      "UUID", bi_uuid ;
       "YEAR", bi_on_date bi_date_year ;
     ]
   in

@@ -25,7 +25,7 @@
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTliteral.lit_type">lit_type</span>&#160;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> option</code>;</code></td>
+<code><span id="TYPEELTliteral.lit_type">lit_type</span>&#160;:<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
 
 </tr></table>
 }
@@ -44,7 +44,7 @@ Type for blank node ids.<br/>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTterm.Uri"><span class="constructor">Uri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
+<code><span id="TYPEELTterm.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
 
 </tr>
 <tr>
@@ -73,9 +73,9 @@ Type for blank node ids.<br/>
 Various kinds of terms.<br/>
 </div>
 
-<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">term</a> -&gt; int</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.Ord_type.html">Ord_type</a>: <code class="code">sig</code> <a href="Rdf_term.Ord_type.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.TSet.html">TSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = term</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.TMap.html">TMap</a>: <code class="type">Map.S</code><code class="type">  with type key = term</code></pre><pre><span id="TYPEtriple"><span class="keyword">type</span> triple</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> * <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * <a href="Rdf_term.html#TYPEterm">term</a></code> </pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">term</a> -&gt; int</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.Ordered_term.html">Ordered_term</a>: <code class="code">sig</code> <a href="Rdf_term.Ordered_term.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.TSet.html">TSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = term</code></pre><pre><span class="keyword">module</span> <a href="Rdf_term.TMap.html">TMap</a>: <code class="type">Map.S</code><code class="type">  with type key = term</code></pre><pre><span id="TYPEtriple"><span class="keyword">type</span> triple</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">term</a></code> </pre>
 <div class="info">
-A RDF triple is triple (term, uri, term).<br/>
+A RDF triple is triple (term, iri, term).<br/>
 </div>
 
 <pre><span id="VALstring_of_blank_id"><span class="keyword">val</span> string_of_blank_id</span> : <code class="type"><a href="Rdf_term.html#TYPEblank_id">blank_id</a> -&gt; string</code></pre><div class="info">
@@ -84,14 +84,14 @@ Get a string from a blank term id.<br/>
 <pre><span id="VALblank_id_of_string"><span class="keyword">val</span> blank_id_of_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEblank_id">blank_id</a></code></pre><div class="info">
 Make a blank term id from a string.<br/>
 </div>
-<pre><span id="VALterm_of_uri_string"><span class="keyword">val</span> term_of_uri_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
-Shortcut for <code class="code">Uri (Rdf_uri.uri string)</code>.<br/>
+<pre><span id="VALterm_of_iri_string"><span class="keyword">val</span> term_of_iri_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.<br/>
 </div>
-<pre><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+<pre><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
 Creation of a literal.<br/>
 </div>
 <pre><span id="VALmk_literal_datetime"><span class="keyword">val</span> mk_literal_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create a datetime literal with type uri from the given datetime <code class="code">d</code>.
+Create a datetime literal with type iri from the given datetime <code class="code">d</code>.
   If no date is given, <code class="code">Unix.time()</code> is used.<br/>
 </div>
 <pre><span id="VALterm_of_datetime"><span class="keyword">val</span> term_of_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
@@ -101,7 +101,7 @@ Create a literal term from the given datetime. (see <a href="Rdf_term.html#VALmk
 Parse a literal to get a datetime.<br/>
 </div>
 <pre><span id="VALmk_literal_bool"><span class="keyword">val</span> mk_literal_bool</span> : <code class="type">bool -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create a boolean literal with type uri from the given boolean.<br/>
+Create a boolean literal with type iri from the given boolean.<br/>
 </div>
 <pre><span id="VALmk_literal_int"><span class="keyword">val</span> mk_literal_int</span> : <code class="type">int -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
 Create an integer literal.<br/>
@@ -112,7 +112,7 @@ Create a double literal.<br/>
 <pre><span id="VALbool_of_literal"><span class="keyword">val</span> bool_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; bool</code></pre><div class="info">
 Parse a literal to get a boolean.<br/>
 </div>
-<pre><span id="VALterm_of_literal_string"><span class="keyword">val</span> term_of_literal_string</span> : <code class="type">?typ:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+<pre><span id="VALterm_of_literal_string"><span class="keyword">val</span> term_of_literal_string</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
 Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code><br/>
 </div>
 <pre><span id="VALterm_of_int"><span class="keyword">val</span> term_of_int</span> : <code class="type">int -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">

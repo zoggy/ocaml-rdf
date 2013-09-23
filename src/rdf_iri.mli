@@ -30,7 +30,7 @@
 type iri
 
 (** When the IRI is parsed, this
-  [Invalid_iri (string, message) is raised if the
+  [Invalid_iri (string, message)] is raised if the
   given string is invalid, with an additional message. *)
 exception Invalid_iri of string * string
 
@@ -45,7 +45,7 @@ val string : iri -> string
 val iri : ?check: bool -> string -> iri
 
 (** [ensure_absolute base s] creates an IRI from [s], using the given [base]
- if [s] is relative. Apply {:{http://tools.ietf.org/html/rfc3986#section-5.4}these rules}. *)
+ if [s] is relative. Apply {{:http://tools.ietf.org/html/rfc3986#section-5.4}these rules}. *)
 val ensure_absolute : iri -> string -> iri
 
 (** Append the given string to the given IRI.
@@ -70,3 +70,18 @@ val compare : iri -> iri -> int
 
 module Irimap : Map.S with type key = iri
 module Iriset : Set.S with type elt = iri
+
+val scheme : iri -> string
+val set_scheme : iri -> string -> iri
+val user : iri -> string option
+val set_user : iri -> string option -> iri
+val host : iri -> string option
+val set_host : iri -> string option -> iri
+val port : iri -> int option
+val set_port : iri -> int option -> iri
+val path : iri -> string list
+val set_path : iri -> string list -> iri
+val query : iri -> string option
+val set_query : iri -> string option -> iri
+val fragment : iri -> string option
+val set_fragment : iri -> string option -> iri

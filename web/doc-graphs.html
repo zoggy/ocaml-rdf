@@ -13,7 +13,7 @@ Then we use the <refdoc mod="Rdf_graph" id="VALopen_graph" name="Rdf_graph.open_
 function to create an empty graph:
 </p>
 <ocaml-eval>
-<![CDATA[let base_uri = Rdf_uri.uri "http://foo.bar.net";;
+<![CDATA[let base_uri = Rdf_iri.iri "http://foo.bar.net";;
 let g = Rdf_graph.open_graph base_uri ;;]]>
 </ocaml-eval>
 <p>
@@ -27,8 +27,8 @@ to associate the name "Alice" and the mailbox address URI
 "mailto:alice@mbox.net" to a new blank term:
 </p>
 <ocaml-eval toplevel="true">
-let foaf_name = Rdf_uri.uri "http://xmlns.com/foaf/0.1/name";;
-let foaf_mbox = Rdf_uri.uri "http://xmlns.com/foaf/0.1/mbox";;
+let foaf_name = Rdf_iri.iri "http://xmlns.com/foaf/0.1/name";;
+let foaf_mbox = Rdf_iri.iri "http://xmlns.com/foaf/0.1/mbox";;
 
 let a = Rdf_term.Blank_ (g.Rdf_graph.new_blank_id());;
 g.Rdf_graph.add_triple
@@ -37,7 +37,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: a ~pred: foaf_mbox
-   ~obj: (Rdf_term.Uri (Rdf_uri.uri "mailto:alice@mbox.net"));;
+   ~obj: (Rdf_term.Uri (Rdf_iri.iri "mailto:alice@mbox.net"));;
 
 let b = Rdf_term.Blank_ (g.Rdf_graph.new_blank_id());;
 g.Rdf_graph.add_triple
@@ -46,7 +46,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: b ~pred: foaf_mbox
-   ~obj: (Rdf_term.Uri (Rdf_uri.uri "mailto:bob@mbox.net"));;
+   ~obj: (Rdf_term.Uri (Rdf_iri.iri "mailto:bob@mbox.net"));;
 </ocaml-eval>
 <p>Here is the content of our graph, in Turtle format:</p>
 <showttl graph="g"/>
@@ -95,7 +95,7 @@ RDF/XML file <code>example.rdf</code> and exporting to a Turtle file
 <code>example.ttl</code>:
 </p>
 <ocaml-eval toplevel="true">
-let base = Rdf_uri.uri "http://hello.fr" ;;
+let base = Rdf_iri.iri "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
 Rdf_xml.from_file g "example.rdf";;
 Rdf_ttl.to_file g "example.ttl";;
@@ -115,7 +115,7 @@ and <code>transaction_rollback</code> of the the
 </p>
 <p>As an example, let's load data from a file:</p>
 <ocaml-eval>
-let base = Rdf_uri.uri "http://hello.fr" ;;
+let base = Rdf_iri.iri "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
 Rdf_ttl.from_file g "example.ttl";;
 </ocaml-eval>
@@ -124,7 +124,7 @@ Rdf_ttl.from_file g "example.ttl";;
 <p>Now let's start a transaction, and modify the graph:</p>
 <ocaml-eval>
 g.Rdf_graph.transaction_start();;
-let pred = Rdf_uri.uri "http://example.org/stuff/1.0/fullName" ;;
+let pred = Rdf_iri.iri "http://example.org/stuff/1.0/fullName" ;;
 match g.Rdf_graph.find ~pred () with
 | (sub,_,obj) :: _ ->
   (* remove a triple *)

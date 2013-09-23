@@ -46,7 +46,7 @@ a function to get a graph by its URI.
 creates a dataset with graph as default graph, and no named graphs:
 </p>
 <ocaml-eval>
-let base = Rdf_uri.uri "http://foo.net";;
+let base = Rdf_iri.iri "http://foo.net";;
 let g = Rdf_graph.open_graph base ;;
 Rdf_ttl.from_file g "optional.ttl";;
 let dataset = Rdf_ds.simple_dataset g ;;

@@ -169,6 +169,16 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_types.html#TYPEiri">iri</a> [<a href="Rdf_sparql_types.html">Rdf_sparql_types</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_iri.html#TYPEiri">iri</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+IRIs are abstract.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
+<td><div class="info">
+A function takes a list of values and return a value.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_ttl_types.html#TYPEiriref">iriref</a> [<a href="Rdf_ttl_types.html">Rdf_ttl_types</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_types.html#TYPEiriref">iriref</a> [<a href="Rdf_sparql_types.html">Rdf_sparql_types</a>]</td>
@@ -264,6 +274,8 @@ A Multiset is a set of pairs (int, mu)
 <tr><td align="left"><br/>R</td></tr>
 <tr><td><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a> [<a href="Rdf_sparql_types.html">Rdf_sparql_types</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a> [<a href="Rdf_sparql_types.html">Rdf_sparql_types</a>]</td>
+<td></td></tr>
 <tr><td align="left"><br/>S</td></tr>
 <tr><td><a href="Rdf_sparql_types.html#TYPEselect_clause">select_clause</a> [<a href="Rdf_sparql_types.html">Rdf_sparql_types</a>]</td>
 <td></td></tr>
@@ -305,7 +317,7 @@ Type of current state when walking through the xml tree.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.GExprOrdered.html#TYPEt">t</a> [<a href="Rdf_sparql_eval.GExprOrdered.html">Rdf_sparql_eval.GExprOrdered</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_term.Ord_type.html#TYPEt">t</a> [<a href="Rdf_term.Ord_type.html">Rdf_term.Ord_type</a>]</td>
+<tr><td><a href="Rdf_term.Ordered_term.html#TYPEt">t</a> [<a href="Rdf_term.Ordered_term.html">Rdf_term.Ordered_term</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_types.OrderedString.html#TYPEt">t</a> [<a href="Rdf_sparql_types.OrderedString.html">Rdf_sparql_types.OrderedString</a>]</td>
 <td></td></tr>
@@ -343,7 +355,7 @@ The type of XML tree walked through to fill the graph.
 </td></tr>
 <tr><td><a href="Rdf_term.html#TYPEtriple">triple</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
-A RDF triple is triple (term, uri, term).
+A RDF triple is triple (term, iri, term).
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#TYPEtriple">triple</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
@@ -362,11 +374,6 @@ A RDF triple is triple (term, uri, term).
 <tr><td><a href="Rdf_uri.html#TYPEuri">uri</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 URIs are abstract.
-</div>
-</td></tr>
-<tr><td><a href="Rdf_sparql.html#TYPEuri_fun">uri_fun</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
-<td><div class="info">
-A function takes a list of values and return a value.
 </div>
 </td></tr>
 <tr><td align="left"><br/>V</td></tr>

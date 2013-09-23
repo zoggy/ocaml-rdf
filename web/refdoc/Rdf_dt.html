@@ -56,7 +56,7 @@ Computing values in Sparql, mapping to/from RDF terms.
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTvalue.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
+<code><span id="TYPEELTvalue.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An URI.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
 </tr>
 <tr>
@@ -105,7 +105,7 @@ Computing values in Sparql, mapping to/from RDF terms.
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTvalue.Ltrdt"><span class="constructor">Ltrdt</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
+<code><span id="TYPEELTvalue.Ltrdt"><span class="constructor">Ltrdt</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A literal value with a specified datatype.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
 </tr></table>
 
@@ -129,7 +129,7 @@ Sets of values.
 <pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; string</code></pre><div class="info">
 Return a human-readable message from the given error.<br/>
 </div>
-<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
   an URI. If it is a literal string, convert it to an URI, eventually
   appending to the <code class="code">base</code> uri if the string expresses a relative URI.<br/>

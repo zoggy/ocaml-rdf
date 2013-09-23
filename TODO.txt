@@ -1,7 +1,6 @@
 - represent and use IRIs in Sparql instead of URIs
 
 - built in calls:
-* UUID => when urn scheme is recognized in neturl ?
 * UCASE
 * LCASE
 * langMatches: implement matching of language tags
@@ -17,9 +16,5 @@
 
 - 4th field in graphs: data
 
-- validate turtle parser:
-    https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html
 
-Rdf_iri:
-- getters
-- setters
+

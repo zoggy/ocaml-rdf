@@ -4,8 +4,8 @@
 &#160;&#160;&#160;&#160;<span class="keyword">sig</span>&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;string&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keyword">end</span><br/>
 &#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SSet</span>&#160;:<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;<span class="constructor">OrderedString</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Set</span>.<span class="constructor">Make</span>(<span class="constructor">OrderedString</span>).t<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SSet</span>.t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;empty&#160;:&#160;t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;is_empty&#160;:&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mem&#160;:&#160;elt&#160;<span class="keywordsign">-&gt;</span>&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
@@ -33,8 +33,8 @@
 &#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
 &#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SMap</span>&#160;:<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;key&#160;=&#160;<span class="constructor">OrderedString</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;<span class="keywordsign">'</span>a&#160;t&#160;=&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Map</span>.<span class="constructor">Make</span>(<span class="constructor">OrderedString</span>).t<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;key&#160;=&#160;string<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;<span class="keywordsign">'</span>a&#160;t&#160;=&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SMap</span>.t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;empty&#160;:&#160;<span class="keywordsign">'</span>a&#160;t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;is_empty&#160;:&#160;<span class="keywordsign">'</span>a&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mem&#160;:&#160;key&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
@@ -80,7 +80,7 @@
 &#160;&#160;<span class="keyword">type</span>&#160;iriref&#160;=<br/>
 &#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.iriref&#160;=&#160;{<br/>
 &#160;&#160;&#160;&#160;ir_loc&#160;:&#160;loc;<br/>
-&#160;&#160;&#160;&#160;ir_iri&#160;:&#160;<span class="constructor">Rdf_uri</span>.uri;<br/>
+&#160;&#160;&#160;&#160;ir_iri&#160;:&#160;<span class="constructor">Rdf_iri</span>.iri;<br/>
 &#160;&#160;}<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;prefixed_name&#160;=<br/>
 &#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prefixed_name&#160;=&#160;{<br/>
@@ -88,14 +88,20 @@
 &#160;&#160;&#160;&#160;pname_ns&#160;:&#160;pname_ns;<br/>
 &#160;&#160;&#160;&#160;pname_local&#160;:&#160;pname_local&#160;option;<br/>
 &#160;&#160;}<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;rel_iri&#160;=<br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.rel_iri&#160;=&#160;{<br/>
+&#160;&#160;&#160;&#160;reliri_loc&#160;:&#160;loc;<br/>
+&#160;&#160;&#160;&#160;reliri&#160;:&#160;string;<br/>
+&#160;&#160;}<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;iri&#160;=<br/>
 &#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.iri&#160;=<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Iriref</span>&#160;<span class="keyword">of</span>&#160;iriref<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixedName</span>&#160;<span class="keyword">of</span>&#160;prefixed_name<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;prefix_decl&#160;=&#160;pname_ns&#160;*&#160;iriref<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Reliri</span>&#160;<span class="keyword">of</span>&#160;rel_iri<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;prefix_decl&#160;=&#160;pname_ns&#160;*&#160;rel_iri<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;query_prolog_decl&#160;=<br/>
 &#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.query_prolog_decl&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BaseDecl</span>&#160;<span class="keyword">of</span>&#160;iriref<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BaseDecl</span>&#160;<span class="keyword">of</span>&#160;rel_iri<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixDecl</span>&#160;<span class="keyword">of</span>&#160;prefix_decl<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;query_prolog&#160;=&#160;query_prolog_decl&#160;list<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;rdf_literal&#160;=<br/>

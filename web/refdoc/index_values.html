@@ -12,6 +12,10 @@
 <tr><td align="left"><br/>A</td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALadd">add</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALadd_iri_fun">add_iri_fun</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql.html#VALadd_iri_fun">add_iri_fun</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALadd_namespace">add_namespace</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -71,10 +75,6 @@ Adding a triple to the graph, curryfied form.
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALadd_triple_t">add_triple_t</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_eval.html#VALadd_uri_fun">add_uri_fun</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql.html#VALadd_uri_fun">add_uri_fun</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALagg_avg">agg_avg</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALagg_count">agg_count</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -103,14 +103,19 @@ Adding a triple to the graph, curryfied form.
 <td></td></tr>
 <tr><td><a href="Rdf_uri.html#VALappend">append</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
-Append the given strng to the given URI.
+Append the given string to the given URI.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_iri.html#VALappend">append</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+Append the given string to the given IRI.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_dot.html#VALapply_namespaces">apply_namespaces</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
 <td><div class="info">
-<code class="code">apply_namespaces ns uri</code> return a pair <code class="code">(prefix, suffix)</code> representing
-  the given <code class="code">uri</code> and using one of the namespaces <code class="code">ns</code>, of the form
-  <code class="code">(prefix, uri)</code>.
+<code class="code">apply_namespaces ns iri</code> return a pair <code class="code">(prefix, suffix)</code> representing
+  the given <code class="code">iri</code> and using one of the namespaces <code class="code">ns</code>, of the form
+  <code class="code">(prefix, iri)</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALarg_list">arg_list</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
@@ -147,7 +152,7 @@ Execute the given ASK query.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_date_year">bi_date_year</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_eval.html#VALbi_encode_for_uri">bi_encode_for_uri</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<tr><td><a href="Rdf_sparql_eval.html#VALbi_encode_for_iri">bi_encode_for_iri</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_hash">bi_hash</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -254,7 +259,7 @@ Parse a literal to get a boolean.
 <tr><td><a href="Rdf_dot.html#VALbuild_namespaces">build_namespaces</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
 <td><div class="info">
 <code class="code">build_namespaces graph</code> returns the list namespaces of the <code class="code">graph</code>,
-  as a list of pairs <code class="code">(prefix, uri)</code> usable by <a href="Rdf_dot.html#VALapply_namespaces"><code class="code">Rdf_dot.apply_namespaces</code></a>.
+  as a list of pairs <code class="code">(prefix, iri)</code> usable by <a href="Rdf_dot.html#VALapply_namespaces"><code class="code">Rdf_dot.apply_namespaces</code></a>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbuild_sort_comp_fun">build_sort_comp_fun</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -293,7 +298,7 @@ Comparison of two URIs, as usual.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.GExprOrdered.html#VALcompare">compare</a> [<a href="Rdf_sparql_eval.GExprOrdered.html">Rdf_sparql_eval.GExprOrdered</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_term.Ord_type.html#VALcompare">compare</a> [<a href="Rdf_term.Ord_type.html">Rdf_term.Ord_type</a>]</td>
+<tr><td><a href="Rdf_term.Ordered_term.html#VALcompare">compare</a> [<a href="Rdf_term.Ordered_term.html">Rdf_term.Ordered_term</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_term.html#VALcompare">compare</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td></td></tr>
@@ -309,6 +314,8 @@ Comparison of two URIs, as usual.
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Mem_BGP.html#VALcompare">compare</a> [<a href="Rdf_mem.Mem_BGP.html">Rdf_mem.Mem_BGP</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_iri.html#VALcompare">compare</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_graph.Storage_BGP.html#VALcompare">compare</a> [<a href="Rdf_graph.Storage_BGP.html">Rdf_graph.Storage_BGP</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_dt.ValueOrdered.html#VALcompare">compare</a> [<a href="Rdf_dt.ValueOrdered.html">Rdf_dt.ValueOrdered</a>]</td>
@@ -320,6 +327,11 @@ Comparison of two URIs, as usual.
 <tr><td><a href="Rdf_uri.html#VALconcat">concat</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Add the given string to the path of the given URI, using '/' as separator.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_iri.html#VALconcat">concat</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+Add the given string to the path of the given IRI.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_pg.html#VALconnect">connect</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -697,7 +709,7 @@ URL of Wiki for collaborative discussion of project.
 <code class="code">dot_of_graph graph</code> returns the Graphviz code to represent the given <code class="code">graph</code>.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_dot.html#VALdot_of_uri">dot_of_uri</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
+<tr><td><a href="Rdf_dot.html#VALdot_of_iri">dot_of_iri</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
 <td><div class="info">
 Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of_graph</code></a> but return code to represent only the triples
   having the given URI as subject or object.
@@ -845,11 +857,19 @@ Evaluate boolean expression.
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALempty">empty</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_iri.html#VALensure_absolute">ensure_absolute</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+<code class="code">ensure_absolute base s</code> creates an IRI from <code class="code">s</code>, using the given <code class="code">base</code>
+ if <code class="code">s</code> is relative.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_uri.html#VALequal">equal</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Equality over URIs.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_iri.html#VALequal">equal</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALerror">error</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALerror">error</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
@@ -922,7 +942,7 @@ Raise a <a href="Rdf_dt.html#EXCEPTIONError"><code class="code">Rdf_dt.Error</co
 <tr><td><a href="Rdf_sparql.html#VALexecute">execute</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
 <code class="code">execute ~base dataset q</code> executes the sparql query <code class="code">q</code> on <code class="code">dataset</code>, using
-  <code class="code">base</code> as base uri.
+  <code class="code">base</code> as base iri.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALexists">exists</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
@@ -1053,6 +1073,8 @@ Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="cod
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_query_prolog_decl">expand_query_prolog_decl</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_rdf_literal">expand_rdf_literal</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_expand.html#VALexpand_relative_iri">expand_relative_iri</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_select_clause">expand_select_clause</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
@@ -1731,12 +1753,23 @@ Fill a graph from a current state, a pair (global state, li counter),
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALiri">iri</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_iri.html#VALiri">iri</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+Create an IRI from a string.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_dt.html#VALiri">iri</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
 <td><div class="info">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
   an URI.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALiri_funs">iri_funs</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql.html#VALiri_funs">iri_funs</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALiri_funs_">iri_funs_</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALiri_nil">iri_nil</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALiriref">iriref</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
@@ -1760,6 +1793,10 @@ Fill a graph from a current state, a pair (global state, li counter),
 <tr><td><a href="Rdf_sparql_eval.html#VALleftjoin_omega">leftjoin_omega</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Kw_to_re.html#VALlen">len</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_ulex.html#VALlexpos">lexpos</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_ulex.html#VALlexpos_nl">lexpos_nl</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALlimit_offset_clause">limit_offset_clause</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
@@ -1815,12 +1852,12 @@ Creation of a literal.
 </td></tr>
 <tr><td><a href="Rdf_term.html#VALmk_literal_bool">mk_literal_bool</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
-Create a boolean literal with type uri from the given boolean.
+Create a boolean literal with type iri from the given boolean.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_term.html#VALmk_literal_datetime">mk_literal_datetime</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
-Create a datetime literal with type uri from the given datetime <code class="code">d</code>.
+Create a datetime literal with type iri from the given datetime <code class="code">d</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_term.html#VALmk_literal_double">mk_literal_double</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
@@ -2091,6 +2128,11 @@ Get the path part of the URI.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALpath">path</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_iri.html#VALpath">path</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+Get the path part of the IRI.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALpath_elt">path_elt</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALpath_elt">path_elt</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
@@ -2338,6 +2380,8 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_rdf_literal">print_rdf_literal</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_print.html#VALprint_reliri">print_reliri</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_select_clause">print_select_clause</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_select_query">print_select_query</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
@@ -2576,6 +2620,10 @@ The subject is a subproperty of a property.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALregex_flag_of_char">regex_flag_of_char</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_vis.html#VALreliri">reliri</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_map.html#VALreliri">reliri</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALrem">rem</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALrem_namespace">rem_namespace</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
@@ -2724,9 +2772,19 @@ From the given utf8 string and start and stop characters, return
   the corresponding location.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_misc.html#VALsplit_string">split_string</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
+<td><div class="info">
+Separate the given string according to the given list of characters.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_uri.html#VALstring">string</a> [<a href="Rdf_uri.html">Rdf_uri</a>]</td>
 <td><div class="info">
 Create a string from a URI.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_iri.html#VALstring">string</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+Create a string from an IRI.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_dt.html#VALstring">string</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
@@ -2941,14 +2999,14 @@ Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_double flo
 Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)</code>
 </div>
 </td></tr>
+<tr><td><a href="Rdf_term.html#VALterm_of_iri_string">term_of_iri_string</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
+<td><div class="info">
+Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_term.html#VALterm_of_literal_string">term_of_literal_string</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
 Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code>
-</div>
-</td></tr>
-<tr><td><a href="Rdf_term.html#VALterm_of_uri_string">term_of_uri_string</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
-<td><div class="info">
-Shortcut for <code class="code">Uri (Rdf_uri.uri string)</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_ttl.html#VALto_">to_</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
@@ -2956,6 +3014,14 @@ Shortcut for <code class="code">Uri (Rdf_uri.uri string)</code>.
 <tr><td><a href="Rdf_xml.html#VALto_file">to_file</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_ttl.html#VALto_file">to_file</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_pg.html#VALto_iri">to_iri</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my2.MyBGP.html#VALto_iri">to_iri</a> [<a href="Rdf_my2.MyBGP.html">Rdf_my2.MyBGP</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_my1.html#VALto_iri">to_iri</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_mem.Mem_BGP.html#VALto_iri">to_iri</a> [<a href="Rdf_mem.Mem_BGP.html">Rdf_mem.Mem_BGP</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_xml.html#VALto_string">to_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td></td></tr>
@@ -2966,14 +3032,11 @@ Shortcut for <code class="code">Uri (Rdf_uri.uri string)</code>.
 <code class="code">to_term v</code> converts the given value to an RDF term.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_pg.html#VALto_uri">to_uri</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_my2.MyBGP.html#VALto_uri">to_uri</a> [<a href="Rdf_my2.MyBGP.html">Rdf_my2.MyBGP</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_my1.html#VALto_uri">to_uri</a> [<a href="Rdf_my1.html">Rdf_my1</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_mem.Mem_BGP.html#VALto_uri">to_uri</a> [<a href="Rdf_mem.Mem_BGP.html">Rdf_mem.Mem_BGP</a>]</td>
-<td></td></tr>
+<tr><td><a href="Rdf_iri.html#VALto_uri">to_uri</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
+<td><div class="info">
+<code class="code">to_uri iri</code> encode the given IRI and try to create an URI.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALtransaction_commit">transaction_commit</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.html#VALtransaction_commit">transaction_commit</a> [<a href="Rdf_pg.html">Rdf_pg</a>]</td>
@@ -3099,12 +3162,6 @@ Translate group graph pattern as explained here:
 Create a URI from a string.
 </div>
 </td></tr>
-<tr><td><a href="Rdf_sparql_eval.html#VALuri_funs">uri_funs</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql.html#VALuri_funs">uri_funs</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_sparql_eval.html#VALuri_funs_">uri_funs_</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_char_of_code">utf8_char_of_code</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_char_of_code n</code> return the UTF8 character from a given codepoint.

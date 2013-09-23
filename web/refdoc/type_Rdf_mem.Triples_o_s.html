@@ -2,8 +2,8 @@
 <code class="code"><span class="keyword">sig</span><br/>
 &#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Set</span>&#160;:<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;<span class="constructor">Rdf_uri</span>.<span class="constructor">Uriset</span>.elt<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Rdf_uri</span>.<span class="constructor">Uriset</span>.t<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;<span class="constructor">Rdf_iri</span>.<span class="constructor">Iriset</span>.elt<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Rdf_iri</span>.<span class="constructor">Iriset</span>.t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;empty&#160;:&#160;t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;is_empty&#160;:&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mem&#160;:&#160;elt&#160;<span class="keywordsign">-&gt;</span>&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>

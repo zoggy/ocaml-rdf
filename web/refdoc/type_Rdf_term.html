@@ -3,16 +3,16 @@
 &#160;&#160;<span class="keyword">type</span>&#160;literal&#160;=&#160;{<br/>
 &#160;&#160;&#160;&#160;lit_value&#160;:&#160;string;<br/>
 &#160;&#160;&#160;&#160;lit_language&#160;:&#160;string&#160;option;<br/>
-&#160;&#160;&#160;&#160;lit_type&#160;:&#160;<span class="constructor">Rdf_uri</span>.uri&#160;option;<br/>
+&#160;&#160;&#160;&#160;lit_type&#160;:&#160;<span class="constructor">Rdf_iri</span>.iri&#160;option;<br/>
 &#160;&#160;}<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;blank_id<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;term&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Uri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_uri</span>.uri<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_iri</span>.iri<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Literal</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_term</span>.literal<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Blank</span><br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Blank_</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_term</span>.blank_id<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Ord_type</span>&#160;:<br/>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Ordered_term</span>&#160;:<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
@@ -76,12 +76,12 @@
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;map&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;t<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mapi&#160;:&#160;(key&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;t<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;triple&#160;=&#160;<span class="constructor">Rdf_term</span>.term&#160;*&#160;<span class="constructor">Rdf_uri</span>.uri&#160;*&#160;<span class="constructor">Rdf_term</span>.term<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;triple&#160;=&#160;<span class="constructor">Rdf_term</span>.term&#160;*&#160;<span class="constructor">Rdf_iri</span>.iri&#160;*&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;string_of_blank_id&#160;:&#160;<span class="constructor">Rdf_term</span>.blank_id&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;blank_id_of_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.blank_id<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;term_of_uri_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;term_of_iri_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;mk_literal&#160;:<br/>
-&#160;&#160;&#160;&#160;?typ:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;?lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.literal<br/>
+&#160;&#160;&#160;&#160;?typ:<span class="constructor">Rdf_iri</span>.iri&#160;<span class="keywordsign">-&gt;</span>&#160;?lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.literal<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;mk_literal_datetime&#160;:&#160;?d:float&#160;<span class="keywordsign">-&gt;</span>&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.literal<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;term_of_datetime&#160;:&#160;?d:float&#160;<span class="keywordsign">-&gt;</span>&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;datetime_of_literal&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Netdate</span>.t<br/>
@@ -90,7 +90,7 @@
 &#160;&#160;<span class="keyword">val</span>&#160;mk_literal_double&#160;:&#160;float&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.literal<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;bool_of_literal&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;term_of_literal_string&#160;:<br/>
-&#160;&#160;&#160;&#160;?typ:<span class="constructor">Rdf_uri</span>.uri&#160;<span class="keywordsign">-&gt;</span>&#160;?lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
+&#160;&#160;&#160;&#160;?typ:<span class="constructor">Rdf_iri</span>.iri&#160;<span class="keywordsign">-&gt;</span>&#160;?lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;term_of_int&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;term_of_double&#160;:&#160;float&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;term_of_bool&#160;:&#160;bool&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>

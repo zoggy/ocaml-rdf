@@ -30,7 +30,7 @@ Create a URI from a string.<br/>
 Add the given string to the path of the given URI, using '/' as separator.<br/>
 </div>
 <pre><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
-Append the given strng to the given URI.<br/>
+Append the given string to the given URI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent URI parsing.</div>
 <pre><span id="VALparent"><span class="keyword">val</span> parent</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
@@ -55,4 +55,4 @@ Get a <code class="code">Neturl.url</code> from the given URI. (<code class="cod
 <pre><span id="VALof_neturl"><span class="keyword">val</span> of_neturl</span> : <code class="type">Neturl.url -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Get a <a href="Rdf_uri.html#VALuri"><code class="code">Rdf_uri.uri</code></a> from the given <code class="code">Neturl.url</code>.<br/>
 </div>
-<pre><span class="keyword">module</span> <a href="Rdf_uri.Urimap.html">Urimap</a>: <code class="type">Map.S</code><code class="type">  with type key = uri</code></pre><pre><span class="keyword">module</span> <a href="Rdf_uri.Uriset.html">Uriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = uri</code></pre></div></contents></ocamldoc>
+<pre><span class="keyword">module</span> <a href="Rdf_uri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = uri</code></pre><pre><span class="keyword">module</span> <a href="Rdf_uri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = uri</code></pre></div></contents></ocamldoc>

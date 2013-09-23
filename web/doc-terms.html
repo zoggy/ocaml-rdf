@@ -34,19 +34,19 @@ manipulations:
 </p>
 <ocaml-eval toplevel="true">
 let uri_s = "http://foo.bar.net/";;
-let uri = Rdf_uri.uri uri_s;;
+let uri = Rdf_iri.iri uri_s;;
 let uri2 = Rdf_uri.set_fragment uri "id42";;
 Rdf_uri.compare uri uri2;;
-Rdf_uri.string uri2;;
+Rdf_iri.string uri2;;
 </ocaml-eval>
 <p>
 The <refmod mod="Rdf_rdf"/> module defines some commonly used URIs:
 datatypes, classes, property names, ...:
 </p>
 <ocaml-eval toplevel="true">
-Rdf_uri.string (Rdf_rdf.xsd_integer);;
-Rdf_uri.string (Rdf_rdf.xsd_double);;
-Rdf_uri.string (Rdf_rdf.rdf_about);;
+Rdf_iri.string (Rdf_rdf.xsd_integer);;
+Rdf_iri.string (Rdf_rdf.xsd_double);;
+Rdf_iri.string (Rdf_rdf.rdf_about);;
 </ocaml-eval>
 </contents>
 </page>

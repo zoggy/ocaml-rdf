@@ -323,8 +323,7 @@ let to_string =
 
 let iri ?(check=true) s =
   (*prerr_endline ("iri s="^s);*)
-  if check then ignore(parse s) ;
-  s
+  if check then to_string (parse s) else s
 ;;
 
 
@@ -379,6 +378,30 @@ let equal i1 i2 = compare i1 i2 = 0;;
 
 module Iriset = Rdf_types.SSet;;
 module Irimap = Rdf_types.SMap;;
+
+let getter f iri = f (parse iri);;
+let setter f iri x = to_string (f (parse iri) x);;
+
+let scheme = getter (fun i -> i.scheme);;
+let set_scheme = setter (fun i x -> { i with scheme = x });;
+
+let user = getter (fun i -> i.user);;
+let set_user = setter (fun i x -> { i with user = x });;
+
+let host = getter (fun i -> i.host);;
+let set_host = setter (fun i x -> { i with host = x });;
+
+let port = getter (fun i -> i.port);;
+let set_port = setter (fun i x -> { i with port = x });;
+
+let path = getter (fun i -> i.path);;
+let set_path = setter (fun i x -> { i with path = x });;
+
+let query = getter (fun i -> i.query);;
+let set_query = setter (fun i x -> { i with query = x });;
+
+let fragment = getter (fun i -> i.fragment);;
+let set_fragment = setter (fun i x -> { i with fragment = x });;
 
 
   
