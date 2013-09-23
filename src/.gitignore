@@ -2,6 +2,7 @@ test_xml
 test_ttl
 test_sparql
 test_mysql
+test_iri
 rdf_sparql_test
 rdf_sparql_bench
 rdf_turtle_test
