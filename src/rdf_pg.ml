@@ -154,7 +154,7 @@ let hash_of_term dbd ?(add=false) term =
 
 let to_iri = function
   Rdf_term.Iri iri -> iri
-| t -> failwith ("Not a URI:"^(Rdf_term.string_of_term t))
+| t -> failwith ("Not a IRI:"^(Rdf_term.string_of_term t))
 ;;
 
 let table_options = "WITHOUT OIDS";;

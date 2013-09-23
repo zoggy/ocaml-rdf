@@ -36,14 +36,14 @@ print_endline (string_of_query query);;]]>
 A Sparql query is executed on a
 <ext-a href="http://www.w3.org/TR/sparql11-query/#rdfDataset"><em>dataset</em></ext-a>,
 which is composed of a default (unnamed) graph, and other (named) graphs each associated
-to an URI.
+to an IRI.
 </p>
-<p>The <reftyp mod="Rdf_ds" name="dataset"/> type represents a dataset and contain
-a default graph (which can be empty), a set of graph names (i.e. a set or URIs), and
-a function to get a graph by its URI.
+<p>The <reftyp mod="Rdf_ds" name="dataset"/> type represents a dataset and contains
+a default graph (which can be empty), a set of graph names (i.e. a set of IRIs), and
+a function to get a graph by its IRI.
 </p>
 <p>The example below loads a graph from the file <code>optional.ttl</code> then
-creates a dataset with graph as default graph, and no named graphs:
+creates a dataset with this graph as default graph, and no named graphs:
 </p>
 <ocaml-eval>
 let base = Rdf_iri.iri "http://foo.net";;

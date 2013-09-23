@@ -76,7 +76,7 @@ let query_from_lexbuf ?fname lexbuf =
           | Failure msg ->
               msg
           | Rdf_iri.Invalid_iri (s, msg) ->
-              "Invalid URI "^s^" : "^msg
+              "Invalid IRI "^s^" : "^msg
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in

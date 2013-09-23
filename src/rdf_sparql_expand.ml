@@ -477,8 +477,8 @@ let build_dataset =
   | Ask q -> build env q.ask_dataset
 ;;
 
-let expand_query default_base_uri q =
-  let env = create_env default_base_uri in
+let expand_query default_base_iri q =
+  let env = create_env default_base_iri in
   let (env, q_prolog) = expand_query_prolog env q.q_prolog in
   let q_kind = expand_query_kind env q.q_kind in
   let q_values = expand_values_clause env q.q_values in

@@ -368,10 +368,8 @@ let append ?check i s = iri ?check (i^s);;
 let concat i s =
   let t = parse i in
   let t = { t with path = t.path @ [s] } in
-  to_string t
+  to_string (iri (to_string t))
 ;;
-
-let path i = (parse i).path;;
 
 let compare i1 i2 = String.compare i1 i2;;
 let equal i1 i2 = compare i1 i2 = 0;;

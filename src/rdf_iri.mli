@@ -22,14 +22,14 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** IRIs. *)
+(** IRIs. See {{:http://www.ietf.org/rfc/rfc3987.txt}RFC3987}. *)
 
 
 (** IRIs are abstract. {b Do not compare with generic comparison
   functions} ([Pervasives.compare], (=), ...). Use {!equal} or {!compare}. *)
 type iri
 
-(** When the IRI is parsed, this
+(** When the IRI is parsed,
   [Invalid_iri (string, message)] is raised if the
   given string is invalid, with an additional message. *)
 exception Invalid_iri of string * string
@@ -56,11 +56,8 @@ val append : ?check: bool -> iri -> string -> iri
 (** Add the given string to the path of the given IRI.*)
 val concat : iri -> string -> iri
 
-(** Get the path part of the IRI. *)
-val path : iri -> string list
-
-(** [to_uri iri] encode the given IRI and try to create an URI.
-  May raise [Rdf_iri.Invalid_uri] is the IRI cannot be mapped to
+(** [to_uri iri] encodes the given IRI and tries to create an URI.
+  May raise [Rdf_uri.Invalid_uri] is the IRI cannot be mapped to
   an URI. *)
 val to_uri : iri -> Rdf_uri.uri
 

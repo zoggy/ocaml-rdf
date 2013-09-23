@@ -73,7 +73,7 @@ val string_of_file : string -> string
 (*i==v=[String.split_string]=1.1====*)
 (** Separate the given string according to the given list of characters.
 @author Maxence Guesdon
-@version 1.1
+@version 1.2
 @param keep_empty is [false] by default. If set to [true],
    the empty strings between separators are kept.
 @cgname String.split_string*)

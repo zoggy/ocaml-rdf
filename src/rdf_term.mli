@@ -24,7 +24,7 @@
 
 (** RDF terms. *)
 
-(** Literal terms contain a value, a optional language and an optional data type URI. *)
+(** Literal terms contain a value, an optional language and an optional data type IRI. *)
 type literal = {
   lit_value : string;
   lit_language : string option;

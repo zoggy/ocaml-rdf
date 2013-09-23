@@ -9,7 +9,7 @@ The Sparql 1.1 query language is implemented, with some exceptions:
 </p>
 <ul>
 <li>The following built-in calls are still missing:
-  UUID, UCASE, LCASE,
+  UCASE, LCASE,
   langMatches (only based on prefix by now, must implement
    language matching according to
    <ext-a href="http://www.ietf.org/rfc/rfc4647.txt">RFC 4647</ext-a>),
@@ -19,14 +19,6 @@ The Sparql 1.1 query language is implemented, with some exceptions:
 <li>DESCRIBE queries are not handled yet.</li>
 <li>Check of variable scope is not implemented yet.</li>
 </ul>
-<p>
-The parsing of Turtle and Sparql queries is based on Ulex and Menhir.
-But Ulex does not offer convenient way to handle positions. By now,
-some hack allows to get the correct position for syntax errors,
-but evaluation errors contains incorrect positions: line numbers
-are correct, but character indices are offset from the beginning
-of the file or string which was parsed.
-</p>
 </section>
 
 <section id="todo" title="TODO">

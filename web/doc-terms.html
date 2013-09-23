@@ -1,12 +1,12 @@
-<page title="RDF terms and URIs"
+<page title="RDF terms and IRIs"
 navbar-doc="active"
 with-contents="true"
 >
 <contents>
 <p>
 RDF graph terms are represented by the <reftyp mod="Rdf_term" name="term"/> type.
-These are RDF terms: URI, literal or blank node. In the graph, the predicate
-of a triple can only be a URI.
+These are RDF terms: IRI, literal or blank node. In the graph, the predicate
+of a triple can only be a IRI.
 </p>
 <p class="alert alert-warning">
 All strings are considered to be UTF8-encoded. The <refmod mod="Rdf_utf8"/> module
@@ -15,7 +15,7 @@ provides some functions to manipulate UTF8 strings.
 <p>
 The <refmod mod="Rdf_term"/> module defines functions to create and print RDF terms.
 For example, <refval mod="Rdf_term" name="mk_literal_int"/> creates a literal
-RDF term from an integer, setting the URI of the datatype to <code>&lt;xsd:integer&gt;</code>:
+RDF term from an integer, setting the IRI of the datatype to <code>&lt;xsd:integer&gt;</code>:
 </p>
 <ocaml-eval toplevel="true">
 let int_lit = Rdf_term.mk_literal_int 42;;
@@ -28,19 +28,19 @@ Let's get a string representation of the term:
 print_endline (Rdf_term.string_of_term term42) ;;
 </ocaml-eval>
 <p>
-The <refmod mod="Rdf_uri"/> module defines the type <reftyp mod="Rdf_uri" name="uri"/>
-to represent URIs and contains functions to create URIs and perform other
+The <refmod mod="Rdf_iri"/> module defines the type <reftyp mod="Rdf_iri" name="iri"/>
+to represent IRIs and contains functions to create IRIs and perform other
 manipulations:
 </p>
 <ocaml-eval toplevel="true">
-let uri_s = "http://foo.bar.net/";;
-let uri = Rdf_iri.iri uri_s;;
-let uri2 = Rdf_uri.set_fragment uri "id42";;
-Rdf_uri.compare uri uri2;;
-Rdf_iri.string uri2;;
+let iri_s = "http://foo.bar.net/";;
+let iri = Rdf_iri.iri iri_s;;
+let iri2 = Rdf_iri.set_fragment iri (Some "id42");;
+Rdf_iri.compare iri iri2;;
+Rdf_iri.string iri2;;
 </ocaml-eval>
 <p>
-The <refmod mod="Rdf_rdf"/> module defines some commonly used URIs:
+The <refmod mod="Rdf_rdf"/> module defines some commonly used IRIs:
 datatypes, classes, property names, ...:
 </p>
 <ocaml-eval toplevel="true">

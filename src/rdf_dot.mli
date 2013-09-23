@@ -42,7 +42,7 @@ val build_namespaces :
 
 (** [dot_of_graph graph] returns the Graphviz code to represent the given [graph].
    @param namespaces is used so specified namespaces in the form [(iri, name)];
-   in this case, the abbreviated form [ns:suffix] is used in labels of URI nodes,
+   in this case, the abbreviated form [ns:suffix] is used in labels of IRI nodes,
    when possible. The namespaces of the graph are also used anyway.
    @param href can specify a function to call on each node, which can return
    an url (as a string), to add a [href] attribute to the node in the graphviz code.
@@ -53,7 +53,7 @@ val dot_of_graph :
   ?href:(Rdf_term.term -> string option) -> Rdf_graph.graph -> string
 
 (** Same as {!dot_of_graph} but return code to represent only the triples
-  having the given URI as subject or object. *)
+  having the given IRI as subject or object. *)
 val dot_of_iri :
   ?namespaces:(Rdf_iri.iri * string) list -> ?href:(Rdf_term.term -> string option) ->
     Rdf_graph.graph -> Rdf_iri.iri -> string

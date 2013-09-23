@@ -38,7 +38,7 @@ let options =
 in
 let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
 graph.add_triple
-  ~sub: (Rdf_term.term_of_uri_string "http://john.net")
+  ~sub: (Rdf_term.term_of_iri_string "http://john.net")
   ~pred: (Rdf_iri.iri "http://relations.org/hasMailbox")
   ~obj: (Rdf_term.term_of_literal_string "john\@john.net");
 ...
@@ -112,7 +112,7 @@ module type Storage =
 
     (** {3 Creation and modification} *)
 
-    (** Creationg of the graph. The graph has a name which is a URI. *)
+    (** Creationg of the graph. The graph has a name which is a IRI. *)
     val open_graph : ?options:(string * string) list -> Rdf_iri.iri -> g
 
     (** Access to the graph name, as specified at its creation. *)
@@ -311,7 +311,7 @@ type graph = {
 
 (** {2 Graph creation} *)
 
-(** [open_graph ~options uri_name] creates a new graph. The storage used
+(** [open_graph ~options iri_name] creates a new graph. The storage used
   is specified by the "storage" option. For example, having [("storage", "mysql")]
   in the options indicates to use the storage "mysql".
 

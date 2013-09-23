@@ -7,14 +7,14 @@ with-contents="true"
 <toc/>
 <section id="creategraph" title="Creating a graph">
 <p>
-An RDF graph needs a base URI, which can be used to name the graph.
-Such a URI is created using the <refdoc mod="Rdf_uri"/> module.
+An RDF graph needs a base IRI, which can be used to name the graph.
+Such a IRI is created using the <refdoc mod="Rdf_iri"/> module.
 Then we use the <refdoc mod="Rdf_graph" id="VALopen_graph" name="Rdf_graph.open_graph"/>
 function to create an empty graph:
 </p>
 <ocaml-eval>
-<![CDATA[let base_uri = Rdf_iri.iri "http://foo.bar.net";;
-let g = Rdf_graph.open_graph base_uri ;;]]>
+<![CDATA[let base_iri = Rdf_iri.iri "http://foo.bar.net";;
+let g = Rdf_graph.open_graph base_iri ;;]]>
 </ocaml-eval>
 <p>
 If no option is provided, the graph is created in memory.
@@ -23,7 +23,7 @@ datatabase</elt>.
 </p>
 <p>
 Once the graph is created, let's insert triples in the graph,
-to associate the name "Alice" and the mailbox address URI
+to associate the name "Alice" and the mailbox address IRI
 "mailto:alice@mbox.net" to a new blank term:
 </p>
 <ocaml-eval toplevel="true">
@@ -37,7 +37,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: a ~pred: foaf_mbox
-   ~obj: (Rdf_term.Uri (Rdf_iri.iri "mailto:alice@mbox.net"));;
+   ~obj: (Rdf_term.Iri (Rdf_iri.iri "mailto:alice@mbox.net"));;
 
 let b = Rdf_term.Blank_ (g.Rdf_graph.new_blank_id());;
 g.Rdf_graph.add_triple
@@ -46,7 +46,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: b ~pred: foaf_mbox
-   ~obj: (Rdf_term.Uri (Rdf_iri.iri "mailto:bob@mbox.net"));;
+   ~obj: (Rdf_term.Iri (Rdf_iri.iri "mailto:bob@mbox.net"));;
 </ocaml-eval>
 <p>Here is the content of our graph, in Turtle format:</p>
 <showttl graph="g"/>
@@ -161,6 +161,28 @@ let com = Printf.sprintf "dot -Grankdir=TB -Tsvg -o %s %s"
 if Sys.command com <> 0 then failwith "Exec error";;
 ]]></ocaml-eval>
 <img src="example.svg"/>
+</section>
+
+<section id="namespaces" title="Namespaces">
+<p>
+Each graph has associated namespaces, i.e. pairs or (prefix, IRI), used
+to shorten the (XML, Turtle, ...) outputs.
+</p>
+<p>
+When loading a graph from a file, the namespaces used in the file
+are automatically added to the graph, so that outputting the graph
+will make use of the same namespaces.
+</p>
+<p>
+Namespaces of a graph can also be set programmatically, using the
+functions provided in each graph:
+</p>
+<ocaml-eval toplevel="true">
+List.map
+  (fun (iri, name) -> (Rdf_iri.string iri, name))
+  (g.Rdf_graph.namespaces());;
+</ocaml-eval>
+<p>See <reftyp mod="Rdf_graph" name="graph"/> for other functions.</p>
 </section>
 </prepare-toc>
 </contents>

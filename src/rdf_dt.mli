@@ -35,7 +35,7 @@ type error =
 and value =
     Err of error (** Value is an error *)
   | Blank of string (** A blank node with its label *)
-  | Iri of Rdf_iri.iri (** An URI. *)
+  | Iri of Rdf_iri.iri (** An IRI. *)
   | String of string (** A string literal. *)
   | Int of int  (** An integer. *)
   | Float of float  (** A decimal, float or double. *)
@@ -68,11 +68,11 @@ module VSet : Set.S with type elt = value
 val string_of_error : error -> string
 
 (** [iri base v] returns a [Iri] value, ensure the given value is
-  an URI. If it is a literal string, convert it to an URI, eventually
-  appending to the [base] uri if the string expresses a relative URI. *)
+  an IRI. If it is a literal string, convert it to an IRI, eventually
+  appending to the [base] IRI if the string expresses a relative IRI. *)
 val iri : Rdf_iri.iri -> value -> value
 
-(** [datatype v] returns the URI of the datatype of the value.
+(** [datatype v] returns the IRI of the datatype of the value.
   If v is [Err], [Blank] or [Iri], return [Err].*)
 val datatype : value -> value
 

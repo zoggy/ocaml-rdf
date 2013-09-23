@@ -1,4 +1,4 @@
-(** Generate OCaml code defining uris from a RDFs graph. *)
+(** Generate OCaml code defining IRIs from a RDFs graph. *)
 
 (*
 let caml_kw = List.fold_right
@@ -31,8 +31,8 @@ let caml_id s =
 
 let get_properties g =
   let q =
-   "PREFIX rdf: <"^(Rdf_uri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_uri.string Rdf_rdf.rdfs)^">
+   "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
+    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdf.rdfs)^">
     SELECT ?prop ?comment ?comment_en
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
@@ -72,11 +72,11 @@ let get_under s1 s2 =
 let gen_impl ?(comments=true) oc prefix base props =
   let p s = output_string oc s in
   let pc s = if comments then p ("(** "^s^" *)\n") else () in
-  pc ("Elements of ["^(Rdf_uri.string base)^"]");
+  pc ("Elements of ["^(Rdf_iri.string base)^"]");
   p "\n";
-  pc ("["^(Rdf_uri.string base)^"]");
-  p ("let "^prefix^" = Rdf_uri.uri \""^(Rdf_uri.string base)^"\";;\n");
-  p ("let "^prefix^"_ = Rdf_uri.append "^prefix^";;\n\n");
+  pc ("["^(Rdf_iri.string base)^"]");
+  p ("let "^prefix^" = Rdf_iri.iri \""^(Rdf_iri.string base)^"\";;\n");
+  p ("let "^prefix^"_ = Rdf_iri.append "^prefix^";;\n\n");
 
   let f (prop, comment) =
     (match comment with None -> () | Some c -> pc c) ;
@@ -88,15 +88,15 @@ let gen_impl ?(comments=true) oc prefix base props =
 let gen_intf oc prefix base props =
   let p s = output_string oc s in
   let pc s = p ("(** "^s^" *)\n") in
-  pc ("Elements of ["^(Rdf_uri.string base)^"]");
+  pc ("Elements of ["^(Rdf_iri.string base)^"]");
   p "\n";
-  pc ("["^(Rdf_uri.string base)^"]");
-  p ("val "^prefix^" : Rdf_uri.uri\n");
-  p ("val "^prefix^"_ : string -> Rdf_uri.uri\n\n");
+  pc ("["^(Rdf_iri.string base)^"]");
+  p ("val "^prefix^" : Rdf_iri.iri\n");
+  p ("val "^prefix^"_ : string -> Rdf_iri.iri\n\n");
 
   let f (prop, comment) =
     (match comment with None -> () | Some c -> pc c) ;
-    p ("val "^prefix^"_"^(caml_id prop)^" : Rdf_uri.uri\n\n")
+    p ("val "^prefix^"_"^(caml_id prop)^" : Rdf_iri.iri\n\n")
   in
   List.iter f props
 ;;
@@ -104,9 +104,9 @@ let gen_intf oc prefix base props =
 
 let generate ?file prefix base g =
   let props = get_properties g in
-  let s_base = Rdf_uri.string base in
+  let s_base = Rdf_iri.string base in
   let f acc (prop, comment) =
-    let s_prop = Rdf_uri.string prop in
+    let s_prop = Rdf_iri.string prop in
     match get_under s_base s_prop with
       "" -> acc
     | s -> (s, comment) :: acc
@@ -126,7 +126,7 @@ let generate ?file prefix base g =
 
 
 let fatal s = prerr_endline s ; exit 1 ;;
-let usage = Printf.sprintf "Usage: %s [options] <prefix> <base_uri> <file>" Sys.argv.(0);;
+let usage = Printf.sprintf "Usage: %s [options] <prefix> <base_iri> <file>" Sys.argv.(0);;
 
 let main () =
   let load = ref Rdf_xml.from_file in
@@ -142,26 +142,26 @@ let main () =
       " <s> generate code in <s>.ml and <s>.mli" ;
 
       "-b", Arg.String (fun s -> read_base := Some s),
-      " <uri> use <uri> as base used when reading graph, default is <base_uri>" ;
+      " <iri> use <iri> as base used when reading graph, default is <base_iri>" ;
     ]
     (fun s -> args := s :: !args)
     (usage^"\nwhere options are:");
   match List.rev !args with
-  | prefix :: base_uri :: file :: _ ->
+  | prefix :: base_iri :: file :: _ ->
       begin
         try
-          let base_uri = Rdf_uri.uri base_uri in
+          let base_iri = Rdf_iri.iri base_iri in
           let prefix = caml_id prefix in
           let options = [ "storage", "mem" ] in
-          let g = Rdf_graph.open_graph ~options base_uri in
+          let g = Rdf_graph.open_graph ~options base_iri in
           let base = match !read_base with
-              None -> base_uri
-            | Some s -> Rdf_uri.uri s
+              None -> base_iri
+            | Some s -> Rdf_iri.iri s
           in
           !load g ~base file ;
-          generate ?file: !file_prefix prefix base_uri g
+          generate ?file: !file_prefix prefix base_iri g
         with
-          Rdf_uri.Invalid_uri s -> failwith ("Invalid uri: "^s)
+          Rdf_iri.Invalid_iri s -> failwith ("Invalid iri: "^s)
         | Rdf_ttl.Error e -> failwith (Rdf_ttl.string_of_error e)
         | Rdf_xml.Invalid_rdf msg -> failwith msg
         | Rdf_sparql.Error e -> failwith (Rdf_sparql.string_of_error e)

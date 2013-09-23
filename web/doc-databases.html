@@ -37,7 +37,7 @@ let options =
 let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") ;;
 </ocaml-eval>
 <p>
-Both backends create a table "graphs" to associate URIs to stored graphs.
+Both backends create a table "graphs" to associate IRIs to stored graphs.
 </p>
 <subsection id="mysql1" title="&quot;mysql&quot; backend">
 <p>
@@ -47,7 +47,7 @@ This backend creates various tables:
 <li>one table per graph ("graph1", "graph2", ...),</li>
 <li>a table "literals", to store hashes of literals,</li>
 <li>a table "bnodes", to store hashes of blank nodes,</li>
-<li>a table "resources", to store hashes of URIs.</li>
+<li>a table "resources", to store hashes of IRIs.</li>
 </ul>
 <p>
 The "graphN" tables contain triples, composed of references to
@@ -57,7 +57,7 @@ hashes. This model is copied from the Redland's Librdf library.
 All the common tables are created at connection time, and the
 table of each graph in created when the graph is created.
 When <refval mod="Rdf_graph" name="open_graph"/> is called with
-an URI corresponding to an existing graph in the database, then
+an IRI corresponding to an existing graph in the database, then
 this graph is used, with all existing triples.
 </p>
 </subsection>

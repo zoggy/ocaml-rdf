@@ -280,6 +280,11 @@ let bi_iri name eval_expr ctx mu = function
 | l -> error (Invalid_built_in_fun_argument (name, l))
 ;;
 
+let bi_uri name eval_expr ctx mu = function
+  [e] -> Rdf_dt.iri ctx.base (eval_expr ctx mu e)
+| l -> error (Invalid_built_in_fun_argument (name, l))
+;;
+
 let bi_isblank name =
   let f eval_expr ctx mu = function
     [e] ->
@@ -624,7 +629,7 @@ let bi_uuid name =
   f
 ;;
 
-let bi_encode_for_iri name =
+let bi_encode_for_uri name =
   let f eval_expr ctx mu = function
     [e] ->
       (try
@@ -882,7 +887,7 @@ let built_in_funs =
       "CONTAINS", bi_contains ;
       "DATATYPE", bi_datatype ;
       "DAY", bi_on_date bi_date_day ;
-      "ENCODE_FOR_URI", bi_encode_for_iri ;
+      "ENCODE_FOR_URI", bi_encode_for_uri ;
       "FLOOR", bi_numeric bi_num_floor ;
       "HOURS", bi_on_date bi_date_hours ;
       "IF", bi_if ;

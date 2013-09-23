@@ -4,10 +4,10 @@
          xmlns:ex="http://example.org/stuff/1.0/">
   <rdf:Description rdf:about="http://www.w3.org/TR/rdf-syntax-grammar"
 		   dc:title="RDF/XML Syntax Specification (Revised)">
-    <editor>
+    <rdf:editor>
       <rdf:Description ex:fullName="Dave Beckett">
 	<ex:homePage rdf:resource="http://purl.org/net/dajobe/" />
       </rdf:Description>
-    </editor>
+    </rdf:editor>
   </rdf:Description>
 </rdf:RDF>

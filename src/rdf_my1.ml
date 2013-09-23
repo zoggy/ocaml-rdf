@@ -91,7 +91,7 @@ let init_db db engine =
 
 let to_iri = function
   Rdf_term.Iri iri -> iri
-| t -> failwith ("Not a URI:"^(Rdf_term.string_of_term t))
+| t -> failwith ("Not a IRI:"^(Rdf_term.string_of_term t))
 ;;
 
 let init_graph dbd engine name =
