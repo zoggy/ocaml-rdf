@@ -16,6 +16,40 @@ Then read the <page href="doc-install"/> section.
 
 <section id="releases" title="Releases">
 <ul>
+<li><strong><a href="ocaml-rdf-0.7.0.tar.gz">0.7.0</a></strong>
+[2013-09-24]:
+  <ul id="changes0.7.0">
+<li><refmod mod="Rdf_iri"/> now replaces Rdf_uri,</li>
+<li><code>Rdf_sparql.parse_from_*</code>  renamed to <code>query_from_*</code>,</li>
+<li><code>Rdf_uri.Invalid_url</code> renamed to <code>Invalid_uri</code>,</li>
+<li><code>Rdf_ttl.from_*</code> do not return a graph, as the given one
+  is modified in place,</li>
+<li>The <code>base</code> argument of <code>Rdf_ttl.from_*</code> and
+  <code>Rdf_xml.from_*</code> is now optional; if not given, the graph name
+  is used as base,</li>
+<li>Add namespace modules: <refmod mod="Rdf_foaf"/>, <refmod mod="Rdf_earl"/>,
+  <refmod mod="Rdf_foaf"/>, <refmod mod="Rdf_foaf"/>, <refmod mod="Rdf_rdfs"/>,</li>
+<li>Partial fix: implement simple version of Sparql's builtin funs LCASE and UCASE,</li>
+<li>Upgrade turtle parser/printer to W3C RC of 2013/02/19, passes all tests
+  of <ext-a href="http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite">the Turtle Test Suite</ext-a>
+  except the test containing an invalid UTF-8 character,</li>
+<li>Do not store namespaces in the graph itself (that was a very bad idea); add functions
+  to add and remove <elt href="doc-graphs#namespaces">namespaces</elt> for a graph,</li>
+<li>Functor to create new backends now allows to keep a backend-specific representation
+  of terms during Basic Graph Pattern evaluation; this is used to optimize database
+  backends,</li>
+<li>New "mysql2" backend, faster for queries but slower for insertions,</li>
+<li>MySQL backend now supports the "engine" option, default is INNODB,
+  but it can be "MyISAM" (faster, but does not support transactions),</li>
+<li>Remove graph debug dump which was performed at each sparql query evaluation,</li>
+<li><code>Rdf_node</code> renamed to <refmod mod="Rdf_term"/>,</li>
+<li><code>Rdf_node.node</code> renamed to <reftype mod="Rdf_term" name="term"/>,</li>
+<li><code>Rdf_node.NSet</code> renamed to <code>Rdf_term.TSet</code>,</li>
+<li>In triples, predicate are now URIs and not any term.</li>
+<li>+ lots of bug fixes.</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.6.0.tar.gz">0.6.0</a></strong>
 [2013-08-13]:
   <ul>
@@ -25,6 +59,7 @@ Then read the <page href="doc-install"/> section.
     <li>See <a href="https://github.com/zoggy/ocaml-rdf/blob/master/Changes">the complete list</a>.</li>
   </ul>
 </li>
+
 
 <li><strong><a href="ocaml-rdf-0.5.tar.gz">0.5</a></strong>
 [2013-05-22]:
