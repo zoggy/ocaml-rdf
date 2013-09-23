@@ -152,7 +152,7 @@ Execute the given ASK query.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_date_year">bi_date_year</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_eval.html#VALbi_encode_for_iri">bi_encode_for_iri</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<tr><td><a href="Rdf_sparql_eval.html#VALbi_encode_for_uri">bi_encode_for_uri</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_hash">bi_hash</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -226,6 +226,8 @@ See http://www.w3.org/TR/xpath-functions/#regex-syntax
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_substr">bi_substr</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_ucase">bi_ucase</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_eval.html#VALbi_uri">bi_uri</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_uuid">bi_uuid</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -403,7 +405,7 @@ Same as <code class="code">create_log_fun</code> but also return a function to c
 <td></td></tr>
 <tr><td><a href="Rdf_dt.html#VALdatatype">datatype</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
 <td><div class="info">
-<code class="code">datatype v</code> returns the URI of the datatype of the value.
+<code class="code">datatype v</code> returns the IRI of the datatype of the value.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_dt.html#VALdate_fmt">date_fmt</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
@@ -714,7 +716,7 @@ URL of Wiki for collaborative discussion of project.
 <tr><td><a href="Rdf_dot.html#VALdot_of_iri">dot_of_iri</a> [<a href="Rdf_dot.html">Rdf_dot</a>]</td>
 <td><div class="info">
 Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of_graph</code></a> but return code to represent only the triples
-  having the given URI as subject or object.
+  having the given IRI as subject or object.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_loc.html#VALdummy_loc">dummy_loc</a> [<a href="Rdf_loc.html">Rdf_loc</a>]</td>
@@ -1767,7 +1769,7 @@ Create an IRI from a string.
 <tr><td><a href="Rdf_dt.html#VALiri">iri</a> [<a href="Rdf_dt.html">Rdf_dt</a>]</td>
 <td><div class="info">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
-  an URI.
+  an IRI.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALiri_funs">iri_funs</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -2102,7 +2104,7 @@ Creationg of the graph.
 <td></td></tr>
 <tr><td><a href="Rdf_graph.html#VALopen_graph">open_graph</a> [<a href="Rdf_graph.html">Rdf_graph</a>]</td>
 <td><div class="info">
-<code class="code">open_graph ~options uri_name</code> creates a new graph.
+<code class="code">open_graph ~options iri_name</code> creates a new graph.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_misc.html#VALopt_compare">opt_compare</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
@@ -3057,7 +3059,7 @@ Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code>
 </td></tr>
 <tr><td><a href="Rdf_iri.html#VALto_uri">to_uri</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td><div class="info">
-<code class="code">to_uri iri</code> encode the given IRI and try to create an URI.
+<code class="code">to_uri iri</code> encodes the given IRI and tries to create an URI.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALtransaction_commit">transaction_commit</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>

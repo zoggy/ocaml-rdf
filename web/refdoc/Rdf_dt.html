@@ -57,7 +57,7 @@ Computing values in Sparql, mapping to/from RDF terms.
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
 <code><span id="TYPEELTvalue.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An URI.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An IRI.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
 </tr>
 <tr>
 <td align="left" valign="top" >
@@ -131,11 +131,11 @@ Return a human-readable message from the given error.<br/>
 </div>
 <pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
-  an URI. If it is a literal string, convert it to an URI, eventually
-  appending to the <code class="code">base</code> uri if the string expresses a relative URI.<br/>
+  an IRI. If it is a literal string, convert it to an IRI, eventually
+  appending to the <code class="code">base</code> IRI if the string expresses a relative IRI.<br/>
 </div>
 <pre><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
-<code class="code">datatype v</code> returns the URI of the datatype of the value.
+<code class="code">datatype v</code> returns the IRI of the datatype of the value.
   If v is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, return <code class="code">Err</code>.<br/>
 </div>
 <pre><span id="VALstring_literal"><span class="keyword">val</span> string_literal</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string * string option</code></pre><div class="info">

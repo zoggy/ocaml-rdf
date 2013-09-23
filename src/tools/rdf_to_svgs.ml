@@ -43,13 +43,13 @@ let main () =
     (Sys.argv.(1), Sys.argv.(2))
   in
   let options = [ "storage", "mem" ] in
-  let g = Rdf_graph.open_graph ~options (Rdf_uri.uri "http://hello.fr") in
-  Rdf_xml.from_file g (Rdf_uri.uri file) file;
+  let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
+  Rdf_xml.from_file g file;
   ignore (Sys.command ("mkdir -p "^(Filename.quote outdir)));
   let subjects = g.Rdf_graph.subjects () in
   let href = function
-    Rdf_term.Uri uri ->
-      let hex = Digest.to_hex (Digest.string (Rdf_uri.string uri)) in
+    Rdf_term.Iri iri ->
+      let hex = Digest.to_hex (Digest.string (Rdf_iri.string iri)) in
       let svg_file = hex^".svg" in
       if Filename.is_relative outdir then
         Some svg_file
@@ -58,17 +58,17 @@ let main () =
   | _ -> None
   in
   let f = function
-    Rdf_term.Uri uri ->
-      let hex = Digest.to_hex (Digest.string (Rdf_uri.string uri)) in
+    Rdf_term.Iri iri ->
+      let hex = Digest.to_hex (Digest.string (Rdf_iri.string iri)) in
       let dot_file = (Filename.concat outdir hex)^".dot" in
       let svg_file = (Filename.concat outdir hex)^".svg" in
-      let dot = Rdf_dot.dot_of_uri g ~href uri in
+      let dot = Rdf_dot.dot_of_iri g ~href iri in
       let oc = open_out dot_file in
       output_string oc dot;
       close_out oc;
       let com = "dot -Grankdir=LR -Tsvg -o " ^ (Filename.quote svg_file) ^ " " ^ (Filename.quote dot_file) in
       ignore(Sys.command com);
-      print_endline ((Rdf_uri.string uri)^ " graph output to " ^ svg_file)
+      print_endline ((Rdf_iri.string iri)^ " graph output to " ^ svg_file)
   | _ -> ()
   in
   List.iter f subjects;

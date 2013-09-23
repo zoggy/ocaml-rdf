@@ -27,13 +27,13 @@ Dump in graphviz format.<br/>
 <code class="code">dot_of_graph graph</code> returns the Graphviz code to represent the given <code class="code">graph</code>.<br/>
 </div>
 <div class="param_info"><code class="code">namespaces</code> : is used so specified namespaces in the form <code class="code">(iri, name)</code>;
-   in this case, the abbreviated form <code class="code">ns:suffix</code> is used in labels of URI nodes,
+   in this case, the abbreviated form <code class="code">ns:suffix</code> is used in labels of IRI nodes,
    when possible. The namespaces of the graph are also used anyway.</div>
 <div class="param_info"><code class="code">href</code> : can specify a function to call on each node, which can return
    an url (as a string), to add a <code class="code">href</code> attribute to the node in the graphviz code.
    This is useful to provide clickable nodes in SVG output, for example.</div>
 <pre><span id="VALdot_of_iri"><span class="keyword">val</span> dot_of_iri</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre><div class="info">
 Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of_graph</code></a> but return code to represent only the triples
-  having the given URI as subject or object.<br/>
+  having the given IRI as subject or object.<br/>
 </div>
 </div></contents></ocamldoc>

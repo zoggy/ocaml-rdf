@@ -152,7 +152,7 @@ val describe : ?graph: Rdf_graph.graph ->
 These are the functions named by an IRI,
 {{:http://www.w3.org/TR/sparql11-query/#expressions} see details here}. *)
 
-(** A function takes a list of values and return a value. *)
+(** A function takes a list of values and returns a value. *)
 type iri_fun = Rdf_dt.value list -> Rdf_dt.value
 
 val iri_funs : unit -> iri_fun Rdf_iri.Irimap.t

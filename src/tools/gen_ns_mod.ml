@@ -32,7 +32,7 @@ let caml_id s =
 let get_properties g =
   let q =
    "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdf.rdfs)^">
+    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdfs.rdfs)^">
     SELECT ?prop ?comment ?comment_en
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
@@ -42,7 +42,7 @@ let get_properties g =
       ORDER BY LCASE(STR(?prop))"
   in
   let ds = Rdf_ds.simple_dataset g in
-  let q = Rdf_sparql.parse_from_string q in
+  let q = Rdf_sparql.query_from_string q in
   let sols = Rdf_sparql.select (g.Rdf_graph.name()) ds q in
   let f acc sol =
     let prop = Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "prop" in
@@ -161,7 +161,7 @@ let main () =
           !load g ~base file ;
           generate ?file: !file_prefix prefix base_iri g
         with
-          Rdf_iri.Invalid_iri s -> failwith ("Invalid iri: "^s)
+          Rdf_iri.Invalid_iri (s, msg) -> failwith ("Invalid IRI "^s^" : "^msg)
         | Rdf_ttl.Error e -> failwith (Rdf_ttl.string_of_error e)
         | Rdf_xml.Invalid_rdf msg -> failwith msg
         | Rdf_sparql.Error e -> failwith (Rdf_sparql.string_of_error e)

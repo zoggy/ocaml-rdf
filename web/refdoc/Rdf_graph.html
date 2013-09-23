@@ -24,7 +24,7 @@ Graph abstraction.
 in
 let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
 graph.add_triple
-  ~sub: (Rdf_term.term_of_uri_string "http://john.net")
+  ~sub: (Rdf_term.term_of_iri_string "http://john.net")
   ~pred: (Rdf_iri.iri "http://relations.org/hasMailbox")
   ~obj: (Rdf_term.term_of_literal_string "john@john.net");
 ...
@@ -258,7 +258,7 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 <br/>
 <div class="section-title" id="2_Graphcreation">Graph creation</div><br/>
 <pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info">
-<code class="code">open_graph ~options uri_name</code> creates a new graph. The storage used
+<code class="code">open_graph ~options iri_name</code> creates a new graph. The storage used
   is specified by the "storage" option. For example, having <code class="code">("storage", "mysql")</code>
   in the options indicates to use the storage "mysql".
 <div class="vertical-space"> </div>

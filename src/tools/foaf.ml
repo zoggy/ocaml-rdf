@@ -1,6 +1,6 @@
 
 let read_file base g file =
-  try ignore(Rdf_ttl.from_file g base file)
+  try ignore(Rdf_ttl.from_file g file)
   with Rdf_ttl.Error e ->
     prerr_endline (Rdf_ttl.string_of_error e)
 ;;
@@ -12,12 +12,12 @@ let file_of_string ~file s =
 (*/c==v=[File.file_of_string]=1.1====*)
 
 let main () =
-  let base = Rdf_uri.uri "http://foo.net" in
+  let base = Rdf_iri.iri "http://foo.net" in
   let g = Rdf_graph.open_graph base in
   Array.iter (read_file base g) (Array.sub Sys.argv 1 (Array.length Sys.argv - 1));
   let dot = Rdf_dot.dot_of_graph g in
   file_of_string ~file: "all.dot" dot;
-  let q = Rdf_sparql.parse_from_string
+  let q = Rdf_sparql.query_from_string
     "PREFIX foaf: <http://xmlns.com/foaf/0.1/>
      SELECT DISTINCT ?name ?mbox
      WHERE { _:a foaf:name ?name .
