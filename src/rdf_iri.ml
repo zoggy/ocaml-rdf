@@ -24,23 +24,23 @@
 (** *)
 
 let gen_delims = "[:/?#[\\]@]";;
-let sub_delims = "[!$&'()*+,;=]";;
+let sub_delims = "!$&'()*+,;=";;
 
 let pct_encoded = "%[0-9a-fA-F]";;
-let ucschar = "\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD} / \\x{20000}-\\x{2FFFD} / \\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD} / \\x{50000}-\\x{5FFFD} / \\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD} / \\x{80000}-\\x{8FFFD} / \\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD} / \\x{B0000}-\\x{BFFFD} / \\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD} / \\x{E1000}-\\x{EFFFD}";;
+let ucschar = "\\x{A0}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFEF}\\x{10000}-\\x{1FFFD}\\x{20000}-\\x{2FFFD}\\x{30000}-\\x{3FFFD}\\x{40000}-\\x{4FFFD}\\x{50000}-\\x{5FFFD}\\x{60000}-\\x{6FFFD}\\x{70000}-\\x{7FFFD}\\x{80000}-\\x{8FFFD}\\x{90000}-\\x{9FFFD}\\x{A0000}-\\x{AFFFD}\\x{B0000}-\\x{BFFFD}\\x{C0000}-\\x{CFFFD}\\x{D0000}-\\x{DFFFD}\\x{E1000}-\\x{EFFFD}";;
 
 let iprivate = "[\\x{E000}-\\x{F8FF}\\x{F0000}-\\x{FFFFD}\\x{100000}-\\x{10FFFD}]"
 
 let iunreserved = "a-zA-Z0-9\\-._~"^ucschar
 
-let ipchar = "["^iunreserved^sub_delims^":@]|"^pct_encoded
+let ipchar = "([/"^iunreserved^sub_delims^":@]|"^pct_encoded^")"
 
 let regexp s =
   try Pcre.regexp ~flags: [`UTF8] s
   with Pcre.Error(Pcre.BadPattern (s, n)) ->
         failwith (Printf.sprintf "Bad PCRE pattern on char %d: %s" n s)
 
-let scheme = "^(?<scheme>[a-zA-Z0-9\\-\\d+.]+)" ;;
+let scheme = "^(?<scheme>[a-zA-Z0-9\\-+.]+)" ;;
 let re_scheme = Pcre.regexp scheme;;
 
 
@@ -60,8 +60,13 @@ type iri_ = {
 
 type iri = string
 
-let re_iri =regexp
-    (scheme^":((//((<?<user>[^@])+@)?(?<host>[^:/#]*)(:(?<port>\\d+))?(/(?<path1>[^?#]*)))|(?<path2>[^?#]*))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
+let re_iri = regexp
+    (scheme^":((//((<?<user>[^@])+@)?(?<host>[^:/#]*)(:(?<port>\\d+))?(/(?<path1>[^#?]*)))|(?<path2>[^#?]*))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
+;;
+
+let re_nonemptypath =
+  let s = ("^("^(ipchar)^")+$") in
+  regexp s
 ;;
 
 (*
@@ -197,14 +202,31 @@ let fragment_safe_chars =
   a
 ;;
 
+let normalize_path =
+  let rec iter acc = function
+    [] -> List.rev acc
+  | "." :: q -> iter acc (""::q)
+  | ".." :: q ->
+      begin
+        match acc with
+          [] -> iter acc q
+        | _ :: acc -> iter acc q
+      end
+  | [""] -> List.rev (""::acc)
+  | "" :: q -> iter acc q
+  | h :: q -> iter (h :: acc) q
+  in
+  iter []
+;;
+
 let parse s =
   let rex = re_iri in
   let subs =
     try Pcre.exec ~rex s
-    with _ -> invalid_iri s "Scheme form not matched"
+    with _ -> invalid_iri s "String does not match IRI syntax"
   in
   let scheme =
-    try Pcre.get_named_substring rex "scheme" subs
+    try String.lowercase (Pcre.get_named_substring rex "scheme" subs)
     with _ -> invalid_iri s "No scheme"
   in
   let host =
@@ -227,13 +249,18 @@ let parse s =
         with _ -> invalid_iri s "Invalid port"
   in
   let path =
-    let s =
+    let p =
       try Pcre.get_named_substring rex "path1" subs
       with _ ->
           try Pcre.get_named_substring rex "path2" subs
           with _ -> invalid_iri s "No path"
     in
-    Rdf_misc.split_string s ['/']
+    if String.length p > 0 then
+      begin
+        try ignore(Pcre.exec ~rex: re_nonemptypath p)
+        with _ -> invalid_iri s ("invalid path \""^p^"\"")
+      end;
+    normalize_path (Rdf_misc.split_string ~keep_empty: true p ['/'])
   in
   let query =
     try Some (Pcre.get_named_substring rex "query" subs)
@@ -295,8 +322,40 @@ let to_string =
 ;;
 
 let iri ?(check=true) s =
+  (*prerr_endline ("iri s="^s);*)
   if check then ignore(parse s) ;
   s
+;;
+
+
+(* See http://tools.ietf.org/html/rfc3986#section-5.2.4 *)
+let ensure_absolute base s =
+  try iri s
+  with _ ->
+      (*prerr_endline ("ensure_absolute: base="^base^", s="^s);*)
+      let i = parse base in
+      let len = String.length s in
+      if len <= 0 then
+        base
+      else
+        match s.[0] with
+          '/' when len >= 2 && s.[1] = '/' ->
+            let t = i.scheme^":"^s in
+            iri t
+        | '?' ->
+            let t = to_string { i with query = None ; fragment = None } in
+            iri (t^s)
+        | '#' ->
+            let t = to_string { i with fragment = None } in
+            iri (t^s)
+        | _ ->
+            let path =
+              match List.rev i.path with
+                [] -> []
+              | _ :: p -> List.rev ("" :: p)
+            in
+            let t = to_string { i with path = path ; query = None ; fragment = None } in
+            iri (t^s)
 ;;
 
 let string s = s;;

@@ -933,7 +933,7 @@ let eval_var mu v =
 
 let eval_iri = function
   Iriref ir -> Rdf_dt.Iri ir.ir_iri
-| PrefixedName _ -> assert false
+| PrefixedName _ | Reliri _-> assert false
 ;;
 
 let rec eval_numeric2 f_int f_float (v1, v2) =
@@ -1406,7 +1406,6 @@ let __print_omega o =
 let eval_datablock =
   let mu_add = Rdf_sparql_ms.mu_add in
   let add_var_value mu v = function
-    DataBlockValueIri (PrefixedName _) -> assert false
   | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_term.Iri ir.ir_iri) mu
   | DataBlockValueRdf lit
   | DataBlockValueNumeric lit
@@ -1414,6 +1413,8 @@ let eval_datablock =
       let lit = lit.rdf_lit in
       mu_add v.var_name (Rdf_term.Literal lit) mu
   | DataBlockValueUndef -> mu
+  | DataBlockValueIri (PrefixedName _) -> assert false
+  | DataBlockValueIri (Reliri _) -> assert false
   in
 
   let one_var =
@@ -1477,6 +1478,7 @@ let rec eval ctx = function
     union_omega o1 o2
 
 | Graph (VIIri (PrefixedName _), _) -> assert false
+| Graph (VIIri (Reliri _), _) -> assert false
 | Graph (VIIri (Iriref ir), a) ->
     let iri = ir.ir_iri in
     let ctx =

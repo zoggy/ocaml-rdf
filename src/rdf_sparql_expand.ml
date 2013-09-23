@@ -46,15 +46,13 @@ let iriref_a =
     }
 ;;
 
-(* FIXME: implement rules when applying relative IRIs:
-  http://www.w3.org/TR/sparql11-query/#relIRIs *)
 let expand_iri env = function
-| (Iriref iriref) as x -> x
-(*    let neturl = Rdf_iri.neturl iriref.ir_iri in
-    let base = Rdf_iri.neturl env.base in
-    let neturl = Neturl.ensure_absolute_url ~base neturl in
-    Iriref { iriref with ir_iri = Rdf_iri.of_neturl neturl }
-*)
+| Iriref ir -> Iriref ir
+| Reliri r ->
+    Iriref {
+      ir_iri = Rdf_iri.ensure_absolute env.base r.reliri ;
+      ir_loc = r.reliri_loc ;
+    }
 | PrefixedName pname ->
     let base =
       match pname.pname_ns.pname_ns_name with
@@ -95,7 +93,8 @@ let expand_rdf_literal env t =
     None -> t
   | Some iri ->
       match expand_iri env iri with
-        PrefixedName _ -> assert false
+        PrefixedName _
+      | Reliri _  -> assert false
       | Iriref i ->
           { rdf_lit_loc = t.rdf_lit_loc ;
             rdf_lit = { t.rdf_lit with Rdf_term.lit_type = Some i.ir_iri } ;
@@ -454,8 +453,10 @@ let expand_query_kind env = function
 
 let build_dataset =
   let iter ds = function
-    DefaultGraphClause (PrefixedName _)
+  | DefaultGraphClause (PrefixedName _)
   | NamedGraphClause (PrefixedName _) -> assert false
+  | DefaultGraphClause (Reliri _)
+  | NamedGraphClause (Reliri _) -> assert false
   | DefaultGraphClause (Iriref ir) ->
       { ds with from = Some ir.ir_iri }
   | NamedGraphClause (Iriref ir) ->

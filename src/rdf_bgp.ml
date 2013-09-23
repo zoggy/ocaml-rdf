@@ -131,6 +131,7 @@ module Make (P : P) =
         match t with
           GraphTermIri (Iriref ir) -> (None, Some (P.term (Rdf_term.Iri ir.ir_iri)))
         | GraphTermIri (PrefixedName _) -> assert false
+        | GraphTermIri (Reliri _) -> assert false
         | GraphTermLit lit
         | GraphTermNumeric lit
         | GraphTermBoolean lit -> (None, Some (P.term (Rdf_term.Literal lit.rdf_lit)))

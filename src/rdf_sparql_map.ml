@@ -36,6 +36,7 @@ and 'a mapper =
     var : ('a, var) map_fun ;
     iriref : ('a, iriref) map_fun ;
     prefixed_name : ('a, prefixed_name) map_fun ;
+    reliri : ('a, rel_iri) map_fun ;
     iri : ('a, iri) map_fun ;
     rdf_literal : ('a, rdf_literal) map_fun ;
     data_block_value : ('a, data_block_value) map_fun ;
@@ -89,9 +90,11 @@ and 'a mapper =
 let var f acc t = t
 let iriref f acc t = t
 let prefixed_name f acc t = t
+let reliri f acc t = t
 let iri f acc = function
-  | Iriref i -> Iriref (f.iriref f acc i)
-  | PrefixedName p -> PrefixedName (f.prefixed_name f acc p)
+| Iriref i -> Iriref (f.iriref f acc i)
+| PrefixedName p -> PrefixedName (f.prefixed_name f acc p)
+| Reliri r -> Reliri (f.reliri f acc r)
 
 let rdf_literal f acc t = t
 
@@ -372,6 +375,7 @@ let default = {
     var ;
     iriref ;
     prefixed_name ;
+    reliri ;
     iri ;
     rdf_literal ;
     data_block_value ;

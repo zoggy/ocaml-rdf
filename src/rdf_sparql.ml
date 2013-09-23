@@ -201,6 +201,7 @@ let var_or_term_apply_sol sol bnode_map = function
 | Rdf_sparql_types.GraphTerm t ->
     match t with
     | GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermIri (Reliri _) -> assert false
     | GraphTermIri (Iriref ir) -> (Rdf_term.Iri (ir.ir_iri), bnode_map)
     | GraphTermLit lit
     | GraphTermNumeric lit

@@ -186,6 +186,7 @@ and translate_path_elt e =
 
 and translate_path_primary = function
   | PathIri (PrefixedName _) -> assert false
+  | PathIri (Reliri _) -> assert false
   | PathIri (Iriref ir) -> Iri ir
   | PathA -> path_iri_type
   | Path p -> translate_path p
@@ -202,9 +203,11 @@ and partition_path_one_in_prop_set =
   | h :: q ->
      match h with
      | PathOneInIri (PrefixedName _) -> assert false
+     | PathOneInIri (Reliri _) -> assert false
      | PathOneInIri (Iriref iriref) -> (iriref :: acc, acc_inv)
      | PathOneInA -> (iriref_type :: acc, acc_inv)
      | PathOneInNotIri (PrefixedName _) -> assert false
+     | PathOneInNotIri (Reliri _) -> assert false
      | PathOneInNotIri (Iriref iriref)-> (acc, iriref :: acc_inv)
      | PathOneInNotA -> (acc, iriref_type :: acc_inv)
   in
@@ -228,6 +231,7 @@ let rec build_triples_path subject acc prop_obj_list =
     | VerbPath path -> translate_path path
     | VerbVar var -> Var var
     | VerbIri (PrefixedName _) -> assert false
+    | VerbIri (Reliri _) -> assert false
     | VerbIri (T.Iriref iriref) -> Iri iriref
     | VerbA -> path_iri_type
   in
@@ -590,6 +594,7 @@ let string_of_var_or_term = function
 | GraphTerm t ->
     match t with
       GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermIri (Reliri _) -> assert false
     | GraphTermIri (Iriref ir) ->
         "<"^(Rdf_iri.string ir.ir_iri)^">"
     | GraphTermLit lit

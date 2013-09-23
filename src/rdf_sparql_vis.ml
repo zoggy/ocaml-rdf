@@ -38,6 +38,7 @@ and 'a visitor =
     var : ('a, var) visitor_fun ;
     iriref : ('a, iriref) visitor_fun ;
     prefixed_name : ('a, prefixed_name) visitor_fun ;
+    reliri : ('a, rel_iri) visitor_fun ;
     iri : ('a, iri) visitor_fun ;
     rdf_literal : ('a, rdf_literal) visitor_fun ;
     data_block_value : ('a, data_block_value) visitor_fun ;
@@ -91,9 +92,12 @@ and 'a visitor =
 let var f acc t = acc
 let iriref f acc t = acc
 let prefixed_name f acc t = acc
+let reliri f acc t = acc
+
 let iri f acc = function
   | Iriref i -> f.iriref f acc i
   | PrefixedName p -> f.prefixed_name f acc p
+  | Reliri r -> f.reliri f acc r
 
 let rdf_literal f acc t = acc
 
@@ -325,6 +329,7 @@ let default = {
     var ;
     iriref ;
     prefixed_name ;
+    reliri ;
     iri ;
     rdf_literal ;
     data_block_value ;

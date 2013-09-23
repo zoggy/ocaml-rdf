@@ -51,11 +51,15 @@ let main () =
   let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
   List.iter
     (fun file ->
-       let base = match !base with None -> Rdf_iri.iri file | Some s -> Rdf_iri.iri s in
-       try Rdf_ttl.from_file g ~base file
+       try
+         let base = match !base with None -> None | Some s -> Some (Rdf_iri.iri s) in
+         Rdf_ttl.from_file g ?base file
        with Rdf_ttl.Error e ->
-         prerr_endline ("File "^file^": "^(Rdf_ttl.string_of_error e));
-         exit 1
+           prerr_endline ("File "^file^": "^(Rdf_ttl.string_of_error e));
+           exit 1
+       | Rdf_iri.Invalid_iri (s, msg) ->
+           prerr_endline ("Invalid IRI "^s^" : "^msg);
+           exit 1
     ) files;
   let dot = Rdf_dot.dot_of_graph g in
   (*print_string dot;*)

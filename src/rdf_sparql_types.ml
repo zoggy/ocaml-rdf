@@ -65,9 +65,16 @@ type prefixed_name =
     pname_local : pname_local option ;
   }
 
+type rel_iri =
+  {
+    reliri_loc : loc ;
+    reliri : string ;
+  }
+
 type iri =
   | Iriref of iriref
   | PrefixedName of prefixed_name
+  | Reliri of rel_iri
 ;;
 
 type prefix_decl = pname_ns * iriref ;;

@@ -44,6 +44,10 @@ val string : iri -> string
 *)
 val iri : ?check: bool -> string -> iri
 
+(** [ensure_absolute base s] creates an IRI from [s], using the given [base]
+ if [s] is relative. Apply {:{http://tools.ietf.org/html/rfc3986#section-5.4}these rules}. *)
+val ensure_absolute : iri -> string -> iri
+
 (** Append the given string to the given IRI.
      @param check can be specified to [false] to prevent IRI parsing.
 *)

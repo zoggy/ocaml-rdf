@@ -137,13 +137,7 @@ let iri base_iri = function
 | (String s)
 | (Ltrl (s, None)) as v ->
     begin
-      try
-        (* FIXME: resolve relative IRI *)
-        let iri = Rdf_iri.iri s in
-        (*let netu = Rdf_iri.neturl iri in
-        let base = Rdf_iri.neturl base_iri in
-        let iri = Rdf_iri.of_neturl (Neturl.ensure_absolute_url ~base netu) in*)
-        Iri iri
+      try Iri (Rdf_iri.ensure_absolute base_iri s)
       with _ -> Err (Type_error (v, "iri"))
     end
 | v -> Err (Type_error (v, "iri"))

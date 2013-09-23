@@ -65,8 +65,9 @@ let print_path_mod b = function
 ;;
 
 let print_iri b = function
-  | Iriref ir -> print_iriref b ir
-  | PrefixedName pname ->
+| Iriref ir -> print_iriref b ir
+| Reliri r -> p b ("<" ^ r.reliri ^ ">")
+| PrefixedName pname ->
     p b (pname.pname_ns.pname_ns_name^":");
     (match pname.pname_local with
         None -> ()

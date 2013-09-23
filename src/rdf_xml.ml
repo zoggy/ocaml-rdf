@@ -205,15 +205,7 @@ let get_blank_node g gstate id =
     let gstate = { gstate with blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
-let abs_iri state iri =
-  (* FIXME: ensure absolute IRI *)
-  iri
-  (*
-  let neturl = Rdf_iri.neturl iri in
-  let base = Rdf_iri.neturl state.xml_base in
-  Rdf_iri.of_neturl (Neturl.ensure_absolute_url ~base neturl)
-  *)
-;;
+let abs_iri state iri = Rdf_iri.ensure_absolute state.xml_base iri;;
 
 let rec input_node g state gstate t =
   let (gstate, state) = update_state gstate state t in
@@ -230,7 +222,7 @@ let rec input_node g state gstate t =
   | E (((pref,s), atts), children) ->
       let (node, gstate) =
         match get_att_iri Rdf_rdf.rdf_about atts with
-          Some s -> (Iri (abs_iri state (Rdf_iri.iri s)), gstate)
+          Some s -> (Iri (abs_iri state s), gstate)
         | None ->
             match get_att_iri Rdf_rdf.rdf_ID atts with
               Some id -> (Iri (Rdf_iri.iri ((Rdf_iri.string state.xml_base)^"#"^id)), gstate)
@@ -286,7 +278,7 @@ and input_prop g state (gstate, li) t =
       in
       match get_att_iri Rdf_rdf.rdf_resource atts with
         Some s ->
-          let obj = Iri (abs_iri state (Rdf_iri.iri s)) in
+          let obj = Iri (abs_iri state s) in
           g.add_triple ~sub ~pred: prop_iri ~obj ;
           (gstate, li)
       | None ->
@@ -345,7 +337,7 @@ and input_prop g state (gstate, li) t =
           | None ->
               match get_att_iri Rdf_rdf.rdf_datatype atts, children with
               | Some s, [D lit] ->
-                  let typ = abs_iri state (Rdf_iri.iri s) in
+                  let typ = abs_iri state s in
                   let obj = Rdf_term.term_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: prop_iri ~obj;
                   (gstate, li)

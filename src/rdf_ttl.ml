@@ -40,16 +40,7 @@ let string_of_error = function
     "Unknown namespace '" ^ s ^ "'"
 ;;
 
-let iri_of_iriref ctx s =
-  (*prerr_endline (Printf.sprintf "iri_of_iriref base=%s s=%S"
-    (Rdf_iri.string ctx.base) s);
-  *)
-  (* FIXME: ensure absolute IRI *)
-  (*let url = Rdf_iri.neturl (Rdf_iri.iri s) in
-  let url = Neturl.ensure_absolute_url ~base: (Rdf_iri.neturl ctx.base) url in
-  Rdf_iri.of_neturl url*)
-  Rdf_iri.iri s
-;;
+let iri_of_iriref ctx s = Rdf_iri.ensure_absolute ctx.base s;;
 
 let iri_of_resource ctx = function
   Iriref iri -> iri_of_iriref ctx iri
@@ -71,6 +62,7 @@ let iri_of_resource ctx = function
         None -> base
       | Some n ->
           let iri = (Rdf_iri.string base)^n in
+          (*prerr_endline (Printf.sprintf "Apply prefix: p=%s, => base=%s, n=%s" p (Rdf_iri.string base) n);*)
           Rdf_iri.iri iri
     end
 ;;
@@ -207,7 +199,7 @@ let from_string g ?base s =
 ;;
 
 let from_file g ?base file =
-  let ic = open_in file in
+  let ic = open_in_bin file in
   let lexbuf = Ulexing.from_utf8_channel ic in
   try from_lexbuf g ?base ~fname: file lexbuf
   with e ->

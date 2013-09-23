@@ -103,9 +103,7 @@ let map_blanks map g =
 ;;
 
 open Rdf_term;;
-(*ORDRE A CORRIGER - utiliser une représentation intermédiaire
-NE PAS SUBSTITUER LES BLANK IDS
-*)
+
 type align_form =
   ATT of term * Rdf_iri.iri * term
 | ABT of string * Rdf_iri.iri * term
@@ -344,7 +342,7 @@ let run_test (test, action, typ) =
           | Rdf_iri.Invalid_iri (s,msg) -> "Invalid iri "^s^" : "^msg
           | e -> raise e
         in
-        let msg = (Rdf_iri.string test) ^ "\n" ^ msg_e in
+        let msg = in_file ^ "\n" ^ msg_e in
         Error msg
   in
   match result, typ with
@@ -355,7 +353,7 @@ let run_test (test, action, typ) =
       prerr_endline ("*** KO "^(Rdf_iri.string test)^":\n"^msg)
   | Ok _, SyntaxNeg
   | Ok _, EvalNeg ->
-      prerr_endline ("*** KO "^(Rdf_iri.string test))
+      prerr_endline ("*** KO (success instead of error)"^(Rdf_iri.string test))
   | Ok g, SyntaxPos ->
       prerr_endline ("OK "^(Rdf_iri.string test))
   | Ok g, EvalPos result ->
