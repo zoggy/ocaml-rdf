@@ -414,7 +414,7 @@ let rec main pos = lexer
   let s = Ulexing.utf8_lexeme lexbuf in
   let s = String.sub s 1 (String.length s - 2) in
   let loc = mk_loc lexbuf in
-  (lexpos pos lexbuf), Iriref_ { ir_loc = loc ; ir_iri = Rdf_uri.uri s }
+  (lexpos pos lexbuf), Iriref_ { reliri_loc = loc ; reliri = s}
 
 | eof ->
     (lexpos pos lexbuf), EOF

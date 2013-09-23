@@ -77,10 +77,10 @@ type iri =
   | Reliri of rel_iri
 ;;
 
-type prefix_decl = pname_ns * iriref ;;
+type prefix_decl = pname_ns * rel_iri;;
 
 type query_prolog_decl =
-  | BaseDecl of iriref
+  | BaseDecl of rel_iri
   | PrefixDecl of prefix_decl
 ;;
 

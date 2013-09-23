@@ -46,11 +46,13 @@ let iriref_a =
     }
 ;;
 
+let expand_relative_iri env s = Rdf_iri.ensure_absolute env.base s ;;
+
 let expand_iri env = function
 | Iriref ir -> Iriref ir
 | Reliri r ->
     Iriref {
-      ir_iri = Rdf_iri.ensure_absolute env.base r.reliri ;
+      ir_iri = expand_relative_iri env r.reliri ;
       ir_loc = r.reliri_loc ;
     }
 | PrefixedName pname ->
@@ -73,13 +75,15 @@ let expand_iri env = function
 ;;
 
 let expand_query_prolog_decl (env, acc) = function
-| (BaseDecl iriref) as t
-| (PrefixDecl ({ pname_ns_name = "" }, iriref) as t) ->
-    let env = { env with base = iriref.ir_iri } in
+| (BaseDecl reliri) as t
+| (PrefixDecl ({ pname_ns_name = "" }, reliri) as t) ->
+    let base = expand_relative_iri env reliri.reliri in
+    let env = { env with base } in
     (env, t :: acc)
 
-| PrefixDecl (pname_ns, iriref) as t->
-    let prefixes = SMap.add pname_ns.pname_ns_name iriref.ir_iri env.prefixes in
+| PrefixDecl (pname_ns, reliri) as t->
+    let iri = expand_relative_iri env reliri.reliri in
+    let prefixes = SMap.add pname_ns.pname_ns_name iri env.prefixes in
     ({ env with prefixes }, t :: acc)
 ;;
 
@@ -452,25 +456,25 @@ let expand_query_kind env = function
 ;;
 
 let build_dataset =
-  let iter ds = function
+  let iter env ds = function
   | DefaultGraphClause (PrefixedName _)
   | NamedGraphClause (PrefixedName _) -> assert false
-  | DefaultGraphClause (Reliri _)
-  | NamedGraphClause (Reliri _) -> assert false
-  | DefaultGraphClause (Iriref ir) ->
-      { ds with from = Some ir.ir_iri }
-  | NamedGraphClause (Iriref ir) ->
+  | DefaultGraphClause (Iriref _)
+  | NamedGraphClause (Iriref _) -> assert false
+  | DefaultGraphClause (Reliri r) ->
+      { ds with from = Some (expand_relative_iri env r.reliri) }
+  | NamedGraphClause (Reliri r) ->
       { ds with
-        from_named = Rdf_iri.Iriset.add ir.ir_iri ds.from_named }
+        from_named = Rdf_iri.Iriset.add (expand_relative_iri env r.reliri) ds.from_named }
   in
-  let build clauses = List.fold_left iter
+  let build env clauses = List.fold_left (iter env)
     { from = None ; from_named = Rdf_iri.Iriset.empty } clauses
   in
-  function
-    Select q -> build q.select_dataset
-  | Construct q -> build q.constr_dataset
-  | Describe q -> build q.desc_dataset
-  | Ask q -> build q.ask_dataset
+  fun env -> function
+    Select q -> build env q.select_dataset
+  | Construct q -> build env q.constr_dataset
+  | Describe q -> build env q.desc_dataset
+  | Ask q -> build env q.ask_dataset
 ;;
 
 let expand_query default_base_uri q =
@@ -478,6 +482,6 @@ let expand_query default_base_uri q =
   let (env, q_prolog) = expand_query_prolog env q.q_prolog in
   let q_kind = expand_query_kind env q.q_kind in
   let q_values = expand_values_clause env q.q_values in
-  let ds = build_dataset q.q_kind in
+  let ds = build_dataset env q.q_kind in
   (env.base, ds, { q_prolog ; q_kind ; q_values })
 ;;

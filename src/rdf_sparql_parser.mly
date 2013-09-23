@@ -46,7 +46,7 @@ let mk_boolean = mk_lit ~typ: xsd_boolean;;
 
 %}
 
-%token <Rdf_sparql_types.iriref>Iriref_
+%token <Rdf_sparql_types.rel_iri>Iriref_
 %token <string>Var1
 %token <string>Var2
 %token <Rdf_sparql_types.prefixed_name> Pname_ln
@@ -247,7 +247,7 @@ source_selector: iri { $1 }
 ;
 
 iri:
-| Iriref_ { Rdf_sparql_types.Iriref $1 }
+| Iriref_ { Rdf_sparql_types.Reliri $1 }
 | prefixed_name { Rdf_sparql_types.PrefixedName $1 }
 ;
 

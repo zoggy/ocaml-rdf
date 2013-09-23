@@ -52,6 +52,7 @@ let print_list ?sep b f l =
 ;;
 
 let print_iriref b ir = p b ("<" ^ (Rdf_iri.string ir.ir_iri) ^ ">")
+let print_reliri b r = p b ("<" ^ r.reliri ^ ">")
 let print_var b v = p b ("?"^v.var_name)
 let print_bnode b bnode =
   match bnode.bnode_label with
@@ -66,7 +67,7 @@ let print_path_mod b = function
 
 let print_iri b = function
 | Iriref ir -> print_iriref b ir
-| Reliri r -> p b ("<" ^ r.reliri ^ ">")
+| Reliri r -> print_reliri b r
 | PrefixedName pname ->
     p b (pname.pname_ns.pname_ns_name^":");
     (match pname.pname_local with
@@ -77,14 +78,14 @@ let print_iri b = function
 ;;
 
 let print_query_prolog_decl b = function
-| BaseDecl iriref ->
+| BaseDecl reliri ->
    p b "BASE ";
-   print_iriref b iriref;
+   print_reliri b reliri;
    p b "\n"
 
-| PrefixDecl (pname_ns, iriref) ->
+| PrefixDecl (pname_ns, reliri) ->
    p b ("PREFIX "^pname_ns.pname_ns_name^": ");
-   print_iriref b iriref;
+   print_reliri b reliri;
    p b "\n"
 ;;
 
