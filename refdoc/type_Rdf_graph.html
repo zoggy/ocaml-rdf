@@ -1,202 +1,290 @@
-<html><head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_graph</title>
-</head>
-<body>
-<code class="code"><span class="keyword">sig</span><br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;options&nbsp;=&nbsp;(string&nbsp;*&nbsp;string)&nbsp;list<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_option&nbsp;:&nbsp;?def:string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Storage</span>&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;name&nbsp;:&nbsp;string<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;error<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.error<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_error&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.error&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_graph&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?options:(string&nbsp;*&nbsp;string)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;graph_name&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_start&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_commit&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_rollback&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;new_blank_id&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.blank_id<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
-&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Storage_error</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;*&nbsp;string&nbsp;*&nbsp;exn<br>
-&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Graph</span>&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_graph&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?options:(string&nbsp;*&nbsp;string)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;graph_name&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_start&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_commit&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_rollback&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;new_blank_id&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.blank_id<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
-&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Make</span>&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">functor</span>&nbsp;(<span class="constructor">S</span>&nbsp;:&nbsp;<span class="constructor">Storage</span>)&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;g&nbsp;=&nbsp;<span class="constructor">S</span>.g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_graph&nbsp;:&nbsp;?options:(string&nbsp;*&nbsp;string)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;g<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;graph_name&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple_t&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple_t&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_start&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_commit&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_rollback&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;new_blank_id&nbsp;:&nbsp;g&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.blank_id<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_storage&nbsp;:&nbsp;(<span class="keyword">module</span>&nbsp;<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;graph&nbsp;=&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;add_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;rem_triple&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;add_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;rem_triple_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;subjects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;predicates_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;objects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;find&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;exists&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;exists_t&nbsp;:&nbsp;<span class="constructor">Rdf_node</span>.triple&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;subjects&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;predicates&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;objects&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;transaction_start&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;transaction_commit&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;transaction_rollback&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;new_blank_id&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.blank_id;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;namespaces&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Rdf_uri</span>.uri&nbsp;*&nbsp;string)&nbsp;list;<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_graph&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;?options:(string&nbsp;*&nbsp;string)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.graph<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;merge&nbsp;:&nbsp;<span class="constructor">Rdf_graph</span>.graph&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_graph</span>.graph&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-<span class="keyword">end</span></code></body></html>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_graph</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span><br/>
+  <span class="keyword">type</span> options = (string * string) list<br/>
+  <span class="keyword">val</span> get_option : ?def:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.options <span class="keywordsign">-&gt;</span> string<br/>
+  <span class="keyword">module</span> <span class="keyword">type</span> <span class="constructor">Storage_BGP</span> =<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> g<br/>
+      <span class="keyword">type</span> term<br/>
+      <span class="keyword">val</span> term :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term<br/>
+      <span class="keyword">val</span> compare :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> rdfterm :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+      <span class="keyword">val</span> subjects :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term list<br/>
+      <span class="keyword">val</span> objects :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term list<br/>
+      <span class="keyword">val</span> find :<br/>
+        ?sub:<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?pred:<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?obj:<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.g <span class="keywordsign">-&gt;</span><br/>
+        (<span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term * <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term *<br/>
+         <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage_BGP</span>.term)<br/>
+        list<br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="keyword">type</span> <span class="constructor">Storage</span> =<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">val</span> name : string<br/>
+      <span class="keyword">type</span> g<br/>
+      <span class="keyword">type</span> error<br/>
+      <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.error<br/>
+      <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.error <span class="keywordsign">-&gt;</span> string<br/>
+      <span class="keyword">val</span> open_graph :<br/>
+        ?options:(string * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g<br/>
+      <span class="keyword">val</span> graph_name : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+      <span class="keyword">val</span> graph_size : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> add_triple :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_triple :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> add_triple_t : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_triple_t : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> subjects_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span><br/>
+        pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> predicates_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+      <span class="keyword">val</span> objects_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> find :<br/>
+        ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
+        ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple list<br/>
+      <span class="keyword">val</span> exists :<br/>
+        ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
+        ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> exists_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> subjects : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> predicates : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+      <span class="keyword">val</span> objects : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> transaction_start : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> transaction_commit : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> transaction_rollback : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> new_blank_id : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.blank_id<br/>
+      <span class="keyword">val</span> namespaces : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list<br/>
+      <span class="keyword">val</span> add_namespace :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_namespace : <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> set_namespaces :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>.g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">module</span> <span class="constructor">BGP</span> :<br/>
+        <span class="keyword">sig</span><br/>
+          <span class="keyword">type</span> g = g<br/>
+          <span class="keyword">type</span> term<br/>
+          <span class="keyword">val</span> term : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> term<br/>
+          <span class="keyword">val</span> compare : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> int<br/>
+          <span class="keyword">val</span> rdfterm : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+          <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> term list<br/>
+          <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> term list<br/>
+          <span class="keyword">val</span> find :<br/>
+            ?sub:term <span class="keywordsign">-&gt;</span><br/>
+            ?pred:term <span class="keywordsign">-&gt;</span> ?obj:term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> (term * term * term) list<br/>
+        <span class="keyword">end</span><br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">exception</span> <span class="constructor">Storage_error</span> <span class="keyword">of</span> string * string * exn<br/>
+  <span class="keyword">module</span> <span class="keyword">type</span> <span class="constructor">Graph</span> =<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> g<br/>
+      <span class="keyword">val</span> open_graph :<br/>
+        ?options:(string * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g<br/>
+      <span class="keyword">val</span> graph_name : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+      <span class="keyword">val</span> graph_size : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> add_triple :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_triple :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> add_triple_t : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_triple_t : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> subjects_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span><br/>
+        pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> predicates_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+      <span class="keyword">val</span> objects_of :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span><br/>
+        sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> find :<br/>
+        ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
+        ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple list<br/>
+      <span class="keyword">val</span> exists :<br/>
+        ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+        ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> exists_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> subjects : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> predicates : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+      <span class="keyword">val</span> objects : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+      <span class="keyword">val</span> transaction_start : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> transaction_commit : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> transaction_rollback : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> new_blank_id : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.blank_id<br/>
+      <span class="keyword">val</span> namespaces : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list<br/>
+      <span class="keyword">val</span> add_namespace : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> rem_namespace : <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> set_namespaces :<br/>
+        <span class="constructor">Rdf_graph</span>.<span class="constructor">Graph</span>.g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">module</span> <span class="constructor">BGP</span> :<br/>
+        <span class="keyword">sig</span><br/>
+          <span class="keyword">type</span> g = g<br/>
+          <span class="keyword">type</span> term<br/>
+          <span class="keyword">val</span> term : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> term<br/>
+          <span class="keyword">val</span> compare : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> int<br/>
+          <span class="keyword">val</span> rdfterm : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+          <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> term list<br/>
+          <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> term list<br/>
+          <span class="keyword">val</span> find :<br/>
+            ?sub:term <span class="keywordsign">-&gt;</span><br/>
+            ?pred:term <span class="keywordsign">-&gt;</span> ?obj:term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> (term * term * term) list<br/>
+        <span class="keyword">end</span><br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="constructor">Make</span> :<br/>
+    <span class="keyword">functor</span> (<span class="constructor">S</span> : <span class="constructor">Storage</span>) <span class="keywordsign">-&gt;</span><br/>
+      <span class="keyword">sig</span><br/>
+        <span class="keyword">type</span> g = <span class="constructor">S</span>.g<br/>
+        <span class="keyword">val</span> open_graph : ?options:(string * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> g<br/>
+        <span class="keyword">val</span> graph_name : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+        <span class="keyword">val</span> graph_size : g <span class="keywordsign">-&gt;</span> int<br/>
+        <span class="keyword">val</span> add_triple :<br/>
+          g <span class="keywordsign">-&gt;</span><br/>
+          sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> rem_triple :<br/>
+          g <span class="keywordsign">-&gt;</span><br/>
+          sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> add_triple_t : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> rem_triple_t : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> subjects_of :<br/>
+          g <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+        <span class="keyword">val</span> predicates_of :<br/>
+          g <span class="keywordsign">-&gt;</span> sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+        <span class="keyword">val</span> objects_of :<br/>
+          g <span class="keywordsign">-&gt;</span> sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+        <span class="keyword">val</span> find :<br/>
+          ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+          ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
+          ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple list<br/>
+        <span class="keyword">val</span> exists :<br/>
+          ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+          ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> bool<br/>
+        <span class="keyword">val</span> exists_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> bool<br/>
+        <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+        <span class="keyword">val</span> predicates : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list<br/>
+        <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list<br/>
+        <span class="keyword">val</span> transaction_start : g <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> transaction_commit : g <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> transaction_rollback : g <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> new_blank_id : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.blank_id<br/>
+        <span class="keyword">val</span> namespaces : g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list<br/>
+        <span class="keyword">val</span> add_namespace : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> rem_namespace : g <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">val</span> set_namespaces : g <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> unit<br/>
+        <span class="keyword">module</span> <span class="constructor">BGP</span> :<br/>
+          <span class="keyword">sig</span><br/>
+            <span class="keyword">type</span> g = g<br/>
+            <span class="keyword">type</span> term<br/>
+            <span class="keyword">val</span> term : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> term<br/>
+            <span class="keyword">val</span> compare : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> int<br/>
+            <span class="keyword">val</span> rdfterm : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+            <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> term list<br/>
+            <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> term list<br/>
+            <span class="keyword">val</span> find :<br/>
+              ?sub:term <span class="keywordsign">-&gt;</span><br/>
+              ?pred:term <span class="keywordsign">-&gt;</span> ?obj:term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> (term * term * term) list<br/>
+          <span class="keyword">end</span><br/>
+      <span class="keyword">end</span><br/>
+  <span class="keyword">val</span> add_storage : (<span class="keyword">module</span> <span class="constructor">Rdf_graph</span>.<span class="constructor">Storage</span>) <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">type</span> graph = {<br/>
+    name : unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri;<br/>
+    size : unit <span class="keywordsign">-&gt;</span> int;<br/>
+    add_triple :<br/>
+      sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit;<br/>
+    rem_triple :<br/>
+      sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit;<br/>
+    add_triple_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit;<br/>
+    rem_triple_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> unit;<br/>
+    subjects_of : pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list;<br/>
+    predicates_of :<br/>
+      sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list;<br/>
+    objects_of : sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list;<br/>
+    find :<br/>
+      ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+      ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.triple list;<br/>
+    exists :<br/>
+      ?sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span><br/>
+      ?pred:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> bool;<br/>
+    exists_t : <span class="constructor">Rdf_term</span>.triple <span class="keywordsign">-&gt;</span> bool;<br/>
+    subjects : unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list;<br/>
+    predicates : unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri list;<br/>
+    objects : unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term list;<br/>
+    transaction_start : unit <span class="keywordsign">-&gt;</span> unit;<br/>
+    transaction_commit : unit <span class="keywordsign">-&gt;</span> unit;<br/>
+    transaction_rollback : unit <span class="keywordsign">-&gt;</span> unit;<br/>
+    new_blank_id : unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.blank_id;<br/>
+    namespaces : unit <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list;<br/>
+    add_namespace : <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit;<br/>
+    rem_namespace : string <span class="keywordsign">-&gt;</span> unit;<br/>
+    set_namespaces : (<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> unit;<br/>
+    bgp : (<span class="keyword">module</span> <span class="constructor">Rdf_bgp</span>.<span class="constructor">S</span>);<br/>
+  }<br/>
+  <span class="keyword">val</span> open_graph :<br/>
+    ?options:(string * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph<br/>
+  <span class="keyword">val</span> merge : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> unit<br/>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

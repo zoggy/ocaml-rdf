@@ -1,183 +1,185 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link rel="previous" href="Rdf_rdf.html">
-<link rel="next" href="Rdf_sparql_algebra.html">
-<link rel="Up" href="index.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><link title="Error handling" rel="Section" href="#2_Errorhandling">
-<link title="Parsing and printing Sparql queries" rel="Section" href="#2_ParsingandprintingSparqlqueries">
-<link title="Executing queries" rel="Section" href="#2_Executingqueries">
-<link title="Predefined functions" rel="Section" href="#2_Predefinedfunctions">
-<link title="Solutions" rel="Subsection" href="#3_Solutions">
-<link title="Querying" rel="Subsection" href="#3_Querying">
-<link title="Convenient functions for querying" rel="Subsection" href="#3_Convenientfunctionsforquerying">
-<title>OCaml-RDF : Rdf_sparql</title>
-</head>
-<body>
-<div class="navbar"><a class="pre" href="Rdf_rdf.html" title="Rdf_rdf">Previous</a>
-&nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Rdf_sparql_algebra.html" title="Rdf_sparql_algebra">Next</a>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_rdfs.html" title="Rdf_rdfs">Previous</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_sparql_algebra.html" title="Rdf_sparql_algebra">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_sparql.html">Rdf_sparql</a></h1>
-<pre><span class="keyword">module</span> Rdf_sparql: <code class="code">sig</code> <a href="Rdf_sparql.html">..</a> <code class="code">end</code></pre><div class="info">
-Sparql queries.<br>
+<pre id="moduleRdf_sp"><a class="paragraph-url" href="#moduleRdf_sp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_sparql: <code class="code">sig</code> <a href="Rdf_sparql.html">..</a> <code class="code">end</code></pre><div class="info">
+Sparql queries.<br/>
 </div>
-<hr width="100%">
-<br>
-<h2 id="2_Errorhandling">Error handling</h2><br>
-<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<hr width="100%"/>
+<br/>
+<div class="section-title" id="2_Errorhandling">Error handling</div><br/>
+<pre id="typeerror___"><a class="paragraph-url" href="#typeerror___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEerror"><span class="keyword">type</span> error</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Parse_error"><span class="constructor">Parse_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a> * string</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Value_error"><span class="constructor">Value_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">Rdf_dt.error</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Eval_error"><span class="constructor">Eval_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_eval.html#TYPEerror">Rdf_sparql_eval.error</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Algebra_error"><span class="constructor">Algebra_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_algebra.html#TYPEerror">Rdf_sparql_algebra.error</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Not_select"><span class="constructor">Not_select</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Not_ask"><span class="constructor">Not_ask</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Not_construct"><span class="constructor">Not_construct</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Not_describe"><span class="constructor">Not_describe</span></span></code></td>
 
 </tr></table>
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a></code></pre>
-<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a> -> string</code></pre><br>
-<h2 id="2_ParsingandprintingSparqlqueries">Parsing and printing Sparql queries</h2><br>
-<pre><span id="TYPEquery"><span class="keyword">type</span> <code class="type"></code>query</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a></code> </pre>
+<pre id="exceptionErr"><a class="paragraph-url" href="#exceptionErr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a></code></pre>
+<pre id="valstring_of"><a class="paragraph-url" href="#valstring_of"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_sparql.html#TYPEerror">error</a> -&gt; string</code></pre><br/>
+<div class="section-title" id="2_ParsingandprintingSparqlqueries">Parsing and printing Sparql queries</div><br/>
+<pre id="typequeryRdf"><a class="paragraph-url" href="#typequeryRdf"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEquery"><span class="keyword">type</span> query</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a></code> </pre>
 
-<pre><span id="VALparse_from_string"><span class="keyword">val</span> parse_from_string</span> : <code class="type">string -> <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre><span id="VALparse_from_file"><span class="keyword">val</span> parse_from_file</span> : <code class="type">string -> <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre><span id="VALstring_of_query"><span class="keyword">val</span> string_of_query</span> : <code class="type"><a href="Rdf_sparql.html#TYPEquery">query</a> -> string</code></pre><br>
-<h2 id="2_Executingqueries">Executing queries</h2><br>
-<br>
-<h3 id="3_Solutions">Solutions</h3><br>
-<pre><span id="TYPEsolution"><span class="keyword">type</span> <code class="type"></code>solution</span> </pre>
+<pre id="valquery_fro"><a class="paragraph-url" href="#valquery_fro"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALquery_from_string"><span class="keyword">val</span> query_from_string</span> : <code class="type">string -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre id="valquery_from"><a class="paragraph-url" href="#valquery_from"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALquery_from_file"><span class="keyword">val</span> query_from_file</span> : <code class="type">string -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a></code></pre><pre id="valstring_of_"><a class="paragraph-url" href="#valstring_of_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_query"><span class="keyword">val</span> string_of_query</span> : <code class="type"><a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; string</code></pre><br/>
+<div class="section-title" id="2_Executingqueries">Executing queries</div><br/>
+<br/>
+<div class="subsection-title" id="3_Solutions">Solutions</div><br/>
+<pre id="typesolution"><a class="paragraph-url" href="#typesolution"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEsolution"><span class="keyword">type</span> solution</span> </pre>
 
-<pre><span id="VALget_term"><span class="keyword">val</span> get_term</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -> string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></pre><div class="info">
-<code class="code">get_term solution varname</code> returns the <a href="Rdf_node.html#TYPEnode"><code class="code">Rdf_node.node</code></a> bound to
-  <code class="code">varname</code> in the solution.<br>
-<b>Raises</b> <code>Not_found</code> if the variable is not bound.<br>
+<pre id="valget_terms"><a class="paragraph-url" href="#valget_terms"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_term"><span class="keyword">val</span> get_term</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><div class="info">
+<code class="code">get_term solution varname</code> returns the <a href="Rdf_term.html#TYPEterm"><code class="code">Rdf_term.term</code></a> bound to
+  <code class="code">varname</code> in the solution.<br/>
+<b>Raises</b> <code>Not_found</code> if the variable is not bound.<br/>
 </div>
-<pre><span id="VALis_bound"><span class="keyword">val</span> is_bound</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -> string -> bool</code></pre><div class="info">
+<pre id="valis_bounds"><a class="paragraph-url" href="#valis_bounds"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALis_bound"><span class="keyword">val</span> is_bound</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; bool</code></pre><div class="info">
 <code class="code">is_bound solution varname</code> returns whether the given variable name
-  is bound in the solution.<br>
+  is bound in the solution.<br/>
 </div>
-<pre><span id="VALsolution_fold"><span class="keyword">val</span> solution_fold</span> : <code class="type">(string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> 'a -> 'a) -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> -> 'a -> 'a</code></pre><div class="info">
+<pre id="valsolution_"><a class="paragraph-url" href="#valsolution_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALsolution_fold"><span class="keyword">val</span> solution_fold</span> : <code class="type">(string -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; 'a -&gt; 'a) -&gt; <a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; 'a -&gt; 'a</code></pre><div class="info">
 <code class="code">solution_fold f sol acc</code> is
   <code class="code">f var1 term1 (f var2 term2 (...) acc)</code>, folding over the bindings
-  of the solution.<br>
+  of the solution.<br/>
 </div>
-<pre><span id="VALsolution_iter"><span class="keyword">val</span> solution_iter</span> : <code class="type">(string -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> unit) -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> -> unit</code></pre><div class="info">
+<pre id="valsolution_i"><a class="paragraph-url" href="#valsolution_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALsolution_iter"><span class="keyword">val</span> solution_iter</span> : <code class="type">(string -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit) -&gt; <a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; unit</code></pre><div class="info">
 <code class="code">solution_iter f solution</code> calls <code class="code">f</code> on each pair <code class="code">(varname, term)</code>
-  of the <code class="code">solution</code>.<br>
+  of the <code class="code">solution</code>.<br/>
 </div>
-<br>
-<h3 id="3_Querying">Querying</h3><br>
-<pre><code><span id="TYPEquery_result"><span class="keyword">type</span> <code class="type"></code>query_result</span> = </code></pre><table class="typetable">
+<br/>
+<h4 id="4_Convenientfunctionstoaccesssolutionbindings">Convenient functions to access solution bindings.</h4>
+<div class="vertical-space"> </div>
+
+All these functions can raise <a href="Rdf_dt.html#EXCEPTIONError"><code class="code">Rdf_dt.Error</code></a> exceptions in case
+the term bounded to the variable name is not compatible with the
+asked type.
+<div class="vertical-space"> </div>
+
+The functions are just calls to Rdf_dt functions. For example,
+<a href="Rdf_sparql.html#VALget_int"><code class="code">Rdf_sparql.get_int</code></a> retrieve the bounded term with <a href="Rdf_sparql.html#VALget_term"><code class="code">Rdf_sparql.get_term</code></a>,
+then calls <a href="Rdf_dt.html#VALof_term"><code class="code">Rdf_dt.of_term</code></a> to get a <a href="Rdf_dt.html#TYPEvalue"><code class="code">Rdf_dt.value</code></a>, than
+calls <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> to retrieve an <code class="code">Int n</code> value, then return <code class="code">n</code>.<br/>
+<pre id="valget_strin"><a class="paragraph-url" href="#valget_strin"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_string"><span class="keyword">val</span> get_string</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; string</code></pre><pre id="valget_iriso"><a class="paragraph-url" href="#valget_iriso"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_iri"><span class="keyword">val</span> get_iri</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+See comment of <a href="Rdf_dt.html#VALiri"><code class="code">Rdf_dt.iri</code></a>.<br/>
+</div>
+<pre id="valget_intso"><a class="paragraph-url" href="#valget_intso"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_int"><span class="keyword">val</span> get_int</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; int</code></pre><pre id="valget_float"><a class="paragraph-url" href="#valget_float"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_float"><span class="keyword">val</span> get_float</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; float</code></pre><pre id="valget_bools"><a class="paragraph-url" href="#valget_bools"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_bool"><span class="keyword">val</span> get_bool</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; bool</code></pre><pre id="valget_datet"><a class="paragraph-url" href="#valget_datet"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_datetime"><span class="keyword">val</span> get_datetime</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; Netdate.t</code></pre><pre id="valget_ltrls"><a class="paragraph-url" href="#valget_ltrls"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_ltrl"><span class="keyword">val</span> get_ltrl</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; string * string option</code></pre><div class="info">
+Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.get_string</code></a> but the associated language tag is kep, if any.<br/>
+</div>
+<br/>
+<div class="subsection-title" id="3_Querying">Querying</div><br/>
+<pre id="typequery_re"><a class="paragraph-url" href="#typequery_re"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEquery_result"><span class="keyword">type</span> query_result</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_result.Bool"><span class="constructor">Bool</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_result.Solutions"><span class="constructor">Solutions</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_result.Graph"><span class="constructor">Graph</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="VALexecute"><span class="keyword">val</span> execute</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -><br>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_sparql.html#TYPEquery_result">query_result</a></code></pre><div class="info">
+<pre id="valexecutegr"><a class="paragraph-url" href="#valexecutegr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALexecute"><span class="keyword">val</span> execute</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEquery_result">query_result</a></code></pre><div class="info">
 <code class="code">execute ~base dataset q</code> executes the sparql query <code class="code">q</code> on <code class="code">dataset</code>, using
-  <code class="code">base</code> as base uri. The form of the result depends on the kind of query:<ul>
+  <code class="code">base</code> as base iri. The form of the result depends on the kind of query:<ul>
 <li>Select queries return a <code class="code">Solution solutions</code></li>
 <li>Ask queries return a <code class="code">Bool bool</code></li>
 <li>Construct queries return <code class="code">Graph g</code>.</li>
@@ -186,39 +188,50 @@ Sparql queries.<br>
 
   For <code class="code">Construct</code> and <code class="code">Describe</code> queries, if a graph is provided, it is filled
   and the same graph is returned; else a new graph (in memory) is created,
-  filled and returned. If the graph is created, it uri is the <code class="code">base</code> uri provided.
-<p>
+  filled and returned. If the graph is created, it iri is the <code class="code">base</code> iri provided.
+<div class="vertical-space"> </div>
 
-  <b>Warning:</b> Describe queries are not implemented yet.<br>
-<b>Raises</b> <code>Error</code> in case of error.<br>
+  <b>Warning:</b> Describe queries are not implemented yet.<br/>
+<b>Raises</b> <code>Error</code> in case of error.<br/>
 </div>
-<br>
-<h3 id="3_Convenientfunctionsforquerying">Convenient functions for querying</h3><br>
-<pre><span id="VALselect"><span class="keyword">val</span> select</span> : <code class="type">base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -><br>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></pre><div class="info">
-Execute the given SELECT query.<br>
-<b>Raises</b> <code>Not_select</code> is the query is not a SELECT.<br>
+<br/>
+<div class="subsection-title" id="3_Convenientfunctionsforquerying">Convenient functions for querying</div><br/>
+<pre id="valselectbas"><a class="paragraph-url" href="#valselectbas"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALselect"><span class="keyword">val</span> select</span> : <code class="type">base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></pre><div class="info">
+Execute the given SELECT query.<br/>
+<b>Raises</b> <code>Not_select</code> is the query is not a SELECT.<br/>
 </div>
-<pre><span id="VALconstruct"><span class="keyword">val</span> construct</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
-Execute the given CONSTRUCT query.<br>
-<b>Raises</b> <code>Not_construct</code> is the query is not a CONSTRUCT.<br>
+<pre id="valconstruct"><a class="paragraph-url" href="#valconstruct"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALconstruct"><span class="keyword">val</span> construct</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
+Execute the given CONSTRUCT query.<br/>
+<b>Raises</b> <code>Not_construct</code> is the query is not a CONSTRUCT.<br/>
 </div>
-<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> bool</code></pre><div class="info">
-Execute the given ASK query.<br>
-<b>Raises</b> <code>Not_ask</code> is the query is not a ASK.<br>
+<pre id="valaskbaseRd"><a class="paragraph-url" href="#valaskbaseRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; bool</code></pre><div class="info">
+Execute the given ASK query.<br/>
+<b>Raises</b> <code>Not_ask</code> is the query is not a ASK.<br/>
 </div>
-<pre><span id="VALdescribe"><span class="keyword">val</span> describe</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -><br>       base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -> <a href="Rdf_sparql.html#TYPEquery">query</a> -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
-Execute the given DESCRIBE query.<br>
-<b>Raises</b> <code>Not_describe</code> is the query is not a DESCRIBE.<br>
+<pre id="valdescribeg"><a class="paragraph-url" href="#valdescribeg"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdescribe"><span class="keyword">val</span> describe</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info">
+Execute the given DESCRIBE query.<br/>
+<b>Raises</b> <code>Not_describe</code> is the query is not a DESCRIBE.<br/>
 </div>
-<br>
-<h2 id="2_Predefinedfunctions">Predefined functions</h2>
-<p>
+<br/>
+<div class="section-title" id="2_Predefinedfunctions">Predefined functions</div>
+<div class="vertical-space"> </div>
 
-These are the functions named by an URI,
-<a href="http://www.w3.org/TR/sparql11-query/#expressions"> see details here</a>.<br>
-<pre><span id="TYPEuri_fun"><span class="keyword">type</span> <code class="type"></code>uri_fun</span> = <code class="type"><a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a> list -> <a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a></code> </pre>
+These are the functions named by an IRI,
+<a href="http://www.w3.org/TR/sparql11-query/#expressions"> see details here</a>.<br/>
+<pre id="typeiri_funR"><a class="paragraph-url" href="#typeiri_funR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEiri_fun"><span class="keyword">type</span> iri_fun</span> = <code class="type"><a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a> list -&gt; <a href="Rdf_dt.html#TYPEvalue">Rdf_dt.value</a></code> </pre>
 <div class="info">
-A function takes a list of values and return a value.<br>
+A function takes a list of values and returns a value.<br/>
 </div>
 
-<pre><span id="VALuri_funs"><span class="keyword">val</span> uri_funs</span> : <code class="type">unit -> <a href="Rdf_sparql.html#TYPEuri_fun">uri_fun</a> Rdf_uri.Urimap.t</code></pre><pre><span id="VALadd_uri_fun"><span class="keyword">val</span> add_uri_fun</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_sparql.html#TYPEuri_fun">uri_fun</a> -> unit</code></pre></body></html>
+<pre id="valiri_funsu"><a class="paragraph-url" href="#valiri_funsu"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALiri_funs"><span class="keyword">val</span> iri_funs</span> : <code class="type">unit -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> Rdf_iri.Irimap.t</code></pre><pre id="valadd_iri_f"><a class="paragraph-url" href="#valadd_iri_f"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALadd_iri_fun"><span class="keyword">val</span> add_iri_fun</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> -&gt; unit</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

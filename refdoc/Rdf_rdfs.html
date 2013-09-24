@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_rdfs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_rdf.html" title="Rdf_rdf">Previous</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_sparql.html" title="Rdf_sparql">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_rdfs.html">Rdf_rdfs</a></h1>
+<pre id="moduleRdf_rd"><a class="paragraph-url" href="#moduleRdf_rd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_rdfs: <code class="code">sig</code> <a href="Rdf_rdfs.html">..</a> <code class="code">end</code></pre><div class="info">
+Elements of <code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
+</div>
+<hr width="100%"/>
+<pre id="valrdfsRdf_i"><a class="paragraph-url" href="#valrdfsRdf_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs"><span class="keyword">val</span> rdfs</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
+</div>
+<pre id="valrdfs_stri"><a class="paragraph-url" href="#valrdfs_stri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_"><span class="keyword">val</span> rdfs_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><pre id="valrdfs_Clas"><a class="paragraph-url" href="#valrdfs_Clas"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_Class"><span class="keyword">val</span> rdfs_Class</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class of classes.<br/>
+</div>
+<pre id="valrdfs_comm"><a class="paragraph-url" href="#valrdfs_comm"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_comment"><span class="keyword">val</span> rdfs_comment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+A description of the subject resource.<br/>
+</div>
+<pre id="valrdfs_Cont"><a class="paragraph-url" href="#valrdfs_Cont"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_Container"><span class="keyword">val</span> rdfs_Container</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class of RDF containers.<br/>
+</div>
+<pre id="valrdfs_Conta"><a class="paragraph-url" href="#valrdfs_Conta"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_ContainerMembershipProperty"><span class="keyword">val</span> rdfs_ContainerMembershipProperty</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.<br/>
+</div>
+<pre id="valrdfs_Data"><a class="paragraph-url" href="#valrdfs_Data"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_Datatype"><span class="keyword">val</span> rdfs_Datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class of RDF datatypes.<br/>
+</div>
+<pre id="valrdfs_doma"><a class="paragraph-url" href="#valrdfs_doma"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_domain"><span class="keyword">val</span> rdfs_domain</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+A domain of the subject property.<br/>
+</div>
+<pre id="valrdfs_isDe"><a class="paragraph-url" href="#valrdfs_isDe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_isDefinedBy"><span class="keyword">val</span> rdfs_isDefinedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The defininition of the subject resource.<br/>
+</div>
+<pre id="valrdfs_labe"><a class="paragraph-url" href="#valrdfs_labe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_label"><span class="keyword">val</span> rdfs_label</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+A human-readable name for the subject.<br/>
+</div>
+<pre id="valrdfs_Lite"><a class="paragraph-url" href="#valrdfs_Lite"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_Literal"><span class="keyword">val</span> rdfs_Literal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class of literal values, eg. textual strings and integers.<br/>
+</div>
+<pre id="valrdfs_memb"><a class="paragraph-url" href="#valrdfs_memb"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_member"><span class="keyword">val</span> rdfs_member</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+A member of the subject resource.<br/>
+</div>
+<pre id="valrdfs_rang"><a class="paragraph-url" href="#valrdfs_rang"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_range"><span class="keyword">val</span> rdfs_range</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+A range of the subject property.<br/>
+</div>
+<pre id="valrdfs_Reso"><a class="paragraph-url" href="#valrdfs_Reso"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_Resource"><span class="keyword">val</span> rdfs_Resource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The class resource, everything.<br/>
+</div>
+<pre id="valrdfs_seeA"><a class="paragraph-url" href="#valrdfs_seeA"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_seeAlso"><span class="keyword">val</span> rdfs_seeAlso</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+Further information about the subject resource.<br/>
+</div>
+<pre id="valrdfs_subC"><a class="paragraph-url" href="#valrdfs_subC"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_subClassOf"><span class="keyword">val</span> rdfs_subClassOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The subject is a subclass of a class.<br/>
+</div>
+<pre id="valrdfs_subP"><a class="paragraph-url" href="#valrdfs_subP"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfs_subPropertyOf"><span class="keyword">val</span> rdfs_subPropertyOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+The subject is a subproperty of a property.<br/>
+</div>
+</div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

@@ -1,1739 +1,1765 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link rel="previous" href="Rdf_sparql_print.html">
-<link rel="next" href="Rdf_sparql_vis.html">
-<link rel="Up" href="index.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_sparql_types</title>
-</head>
-<body>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_types</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_sparql_print.html" title="Rdf_sparql_print">Previous</a>
-&nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Rdf_sparql_vis.html" title="Rdf_sparql_vis">Next</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_sparql_vis.html" title="Rdf_sparql_vis">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_sparql_types.html">Rdf_sparql_types</a></h1>
-<pre><span class="keyword">module</span> Rdf_sparql_types: <code class="code">sig</code> <a href="Rdf_sparql_types.html">..</a> <code class="code">end</code></pre><div class="info">
+<pre id="moduleRdf_sp"><a class="paragraph-url" href="#moduleRdf_sp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_sparql_types: <code class="code">sig</code> <a href="Rdf_sparql_types.html">..</a> <code class="code">end</code></pre><div class="info">
 </div>
-<hr width="100%">
-<pre><span class="keyword">module</span> <a href="Rdf_sparql_types.OrderedString.html">OrderedString</a>: <code class="code">sig</code> <a href="Rdf_sparql_types.OrderedString.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_types.SSet.html">SSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_types.OrderedString.html">OrderedString</a></code><code class="code">)</code></pre><pre><span class="keyword">module</span> <a href="Rdf_sparql_types.SMap.html">SMap</a>: <code class="type">Map.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_types.OrderedString.html">OrderedString</a></code><code class="code">)</code></pre><pre><span id="TYPEloc"><span class="keyword">type</span> <code class="type"></code>loc</span> = <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a></code> = {</pre><table class="typetable">
+<hr width="100%"/>
+<pre id="moduleOrdere"><a class="paragraph-url" href="#moduleOrdere"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_sparql_types.OrderedString.html">OrderedString</a>: <code class="code">sig</code> <a href="Rdf_sparql_types.OrderedString.html">..</a> <code class="code">end</code></pre><pre id="moduleSSetRd"><a class="paragraph-url" href="#moduleSSetRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_sparql_types.SSet.html">SSet</a>: <code class="type"><a href="Rdf_types.SSet.html">Rdf_types.SSet</a></code></pre><pre id="moduleSMapRd"><a class="paragraph-url" href="#moduleSMapRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_sparql_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_types.SMap.html">Rdf_types.SMap</a></code></pre><pre id="typelocRdf_l"><a class="paragraph-url" href="#typelocRdf_l"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEloc"><span class="keyword">type</span> loc</span> = <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a></code> = {</pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTloc.loc_start">loc_start</span>&nbsp;:<code class="type">Lexing.position</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTloc.loc_start">loc_start</span> :<code class="type">Lexing.position</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTloc.loc_end">loc_end</span>&nbsp;:<code class="type">Lexing.position</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTloc.loc_end">loc_end</span> :<code class="type">Lexing.position</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEpname_ns"><span class="keyword">type</span> <code class="type"></code>pname_ns</span> = {</code></pre><table class="typetable">
+<pre id="typepname_ns"><a class="paragraph-url" href="#typepname_ns"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpname_ns"><span class="keyword">type</span> pname_ns</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpname_ns.pname_ns_loc">pname_ns_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpname_ns.pname_ns_loc">pname_ns_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpname_ns.pname_ns_name">pname_ns_name</span>&nbsp;:<code class="type">string</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpname_ns.pname_ns_name">pname_ns_name</span> :<code class="type">string</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEpname_local"><span class="keyword">type</span> <code class="type"></code>pname_local</span> = {</code></pre><table class="typetable">
+<pre id="typepname_lo"><a class="paragraph-url" href="#typepname_lo"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpname_local"><span class="keyword">type</span> pname_local</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpname_local.pname_local_loc">pname_local_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpname_local.pname_local_loc">pname_local_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpname_local.pname_local_name">pname_local_name</span>&nbsp;:<code class="type">string</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpname_local.pname_local_name">pname_local_name</span> :<code class="type">string</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEvar"><span class="keyword">type</span> <code class="type"></code>var</span> = {</code></pre><table class="typetable">
+<pre id="typevar_____"><a class="paragraph-url" href="#typevar_____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEvar"><span class="keyword">type</span> var</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTvar.var_loc">var_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTvar.var_loc">var_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTvar.var_name">var_name</span>&nbsp;:<code class="type">string</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTvar.var_name">var_name</span> :<code class="type">string</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEiriref"><span class="keyword">type</span> <code class="type"></code>iriref</span> = {</code></pre><table class="typetable">
+<pre id="typeiriref__"><a class="paragraph-url" href="#typeiriref__"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEiriref"><span class="keyword">type</span> iriref</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTiriref.ir_loc">ir_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTiriref.ir_loc">ir_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTiriref.ir_iri">ir_iri</span>&nbsp;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTiriref.ir_iri">ir_iri</span> :<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEprefixed_name"><span class="keyword">type</span> <code class="type"></code>prefixed_name</span> = {</code></pre><table class="typetable">
+<pre id="typeprefixed"><a class="paragraph-url" href="#typeprefixed"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEprefixed_name"><span class="keyword">type</span> prefixed_name</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprefixed_name.pname_loc">pname_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprefixed_name.pname_loc">pname_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprefixed_name.pname_ns">pname_ns</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprefixed_name.pname_ns">pname_ns</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprefixed_name.pname_local">pname_local</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEpname_local">pname_local</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprefixed_name.pname_local">pname_local</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEpname_local">pname_local</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEiri"><span class="keyword">type</span> <code class="type"></code>iri</span> = </code></pre><table class="typetable">
+<pre id="typerel_iri_"><a class="paragraph-url" href="#typerel_iri_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPErel_iri"><span class="keyword">type</span> rel_iri</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTrel_iri.reliri_loc">reliri_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTrel_iri.reliri">reliri</span> :<code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre id="typeiri_____"><a class="paragraph-url" href="#typeiri_____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTiri.Iriref"><span class="constructor">Iriref</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">iriref</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTiri.PrefixedName"><span class="constructor">PrefixedName</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEprefixed_name">prefixed_name</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTiri.Reliri"><span class="constructor">Reliri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEprefix_decl"><span class="keyword">type</span> <code class="type"></code>prefix_decl</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a> * <a href="Rdf_sparql_types.html#TYPEiriref">iriref</a></code> </pre>
+<pre id="typeprefix_d"><a class="paragraph-url" href="#typeprefix_d"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEprefix_decl"><span class="keyword">type</span> prefix_decl</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a> * <a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code> </pre>
 
-<pre><code><span id="TYPEquery_prolog_decl"><span class="keyword">type</span> <code class="type"></code>query_prolog_decl</span> = </code></pre><table class="typetable">
+<pre id="typequery_pr"><a class="paragraph-url" href="#typequery_pr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEquery_prolog_decl"><span class="keyword">type</span> query_prolog_decl</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTquery_prolog_decl.BaseDecl"><span class="constructor">BaseDecl</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">iriref</a></code></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTquery_prolog_decl.BaseDecl"><span class="constructor">BaseDecl</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_prolog_decl.PrefixDecl"><span class="constructor">PrefixDecl</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEprefix_decl">prefix_decl</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEquery_prolog"><span class="keyword">type</span> <code class="type"></code>query_prolog</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">query_prolog_decl</a> list</code> </pre>
+<pre id="typequery_pro"><a class="paragraph-url" href="#typequery_pro"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEquery_prolog"><span class="keyword">type</span> query_prolog</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">query_prolog_decl</a> list</code> </pre>
 
-<pre><code><span id="TYPErdf_literal"><span class="keyword">type</span> <code class="type"></code>rdf_literal</span> = {</code></pre><table class="typetable">
+<pre id="typerdf_lite"><a class="paragraph-url" href="#typerdf_lite"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPErdf_literal"><span class="keyword">type</span> rdf_literal</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTrdf_literal.rdf_lit_loc">rdf_lit_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTrdf_literal.rdf_lit">rdf_lit</span>&nbsp;:<code class="type"><a href="Rdf_node.html#TYPEliteral">Rdf_node.literal</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTrdf_literal.rdf_lit_loc">rdf_lit_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTrdf_literal.rdf_lit_type">rdf_lit_type</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTrdf_literal.rdf_lit">rdf_lit</span> :<code class="type"><a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTrdf_literal.rdf_lit_type">rdf_lit_type</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEdata_block_value"><span class="keyword">type</span> <code class="type"></code>data_block_value</span> = </code></pre><table class="typetable">
+<pre id="typedata_blo"><a class="paragraph-url" href="#typedata_blo"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdata_block_value"><span class="keyword">type</span> data_block_value</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_block_value.DataBlockValueIri"><span class="constructor">DataBlockValueIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_block_value.DataBlockValueRdf"><span class="constructor">DataBlockValueRdf</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_block_value.DataBlockValueNumeric"><span class="constructor">DataBlockValueNumeric</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_block_value.DataBlockValueBoolean"><span class="constructor">DataBlockValueBoolean</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_block_value.DataBlockValueUndef"><span class="constructor">DataBlockValueUndef</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEdata_full_block_value"><span class="keyword">type</span> <code class="type"></code>data_full_block_value</span> = </code></pre><table class="typetable">
+<pre id="typedata_ful"><a class="paragraph-url" href="#typedata_ful"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdata_full_block_value"><span class="keyword">type</span> data_full_block_value</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_full_block_value.Nil"><span class="constructor">Nil</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdata_full_block_value.Value"><span class="constructor">Value</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEdata_block_value">data_block_value</a> list</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEinline_data_one_var"><span class="keyword">type</span> <code class="type"></code>inline_data_one_var</span> = {</code></pre><table class="typetable">
+<pre id="typeinline_d"><a class="paragraph-url" href="#typeinline_d"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEinline_data_one_var"><span class="keyword">type</span> inline_data_one_var</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_one_var.idov_loc">idov_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_one_var.idov_loc">idov_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_one_var.idov_var">idov_var</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_one_var.idov_var">idov_var</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_one_var.idov_data">idov_data</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdata_block_value">data_block_value</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_one_var.idov_data">idov_data</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdata_block_value">data_block_value</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEinline_data_full"><span class="keyword">type</span> <code class="type"></code>inline_data_full</span> = {</code></pre><table class="typetable">
+<pre id="typeinline_da"><a class="paragraph-url" href="#typeinline_da"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEinline_data_full"><span class="keyword">type</span> inline_data_full</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_full.idf_loc">idf_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_full.idf_loc">idf_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_full.idf_vars">idf_vars</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_full.idf_vars">idf_vars</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTinline_data_full.idf_values">idf_values</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdata_full_block_value">data_full_block_value</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTinline_data_full.idf_values">idf_values</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdata_full_block_value">data_full_block_value</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEdatablock"><span class="keyword">type</span> <code class="type"></code>datablock</span> = </code></pre><table class="typetable">
+<pre id="typedatabloc"><a class="paragraph-url" href="#typedatabloc"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdatablock"><span class="keyword">type</span> datablock</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdatablock.InLineDataOneVar"><span class="constructor">InLineDataOneVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEinline_data_one_var">inline_data_one_var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdatablock.InLineDataFull"><span class="constructor">InLineDataFull</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEinline_data_full">inline_data_full</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEvalues_clause"><span class="keyword">type</span> <code class="type"></code>values_clause</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEdatablock">datablock</a> option</code> </pre>
+<pre id="typevalues_c"><a class="paragraph-url" href="#typevalues_c"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEvalues_clause"><span class="keyword">type</span> values_clause</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEdatablock">datablock</a> option</code> </pre>
 
-<pre><code><span id="TYPEpath_mod"><span class="keyword">type</span> <code class="type"></code>path_mod</span> = </code></pre><table class="typetable">
+<pre id="typepath_mod"><a class="paragraph-url" href="#typepath_mod"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpath_mod"><span class="keyword">type</span> path_mod</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_mod.ModOptional"><span class="constructor">ModOptional</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_mod.ModList"><span class="constructor">ModList</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_mod.ModOneOrMore"><span class="constructor">ModOneOrMore</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEvar_or_iri"><span class="keyword">type</span> <code class="type"></code>var_or_iri</span> = </code></pre><table class="typetable">
+<pre id="typevar_or_i"><a class="paragraph-url" href="#typevar_or_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEvar_or_iri"><span class="keyword">type</span> var_or_iri</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvar_or_iri.VIVar"><span class="constructor">VIVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvar_or_iri.VIIri"><span class="constructor">VIIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEblank_node"><span class="keyword">type</span> <code class="type"></code>blank_node</span> = {</code></pre><table class="typetable">
+<pre id="typeblank_no"><a class="paragraph-url" href="#typeblank_no"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEblank_node"><span class="keyword">type</span> blank_node</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTblank_node.bnode_loc">bnode_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTblank_node.bnode_loc">bnode_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTblank_node.bnode_label">bnode_label</span>&nbsp;:<code class="type">string option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTblank_node.bnode_label">bnode_label</span> :<code class="type">string option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEselect_clause_flag"><span class="keyword">type</span> <code class="type"></code>select_clause_flag</span> = </code></pre><table class="typetable">
+<pre id="typeselect_c"><a class="paragraph-url" href="#typeselect_c"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEselect_clause_flag"><span class="keyword">type</span> select_clause_flag</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTselect_clause_flag.Distinct"><span class="constructor">Distinct</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTselect_clause_flag.Reduced"><span class="constructor">Reduced</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEselect_var"><span class="keyword">type</span> <code class="type"></code>select_var</span> = {</code></pre><table class="typetable">
+<pre id="typeselect_v"><a class="paragraph-url" href="#typeselect_v"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEselect_var"><span class="keyword">type</span> select_var</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_var.sel_var_loc">sel_var_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_var.sel_var_loc">sel_var_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_var.sel_var_expr">sel_var_expr</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_var.sel_var_expr">sel_var_expr</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_var.sel_var">sel_var</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_var.sel_var">sel_var</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEselect_vars"><span class="keyword">type</span> <code class="type"></code>select_vars</span> = </code></pre><table class="typetable">
+<pre id="typeselect_va"><a class="paragraph-url" href="#typeselect_va"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEselect_vars"><span class="keyword">type</span> select_vars</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTselect_vars.SelectAll"><span class="constructor">SelectAll</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTselect_vars.SelectVars"><span class="constructor">SelectVars</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEselect_var">select_var</a> list</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEselect_clause"><span class="keyword">type</span> <code class="type"></code>select_clause</span> = {</code></pre><table class="typetable">
+<pre id="typeselect_cl"><a class="paragraph-url" href="#typeselect_cl"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEselect_clause"><span class="keyword">type</span> select_clause</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_clause.sel_flag">sel_flag</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause_flag">select_clause_flag</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_clause.sel_flag">sel_flag</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause_flag">select_clause_flag</a> option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_clause.sel_vars">sel_vars</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_vars">select_vars</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_clause.sel_vars">sel_vars</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_vars">select_vars</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><span id="TYPEsource_selector"><span class="keyword">type</span> <code class="type"></code>source_selector</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code> </pre>
+<pre id="typesource_s"><a class="paragraph-url" href="#typesource_s"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEsource_selector"><span class="keyword">type</span> source_selector</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code> </pre>
 
-<pre><code><span id="TYPEdataset_clause"><span class="keyword">type</span> <code class="type"></code>dataset_clause</span> = </code></pre><table class="typetable">
+<pre id="typedataset_"><a class="paragraph-url" href="#typedataset_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdataset_clause"><span class="keyword">type</span> dataset_clause</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdataset_clause.DefaultGraphClause"><span class="constructor">DefaultGraphClause</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEsource_selector">source_selector</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTdataset_clause.NamedGraphClause"><span class="constructor">NamedGraphClause</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEsource_selector">source_selector</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEarg_list"><span class="keyword">type</span> <code class="type"></code>arg_list</span> = {</code></pre><table class="typetable">
+<pre id="typearg_list"><a class="paragraph-url" href="#typearg_list"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEarg_list"><span class="keyword">type</span> arg_list</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTarg_list.argl_loc">argl_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTarg_list.argl_loc">argl_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTarg_list.argl_distinct">argl_distinct</span>&nbsp;:<code class="type">bool</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTarg_list.argl_distinct">argl_distinct</span> :<code class="type">bool</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTarg_list.argl">argl</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTarg_list.argl">argl</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEfunction_call"><span class="keyword">type</span> <code class="type"></code>function_call</span> = {</code></pre><table class="typetable">
+<pre id="typefunction"><a class="paragraph-url" href="#typefunction"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEfunction_call"><span class="keyword">type</span> function_call</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTfunction_call.func_loc">func_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTfunction_call.func_loc">func_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTfunction_call.func_iri">func_iri</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTfunction_call.func_iri">func_iri</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTfunction_call.func_args">func_args</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEarg_list">arg_list</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTfunction_call.func_args">func_args</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEarg_list">arg_list</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEbinary_op"><span class="keyword">type</span> <code class="type"></code>binary_op</span> = </code></pre><table class="typetable">
+<pre id="typebinary_o"><a class="paragraph-url" href="#typebinary_o"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEbinary_op"><span class="keyword">type</span> binary_op</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EPlus"><span class="constructor">EPlus</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EMinus"><span class="constructor">EMinus</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EMult"><span class="constructor">EMult</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EDiv"><span class="constructor">EDiv</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EEqual"><span class="constructor">EEqual</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.ENotEqual"><span class="constructor">ENotEqual</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.ELt"><span class="constructor">ELt</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EGt"><span class="constructor">EGt</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.ELte"><span class="constructor">ELte</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EGte"><span class="constructor">EGte</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EOr"><span class="constructor">EOr</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbinary_op.EAnd"><span class="constructor">EAnd</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEexpr"><span class="keyword">type</span> <code class="type"></code>expr</span> = </code></pre><table class="typetable">
+<pre id="typeexpr____"><a class="paragraph-url" href="#typeexpr____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEexpr"><span class="keyword">type</span> expr</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EVar"><span class="constructor">EVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EIri"><span class="constructor">EIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTexpr.EBin"><span class="constructor">EBin</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> * <a href="Rdf_sparql_types.html#TYPEbinary_op">binary_op</a><br>        * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTexpr.EBin"><span class="constructor">EBin</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> * <a href="Rdf_sparql_types.html#TYPEbinary_op">binary_op</a><br/>        * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.ENot"><span class="constructor">ENot</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EUMinus"><span class="constructor">EUMinus</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EBic"><span class="constructor">EBic</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbuilt_in_call">built_in_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EFuncall"><span class="constructor">EFuncall</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEfunction_call">function_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.ELit"><span class="constructor">ELit</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.ENumeric"><span class="constructor">ENumeric</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EBoolean"><span class="constructor">EBoolean</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.EIn"><span class="constructor">EIn</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTexpr.ENotIn"><span class="constructor">ENotIn</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a> list</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEexpression"><span class="keyword">type</span> <code class="type"></code>expression</span> = {</code></pre><table class="typetable">
+<pre id="typeexpressi"><a class="paragraph-url" href="#typeexpressi"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEexpression"><span class="keyword">type</span> expression</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTexpression.expr_loc">expr_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTexpression.expr_loc">expr_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTexpression.expr">expr</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEexpr">expr</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTexpression.expr">expr</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEexpr">expr</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEbuilt_in_call"><span class="keyword">type</span> <code class="type"></code>built_in_call</span> = </code></pre><table class="typetable">
+<pre id="typebuilt_in"><a class="paragraph-url" href="#typebuilt_in"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEbuilt_in_call"><span class="keyword">type</span> built_in_call</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbuilt_in_call.Bic_agg"><span class="constructor">Bic_agg</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEaggregate">aggregate</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbuilt_in_call.Bic_fun"><span class="constructor">Bic_fun</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbuilt_in_call.Bic_BOUND"><span class="constructor">Bic_BOUND</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbuilt_in_call.Bic_EXISTS"><span class="constructor">Bic_EXISTS</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTbuilt_in_call.Bic_NOTEXISTS"><span class="constructor">Bic_NOTEXISTS</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEaggregate"><span class="keyword">type</span> <code class="type"></code>aggregate</span> = </code></pre><table class="typetable">
+<pre id="typeaggregat"><a class="paragraph-url" href="#typeaggregat"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEaggregate"><span class="keyword">type</span> aggregate</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_COUNT"><span class="constructor">Bic_COUNT</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a> option</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >'*' or expression</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">'*' or expression</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_SUM"><span class="constructor">Bic_SUM</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_MIN"><span class="constructor">Bic_MIN</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_MAX"><span class="constructor">Bic_MAX</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_AVG"><span class="constructor">Bic_AVG</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_SAMPLE"><span class="constructor">Bic_SAMPLE</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTaggregate.Bic_GROUP_CONCAT"><span class="constructor">Bic_GROUP_CONCAT</span></span> <span class="keyword">of</span> <code class="type">bool * <a href="Rdf_sparql_types.html#TYPEexpression">expression</a> * string option</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEgroup_var"><span class="keyword">type</span> <code class="type"></code>group_var</span> = {</code></pre><table class="typetable">
+<pre id="typegroup_va"><a class="paragraph-url" href="#typegroup_va"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgroup_var"><span class="keyword">type</span> group_var</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgroup_var.grpvar_loc">grpvar_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgroup_var.grpvar_loc">grpvar_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgroup_var.grpvar_expr">grpvar_expr</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgroup_var.grpvar_expr">grpvar_expr</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a> option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgroup_var.grpvar">grpvar</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgroup_var.grpvar">grpvar</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEgroup_condition"><span class="keyword">type</span> <code class="type"></code>group_condition</span> = </code></pre><table class="typetable">
+<pre id="typegroup_co"><a class="paragraph-url" href="#typegroup_co"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgroup_condition"><span class="keyword">type</span> group_condition</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgroup_condition.GroupBuiltInCall"><span class="constructor">GroupBuiltInCall</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbuilt_in_call">built_in_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgroup_condition.GroupFunctionCall"><span class="constructor">GroupFunctionCall</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEfunction_call">function_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgroup_condition.GroupVar"><span class="constructor">GroupVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_var">group_var</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEconstraint_"><span class="keyword">type</span> <code class="type"></code>constraint_</span> = </code></pre><table class="typetable">
+<pre id="typeconstrai"><a class="paragraph-url" href="#typeconstrai"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEconstraint_"><span class="keyword">type</span> constraint_</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTconstraint_.ConstrBuiltInCall"><span class="constructor">ConstrBuiltInCall</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbuilt_in_call">built_in_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTconstraint_.ConstrFunctionCall"><span class="constructor">ConstrFunctionCall</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEfunction_call">function_call</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTconstraint_.ConstrExpr"><span class="constructor">ConstrExpr</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEhaving_condition"><span class="keyword">type</span> <code class="type"></code>having_condition</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code> </pre>
+<pre id="typehaving_c"><a class="paragraph-url" href="#typehaving_c"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEhaving_condition"><span class="keyword">type</span> having_condition</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code> </pre>
 
-<pre><code><span id="TYPEorder_condition"><span class="keyword">type</span> <code class="type"></code>order_condition</span> = </code></pre><table class="typetable">
+<pre id="typeorder_co"><a class="paragraph-url" href="#typeorder_co"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEorder_condition"><span class="keyword">type</span> order_condition</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTorder_condition.OrderAsc"><span class="constructor">OrderAsc</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTorder_condition.OrderDesc"><span class="constructor">OrderDesc</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTorder_condition.OrderConstr"><span class="constructor">OrderConstr</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTorder_condition.OrderVar"><span class="constructor">OrderVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPElimit_offset_clause"><span class="keyword">type</span> <code class="type"></code>limit_offset_clause</span> = {</code></pre><table class="typetable">
+<pre id="typelimit_of"><a class="paragraph-url" href="#typelimit_of"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPElimit_offset_clause"><span class="keyword">type</span> limit_offset_clause</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTlimit_offset_clause.limoff_loc">limoff_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTlimit_offset_clause.limoff_loc">limoff_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTlimit_offset_clause.limoff_offset">limoff_offset</span>&nbsp;:<code class="type">int option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTlimit_offset_clause.limoff_offset">limoff_offset</span> :<code class="type">int option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTlimit_offset_clause.limoff_limit">limoff_limit</span>&nbsp;:<code class="type">int option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTlimit_offset_clause.limoff_limit">limoff_limit</span> :<code class="type">int option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEsolution_modifier"><span class="keyword">type</span> <code class="type"></code>solution_modifier</span> = {</code></pre><table class="typetable">
+<pre id="typesolution"><a class="paragraph-url" href="#typesolution"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEsolution_modifier"><span class="keyword">type</span> solution_modifier</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsolution_modifier.solmod_loc">solmod_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsolution_modifier.solmod_loc">solmod_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsolution_modifier.solmod_group">solmod_group</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_condition">group_condition</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsolution_modifier.solmod_group">solmod_group</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_condition">group_condition</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsolution_modifier.solmod_having">solmod_having</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEhaving_condition">having_condition</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsolution_modifier.solmod_having">solmod_having</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEhaving_condition">having_condition</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsolution_modifier.solmod_order">solmod_order</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEorder_condition">order_condition</a> list option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsolution_modifier.solmod_order">solmod_order</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEorder_condition">order_condition</a> list option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsolution_modifier.solmod_limoff">solmod_limoff</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPElimit_offset_clause">limit_offset_clause</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsolution_modifier.solmod_limoff">solmod_limoff</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPElimit_offset_clause">limit_offset_clause</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEbind"><span class="keyword">type</span> <code class="type"></code>bind</span> = {</code></pre><table class="typetable">
+<pre id="typebind____"><a class="paragraph-url" href="#typebind____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEbind"><span class="keyword">type</span> bind</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTbind.bind_loc">bind_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTbind.bind_loc">bind_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTbind.bind_expr">bind_expr</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTbind.bind_expr">bind_expr</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEexpression">expression</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTbind.bind_var">bind_var</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTbind.bind_var">bind_var</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEservice_graph_pattern"><span class="keyword">type</span> <code class="type"></code>service_graph_pattern</span> = {</code></pre><table class="typetable">
+<pre id="typeservice_"><a class="paragraph-url" href="#typeservice_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEservice_graph_pattern"><span class="keyword">type</span> service_graph_pattern</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTservice_graph_pattern.servgp_loc">servgp_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTservice_graph_pattern.servgp_loc">servgp_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTservice_graph_pattern.servgp_silent">servgp_silent</span>&nbsp;:<code class="type">bool</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTservice_graph_pattern.servgp_silent">servgp_silent</span> :<code class="type">bool</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTservice_graph_pattern.servgp_name">servgp_name</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTservice_graph_pattern.servgp_name">servgp_name</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTservice_graph_pattern.servgp_pat">servgp_pat</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTservice_graph_pattern.servgp_pat">servgp_pat</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEgraph_graph_pattern"><span class="keyword">type</span> <code class="type"></code>graph_graph_pattern</span> = {</code></pre><table class="typetable">
+<pre id="typegraph_gr"><a class="paragraph-url" href="#typegraph_gr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgraph_graph_pattern"><span class="keyword">type</span> graph_graph_pattern</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgraph_graph_pattern.graphgp_loc">graphgp_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgraph_graph_pattern.graphgp_loc">graphgp_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgraph_graph_pattern.graphgp_name">graphgp_name</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgraph_graph_pattern.graphgp_name">graphgp_name</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgraph_graph_pattern.graphgp_pat">graphgp_pat</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgraph_graph_pattern.graphgp_pat">graphgp_pat</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEgraph_pattern_elt"><span class="keyword">type</span> <code class="type"></code>graph_pattern_elt</span> = </code></pre><table class="typetable">
+<pre id="typegraph_pa"><a class="paragraph-url" href="#typegraph_pa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgraph_pattern_elt"><span class="keyword">type</span> graph_pattern_elt</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Triples"><span class="constructor">Triples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_block">triples_block</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Union"><span class="constructor">Union</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Optional"><span class="constructor">Optional</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Minus"><span class="constructor">Minus</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.GGP"><span class="constructor">GGP</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_graph_pattern">graph_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Service"><span class="constructor">Service</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEservice_graph_pattern">service_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Filter"><span class="constructor">Filter</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.Bind"><span class="constructor">Bind</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbind">bind</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_pattern_elt.InlineData"><span class="constructor">InlineData</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEdatablock">datablock</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEgraph_term"><span class="keyword">type</span> <code class="type"></code>graph_term</span> = </code></pre><table class="typetable">
+<pre id="typegraph_te"><a class="paragraph-url" href="#typegraph_te"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgraph_term"><span class="keyword">type</span> graph_term</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermIri"><span class="constructor">GraphTermIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermLit"><span class="constructor">GraphTermLit</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermNumeric"><span class="constructor">GraphTermNumeric</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermBoolean"><span class="constructor">GraphTermBoolean</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErdf_literal">rdf_literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermBlank"><span class="constructor">GraphTermBlank</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEblank_node">blank_node</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_term.GraphTermNil"><span class="constructor">GraphTermNil</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTgraph_term.GraphTermNode"><span class="constructor">GraphTermNode</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >not parsed, but used in evaluation of paths</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTgraph_term.GraphTermNode"><span class="constructor">GraphTermNode</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">not parsed, but used in evaluation of paths</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr></table>
 
 
-<pre><code><span id="TYPEvar_or_term"><span class="keyword">type</span> <code class="type"></code>var_or_term</span> = </code></pre><table class="typetable">
+<pre id="typevar_or_t"><a class="paragraph-url" href="#typevar_or_t"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEvar_or_term"><span class="keyword">type</span> var_or_term</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvar_or_term.Var"><span class="constructor">Var</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvar_or_term.GraphTerm"><span class="constructor">GraphTerm</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_term">graph_term</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEpath_one_in_prop_set"><span class="keyword">type</span> <code class="type"></code>path_one_in_prop_set</span> = </code></pre><table class="typetable">
+<pre id="typepath_one"><a class="paragraph-url" href="#typepath_one"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpath_one_in_prop_set"><span class="keyword">type</span> path_one_in_prop_set</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_one_in_prop_set.PathOneInIri"><span class="constructor">PathOneInIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_one_in_prop_set.PathOneInA"><span class="constructor">PathOneInA</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_one_in_prop_set.PathOneInNotIri"><span class="constructor">PathOneInNotIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_one_in_prop_set.PathOneInNotA"><span class="constructor">PathOneInNotA</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEpath_primary"><span class="keyword">type</span> <code class="type"></code>path_primary</span> = </code></pre><table class="typetable">
+<pre id="typepath_pri"><a class="paragraph-url" href="#typepath_pri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpath_primary"><span class="keyword">type</span> path_primary</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_primary.PathIri"><span class="constructor">PathIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_primary.PathA"><span class="constructor">PathA</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_primary.PathNegPropSet"><span class="constructor">PathNegPropSet</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_one_in_prop_set">path_one_in_prop_set</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_primary.Path"><span class="constructor">Path</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath">path</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEpath_elt"><span class="keyword">type</span> <code class="type"></code>path_elt</span> = {</code></pre><table class="typetable">
+<pre id="typepath_elt"><a class="paragraph-url" href="#typepath_elt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpath_elt"><span class="keyword">type</span> path_elt</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_loc">pelt_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpath_elt.pelt_loc">pelt_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_primary">pelt_primary</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEpath_primary">path_primary</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpath_elt.pelt_primary">pelt_primary</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEpath_primary">path_primary</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_mod">pelt_mod</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEpath_mod">path_mod</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTpath_elt.pelt_mod">pelt_mod</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEpath_mod">path_mod</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEpath_elt_or_inverse"><span class="keyword">type</span> <code class="type"></code>path_elt_or_inverse</span> = </code></pre><table class="typetable">
+<pre id="typepath_elt_"><a class="paragraph-url" href="#typepath_elt_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpath_elt_or_inverse"><span class="keyword">type</span> path_elt_or_inverse</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_elt_or_inverse.Elt"><span class="constructor">Elt</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt">path_elt</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTpath_elt_or_inverse.Inv"><span class="constructor">Inv</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt">path_elt</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEpath_sequence"><span class="keyword">type</span> <code class="type"></code>path_sequence</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">path_elt_or_inverse</a> list</code> </pre>
+<pre id="typepath_seq"><a class="paragraph-url" href="#typepath_seq"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEpath_sequence"><span class="keyword">type</span> path_sequence</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">path_elt_or_inverse</a> list</code> </pre>
 
-<pre><span id="TYPEpath"><span class="keyword">type</span> <code class="type"></code>path</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_sequence">path_sequence</a> list</code> </pre>
+<pre id="typepathpath"><a class="paragraph-url" href="#typepathpath"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEpath"><span class="keyword">type</span> path</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_sequence">path_sequence</a> list</code> </pre>
 
-<pre><code><span id="TYPEverb"><span class="keyword">type</span> <code class="type"></code>verb</span> = </code></pre><table class="typetable">
+<pre id="typeverb____"><a class="paragraph-url" href="#typeverb____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEverb"><span class="keyword">type</span> verb</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTverb.VerbPath"><span class="constructor">VerbPath</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath">path</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTverb.VerbVar"><span class="constructor">VerbVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">var</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTverb.VerbIri"><span class="constructor">VerbIri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTverb.VerbA"><span class="constructor">VerbA</span></span></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEtriples_node"><span class="keyword">type</span> <code class="type"></code>triples_node</span> = </code></pre><table class="typetable">
+<pre id="typetriples_"><a class="paragraph-url" href="#typetriples_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEtriples_node"><span class="keyword">type</span> triples_node</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTtriples_node.TNodeCollection"><span class="constructor">TNodeCollection</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_node">graph_node</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTtriples_node.TNodeBlank"><span class="constructor">TNodeBlank</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEprop_object_list">prop_object_list</a> list</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEgraph_node"><span class="keyword">type</span> <code class="type"></code>graph_node</span> = </code></pre><table class="typetable">
+<pre id="typegraph_no"><a class="paragraph-url" href="#typegraph_no"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgraph_node"><span class="keyword">type</span> graph_node</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_node.GraphNodeVT"><span class="constructor">GraphNodeVT</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_term">var_or_term</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgraph_node.GraphNodeTriples"><span class="constructor">GraphNodeTriples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_node">triples_node</a></code></code></td>
 
 </tr></table>
 
 
-<pre><span id="TYPEobject_"><span class="keyword">type</span> <code class="type"></code>object_</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_node">graph_node</a></code> </pre>
+<pre id="typeobject_g"><a class="paragraph-url" href="#typeobject_g"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEobject_"><span class="keyword">type</span> object_</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_node">graph_node</a></code> </pre>
 
-<pre><code><span id="TYPEprop_object_list"><span class="keyword">type</span> <code class="type"></code>prop_object_list</span> = {</code></pre><table class="typetable">
+<pre id="typeprop_obj"><a class="paragraph-url" href="#typeprop_obj"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEprop_object_list"><span class="keyword">type</span> prop_object_list</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprop_object_list.propol_loc">propol_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprop_object_list.propol_verb">propol_verb</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEverb">verb</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprop_object_list.propol_loc">propol_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTprop_object_list.propol_objects">propol_objects</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEobject_">object_</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprop_object_list.propol_verb">propol_verb</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEverb">verb</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTprop_object_list.propol_objects">propol_objects</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEobject_">object_</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEtriples_block"><span class="keyword">type</span> <code class="type"></code>triples_block</span> = {</code></pre><table class="typetable">
+<pre id="typetriples_b"><a class="paragraph-url" href="#typetriples_b"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEtriples_block"><span class="keyword">type</span> triples_block</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtriples_block.triples_loc">triples_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTtriples_block.triples_loc">triples_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtriples_block.triples">triples</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_same_subject">triples_same_subject</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTtriples_block.triples">triples</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_same_subject">triples_same_subject</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEtriples_same_subject"><span class="keyword">type</span> <code class="type"></code>triples_same_subject</span> = </code></pre><table class="typetable">
+<pre id="typetriples_s"><a class="paragraph-url" href="#typetriples_s"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEtriples_same_subject"><span class="keyword">type</span> triples_same_subject</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTtriples_same_subject.TriplesVar"><span class="constructor">TriplesVar</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_term">var_or_term</a> * <a href="Rdf_sparql_types.html#TYPEprop_object_list">prop_object_list</a> list</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTtriples_same_subject.TriplesNode"><span class="constructor">TriplesNode</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_node">triples_node</a> * <a href="Rdf_sparql_types.html#TYPEprop_object_list">prop_object_list</a> list</code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEggp_sub"><span class="keyword">type</span> <code class="type"></code>ggp_sub</span> = {</code></pre><table class="typetable">
+<pre id="typeggp_sub_"><a class="paragraph-url" href="#typeggp_sub_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEggp_sub"><span class="keyword">type</span> ggp_sub</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTggp_sub.ggp_sub_loc">ggp_sub_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTggp_sub.ggp_sub_loc">ggp_sub_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTggp_sub.ggp_sub_elts">ggp_sub_elts</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_pattern_elt">graph_pattern_elt</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTggp_sub.ggp_sub_elts">ggp_sub_elts</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_pattern_elt">graph_pattern_elt</a> list</code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEgroup_graph_pattern"><span class="keyword">type</span> <code class="type"></code>group_graph_pattern</span> = </code></pre><table class="typetable">
+<pre id="typegroup_gr"><a class="paragraph-url" href="#typegroup_gr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgroup_graph_pattern"><span class="keyword">type</span> group_graph_pattern</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgroup_graph_pattern.SubSelect"><span class="constructor">SubSelect</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEsub_select">sub_select</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTgroup_graph_pattern.GGPSub"><span class="constructor">GGPSub</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEggp_sub">ggp_sub</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEsub_select"><span class="keyword">type</span> <code class="type"></code>sub_select</span> = {</code></pre><table class="typetable">
+<pre id="typesub_sele"><a class="paragraph-url" href="#typesub_sele"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEsub_select"><span class="keyword">type</span> sub_select</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsub_select.subsel_loc">subsel_loc</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsub_select.subsel_loc">subsel_loc</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsub_select.subsel_select">subsel_select</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause">select_clause</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsub_select.subsel_select">subsel_select</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause">select_clause</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsub_select.subsel_where">subsel_where</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsub_select.subsel_where">subsel_where</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsub_select.subsel_modifier">subsel_modifier</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsub_select.subsel_modifier">subsel_modifier</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTsub_select.subsel_values">subsel_values</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvalues_clause">values_clause</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTsub_select.subsel_values">subsel_values</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvalues_clause">values_clause</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEselect_query"><span class="keyword">type</span> <code class="type"></code>select_query</span> = {</code></pre><table class="typetable">
+<pre id="typeselect_q"><a class="paragraph-url" href="#typeselect_q"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEselect_query"><span class="keyword">type</span> select_query</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_query.select_select">select_select</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause">select_clause</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_query.select_select">select_select</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEselect_clause">select_clause</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_query.select_dataset">select_dataset</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_query.select_dataset">select_dataset</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_query.select_where">select_where</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_query.select_where">select_where</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTselect_query.select_modifier">select_modifier</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTselect_query.select_modifier">select_modifier</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><span id="TYPEtriples_template"><span class="keyword">type</span> <code class="type"></code>triples_template</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_same_subject">triples_same_subject</a> list</code> </pre>
+<pre id="typetriples_t"><a class="paragraph-url" href="#typetriples_t"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEtriples_template"><span class="keyword">type</span> triples_template</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_same_subject">triples_same_subject</a> list</code> </pre>
 
-<pre><span id="TYPEconstruct_template"><span class="keyword">type</span> <code class="type"></code>construct_template</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_template">triples_template</a></code> </pre>
+<pre id="typeconstruc"><a class="paragraph-url" href="#typeconstruc"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEconstruct_template"><span class="keyword">type</span> construct_template</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_template">triples_template</a></code> </pre>
 
-<pre><code><span id="TYPEconstruct_where"><span class="keyword">type</span> <code class="type"></code>construct_where</span> = </code></pre><table class="typetable">
+<pre id="typeconstruct"><a class="paragraph-url" href="#typeconstruct"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEconstruct_where"><span class="keyword">type</span> construct_where</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTconstruct_where.Constr_ggp"><span class="constructor">Constr_ggp</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTconstruct_where.Constr_template"><span class="constructor">Constr_template</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_template">triples_template</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEconstruct_query"><span class="keyword">type</span> <code class="type"></code>construct_query</span> = {</code></pre><table class="typetable">
+<pre id="typeconstruct_"><a class="paragraph-url" href="#typeconstruct_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEconstruct_query"><span class="keyword">type</span> construct_query</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTconstruct_query.constr_template">constr_template</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEconstruct_template">construct_template</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTconstruct_query.constr_template">constr_template</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEconstruct_template">construct_template</a> option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTconstruct_query.constr_dataset">constr_dataset</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTconstruct_query.constr_dataset">constr_dataset</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTconstruct_query.constr_where">constr_where</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEconstruct_where">construct_where</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTconstruct_query.constr_where">constr_where</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEconstruct_where">construct_where</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTconstruct_query.constr_modifier">constr_modifier</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTconstruct_query.constr_modifier">constr_modifier</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEdescribe_query"><span class="keyword">type</span> <code class="type"></code>describe_query</span> = {</code></pre><table class="typetable">
+<pre id="typedescribe"><a class="paragraph-url" href="#typedescribe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdescribe_query"><span class="keyword">type</span> describe_query</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTdescribe_query.desc_sel">desc_sel</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a> list</code>;</code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >empty list means "STAR"</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTdescribe_query.desc_sel">desc_sel</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvar_or_iri">var_or_iri</a> list</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">empty list means &quot;STAR&quot;</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTdescribe_query.desc_dataset">desc_dataset</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTdescribe_query.desc_dataset">desc_dataset</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTdescribe_query.desc_where">desc_where</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTdescribe_query.desc_where">desc_where</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a> option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTdescribe_query.desc_modifier">desc_modifier</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTdescribe_query.desc_modifier">desc_modifier</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEask_query"><span class="keyword">type</span> <code class="type"></code>ask_query</span> = {</code></pre><table class="typetable">
+<pre id="typeask_quer"><a class="paragraph-url" href="#typeask_quer"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEask_query"><span class="keyword">type</span> ask_query</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTask_query.ask_dataset">ask_dataset</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTask_query.ask_dataset">ask_dataset</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEdataset_clause">dataset_clause</a> list</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTask_query.ask_where">ask_where</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTask_query.ask_where">ask_where</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTask_query.ask_modifier">ask_modifier</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTask_query.ask_modifier">ask_modifier</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEsolution_modifier">solution_modifier</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><code><span id="TYPEquery_kind"><span class="keyword">type</span> <code class="type"></code>query_kind</span> = </code></pre><table class="typetable">
+<pre id="typequery_ki"><a class="paragraph-url" href="#typequery_ki"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEquery_kind"><span class="keyword">type</span> query_kind</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_kind.Select"><span class="constructor">Select</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEselect_query">select_query</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_kind.Construct"><span class="constructor">Construct</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEconstruct_query">construct_query</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_kind.Describe"><span class="constructor">Describe</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEdescribe_query">describe_query</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTquery_kind.Ask"><span class="constructor">Ask</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEask_query">ask_query</a></code></code></td>
 
 </tr></table>
 
 
-<pre><code><span id="TYPEquery"><span class="keyword">type</span> <code class="type"></code>query</span> = {</code></pre><table class="typetable">
+<pre id="typequery___"><a class="paragraph-url" href="#typequery___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEquery"><span class="keyword">type</span> query</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTquery.q_prolog">q_prolog</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEquery_prolog">query_prolog</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTquery.q_prolog">q_prolog</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEquery_prolog">query_prolog</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTquery.q_kind">q_kind</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEquery_kind">query_kind</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTquery.q_kind">q_kind</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEquery_kind">query_kind</a></code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTquery.q_values">q_values</span>&nbsp;:<code class="type"><a href="Rdf_sparql_types.html#TYPEvalues_clause">values_clause</a></code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTquery.q_values">q_values</span> :<code class="type"><a href="Rdf_sparql_types.html#TYPEvalues_clause">values_clause</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre><span class="keyword">module</span> <a href="Rdf_sparql_types.VarSet.html">VarSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="code">sig</code><div class="sig_block"><pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a></code> </pre>
+<pre id="moduleVarSet"><a class="paragraph-url" href="#moduleVarSet"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_sparql_types.VarSet.html">VarSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="code">sig</code><div class="sig_block"><pre id="typetRdf_spa"><a class="paragraph-url" href="#typetRdf_spa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEt"><span class="keyword">type</span> t</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a></code> </pre>
 
-<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -> <a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -> int</code></pre></div><code class="code">end</code><code class="code">)</code></pre></body></html>
+<pre id="valcompareRd"><a class="paragraph-url" href="#valcompareRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -&gt; <a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -&gt; int</code></pre></div><code class="code">end</code><code class="code">)</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

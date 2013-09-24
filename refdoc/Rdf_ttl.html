@@ -1,73 +1,80 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link rel="previous" href="Rdf_to_ttl.html">
-<link rel="next" href="Rdf_ttl_types.html">
-<link rel="Up" href="index.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_ttl</title>
-</head>
-<body>
-<div class="navbar"><a class="pre" href="Rdf_to_ttl.html" title="Rdf_to_ttl">Previous</a>
-&nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Rdf_ttl_types.html" title="Rdf_ttl_types">Next</a>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_ttl</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_term.html" title="Rdf_term">Previous</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_ttl_types.html" title="Rdf_ttl_types">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_ttl.html">Rdf_ttl</a></h1>
-<pre><span class="keyword">module</span> Rdf_ttl: <code class="code">sig</code> <a href="Rdf_ttl.html">..</a> <code class="code">end</code></pre><div class="info">
-Reading and writing Turtle.<br>
+<pre id="moduleRdf_tt"><a class="paragraph-url" href="#moduleRdf_tt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_ttl: <code class="code">sig</code> <a href="Rdf_ttl.html">..</a> <code class="code">end</code></pre><div class="info">
+Reading and writing Turtle.<br/>
 </div>
-<hr width="100%">
-<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<hr width="100%"/>
+<pre id="typeerror___"><a class="paragraph-url" href="#typeerror___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEerror"><span class="keyword">type</span> error</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Parse_error"><span class="constructor">Parse_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_loc.html#TYPEloc">Rdf_loc.loc</a> * string</code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Unknown_namespace"><span class="constructor">Unknown_namespace</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr></table>
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a></code></pre>
-<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a> -> string</code></pre><pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -> base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> string -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -> base:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> string -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><pre><span id="VALstring_of_triple"><span class="keyword">val</span> string_of_triple</span> : <code class="type">sub:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> pred:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> obj:<a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> string</code></pre><pre><span id="VALto_"><span class="keyword">val</span> to_</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -><br>       (string -> unit) -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -> unit</code></pre><pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -> string</code></pre><pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> * string) list -> <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -> string -> unit</code></pre></body></html>
+<pre id="exceptionErr"><a class="paragraph-url" href="#exceptionErr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a></code></pre>
+<pre id="valstring_of"><a class="paragraph-url" href="#valstring_of"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a> -&gt; string</code></pre><pre id="valfrom_stri"><a class="paragraph-url" href="#valfrom_stri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info">
+Input graph from string. Default base is the graph name.<br/>
+</div>
+<pre id="valfrom_file"><a class="paragraph-url" href="#valfrom_file"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info">
+Same as <a href="Rdf_ttl.html#VALfrom_string"><code class="code">Rdf_ttl.from_string</code></a> but read from the given file.<br/>
+</div>
+<pre id="valstring_of_"><a class="paragraph-url" href="#valstring_of_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_triple"><span class="keyword">val</span> string_of_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string</code></pre><pre id="valto_namesp"><a class="paragraph-url" href="#valto_namesp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_"><span class="keyword">val</span> to_</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       (string -&gt; unit) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre><pre id="valto_string"><a class="paragraph-url" href="#valto_string"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><pre id="valto_filena"><a class="paragraph-url" href="#valto_filena"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

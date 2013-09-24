@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_graph.Graph.BGP</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"> <a class="up" href="Rdf_graph.Graph.html" title="Rdf_graph.Graph">Up</a>
+ </div>
+<h1>Module <a href="type_Rdf_graph.Graph.BGP.html">Rdf_graph.Graph.BGP</a></h1>
+<pre id="moduleBGPRdf"><a class="paragraph-url" href="#moduleBGPRdf"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> BGP: <code class="type"><a href="Rdf_graph.Storage_BGP.html">Rdf_graph.Storage_BGP</a></code><code class="type">  with type g = g</code></pre><hr width="100%"/>
+<pre id="typeg_______"><a class="paragraph-url" href="#typeg_______"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEg"><span class="keyword">type</span> g</span> </pre>
+
+<pre id="typeterm____"><a class="paragraph-url" href="#typeterm____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEterm"><span class="keyword">type</span> term</span> </pre>
+
+<pre id="valtermgRdf_"><a class="paragraph-url" href="#valtermgRdf_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a></code></pre><pre id="valcomparegt"><a class="paragraph-url" href="#valcomparegt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt;<br/>       <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; int</code></pre><pre id="valrdftermgt"><a class="paragraph-url" href="#valrdftermgt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><pre id="valsubjectsg"><a class="paragraph-url" href="#valsubjectsg"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> list</code></pre><pre id="valobjectsgt"><a class="paragraph-url" href="#valobjectsgt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt; <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> list</code></pre><pre id="valfindsubte"><a class="paragraph-url" href="#valfindsubte"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       ?pred:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       ?obj:<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> -&gt;<br/>       <a href="Rdf_graph.Storage_BGP.html#TYPEg">g</a> -&gt;<br/>       (<a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> * <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a> *<br/>        <a href="Rdf_graph.Storage_BGP.html#TYPEterm">term</a>)<br/>       list</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

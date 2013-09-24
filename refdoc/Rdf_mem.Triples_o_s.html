@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_mem.Triples_o_s</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_mem.Triples_p_o.html" title="Rdf_mem.Triples_p_o">Previous</a>
+ <a class="up" href="Rdf_mem.html" title="Rdf_mem">Up</a>
+ <a class="post" href="Rdf_mem.Mem_BGP.html" title="Rdf_mem.Mem_BGP">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_mem.Triples_o_s.html">Rdf_mem.Triples_o_s</a></h1>
+<pre id="moduleTriple"><a class="paragraph-url" href="#moduleTriple"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Triples_o_s: <code class="type"><a href="Rdf_mem.Triples.html">Triples</a></code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_iri.Iriset.html">Rdf_iri.Iriset</a></code><code class="code">)</code></pre><hr width="100%"/>
+<pre id="moduleSetSet"><a class="paragraph-url" href="#moduleSetSet"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples.Set.html">Set</a>: <code class="type">Set</code></pre><pre id="moduleMapMap"><a class="paragraph-url" href="#moduleMapMap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples.Map.html">Map</a>: <code class="type">Map1</code></pre><pre id="typetSettMap"><a class="paragraph-url" href="#typetSettMap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEt"><span class="keyword">type</span> t</span> = <code class="type">Set.t Map2.t Map1.t</code> </pre>
+
+<pre id="valemptyaMap"><a class="paragraph-url" href="#valemptyaMap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALempty"><span class="keyword">val</span> empty</span> : <code class="type">'a Map1.t</code></pre><pre id="valaddSettMa"><a class="paragraph-url" href="#valaddSettMa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt;<br/>       Map2.key -&gt; Set.elt -&gt; Set.t Map2.t Map1.t</code></pre><pre id="valremSettMa"><a class="paragraph-url" href="#valremSettMa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrem"><span class="keyword">val</span> rem</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt;<br/>       Map2.key -&gt; Set.elt -&gt; Set.t Map2.t Map1.t</code></pre><pre id="valfindSettM"><a class="paragraph-url" href="#valfindSettM"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt; Map2.key -&gt; Set.t</code></pre><pre id="valfind_list"><a class="paragraph-url" href="#valfind_list"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfind_list"><span class="keyword">val</span> find_list</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt; Map2.key -&gt; Set.elt list</code></pre><pre id="valfind2_lis"><a class="paragraph-url" href="#valfind2_lis"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfind2_list"><span class="keyword">val</span> find2_list</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt; Set.elt -&gt; Map2.key list</code></pre><pre id="valtriples_y"><a class="paragraph-url" href="#valtriples_y"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALtriples_y"><span class="keyword">val</span> triples_y</span> : <code class="type">'a -&gt;<br/>       'b -&gt;<br/>       Set.t -&gt;<br/>       ('a * 'b * Set.elt) list -&gt;<br/>       ('a * 'b * Set.elt) list</code></pre><pre id="valtriples_x"><a class="paragraph-url" href="#valtriples_x"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALtriples_x"><span class="keyword">val</span> triples_x</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       Map1.key -&gt;<br/>       (Map1.key * Map2.key * Set.elt) list -&gt;<br/>       (Map1.key * Map2.key * Set.elt) list</code></pre><pre id="valtriplesSe"><a class="paragraph-url" href="#valtriplesSe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALtriples"><span class="keyword">val</span> triples</span> : <code class="type">Set.t Map2.t Map1.t -&gt;<br/>       (Map1.key * Map2.key * Set.elt) list</code></pre><pre id="valx_listSet"><a class="paragraph-url" href="#valx_listSet"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALx_list"><span class="keyword">val</span> x_list</span> : <code class="type">Set.t Map2.t Map1.t -&gt; Map1.key list</code></pre><pre id="valcardinalS"><a class="paragraph-url" href="#valcardinalS"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcardinal"><span class="keyword">val</span> cardinal</span> : <code class="type">Set.t Map2.t Map1.t -&gt; int</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

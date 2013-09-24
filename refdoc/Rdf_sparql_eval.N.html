@@ -1,188 +1,190 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link rel="next" href="Rdf_sparql_eval.Irimap.html">
-<link rel="Up" href="Rdf_sparql_eval.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_sparql_eval.N</title>
-</head>
-<body>
-<div class="navbar">&nbsp;<a class="up" href="Rdf_sparql_eval.html" title="Rdf_sparql_eval">Up</a>
-&nbsp;<a class="post" href="Rdf_sparql_eval.Irimap.html" title="Rdf_sparql_eval.Irimap">Next</a>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_eval.N</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"> <a class="up" href="Rdf_sparql_eval.html" title="Rdf_sparql_eval">Up</a>
+ <a class="post" href="Rdf_sparql_eval.Irimap.html" title="Rdf_sparql_eval.Irimap">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_sparql_eval.N.html">Rdf_sparql_eval.N</a></h1>
-<pre><span class="keyword">module</span> N: <code class="type">Rdf_node</code></pre><hr width="100%">
-<pre><code><span id="TYPEliteral"><span class="keyword">type</span> <code class="type"></code>literal</span> = {</code></pre><table class="typetable">
+<pre id="moduleNRdf_t"><a class="paragraph-url" href="#moduleNRdf_t"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> N: <code class="type">Rdf_term</code></pre><hr width="100%"/>
+<pre id="typeliteral_"><a class="paragraph-url" href="#typeliteral_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEliteral"><span class="keyword">type</span> literal</span> = {</code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTliteral.lit_value">lit_value</span>&nbsp;:<code class="type">string</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTliteral.lit_value">lit_value</span> :<code class="type">string</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTliteral.lit_language">lit_language</span>&nbsp;:<code class="type">string option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTliteral.lit_language">lit_language</span> :<code class="type">string option</code>;</code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
-<code>&nbsp;&nbsp;</code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTliteral.lit_type">lit_type</span>&nbsp;:<code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> option</code>;</code></td>
+<td align="left" valign="top">
+<code>  </code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTliteral.lit_type">lit_type</span> :<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 <div class="info">
-Literal nodes contain a value, a optional language and an optional data type URI.<br>
+Literal terms contain a value, an optional language and an optional data type IRI.<br/>
 </div>
 
-<pre><span id="TYPEblank_id"><span class="keyword">type</span> <code class="type"></code>blank_id</span> </pre>
+<pre id="typeblank_id"><a class="paragraph-url" href="#typeblank_id"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEblank_id"><span class="keyword">type</span> blank_id</span> </pre>
 <div class="info">
-Type for blank node ids.<br>
+Type for blank node ids.<br/>
 </div>
 
-<pre><code><span id="TYPEnode"><span class="keyword">type</span> <code class="type"></code>node</span> = </code></pre><table class="typetable">
+<pre id="typeterm____"><a class="paragraph-url" href="#typeterm____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEterm"><span class="keyword">type</span> term</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTnode.Uri"><span class="constructor">Uri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTterm.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTnode.Literal"><span class="constructor">Literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a></code></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTterm.Literal"><span class="constructor">Literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a></code></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTnode.Blank"><span class="constructor">Blank</span></span></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTterm.Blank"><span class="constructor">Blank</span></span></code></td>
 
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTnode.Blank_"><span class="constructor">Blank_</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_node.html#TYPEblank_id">blank_id</a></code></code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTterm.Blank_"><span class="constructor">Blank_</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_term.html#TYPEblank_id">blank_id</a></code></code></td>
 
 </tr></table>
 
 <div class="info">
-Various kinds of nodes.<br>
+Various kinds of terms.<br/>
 </div>
 
-<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_node.html#TYPEnode">node</a> -> <a href="Rdf_node.html#TYPEnode">node</a> -> int</code></pre><pre><span class="keyword">module</span> <a href="Rdf_node.Ord_type.html">Ord_type</a>: <code class="code">sig</code> <a href="Rdf_node.Ord_type.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_node.NSet.html">NSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = node</code></pre><pre><span id="TYPEtriple"><span class="keyword">type</span> <code class="type"></code>triple</span> = <code class="type"><a href="Rdf_node.html#TYPEnode">node</a> * <a href="Rdf_node.html#TYPEnode">node</a> * <a href="Rdf_node.html#TYPEnode">node</a></code> </pre>
+<pre id="valcomparete"><a class="paragraph-url" href="#valcomparete"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> -&gt; <a href="Rdf_term.html#TYPEterm">term</a> -&gt; int</code></pre><pre id="moduleOrdere"><a class="paragraph-url" href="#moduleOrdere"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_term.Ordered_term.html">Ordered_term</a>: <code class="code">sig</code> <a href="Rdf_term.Ordered_term.html">..</a> <code class="code">end</code></pre><pre id="moduleTSetSe"><a class="paragraph-url" href="#moduleTSetSe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_term.TSet.html">TSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = term</code></pre><pre id="moduleTMapMa"><a class="paragraph-url" href="#moduleTMapMa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_term.TMap.html">TMap</a>: <code class="type">Map.S</code><code class="type">  with type key = term</code></pre><pre id="typetriplete"><a class="paragraph-url" href="#typetriplete"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEtriple"><span class="keyword">type</span> triple</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">term</a></code> </pre>
 <div class="info">
-A RDF triple is just ... a triple of nodes.<br>
+A RDF triple is triple (term, iri, term).<br/>
 </div>
 
-<pre><span id="VALstring_of_blank_id"><span class="keyword">val</span> string_of_blank_id</span> : <code class="type"><a href="Rdf_node.html#TYPEblank_id">blank_id</a> -> string</code></pre><div class="info">
-Get a string from a blank node id.<br>
+<pre id="valstring_of"><a class="paragraph-url" href="#valstring_of"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_blank_id"><span class="keyword">val</span> string_of_blank_id</span> : <code class="type"><a href="Rdf_term.html#TYPEblank_id">blank_id</a> -&gt; string</code></pre><div class="info">
+Get a string from a blank term id.<br/>
 </div>
-<pre><span id="VALblank_id_of_string"><span class="keyword">val</span> blank_id_of_string</span> : <code class="type">string -> <a href="Rdf_node.html#TYPEblank_id">blank_id</a></code></pre><div class="info">
-Make a blank node id from a string.<br>
+<pre id="valblank_id_"><a class="paragraph-url" href="#valblank_id_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALblank_id_of_string"><span class="keyword">val</span> blank_id_of_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEblank_id">blank_id</a></code></pre><div class="info">
+Make a blank term id from a string.<br/>
 </div>
-<pre><span id="VALnode_of_uri_string"><span class="keyword">val</span> node_of_uri_string</span> : <code class="type">string -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Shortcut for <code class="code">Uri (Rdf_uri.uri string)</code>.<br>
+<pre id="valterm_of_i"><a class="paragraph-url" href="#valterm_of_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_iri_string"><span class="keyword">val</span> term_of_iri_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.<br/>
 </div>
-<pre><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> ?lang:string -> string -> <a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Creation of a literal.<br>
+<pre id="valmk_litera"><a class="paragraph-url" href="#valmk_litera"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Creation of a literal.<br/>
 </div>
-<pre><span id="VALmk_literal_datetime"><span class="keyword">val</span> mk_literal_datetime</span> : <code class="type">?d:float -> unit -> <a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create a datetime literal with type uri from the given datetime <code class="code">d</code>.
-  If no date is given, <code class="code">Unix.time()</code> is used.<br>
+<pre id="valmk_literal"><a class="paragraph-url" href="#valmk_literal"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmk_literal_datetime"><span class="keyword">val</span> mk_literal_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Create a datetime literal with type iri from the given datetime <code class="code">d</code>.
+  If no date is given, <code class="code">Unix.time()</code> is used.<br/>
 </div>
-<pre><span id="VALnode_of_datetime"><span class="keyword">val</span> node_of_datetime</span> : <code class="type">?d:float -> unit -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Create a literal node from the given datetime. (see <a href="Rdf_node.html#VALmk_literal_datetime"><code class="code">Rdf_node.mk_literal_datetime</code></a>).<br>
+<pre id="valterm_of_d"><a class="paragraph-url" href="#valterm_of_d"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_datetime"><span class="keyword">val</span> term_of_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Create a literal term from the given datetime. (see <a href="Rdf_term.html#VALmk_literal_datetime"><code class="code">Rdf_term.mk_literal_datetime</code></a>).<br/>
 </div>
-<pre><span id="VALdatetime_of_literal"><span class="keyword">val</span> datetime_of_literal</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a> -> Netdate.t</code></pre><div class="info">
-Parse a literal to get a datetime.<br>
+<pre id="valdatetime_"><a class="paragraph-url" href="#valdatetime_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdatetime_of_literal"><span class="keyword">val</span> datetime_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; Netdate.t</code></pre><div class="info">
+Parse a literal to get a datetime.<br/>
 </div>
-<pre><span id="VALmk_literal_bool"><span class="keyword">val</span> mk_literal_bool</span> : <code class="type">bool -> <a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create a boolean literal with type uri from the given boolean.<br>
+<pre id="valmk_literal_"><a class="paragraph-url" href="#valmk_literal_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmk_literal_bool"><span class="keyword">val</span> mk_literal_bool</span> : <code class="type">bool -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Create a boolean literal with type iri from the given boolean.<br/>
 </div>
-<pre><span id="VALmk_literal_int"><span class="keyword">val</span> mk_literal_int</span> : <code class="type">int -> <a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create an integer literal.<br>
+<pre id="valmk_literal_i"><a class="paragraph-url" href="#valmk_literal_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmk_literal_int"><span class="keyword">val</span> mk_literal_int</span> : <code class="type">int -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Create an integer literal.<br/>
 </div>
-<pre><span id="VALmk_literal_double"><span class="keyword">val</span> mk_literal_double</span> : <code class="type">float -> <a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Create a double literal.<br>
+<pre id="valmk_literal_d"><a class="paragraph-url" href="#valmk_literal_d"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmk_literal_double"><span class="keyword">val</span> mk_literal_double</span> : <code class="type">float -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Create a double literal.<br/>
 </div>
-<pre><span id="VALbool_of_literal"><span class="keyword">val</span> bool_of_literal</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a> -> bool</code></pre><div class="info">
-Parse a literal to get a boolean.<br>
+<pre id="valbool_of_l"><a class="paragraph-url" href="#valbool_of_l"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALbool_of_literal"><span class="keyword">val</span> bool_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; bool</code></pre><div class="info">
+Parse a literal to get a boolean.<br/>
 </div>
-<pre><span id="VALnode_of_literal_string"><span class="keyword">val</span> node_of_literal_string</span> : <code class="type">?typ:<a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> ?lang:string -> string -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code><br>
+<pre id="valterm_of_l"><a class="paragraph-url" href="#valterm_of_l"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_literal_string"><span class="keyword">val</span> term_of_literal_string</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code><br/>
 </div>
-<pre><span id="VALnode_of_int"><span class="keyword">val</span> node_of_int</span> : <code class="type">int -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)</code><br>
+<pre id="valterm_of_in"><a class="paragraph-url" href="#valterm_of_in"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_int"><span class="keyword">val</span> term_of_int</span> : <code class="type">int -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)</code><br/>
 </div>
-<pre><span id="VALnode_of_double"><span class="keyword">val</span> node_of_double</span> : <code class="type">float -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_double float)</code><br>
+<pre id="valterm_of_do"><a class="paragraph-url" href="#valterm_of_do"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_double"><span class="keyword">val</span> term_of_double</span> : <code class="type">float -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_double float)</code><br/>
 </div>
-<pre><span id="VALnode_of_bool"><span class="keyword">val</span> node_of_bool</span> : <code class="type">bool -> <a href="Rdf_node.html#TYPEnode">node</a></code></pre><div class="info">
-Create a literal node from the given boolean. (see <a href="Rdf_node.html#VALmk_literal_bool"><code class="code">Rdf_node.mk_literal_bool</code></a>).<br>
+<pre id="valterm_of_b"><a class="paragraph-url" href="#valterm_of_b"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_of_bool"><span class="keyword">val</span> term_of_bool</span> : <code class="type">bool -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info">
+Create a literal term from the given boolean. (see <a href="Rdf_term.html#VALmk_literal_bool"><code class="code">Rdf_term.mk_literal_bool</code></a>).<br/>
 </div>
-<pre><span id="VALquote_str"><span class="keyword">val</span> quote_str</span> : <code class="type">string -> string</code></pre><div class="info">
+<pre id="valquote_str"><a class="paragraph-url" href="#valquote_str"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALquote_str"><span class="keyword">val</span> quote_str</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">quote_str str</code> returns the given string <code class="code">str</code> between quotes, with
-  correct literal string escapes.<br>
+  correct literal string escapes.<br/>
 </div>
-<pre><span id="VALstring_of_literal"><span class="keyword">val</span> string_of_literal</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a> -> string</code></pre><div class="info">
-Create a string from the given RDF literal, using turtle syntax.<br>
+<pre id="valstring_of_"><a class="paragraph-url" href="#valstring_of_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_literal"><span class="keyword">val</span> string_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; string</code></pre><div class="info">
+Create a string from the given RDF literal, using turtle syntax.<br/>
 </div>
-<pre><span id="VALstring_of_node"><span class="keyword">val</span> string_of_node</span> : <code class="type"><a href="Rdf_node.html#TYPEnode">node</a> -> string</code></pre><div class="info">
-Create a string for the given node, using RDF turtle syntax conventions.<br>
-<b>See also</b> <a href="http://www.w3.org/TeamSubmission/turtle/#language">the description of turtle language.</a><br>
+<pre id="valstring_of_t"><a class="paragraph-url" href="#valstring_of_t"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_term"><span class="keyword">val</span> string_of_term</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> -&gt; string</code></pre><div class="info">
+Create a string for the given term, using RDF turtle syntax conventions.<br/>
+<b>See also</b> <a href="http://www.w3.org/TeamSubmission/turtle/#language">the description of turtle language.</a><br/>
 </div>
-<pre><span id="VALnode_hash"><span class="keyword">val</span> node_hash</span> : <code class="type"><a href="Rdf_node.html#TYPEnode">node</a> -> int64</code></pre><div class="info">
-<code class="code">node_hash node</code> returns an int64 identifiying (hopefully unically)) a given node.<br>
+<pre id="valterm_hash"><a class="paragraph-url" href="#valterm_hash"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm_hash"><span class="keyword">val</span> term_hash</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> -&gt; int64</code></pre><div class="info">
+<code class="code">term_hash term</code> returns an int64 identifiying (hopefully unically)) a given term.<br/>
 </div>
-<pre><span id="VALlit_true"><span class="keyword">val</span> lit_true</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Literal "true" with according type.<br>
+<pre id="vallit_truel"><a class="paragraph-url" href="#vallit_truel"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALlit_true"><span class="keyword">val</span> lit_true</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Literal &quot;true&quot; with according type.<br/>
 </div>
-<pre><span id="VALlit_false"><span class="keyword">val</span> lit_false</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">literal</a></code></pre><div class="info">
-Literal "false" with according type.<br>
+<pre id="vallit_false"><a class="paragraph-url" href="#vallit_false"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALlit_false"><span class="keyword">val</span> lit_false</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info">
+Literal &quot;false&quot; with according type.<br/>
 </div>
-</body></html>
+</div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

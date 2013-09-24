@@ -3,7 +3,7 @@
 <head>
 <title>OCaml-RDF : Limitations and TODO</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
-<rssfeed/>
+<rssfeed></rssfeed>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
@@ -30,7 +30,7 @@
 
 <div class="page-title">Limitations and TODO</div>
 </div>
-<span/>
+<span></span>
 
 
 <div class="section"><div class="section-title" id="limitations">Limitations</div>
@@ -39,7 +39,7 @@ The Sparql 1.1 query language is implemented, with some exceptions:
 </p>
 <ul>
 <li>The following built-in calls are still missing:
-  UUID, UCASE, LCASE,
+  UCASE, LCASE,
   langMatches (only based on prefix by now, must implement
    language matching according to
    <span class="ext-a"><a href="http://www.ietf.org/rfc/rfc4647.txt">RFC 4647</a></span>),
@@ -49,14 +49,6 @@ The Sparql 1.1 query language is implemented, with some exceptions:
 <li>DESCRIBE queries are not handled yet.</li>
 <li>Check of variable scope is not implemented yet.</li>
 </ul>
-<p id="Theparsingof"><a class="paragraph-url" href="#Theparsingof"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
-The parsing of Turtle and Sparql queries is based on Ulex and Menhir.
-But Ulex does not offer convenient way to handle positions. By now,
-some hack allows to get the correct position for syntax errors,
-but evaluation errors contains incorrect positions: line numbers
-are correct, but character indices are offset from the beginning
-of the file or string which was parsed.
-</p>
 </div>
 
 <div class="section"><div class="section-title" id="todo">TODO</div>

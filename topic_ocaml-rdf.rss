@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0"><channel><title>OCaml-RDF: ocaml-rdf</title><link>http://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>13 AUg 2013 08:00:00 +0000</pubDate><lastBuildDate>13 AUg 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>New web site and release 0.6.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</link><description>
+<rss version="2.0"><channel><title>OCaml-RDF: ocaml-rdf</title><link>http://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>13 Aug 2013 08:00:00 +0000</pubDate><lastBuildDate>13 Aug 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>New web site and release 0.6.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</link><description>
 &lt;p&gt;
 OCaml-RDF has moved to Github, both code and web pages.
 The new web site is made with
@@ -10,4 +10,4 @@ But the main news today is the release of OCaml-RDF 0.6.0,
 which now includes a &lt;span class=&quot;ext-a&quot;&gt;&lt;a href=&quot;http://www.w3.org/TR/sparql11-query&quot;&gt;Sparql 1.1 Query Language&lt;/a&gt;&lt;/span&gt;
 implementation. Get it from the &lt;elt href=&quot;download&quot;&gt;download page&lt;/elt&gt; !
 &lt;/p&gt;
-</description><pubDate>13 AUg 2013 08:00:00 +0000</pubDate><category>ocaml-rdf</category><category>release</category><guid isPermaLink="true">http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</guid></item></channel></rss>
+</description><pubDate>13 Aug 2013 08:00:00 +0000</pubDate><category>ocaml-rdf</category><category>release</category><guid isPermaLink="true">http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</guid></item></channel></rss>

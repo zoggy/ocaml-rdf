@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : RDF terms and IRIs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+<div class="page-title">RDF terms and IRIs</div>
+</div>
+<span></span>
+
+
+<p id="RDFgraphterm"><a class="paragraph-url" href="#RDFgraphterm"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+RDF graph terms are represented by the 
+<a href="refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
+ type.
+These are RDF terms: IRI, literal or blank node. In the graph, the predicate
+of a triple can only be a IRI.
+</p>
+<p id="Allstringsar" class="alert alert-warning"><a class="paragraph-url" href="#Allstringsar"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+All strings are considered to be UTF8-encoded. The 
+<a href="refdoc/Rdf_utf8.html">Rdf_utf8</a>
+ module
+provides some functions to manipulate UTF8 strings.
+</p>
+<p id="TheRdf_termm"><a class="paragraph-url" href="#TheRdf_termm"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+The 
+<a href="refdoc/Rdf_term.html">Rdf_term</a>
+ module defines functions to create and print RDF terms.
+For example, 
+<a href="refdoc/Rdf_term.html#VALmk_literal_int">Rdf_term.mk_literal_int</a>
+ creates a literal
+RDF term from an integer, setting the IRI of the datatype to <code>&lt;xsd:integer&gt;</code>:
+</p>
+<pre id="letint_litRd" class="code-ocaml"><a class="paragraph-url" href="#letint_litRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> int_lit <span class="hl opt">=</span> <span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>mk_literal_int <span class="hl num">42</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val int_lit : Rdf_term.literal =
+  {Rdf_term.lit_value = &quot;42&quot;; Rdf_term.lit_language = None;
+   Rdf_term.lit_type = Some &lt;abstr&gt;}</div><div># <span class="hl kwa">let</span> term42 <span class="hl opt">=</span> <span class="hl kwc">Rdf_term</span><span class="hl opt">.</span><span class="hl kwd">Literal</span> int_lit<span class="hl opt">;;</span></div><div class="ocaml-toplevel">val term42 : Rdf_term.term =
+  Rdf_term.Literal
+   {Rdf_term.lit_value = &quot;42&quot;; Rdf_term.lit_language = None;
+    Rdf_term.lit_type = Some &lt;abstr&gt;}</div></pre>
+<p id="Letsgetastri"><a class="paragraph-url" href="#Letsgetastri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+Let's get a string representation of the term:
+</p>
+<pre id="print_endlin" class="code-ocaml"><a class="paragraph-url" href="#print_endlin"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># print_endline <span class="hl opt">(</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>string_of_term term42<span class="hl opt">) ;;</span></div><div class="ocaml-toplevel">&quot;42&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt;
+- : unit = ()</div></pre>
+<p id="TheRdf_irimo"><a class="paragraph-url" href="#TheRdf_irimo"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+The 
+<a href="refdoc/Rdf_iri.html">Rdf_iri</a>
+ module defines the type 
+<a href="refdoc/Rdf_iri.html#TYPEiri">Rdf_iri.iri</a>
+
+to represent IRIs and contains functions to create IRIs and perform other
+manipulations:
+</p>
+<pre id="letiri_shttp" class="code-ocaml"><a class="paragraph-url" href="#letiri_shttp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> iri_s <span class="hl opt">=</span> <span class="hl str">&quot;http://foo.bar.net/&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val iri_s : string = &quot;http://foo.bar.net/&quot;</div><div># <span class="hl kwa">let</span> iri <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri iri_s<span class="hl opt">;;</span></div><div class="ocaml-toplevel">val iri : Rdf_iri.iri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> iri2 <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>set_fragment iri <span class="hl opt">(</span><span class="hl kwd">Some</span> <span class="hl str">&quot;id42&quot;</span><span class="hl opt">);;</span></div><div class="ocaml-toplevel">val iri2 : Rdf_iri.iri = &lt;abstr&gt;</div><div># <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>compare iri iri2<span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : int = -1</div><div># <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span><span class="hl kwb">string</span> iri2<span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : string = &quot;http://foo.bar.net/#id42&quot;</div></pre>
+<p id="TheRdf_rdfmo"><a class="paragraph-url" href="#TheRdf_rdfmo"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+The 
+<a href="refdoc/Rdf_rdf.html">Rdf_rdf</a>
+ module defines some commonly used IRIs:
+datatypes, classes, property names, ...:
+</p>
+<pre id="Rdf_iristrin" class="code-ocaml"><a class="paragraph-url" href="#Rdf_iristrin"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span><span class="hl kwb">string</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_rdf</span><span class="hl opt">.</span>xsd_integer<span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : string = &quot;http://www.w3.org/2001/XMLSchema#integer&quot;</div><div># <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span><span class="hl kwb">string</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_rdf</span><span class="hl opt">.</span>xsd_double<span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : string = &quot;http://www.w3.org/2001/XMLSchema#double&quot;</div><div># <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span><span class="hl kwb">string</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_rdf</span><span class="hl opt">.</span>rdf_about<span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : string = &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#about&quot;</div></pre>
+
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

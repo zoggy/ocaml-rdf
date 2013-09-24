@@ -17,7 +17,6 @@
 <link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
 <link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
 <link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
 <link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
 <link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
 <link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
@@ -29,7 +28,7 @@
 <link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
 <link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
 <link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
+<link title="Rdf_term" rel="Chapter" href="Rdf_term.html">
 <link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
 <link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
 <link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
@@ -48,35 +47,35 @@
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_graph&nbsp;:&nbsp;?options:<span class="constructor">Rdf_graph</span>.options&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_my</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_triple_t&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;*&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;*&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;rem_triple_t&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;*&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;*&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects_of&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;find&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node)&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<span class="constructor">Rdf_term</span>.term&nbsp;*&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;*&nbsp;<span class="constructor">Rdf_term</span>.term)&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;?obj:<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?sub:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?pred:<span class="constructor">Rdf_uri</span>.uri&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;?obj:<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;exists_t&nbsp;:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;*&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.node&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;*&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;*&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;subjects&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;predicates&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_uri</span>.uri&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;objects&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.term&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_start&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_commit&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;transaction_rollback&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
-&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;new_blank_id&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_node</span>.blank_id<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;new_blank_id&nbsp;:&nbsp;<span class="constructor">Rdf_my</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Rdf_term</span>.blank_id<br>
 <span class="keyword">end</span></code></body></html>

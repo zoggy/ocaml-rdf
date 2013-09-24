@@ -1,230 +1,231 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<link rel="stylesheet" href="style.css" type="text/css">
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
-<link rel="Start" href="index.html">
-<link rel="previous" href="Rdf_ds.html">
-<link rel="next" href="Rdf_graph.html">
-<link rel="Up" href="index.html">
-<link title="Index of types" rel=Appendix href="index_types.html">
-<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
-<link title="Index of values" rel=Appendix href="index_values.html">
-<link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Index of module types" rel=Appendix href="index_module_types.html">
-<link title="Kw_to_re" rel="Chapter" href="Kw_to_re.html">
-<link title="Rdf_config" rel="Chapter" href="Rdf_config.html">
-<link title="Rdf_dot" rel="Chapter" href="Rdf_dot.html">
-<link title="Rdf_ds" rel="Chapter" href="Rdf_ds.html">
-<link title="Rdf_dt" rel="Chapter" href="Rdf_dt.html">
-<link title="Rdf_graph" rel="Chapter" href="Rdf_graph.html">
-<link title="Rdf_loc" rel="Chapter" href="Rdf_loc.html">
-<link title="Rdf_mem" rel="Chapter" href="Rdf_mem.html">
-<link title="Rdf_misc" rel="Chapter" href="Rdf_misc.html">
-<link title="Rdf_my" rel="Chapter" href="Rdf_my.html">
-<link title="Rdf_node" rel="Chapter" href="Rdf_node.html">
-<link title="Rdf_pg" rel="Chapter" href="Rdf_pg.html">
-<link title="Rdf_rdf" rel="Chapter" href="Rdf_rdf.html">
-<link title="Rdf_sparql" rel="Chapter" href="Rdf_sparql.html">
-<link title="Rdf_sparql_algebra" rel="Chapter" href="Rdf_sparql_algebra.html">
-<link title="Rdf_sparql_eval" rel="Chapter" href="Rdf_sparql_eval.html">
-<link title="Rdf_sparql_expand" rel="Chapter" href="Rdf_sparql_expand.html">
-<link title="Rdf_sparql_map" rel="Chapter" href="Rdf_sparql_map.html">
-<link title="Rdf_sparql_ms" rel="Chapter" href="Rdf_sparql_ms.html">
-<link title="Rdf_sparql_print" rel="Chapter" href="Rdf_sparql_print.html">
-<link title="Rdf_sparql_types" rel="Chapter" href="Rdf_sparql_types.html">
-<link title="Rdf_sparql_vis" rel="Chapter" href="Rdf_sparql_vis.html">
-<link title="Rdf_to_ttl" rel="Chapter" href="Rdf_to_ttl.html">
-<link title="Rdf_ttl" rel="Chapter" href="Rdf_ttl.html">
-<link title="Rdf_ttl_types" rel="Chapter" href="Rdf_ttl_types.html">
-<link title="Rdf_ulex" rel="Chapter" href="Rdf_ulex.html">
-<link title="Rdf_uri" rel="Chapter" href="Rdf_uri.html">
-<link title="Rdf_utf8" rel="Chapter" href="Rdf_utf8.html">
-<link title="Rdf_xml" rel="Chapter" href="Rdf_xml.html"><title>OCaml-RDF : Rdf_dt</title>
-</head>
-<body>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dt</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_ds.html" title="Rdf_ds">Previous</a>
-&nbsp;<a class="up" href="index.html" title="Index">Up</a>
-&nbsp;<a class="post" href="Rdf_graph.html" title="Rdf_graph">Next</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_earl.html" title="Rdf_earl">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_dt.html">Rdf_dt</a></h1>
-<pre><span class="keyword">module</span> Rdf_dt: <code class="code">sig</code> <a href="Rdf_dt.html">..</a> <code class="code">end</code></pre><div class="info">
+<pre id="moduleRdf_dt"><a class="paragraph-url" href="#moduleRdf_dt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_dt: <code class="code">sig</code> <a href="Rdf_dt.html">..</a> <code class="code">end</code></pre><div class="info">
 Computing values in Sparql, mapping to/from RDF terms.
-<p>
+<div class="vertical-space"> </div>
 
-   A value can be an error, and propagated in computations.<br>
+   A value can be an error, and propagated in computations.<br/>
 </div>
-<hr width="100%">
-<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<hr width="100%"/>
+<pre id="typeerror___"><a class="paragraph-url" href="#typeerror___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEerror"><span class="keyword">type</span> error</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Type_error"><span class="constructor">Type_error</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> * string</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >The value has not the given expected "type"</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">The value has not the given expected &quot;type&quot;</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTerror.Invalid_literal"><span class="constructor">Invalid_literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_node.html#TYPEliteral">Rdf_node.literal</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Invalid literal: bad integer string for an integer, ...</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTerror.Invalid_literal"><span class="constructor">Invalid_literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">Invalid literal: bad integer string for an integer, ...</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTerror.Exception"><span class="constructor">Exception</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >To keep the original exception which resulted in an error.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">To keep the original exception which resulted in an error.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr></table>
 
 
-<pre><code><span id="TYPEvalue"><span class="keyword">type</span> <code class="type"></code>value</span> = </code></pre><table class="typetable">
+<pre id="typevalue___"><a class="paragraph-url" href="#typevalue___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEvalue"><span class="keyword">type</span> value</span> = </code></pre><table class="typetable">
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Err"><span class="constructor">Err</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >Value is an error</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">Value is an error</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Blank"><span class="constructor">Blank</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A blank node with its label</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A blank node with its label</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTvalue.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An URI.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTvalue.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">An IRI.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A string literal.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A string literal.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Int"><span class="constructor">Int</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >An integer.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">An integer.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Float"><span class="constructor">Float</span></span> <span class="keyword">of</span> <code class="type">float</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A decimal, float or double.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A decimal, float or double.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Bool"><span class="constructor">Bool</span></span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A Boolean.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A Boolean.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Datetime"><span class="constructor">Datetime</span></span> <span class="keyword">of</span> <code class="type">Netdate.t</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A datetime.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A datetime.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span id="TYPEELTvalue.Ltrl"><span class="constructor">Ltrl</span></span> <span class="keyword">of</span> <code class="type">string * string option</code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A literal string with an optional language tag.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A literal string with an optional language tag.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
-<td align="left" valign="top" >
+<td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTvalue.Ltrdt"><span class="constructor">Ltrdt</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></code></td>
-<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >A literal value with a specified datatype.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+<td align="left" valign="top">
+<code><span id="TYPEELTvalue.Ltrdt"><span class="constructor">Ltrdt</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top"><code>(*</code></td><td class="typefieldcomment" align="left" valign="top">A literal value with a specified datatype.</td><td class="typefieldcomment" align="left" valign="bottom"><code>*)</code></td>
 </tr></table>
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a></code></pre>
-<pre><span id="VALerror"><span class="keyword">val</span> error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -> 'a</code></pre><div class="info">
-Raise a <a href="Rdf_dt.html#EXCEPTIONError"><code class="code">Rdf_dt.Error</code></a> exception with the given error.<br>
+<pre id="exceptionErr"><a class="paragraph-url" href="#exceptionErr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a></code></pre>
+<pre id="valerrorerro"><a class="paragraph-url" href="#valerrorerro"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALerror"><span class="keyword">val</span> error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; 'a</code></pre><div class="info">
+Raise a <a href="Rdf_dt.html#EXCEPTIONError"><code class="code">Rdf_dt.Error</code></a> exception with the given error.<br/>
 </div>
-<pre><span id="VALdate_fmt"><span class="keyword">val</span> date_fmt</span> : <code class="type">string</code></pre><div class="info">
-Default date format.<br>
+<pre id="valdate_fmts"><a class="paragraph-url" href="#valdate_fmts"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdate_fmt"><span class="keyword">val</span> date_fmt</span> : <code class="type">string</code></pre><div class="info">
+Default date format.<br/>
 </div>
-<pre><span id="VALstring_of_value"><span class="keyword">val</span> string_of_value</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> string</code></pre><div class="info">
-Return a string to show the given value.<br>
+<pre id="valstring_of"><a class="paragraph-url" href="#valstring_of"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_value"><span class="keyword">val</span> string_of_value</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string</code></pre><div class="info">
+Return a string to show the given value.<br/>
 </div>
-<pre><span class="keyword">module</span> <a href="Rdf_dt.ValueOrdered.html">ValueOrdered</a>: <code class="code">sig</code> <a href="Rdf_dt.ValueOrdered.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_dt.VMap.html">VMap</a>: <code class="type">Map.S</code><code class="type">  with type key = value</code></pre><div class="info">
+<pre id="moduleValueO"><a class="paragraph-url" href="#moduleValueO"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_dt.ValueOrdered.html">ValueOrdered</a>: <code class="code">sig</code> <a href="Rdf_dt.ValueOrdered.html">..</a> <code class="code">end</code></pre><pre id="moduleVMapMa"><a class="paragraph-url" href="#moduleVMapMa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_dt.VMap.html">VMap</a>: <code class="type">Map.S</code><code class="type">  with type key = value</code></pre><div class="info">
 Maps over values.
 </div>
-<pre><span class="keyword">module</span> <a href="Rdf_dt.VSet.html">VSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = value</code></pre><div class="info">
+<pre id="moduleVSetSe"><a class="paragraph-url" href="#moduleVSetSe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_dt.VSet.html">VSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = value</code></pre><div class="info">
 Sets of values.
 </div>
-<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -> string</code></pre><div class="info">
-Return a human-readable message from the given error.<br>
+<pre id="valstring_of_"><a class="paragraph-url" href="#valstring_of_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; string</code></pre><div class="info">
+Return a human-readable message from the given error.<br/>
 </div>
-<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valiriRdf_ir"><a class="paragraph-url" href="#valiriRdf_ir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
-  an URI. If it is a literal string, convert it to an URI, eventually
-  appending to the <code class="code">base</code> uri if the string expresses a relative URI.<br>
+  an IRI. If it is a literal string, convert it to an IRI, eventually
+  appending to the <code class="code">base</code> IRI if the string expresses a relative IRI.<br/>
 </div>
-<pre><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
-<code class="code">datatype v</code> returns the URI of the datatype of the value.
-  If v is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, return <code class="code">Err</code>.<br>
+<pre id="valdatatypev"><a class="paragraph-url" href="#valdatatypev"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<code class="code">datatype v</code> returns the IRI of the datatype of the value.
+  If v is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, return <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALstring_literal"><span class="keyword">val</span> string_literal</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> string * string option</code></pre><div class="info">
+<pre id="valstring_li"><a class="paragraph-url" href="#valstring_li"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring_literal"><span class="keyword">val</span> string_literal</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string * string option</code></pre><div class="info">
 <code class="code">string_literal v</code> returns a pair (string, optional language tag) if
-  <code class="code">v</code> is <code class="code">String</code> of <code class="code">Ltrl</code>. Else return <code class="code">Err</code>.<br>
+  <code class="code">v</code> is <code class="code">String</code> of <code class="code">Ltrl</code>. Else return <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valstringval"><a class="paragraph-url" href="#valstringval"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">string v</code> returns a <code class="code">String</code> value, converting any value
-  to a string, except <code class="code">Err</code> and <code class="code">Blank</code> for which <code class="code">Err</code> is returned.<br>
+  to a string, except <code class="code">Err</code> and <code class="code">Blank</code> for which <code class="code">Err</code> is returned.<br/>
 </div>
-<pre><span id="VALint"><span class="keyword">val</span> int</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valintvaluev"><a class="paragraph-url" href="#valintvaluev"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALint"><span class="keyword">val</span> int</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">int v</code> returns a <code class="code">Int</code> value, trying to convert literal values
   to an integer. Return <code class="code">Err</code> if <code class="code">v</code> is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, or
   if the literal value could not be converted to an integer. Floats
-  are truncated.<br>
+  are truncated.<br/>
 </div>
-<pre><span id="VALfloat"><span class="keyword">val</span> float</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
-Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for floats.<br>
+<pre id="valfloatvalu"><a class="paragraph-url" href="#valfloatvalu"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfloat"><span class="keyword">val</span> float</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for floats.<br/>
 </div>
-<pre><span id="VALbool"><span class="keyword">val</span> bool</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valboolvalue"><a class="paragraph-url" href="#valboolvalue"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALbool"><span class="keyword">val</span> bool</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for booleans.
-  <code class="code">Bool true</code>, <code class="code">String "true"</code>, <code class="code">String "1"</code>, <code class="code">Int n</code> with <code class="code">n&lt;&gt;0</code> and <code class="code">Float f</code> when <code class="code">f</code> is not nan nor zero evaluate
+  <code class="code">Bool true</code>, <code class="code">String &quot;true&quot;</code>, <code class="code">String &quot;1&quot;</code>, <code class="code">Int n</code> with <code class="code">n&lt;&gt;0</code> and <code class="code">Float f</code> when <code class="code">f</code> is not nan nor zero evaluate
   to <code class="code">Bool true</code>.
-  <code class="code">Bool false</code>, <code class="code">String "false"</code>, <code class="code">String "0"</code>, <code class="code">Int 0</code> and <code class="code">Float f</code> when <code class="code">f</code> is <code class="code">nan</code> or zero evaluate to
+  <code class="code">Bool false</code>, <code class="code">String &quot;false&quot;</code>, <code class="code">String &quot;0&quot;</code>, <code class="code">Int 0</code> and <code class="code">Float f</code> when <code class="code">f</code> is <code class="code">nan</code> or zero evaluate to
   <code class="code">Bool false</code>.
-  Any other value evaluates to <code class="code">Err</code>.<br>
+  Any other value evaluates to <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALdatetime"><span class="keyword">val</span> datetime</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valdatetimev"><a class="paragraph-url" href="#valdatetimev"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdatetime"><span class="keyword">val</span> datetime</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 <code class="code">datetime v</code> returns a <code class="code">Datetime</code>, if possible. String literals are converted if
-  possible; else <code class="code">Err</code> is returned.<br>
+  possible; else <code class="code">Err</code> is returned.<br/>
 </div>
-<pre><span id="VALltrl"><span class="keyword">val</span> ltrl</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valltrlvalue"><a class="paragraph-url" href="#valltrlvalue"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALltrl"><span class="keyword">val</span> ltrl</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code></a>, but languge tag is kept is present (i.e. if
-  the value is a <code class="code">Ltrl</code>).<br>
+  the value is a <code class="code">Ltrl</code>).<br/>
 </div>
-<pre><span id="VALnumeric"><span class="keyword">val</span> numeric</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<pre id="valnumericva"><a class="paragraph-url" href="#valnumericva"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALnumeric"><span class="keyword">val</span> numeric</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
 Try to convert the given value to an <code class="code">Int</code> or else to a <code class="code">Float</code>,
-  if the value is not already <code class="code">Int</code> or <code class="code">Float</code>.<br>
+  if the value is not already <code class="code">Int</code> or <code class="code">Float</code>.<br/>
 </div>
-<pre><span id="VALof_literal"><span class="keyword">val</span> of_literal</span> : <code class="type"><a href="Rdf_node.html#TYPEliteral">Rdf_node.literal</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
-<code class="code">of_literal lit</code> returns a value from a literal node.<br>
+<pre id="valof_litera"><a class="paragraph-url" href="#valof_litera"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALof_literal"><span class="keyword">val</span> of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<code class="code">of_literal lit</code> returns a value from a literal term.<br/>
 </div>
-<pre><span id="VALof_node"><span class="keyword">val</span> of_node</span> : <code class="type"><a href="Rdf_node.html#TYPEnode">Rdf_node.node</a> -> <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
-<code class="code">of_node node</code> returns a value from an RDF node.<br>
+<pre id="valof_termRd"><a class="paragraph-url" href="#valof_termRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALof_term"><span class="keyword">val</span> of_term</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+<code class="code">of_term term</code> returns a value from an RDF term.<br/>
 </div>
-<pre><span id="VALto_node"><span class="keyword">val</span> to_node</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -> <a href="Rdf_node.html#TYPEnode">Rdf_node.node</a></code></pre><div class="info">
-<code class="code">to_node v</code> converts the given value to an RDF node.
-  If <code class="code">v</code> is <code class="code">Error e</code>, then exception <code class="code">e</code> is raised.<br>
+<pre id="valto_termva"><a class="paragraph-url" href="#valto_termva"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_term"><span class="keyword">val</span> to_term</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><div class="info">
+<code class="code">to_term v</code> converts the given value to an RDF term.
+  If <code class="code">v</code> is <code class="code">Error e</code>, then exception <code class="code">e</code> is raised.<br/>
 </div>
-</body></html>
+</div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
+<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+
+</body>
+</html>

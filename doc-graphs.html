@@ -3,7 +3,7 @@
 <head>
 <title>OCaml-RDF : Using graphs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
-<rssfeed/>
+<rssfeed></rssfeed>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
@@ -30,23 +30,23 @@
 
 <div class="page-title">Using graphs</div>
 </div>
-<span/>
+<span></span>
 
 
 
-<ul class="toc"><li class="toc-section"><a href="#creategraph">Creating a graph</a></li><li class="toc-section"><a href="#querying">Querying the graph</a></li><li class="toc-section"><a href="#import">Importing and exporting</a></li><li class="toc-section"><a href="#transactions">Transactions</a></li><li class="toc-section"><a href="#dot">Dot output</a></li></ul>
+<ul class="toc"><li class="toc-section"><a href="#creategraph">Creating a graph</a></li><li class="toc-section"><a href="#querying">Querying the graph</a></li><li class="toc-section"><a href="#import">Importing and exporting</a></li><li class="toc-section"><a href="#transactions">Transactions</a></li><li class="toc-section"><a href="#dot">Dot output</a></li><li class="toc-section"><a href="#namespaces">Namespaces</a></li></ul>
 <div class="section"><div class="section-title" id="creategraph">Creating a graph</div>
 <p id="AnRDFgraphne"><a class="paragraph-url" href="#AnRDFgraphne"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
-An RDF graph needs a base URI, which can be used to name the graph.
-Such a URI is created using the 
-<a href="refdoc/Rdf_uri.html">Rdf_uri</a>
+An RDF graph needs a base IRI, which can be used to name the graph.
+Such a IRI is created using the 
+<a href="refdoc/Rdf_iri.html">Rdf_iri</a>
  module.
 Then we use the 
 <a href="refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 
 function to create an empty graph:
 </p>
-<pre id="letbase_uriR" class="code-ocaml"><a class="paragraph-url" href="#letbase_uriR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base_uri <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://foo.bar.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base_uri <span class="hl opt">;;</span></div></pre>
+<pre id="letbase_iriR" class="code-ocaml"><a class="paragraph-url" href="#letbase_iriR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base_iri <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://foo.bar.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base_iri <span class="hl opt">;;</span></div></pre>
 <p id="Ifnooptionis"><a class="paragraph-url" href="#Ifnooptionis"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 If no option is provided, the graph is created in memory.
 You can <a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html">create graphs stored in a MySQL or Postgresql
@@ -54,25 +54,25 @@ datatabase</a>.
 </p>
 <p id="Oncethegraph"><a class="paragraph-url" href="#Oncethegraph"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Once the graph is created, let's insert triples in the graph,
-to associate the name &quot;Alice&quot; and the mailbox address URI
-&quot;mailto:alice@mbox.net&quot; to a new blank node:
+to associate the name &quot;Alice&quot; and the mailbox address IRI
+&quot;mailto:alice@mbox.net&quot; to a new blank term:
 </p>
-<pre id="letfoaf_name" class="code-ocaml"><a class="paragraph-url" href="#letfoaf_name"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> foaf_name <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://xmlns.com/foaf/0.1/name&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val foaf_name : Rdf_uri.uri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> foaf_mbox <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://xmlns.com/foaf/0.1/mbox&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val foaf_mbox : Rdf_uri.uri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> a <span class="hl opt">=</span> <span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Blank_</span> <span class="hl opt">(</span>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>new_blank_id<span class="hl opt">());;</span></div><div class="ocaml-toplevel">val a : Rdf_node.node = Rdf_node.Blank_ &lt;abstr&gt;</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
-   ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_name<span class="hl opt">)</span>
-   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>node_of_literal_string <span class="hl str">&quot;Alice&quot;</span><span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
-   ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_mbox<span class="hl opt">)</span>
-   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;mailto:alice@mbox.net&quot;</span><span class="hl opt">));;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># <span class="hl kwa">let</span> b <span class="hl opt">=</span> <span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Blank_</span> <span class="hl opt">(</span>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>new_blank_id<span class="hl opt">());;</span></div><div class="ocaml-toplevel">val b : Rdf_node.node = Rdf_node.Blank_ &lt;abstr&gt;</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
-   ~sub<span class="hl opt">:</span> b ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_name<span class="hl opt">)</span>
-   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>node_of_literal_string <span class="hl str">&quot;Bob&quot;</span><span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
-   ~sub<span class="hl opt">:</span> b ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_mbox<span class="hl opt">)</span>
-   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;mailto:bob@mbox.net&quot;</span><span class="hl opt">));;</span></div><div class="ocaml-toplevel">- : unit = ()</div></pre>
+<pre id="letfoaf_name" class="code-ocaml"><a class="paragraph-url" href="#letfoaf_name"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> foaf_name <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://xmlns.com/foaf/0.1/name&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val foaf_name : Rdf_iri.iri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> foaf_mbox <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://xmlns.com/foaf/0.1/mbox&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">val foaf_mbox : Rdf_iri.iri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> a <span class="hl opt">=</span> <span class="hl kwc">Rdf_term</span><span class="hl opt">.</span><span class="hl kwd">Blank_</span> <span class="hl opt">(</span>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>new_blank_id<span class="hl opt">());;</span></div><div class="ocaml-toplevel">val a : Rdf_term.term = Rdf_term.Blank_ &lt;abstr&gt;</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
+   ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">:</span> foaf_name
+   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>term_of_literal_string <span class="hl str">&quot;Alice&quot;</span><span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
+   ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">:</span> foaf_mbox
+   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span><span class="hl kwd">Iri</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;mailto:alice@mbox.net&quot;</span><span class="hl opt">));;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># <span class="hl kwa">let</span> b <span class="hl opt">=</span> <span class="hl kwc">Rdf_term</span><span class="hl opt">.</span><span class="hl kwd">Blank_</span> <span class="hl opt">(</span>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>new_blank_id<span class="hl opt">());;</span></div><div class="ocaml-toplevel">val b : Rdf_term.term = Rdf_term.Blank_ &lt;abstr&gt;</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
+   ~sub<span class="hl opt">:</span> b ~pred<span class="hl opt">:</span> foaf_name
+   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>term_of_literal_string <span class="hl str">&quot;Bob&quot;</span><span class="hl opt">);;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple
+   ~sub<span class="hl opt">:</span> b ~pred<span class="hl opt">:</span> foaf_mbox
+   ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span><span class="hl kwd">Iri</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;mailto:bob@mbox.net&quot;</span><span class="hl opt">));;</span></div><div class="ocaml-toplevel">- : unit = ()</div></pre>
 <p id="Hereisthecon"><a class="paragraph-url" href="#Hereisthecon"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>Here is the content of our graph, in Turtle format:</p>
 
 <pre id="prefixrdfhtt" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhtt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-81271654 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
-_:genid1-81271654 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
-_:genid0-838407770 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
-_:genid0-838407770 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
+_:genid1-867281112 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+_:genid1-867281112 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
+_:genid0-946217033 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
+_:genid0-946217033 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
 </div></pre>
 
 </div>
@@ -87,7 +87,7 @@ retrieve information from the graph.
 triples having a specified subject and object:
 </p>
 <pre id="letalice_mbo" class="code-ocaml"><a class="paragraph-url" href="#letalice_mbo"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> alice_mbox <span class="hl opt">=</span> g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>objects_of
-  ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_mbox<span class="hl opt">);;</span></div><div class="ocaml-toplevel">val alice_mbox : Rdf_node.node list = [Rdf_node.Uri &lt;abstr&gt;]</div><div># <span class="hl kwc">List</span><span class="hl opt">.</span>iter <span class="hl opt">(</span><span class="hl kwa">fun</span> n <span class="hl opt">-&gt;</span> print_endline <span class="hl opt">(</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>string_of_node n<span class="hl opt">))</span> alice_mbox<span class="hl opt">;;</span></div><div class="ocaml-toplevel">&lt;mailto:alice@mbox.net&gt;
+  ~sub<span class="hl opt">:</span> a ~pred<span class="hl opt">:</span> foaf_mbox<span class="hl opt">;;</span></div><div class="ocaml-toplevel">val alice_mbox : Rdf_term.term list = [Rdf_term.Iri &lt;abstr&gt;]</div><div># <span class="hl kwc">List</span><span class="hl opt">.</span>iter <span class="hl opt">(</span><span class="hl kwa">fun</span> n <span class="hl opt">-&gt;</span> print_endline <span class="hl opt">(</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>string_of_term n<span class="hl opt">))</span> alice_mbox<span class="hl opt">;;</span></div><div class="ocaml-toplevel">&lt;mailto:alice@mbox.net&gt;
 - : unit = ()</div></pre>
 <p id="Letsnowquery"><a class="paragraph-url" href="#Letsnowquery"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 Let's now query all triples having the predicate <code>foaf_name</code>,
@@ -96,20 +96,20 @@ and use the
  function
 to display the result:
 </p>
-<pre id="lettriplesgR" class="code-ocaml"><a class="paragraph-url" href="#lettriplesgR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> triples <span class="hl opt">=</span> g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>find ~pred<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> foaf_name<span class="hl opt">) ();;</span></div><div class="ocaml-toplevel">val triples : Rdf_node.triple list =
-  [(Rdf_node.Blank_ &lt;abstr&gt;, Rdf_node.Uri &lt;abstr&gt;,
-    Rdf_node.Literal
-     {Rdf_node.lit_value = &quot;Alice&quot;; Rdf_node.lit_language = None;
-      Rdf_node.lit_type = None});
-   (Rdf_node.Blank_ &lt;abstr&gt;, Rdf_node.Uri &lt;abstr&gt;,
-    Rdf_node.Literal
-     {Rdf_node.lit_value = ...; Rdf_node.lit_language = ...;
-      Rdf_node.lit_type = ...});
+<pre id="lettriplesgR" class="code-ocaml"><a class="paragraph-url" href="#lettriplesgR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> triples <span class="hl opt">=</span> g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>find ~pred<span class="hl opt">:</span> foaf_name <span class="hl opt">();;</span></div><div class="ocaml-toplevel">val triples : Rdf_term.triple list =
+  [(Rdf_term.Blank_ &lt;abstr&gt;, &lt;abstr&gt;,
+    Rdf_term.Literal
+     {Rdf_term.lit_value = &quot;Alice&quot;; Rdf_term.lit_language = None;
+      Rdf_term.lit_type = None});
+   (Rdf_term.Blank_ &lt;abstr&gt;, &lt;abstr&gt;,
+    Rdf_term.Literal
+     {Rdf_term.lit_value = &quot;Bob&quot;; Rdf_term.lit_language = None;
+      Rdf_term.lit_type = ...});
    ...]</div><div># <span class="hl kwc">List</span><span class="hl opt">.</span>iter
    <span class="hl opt">(</span><span class="hl kwa">fun</span> <span class="hl opt">(</span>sub<span class="hl opt">,</span>pred<span class="hl opt">,</span>obj<span class="hl opt">) -&gt;</span>
      print_endline <span class="hl opt">(</span><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>string_of_triple ~sub ~pred ~obj<span class="hl opt">))</span>
-   triples<span class="hl opt">;;</span></div><div class="ocaml-toplevel">_:genid0-838407770 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
-_:genid1-81271654 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+   triples<span class="hl opt">;;</span></div><div class="ocaml-toplevel">_:genid0-946217033 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
+_:genid1-867281112 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
 - : unit = ()</div></pre>
 <p id="Thesearesimp"><a class="paragraph-url" href="#Thesearesimp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>These are simple ways to query the graph.
 <a href="http://zoggy.github.io/ocaml-rdf/doc-sparql.html">Sparql queries can be used</a> to execute
@@ -133,17 +133,20 @@ The corresponding functions are provided in modules
 RDF/XML file <code>example.rdf</code> and exporting to a Turtle file
 <code>example.ttl</code>:
 </p>
-<pre id="letbaseRdf_u" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_u"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://hello.fr&quot;</span> <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val base : Rdf_uri.uri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val g : Rdf_graph.graph =
-  {Rdf_graph.name = &lt;fun&gt;; Rdf_graph.add_triple = &lt;fun&gt;;
-   Rdf_graph.rem_triple = &lt;fun&gt;; Rdf_graph.add_triple_t = &lt;fun&gt;;
-   Rdf_graph.rem_triple_t = &lt;fun&gt;; Rdf_graph.subjects_of = &lt;fun&gt;;
-   Rdf_graph.predicates_of = &lt;fun&gt;; Rdf_graph.objects_of = &lt;fun&gt;;
-   Rdf_graph.find = &lt;fun&gt;; Rdf_graph.exists = &lt;fun&gt;;
-   Rdf_graph.exists_t = &lt;fun&gt;; Rdf_graph.subjects = &lt;fun&gt;;
-   Rdf_graph.predicates = &lt;fun&gt;; Rdf_graph.objects = &lt;fun&gt;;
-   Rdf_graph.transaction_start = &lt;fun&gt;; Rdf_graph.transaction_commit = &lt;fun&gt;;
+<pre id="letbaseRdf_i" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://hello.fr&quot;</span> <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val base : Rdf_iri.iri = &lt;abstr&gt;</div><div># <span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div class="ocaml-toplevel">val g : Rdf_graph.graph =
+  {Rdf_graph.name = &lt;fun&gt;; Rdf_graph.size = &lt;fun&gt;;
+   Rdf_graph.add_triple = &lt;fun&gt;; Rdf_graph.rem_triple = &lt;fun&gt;;
+   Rdf_graph.add_triple_t = &lt;fun&gt;; Rdf_graph.rem_triple_t = &lt;fun&gt;;
+   Rdf_graph.subjects_of = &lt;fun&gt;; Rdf_graph.predicates_of = &lt;fun&gt;;
+   Rdf_graph.objects_of = &lt;fun&gt;; Rdf_graph.find = &lt;fun&gt;;
+   Rdf_graph.exists = &lt;fun&gt;; Rdf_graph.exists_t = &lt;fun&gt;;
+   Rdf_graph.subjects = &lt;fun&gt;; Rdf_graph.predicates = &lt;fun&gt;;
+   Rdf_graph.objects = &lt;fun&gt;; Rdf_graph.transaction_start = &lt;fun&gt;;
+   Rdf_graph.transaction_commit = &lt;fun&gt;;
    Rdf_graph.transaction_rollback = &lt;fun&gt;; Rdf_graph.new_blank_id = &lt;fun&gt;;
-   Rdf_graph.namespaces = &lt;fun&gt;}</div><div># <span class="hl kwc">Rdf_xml</span><span class="hl opt">.</span>from_file g base <span class="hl str">&quot;example.rdf&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># <span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>to_file g <span class="hl str">&quot;example.ttl&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : unit = ()</div></pre>
+   Rdf_graph.namespaces = ...; Rdf_graph.add_namespace = ...;
+   Rdf_graph.rem_namespace = ...; Rdf_graph.set_namespaces = ...;
+   Rdf_graph.bgp = ...}</div><div># <span class="hl kwc">Rdf_xml</span><span class="hl opt">.</span>from_file g <span class="hl str">&quot;example.rdf&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : unit = ()</div><div># <span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>to_file g <span class="hl str">&quot;example.ttl&quot;</span><span class="hl opt">;;</span></div><div class="ocaml-toplevel">- : unit = ()</div></pre>
 </div>
 
 <div class="section"><div class="section-title" id="transactions">Transactions</div>
@@ -160,36 +163,36 @@ and <code>transaction_rollback</code> of the the
  structure.
 </p>
 <p id="Asanexamplel"><a class="paragraph-url" href="#Asanexamplel"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>As an example, let's load data from a file:</p>
-<pre id="letbaseRdf_ur" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_ur"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://hello.fr&quot;</span> <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g base <span class="hl str">&quot;example.ttl&quot;</span><span class="hl opt">;;</span></div></pre>
+<pre id="letbaseRdf_ir" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_ir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://hello.fr&quot;</span> <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g <span class="hl str">&quot;example.ttl&quot;</span><span class="hl opt">;;</span></div></pre>
 <p id="Thisisourloa"><a class="paragraph-url" href="#Thisisourloa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>This is our loaded data:</p>
 
 <pre id="prefixrdfhttp" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhttp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-1057075200 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; &lt;http://hello.fr/editor&gt; _:genid1-545825707 .
-_:genid1-545825707 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid1-545825707 ex:fullName &quot;Dave Beckett&quot; .
+_:genid0-1057075200 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-1057075200 ex:fullName &quot;Dave Beckett&quot; .
 </div></pre>
 
 <p id="Nowletsstart"><a class="paragraph-url" href="#Nowletsstart"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>Now let's start a transaction, and modify the graph:</p>
-<pre id="gRdf_graphtr" class="code-ocaml"><a class="paragraph-url" href="#gRdf_graphtr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>transaction_start<span class="hl opt">();;</span></div><div><span class="hl kwa">let</span> pred <span class="hl opt">=</span> <span class="hl kwc">Rdf_node</span><span class="hl opt">.</span><span class="hl kwd">Uri</span> <span class="hl opt">(</span><span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://example.org/stuff/1.0/fullName&quot;</span><span class="hl opt">) ;;</span></div><div><span class="hl kwa">match</span> g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>find ~pred <span class="hl opt">()</span> <span class="hl kwa">with</span>
+<pre id="gRdf_graphtr" class="code-ocaml"><a class="paragraph-url" href="#gRdf_graphtr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>transaction_start<span class="hl opt">();;</span></div><div><span class="hl kwa">let</span> pred <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://example.org/stuff/1.0/fullName&quot;</span> <span class="hl opt">;;</span></div><div><span class="hl kwa">match</span> g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>find ~pred <span class="hl opt">()</span> <span class="hl kwa">with</span>
 | <span class="hl opt">(</span>sub<span class="hl opt">,</span>_<span class="hl opt">,</span>obj<span class="hl opt">) ::</span> _ <span class="hl opt">-&gt;</span>
   <span class="hl com">(* remove a triple *)</span>
   g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>rem_triple ~sub ~pred ~obj<span class="hl opt">;</span>
   <span class="hl com">(* add a new triple, with a different name *)</span>
   g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>add_triple ~sub ~pred
-    ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>node_of_literal_string <span class="hl str">&quot;Jean Dupont&quot;</span><span class="hl opt">)</span>
+    ~obj<span class="hl opt">: (</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>term_of_literal_string <span class="hl str">&quot;Jean Dupont&quot;</span><span class="hl opt">)</span>
 | _ <span class="hl opt">-&gt;</span> <span class="hl kwa">assert false</span><span class="hl opt">;;</span></div></pre>
 <p id="Nowthegraphl"><a class="paragraph-url" href="#Nowthegraphl"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>Now the graph looks like:</p>
 
 <pre id="prefixrdfhttpw" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhttpw"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-1057075200 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; &lt;http://hello.fr/editor&gt; _:genid1-545825707 .
-_:genid1-545825707 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid1-545825707 ex:fullName &quot;Jean Dupont&quot; .
+_:genid0-1057075200 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-1057075200 ex:fullName &quot;Jean Dupont&quot; .
 </div></pre>
 
 <p id="Ifwerollback"><a class="paragraph-url" href="#Ifwerollback"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>If we rollback, we get the previous graph:</p>
@@ -198,10 +201,10 @@ _:genid1-545825707 ex:fullName &quot;Jean Dupont&quot; .
 <pre id="prefixrdfhttpww" class="code-ocaml"><a class="paragraph-url" href="#prefixrdfhttpww"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-1057075200 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; &lt;http://hello.fr/editor&gt; _:genid1-545825707 .
-_:genid1-545825707 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid1-545825707 ex:fullName &quot;Dave Beckett&quot; .
+_:genid0-1057075200 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-1057075200 ex:fullName &quot;Dave Beckett&quot; .
 </div></pre>
 
 </div>
@@ -213,7 +216,7 @@ RDF graphs can be dumped in Graphviz (dot) format, with the
 <a href="refdoc/Rdf_dot.html">Rdf_dot</a>
  module. The following code
 generates the dot code, then creates a .svg file by running
-a dot command. The result is inserted in below.
+a dot command. The result is inserted below.
 </p>
 <pre id="letdot_filee" class="code-ocaml"><a class="paragraph-url" href="#letdot_filee"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> dot_file <span class="hl opt">=</span> <span class="hl str">&quot;example.dot&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> svg_file <span class="hl opt">= (</span><span class="hl kwc">Filename</span><span class="hl opt">.</span>chop_extension dot_file<span class="hl opt">)</span>^<span class="hl str">&quot;.svg&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> dot_code <span class="hl opt">=</span> <span class="hl kwc">Rdf_dot</span><span class="hl opt">.</span>dot_of_graph g<span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> <span class="hl opt">() =</span>
   <span class="hl kwa">let</span> oc <span class="hl opt">=</span> open_out dot_file <span class="hl kwa">in</span>
@@ -221,6 +224,31 @@ a dot command. The result is inserted in below.
   close_out oc<span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> com <span class="hl opt">=</span> <span class="hl kwc">Printf</span><span class="hl opt">.</span>sprintf <span class="hl str">&quot;dot -Grankdir=TB -Tsvg -o %s %s&quot;</span>
   <span class="hl opt">(</span><span class="hl kwc">Filename</span><span class="hl opt">.</span>quote svg_file<span class="hl opt">) (</span><span class="hl kwc">Filename</span><span class="hl opt">.</span>quote dot_file<span class="hl opt">);;</span></div><div><span class="hl kwa">if</span> <span class="hl kwc">Sys</span><span class="hl opt">.</span>command com <span class="hl opt">&lt;&gt;</span> <span class="hl num">0</span> <span class="hl kwa">then</span> failwith <span class="hl str">&quot;Exec error&quot;</span><span class="hl opt">;;</span></div></pre>
 <img src="example.svg"/>
+</div>
+
+<div class="section"><div class="section-title" id="namespaces">Namespaces</div>
+<p id="Eachgraphhas"><a class="paragraph-url" href="#Eachgraphhas"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+Each graph has associated namespaces, i.e. pairs or (prefix, IRI), used
+to shorten the (XML, Turtle, ...) outputs.
+</p>
+<p id="Whenloadinga"><a class="paragraph-url" href="#Whenloadinga"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+When loading a graph from a file, the namespaces used in the file
+are automatically added to the graph, so that outputting the graph
+will make use of the same namespaces.
+</p>
+<p id="Namespacesof"><a class="paragraph-url" href="#Namespacesof"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+Namespaces of a graph can also be set programmatically, using the
+functions provided in each graph:
+</p>
+<pre id="Listmapfunir" class="code-ocaml"><a class="paragraph-url" href="#Listmapfunir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwc">List</span><span class="hl opt">.</span>map
+  <span class="hl opt">(</span><span class="hl kwa">fun</span> <span class="hl opt">(</span>iri<span class="hl opt">,</span> name<span class="hl opt">) -&gt; (</span><span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span><span class="hl kwb">string</span> iri<span class="hl opt">,</span> name<span class="hl opt">))</span>
+  <span class="hl opt">(</span>g<span class="hl opt">.</span><span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>namespaces<span class="hl opt">());;</span></div><div class="ocaml-toplevel">- : (string * string) list =
+[(&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;, &quot;rdf&quot;);
+ (&quot;http://example.org/stuff/1.0/&quot;, &quot;ex&quot;);
+ (&quot;http://purl.org/dc/elements/1.1/&quot;, &quot;dc&quot;)]</div></pre>
+<p id="SeeRdf_graph"><a class="paragraph-url" href="#SeeRdf_graph"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>See 
+<a href="refdoc/Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>
+ for other functions.</p>
 </div>
 
 

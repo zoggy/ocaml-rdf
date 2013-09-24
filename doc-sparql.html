@@ -3,7 +3,7 @@
 <head>
 <title>OCaml-RDF : Executing Sparql queries</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
-<rssfeed/>
+<rssfeed></rssfeed>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
@@ -30,7 +30,7 @@
 
 <div class="page-title">Executing Sparql queries</div>
 </div>
-<span/>
+<span></span>
 
 
 
@@ -48,8 +48,8 @@ this module open in the examples below:
 <p id="Theexamplebe"><a class="paragraph-url" href="#Theexamplebe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
 The example below parses a Sparql query, then prints it:
 </p>
-<pre id="letquerytryp" class="code-ocaml"><a class="paragraph-url" href="#letquerytryp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> query <span class="hl opt">=</span>
-  <span class="hl kwa">try</span> parse_from_string
+<pre id="letquerytryq" class="code-ocaml"><a class="paragraph-url" href="#letquerytryq"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> query <span class="hl opt">=</span>
+  <span class="hl kwa">try</span> query_from_string
     <span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="hl str">     SELECT ?name ?mbox ?hpage</span>
 <span class="hl str">     WHERE  { ?x foaf:name  ?name .</span>
@@ -65,26 +65,26 @@ The example below parses a Sparql query, then prints it:
 A Sparql query is executed on a
 <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/#rdfDataset"><em>dataset</em></a></span>,
 which is composed of a default (unnamed) graph, and other (named) graphs each associated
-to an URI.
+to an IRI.
 </p>
 <p id="TheRdf_dsdat"><a class="paragraph-url" href="#TheRdf_dsdat"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>The 
 <a href="refdoc/Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a>
- type represents a dataset and contain
-a default graph (which can be empty), a set of graph names (i.e. a set or URIs), and
-a function to get a graph by its URI.
+ type represents a dataset and contains
+a default graph (which can be empty), a set of graph names (i.e. a set of IRIs), and
+a function to get a graph by its IRI.
 </p>
 <p id="Theexamplebel"><a class="paragraph-url" href="#Theexamplebel"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>The example below loads a graph from the file <code>optional.ttl</code> then
-creates a dataset with graph as default graph, and no named graphs:
+creates a dataset with this graph as default graph, and no named graphs:
 </p>
-<pre id="letbaseRdf_u" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_u"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_uri</span><span class="hl opt">.</span>uri <span class="hl str">&quot;http://foo.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g base <span class="hl str">&quot;optional.ttl&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> dataset <span class="hl opt">=</span> <span class="hl kwc">Rdf_ds</span><span class="hl opt">.</span>simple_dataset g <span class="hl opt">;;</span></div></pre>
+<pre id="letbaseRdf_i" class="code-ocaml"><a class="paragraph-url" href="#letbaseRdf_i"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> base <span class="hl opt">=</span> <span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://foo.net&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> g <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl opt">.</span>from_file g <span class="hl str">&quot;optional.ttl&quot;</span><span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> dataset <span class="hl opt">=</span> <span class="hl kwc">Rdf_ds</span><span class="hl opt">.</span>simple_dataset g <span class="hl opt">;;</span></div></pre>
 <p id="Hereisthecon"><a class="paragraph-url" href="#Hereisthecon"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>Here is the content of our graph:</p>
 
 <pre id="prefixfoafht" class="code-ocaml"><a class="paragraph-url" href="#prefixfoafht"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div class="ocaml-toplevel"></div><div class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-636194264 foaf:name &quot;Bob&quot; .
-_:genid1-636194264 foaf:mbox &lt;mailto:bob@work.example&gt; .
-_:genid0-981524554 foaf:name &quot;Alice&quot; .
-_:genid0-981524554 foaf:homepage &lt;http://work.example.org/alice/&gt; .
+_:genid1-944381243 foaf:name &quot;Bob&quot; .
+_:genid1-944381243 foaf:mbox &lt;mailto:bob@work.example&gt; .
+_:genid0-685845641 foaf:name &quot;Alice&quot; .
+_:genid0-685845641 foaf:homepage &lt;http://work.example.org/alice/&gt; .
 </div></pre>
 
 </div>
@@ -110,13 +110,13 @@ Let's display the result. A solution, of type
 <a href="refdoc/Rdf_sparql.html#TYPEsolution">Rdf_sparql.solution</a>
 ,
 is a map from variable name (string) to 
-<a href="refdoc/Rdf_node.html#TYPEnode">Rdf_node.node</a>
+<a href="refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
 .
 Let's print the solutions we obtained.
 </p>
 <pre id="letprint_sol" class="code-ocaml"><a class="paragraph-url" href="#letprint_sol"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div># <span class="hl kwa">let</span> print_sol <span class="hl opt">=</span>
   <span class="hl kwa">let</span> print varname term <span class="hl opt">=</span>
-     <span class="hl kwc">Printf</span><span class="hl opt">.</span>printf <span class="hl str">&quot;%s =&gt; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> varname <span class="hl opt">(</span><span class="hl kwc">Rdf_node</span><span class="hl opt">.</span>string_of_node term<span class="hl opt">)</span>
+     <span class="hl kwc">Printf</span><span class="hl opt">.</span>printf <span class="hl str">&quot;%s =&gt; %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span> varname <span class="hl opt">(</span><span class="hl kwc">Rdf_term</span><span class="hl opt">.</span>string_of_term term<span class="hl opt">)</span>
   <span class="hl kwa">in</span>
   <span class="hl kwa">fun</span> sol <span class="hl opt">-&gt;</span>
     print_endline <span class="hl str">&quot;Solution:&quot;</span><span class="hl opt">;</span>
@@ -141,7 +141,7 @@ We begin by creating a new graph which will receive the new triples,
 then parse the CONSTRUCT query, then execute it. Then we show the resulting
 graph.
 </p>
-<pre id="letg2Rdf_gra" class="code-ocaml"><a class="paragraph-url" href="#letg2Rdf_gra"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> g2 <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> query <span class="hl opt">=</span> parse_from_string
+<pre id="letg2Rdf_gra" class="code-ocaml"><a class="paragraph-url" href="#letg2Rdf_gra"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> g2 <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph base <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> query <span class="hl opt">=</span> query_from_string
   <span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="hl str">   CONSTRUCT { ?x foaf:name ?name ; foaf:mbox ?mbox . }</span>
 <span class="hl str">   WHERE  { ?x foaf:name  ?name .</span>
