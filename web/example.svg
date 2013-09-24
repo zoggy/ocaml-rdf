@@ -14,12 +14,12 @@
 <ellipse fill="none" stroke="black" cx="435" cy="-198" rx="218.193" ry="18"/>
 <text text-anchor="middle" x="435" y="-193.9" font-family="Times Roman,serif" font-size="14.00">http://www.w3.org/TR/rdf&#45;syntax&#45;grammar</text>
 </g>
-<!-- Nd723f8941c67229d9bc592c278c684b5 -->
-<g id="node3" class="node"><title>Nd723f8941c67229d9bc592c278c684b5</title>
+<!-- Nef1f3777141b8d2f117460df982ca74a -->
+<g id="node3" class="node"><title>Nef1f3777141b8d2f117460df982ca74a</title>
 <ellipse fill="none" stroke="black" cx="249" cy="-108" rx="27" ry="18"/>
 </g>
-<!-- Ne2a1e495eebb9355f65c35b221baf3e2&#45;&gt;Nd723f8941c67229d9bc592c278c684b5 -->
-<g id="edge2" class="edge"><title>Ne2a1e495eebb9355f65c35b221baf3e2&#45;&gt;Nd723f8941c67229d9bc592c278c684b5</title>
+<!-- Ne2a1e495eebb9355f65c35b221baf3e2&#45;&gt;Nef1f3777141b8d2f117460df982ca74a -->
+<g id="edge2" class="edge"><title>Ne2a1e495eebb9355f65c35b221baf3e2&#45;&gt;Nef1f3777141b8d2f117460df982ca74a</title>
 <path fill="none" stroke="black" d="M397.625,-180.265C367.229,-165.793 323.262,-144.747 285,-126 283.259,-125.147 281.472,-124.267 279.67,-123.377"/>
 <polygon fill="black" stroke="black" points="281.187,-120.222 270.674,-118.908 278.073,-126.491 281.187,-120.222"/>
 <text text-anchor="middle" x="390.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">rdf:editor</text>
@@ -40,8 +40,8 @@
 <ellipse fill="none" stroke="black" cx="135" cy="-18" rx="135.002" ry="18"/>
 <text text-anchor="middle" x="135" y="-13.9" font-family="Times Roman,serif" font-size="14.00">http://purl.org/net/dajobe/</text>
 </g>
-<!-- Nd723f8941c67229d9bc592c278c684b5&#45;&gt;N80b52def747e8748199c1a0cf66cb35c -->
-<g id="edge6" class="edge"><title>Nd723f8941c67229d9bc592c278c684b5&#45;&gt;N80b52def747e8748199c1a0cf66cb35c</title>
+<!-- Nef1f3777141b8d2f117460df982ca74a&#45;&gt;N80b52def747e8748199c1a0cf66cb35c -->
+<g id="edge6" class="edge"><title>Nef1f3777141b8d2f117460df982ca74a&#45;&gt;N80b52def747e8748199c1a0cf66cb35c</title>
 <path fill="none" stroke="black" d="M231.188,-93.9375C213.718,-80.1457 186.73,-58.8393 165.782,-42.3016"/>
 <polygon fill="black" stroke="black" points="167.813,-39.4459 157.796,-35.9965 163.476,-44.9401 167.813,-39.4459"/>
 <text text-anchor="middle" x="249.5" y="-58.9" font-family="Times Roman,serif" font-size="14.00">ex:homePage</text>
@@ -51,8 +51,8 @@
 <ellipse fill="none" stroke="black" cx="364" cy="-18" rx="75.9375" ry="18"/>
 <text text-anchor="middle" x="364" y="-13.9" font-family="Times Roman,serif" font-size="14.00">Dave Beckett</text>
 </g>
-<!-- Nd723f8941c67229d9bc592c278c684b5&#45;&gt;N53f271b8d0cef8e809247713c99c736b -->
-<g id="edge8" class="edge"><title>Nd723f8941c67229d9bc592c278c684b5&#45;&gt;N53f271b8d0cef8e809247713c99c736b</title>
+<!-- Nef1f3777141b8d2f117460df982ca74a&#45;&gt;N53f271b8d0cef8e809247713c99c736b -->
+<g id="edge8" class="edge"><title>Nef1f3777141b8d2f117460df982ca74a&#45;&gt;N53f271b8d0cef8e809247713c99c736b</title>
 <path fill="none" stroke="black" d="M268.173,-95.0465C277.859,-88.3579 289.708,-79.9508 300,-72 312.22,-62.5597 325.318,-51.6569 336.461,-42.1303"/>
 <polygon fill="black" stroke="black" points="338.893,-44.6542 344.188,-35.4774 334.326,-39.3493 338.893,-44.6542"/>
 <text text-anchor="middle" x="363" y="-58.9" font-family="Times Roman,serif" font-size="14.00">ex:fullName</text>
