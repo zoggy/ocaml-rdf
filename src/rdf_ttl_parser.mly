@@ -136,10 +136,10 @@ literal:
 | String_ { String ($1, None, None) }
 | String_ lang=at_identifier { String ($1, Some lang, None) }
 | String_ dt=datatype { String ($1, None, Some dt) }
-| Integer { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_integer))) }
-| Decimal { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_decimal))) }
-| Double { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_double))) }
-| Boolean { String ($1, None, Some (Iriref (Rdf_uri.string Rdf_rdf.xsd_boolean))) }
+| Integer { String ($1, None, Some (Iriref (Rdf_iri.string Rdf_rdf.xsd_integer))) }
+| Decimal { String ($1, None, Some (Iriref (Rdf_iri.string Rdf_rdf.xsd_decimal))) }
+| Double { String ($1, None, Some (Iriref (Rdf_iri.string Rdf_rdf.xsd_double))) }
+| Boolean { String ($1, None, Some (Iriref (Rdf_iri.string Rdf_rdf.xsd_boolean))) }
 ;
 
 blanknodepropertylist:
