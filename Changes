@@ -18,7 +18,7 @@ Next release:
 * Rdf_node renamed to Rdf_term
 * Rdf_node.node renamed to Rdf_term.term
 * Rdf_node.NSet renamed to Rdf_term.TSet
-* In triples, predicate are now URIs of not any term.
+* In triples, predicates are now IRIs of not any term.
 
 Release 0.6.0:
 * fix: add ulex and menhirLib in META dependencies
