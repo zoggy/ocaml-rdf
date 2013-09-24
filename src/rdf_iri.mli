@@ -61,6 +61,11 @@ val concat : iri -> string -> iri
   an URI. *)
 val to_uri : iri -> Rdf_uri.uri
 
+(** [of_uri uri] get the string representation of the given [uri],
+  then percent-decode it and build an iri from this decoded string,
+  using {!iri}. *)
+val of_uri : Rdf_uri.uri -> iri
+
 val equal : iri -> iri -> bool
 
 val compare : iri -> iri -> int

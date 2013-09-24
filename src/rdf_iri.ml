@@ -61,7 +61,7 @@ type iri_ = {
 type iri = string
 
 let re_iri = regexp
-    (scheme^":((//((<?<user>[^@])+@)?(?<host>[^:/#]*)(:(?<port>\\d+))?(/(?<path1>[^#?]*)))|(?<path2>[^#?]*))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
+    (scheme^":((//((?<user>[^@]+)@)?(?<host>[^:/#]*)(:(?<port>\\d+))?(/(?<path1>[^#?]*)))|(?<path2>[^#?]*))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
 ;;
 
 let re_nonemptypath =
@@ -69,7 +69,7 @@ let re_nonemptypath =
   regexp s
 ;;
 
-(*
+
 let pct_decode =
   let rec iter b len s i =
     if i >= len then
@@ -104,7 +104,7 @@ let pct_decode =
     iter b len s 0;
     Buffer.contents b
 ;;
-*)
+
 
 let pct_encode =
   let rec iter safe_chars b len s i =
@@ -362,6 +362,7 @@ let to_uri iri =
   let s = to_string ~encode: true (parse iri) in
   Rdf_uri.uri s
 ;;
+let of_uri uri = iri (pct_decode (Rdf_uri.string uri));;
 
 let append ?check i s = iri ?check (i^s);;
 
