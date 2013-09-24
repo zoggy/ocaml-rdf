@@ -1,7 +1,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix ex: <http://example.org/stuff/1.0/> .
-<http://www.w3.org/TR/rdf-syntax-grammar> rdf:editor _:genid1-361812549 .
+<http://www.w3.org/TR/rdf-syntax-grammar> rdf:editor _:genid1-855756890 .
 <http://www.w3.org/TR/rdf-syntax-grammar> dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid1-361812549 ex:homePage <http://purl.org/net/dajobe/> .
-_:genid1-361812549 ex:fullName "Dave Beckett" .
+_:genid1-855756890 ex:homePage <http://purl.org/net/dajobe/> .
+_:genid1-855756890 ex:fullName "Dave Beckett" .

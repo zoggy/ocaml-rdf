@@ -1,11 +1,11 @@
 digraph g {
 rankdir=LR;
 fontsize=10;
-Ne2a1e495eebb9355f65c35b221baf3e2 -> Ne54aee194d07b0a51353acf2a842aba1 [label="rdf:editor"];
+Ne2a1e495eebb9355f65c35b221baf3e2 -> Nd723f8941c67229d9bc592c278c684b5 [label="rdf:editor"];
 Ne2a1e495eebb9355f65c35b221baf3e2 -> N081f23b7e7aaf8093d5fb128430cafef [label="dc:title"];
-Ne54aee194d07b0a51353acf2a842aba1 -> N80b52def747e8748199c1a0cf66cb35c [label="ex:homePage"];
-Ne54aee194d07b0a51353acf2a842aba1 -> N53f271b8d0cef8e809247713c99c736b [label="ex:fullName"];
-Ne54aee194d07b0a51353acf2a842aba1 [ label="" ];
+Nd723f8941c67229d9bc592c278c684b5 -> N80b52def747e8748199c1a0cf66cb35c [label="ex:homePage"];
+Nd723f8941c67229d9bc592c278c684b5 -> N53f271b8d0cef8e809247713c99c736b [label="ex:fullName"];
+Nd723f8941c67229d9bc592c278c684b5 [ label="" ];
 N53f271b8d0cef8e809247713c99c736b [ label="Dave Beckett" ];
 N081f23b7e7aaf8093d5fb128430cafef [ label="RDF/XML Syntax Specification (Revised)" ];
 N80b52def747e8748199c1a0cf66cb35c [ label="http://purl.org/net/dajobe/" ];

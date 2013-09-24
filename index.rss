@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0"><channel><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf/index.rss</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>13 Aug 2013 08:00:00 +0000</pubDate><lastBuildDate>13 Aug 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>New web site and release 0.6.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</link><description>
+<rss version="2.0"><channel><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf/index.rss</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>24 Sep 2013 08:00:00 +0000</pubDate><lastBuildDate>24 Sep 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>OCaml-RDF 0.7.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.0.html</link><description>
+&lt;p&gt;
+Release 0.7.0 of OCaml-RDF is available from
+the &lt;elt href=&quot;download&quot;&gt;download page&lt;/elt&gt;.
+It contains a lot of changes:
+&lt;/p&gt;
+&lt;a href=&quot;http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.0.html&quot;&gt;&lt;img src=&quot;http://zoggy.github.io/ocaml-rdf/next.png&quot; alt=&quot;next&quot;/&gt;&lt;/a&gt;</description><pubDate>24 Sep 2013 08:00:00 +0000</pubDate><category>ocaml-rdf</category><category>release</category><guid isPermaLink="true">http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.0.html</guid></item><item><title>New web site and release 0.6.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/new-web-site.html</link><description>
 &lt;p&gt;
 OCaml-RDF has moved to Github, both code and web pages.
 The new web site is made with
