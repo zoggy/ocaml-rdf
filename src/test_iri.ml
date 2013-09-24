@@ -21,3 +21,9 @@ prerr_endline
   (Printf.sprintf "iri2=%s\nuri2=%s\niri3=%s"
     (Rdf_iri.string iri2) (Rdf_uri.string uri2) (Rdf_iri.string iri3));;
 
+let s = "http://foo.org/with%20space";;
+let uri = Rdf_uri.uri s;;
+let iri = Rdf_iri.of_uri uri;;
+prerr_endline (Printf.sprintf "s=%s\nuri=%s\niri=%s"
+  s (Rdf_uri.string uri) (Rdf_iri.string iri));;
+

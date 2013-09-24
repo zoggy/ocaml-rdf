@@ -82,7 +82,13 @@ let pct_decode =
               begin
                 try
                   let n = int_of_string ("0x"^(String.sub s (i+1) 2)) in
-                  Buffer.add_char b (Char.chr n);
+                  let c = Char.chr n in
+                  begin
+                    (* FIXME: some other characters should not be decoded *)
+                    match c with
+                      ' ' -> Buffer.add_string b "%20"
+                    | _ -> Buffer.add_char b c;
+                  end;
                   i+3
                 with
                   _ -> Buffer.add_char b s.[i]; i+1
