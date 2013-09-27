@@ -29,7 +29,12 @@ open Rdf_my;;
 
 let dbg = Rdf_my.dbg;;
 
-let table_options engine = " ENGINE="^engine^" DELAY_KEY_WRITE=1 MAX_ROWS=100000000 DEFAULT CHARSET=UTF8";;
+let table_options engine =
+  " ENGINE="^engine^
+    (if String.lowercase engine = "myisam" then " DELAY_KEY_WRITE=1" else " ")^
+    " MAX_ROWS=100000000 DEFAULT CHARSET=UTF8"
+;;
+
 let creation_queries =
   [
     "CREATE TABLE IF NOT EXISTS graphs (id integer AUTO_INCREMENT PRIMARY KEY NOT NULL, name text NOT NULL)" ;
