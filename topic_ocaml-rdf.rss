@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0"><channel><title>OCaml-RDF: ocaml-rdf</title><link>http://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>24 Sep 2013 08:00:00 +0000</pubDate><lastBuildDate>24 Sep 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>OCaml-RDF 0.7.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.0.html</link><description>
+<rss version="2.0"><channel><title>OCaml-RDF: ocaml-rdf</title><link>http://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html</link><description></description><managingEditor>foo@bar.com</managingEditor><pubDate>27 Sep 2013 08:00:00 +0000</pubDate><lastBuildDate>27 Sep 2013 08:00:00 +0000</lastBuildDate><generator>Stog</generator><image><url>http://zoggy.github.io/ocaml-rdf</url><title>OCaml-RDF</title><link>http://zoggy.github.io/ocaml-rdf</link></image><item><title>OCaml-RDF 0.7.1</title><link>http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.1.html</link><description>
+&lt;p&gt;
+Release 0.7.1 of OCaml-RDF is available from
+the &lt;elt href=&quot;download&quot;&gt;download page&lt;/elt&gt;.
+This is a small bugfix release:
+&lt;/p&gt;
+&lt;a href=&quot;http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.1.html&quot;&gt;&lt;img src=&quot;http://zoggy.github.io/ocaml-rdf/next.png&quot; alt=&quot;next&quot;/&gt;&lt;/a&gt;</description><pubDate>27 Sep 2013 08:00:00 +0000</pubDate><category>ocaml-rdf</category><category>release</category><guid isPermaLink="true">http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.1.html</guid></item><item><title>OCaml-RDF 0.7.0</title><link>http://zoggy.github.io/ocaml-rdf/posts/ocaml-rdf-0.7.0.html</link><description>
 &lt;p&gt;
 Release 0.7.0 of OCaml-RDF is available from
 the &lt;elt href=&quot;download&quot;&gt;download page&lt;/elt&gt;.
