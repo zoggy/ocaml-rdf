@@ -1,4 +1,8 @@
-Next release:
+Release 0.7.1:
+* fix MySQL backend: handle empty engine option
+  and set DELAY_KEY_WRITE=1 only for MyISAM engine.
+
+Release 0.7.0:
 * mod: Rdf_iri module now replaces Rdf_uri.
 * mod: Rdf_sparql.parse_from_*  renamed to query_from_*
 * mod: Rdf_uri.Invalid_url renamed to Invalid_uri
