@@ -31,7 +31,7 @@ let dbg = Rdf_my.dbg;;
 
 let table_options engine =
   " ENGINE="^engine^
-    (if String.lowercase engine = "myisam" then " DELAY_KEY_WRITE=1" else " ")^
+    (if String.lowercase engine = "myisam" then " DELAY_KEY_WRITE=1" else "")^
     " MAX_ROWS=100000000 DEFAULT CHARSET=UTF8"
 ;;
 
@@ -221,7 +221,10 @@ let query_triple_list g where_clause =
 let open_graph ?(options=[]) name =
   let db = db_of_options options in
   let engine =
-    try List.assoc "engine" options
+    try
+      match List.assoc "engine" options with
+        "" -> raise Not_found
+      | s -> s
     with Not_found -> "InnoDB"
   in
   let engine = String.uppercase engine in
