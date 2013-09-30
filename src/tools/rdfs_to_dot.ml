@@ -76,15 +76,16 @@ let label ns iri =
   | (p,s) -> p^":"^s
 ;;
 
-let print_class g b ns iri =
+let print_class g b ns classes iri =
   let clabel = label ns iri in
-  p b "%s [ label=< <TABLE><TR><TD PORT=\"P%s\">%s</TD></TR>" (node iri) (id iri) clabel;
+  p b "%s [ label=< <TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\"><TR><TD BGCOLOR=\"grey78\" PORT=\"P%s\">%s</TD></TR>" (node iri) (id iri) clabel;
 
   let f (prop, range) =
     Buffer.add_string b
-     ("<TR><TD PORT=\"P"^(id prop)^"\">"^(label ns prop)^" : "^(label ns range)^"</TD></TR>");
+     ("<TR><TD BGCOLOR=\"grey87\" ALIGN=\"LEFT\" PORT=\"P"^(id prop)^"\">"^(label ns prop)^" : "^(label ns range)^"</TD></TR>");
 
-    if Rdf_iri.equal range Rdf_rdfs.rdfs_Literal then
+    if Rdf_iri.equal range Rdf_rdfs.rdfs_Literal
+    || not (List.exists (Rdf_iri.equal range) classes) then
       None
     else
       (
@@ -97,7 +98,11 @@ let print_class g b ns iri =
   List.iter (function None -> () | Some s -> Buffer.add_string b s) edges;
 
   let f_subclass cl =
-    p b "%s -> %s:P%s [ label=\"subClassOf\" ];\n" (node iri) (node cl) (id cl)
+    if List.exists (Rdf_iri.equal cl) classes then
+      p b "%s -> %s:P%s [ label=\"subClassOf\", arrowhead=\"inv\", fontcolor=\"blue\", color=\"blue\"];\n"
+        (node iri) (node cl) (id cl)
+    else
+      ()
   in
   List.iter f_subclass (get_parent_classes g iri)
 ;;
@@ -109,8 +114,9 @@ let generate g =
   let b = Buffer.create 1024 in
   let p = Printf.bprintf b in
   p "digraph g {\n  rankdir=\"LR\";\n";
-  p "  node [style=\"rounded,filled\", shape=\"rect\", color=\"red\", fillcolor=\"lightgrey\", fontcolor=\"black\"];\n";
-  List.iter (print_class g b ns) (get_by_type g Rdf_rdfs.rdfs_Class);
+  p "  node [penwidth=\"0\", shape=\"rect\", color=\"red\", fillcolor=\"lightgrey\", fontcolor=\"black\"];\n";
+  let classes = get_by_type g Rdf_rdfs.rdfs_Class in
+  List.iter (print_class g b ns classes) classes;
   p "}";
   let dot = Buffer.contents b in
   print_endline dot
