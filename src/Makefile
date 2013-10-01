@@ -54,11 +54,11 @@ LIB_RDF_CMOFILES= \
 	rdf_uri.cmo \
 	rdf_iri.cmo \
 	rdf_rdf.cmo \
+	rdf_term.cmo \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
 	rdf_rdfs.cmo \
-	rdf_term.cmo \
 	rdf_dt.cmo \
 	rdf_ulex.cmo \
 	rdf_sparql_types.cmo \
