@@ -32,3 +32,80 @@ let rdfs_subClassOf = rdfs_"subClassOf" ;;
 
 let rdfs_subPropertyOf = rdfs_"subPropertyOf" ;;
 
+let add_label g iri ?lang s =
+  let obj = Rdf_term.term_of_literal_string ?lang s in
+  g.Rdf_graph.add_triple
+    ~sub: (Rdf_term.Iri iri)
+    ~pred: rdfs_label
+    ~obj
+;;
+
+let add_comment g iri ?lang s =
+let obj = Rdf_term.term_of_literal_string ?lang s in
+  g.Rdf_graph.add_triple
+    ~sub: (Rdf_term.Iri iri)
+    ~pred: rdfs_comment
+    ~obj
+;;
+
+let add_domain g iri dom =
+  g.Rdf_graph.add_triple
+    ~sub: (Rdf_term.Iri iri)
+    ~pred: rdfs_domain
+    ~obj: (Rdf_term.Iri dom)
+;;
+
+let add_range g iri dom =
+  g.Rdf_graph.add_triple
+    ~sub: (Rdf_term.Iri iri)
+    ~pred: rdfs_range
+    ~obj: (Rdf_term.Iri dom)
+;;
+
+let add_more g iri (pred, obj) =
+  g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri) ~pred ~obj
+;;
+
+let property g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
+  ?(domains=[]) ?(ranges=[]) ?subof ?(more=[]) iri =
+  g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
+    ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri Rdf_rdf.rdf_Property);
+  add_label g iri label ;
+  List.iter (fun (s, lang) -> add_label g iri ~lang s) label_lang;
+  (match comment with None -> () | Some s -> add_comment g iri s);
+  List.iter (fun (s, lang) -> add_comment g iri ~lang s) comment_lang;
+  List.iter (add_domain g iri) domains ;
+  List.iter (add_range g iri) ranges ;
+  (match subof with
+    None -> ()
+  | Some cl ->
+       g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
+         ~pred: rdfs_subPropertyOf ~obj: (Rdf_term.Iri cl)
+  );
+  List.iter (add_more g iri) more
+;;
+
+let class_ g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
+   ?subof ?(more=[]) iri =
+  g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
+    ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri rdfs_Class);
+  add_label g iri label ;
+  List.iter (fun (s, lang) -> add_label g iri ~lang s) label_lang;
+  (match comment with None -> () | Some s -> add_comment g iri s);
+  List.iter (fun (s, lang) -> add_comment g iri ~lang s) comment_lang;
+  (match subof with
+    None -> ()
+  | Some cl ->
+       g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
+         ~pred: rdfs_subClassOf ~obj: (Rdf_term.Iri cl)
+  );
+  List.iter (add_more g iri) more
+;;
+
+let add_namespaces g =
+  g.Rdf_graph.add_namespace Rdf_rdf.rdf "rdf" ;
+  g.Rdf_graph.add_namespace rdfs "rdfs"
+;;
+
+
+  

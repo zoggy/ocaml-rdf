@@ -49,3 +49,28 @@ val rdfs_subClassOf : Rdf_iri.iri
 (** The subject is a subproperty of a property. *)
 val rdfs_subPropertyOf : Rdf_iri.iri
 
+(** {2 Building vocabulary descriptions} *)
+
+(** Add usual [rdf] and [rdfs] namespaces in the given graph. *)
+val add_namespaces : Rdf_graph.graph -> unit
+
+val property : Rdf_graph.graph ->
+  label: string ->
+    ?label_lang: (string * string) list ->
+    ?comment: string ->
+    ?comment_lang: (string * string) list ->
+    ?domains: Rdf_iri.iri list ->
+    ?ranges: Rdf_iri.iri list ->
+    ?subof: Rdf_iri.iri ->
+    ?more: (Rdf_iri.iri * Rdf_term.term) list ->
+    Rdf_iri.iri -> unit
+
+val class_ : Rdf_graph.graph ->
+  label: string ->
+    ?label_lang: (string * string) list ->
+    ?comment: string ->
+    ?comment_lang: (string * string) list ->
+    ?subof: Rdf_iri.iri ->
+    ?more: (Rdf_iri.iri * Rdf_term.term) list ->
+    Rdf_iri.iri -> unit
+
