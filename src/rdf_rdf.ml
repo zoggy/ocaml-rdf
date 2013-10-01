@@ -71,7 +71,7 @@ let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
 let rdf_langstring = rdf_"rdf:langString"
 
-let dc = Rdf_iri.iri "http://purl.org/dc/terms/";;
+let dc = Rdf_iri.iri "http://purl.org/dc/elements/1.1/"
 let dc_ = Rdf_iri.append dc ;;
 
 
