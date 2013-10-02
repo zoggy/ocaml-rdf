@@ -58,7 +58,6 @@ LIB_RDF_CMOFILES= \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
-	rdf_rdfs.cmo \
 	rdf_dt.cmo \
 	rdf_ulex.cmo \
 	rdf_sparql_types.cmo \
@@ -71,6 +70,7 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_algebra.cmo \
 	rdf_bgp.cmo \
 	rdf_graph.cmo \
+	rdf_rdfs.cmo \
 	rdf_ds.cmo \
 	rdf_mem.cmo \
 	rdf_dot.cmo \

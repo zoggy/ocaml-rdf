@@ -35,7 +35,7 @@ type env =
     prefixes : Rdf_iri.iri SMap.t ;
   }
 
-type dataset = { from : Rdf_iri.iri option ; from_named : Rdf_iri.Iriset.t }
+type dataset = { from : Rdf_iri.iri list ; from_named : Rdf_iri.Iriset.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 
@@ -462,13 +462,13 @@ let build_dataset =
   | DefaultGraphClause (Iriref _)
   | NamedGraphClause (Iriref _) -> assert false
   | DefaultGraphClause (Reliri r) ->
-      { ds with from = Some (expand_relative_iri env r.reliri) }
+      { ds with from = (expand_relative_iri env r.reliri) :: ds.from }
   | NamedGraphClause (Reliri r) ->
       { ds with
         from_named = Rdf_iri.Iriset.add (expand_relative_iri env r.reliri) ds.from_named }
   in
   let build env clauses = List.fold_left (iter env)
-    { from = None ; from_named = Rdf_iri.Iriset.empty } clauses
+    { from = [] ; from_named = Rdf_iri.Iriset.empty } clauses
   in
   fun env -> function
     Select q -> build env q.select_dataset

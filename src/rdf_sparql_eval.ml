@@ -99,14 +99,19 @@ type context =
         we get it at the beginning of the evaluation and use it when required *)
     }
 
-let context ~base ?from ?(from_named=Iriset.empty) dataset =
+let context ~base ?(from=[]) ?(from_named=Iriset.empty) dataset =
   let active =
     match from with
-      None when Iriset.is_empty from_named -> dataset.Rdf_ds.default
-    | None ->
+      [] when Iriset.is_empty from_named -> dataset.Rdf_ds.default
+    | [] ->
         (* default graph is empty *)
         Rdf_graph.open_graph base
-    | Some iri -> dataset.Rdf_ds.get_named iri
+    | [iri] -> dataset.Rdf_ds.get_named iri
+    | iris -> (* merge graphs to get the active graph *)
+       let g = Rdf_graph.open_graph base in
+       let graphs = List.map dataset.Rdf_ds.get_named iris in
+       List.iter (Rdf_graph.merge g) graphs;
+       g
   in
   let named =
     (* if no named graph is specified, then use the named graphs of

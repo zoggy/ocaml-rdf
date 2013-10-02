@@ -362,7 +362,7 @@ let execute ?graph ~base dataset query =
   dbg ~level: 2 (fun () -> Rdf_sparql_algebra.string_of_algebra algebra);
   dbg ~level: 4 (fun () -> Rdf_ttl.to_string dataset.Rdf_ds.default);
   let ctx = Rdf_sparql_eval.context ~base
-    ?from: ds.Rdf_sparql_expand.from
+    ~from: ds.Rdf_sparql_expand.from
         ~from_named: ds.Rdf_sparql_expand.from_named dataset
   in
   let solutions = Rdf_sparql_eval.eval_list ctx algebra in

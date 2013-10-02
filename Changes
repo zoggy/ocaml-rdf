@@ -1,3 +1,10 @@
+Next release:
+- change Rdf_rdf.dc to http://purl.org/dc/elements/1.1/
+- add: convenient functions to create RDF vocabularies in Rdf_rdfs
+- fix: handle more than one "FROM <iri>" directives in sparql query
+  according to http://www.w3.org/TR/sparql11-query/#specifyingDataset
+  (merge referenced graphs in a new graph in memory)
+
 Release 0.7.1:
 * fix MySQL backend: handle empty engine option
   and set DELAY_KEY_WRITE=1 only for MyISAM engine.
