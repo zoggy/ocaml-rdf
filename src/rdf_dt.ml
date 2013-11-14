@@ -342,7 +342,7 @@ let of_literal lit =
           with _ -> failwith ""
         end
     | Some t when Rdf_iri.equal t Rdf_rdf.xsd_double
-          or Rdf_iri.equal t Rdf_rdf.xsd_decimal ->
+          || Rdf_iri.equal t Rdf_rdf.xsd_decimal ->
         begin
           try Float (float_of_string lit.lit_value)
           with _ -> failwith ""

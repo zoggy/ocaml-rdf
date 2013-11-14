@@ -263,7 +263,7 @@ module Make (P : P) =
                    *)
                 let (_, term1) = filter_of_var_or_term mu x in
                 let (_, term2) = filter_of_var_or_term mu y in
-                if not (ms_one = []) or
+                if not (ms_one = []) ||
                   Rdf_misc.opt_compare P.compare term1 term2 = 0
                 then
                   [ Mu.empty ]

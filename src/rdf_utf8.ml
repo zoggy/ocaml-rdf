@@ -50,7 +50,7 @@ let utf8_index_of_char s c =
 
 let utf8_char_of_index s i =
   let len = String.length s in
-  if i >= len or i < 0 then
+  if i >= len || i < 0 then
     invalid_arg "utf8_char_from_index"
   else
     begin
