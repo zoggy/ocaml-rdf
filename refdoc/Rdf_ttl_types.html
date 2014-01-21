@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_ttl_types</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_ttl_types</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,37 +38,42 @@
  <a class="post" href="Rdf_types.html" title="Rdf_types">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_ttl_types.html">Rdf_ttl_types</a></h1>
-<pre id="moduleRdf_tt"><a class="paragraph-url" href="#moduleRdf_tt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_ttl_types: <code class="code">sig</code> <a href="Rdf_ttl_types.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduleRdf_ttl_typessigen"><a class="paragraph-url" href="#moduleRdf_ttl_typessigen"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_ttl_types: <code class="code">sig</code> <a href="Rdf_ttl_types.html">..</a> <code class="code">end</code></pre><div class="info module top">
 </div>
 <hr width="100%"/>
-<pre id="moduleSMapRd"><a class="paragraph-url" href="#moduleSMapRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_ttl_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre><pre id="typecontext_"><a class="paragraph-url" href="#typecontext_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEcontext"><span class="keyword">type</span> context</span> = {</code></pre><table class="typetable">
+
+<pre id="moduleSMapRdf_xmlSMap"><a class="paragraph-url" href="#moduleSMapRdf_xmlSMap"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_ttl_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre>
+<pre id="typecontext"><a class="paragraph-url" href="#typecontext"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEcontext"><span class="keyword">type</span> context</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTcontext.base">base</span> :<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTcontext.base">base</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTcontext.prefixes">prefixes</span> :<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
+<code><span id="TYPEELTcontext.prefixes">prefixes</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTcontext.gstate">gstate</span> :<code class="type"><a href="Rdf_xml.html#TYPEglobal_state">Rdf_xml.global_state</a></code>;</code></td>
+<code><span id="TYPEELTcontext.gstate">gstate</span> : <code class="type"><a href="Rdf_xml.html#TYPEglobal_state">Rdf_xml.global_state</a></code>;</code></td>
 
 </tr></table>
 }
 
 
-<pre id="typeirirefst"><a class="paragraph-url" href="#typeirirefst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEiriref"><span class="keyword">type</span> iriref</span> = <code class="type">string</code> </pre>
 
-<pre id="typedirectiv"><a class="paragraph-url" href="#typedirectiv"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEdirective"><span class="keyword">type</span> directive</span> = </code></pre><table class="typetable">
+<pre id="typeirirefstring"><a class="paragraph-url" href="#typeirirefstring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEiriref"><span class="keyword">type</span> iriref</span> = <code class="type">string</code> </pre>
+
+
+<pre id="typedirective"><a class="paragraph-url" href="#typedirective"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEdirective"><span class="keyword">type</span> directive</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -85,9 +90,11 @@
 </tr></table>
 
 
-<pre id="typeqnamestr"><a class="paragraph-url" href="#typeqnamestr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEqname"><span class="keyword">type</span> qname</span> = <code class="type">string option * string option</code> </pre>
 
-<pre id="typeiri_____"><a class="paragraph-url" href="#typeiri_____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
+<pre id="typeqnamestringoptionstr"><a class="paragraph-url" href="#typeqnamestringoptionstr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEqname"><span class="keyword">type</span> qname</span> = <code class="type">string option * string option</code> </pre>
+
+
+<pre id="typeiri"><a class="paragraph-url" href="#typeiri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -104,9 +111,11 @@
 </tr></table>
 
 
-<pre id="typelanguage"><a class="paragraph-url" href="#typelanguage"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPElanguage"><span class="keyword">type</span> language</span> = <code class="type">string</code> </pre>
 
-<pre id="typeliteral_"><a class="paragraph-url" href="#typeliteral_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEliteral"><span class="keyword">type</span> literal</span> = </code></pre><table class="typetable">
+<pre id="typelanguagestring"><a class="paragraph-url" href="#typelanguagestring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPElanguage"><span class="keyword">type</span> language</span> = <code class="type">string</code> </pre>
+
+
+<pre id="typeliteral"><a class="paragraph-url" href="#typeliteral"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEliteral"><span class="keyword">type</span> literal</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -116,7 +125,8 @@
 </tr></table>
 
 
-<pre id="typeobject__"><a class="paragraph-url" href="#typeobject__"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEobject_"><span class="keyword">type</span> object_</span> = </code></pre><table class="typetable">
+
+<pre id="typeobject_"><a class="paragraph-url" href="#typeobject_"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEobject_"><span class="keyword">type</span> object_</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -140,7 +150,8 @@
 </tr></table>
 
 
-<pre id="typeblank___"><a class="paragraph-url" href="#typeblank___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEblank"><span class="keyword">type</span> blank</span> = </code></pre><table class="typetable">
+
+<pre id="typeblank"><a class="paragraph-url" href="#typeblank"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEblank"><span class="keyword">type</span> blank</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -171,7 +182,8 @@
 </tr></table>
 
 
-<pre id="typepred____"><a class="paragraph-url" href="#typepred____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEpred"><span class="keyword">type</span> pred</span> = </code></pre><table class="typetable">
+
+<pre id="typepred"><a class="paragraph-url" href="#typepred"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEpred"><span class="keyword">type</span> pred</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -188,9 +200,11 @@
 </tr></table>
 
 
-<pre id="typepredobjp"><a class="paragraph-url" href="#typepredobjp"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEpredobj"><span class="keyword">type</span> predobj</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEpred">pred</a> * <a href="Rdf_ttl_types.html#TYPEobject_">object_</a> list</code> </pre>
 
-<pre id="typesubject_"><a class="paragraph-url" href="#typesubject_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEsubject"><span class="keyword">type</span> subject</span> = </code></pre><table class="typetable">
+<pre id="typepredobjpredobject_li"><a class="paragraph-url" href="#typepredobjpredobject_li"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEpredobj"><span class="keyword">type</span> predobj</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEpred">pred</a> * <a href="Rdf_ttl_types.html#TYPEobject_">object_</a> list</code> </pre>
+
+
+<pre id="typesubject"><a class="paragraph-url" href="#typesubject"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEsubject"><span class="keyword">type</span> subject</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -207,7 +221,8 @@
 </tr></table>
 
 
-<pre id="typestatemen"><a class="paragraph-url" href="#typestatemen"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEstatement"><span class="keyword">type</span> statement</span> = </code></pre><table class="typetable">
+
+<pre id="typestatement"><a class="paragraph-url" href="#typestatement"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEstatement"><span class="keyword">type</span> statement</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -224,7 +239,8 @@
 </tr></table>
 
 
-<pre id="typeturtlest"><a class="paragraph-url" href="#typeturtlest"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEturtle"><span class="keyword">type</span> turtle</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEstatement">statement</a> list</code> </pre>
+
+<pre id="typeturtlestatementlist"><a class="paragraph-url" href="#typeturtlestatementlist"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEturtle"><span class="keyword">type</span> turtle</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEstatement">statement</a> list</code> </pre>
 
 </div>
 
@@ -233,8 +249,8 @@
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

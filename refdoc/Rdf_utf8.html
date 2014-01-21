@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_utf8</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_utf8</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,78 +38,97 @@
  <a class="post" href="Rdf_xml.html" title="Rdf_xml">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_utf8.html">Rdf_utf8</a></h1>
-<pre id="moduleRdf_ut"><a class="paragraph-url" href="#moduleRdf_ut"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_utf8: <code class="code">sig</code> <a href="Rdf_utf8.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduleRdf_utf8sigend"><a class="paragraph-url" href="#moduleRdf_utf8sigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_utf8: <code class="code">sig</code> <a href="Rdf_utf8.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Handling UTF-8 strings.<br/>
 </div>
 <hr width="100%"/>
-<pre id="valutf8_nb_b"><a class="paragraph-url" href="#valutf8_nb_b"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_nb_bytes_of_char"><span class="keyword">val</span> utf8_nb_bytes_of_char</span> : <code class="type">char -&gt; int</code></pre><div class="info">
+
+<pre id="valutf8_nb_bytes_of_char"><a class="paragraph-url" href="#valutf8_nb_bytes_of_char"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_nb_bytes_of_char"><span class="keyword">val</span> utf8_nb_bytes_of_char</span> : <code class="type">char -&gt; int</code></pre><div class="info">
 Return the number of bytes taken by a the first byte
   (as character) of a UTF-8 character.<br/>
 </div>
-<pre id="valutf8_inde"><a class="paragraph-url" href="#valutf8_inde"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_index_of_char"><span class="keyword">val</span> utf8_index_of_char</span> : <code class="type">string -&gt; int -&gt; int</code></pre><div class="info">
+
+<pre id="valutf8_index_of_charstr"><a class="paragraph-url" href="#valutf8_index_of_charstr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_index_of_char"><span class="keyword">val</span> utf8_index_of_char</span> : <code class="type">string -&gt; int -&gt; int</code></pre><div class="info">
 <code class="code">utf8_index_of_char str n</code> returns the position in byte
   of the <code class="code">n</code>th character. <code class="code">n</code> is 0-based.<br/>
 <b>Raises</b> <code>Not_found</code> if there is no <code class="code">n</code>th character.<br/>
 </div>
-<pre id="valutf8_char"><a class="paragraph-url" href="#valutf8_char"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_char_of_index"><span class="keyword">val</span> utf8_char_of_index</span> : <code class="type">string -&gt; int -&gt; int</code></pre><div class="info">
+
+<pre id="valutf8_char_of_indexstr"><a class="paragraph-url" href="#valutf8_char_of_indexstr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_char_of_index"><span class="keyword">val</span> utf8_char_of_index</span> : <code class="type">string -&gt; int -&gt; int</code></pre><div class="info">
 <code class="code">utf8_char_of_index str n</code> returns the utf8 character
   position corresponding to the given byte index <code class="code">n</code>.<br/>
 </div>
-<pre id="valutf8_stri"><a class="paragraph-url" href="#valutf8_stri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_string_length"><span class="keyword">val</span> utf8_string_length</span> : <code class="type">string -&gt; int</code></pre><div class="info">
+
+<pre id="valutf8_string_lengthstr"><a class="paragraph-url" href="#valutf8_string_lengthstr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_string_length"><span class="keyword">val</span> utf8_string_length</span> : <code class="type">string -&gt; int</code></pre><div class="info">
 <code class="code">utf8_string_length str</code> returns the number of utf8
   characters in <code class="code">str</code>.<br/>
 </div>
-<pre id="valutf8_subs"><a class="paragraph-url" href="#valutf8_subs"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_substr"><span class="keyword">val</span> utf8_substr</span> : <code class="type">string -&gt; int -&gt; int -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_substrstringinti"><a class="paragraph-url" href="#valutf8_substrstringinti"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_substr"><span class="keyword">val</span> utf8_substr</span> : <code class="type">string -&gt; int -&gt; int -&gt; string</code></pre><div class="info">
 <code class="code">utf8_substr str pos l</code> returns the substring of <code class="code">str</code>
   from utf8 position <code class="code">pos</code> to <code class="code">pos+l-1</code>.<br/>
 </div>
-<pre id="valutf8_is_p"><a class="paragraph-url" href="#valutf8_is_p"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_is_prefix"><span class="keyword">val</span> utf8_is_prefix</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
+
+<pre id="valutf8_is_prefixstrings"><a class="paragraph-url" href="#valutf8_is_prefixstrings"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_is_prefix"><span class="keyword">val</span> utf8_is_prefix</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
 <code class="code">utf8_is_prefix s1 s2</code> returns whether <code class="code">s2</code> is prefix of <code class="code">s1</code>.<br/>
 </div>
-<pre id="valutf8_is_s"><a class="paragraph-url" href="#valutf8_is_s"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_is_suffix"><span class="keyword">val</span> utf8_is_suffix</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
+
+<pre id="valutf8_is_suffixstrings"><a class="paragraph-url" href="#valutf8_is_suffixstrings"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_is_suffix"><span class="keyword">val</span> utf8_is_suffix</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
 <code class="code">utf8_is_suffix s1 s2</code> returns whether <code class="code">s2</code> is suffix of <code class="code">s1</code>.<br/>
 </div>
-<pre id="valutf8_subst"><a class="paragraph-url" href="#valutf8_subst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_substr_pos"><span class="keyword">val</span> utf8_substr_pos</span> : <code class="type">string -&gt; string -&gt; int option</code></pre><div class="info">
+
+<pre id="valutf8_substr_posstring"><a class="paragraph-url" href="#valutf8_substr_posstring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_substr_pos"><span class="keyword">val</span> utf8_substr_pos</span> : <code class="type">string -&gt; string -&gt; int option</code></pre><div class="info">
 <code class="code">utf8_substr_pos s1 s2</code> returns <code class="code">Some n</code> if <code class="code">s2</code> is found
   at position <code class="code">n</code> in <code class="code">s1</code>, starting to search from the beginning
   of <code class="code">s1</code>. Else return <code class="code">None</code>.<br/>
 </div>
-<pre id="valutf8_cont"><a class="paragraph-url" href="#valutf8_cont"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_contains"><span class="keyword">val</span> utf8_contains</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
+
+<pre id="valutf8_containsstringst"><a class="paragraph-url" href="#valutf8_containsstringst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_contains"><span class="keyword">val</span> utf8_contains</span> : <code class="type">string -&gt; string -&gt; bool</code></pre><div class="info">
 <code class="code">utf8_contains s1 s2</code> returns whether <code class="code">s1</code> contains <code class="code">s2</code>.<br/>
 </div>
-<pre id="valutf8_strb"><a class="paragraph-url" href="#valutf8_strb"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_strbefore"><span class="keyword">val</span> utf8_strbefore</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_strbeforestrings"><a class="paragraph-url" href="#valutf8_strbeforestrings"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_strbefore"><span class="keyword">val</span> utf8_strbefore</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_strbefore s1 s2</code> returns the substring before <code class="code">s2</code> in <code class="code">s1</code>.
   See <a href="http://www.w3.org/TR/sparql11-query/#func-strbefore">details</a>.<br/>
 </div>
-<pre id="valutf8_stra"><a class="paragraph-url" href="#valutf8_stra"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_strafter"><span class="keyword">val</span> utf8_strafter</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_strafterstringst"><a class="paragraph-url" href="#valutf8_strafterstringst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_strafter"><span class="keyword">val</span> utf8_strafter</span> : <code class="type">string -&gt; string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_strafter s1 s2</code> returns the substring after <code class="code">s2</code> in <code class="code">s1</code>.
   See <a href="http://www.w3.org/TR/sparql11-query/#func-strafter">details</a>.<br/>
 </div>
-<pre id="valutf8_char_"><a class="paragraph-url" href="#valutf8_char_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_char_of_code"><span class="keyword">val</span> utf8_char_of_code</span> : <code class="type">int32 -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_char_of_codeint3"><a class="paragraph-url" href="#valutf8_char_of_codeint3"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_char_of_code"><span class="keyword">val</span> utf8_char_of_code</span> : <code class="type">int32 -&gt; string</code></pre><div class="info">
 <code class="code">utf8_char_of_code n</code> return the UTF8 character from a given codepoint.<br/>
 </div>
-<pre id="valutf8_strin"><a class="paragraph-url" href="#valutf8_strin"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_string_get_bol"><span class="keyword">val</span> utf8_string_get_bol</span> : <code class="type">string -&gt; (int * int) list</code></pre><div class="info">
+
+<pre id="valutf8_string_get_bolst"><a class="paragraph-url" href="#valutf8_string_get_bolst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_string_get_bol"><span class="keyword">val</span> utf8_string_get_bol</span> : <code class="type">string -&gt; (int * int) list</code></pre><div class="info">
 <code class="code">utf8_string_get_bol str</code> returns the list of pairs
   <code class="code">(line number, char position)</code> giving the position of beginning of each line
   in the given string.<br/>
 </div>
-<pre id="valutf8_coun"><a class="paragraph-url" href="#valutf8_coun"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_count_nl"><span class="keyword">val</span> utf8_count_nl</span> : <code class="type">string -&gt; int</code></pre><div class="info">
+
+<pre id="valutf8_count_nlstringin"><a class="paragraph-url" href="#valutf8_count_nlstringin"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_count_nl"><span class="keyword">val</span> utf8_count_nl</span> : <code class="type">string -&gt; int</code></pre><div class="info">
 <code class="code">utf8_count_nl str</code> returns the number of newline \n characters found
   in the given UTF-8 string.<br/>
 </div>
-<pre id="valutf8_esca"><a class="paragraph-url" href="#valutf8_esca"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_escape"><span class="keyword">val</span> utf8_escape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_escapestringstri"><a class="paragraph-url" href="#valutf8_escapestringstri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_escape"><span class="keyword">val</span> utf8_escape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_escape str</code> \-escapes the following characters : \n, \r, \b, \t, \f,
   \(quotes), \' and \\ but does not escape \u nor \U.<br/>
 </div>
-<pre id="valutf8_unes"><a class="paragraph-url" href="#valutf8_unes"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_unescape"><span class="keyword">val</span> utf8_unescape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_unescapestringst"><a class="paragraph-url" href="#valutf8_unescapestringst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_unescape"><span class="keyword">val</span> utf8_unescape</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_unescape str</code> unescape the following escaped characters:
   \n, \r, \b, \t, \f, \quotes, \' and \\, and also \u... and \U... sequences .<br/>
 </div>
-<pre id="valutf8_lowe"><a class="paragraph-url" href="#valutf8_lowe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_lowercase"><span class="keyword">val</span> utf8_lowercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_lowercasestrings"><a class="paragraph-url" href="#valutf8_lowercasestrings"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_lowercase"><span class="keyword">val</span> utf8_lowercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_lowercase s</code> returns a new string, with some characters
   mapped to corresponding lowercase characters.<br/>
 </div>
-<pre id="valutf8_uppe"><a class="paragraph-url" href="#valutf8_uppe"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALutf8_uppercase"><span class="keyword">val</span> utf8_uppercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
+
+<pre id="valutf8_uppercasestrings"><a class="paragraph-url" href="#valutf8_uppercasestrings"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALutf8_uppercase"><span class="keyword">val</span> utf8_uppercase</span> : <code class="type">string -&gt; string</code></pre><div class="info">
 <code class="code">utf8_uppercase s</code> returns a new string, with some characters
   mapped to corresponding uppercase characters.<br/>
 </div>
@@ -120,8 +139,8 @@ Return the number of bytes taken by a the first byte
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

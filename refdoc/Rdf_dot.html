@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dot</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dot</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,11 +38,13 @@
  <a class="post" href="Rdf_ds.html" title="Rdf_ds">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_dot.html">Rdf_dot</a></h1>
-<pre id="moduleRdf_do"><a class="paragraph-url" href="#moduleRdf_do"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_dot: <code class="code">sig</code> <a href="Rdf_dot.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduleRdf_dotsigend"><a class="paragraph-url" href="#moduleRdf_dotsigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_dot: <code class="code">sig</code> <a href="Rdf_dot.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Dump in graphviz format.<br/>
 </div>
 <hr width="100%"/>
-<pre id="valapply_nam"><a class="paragraph-url" href="#valapply_nam"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALapply_namespaces"><span class="keyword">val</span> apply_namespaces</span> : <code class="type">(string * string) list -&gt; string -&gt; string * string</code></pre><div class="info">
+
+<pre id="valapply_namespacesstrin"><a class="paragraph-url" href="#valapply_namespacesstrin"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALapply_namespaces"><span class="keyword">val</span> apply_namespaces</span> : <code class="type">(string * string) list -&gt; string -&gt; string * string</code></pre><div class="info">
 <code class="code">apply_namespaces ns iri</code> return a pair <code class="code">(prefix, suffix)</code> representing
   the given <code class="code">iri</code> and using one of the namespaces <code class="code">ns</code>, of the form
   <code class="code">(prefix, iri)</code>.
@@ -50,12 +52,14 @@ Dump in graphviz format.<br/>
   then <code class="code">apply_namespaces ns iri2 = (prefix, rel)</code>, with <code class="code">rel</code> being the
   suffix of <code class="code">iri2</code> relative to <code class="code">iri</code>.<br/>
 </div>
-<pre id="valbuild_nam"><a class="paragraph-url" href="#valbuild_nam"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALbuild_namespaces"><span class="keyword">val</span> build_namespaces</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (string * string) list</code></pre><div class="info">
+
+<pre id="valbuild_namespacesnames"><a class="paragraph-url" href="#valbuild_namespacesnames"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbuild_namespaces"><span class="keyword">val</span> build_namespaces</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (string * string) list</code></pre><div class="info">
 <code class="code">build_namespaces graph</code> returns the list namespaces of the <code class="code">graph</code>,
   as a list of pairs <code class="code">(prefix, iri)</code> usable by <a href="Rdf_dot.html#VALapply_namespaces"><code class="code">Rdf_dot.apply_namespaces</code></a>.<br/>
 </div>
 <div class="param_info"><code class="code">namespaces</code> : is used to specify additional namespaces.</div>
-<pre id="valdot_of_gr"><a class="paragraph-url" href="#valdot_of_gr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdot_of_graph"><span class="keyword">val</span> dot_of_graph</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><div class="info">
+
+<pre id="valdot_of_graphnamespace"><a class="paragraph-url" href="#valdot_of_graphnamespace"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdot_of_graph"><span class="keyword">val</span> dot_of_graph</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><div class="info">
 <code class="code">dot_of_graph graph</code> returns the Graphviz code to represent the given <code class="code">graph</code>.<br/>
 </div>
 <div class="param_info"><code class="code">namespaces</code> : is used so specified namespaces in the form <code class="code">(iri, name)</code>;
@@ -64,7 +68,8 @@ Dump in graphviz format.<br/>
 <div class="param_info"><code class="code">href</code> : can specify a function to call on each node, which can return
    an url (as a string), to add a <code class="code">href</code> attribute to the node in the graphviz code.
    This is useful to provide clickable nodes in SVG output, for example.</div>
-<pre id="valdot_of_ir"><a class="paragraph-url" href="#valdot_of_ir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALdot_of_iri"><span class="keyword">val</span> dot_of_iri</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre><div class="info">
+
+<pre id="valdot_of_irinamespacesR"><a class="paragraph-url" href="#valdot_of_irinamespacesR"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdot_of_iri"><span class="keyword">val</span> dot_of_iri</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre><div class="info">
 Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of_graph</code></a> but return code to represent only the triples
   having the given IRI as subject or object.<br/>
 </div>
@@ -75,8 +80,8 @@ Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

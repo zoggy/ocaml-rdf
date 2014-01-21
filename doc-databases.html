@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : Using database backends for graphs</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : Using database backends for graphs</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -34,8 +34,8 @@
 
 
 
-<ul class="toc"><li class="toc-section"><a href="#mysql">MySQL backend</a><ul class="toc"><li class="toc-subsection"><a href="#mysql1">&quot;mysql&quot; backend</a></li><li class="toc-subsection"><a href="#mysql2">&quot;mysql2&quot; backend</a></li><li class="toc-subsection"><a href="#mysqlengine">Engine</a></li></ul></li><li class="toc-section"><a href="#postgresql">Postgresql backend</a></li></ul>
-<p id="Twobackendsa"><a class="paragraph-url" href="#Twobackendsa"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<ul class="toc"><li class="toc-section"><a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql">MySQL backend</a><ul class="toc"><li class="toc-subsection"><a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql1">&quot;mysql&quot; backend</a></li><li class="toc-subsection"><a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql2">&quot;mysql2&quot; backend</a></li><li class="toc-subsection"><a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html#mysqlengine">Engine</a></li></ul></li><li class="toc-section"><a href="http://zoggy.github.io/ocaml-rdf/doc-databases.html#postgresql">Postgresql backend</a></li></ul>
+<p id="Twobackendsareavailablet"><a class="paragraph-url" href="#Twobackendsareavailablet"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Two backends are available to store graphs in databases rather than
 in memory: MySQL and Postgresql. This allows to create persistent
 graphs.
@@ -45,17 +45,17 @@ optional parameter of
 .
 </p>
 <div class="section"><div class="section-title" id="mysql">MySQL backend</div>
-<p id="TheMySQLback"><a class="paragraph-url" href="#TheMySQLback"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="TheMySQLbackendcomesintw"><a class="paragraph-url" href="#TheMySQLbackendcomesintw"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The MySQL backend comes in two flavours, corresponding to two
 representations in the database, <code>mysql</code> and
 <code>mysql2</code> (see below).
 </p>
-<p id="UsingtheMySQ"><a class="paragraph-url" href="#UsingtheMySQ"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="UsingtheMySQLbackendrequ"><a class="paragraph-url" href="#UsingtheMySQLbackendrequ"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Using the MySQL backend requires to link with the <code>rdf.mysql</code>
 ocamlfind package. Then, after creating a database with proper rights
 on the server, the following code creates a graph in the database:
 </p>
-<pre id="letoptionsst" class="code-ocaml"><a class="paragraph-url" href="#letoptionsst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
+<pre class="code-ocaml" id="letoptionsstoragemysqlth"><a class="paragraph-url" href="#letoptionsstoragemysqlth"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
   <span class="hl opt">[</span>
     <span class="hl str">&quot;storage&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mysql&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* the type of storage, here mysql backend *)</span>
     <span class="hl str">&quot;database&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mydb&quot;</span><span class="hl opt">;</span> <span class="hl com">(* database name *)</span>
@@ -65,11 +65,11 @@ on the server, the following code creates a graph in the database:
     <span class="hl str">&quot;port&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;3306&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* port *)</span>
   <span class="hl opt">]</span>
 <span class="hl opt">;;</span></div><div><span class="hl kwa">let</span> graph <span class="hl opt">=</span> <span class="hl kwc">Rdf_graph</span><span class="hl opt">.</span>open_graph ~options <span class="hl opt">(</span><span class="hl kwc">Rdf_iri</span><span class="hl opt">.</span>iri <span class="hl str">&quot;http://hello.fr&quot;</span><span class="hl opt">) ;;</span></div></pre>
-<p id="Bothbackends"><a class="paragraph-url" href="#Bothbackends"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Bothbackendscreateatable"><a class="paragraph-url" href="#Bothbackendscreateatable"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Both backends create a table &quot;graphs&quot; to associate IRIs to stored graphs.
 </p>
 <div class="subsection"><div class="subsection-title" id="mysql1">&quot;mysql&quot; backend</div>
-<p id="Thisbackendc"><a class="paragraph-url" href="#Thisbackendc"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Thisbackendcreatesvariou"><a class="paragraph-url" href="#Thisbackendcreatesvariou"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 This backend creates various tables:
 </p>
 <ul>
@@ -78,11 +78,11 @@ This backend creates various tables:
 <li>a table &quot;bnodes&quot;, to store hashes of blank nodes,</li>
 <li>a table &quot;resources&quot;, to store hashes of IRIs.</li>
 </ul>
-<p id="ThegraphNtab"><a class="paragraph-url" href="#ThegraphNtab"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="ThegraphNtablescontaintr"><a class="paragraph-url" href="#ThegraphNtablescontaintr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The &quot;graphN&quot; tables contain triples, composed of references to
 hashes. This model is copied from the Redland's Librdf library.
 </p>
-<p id="Allthecommon"><a class="paragraph-url" href="#Allthecommon"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Allthecommontablesarecre"><a class="paragraph-url" href="#Allthecommontablesarecre"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 All the common tables are created at connection time, and the
 table of each graph in created when the graph is created.
 When 
@@ -93,29 +93,29 @@ this graph is used, with all existing triples.
 </p>
 </div>
 <div class="subsection"><div class="subsection-title" id="mysql2">&quot;mysql2&quot; backend</div>
-<p id="Thisbackendi"><a class="paragraph-url" href="#Thisbackendi"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Thisbackendisabout12time"><a class="paragraph-url" href="#Thisbackendisabout12time"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 This backend is about 12 times faster for querying, but about
 5 times slower for inserting. In this backend, only one table per
 graph is created, storing complete information about triples.
 This takes more place but requires less queries to retrieve
 complete parts of the triples.
 </p>
-<p id="Tousethisbac"><a class="paragraph-url" href="#Tousethisbac"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Tousethisbackendjustspec"><a class="paragraph-url" href="#Tousethisbackendjustspec"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 To use this backend, just specify <code>&quot;mysql2&quot;</code> as
 for the <code>&quot;storage&quot;</code> option.
 </p>
 </div>
 <div class="subsection"><div class="subsection-title" id="mysqlengine">Engine</div>
-<p id="Thedefaulten"><a class="paragraph-url" href="#Thedefaulten"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Thedefaultengineusedtost"><a class="paragraph-url" href="#Thedefaultengineusedtost"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The default engine used to store MySQL tables is InnoDB, which allows
 transactions, but is quite slow.
 </p>
-<p id="Theengineopt"><a class="paragraph-url" href="#Theengineopt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="Theengineoptioncanbeused"><a class="paragraph-url" href="#Theengineoptioncanbeused"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The <code>&quot;engine&quot;</code> option can be used to specify another engine,
 usually &quot;MyISAM&quot;. With this engine, transactions are not allowed, though.
 Here is an example to use the <code>mysql2</code> backend with MyISAM tables:
 </p>
-<pre id="letoptionssto" class="code-ocaml"><a class="paragraph-url" href="#letoptionssto"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
+<pre class="code-ocaml" id="letoptionsstoragemysql2t"><a class="paragraph-url" href="#letoptionsstoragemysql2t"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
   <span class="hl opt">[</span>
     <span class="hl str">&quot;storage&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mysql2&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* the type of storage, here mysql backend *)</span>
     <span class="hl str">&quot;database&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mydb&quot;</span><span class="hl opt">;</span> <span class="hl com">(* database name *)</span>
@@ -130,7 +130,7 @@ Here is an example to use the <code>mysql2</code> backend with MyISAM tables:
 </div>
 
 <div class="section"><div class="section-title" id="postgresql">Postgresql backend</div>
-<p id="ThePostgresq"><a class="paragraph-url" href="#ThePostgresq"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a>
+<p id="ThePostgresqlbackendwork"><a class="paragraph-url" href="#ThePostgresqlbackendwork"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The Postgresql backend works the same way as the MySQL backend.
 Using the MySQL backend requires to link with the <code>rdf.postgresql</code>
 ocamlfind package.
@@ -139,7 +139,7 @@ the <code>options</code> parameter of
 <a href="http://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 :
 </p>
-<pre id="letoptionsstor" class="code-ocaml"><a class="paragraph-url" href="#letoptionsstor"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
+<pre class="code-ocaml" id="letoptionsstoragepostgre"><a class="paragraph-url" href="#letoptionsstoragepostgre"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span> options <span class="hl opt">=</span>
   <span class="hl opt">[</span>
     <span class="hl str">&quot;storage&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;postgresql&quot;</span> <span class="hl opt">;</span> <span class="hl com">(* the type of storage, here postresql backend *)</span>
     <span class="hl str">&quot;database&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;mydb&quot;</span><span class="hl opt">;</span> <span class="hl com">(* database name *)</span>
@@ -158,8 +158,8 @@ the <code>options</code> parameter of
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

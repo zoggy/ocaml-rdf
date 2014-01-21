@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_mem.Mem_BGP</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_mem.Mem_BGP</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,20 +38,30 @@
  <a class="post" href="Rdf_mem.Mem.html" title="Rdf_mem.Mem">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_mem.Mem_BGP.html">Rdf_mem.Mem_BGP</a></h1>
-<pre id="moduleMem_BG"><a class="paragraph-url" href="#moduleMem_BG"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Mem_BGP: <code class="code">sig</code> <a href="Rdf_mem.Mem_BGP.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
-<pre id="valto_iriaRd"><a class="paragraph-url" href="#valto_iriaRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_iri"><span class="keyword">val</span> to_iri</span> : <code class="type">'a * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * 'b -&gt; 'a * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * 'b</code></pre><pre id="typetermRdf_"><a class="paragraph-url" href="#typetermRdf_"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEterm"><span class="keyword">type</span> term</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code> </pre>
 
-<pre id="typegRdf_mem"><a class="paragraph-url" href="#typegRdf_mem"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEg"><span class="keyword">type</span> g</span> = <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a></code> </pre>
+<pre id="moduleMem_BGPsigend"><a class="paragraph-url" href="#moduleMem_BGPsigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Mem_BGP: <code class="code">sig</code> <a href="Rdf_mem.Mem_BGP.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
 
-<pre id="valtermabb__"><a class="paragraph-url" href="#valtermabb__"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre><pre id="valrdftermab"><a class="paragraph-url" href="#valrdftermab"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre><pre id="valcompareaR"><a class="paragraph-url" href="#valcompareaR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int</code></pre><pre id="valsubjectsR"><a class="paragraph-url" href="#valsubjectsR"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt; Rdf_term.TMap.key list</code></pre><pre id="valobjectsRd"><a class="paragraph-url" href="#valobjectsRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt; Rdf_term.TMap.key list</code></pre><pre id="valfindsubRd"><a class="paragraph-url" href="#valfindsubRd"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:Rdf_term.TMap.key -&gt;<br/>       ?pred:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?obj:Rdf_term.TMap.key -&gt;<br/>       <a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt;<br/>       (Rdf_term.TMap.key * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * Rdf_mem.Triples_s_p.Set.elt) list</code></pre></div>
+<pre id="valto_iriaRdf_iriiribaRd"><a class="paragraph-url" href="#valto_iriaRdf_iriiribaRd"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_iri"><span class="keyword">val</span> to_iri</span> : <code class="type">'a * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * 'b -&gt; 'a * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * 'b</code></pre>
+<pre id="typetermRdf_termterm"><a class="paragraph-url" href="#typetermRdf_termterm"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEterm"><span class="keyword">type</span> term</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code> </pre>
+
+
+<pre id="typegRdf_memt"><a class="paragraph-url" href="#typegRdf_memt"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEg"><span class="keyword">type</span> g</span> = <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a></code> </pre>
+
+
+<pre id="valtermabb"><a class="paragraph-url" href="#valtermabb"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre>
+<pre id="valrdftermabb"><a class="paragraph-url" href="#valrdftermabb"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre>
+<pre id="valcompareaRdf_termtermR"><a class="paragraph-url" href="#valcompareaRdf_termtermR"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int</code></pre>
+<pre id="valsubjectsRdf_memtRdf_t"><a class="paragraph-url" href="#valsubjectsRdf_memtRdf_t"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt; Rdf_term.TMap.key list</code></pre>
+<pre id="valobjectsRdf_memtRdf_te"><a class="paragraph-url" href="#valobjectsRdf_memtRdf_te"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt; Rdf_term.TMap.key list</code></pre>
+<pre id="valfindsubRdf_termTMapke"><a class="paragraph-url" href="#valfindsubRdf_termTMapke"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:Rdf_term.TMap.key -&gt;<br/>       ?pred:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?obj:Rdf_term.TMap.key -&gt;<br/>       <a href="Rdf_mem.html#TYPEt">Rdf_mem.t</a> -&gt;<br/>       (Rdf_term.TMap.key * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * Rdf_mem.Triples_s_p.Set.elt) list</code></pre></div>
 
 
 </div>
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

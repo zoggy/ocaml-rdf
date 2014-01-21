@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_graph</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_graph</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,7 +38,8 @@
  <a class="post" href="Rdf_iri.html" title="Rdf_iri">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_graph.html">Rdf_graph</a></h1>
-<pre id="moduleRdf_gr"><a class="paragraph-url" href="#moduleRdf_gr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduleRdf_graphsigend"><a class="paragraph-url" href="#moduleRdf_graphsigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Graph abstraction.
 <div class="vertical-space"> </div>
 
@@ -47,7 +48,7 @@ Graph abstraction.
 <div class="vertical-space"> </div>
 
   Example of usage:
-   <pre id="letoptionsst" class="codepre"><a class="paragraph-url" href="#letoptionsst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code class="code">let options =
+   <pre class="codepre" id="letoptionsstoragemysqlda"><a class="paragraph-url" href="#letoptionsstoragemysqlda"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code class="code">let options =
   [
     &quot;storage&quot;, &quot;mysql&quot; ;
     &quot;database&quot;, &quot;mydb&quot;;
@@ -65,9 +66,11 @@ graph.add_triple
 <hr width="100%"/>
 <br/>
 <div class="section-title" id="2_Options">Options</div><br/>
-<pre id="typeoptionss"><a class="paragraph-url" href="#typeoptionss"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEoptions"><span class="keyword">type</span> options</span> = <code class="type">(string * string) list</code> </pre>
 
-<pre id="valget_optio"><a class="paragraph-url" href="#valget_optio"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre><div class="info">
+<pre id="typeoptionsstringstringl"><a class="paragraph-url" href="#typeoptionsstringstringl"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEoptions"><span class="keyword">type</span> options</span> = <code class="type">(string * string) list</code> </pre>
+
+
+<pre id="valget_optiondefstringst"><a class="paragraph-url" href="#valget_optiondefstringst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre><div class="info">
 <code class="code">get_options name options</code> returns the value associated to the
   option with the given name, in option list.
   If the option name is not found in the list, the function raises
@@ -81,13 +84,16 @@ graph.add_triple
 <div class="vertical-space"> </div>
 
 This is useful only to create your own storage.<br/>
-<pre id="moduletypeSt"><a class="paragraph-url" href="#moduletypeSt"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage_BGP.html">Storage_BGP</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduletypeStorage_BGPsig"><a class="paragraph-url" href="#moduletypeStorage_BGPsig"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage_BGP.html">Storage_BGP</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre><div class="info">
 Interface to query Basic Graph Patterns (BGP) in a graph.
 </div>
-<pre id="moduletypeSto"><a class="paragraph-url" href="#moduletypeSto"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduletypeStoragesigend"><a class="paragraph-url" href="#moduletypeStoragesigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
 A storage is a module with this interface.
 </div>
-<pre id="exceptionSto"><a class="paragraph-url" href="#exceptionSto"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre>
+
+<pre id="exceptionStorage_errorof"><a class="paragraph-url" href="#exceptionStorage_errorof"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre>
 <div class="info">
 This is the exception raised by the module we get when applying
   <a href="Rdf_graph.Make.html"><code class="code">Rdf_graph.Make</code></a> on a storage.
@@ -103,178 +109,182 @@ This is the exception raised by the module we get when applying
   Refer to the documentation of <a href="Rdf_graph.Storage.html"><code class="code">Rdf_graph.Storage</code></a> for information about
   the functions provided by the resulting module.<br/>
 </div>
-<pre id="moduletypeGr"><a class="paragraph-url" href="#moduletypeGr"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre><pre id="moduleMakefu"><a class="paragraph-url" href="#moduleMakefu"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br/>
+
+<pre id="moduletypeGraphsigend"><a class="paragraph-url" href="#moduletypeGraphsigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre>
+<pre id="moduleMakefunctorSStorag"><a class="paragraph-url" href="#moduleMakefunctorSStorag"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br/>
 <div class="section-title" id="2_Registeringstorages">Registering storages</div><br/>
-<pre id="valadd_stora"><a class="paragraph-url" href="#valadd_stora"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre><div class="info">
+
+<pre id="valadd_storagemoduleRdf_"><a class="paragraph-url" href="#valadd_storagemoduleRdf_"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre><div class="info">
 Add a storage to the list of registered storages.<br/>
 </div>
-<pre id="typegraph___"><a class="paragraph-url" href="#typegraph___"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><code><span id="TYPEgraph"><span class="keyword">type</span> graph</span> = {</code></pre><table class="typetable">
+
+<pre id="typegraph"><a class="paragraph-url" href="#typegraph"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEgraph"><span class="keyword">type</span> graph</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.name">name</span> :<code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTgraph.name">name</span> : <code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.size">size</span> :<code class="type">unit -&gt; int</code>;</code></td>
+<code><span id="TYPEELTgraph.size">size</span> : <code class="type">unit -&gt; int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.add_triple">add_triple</span> :<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_triple">add_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.rem_triple">rem_triple</span> :<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_triple">rem_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.add_triple_t">add_triple_t</span> :<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_triple_t">add_triple_t</span> : <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.rem_triple_t">rem_triple_t</span> :<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_triple_t">rem_triple_t</span> : <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.subjects_of">subjects_of</span> :<code class="type">pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.subjects_of">subjects_of</span> : <code class="type">pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.predicates_of">predicates_of</span> :<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.predicates_of">predicates_of</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.objects_of">objects_of</span> :<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.objects_of">objects_of</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.find">find</span> :<code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.find">find</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.exists">exists</span> :<code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; bool</code>;</code></td>
+<code><span id="TYPEELTgraph.exists">exists</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; bool</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.exists_t">exists_t</span> :<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; bool</code>;</code></td>
+<code><span id="TYPEELTgraph.exists_t">exists_t</span> : <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; bool</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.subjects">subjects</span> :<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.subjects">subjects</span> : <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.predicates">predicates</span> :<code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.predicates">predicates</span> : <code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.objects">objects</span> :<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.objects">objects</span> : <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.transaction_start">transaction_start</span> :<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_start">transaction_start</span> : <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.transaction_commit">transaction_commit</span> :<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_commit">transaction_commit</span> : <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.transaction_rollback">transaction_rollback</span> :<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_rollback">transaction_rollback</span> : <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.new_blank_id">new_blank_id</span> :<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a></code>;</code></td>
+<code><span id="TYPEELTgraph.new_blank_id">new_blank_id</span> : <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.namespaces">namespaces</span> :<code class="type">unit -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code>;</code></td>
+<code><span id="TYPEELTgraph.namespaces">namespaces</span> : <code class="type">unit -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.add_namespace">add_namespace</span> :<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_namespace">add_namespace</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.rem_namespace">rem_namespace</span> :<code class="type">string -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_namespace">rem_namespace</span> : <code class="type">string -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.set_namespaces">set_namespaces</span> :<code class="type">(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.set_namespaces">set_namespaces</span> : <code class="type">(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTgraph.bgp">bgp</span> :<code class="type">(module Rdf_bgp.S)</code>;</code></td>
+<code><span id="TYPEELTgraph.bgp">bgp</span> : <code class="type">(module Rdf_bgp.S)</code>;</code></td>
 
 </tr></table>
 }
@@ -289,7 +299,8 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 
 <br/>
 <div class="section-title" id="2_Graphcreation">Graph creation</div><br/>
-<pre id="valopen_grap"><a class="paragraph-url" href="#valopen_grap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info">
+
+<pre id="valopen_graphoptionsstri"><a class="paragraph-url" href="#valopen_graphoptionsstri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info">
 <code class="code">open_graph ~options iri_name</code> creates a new graph. The storage used
   is specified by the &quot;storage&quot; option. For example, having <code class="code">(&quot;storage&quot;, &quot;mysql&quot;)</code>
   in the options indicates to use the storage &quot;mysql&quot;.
@@ -307,7 +318,8 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
   The <code class="code">&quot;rdf&quot;</code> namespace is automatically added at creation time,
   associated to <code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code>.<br/>
 </div>
-<pre id="valmergegrap"><a class="paragraph-url" href="#valmergegrap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info">
+
+<pre id="valmergegraphgraphunit"><a class="paragraph-url" href="#valmergegraphgraphunit"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info">
 <code class="code">merge g1 g2</code> add triples from <code class="code">g2</code> to <code class="code">g1</code>.<br/>
 </div>
 </div>
@@ -317,8 +329,8 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

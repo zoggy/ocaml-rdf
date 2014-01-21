@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_iri</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link rel="stylesheet" type="text/css" href="http://zoggy.github.io/ocaml-rdf/style.css"/>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_iri</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -38,61 +38,89 @@
  <a class="post" href="Rdf_loc.html" title="Rdf_loc">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_iri.html">Rdf_iri</a></h1>
-<pre id="moduleRdf_ir"><a class="paragraph-url" href="#moduleRdf_ir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> Rdf_iri: <code class="code">sig</code> <a href="Rdf_iri.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre id="moduleRdf_irisigend"><a class="paragraph-url" href="#moduleRdf_irisigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_iri: <code class="code">sig</code> <a href="Rdf_iri.html">..</a> <code class="code">end</code></pre><div class="info module top">
 IRIs. See <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC3987</a>.<br/>
 </div>
 <hr width="100%"/>
-<pre id="typeiri_____"><a class="paragraph-url" href="#typeiri_____"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="TYPEiri"><span class="keyword">type</span> iri</span> </pre>
+
+<pre id="typeiri"><a class="paragraph-url" href="#typeiri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEiri"><span class="keyword">type</span> iri</span> </pre>
 <div class="info">
 IRIs are abstract. <b>Do not compare with generic comparison
   functions</b> (<code class="code">Pervasives.compare</code>, (=), ...). Use <a href="Rdf_iri.html#VALequal"><code class="code">Rdf_iri.equal</code></a> or <a href="Rdf_iri.html#VALcompare"><code class="code">Rdf_iri.compare</code></a>.<br/>
 </div>
 
-<pre id="exceptionInv"><a class="paragraph-url" href="#exceptionInv"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="EXCEPTIONInvalid_iri"><span class="keyword">exception</span> Invalid_iri</span> <span class="keyword">of</span> <code class="type">string * string</code></pre>
+
+<pre id="exceptionInvalid_iriofst"><a class="paragraph-url" href="#exceptionInvalid_iriofst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_iri"><span class="keyword">exception</span> Invalid_iri</span> <span class="keyword">of</span> <code class="type">string * string</code></pre>
 <div class="info">
 When the IRI is parsed,
   <code class="code">Invalid_iri (string, message)</code> is raised if the
   given string is invalid, with an additional message.<br/>
 </div>
-<pre id="valstringiri"><a class="paragraph-url" href="#valstringiri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><div class="info">
+
+<pre id="valstringiristring"><a class="paragraph-url" href="#valstringiristring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><div class="info">
 Create a string from an IRI.<br/>
 </div>
-<pre id="valiricheckb"><a class="paragraph-url" href="#valiricheckb"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre id="valiricheckboolstringiri"><a class="paragraph-url" href="#valiricheckboolstringiri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
 Create an IRI from a string.<br/>
 <b>Raises</b> <code>Invalid_iri</code> in case the string does not represent a valid IRI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent IRI parsing.
    Parsing will be done later if needed, and may then raise <code class="code">Invalid_iri</code>.</div>
-<pre id="valensure_ab"><a class="paragraph-url" href="#valensure_ab"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALensure_absolute"><span class="keyword">val</span> ensure_absolute</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre id="valensure_absoluteiristr"><a class="paragraph-url" href="#valensure_absoluteiristr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALensure_absolute"><span class="keyword">val</span> ensure_absolute</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
 <code class="code">ensure_absolute base s</code> creates an IRI from <code class="code">s</code>, using the given <code class="code">base</code>
  if <code class="code">s</code> is relative. Apply <a href="http://tools.ietf.org/html/rfc3986#section-5.4">these rules</a>.<br/>
 </div>
-<pre id="valappendche"><a class="paragraph-url" href="#valappendche"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre id="valappendcheckbooliristr"><a class="paragraph-url" href="#valappendcheckbooliristr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
 Append the given string to the given IRI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent IRI parsing.</div>
-<pre id="valconcatiri"><a class="paragraph-url" href="#valconcatiri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre id="valconcatiristringiri"><a class="paragraph-url" href="#valconcatiristringiri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
 Add the given string to the path of the given IRI.<br/>
 </div>
-<pre id="valto_uriiri"><a class="paragraph-url" href="#valto_uriiri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALto_uri"><span class="keyword">val</span> to_uri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><div class="info">
+
+<pre id="valto_uriiriRdf_uriuri"><a class="paragraph-url" href="#valto_uriiriRdf_uriuri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_uri"><span class="keyword">val</span> to_uri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><div class="info">
 <code class="code">to_uri iri</code> encodes the given IRI and tries to create an URI.
   May raise <code class="code">Rdf_uri.Invalid_uri</code> is the IRI cannot be mapped to
   an URI.<br/>
 </div>
-<pre id="valof_uriRdf"><a class="paragraph-url" href="#valof_uriRdf"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALof_uri"><span class="keyword">val</span> of_uri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre id="valof_uriRdf_uriuriiri"><a class="paragraph-url" href="#valof_uriRdf_uriuriiri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALof_uri"><span class="keyword">val</span> of_uri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
 <code class="code">of_uri uri</code> get the string representation of the given <code class="code">uri</code>,
   then percent-decode it and build an iri from this decoded string,
   using <a href="Rdf_iri.html#VALiri"><code class="code">Rdf_iri.iri</code></a>.<br/>
 </div>
-<pre id="valequalirii"><a class="paragraph-url" href="#valequalirii"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; bool</code></pre><pre id="valcompareir"><a class="paragraph-url" href="#valcompareir"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int</code></pre><pre id="moduleIrimap"><a class="paragraph-url" href="#moduleIrimap"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_iri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = iri</code></pre><pre id="moduleIriset"><a class="paragraph-url" href="#moduleIriset"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = iri</code></pre><pre id="valschemeiri"><a class="paragraph-url" href="#valschemeiri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALscheme"><span class="keyword">val</span> scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><pre id="valset_schem"><a class="paragraph-url" href="#valset_schem"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_scheme"><span class="keyword">val</span> set_scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valuseririst"><a class="paragraph-url" href="#valuseririst"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALuser"><span class="keyword">val</span> user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre id="valset_useri"><a class="paragraph-url" href="#valset_useri"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_user"><span class="keyword">val</span> set_user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valhostirist"><a class="paragraph-url" href="#valhostirist"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALhost"><span class="keyword">val</span> host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre id="valset_hosti"><a class="paragraph-url" href="#valset_hosti"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_host"><span class="keyword">val</span> set_host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valportiriin"><a class="paragraph-url" href="#valportiriin"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALport"><span class="keyword">val</span> port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option</code></pre><pre id="valset_porti"><a class="paragraph-url" href="#valset_porti"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_port"><span class="keyword">val</span> set_port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valpathirist"><a class="paragraph-url" href="#valpathirist"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list</code></pre><pre id="valset_pathi"><a class="paragraph-url" href="#valset_pathi"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_path"><span class="keyword">val</span> set_path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valqueryiris"><a class="paragraph-url" href="#valqueryiris"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALquery"><span class="keyword">val</span> query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre id="valset_query"><a class="paragraph-url" href="#valset_query"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_query"><span class="keyword">val</span> set_query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre id="valfragmenti"><a class="paragraph-url" href="#valfragmenti"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALfragment"><span class="keyword">val</span> fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre id="valset_fragm"><a class="paragraph-url" href="#valset_fragm"><img src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png" alt="anchor"/></a><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre></div>
+
+<pre id="valequaliriiribool"><a class="paragraph-url" href="#valequaliriiribool"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; bool</code></pre>
+<pre id="valcompareiriiriint"><a class="paragraph-url" href="#valcompareiriiriint"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int</code></pre>
+<pre id="moduleIrimapMapSwithtype"><a class="paragraph-url" href="#moduleIrimapMapSwithtype"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_iri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = iri</code></pre>
+<pre id="moduleIrisetSetSwithtype"><a class="paragraph-url" href="#moduleIrisetSetSwithtype"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = iri</code></pre>
+<pre id="valschemeiristring"><a class="paragraph-url" href="#valschemeiristring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALscheme"><span class="keyword">val</span> scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre>
+<pre id="valset_schemeiristringir"><a class="paragraph-url" href="#valset_schemeiristringir"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_scheme"><span class="keyword">val</span> set_scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valuseriristringoption"><a class="paragraph-url" href="#valuseriristringoption"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALuser"><span class="keyword">val</span> user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre id="valset_useriristringopti"><a class="paragraph-url" href="#valset_useriristringopti"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_user"><span class="keyword">val</span> set_user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valhostiristringoption"><a class="paragraph-url" href="#valhostiristringoption"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALhost"><span class="keyword">val</span> host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre id="valset_hostiristringopti"><a class="paragraph-url" href="#valset_hostiristringopti"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_host"><span class="keyword">val</span> set_host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valportiriintoption"><a class="paragraph-url" href="#valportiriintoption"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALport"><span class="keyword">val</span> port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option</code></pre>
+<pre id="valset_portiriintoptioni"><a class="paragraph-url" href="#valset_portiriintoptioni"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_port"><span class="keyword">val</span> set_port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valpathiristringlist"><a class="paragraph-url" href="#valpathiristringlist"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list</code></pre>
+<pre id="valset_pathiristringlist"><a class="paragraph-url" href="#valset_pathiristringlist"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_path"><span class="keyword">val</span> set_path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valqueryiristringoption"><a class="paragraph-url" href="#valqueryiristringoption"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALquery"><span class="keyword">val</span> query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre id="valset_queryiristringopt"><a class="paragraph-url" href="#valset_queryiristringopt"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_query"><span class="keyword">val</span> set_query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre id="valfragmentiristringopti"><a class="paragraph-url" href="#valfragmentiristringopti"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfragment"><span class="keyword">val</span> fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre id="valset_fragmentiristring"><a class="paragraph-url" href="#valset_fragmentiristring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre></div>
 
 
 </div>
 
 <footer id="bottombar">
 </footer>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/jquery.js">_</script>
-<script type="text/javascript" src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>
