@@ -6,56 +6,82 @@
 &#160;<a class="post" href="Rdf_sparql.html" title="Rdf_sparql">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_rdfs.html">Rdf_rdfs</a></h1>
-<pre><span class="keyword">module</span> Rdf_rdfs: <code class="code">sig</code> <a href="Rdf_rdfs.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_rdfs: <code class="code">sig</code> <a href="Rdf_rdfs.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Elements of <code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
 </div>
 <hr width="100%"/>
-<pre><span id="VALrdfs"><span class="keyword">val</span> rdfs</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs"><span class="keyword">val</span> rdfs</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 <code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
 </div>
-<pre><span id="VALrdfs_"><span class="keyword">val</span> rdfs_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><pre><span id="VALrdfs_Class"><span class="keyword">val</span> rdfs_Class</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_"><span class="keyword">val</span> rdfs_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
+<pre><span id="VALrdfs_Class"><span class="keyword">val</span> rdfs_Class</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class of classes.<br/>
 </div>
-<pre><span id="VALrdfs_comment"><span class="keyword">val</span> rdfs_comment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_comment"><span class="keyword">val</span> rdfs_comment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 A description of the subject resource.<br/>
 </div>
-<pre><span id="VALrdfs_Container"><span class="keyword">val</span> rdfs_Container</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_Container"><span class="keyword">val</span> rdfs_Container</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class of RDF containers.<br/>
 </div>
-<pre><span id="VALrdfs_ContainerMembershipProperty"><span class="keyword">val</span> rdfs_ContainerMembershipProperty</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_ContainerMembershipProperty"><span class="keyword">val</span> rdfs_ContainerMembershipProperty</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.<br/>
 </div>
-<pre><span id="VALrdfs_Datatype"><span class="keyword">val</span> rdfs_Datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_Datatype"><span class="keyword">val</span> rdfs_Datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class of RDF datatypes.<br/>
 </div>
-<pre><span id="VALrdfs_domain"><span class="keyword">val</span> rdfs_domain</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_domain"><span class="keyword">val</span> rdfs_domain</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 A domain of the subject property.<br/>
 </div>
-<pre><span id="VALrdfs_isDefinedBy"><span class="keyword">val</span> rdfs_isDefinedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_isDefinedBy"><span class="keyword">val</span> rdfs_isDefinedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The defininition of the subject resource.<br/>
 </div>
-<pre><span id="VALrdfs_label"><span class="keyword">val</span> rdfs_label</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_label"><span class="keyword">val</span> rdfs_label</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 A human-readable name for the subject.<br/>
 </div>
-<pre><span id="VALrdfs_Literal"><span class="keyword">val</span> rdfs_Literal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_Literal"><span class="keyword">val</span> rdfs_Literal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class of literal values, eg. textual strings and integers.<br/>
 </div>
-<pre><span id="VALrdfs_member"><span class="keyword">val</span> rdfs_member</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_member"><span class="keyword">val</span> rdfs_member</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 A member of the subject resource.<br/>
 </div>
-<pre><span id="VALrdfs_range"><span class="keyword">val</span> rdfs_range</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_range"><span class="keyword">val</span> rdfs_range</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 A range of the subject property.<br/>
 </div>
-<pre><span id="VALrdfs_Resource"><span class="keyword">val</span> rdfs_Resource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_Resource"><span class="keyword">val</span> rdfs_Resource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The class resource, everything.<br/>
 </div>
-<pre><span id="VALrdfs_seeAlso"><span class="keyword">val</span> rdfs_seeAlso</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_seeAlso"><span class="keyword">val</span> rdfs_seeAlso</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 Further information about the subject resource.<br/>
 </div>
-<pre><span id="VALrdfs_subClassOf"><span class="keyword">val</span> rdfs_subClassOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_subClassOf"><span class="keyword">val</span> rdfs_subClassOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The subject is a subclass of a class.<br/>
 </div>
-<pre><span id="VALrdfs_subPropertyOf"><span class="keyword">val</span> rdfs_subPropertyOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+
+<pre><span id="VALrdfs_subPropertyOf"><span class="keyword">val</span> rdfs_subPropertyOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
 The subject is a subproperty of a property.<br/>
 </div>
-</div></contents></ocamldoc>
+<br/>
+<div class="section-title" id="2_Buildingvocabularydescriptions">Building vocabulary descriptions</div><br/>
+
+<pre><span id="VALadd_namespaces"><span class="keyword">val</span> add_namespaces</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre><div class="info ">
+Add usual <code class="code">rdf</code> and <code class="code">rdfs</code> namespaces in the given graph.<br/>
+</div>
+
+<pre><span id="VALproperty"><span class="keyword">val</span> property</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?domains:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list -&gt;<br/>       ?ranges:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list -&gt;<br/>       ?subof:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?more:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; unit</code></pre>
+<pre><span id="VALclass_"><span class="keyword">val</span> class_</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?subof:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?more:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; unit</code></pre></div></contents></ocamldoc>

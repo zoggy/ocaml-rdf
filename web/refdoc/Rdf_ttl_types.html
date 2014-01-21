@@ -6,35 +6,40 @@
 &#160;<a class="post" href="Rdf_types.html" title="Rdf_types">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_ttl_types.html">Rdf_ttl_types</a></h1>
-<pre><span class="keyword">module</span> Rdf_ttl_types: <code class="code">sig</code> <a href="Rdf_ttl_types.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_ttl_types: <code class="code">sig</code> <a href="Rdf_ttl_types.html">..</a> <code class="code">end</code></pre><div class="info module top">
 </div>
 <hr width="100%"/>
-<pre><span class="keyword">module</span> <a href="Rdf_ttl_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre><pre><code><span id="TYPEcontext"><span class="keyword">type</span> context</span> = {</code></pre><table class="typetable">
+
+<pre><span class="keyword">module</span> <a href="Rdf_ttl_types.SMap.html">SMap</a>: <code class="type"><a href="Rdf_xml.SMap.html">Rdf_xml.SMap</a></code></pre>
+<pre><code><span id="TYPEcontext"><span class="keyword">type</span> context</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTcontext.base">base</span>&#160;:<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTcontext.base">base</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTcontext.prefixes">prefixes</span>&#160;:<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
+<code><span id="TYPEELTcontext.prefixes">prefixes</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTcontext.gstate">gstate</span>&#160;:<code class="type"><a href="Rdf_xml.html#TYPEglobal_state">Rdf_xml.global_state</a></code>;</code></td>
+<code><span id="TYPEELTcontext.gstate">gstate</span>&#160;: <code class="type"><a href="Rdf_xml.html#TYPEglobal_state">Rdf_xml.global_state</a></code>;</code></td>
 
 </tr></table>
 }
 
 
+
 <pre><span id="TYPEiriref"><span class="keyword">type</span> iriref</span> = <code class="type">string</code> </pre>
+
 
 <pre><code><span id="TYPEdirective"><span class="keyword">type</span> directive</span> = </code></pre><table class="typetable">
 <tr>
@@ -53,7 +58,9 @@
 </tr></table>
 
 
+
 <pre><span id="TYPEqname"><span class="keyword">type</span> qname</span> = <code class="type">string option * string option</code> </pre>
+
 
 <pre><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
 <tr>
@@ -72,7 +79,9 @@
 </tr></table>
 
 
+
 <pre><span id="TYPElanguage"><span class="keyword">type</span> language</span> = <code class="type">string</code> </pre>
+
 
 <pre><code><span id="TYPEliteral"><span class="keyword">type</span> literal</span> = </code></pre><table class="typetable">
 <tr>
@@ -82,6 +91,7 @@
 <code><span id="TYPEELTliteral.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string * <a href="Rdf_ttl_types.html#TYPElanguage">language</a> option * <a href="Rdf_ttl_types.html#TYPEiri">iri</a> option</code></code></td>
 
 </tr></table>
+
 
 
 <pre><code><span id="TYPEobject_"><span class="keyword">type</span> object_</span> = </code></pre><table class="typetable">
@@ -106,6 +116,7 @@
 <code><span id="TYPEELTobject_.Obj_literal"><span class="constructor">Obj_literal</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEliteral">literal</a></code></code></td>
 
 </tr></table>
+
 
 
 <pre><code><span id="TYPEblank"><span class="keyword">type</span> blank</span> = </code></pre><table class="typetable">
@@ -139,6 +150,7 @@
 </tr></table>
 
 
+
 <pre><code><span id="TYPEpred"><span class="keyword">type</span> pred</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -156,7 +168,9 @@
 </tr></table>
 
 
+
 <pre><span id="TYPEpredobj"><span class="keyword">type</span> predobj</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEpred">pred</a> * <a href="Rdf_ttl_types.html#TYPEobject_">object_</a> list</code> </pre>
+
 
 <pre><code><span id="TYPEsubject"><span class="keyword">type</span> subject</span> = </code></pre><table class="typetable">
 <tr>
@@ -175,6 +189,7 @@
 </tr></table>
 
 
+
 <pre><code><span id="TYPEstatement"><span class="keyword">type</span> statement</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -190,6 +205,7 @@
 <code><span id="TYPEELTstatement.Triples"><span class="constructor">Triples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl_types.html#TYPEsubject">subject</a> * <a href="Rdf_ttl_types.html#TYPEpredobj">predobj</a> list</code></code></td>
 
 </tr></table>
+
 
 
 <pre><span id="TYPEturtle"><span class="keyword">type</span> turtle</span> = <code class="type"><a href="Rdf_ttl_types.html#TYPEstatement">statement</a> list</code> </pre>

@@ -5,9 +5,19 @@
 &#160;<a class="post" href="Rdf_my2.Mysql.html" title="Rdf_my2.Mysql">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_my2.MyBGP.html">Rdf_my2.MyBGP</a></h1>
+
 <pre><span class="keyword">module</span> MyBGP: <code class="code">sig</code> <a href="Rdf_my2.MyBGP.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
-<pre><span id="VALto_iri"><span class="keyword">val</span> to_iri</span> : <code class="type">'a * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * 'b -&gt; 'a * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * 'b</code></pre><pre><span id="TYPEterm"><span class="keyword">type</span> term</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code> </pre>
+
+<pre><span id="VALto_iri"><span class="keyword">val</span> to_iri</span> : <code class="type">'a * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * 'b -&gt; 'a * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * 'b</code></pre>
+<pre><span id="TYPEterm"><span class="keyword">type</span> term</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code> </pre>
+
 
 <pre><span id="TYPEg"><span class="keyword">type</span> g</span> = <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a></code> </pre>
 
-<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre><pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre><pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int</code></pre><pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       <a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; (<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list</code></pre></div></contents></ocamldoc>
+
+<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre>
+<pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type">'a -&gt; 'b -&gt; 'b</code></pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int</code></pre>
+<pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre>
+<pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       <a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; (<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list</code></pre></div></contents></ocamldoc>

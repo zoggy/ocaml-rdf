@@ -16,6 +16,17 @@ Then read the <page href="doc-install"/> section.
 
 <section id="releases" title="Releases">
 <ul>
+<li><strong><a href="ocaml-rdf-0.8.0.tar.gz">0.8.0</a></strong>
+[2014-01-21]:
+  <ul id="changes0.8.0">
+<li>Change <code>Rdf_rdf.dc</code> to <code>http://purl.org/dc/elements/1.1/</code>,</li>
+<li>Add convenient functions to create RDF vocabularies in <elt href="Rdf_rdfs">Rdf_rdfs</elt>,</li>
+<li>Fix: handle more than one <code>FROM &lt;iri&gt;</code> directives in sparql query
+  according to <ext-a href="http://www.w3.org/TR/sparql11-query/#specifyingDataset">specification</ext-a>
+  (merge referenced graphs in a new graph in memory).</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.7.1.tar.gz">0.7.1</a></strong>
 [2013-09-27]:
   <ul id="changes0.7.1">

@@ -6,11 +6,13 @@
 &#160;<a class="post" href="Rdf_ds.html" title="Rdf_ds">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_dot.html">Rdf_dot</a></h1>
-<pre><span class="keyword">module</span> Rdf_dot: <code class="code">sig</code> <a href="Rdf_dot.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_dot: <code class="code">sig</code> <a href="Rdf_dot.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Dump in graphviz format.<br/>
 </div>
 <hr width="100%"/>
-<pre><span id="VALapply_namespaces"><span class="keyword">val</span> apply_namespaces</span> : <code class="type">(string * string) list -&gt; string -&gt; string * string</code></pre><div class="info">
+
+<pre><span id="VALapply_namespaces"><span class="keyword">val</span> apply_namespaces</span> : <code class="type">(string * string) list -&gt; string -&gt; string * string</code></pre><div class="info ">
 <code class="code">apply_namespaces ns iri</code> return a pair <code class="code">(prefix, suffix)</code> representing
   the given <code class="code">iri</code> and using one of the namespaces <code class="code">ns</code>, of the form
   <code class="code">(prefix, iri)</code>.
@@ -18,12 +20,14 @@ Dump in graphviz format.<br/>
   then <code class="code">apply_namespaces ns iri2 = (prefix, rel)</code>, with <code class="code">rel</code> being the
   suffix of <code class="code">iri2</code> relative to <code class="code">iri</code>.<br/>
 </div>
-<pre><span id="VALbuild_namespaces"><span class="keyword">val</span> build_namespaces</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (string * string) list</code></pre><div class="info">
+
+<pre><span id="VALbuild_namespaces"><span class="keyword">val</span> build_namespaces</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; (string * string) list</code></pre><div class="info ">
 <code class="code">build_namespaces graph</code> returns the list namespaces of the <code class="code">graph</code>,
   as a list of pairs <code class="code">(prefix, iri)</code> usable by <a href="Rdf_dot.html#VALapply_namespaces"><code class="code">Rdf_dot.apply_namespaces</code></a>.<br/>
 </div>
 <div class="param_info"><code class="code">namespaces</code> : is used to specify additional namespaces.</div>
-<pre><span id="VALdot_of_graph"><span class="keyword">val</span> dot_of_graph</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALdot_of_graph"><span class="keyword">val</span> dot_of_graph</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre><div class="info ">
 <code class="code">dot_of_graph graph</code> returns the Graphviz code to represent the given <code class="code">graph</code>.<br/>
 </div>
 <div class="param_info"><code class="code">namespaces</code> : is used so specified namespaces in the form <code class="code">(iri, name)</code>;
@@ -32,7 +36,8 @@ Dump in graphviz format.<br/>
 <div class="param_info"><code class="code">href</code> : can specify a function to call on each node, which can return
    an url (as a string), to add a <code class="code">href</code> attribute to the node in the graphviz code.
    This is useful to provide clickable nodes in SVG output, for example.</div>
-<pre><span id="VALdot_of_iri"><span class="keyword">val</span> dot_of_iri</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALdot_of_iri"><span class="keyword">val</span> dot_of_iri</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       ?href:(<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string option) -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre><div class="info ">
 Same as <a href="Rdf_dot.html#VALdot_of_graph"><code class="code">Rdf_dot.dot_of_graph</code></a> but return code to represent only the triples
   having the given IRI as subject or object.<br/>
 </div>

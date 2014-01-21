@@ -6,50 +6,78 @@
 &#160;<a class="post" href="Rdf_loc.html" title="Rdf_loc">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_iri.html">Rdf_iri</a></h1>
-<pre><span class="keyword">module</span> Rdf_iri: <code class="code">sig</code> <a href="Rdf_iri.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_iri: <code class="code">sig</code> <a href="Rdf_iri.html">..</a> <code class="code">end</code></pre><div class="info module top">
 IRIs. See <a href="http://www.ietf.org/rfc/rfc3987.txt">RFC3987</a>.<br/>
 </div>
 <hr width="100%"/>
+
 <pre><span id="TYPEiri"><span class="keyword">type</span> iri</span> </pre>
-<div class="info">
+<div class="info ">
 IRIs are abstract. <b>Do not compare with generic comparison
   functions</b> (<code class="code">Pervasives.compare</code>, (=), ...). Use <a href="Rdf_iri.html#VALequal"><code class="code">Rdf_iri.equal</code></a> or <a href="Rdf_iri.html#VALcompare"><code class="code">Rdf_iri.compare</code></a>.<br/>
 </div>
 
+
 <pre><span id="EXCEPTIONInvalid_iri"><span class="keyword">exception</span> Invalid_iri</span> <span class="keyword">of</span> <code class="type">string * string</code></pre>
-<div class="info">
+<div class="info ">
 When the IRI is parsed,
   <code class="code">Invalid_iri (string, message)</code> is raised if the
   given string is invalid, with an additional message.<br/>
 </div>
-<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><div class="info ">
 Create a string from an IRI.<br/>
 </div>
-<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info ">
 Create an IRI from a string.<br/>
 <b>Raises</b> <code>Invalid_iri</code> in case the string does not represent a valid IRI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent IRI parsing.
    Parsing will be done later if needed, and may then raise <code class="code">Invalid_iri</code>.</div>
-<pre><span id="VALensure_absolute"><span class="keyword">val</span> ensure_absolute</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre><span id="VALensure_absolute"><span class="keyword">val</span> ensure_absolute</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info ">
 <code class="code">ensure_absolute base s</code> creates an IRI from <code class="code">s</code>, using the given <code class="code">base</code>
  if <code class="code">s</code> is relative. Apply <a href="http://tools.ietf.org/html/rfc3986#section-5.4">these rules</a>.<br/>
 </div>
-<pre><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info ">
 Append the given string to the given IRI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent IRI parsing.</div>
-<pre><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info ">
 Add the given string to the path of the given IRI.<br/>
 </div>
-<pre><span id="VALto_uri"><span class="keyword">val</span> to_uri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><div class="info">
+
+<pre><span id="VALto_uri"><span class="keyword">val</span> to_uri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a></code></pre><div class="info ">
 <code class="code">to_uri iri</code> encodes the given IRI and tries to create an URI.
   May raise <code class="code">Rdf_uri.Invalid_uri</code> is the IRI cannot be mapped to
   an URI.<br/>
 </div>
-<pre><span id="VALof_uri"><span class="keyword">val</span> of_uri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info">
+
+<pre><span id="VALof_uri"><span class="keyword">val</span> of_uri</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><div class="info ">
 <code class="code">of_uri uri</code> get the string representation of the given <code class="code">uri</code>,
   then percent-decode it and build an iri from this decoded string,
   using <a href="Rdf_iri.html#VALiri"><code class="code">Rdf_iri.iri</code></a>.<br/>
 </div>
-<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; bool</code></pre><pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int</code></pre><pre><span class="keyword">module</span> <a href="Rdf_iri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = iri</code></pre><pre><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = iri</code></pre><pre><span id="VALscheme"><span class="keyword">val</span> scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre><pre><span id="VALset_scheme"><span class="keyword">val</span> set_scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALuser"><span class="keyword">val</span> user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre><span id="VALset_user"><span class="keyword">val</span> set_user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALhost"><span class="keyword">val</span> host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre><span id="VALset_host"><span class="keyword">val</span> set_host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALport"><span class="keyword">val</span> port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option</code></pre><pre><span id="VALset_port"><span class="keyword">val</span> set_port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list</code></pre><pre><span id="VALset_path"><span class="keyword">val</span> set_path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALquery"><span class="keyword">val</span> query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre><span id="VALset_query"><span class="keyword">val</span> set_query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre><pre><span id="VALfragment"><span class="keyword">val</span> fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre><pre><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre></div></contents></ocamldoc>
+
+<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; bool</code></pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_iri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = iri</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = iri</code></pre>
+<pre><span id="VALscheme"><span class="keyword">val</span> scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre>
+<pre><span id="VALset_scheme"><span class="keyword">val</span> set_scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALuser"><span class="keyword">val</span> user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre><span id="VALset_user"><span class="keyword">val</span> set_user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALhost"><span class="keyword">val</span> host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre><span id="VALset_host"><span class="keyword">val</span> set_host</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALport"><span class="keyword">val</span> port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option</code></pre>
+<pre><span id="VALset_port"><span class="keyword">val</span> set_port</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list</code></pre>
+<pre><span id="VALset_path"><span class="keyword">val</span> set_path</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string list -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALquery"><span class="keyword">val</span> query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre><span id="VALset_query"><span class="keyword">val</span> set_query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
+<pre><span id="VALfragment"><span class="keyword">val</span> fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>
+<pre><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre></div></contents></ocamldoc>

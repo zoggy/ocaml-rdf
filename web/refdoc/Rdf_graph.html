@@ -6,7 +6,8 @@
 &#160;<a class="post" href="Rdf_iri.html" title="Rdf_iri">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_graph.html">Rdf_graph</a></h1>
-<pre><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Graph abstraction.
 <div class="vertical-space"> </div>
 
@@ -33,9 +34,11 @@ graph.add_triple
 <hr width="100%"/>
 <br/>
 <div class="section-title" id="2_Options">Options</div><br/>
+
 <pre><span id="TYPEoptions"><span class="keyword">type</span> options</span> = <code class="type">(string * string) list</code> </pre>
 
-<pre><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre><div class="info ">
 <code class="code">get_options name options</code> returns the value associated to the
   option with the given name, in option list.
   If the option name is not found in the list, the function raises
@@ -49,14 +52,17 @@ graph.add_triple
 <div class="vertical-space"> </div>
 
 This is useful only to create your own storage.<br/>
+
 <pre><span class="keyword">module type</span> <a href="Rdf_graph.Storage_BGP.html">Storage_BGP</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre><div class="info">
 Interface to query Basic Graph Patterns (BGP) in a graph.
 </div>
+
 <pre><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
 A storage is a module with this interface.
 </div>
+
 <pre><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre>
-<div class="info">
+<div class="info ">
 This is the exception raised by the module we get when applying
   <a href="Rdf_graph.Make.html"><code class="code">Rdf_graph.Make</code></a> on a storage.
 <div class="vertical-space"> </div>
@@ -71,183 +77,187 @@ This is the exception raised by the module we get when applying
   Refer to the documentation of <a href="Rdf_graph.Storage.html"><code class="code">Rdf_graph.Storage</code></a> for information about
   the functions provided by the resulting module.<br/>
 </div>
-<pre><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br/>
+
+<pre><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br/>
 <div class="section-title" id="2_Registeringstorages">Registering storages</div><br/>
-<pre><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre><div class="info">
+
+<pre><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre><div class="info ">
 Add a storage to the list of registered storages.<br/>
 </div>
+
 <pre><code><span id="TYPEgraph"><span class="keyword">type</span> graph</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.name">name</span>&#160;:<code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTgraph.name">name</span>&#160;: <code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.size">size</span>&#160;:<code class="type">unit -&gt; int</code>;</code></td>
+<code><span id="TYPEELTgraph.size">size</span>&#160;: <code class="type">unit -&gt; int</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.add_triple">add_triple</span>&#160;:<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_triple">add_triple</span>&#160;: <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.rem_triple">rem_triple</span>&#160;:<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_triple">rem_triple</span>&#160;: <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.add_triple_t">add_triple_t</span>&#160;:<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_triple_t">add_triple_t</span>&#160;: <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.rem_triple_t">rem_triple_t</span>&#160;:<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_triple_t">rem_triple_t</span>&#160;: <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.subjects_of">subjects_of</span>&#160;:<code class="type">pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.subjects_of">subjects_of</span>&#160;: <code class="type">pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.predicates_of">predicates_of</span>&#160;:<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.predicates_of">predicates_of</span>&#160;: <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.objects_of">objects_of</span>&#160;:<code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.objects_of">objects_of</span>&#160;: <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.find">find</span>&#160;:<code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.find">find</span>&#160;: <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.exists">exists</span>&#160;:<code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; bool</code>;</code></td>
+<code><span id="TYPEELTgraph.exists">exists</span>&#160;: <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit -&gt; bool</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.exists_t">exists_t</span>&#160;:<code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; bool</code>;</code></td>
+<code><span id="TYPEELTgraph.exists_t">exists_t</span>&#160;: <code class="type"><a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> -&gt; bool</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.subjects">subjects</span>&#160;:<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.subjects">subjects</span>&#160;: <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.predicates">predicates</span>&#160;:<code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.predicates">predicates</span>&#160;: <code class="type">unit -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.objects">objects</span>&#160;:<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
+<code><span id="TYPEELTgraph.objects">objects</span>&#160;: <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.transaction_start">transaction_start</span>&#160;:<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_start">transaction_start</span>&#160;: <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.transaction_commit">transaction_commit</span>&#160;:<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_commit">transaction_commit</span>&#160;: <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.transaction_rollback">transaction_rollback</span>&#160;:<code class="type">unit -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.transaction_rollback">transaction_rollback</span>&#160;: <code class="type">unit -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.new_blank_id">new_blank_id</span>&#160;:<code class="type">unit -&gt; <a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a></code>;</code></td>
+<code><span id="TYPEELTgraph.new_blank_id">new_blank_id</span>&#160;: <code class="type">unit -&gt; <a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.namespaces">namespaces</span>&#160;:<code class="type">unit -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code>;</code></td>
+<code><span id="TYPEELTgraph.namespaces">namespaces</span>&#160;: <code class="type">unit -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.add_namespace">add_namespace</span>&#160;:<code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.add_namespace">add_namespace</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.rem_namespace">rem_namespace</span>&#160;:<code class="type">string -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.rem_namespace">rem_namespace</span>&#160;: <code class="type">string -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.set_namespaces">set_namespaces</span>&#160;:<code class="type">(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code>;</code></td>
+<code><span id="TYPEELTgraph.set_namespaces">set_namespaces</span>&#160;: <code class="type">(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph.bgp">bgp</span>&#160;:<code class="type">(module Rdf_bgp.S)</code>;</code></td>
+<code><span id="TYPEELTgraph.bgp">bgp</span>&#160;: <code class="type">(module Rdf_bgp.S)</code>;</code></td>
 
 </tr></table>
 }
 
-<div class="info">
+<div class="info ">
 This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code class="code">Rdf_graph.open_graph</code></a>. It contains
   the same functions as in <a href="Rdf_graph.Graph.html"><code class="code">Rdf_graph.Graph</code></a>, except the graph data is hidden,
   like in a class interface.
@@ -257,7 +267,8 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 
 <br/>
 <div class="section-title" id="2_Graphcreation">Graph creation</div><br/>
-<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info">
+
+<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info ">
 <code class="code">open_graph ~options iri_name</code> creates a new graph. The storage used
   is specified by the "storage" option. For example, having <code class="code">("storage", "mysql")</code>
   in the options indicates to use the storage "mysql".
@@ -275,7 +286,8 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
   The <code class="code">"rdf"</code> namespace is automatically added at creation time,
   associated to <code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code>.<br/>
 </div>
-<pre><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info">
+
+<pre><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info ">
 <code class="code">merge g1 g2</code> add triples from <code class="code">g2</code> to <code class="code">g1</code>.<br/>
 </div>
 </div></contents></ocamldoc>

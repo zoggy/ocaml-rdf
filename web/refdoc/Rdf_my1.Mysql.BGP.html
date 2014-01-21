@@ -4,9 +4,18 @@
 <div class="navbar">&#160;<a class="up" href="Rdf_my1.Mysql.html" title="Rdf_my1.Mysql">Up</a>
 &#160;</div>
 <h1>Module <a href="type_Rdf_my1.Mysql.BGP.html">Rdf_my1.Mysql.BGP</a></h1>
+
 <pre><span class="keyword">module</span> BGP: <code class="type"><a href="Rdf_my1.MyBGP.html">Rdf_my1.MyBGP</a></code></pre><hr width="100%"/>
+
 <pre><span id="TYPEterm"><span class="keyword">type</span> term</span> = <code class="type">Int64.t</code> </pre>
+
 
 <pre><span id="TYPEg"><span class="keyword">type</span> g</span> = <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a></code> </pre>
 
-<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int64</code></pre><pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; Int64.t -&gt; Int64.t -&gt; int</code></pre><pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 list</code></pre><pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 list</code></pre><pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:int64 -&gt;<br/>       ?pred:int64 -&gt; ?obj:int64 -&gt; <a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; (int64 * int64 * int64) list</code></pre></div></contents></ocamldoc>
+
+<pre><span id="VALterm"><span class="keyword">val</span> term</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; int64</code></pre>
+<pre><span id="VALrdfterm"><span class="keyword">val</span> rdfterm</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">'a -&gt; Int64.t -&gt; Int64.t -&gt; int</code></pre>
+<pre><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 list</code></pre>
+<pre><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; int64 list</code></pre>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:int64 -&gt;<br/>       ?pred:int64 -&gt; ?obj:int64 -&gt; <a href="Rdf_my.html#TYPEt">Rdf_my.t</a> -&gt; (int64 * int64 * int64) list</code></pre></div></contents></ocamldoc>

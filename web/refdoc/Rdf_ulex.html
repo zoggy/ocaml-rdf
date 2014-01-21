@@ -6,9 +6,14 @@
 &#160;<a class="post" href="Rdf_uri.html" title="Rdf_uri">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_ulex.html">Rdf_ulex</a></h1>
-<pre><span class="keyword">module</span> Rdf_ulex: <code class="code">sig</code> <a href="Rdf_ulex.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_ulex: <code class="code">sig</code> <a href="Rdf_ulex.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Utilities to use Ulex.<br/>
 </div>
 <hr width="100%"/>
-<pre><span id="VALlexpos"><span class="keyword">val</span> lexpos</span> : <code class="type">Lexing.position -&gt; Ulexing.lexbuf -&gt; Lexing.position</code></pre><pre><span id="VALlexpos_nl"><span class="keyword">val</span> lexpos_nl</span> : <code class="type">Lexing.position -&gt; Ulexing.lexbuf -&gt; Lexing.position</code></pre><pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">exn * Lexing.position</code></pre>
+
+<pre><span id="VALlexpos"><span class="keyword">val</span> lexpos</span> : <code class="type">Lexing.position -&gt; Ulexing.lexbuf -&gt; Lexing.position</code></pre>
+<pre><span id="VALlexpos_nl"><span class="keyword">val</span> lexpos_nl</span> : <code class="type">Lexing.position -&gt; Ulexing.lexbuf -&gt; Lexing.position</code></pre>
+<pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">exn * Lexing.position</code></pre>
+
 <pre><span id="VALmenhir_with_ulex"><span class="keyword">val</span> menhir_with_ulex</span> : <code class="type">('a, 'b) MenhirLib.Convert.traditional -&gt;<br/>       (Lexing.position -&gt; Ulexing.lexbuf -&gt; Lexing.position * 'a) -&gt;<br/>       ?fname:string -&gt; Ulexing.lexbuf -&gt; 'b</code></pre></div></contents></ocamldoc>

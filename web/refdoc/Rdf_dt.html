@@ -6,13 +6,15 @@
 &#160;<a class="post" href="Rdf_earl.html" title="Rdf_earl">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_dt.html">Rdf_dt</a></h1>
-<pre><span class="keyword">module</span> Rdf_dt: <code class="code">sig</code> <a href="Rdf_dt.html">..</a> <code class="code">end</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> Rdf_dt: <code class="code">sig</code> <a href="Rdf_dt.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Computing values in Sparql, mapping to/from RDF terms.
 <div class="vertical-space"> </div>
 
    A value can be an error, and propagated in computations.<br/>
 </div>
 <hr width="100%"/>
+
 <pre><code><span id="TYPEerror"><span class="keyword">type</span> error</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -35,6 +37,7 @@ Computing values in Sparql, mapping to/from RDF terms.
 <code><span id="TYPEELTerror.Exception"><span class="constructor">Exception</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
 <td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" >To keep the original exception which resulted in an error.</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
 </tr></table>
+
 
 
 <pre><code><span id="TYPEvalue"><span class="keyword">type</span> value</span> = </code></pre><table class="typetable">
@@ -110,52 +113,67 @@ Computing values in Sparql, mapping to/from RDF terms.
 </tr></table>
 
 
+
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a></code></pre>
-<pre><span id="VALerror"><span class="keyword">val</span> error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; 'a</code></pre><div class="info">
+
+<pre><span id="VALerror"><span class="keyword">val</span> error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; 'a</code></pre><div class="info ">
 Raise a <a href="Rdf_dt.html#EXCEPTIONError"><code class="code">Rdf_dt.Error</code></a> exception with the given error.<br/>
 </div>
-<pre><span id="VALdate_fmt"><span class="keyword">val</span> date_fmt</span> : <code class="type">string</code></pre><div class="info">
+
+<pre><span id="VALdate_fmt"><span class="keyword">val</span> date_fmt</span> : <code class="type">string</code></pre><div class="info ">
 Default date format.<br/>
 </div>
-<pre><span id="VALstring_of_value"><span class="keyword">val</span> string_of_value</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALstring_of_value"><span class="keyword">val</span> string_of_value</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string</code></pre><div class="info ">
 Return a string to show the given value.<br/>
 </div>
-<pre><span class="keyword">module</span> <a href="Rdf_dt.ValueOrdered.html">ValueOrdered</a>: <code class="code">sig</code> <a href="Rdf_dt.ValueOrdered.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="Rdf_dt.VMap.html">VMap</a>: <code class="type">Map.S</code><code class="type">  with type key = value</code></pre><div class="info">
+
+<pre><span class="keyword">module</span> <a href="Rdf_dt.ValueOrdered.html">ValueOrdered</a>: <code class="code">sig</code> <a href="Rdf_dt.ValueOrdered.html">..</a> <code class="code">end</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_dt.VMap.html">VMap</a>: <code class="type">Map.S</code><code class="type">  with type key = value</code></pre><div class="info">
 Maps over values.
 </div>
+
 <pre><span class="keyword">module</span> <a href="Rdf_dt.VSet.html">VSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = value</code></pre><div class="info">
 Sets of values.
 </div>
-<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; string</code></pre><div class="info">
+
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_dt.html#TYPEerror">error</a> -&gt; string</code></pre><div class="info ">
 Return a human-readable message from the given error.<br/>
 </div>
-<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALiri"><span class="keyword">val</span> iri</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">iri base v</code> returns a <code class="code">Iri</code> value, ensure the given value is
   an IRI. If it is a literal string, convert it to an IRI, eventually
   appending to the <code class="code">base</code> IRI if the string expresses a relative IRI.<br/>
 </div>
-<pre><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">datatype v</code> returns the IRI of the datatype of the value.
   If v is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, return <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALstring_literal"><span class="keyword">val</span> string_literal</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string * string option</code></pre><div class="info">
+
+<pre><span id="VALstring_literal"><span class="keyword">val</span> string_literal</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; string * string option</code></pre><div class="info ">
 <code class="code">string_literal v</code> returns a pair (string, optional language tag) if
   <code class="code">v</code> is <code class="code">String</code> of <code class="code">Ltrl</code>. Else return <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">string v</code> returns a <code class="code">String</code> value, converting any value
   to a string, except <code class="code">Err</code> and <code class="code">Blank</code> for which <code class="code">Err</code> is returned.<br/>
 </div>
-<pre><span id="VALint"><span class="keyword">val</span> int</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALint"><span class="keyword">val</span> int</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">int v</code> returns a <code class="code">Int</code> value, trying to convert literal values
   to an integer. Return <code class="code">Err</code> if <code class="code">v</code> is <code class="code">Err</code>, <code class="code">Blank</code> or <code class="code">Iri</code>, or
   if the literal value could not be converted to an integer. Floats
   are truncated.<br/>
 </div>
-<pre><span id="VALfloat"><span class="keyword">val</span> float</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALfloat"><span class="keyword">val</span> float</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for floats.<br/>
 </div>
-<pre><span id="VALbool"><span class="keyword">val</span> bool</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALbool"><span class="keyword">val</span> bool</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> but for booleans.
   <code class="code">Bool true</code>, <code class="code">String "true"</code>, <code class="code">String "1"</code>, <code class="code">Int n</code> with <code class="code">n&lt;&gt;0</code> and <code class="code">Float f</code> when <code class="code">f</code> is not nan nor zero evaluate
   to <code class="code">Bool true</code>.
@@ -163,25 +181,31 @@ Same as <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> bu
   <code class="code">Bool false</code>.
   Any other value evaluates to <code class="code">Err</code>.<br/>
 </div>
-<pre><span id="VALdatetime"><span class="keyword">val</span> datetime</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALdatetime"><span class="keyword">val</span> datetime</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">datetime v</code> returns a <code class="code">Datetime</code>, if possible. String literals are converted if
   possible; else <code class="code">Err</code> is returned.<br/>
 </div>
-<pre><span id="VALltrl"><span class="keyword">val</span> ltrl</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALltrl"><span class="keyword">val</span> ltrl</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code></a>, but languge tag is kept is present (i.e. if
   the value is a <code class="code">Ltrl</code>).<br/>
 </div>
-<pre><span id="VALnumeric"><span class="keyword">val</span> numeric</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALnumeric"><span class="keyword">val</span> numeric</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 Try to convert the given value to an <code class="code">Int</code> or else to a <code class="code">Float</code>,
   if the value is not already <code class="code">Int</code> or <code class="code">Float</code>.<br/>
 </div>
-<pre><span id="VALof_literal"><span class="keyword">val</span> of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALof_literal"><span class="keyword">val</span> of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">of_literal lit</code> returns a value from a literal term.<br/>
 </div>
-<pre><span id="VALof_term"><span class="keyword">val</span> of_term</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info">
+
+<pre><span id="VALof_term"><span class="keyword">val</span> of_term</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_dt.html#TYPEvalue">value</a></code></pre><div class="info ">
 <code class="code">of_term term</code> returns a value from an RDF term.<br/>
 </div>
-<pre><span id="VALto_term"><span class="keyword">val</span> to_term</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><div class="info">
+
+<pre><span id="VALto_term"><span class="keyword">val</span> to_term</span> : <code class="type"><a href="Rdf_dt.html#TYPEvalue">value</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre><div class="info ">
 <code class="code">to_term v</code> converts the given value to an RDF term.
   If <code class="code">v</code> is <code class="code">Error e</code>, then exception <code class="code">e</code> is raised.<br/>
 </div>
