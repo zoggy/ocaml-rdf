@@ -6,6 +6,8 @@ rdf_bgp.cmx : rdf_term.cmx rdf_sparql_types.cmx rdf_sparql_ms.cmx \
     rdf_sparql_algebra.cmx rdf_misc.cmx rdf_loc.cmx rdf_bgp.cmi
 rdf_config.cmo : rdf_config.cmi
 rdf_config.cmx : rdf_config.cmi
+rdf_dc.cmo : rdf_rdf.cmi rdf_iri.cmi
+rdf_dc.cmx : rdf_rdf.cmx rdf_iri.cmx
 rdf_doap.cmo : rdf_iri.cmi rdf_doap.cmi
 rdf_doap.cmx : rdf_iri.cmx rdf_doap.cmi
 rdf_dot.cmo : rdf_types.cmi rdf_term.cmi rdf_iri.cmi rdf_graph.cmi \
