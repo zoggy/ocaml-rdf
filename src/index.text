@@ -24,6 +24,7 @@ Rdf_utf8
 
 {2 Namespaces}
 {!modules:
+Rdf_dc
 Rdf_doap
 Rdf_earl
 Rdf_foaf
