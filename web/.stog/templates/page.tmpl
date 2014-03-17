@@ -1,27 +1,27 @@
 <html>
 <head>
-<title><site-title/> : <elt-title/></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title><site-title/> : <doc-title/></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="&lt;site-url/&gt;/style.css"></link>
 <rssfeed/>
 </head><body>
 <div id="page">
 <include file="menubar.tmpl"/>
 <div id="header">
-<!--<if elt-type="post">><div class="elt-navbar"><if previous=""><span/><div class="navleft"><previous/></div></if><if next=""><span/><div class="navright"><next/></div></if></div></if>-->
-<if elt-type="ocamldoc"><main_/><div class="page-title"><elt-title/></div></if>
+<!--<if doc-type="post">><div class="doc-navbar"><if previous=""><span/><div class="navleft"><previous/></div></if><if next=""><span/><div class="navright"><next/></div></if></div></if>-->
+<if doc-type="ocamldoc"><main_/><div class="page-title"><doc-title/></div></if>
 </div>
 <if withsidebar="true"><include file="sidebar.tmpl"/><span/></if>
-<if elt-type="post"><div class="date"><elt-date/></div></if>
-<elt-body/>
+<if doc-type="post"><div class="date"><doc-date/></div></if>
+<doc-body/>
 
-<if elt-type="post"><div class="comments">
+<if doc-type="post"><div class="comments">
 <div>
-<div class="elt-keywords">
+<div class="doc-keywords">
   <div class="bloc-keywords">
-  Topics: <div class="keywords"><elt-topics sep=", "/></div>
+  Topics: <div class="keywords"><doc-topics sep=", "/></div>
   </div>
   <div class="bloc-keywords">
-  Keywords: <div class="keywords"><elt-keywords sep=", "/></div>
+  Keywords: <div class="keywords"><doc-keywords sep=", "/></div>
   </div>
 </div>
 </div>

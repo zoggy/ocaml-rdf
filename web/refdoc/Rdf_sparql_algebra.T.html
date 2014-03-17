@@ -1121,68 +1121,68 @@
 
 
 
-<pre><code><span id="TYPEgraph_pattern_elt"><span class="keyword">type</span> graph_pattern_elt</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEgraph_pattern_doc"><span class="keyword">type</span> graph_pattern_doc</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Triples"><span class="constructor">Triples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_block">triples_block</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Triples"><span class="constructor">Triples</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEtriples_block">triples_block</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Union"><span class="constructor">Union</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a> list</code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Union"><span class="constructor">Union</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a> list</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Optional"><span class="constructor">Optional</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Optional"><span class="constructor">Optional</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Minus"><span class="constructor">Minus</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Minus"><span class="constructor">Minus</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgroup_graph_pattern">group_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.GGP"><span class="constructor">GGP</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_graph_pattern">graph_graph_pattern</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.GGP"><span class="constructor">GGP</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_graph_pattern">graph_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Service"><span class="constructor">Service</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEservice_graph_pattern">service_graph_pattern</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Service"><span class="constructor">Service</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEservice_graph_pattern">service_graph_pattern</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Filter"><span class="constructor">Filter</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Filter"><span class="constructor">Filter</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEconstraint_">constraint_</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.Bind"><span class="constructor">Bind</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbind">bind</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.Bind"><span class="constructor">Bind</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEbind">bind</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTgraph_pattern_elt.InlineData"><span class="constructor">InlineData</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEdatablock">datablock</a></code></code></td>
+<code><span id="TYPEELTgraph_pattern_doc.InlineData"><span class="constructor">InlineData</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEdatablock">datablock</a></code></code></td>
 
 </tr></table>
 
@@ -1323,51 +1323,51 @@
 
 
 
-<pre><code><span id="TYPEpath_elt"><span class="keyword">type</span> path_elt</span> = {</code></pre><table class="typetable">
+<pre><code><span id="TYPEpath_doc"><span class="keyword">type</span> path_doc</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_loc">pelt_loc</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<code><span id="TYPEELTpath_doc.pdoc_loc">pdoc_loc</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_primary">pelt_primary</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_primary">path_primary</a></code>;</code></td>
+<code><span id="TYPEELTpath_doc.pdoc_primary">pdoc_primary</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_primary">path_primary</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt.pelt_mod">pelt_mod</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_mod">path_mod</a> option</code>;</code></td>
+<code><span id="TYPEELTpath_doc.pdoc_mod">pdoc_mod</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_mod">path_mod</a> option</code>;</code></td>
 
 </tr></table>
 }
 
 
 
-<pre><code><span id="TYPEpath_elt_or_inverse"><span class="keyword">type</span> path_elt_or_inverse</span> = </code></pre><table class="typetable">
+<pre><code><span id="TYPEpath_doc_or_inverse"><span class="keyword">type</span> path_doc_or_inverse</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt_or_inverse.Elt"><span class="constructor">Elt</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt">path_elt</a></code></code></td>
+<code><span id="TYPEELTpath_doc_or_inverse.Elt"><span class="constructor">Elt</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_doc">path_doc</a></code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath_elt_or_inverse.Inv"><span class="constructor">Inv</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt">path_elt</a></code></code></td>
+<code><span id="TYPEELTpath_doc_or_inverse.Inv"><span class="constructor">Inv</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_doc">path_doc</a></code></code></td>
 
 </tr></table>
 
 
 
-<pre><span id="TYPEpath_sequence"><span class="keyword">type</span> path_sequence</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_elt_or_inverse">path_elt_or_inverse</a> list</code> </pre>
+<pre><span id="TYPEpath_sequence"><span class="keyword">type</span> path_sequence</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_doc_or_inverse">path_doc_or_inverse</a> list</code> </pre>
 
 
 <pre><span id="TYPEpath"><span class="keyword">type</span> path</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_sequence">path_sequence</a> list</code> </pre>
@@ -1519,7 +1519,7 @@
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTggp_sub.ggp_sub_elts">ggp_sub_elts</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_pattern_elt">graph_pattern_elt</a> list</code>;</code></td>
+<code><span id="TYPEELTggp_sub.ggp_sub_docs">ggp_sub_docs</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEgraph_pattern_doc">graph_pattern_doc</a> list</code>;</code></td>
 
 </tr></table>
 }
