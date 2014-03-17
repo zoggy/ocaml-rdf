@@ -58,6 +58,7 @@ LIB_RDF_CMOFILES= \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
+	rdf_dc.cmo \
 	rdf_dt.cmo \
 	rdf_ulex.cmo \
 	rdf_sparql_types.cmo \
