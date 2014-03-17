@@ -420,7 +420,7 @@ let (<<) v1 v2 =
     | ([], _) -> true
     | (_,[]) -> false
     | (h1::q1, h2::q2) ->
-        (h1 < h2) or
+        (h1 < h2) ||
         (h1 = h2 && (iter (q1,q2)))
   in
   iter (v1,v2)
@@ -825,7 +825,7 @@ let check_ocamlfind_package ?min_version ?max_version ?(fail=true) ?not_found co
                 let version = version_of_string s in
                 let min = match min_version with None -> [] | Some v -> v in
                 let max = match max_version with None -> [max_int] | Some v -> v in
-                if version < min or version > max then
+                if version < min || version > max then
                   (
                    not_found (`Package_bad_version s);
                    false
