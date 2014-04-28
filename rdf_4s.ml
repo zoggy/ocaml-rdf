@@ -27,25 +27,25 @@ let post_update url query =
   let body_string = Uri.pct_encode ("update=" ^ query) in
   let content_length = String.length body_string in
   let body = body_of_string body_string in
-  let headers =
-    get_headers ~content_type:"x-www-form-urlencoded" ~content_length ()
+  let headers = get_headers ~content_type:"x-www-form-urlencoded"
+    ~content_length ()
   in
-  lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
-  Rdf_sparql_http.solutions_of_response res
+  lwt header, _ = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
+  Lwt.return header
 
 let delete url graph =
   let uri = Uri.of_string (url ^ "/data/?graph=" ^ graph) in
   let headers = get_headers () in
-  lwt res = Cohttp_lwt_unix.Client.delete ~headers uri in
-  Rdf_sparql_http.solutions_of_response res
+  lwt header, _ = Cohttp_lwt_unix.Client.delete ~headers uri in
+  Lwt.return header
 
 let put url data ?(data_type=default_type) graph =
   let uri = Uri.of_string (url ^ "/data/" ^ graph) in
   let content_length = String.length data in
   let body = body_of_string data in
   let headers = get_headers ~content_type:data_type ~content_length () in
-  lwt res = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
-  Rdf_sparql_http.solutions_of_response res
+  lwt header, _ = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
+  Lwt.return header
 
 let post_append url data ?(data_type=default_type) graph =
   let uri = Uri.of_string (url ^ "/data/") in
@@ -54,8 +54,8 @@ let post_append url data ?(data_type=default_type) graph =
   in
   let content_length = String.length body_string in
   let body = body_of_string body_string in
-  let headers =
-    get_headers ~content_type:"x-www-form-urlencoded" ~content_length ()
+  let headers = get_headers ~content_type:"x-www-form-urlencoded"
+    ~content_length ()
   in
-  lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
-  Rdf_sparql_http.solutions_of_response res
+  lwt header, _ = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
+  Lwt.return header

@@ -23,22 +23,20 @@ val get :
 (** [post_update url query]
     [query] If you could like to update a named-graph, it has to be made in the query.
     This method allows: update/insert/delete query. *)
-val post_update : string -> string ->
-  (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t
+val post_update : string -> string -> Cohttp_lwt_unix.Client.Response.t Lwt.t
 
 (** [delete url graph]
     This method removes the entire [graph].*)
-val delete : string -> string ->
-  (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t
+val delete : string -> string -> Cohttp_lwt_unix.Client.Response.t Lwt.t
 
 (** [put url data ?data_type graph]
     This method allows to replace initial data from [graph] by [data].
     [data] is allowed as rdf-xml type.*)
 val put : string -> string -> ?data_type:string -> string ->
-  (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t
+  Cohttp_lwt_unix.Client.Response.t Lwt.t
 
 (** [post_append url data ?data_type graph]
     This method allow to append [data] into [graph].
     [data] is allow as ttl type. *)
 val post_append : string -> string -> ?data_type:string -> string ->
-  (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t
+  Cohttp_lwt_unix.Client.Response.t Lwt.t
