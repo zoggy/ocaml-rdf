@@ -1,6 +1,6 @@
 (**
-   {b Rdf Sparql Protocol Binding -
-   This Module implement the binding of the RDF Sparql http protocol}
+   {b Rdf Sparql Http -
+   This Module implement the http binding of the RDF Sparql http protocol}
 *)
 
 exception Invalid_result
@@ -15,6 +15,8 @@ val get_solutions : Cohttp_lwt_body.t ->
 (** [base_headers ()] Gives the base headers used for bindings *)
 val base_headers : unit -> Cohttp.Header.t
 
+(** [solutions_of_response response]
+    Convert response to the tuple header, solutions *)
 val solutions_of_response :
   (Cohttp_lwt_unix.Client.Response.t * Cohttp_lwt_body.t) Lwt.t ->
   (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t

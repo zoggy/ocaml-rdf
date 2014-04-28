@@ -1,6 +1,6 @@
 (**
    {b Rdf 4Store -
-   This Module implement the binding of 4Store triple store}
+   This Module implement the http binding of 4Store}
 *)
 
 (** {6 Bindings}
