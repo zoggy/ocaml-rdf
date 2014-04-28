@@ -30,13 +30,13 @@ let post_update url query =
   let headers =
     get_headers ~content_type:"x-www-form-urlencoded" ~content_length ()
   in
-  let res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
+  lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
   Rdf_sparql_http.solutions_of_response res
 
 let delete url graph =
   let uri = Uri.of_string (url ^ "/data/?graph=" ^ graph) in
   let headers = get_headers () in
-  let res = Cohttp_lwt_unix.Client.delete ~headers uri in
+  lwt res = Cohttp_lwt_unix.Client.delete ~headers uri in
   Rdf_sparql_http.solutions_of_response res
 
 let put url data ?(data_type=default_type) graph =
@@ -44,7 +44,7 @@ let put url data ?(data_type=default_type) graph =
   let content_length = String.length data in
   let body = body_of_string data in
   let headers = get_headers ~content_type:data_type ~content_length () in
-  let res = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
+  lwt res = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
   Rdf_sparql_http.solutions_of_response res
 
 let post_append url data ?(data_type=default_type) graph =
@@ -57,5 +57,5 @@ let post_append url data ?(data_type=default_type) graph =
   let headers =
     get_headers ~content_type:"x-www-form-urlencoded" ~content_length ()
   in
-  let res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
+  lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
   Rdf_sparql_http.solutions_of_response res

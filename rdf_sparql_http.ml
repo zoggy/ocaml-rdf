@@ -18,9 +18,9 @@ let term_of_json = function
   | _   -> raise Invalid_result
 
 let solution_of_json = function
-  | `Assoc [s_name, subject; p_name, predicat; o_name, s_object] ->
+  | `Assoc [s_name, subject; p_name, predicate; o_name, s_object] ->
     Rdf_sparql_ms.(mu_add s_name (term_of_json subject)
-                     (mu_add p_name (term_of_json predicat)
+                     (mu_add p_name (term_of_json predicate)
                         (mu o_name (term_of_json s_object))))
   | _   -> raise Invalid_result
 
@@ -50,8 +50,7 @@ let base_headers () =
   let headers = Cohttp.Header.init_with "accept" "application/json" in
   Cohttp.Header.add headers "user-agent" "ocaml-rdf/0.8"
 
-let solutions_of_response response =
-  lwt (header, body) = response in
+let solutions_of_response (header, body) =
   lwt _, solutions = get_solutions body in
   Lwt.return (header, solutions)
 
@@ -70,5 +69,5 @@ let get url ?default_graph_uri ?named_graph_uri query =
   in
   let uri = Uri.of_string query_url in
   let headers = base_headers () in
-  let res = Cohttp_lwt_unix.Client.get ~headers uri in
+  lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
   solutions_of_response res
