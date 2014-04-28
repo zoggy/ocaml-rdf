@@ -10,7 +10,8 @@
     [query] is the SPARQL query
     [graph] is the name of the graph where the query is going to be executed.
     [graph] if is equal to [url] it is executed on the default graph
-    [data_type] are set at "x-turtle" by default.*)
+    [data_type] are set at "x-turtle" by default.
+    Gobally it returns a tuple header, solutions or only the header. *)
 
 (** [get url ?default_graph_uri ?named_graph_uri query]
     [query] If you could like to select a named-graph, it has to be made in the query.
@@ -21,7 +22,7 @@ val get :
   (Cohttp_lwt_unix.Client.Response.t * Rdf_sparql_ms.mu list) Lwt.t
 
 (** [post_update url query]
-    [query] If you could like to update a named-graph, it has to be made in the query.
+    [query] If you would like to update a named-graph, it has to be made in the query.
     This method allows: update/insert/delete query. *)
 val post_update : string -> string -> Cohttp_lwt_unix.Client.Response.t Lwt.t
 
