@@ -1,58 +1,73 @@
 module Yj = Yojson.Safe
 
-exception Invalid_result
+type 'a result =
+ | Ok of 'a
+ | Error of string
 
 (*** Tools  ***)
 
-(* Results casting  *)
+(* Result casting  *)
 
 let mk_term v = function
   | "uri"                       -> Rdf_term.term_of_iri_string v
-  | "literal"                   -> Rdf_term.Literal (Rdf_term.mk_literal v)
-  | _ when String.length v != 0 -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string v)
+  | "literal"                   -> Rdf_term.(Literal (mk_literal v))
+  | _ when String.length v != 0 -> Rdf_term.(Blank_ (blank_id_of_string v))
   | _                           -> Rdf_term.Blank
 
 let term_of_json = function
   | `Assoc ["type", `String e_type; "value", `String value]
         -> mk_term value e_type
-  | _   -> raise Invalid_result
+  | _   -> failwith "Invalid term result"
 
 let solution_of_json = function
   | `Assoc [s_name, subject; p_name, predicate; o_name, s_object] ->
     Rdf_sparql_ms.(mu_add s_name (term_of_json subject)
                      (mu_add p_name (term_of_json predicate)
                         (mu o_name (term_of_json s_object))))
-  | _   -> raise Invalid_result
+  | _   -> failwith "Invalid term list result"
 
 let solutions_of_json = function
   | `List json  -> List.map solution_of_json json
   | `Null       -> []
-  | _           -> raise Invalid_result
+  | _           -> failwith "Invalid binding result"
 
 let head_of_json = function
   | `List [`String s; `String p; `String o]     -> [s; p; o]
   | `List []                                    -> []
   | `Null                                       -> []
-  | _                                           -> raise Invalid_result
+  | _                                           -> failwith "Invalid header"
 
-let get_solutions body =
-  lwt body_string = Cohttp_lwt_body.to_string body in
+let get_solutions body_string =
   let json = Yj.from_string body_string in
   match json with
-  | `Assoc ["head", `Assoc ["vars", head];
+  | `Assoc ["head", `Assoc ["vars", _];
             "results", `Assoc ["bindings", results]]
-        -> Lwt.return (head_of_json head, solutions_of_json results)
-  | _   -> raise Invalid_result
+        -> solutions_of_json results
+  | _   -> failwith "Invalid body result"
+
+(* Getting result *)
+
+let get_first_line str =
+  let regexp = Str.regexp "(\n)+" in
+  let split = Str.split regexp str in
+  if (List.length split) == 0
+  then ""
+  else List.hd split
+
+let result_of_response f (header, body) =
+  let status = Cohttp.Code.code_of_status (Cohttp.Response.status header) in
+  lwt body_string = Cohttp_lwt_body.to_string body in
+  if (status >= 200 && status < 300) then
+    try Lwt.return (Ok (f body_string))
+    with e -> Lwt.return (Error (Printexc.to_string e))
+  else
+    Lwt.return (Error (get_first_line body_string))
 
 (* Other tools *)
 
 let base_headers () =
   let headers = Cohttp.Header.init_with "accept" "application/json" in
   Cohttp.Header.add headers "user-agent" "ocaml-rdf/0.8"
-
-let solutions_of_response (header, body) =
-  lwt _, solutions = get_solutions body in
-  Lwt.return (header, solutions)
 
 (*** Binding  ***)
 
@@ -70,4 +85,4 @@ let get url ?default_graph_uri ?named_graph_uri query =
   let uri = Uri.of_string query_url in
   let headers = base_headers () in
   lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
-  solutions_of_response res
+  result_of_response get_solutions res
