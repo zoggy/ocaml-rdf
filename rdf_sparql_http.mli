@@ -22,11 +22,11 @@ val result_of_response: (string -> 'a) ->
 
 (** {6 Binding} *)
 
-(** [get url ?default_graph_uri ?named_graph_uri query]
-    [url] The server's url (including the port)
+(** [get uri ?default_graph_uri ?named_graph_uri query]
+    [uri] The server's url (including the port)
     [query] The graph selection have to be made in the query.
     This method allow select/ask/describe query. *)
 val get :
-  string -> ?default_graph_uri:string list ->
-  ?named_graph_uri:string list -> string ->
+  Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
+  ?named_graph_uri:Rdf_uri.uri list -> string ->
   Rdf_sparql_ms.mu list result Lwt.t

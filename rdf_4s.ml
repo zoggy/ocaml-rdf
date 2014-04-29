@@ -24,8 +24,8 @@ let result_of_null_response = Rdf_sparql_http.result_of_response (fun _ -> ())
 
 let get = Rdf_sparql_http.get
 
-let post_update url query =
-  let uri = Uri.of_string (url ^ "/update/") in
+let post_update uri query =
+  let uri = Uri.of_string ((Rdf_uri.string uri) ^ "/update/") in
   let body_string = Uri.pct_encode ("update=" ^ query) in
   let content_length = String.length body_string in
   let body = body_of_string body_string in
@@ -35,24 +35,29 @@ let post_update url query =
   lwt response = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
   result_of_null_response response
 
-let delete url graph =
-  let uri = Uri.of_string (url ^ "/data/?graph=" ^ graph) in
+let delete uri graph_uri =
+  let uri = Uri.of_string
+    ((Rdf_uri.string uri) ^ "/data/?graph=" ^ (Rdf_uri.string graph_uri))
+  in
   let headers = get_headers () in
   lwt response = Cohttp_lwt_unix.Client.delete ~headers uri in
   result_of_null_response response
 
-let put url data ?(data_type=default_type) graph =
-  let uri = Uri.of_string (url ^ "/data/" ^ graph) in
+let put uri data ?(data_type=default_type) graph_uri =
+  let uri = Uri.of_string
+    ((Rdf_uri.string uri) ^ "/data/" ^ (Rdf_uri.string graph_uri))
+  in
   let content_length = String.length data in
   let body = body_of_string data in
   let headers = get_headers ~content_type:data_type ~content_length () in
   lwt response = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
   result_of_null_response response
 
-let post_append url data ?(data_type=default_type) graph =
-  let uri = Uri.of_string (url ^ "/data/") in
+let post_append uri data ?(data_type=default_type) graph_uri =
+  let uri = Uri.of_string ((Rdf_uri.string uri) ^ "/data/") in
   let body_string = Uri.pct_encode
-    ("data=" ^ data ^ "&graph=" ^ graph ^ "&mime-type=application/" ^ data_type)
+    ("data=" ^ data ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
+        "&mime-type=application/" ^ data_type)
   in
   let content_length = String.length body_string in
   let body = body_of_string body_string in

@@ -5,36 +5,36 @@
 
 (** {6 Bindings}
     In this document:
-    [url] is the server's url (including the port)
+    [uri] is the server's uri (including the port)
     [query] is the SPARQL query
-    [graph] is the name of the graph where the query is going to be executed.
-    [graph] if is equal to [url] it is executed on the default graph
+    [graph_uri] is the uri of the graph where the query is going to be executed.
+    [graph_uri] if is equal to [uri] it is executed on the default graph
     [data_type] are set at "x-turtle" by default. *)
 
-(** [get url ?default_graph_uri ?named_graph_uri query]
+(** [get uri ?default_graph_uri ?named_graph_uri query]
     [query] If you could like to select a named-graph, it has to be made in the query.
     This method allows: select/ask/describe query.*)
-val get : string -> ?default_graph_uri:string list ->
-  ?named_graph_uri:string list -> string ->
+val get : Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
+  ?named_graph_uri:Rdf_uri.uri list -> string ->
   Rdf_sparql_ms.mu list Rdf_sparql_http.result Lwt.t
 
-(** [post_update url query]
+(** [post_update uri query]
     [query] If you would like to update a named-graph, it has to be made in the query.
     This method allows: update/insert/delete query. *)
-val post_update : string -> string -> unit Rdf_sparql_http.result Lwt.t
+val post_update : Rdf_uri.uri -> string -> unit Rdf_sparql_http.result Lwt.t
 
-(** [delete url graph]
-    This method removes the entire [graph].*)
-val delete : string -> string -> unit Rdf_sparql_http.result Lwt.t
+(** [delete uri graph_uri]
+    This method removes the entire [graph_uri].*)
+val delete : Rdf_uri.uri -> Rdf_uri.uri -> unit Rdf_sparql_http.result Lwt.t
 
-(** [put url data ?data_type graph]
-    This method allows to replace initial data from [graph] by [data].
+(** [put uri data ?data_type graph_uri]
+    This method allows to replace initial data from [graph_uri] by [data].
     [data] is allowed as rdf-xml type.*)
-val put : string -> string -> ?data_type:string -> string ->
+val put : Rdf_uri.uri -> string -> ?data_type:string -> Rdf_uri.uri ->
   unit Rdf_sparql_http.result Lwt.t
 
-(** [post_append url data ?data_type graph]
-    This method allow to append [data] into [graph].
+(** [post_append uri data ?data_type graph_uri]
+    This method allow to append [data] into [graph_uri].
     [data] is allow as ttl type. *)
-val post_append : string -> string -> ?data_type:string -> string ->
+val post_append : Rdf_uri.uri -> string -> ?data_type:string -> Rdf_uri.uri ->
   unit Rdf_sparql_http.result Lwt.t

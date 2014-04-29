@@ -76,16 +76,16 @@ let base_headers () =
 
 (*** Binding  ***)
 
-let get url ?default_graph_uri ?named_graph_uri query =
-  let concat arg_name q v = q ^ "&" ^ arg_name ^ "=" ^ v in
-  let fold_left name value query_url = match value with
-    | None      -> query_url
-    | Some l    -> List.fold_left (concat name) query_url l
+let get uri ?default_graph_uri ?named_graph_uri query =
+  let concat arg_name q uri = q ^ "&" ^ arg_name ^ "=" ^ (Rdf_uri.string uri) in
+  let fold_left name value query_uri = match value with
+    | None      -> query_uri
+    | Some l    -> List.fold_left (concat name) query_uri l
   in
   let query_url =
     fold_left "named-graph-uri" named_graph_uri
       (fold_left "default-graph-uri" default_graph_uri
-         (url ^ "/sparql/?query=" ^ query))
+         ((Rdf_uri.string uri) ^ "/sparql/?query=" ^ query))
   in
   let uri = Uri.of_string query_url in
   let headers = base_headers () in
