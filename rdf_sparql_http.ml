@@ -19,23 +19,27 @@ let term_of_json = function
         -> mk_term value e_type
   | _   -> failwith "Invalid term result"
 
+let couple_of_json mu = function
+  | name, j_term      -> Rdf_sparql_ms.mu_add name (term_of_json j_term) mu
+  | _                 -> failwith "Invalid couple result"
+
 let solution_of_json = function
-  | `Assoc [s_name, subject; p_name, predicate; o_name, s_object] ->
-    Rdf_sparql_ms.(mu_add s_name (term_of_json subject)
-                     (mu_add p_name (term_of_json predicate)
-                        (mu o_name (term_of_json s_object))))
-  | _   -> failwith "Invalid term list result"
+  | `Assoc l    -> List.fold_left couple_of_json Rdf_sparql_ms.mu_0 l
+  | _           -> failwith "Invalid couple list result"
 
 let solutions_of_json = function
   | `List json  -> List.map solution_of_json json
   | `Null       -> []
   | _           -> failwith "Invalid binding result"
 
+let string_of_json l = function
+  | `String s   -> s::l
+  | _           -> failwith "Invalid not string json"
+
 let head_of_json = function
-  | `List [`String s; `String p; `String o]     -> [s; p; o]
-  | `List []                                    -> []
-  | `Null                                       -> []
-  | _                                           -> failwith "Invalid header"
+  | `List l     -> List.fold_left string_of_json [] l
+  | `Null       -> []
+  | _           -> failwith "Invalid header"
 
 let get_solutions body_string =
   let json = Yj.from_string body_string in
@@ -48,11 +52,12 @@ let get_solutions body_string =
 (* Getting result *)
 
 let get_first_line str =
-  let regexp = Str.regexp "(\n)+" in
-  let split = Str.split regexp str in
-  if (List.length split) == 0
-  then ""
-  else List.hd split
+  let regexp = Str.regexp "[\n]+" in
+  let index =
+    try Str.search_forward regexp str 0
+    with Not_found      -> (String.length str) - 1
+  in
+  Str.string_before str index
 
 let result_of_response f (header, body) =
   let status = Cohttp.Code.code_of_status (Cohttp.Response.status header) in
