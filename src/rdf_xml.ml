@@ -393,10 +393,14 @@ let input_tree g ?(base=g.Rdf_graph.name()) t =
   Irimap.iter add_ns gstate.gnamespaces
 ;;
 
+let from_input g ?base i =
+  let (_, tree) = in_tree i in
+  input_tree g ?base tree
+;;
+
 let from_string g ?base s =
   let i = Xmlm.make_input ~strip: true (`String (0, s)) in
-  let (_,tree) = in_tree i in
-  input_tree g ?base tree
+  from_input g ?base i
 ;;
 
 let from_file g ?base file =
