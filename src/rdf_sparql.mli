@@ -54,6 +54,12 @@ val string_of_query : query -> string
 
 type solution
 
+(**/**)
+
+val solution_of_mu : Rdf_sparql_ms.mu -> solution
+
+(**/**)
+
 (** [get_term solution varname] returns the {!Rdf_term.term} bound to
   [varname] in the solution.
   @raise Not_found if the variable is not bound. *)

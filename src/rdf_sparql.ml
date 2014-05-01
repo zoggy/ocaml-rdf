@@ -108,6 +108,8 @@ let string_of_query q =
 
 type solution = Rdf_sparql_ms.mu
 
+let solution_of_mu x = x;;
+
 let get_term sol v = Rdf_sparql_ms.mu_find_varname v sol;;
 let get_string_literal sol v =
   Rdf_dt.string_literal (Rdf_dt.of_term (get_term sol v))
