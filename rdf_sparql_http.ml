@@ -24,7 +24,8 @@ let couple_of_json mu = function
   | _                 -> failwith "Invalid couple result"
 
 let solution_of_json = function
-  | `Assoc l    -> List.fold_left couple_of_json Rdf_sparql_ms.mu_0 l
+  | `Assoc l    -> Rdf_sparql.solution_of_mu
+    (List.fold_left couple_of_json Rdf_sparql_ms.mu_0 l)
   | _           -> failwith "Invalid couple list result"
 
 let solutions_of_json = function

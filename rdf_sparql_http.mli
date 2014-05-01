@@ -29,4 +29,4 @@ val result_of_response: (string -> 'a) ->
 val get :
   Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
   ?named_graph_uri:Rdf_uri.uri list -> string ->
-  Rdf_sparql_ms.mu list result Lwt.t
+  Rdf_sparql.solution list result Lwt.t

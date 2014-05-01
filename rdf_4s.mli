@@ -3,6 +3,8 @@
    This Module implement the http binding of 4Store}
 *)
 
+open Rdf_sparql_http
+
 (** {6 Bindings}
     In this document:
     [uri] is the server's uri (including the port)
@@ -16,25 +18,25 @@
     This method allows: select/ask/describe query.*)
 val get : Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
   ?named_graph_uri:Rdf_uri.uri list -> string ->
-  Rdf_sparql_ms.mu list Rdf_sparql_http.result Lwt.t
+  Rdf_sparql.solution list result Lwt.t
 
 (** [post_update uri query]
     [query] If you would like to update a named-graph, it has to be made in the query.
     This method allows: update/insert/delete query. *)
-val post_update : Rdf_uri.uri -> string -> unit Rdf_sparql_http.result Lwt.t
+val post_update : Rdf_uri.uri -> string -> unit result Lwt.t
 
 (** [delete uri graph_uri]
     This method removes the entire [graph_uri].*)
-val delete : Rdf_uri.uri -> Rdf_uri.uri -> unit Rdf_sparql_http.result Lwt.t
+val delete : Rdf_uri.uri -> Rdf_uri.uri -> unit result Lwt.t
 
 (** [put uri data ?data_type graph_uri]
     This method allows to replace initial data from [graph_uri] by [data].
     [data] is allowed as rdf-xml type.*)
 val put : Rdf_uri.uri -> string -> ?data_type:string -> Rdf_uri.uri ->
-  unit Rdf_sparql_http.result Lwt.t
+  unit result Lwt.t
 
 (** [post_append uri data ?data_type graph_uri]
     This method allow to append [data] into [graph_uri].
     [data] is allow as ttl type. *)
 val post_append : Rdf_uri.uri -> string -> ?data_type:string -> Rdf_uri.uri ->
-  unit Rdf_sparql_http.result Lwt.t
+  unit result Lwt.t
