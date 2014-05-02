@@ -61,7 +61,7 @@ let base_headers () =
 
 let clean_query query =
   let regexp = Str.regexp "[\n]+" in
-  Str.global_replace regexp "" query
+  Str.global_replace regexp " " query
 
 (*** Binding  ***)
 
