@@ -31,24 +31,33 @@ let solution_of_json = function
 let solutions_of_json = function
   | `List json  -> List.map solution_of_json json
   | `Null       -> []
-  | _           -> failwith "Invalid binding result"
+  | _           -> failwith "Invalid bindings result"
 
 let string_of_json l = function
   | `String s   -> s::l
-  | _           -> failwith "Invalid not string json"
+  | _           -> failwith "Invalid body `String missing"
 
 let head_of_json = function
   | `List l     -> List.fold_left string_of_json [] l
   | `Null       -> []
-  | _           -> failwith "Invalid header"
+  | _           -> failwith "Invalid header `List missing"
+
+(** get the value from the given yojson assoc *)
+let get_assoc = function
+  | `Assoc yj   -> yj
+  | _           -> failwith "Invalidy body, `Assoc missing"
+
+(** Get the first value of the given name from a yojson list  *)
+let rec get_from_list name = function
+  | (n, v)::tail when n = name  -> v
+  | _::tail                     -> get_from_list name tail
+  | []                          -> failwith ("Invalid body: '" ^ name ^ "' not found")
 
 let get_solutions body_string =
-  let json = Yj.from_string body_string in
-  match json with
-  | `Assoc ["head", `Assoc ["vars", _];
-            "results", `Assoc ["bindings", results]]
-        -> solutions_of_json results
-  | _   -> failwith "Invalid body result"
+  let body_assoc = Yj.from_string body_string in
+  let results_assoc = get_from_list "results" (get_assoc body_assoc) in
+  let bindings = get_from_list "bindings" (get_assoc results_assoc) in
+  solutions_of_json bindings
 
 (* Getting result *)
 
