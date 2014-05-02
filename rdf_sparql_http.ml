@@ -1,4 +1,4 @@
-module Yj = Yojson.Safe
+module Yojson = Yojson.Basic
 
 type 'a result =
  | Ok of 'a
@@ -14,49 +14,32 @@ let mk_term v = function
   | _ when String.length v != 0 -> Rdf_term.(Blank_ (blank_id_of_string v))
   | _                           -> Rdf_term.Blank
 
-let term_of_json = function
-  | `Assoc ["type", `String e_type; "value", `String value]
-        -> mk_term value e_type
-  | _   -> failwith "Invalid term result"
+let term_of_json json =
+  let e_type = Yojson.Util.(to_string (member "type" json)) in
+  let value = Yojson.Util.(to_string (member "value" json)) in
+  mk_term value e_type
 
-let couple_of_json mu = function
-  | name, j_term      -> Rdf_sparql_ms.mu_add name (term_of_json j_term) mu
-  | _                 -> failwith "Invalid couple result"
+let couple_of_json mu (name, j_term) =
+  Rdf_sparql_ms.mu_add name (term_of_json j_term) mu
 
-let solution_of_json = function
-  | `Assoc l    -> Rdf_sparql.solution_of_mu
-    (List.fold_left couple_of_json Rdf_sparql_ms.mu_0 l)
-  | _           -> failwith "Invalid couple list result"
+let solution_of_json json =
+  Rdf_sparql.solution_of_mu
+    (List.fold_left couple_of_json Rdf_sparql_ms.mu_0
+       (Yojson.Util.to_assoc json))
 
-let solutions_of_json = function
-  | `List json  -> List.map solution_of_json json
-  | `Null       -> []
-  | _           -> failwith "Invalid bindings result"
+let solutions_of_json json =
+  List.map solution_of_json (Yojson.Util.to_list json)
 
-let string_of_json l = function
-  | `String s   -> s::l
-  | _           -> failwith "Invalid body `String missing"
+let string_of_json string_list json =
+  (Yojson.Util.to_string json)::string_list
 
-let head_of_json = function
-  | `List l     -> List.fold_left string_of_json [] l
-  | `Null       -> []
-  | _           -> failwith "Invalid header `List missing"
-
-(** get the value from the given yojson assoc *)
-let get_assoc = function
-  | `Assoc yj   -> yj
-  | _           -> failwith "Invalidy body, `Assoc missing"
-
-(** Get the first value of the given name from a yojson list  *)
-let rec get_from_list name = function
-  | (n, v)::tail when n = name  -> v
-  | _::tail                     -> get_from_list name tail
-  | []                          -> failwith ("Invalid body: '" ^ name ^ "' not found")
+let head_of_json json =
+  List.fold_left string_of_json [] (Yojson.Util.to_list json)
 
 let get_solutions body_string =
-  let body_assoc = Yj.from_string body_string in
-  let results_assoc = get_from_list "results" (get_assoc body_assoc) in
-  let bindings = get_from_list "bindings" (get_assoc results_assoc) in
+  let body_assoc = Yojson.from_string body_string in
+  let results_assoc = Yojson.Util.(member "results" body_assoc) in
+  let bindings = Yojson.Util.(member "bindings" results_assoc) in
   solutions_of_json bindings
 
 (* Getting result *)
