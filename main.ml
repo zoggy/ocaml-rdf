@@ -58,7 +58,11 @@ let main () =
   (* print_header header; *)
 
 
-  let get_query = "SELECT ?s ?p ?o WHERE { ?s ?p ?o }" in
+  let get_query =
+"SELECT ?s ?p ?o WHERE {
+?s ?p ?o
+}"
+in
   (* let get_query = "SELECT ?s ?p ?o WHERE { GRAPH <"^graph^"> { ?s ?p ?o } }" in *)
   (* let get_query = "SELECT ?g WHERE { GRAPH ?g { <http://pumgrana.com/content/detail/52780cbdc21477f7aa5b9107> <http://pumgrana.com/content/detail/52780d55c21477f7aa5b9108> \"Test\" } }" in *)
   lwt response = Rdf_4s.get base_url get_query in

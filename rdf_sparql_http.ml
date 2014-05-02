@@ -84,6 +84,10 @@ let base_headers () =
   let headers = Cohttp.Header.init_with "accept" "application/json" in
   Cohttp.Header.add headers "user-agent" "ocaml-rdf/0.8"
 
+let clean_query query =
+  let regexp = Str.regexp "[\n]+" in
+  Str.global_replace regexp "" query
+
 (*** Binding  ***)
 
 let get uri ?default_graph_uri ?named_graph_uri query =
@@ -95,8 +99,9 @@ let get uri ?default_graph_uri ?named_graph_uri query =
   let query_url =
     fold_left "named-graph-uri" named_graph_uri
       (fold_left "default-graph-uri" default_graph_uri
-         ((Rdf_uri.string uri) ^ "/sparql/?query=" ^ query))
+         ((Rdf_uri.string uri) ^ "/sparql/?query=" ^ (clean_query query)))
   in
+  print_endline query_url;
   let uri = Uri.of_string query_url in
   let headers = base_headers () in
   lwt res = Cohttp_lwt_unix.Client.get ~headers uri in

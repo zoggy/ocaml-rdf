@@ -20,6 +20,10 @@ val result_of_response: (string -> 'a) ->
   Cohttp.Response.t * Cohttp_lwt_body.t ->
   'a result Lwt.t
 
+(** [clean_query query]
+    Remove \n in the given query *)
+val clean_query : string -> string
+
 (** {6 Binding} *)
 
 (** [get uri ?default_graph_uri ?named_graph_uri query]
