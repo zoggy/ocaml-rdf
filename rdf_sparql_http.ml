@@ -61,14 +61,6 @@ let get_solutions body_string =
 
 (* Getting result *)
 
-let get_first_line str =
-  let regexp = Str.regexp "[\n]+" in
-  let index =
-    try Str.search_forward regexp str 0
-    with Not_found      -> (String.length str) - 1
-  in
-  Str.string_before str index
-
 let result_of_response f (header, body) =
   let status = Cohttp.Code.code_of_status (Cohttp.Response.status header) in
   lwt body_string = Cohttp_lwt_body.to_string body in
@@ -76,7 +68,7 @@ let result_of_response f (header, body) =
     try Lwt.return (Ok (f body_string))
     with e -> Lwt.return (Error (Printexc.to_string e))
   else
-    Lwt.return (Error (get_first_line body_string))
+    Lwt.return (Error body_string)
 
 (* Other tools *)
 
