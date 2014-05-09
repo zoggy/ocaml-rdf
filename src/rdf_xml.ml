@@ -102,24 +102,33 @@ let string_of_xmls namespaces trees =
       failwith msg
 ;;
 
-
-let xmls_of_string str =
-  (*prerr_endline "xmls_of_string";*)
-  let str = "<foo__>"^str^"</foo__>" in
-  (*prerr_endline str;*)
+let xml_of_string str =
   try
     let i = Xmlm.make_input ~strip: true (`String (0, str)) in
     let (_,tree) = in_tree i in
     (*prerr_endline "parse ok";*)
-    match tree with
-      E ((("","foo__"),_),subs) -> subs
-    | _ -> assert false
+    tree
   with
     Xmlm.Error ((line, col), error) ->
       let msg = Printf.sprintf "Line %d, column %d: %s\n%s"
         line col (Xmlm.error_message error) str
       in
       failwith msg
+;;
+
+let xmls_of_string str =
+  (*prerr_endline "xmls_of_string";*)
+  let str = "<foo__>"^str^"</foo__>" in
+  match xml_of_string str with
+    E ((("","foo__"),_),subs) -> subs
+  | _ -> assert false
+;;
+
+let get_first_child xml tag =
+  match xml with
+    D _ -> None
+  | E ((_,_),subs) ->
+      Some (List.find (function E ((t,_),_) -> t = tag | _ -> false) subs)
 ;;
 
 let is_element iri (pref,loc) =

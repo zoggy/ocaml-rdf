@@ -1,50 +1,61 @@
 
-type 'a result =
- | Ok of 'a
- | Error of string
-
-(*** Tools  ***)
+open Rdf_sparql_protocol
 
 (* Getting result *)
 
 let result_of_response f (header, body) =
   let status = Cohttp.Code.code_of_status (Cohttp.Response.status header) in
+  let content_type =
+    match Cohttp.Header.get (Cohttp.Response.headers header) "Content-Type"with
+      None -> ""
+    | Some s -> s
+  in
   lwt body_string = Cohttp_lwt_body.to_string body in
-  if (status >= 200 && status < 300) then
-    try Lwt.return (Ok (f body_string))
-    with e -> Lwt.return (Error (Printexc.to_string e))
-  else
-    Lwt.return (Error body_string)
+  match status with
+  | 400 ->  Lwt.return (Error (Malformed_query body_string))
+  | 500 ->  Lwt.return (Error (Query_request_refused body_string))
+  | n when n >= 200 && n < 300 ->
+      Lwt.return (f ~content_type body_string)
+  | n ->
+      Lwt.return
+        (Error
+          (Error_other ("HTTP return code: "^(string_of_int n))))
+;;
 
 (* Other tools *)
 
-let base_headers () =
-  let headers = Cohttp.Header.init_with "accept" "application/json" in
+let base_headers ?accept () =
+  let headers =
+    match accept with
+      None -> Cohttp.Header.init ()
+    | Some s -> Cohttp.Header.init_with "accept" s
+  in
   Cohttp.Header.add headers "user-agent" ("ocaml-rdf/"^Rdf_config.version)
 
 let clean_query query =
   let regexp = Str.regexp "[\n]+" in
   Str.global_replace regexp " " query
 
-(*** Binding  ***)
+(*** Lwt based HTTP Binding with Rdf_sparql_http.Make functor.  ***)
 
-let get uri ?default_graph_uri ?named_graph_uri query =
-  let concat arg_name q uri = q ^ "&" ^ arg_name ^ "=" ^ (Rdf_uri.string uri) in
-  let fold_left name value query_uri = match value with
-    | None      -> query_uri
-    | Some l    -> List.fold_left (concat name) query_uri l
-  in
-  let query_url =
-    fold_left "named-graph-uri" named_graph_uri
-      (fold_left "default-graph-uri" default_graph_uri
-         ((Rdf_uri.string uri) ^ "?query=" ^ (clean_query query)))
-  in
-  print_endline query_url;
-  let uri = Uri.of_string query_url in
-  let headers = base_headers () in
-  let get_result body_string =
-    let body_assoc = Yojson.Basic.from_string body_string in
-    Rdf_json.sparql_result body_assoc
-  in
-  lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
-  result_of_response get_result res
+module P =
+  struct
+    type 'a t = 'a Lwt.t
+    let get uri ?accept f =
+      let uri = Uri.of_string (Rdf_uri.string uri) in
+      let headers = base_headers ?accept () in
+      lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
+      let x = result_of_response f res in
+      (x :> Rdf_sparql_protocol.out_message Lwt.t)
+(*
+    let post (uri : Rdf_uri.uri) ?(accept="") ~content_type
+      (f : content_type: string -> string -> out_message) =
+        ignore(compare content_type "coucou");
+        let x = Lwt.return (Error (Error_other "POST not implemented")) in
+        (x :Rdf_sparql_protocol.out_message t)
+*)
+  end
+
+module M = Rdf_sparql_http.Make (P)
+
+include M

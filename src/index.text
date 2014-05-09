@@ -6,6 +6,7 @@ Rdf_ds
 Rdf_dt
 Rdf_graph
 Rdf_iri
+Rdf_json
 Rdf_loc
 Rdf_misc
 Rdf_term
@@ -21,6 +22,10 @@ Rdf_utf8
 {2 Sparql queries}
 
 {!modules: Rdf_sparql}
+
+{2 Sparql protocol}
+
+{!modules: Rdf_sparql_protocol Rdf_sparql_http_lwt}
 
 {2 Namespaces}
 {!modules:

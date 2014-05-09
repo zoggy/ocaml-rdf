@@ -386,6 +386,7 @@ let execute ?graph ~base dataset query =
           Some g -> g
         | None -> Rdf_graph.open_graph base
       in
+      (* TODO: fill graph *)
       Graph g
 ;;
 

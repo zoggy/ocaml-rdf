@@ -16,7 +16,8 @@ let term_of_json json =
   mk_term value e_type
 
 (** {2 Serializing SPARQL Query Results in JSON}
-  @see http://www.w3.org/TR/rdf-sparql-json-res/
+
+  [http://www.w3.org/TR/rdf-sparql-json-res/]
 *)
 
 let couple_of_json mu (name, j_term) =
@@ -38,7 +39,7 @@ let head_of_json json =
   List.fold_left string_of_json [] (Yojson.Util.to_list json)
 *)
 
-let sparql_result json =
+let sparql_result_of_json json =
   match Yojson.Util.member "boolean" json with
     `Bool b -> Rdf_sparql.Bool b
   | `Null ->

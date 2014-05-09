@@ -87,7 +87,9 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_expand.cmo \
 	rdf_sparql_eval.cmo \
 	rdf_sparql.cmo \
-	rdf_json.cmo
+	rdf_json.cmo \
+	rdf_sparql_protocol.cmo \
+	rdf_sparql_http.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)

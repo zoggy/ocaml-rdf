@@ -31,6 +31,15 @@ module SMap : Map.S with type key = string
 (** The type of XML tree walked through to fill the graph. *)
 type tree = E of Xmlm.tag * tree list | D of string
 
+(** @raise Failure in case of invalid XML. *)
+val xml_of_string : string -> tree
+
+(** [get_first tree tag] returns the first child with tag [s]
+  of the given xml tree or [None] if the given node has
+  no such child.
+*)
+val get_first_child : tree -> (string * string) -> tree option
+
 (** Type of current state when walking through the xml tree. *)
 type state =
   { subject : Rdf_term.term option ;
