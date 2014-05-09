@@ -1,7 +1,9 @@
 kw_to_re.cmo :
 kw_to_re.cmx :
-rdf_4s_lwt.cmo : rdf_uri.cmi rdf_sparql_http_lwt.cmi rdf_4s_lwt.cmi
-rdf_4s_lwt.cmx : rdf_uri.cmx rdf_sparql_http_lwt.cmx rdf_4s_lwt.cmi
+rdf_4s_lwt.cmo : rdf_uri.cmi rdf_sparql_protocol.cmo rdf_sparql_http_lwt.cmi \
+    rdf_4s_lwt.cmi
+rdf_4s_lwt.cmx : rdf_uri.cmx rdf_sparql_protocol.cmx rdf_sparql_http_lwt.cmx \
+    rdf_4s_lwt.cmi
 rdf_bgp.cmo : rdf_term.cmi rdf_sparql_types.cmo rdf_sparql_ms.cmo \
     rdf_sparql_algebra.cmo rdf_misc.cmi rdf_loc.cmi rdf_bgp.cmi
 rdf_bgp.cmx : rdf_term.cmx rdf_sparql_types.cmx rdf_sparql_ms.cmx \
@@ -180,13 +182,18 @@ test_sparql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_sparql_types.cmo \
 test_sparql.cmx : rdf_ttl.cmx rdf_term.cmx rdf_sparql_types.cmx \
     rdf_sparql_algebra.cmx rdf_sparql.cmx rdf_iri.cmx rdf_graph.cmx \
     rdf_ds.cmx
+test_sparql_protocol.cmo : rdf_uri.cmi rdf_term.cmi rdf_sparql_protocol.cmo \
+    rdf_sparql_http_lwt.cmi rdf_sparql.cmi rdf_iri.cmi rdf_graph.cmi
+test_sparql_protocol.cmx : rdf_uri.cmx rdf_term.cmx rdf_sparql_protocol.cmx \
+    rdf_sparql_http_lwt.cmx rdf_sparql.cmx rdf_iri.cmx rdf_graph.cmx
 test_ttl.cmo : rdf_ttl.cmi rdf_iri.cmi rdf_graph.cmi rdf_dot.cmi
 test_ttl.cmx : rdf_ttl.cmx rdf_iri.cmx rdf_graph.cmx rdf_dot.cmx
 test_uncodepoint.cmo : rdf_sparql_lex.cmi
 test_uncodepoint.cmx : rdf_sparql_lex.cmx
 test_xml.cmo : rdf_xml.cmi rdf_iri.cmi rdf_graph.cmi rdf_dot.cmi
 test_xml.cmx : rdf_xml.cmx rdf_iri.cmx rdf_graph.cmx rdf_dot.cmx
-rdf_4s_lwt.cmi : rdf_uri.cmi rdf_sparql_protocol.cmo rdf_sparql_http_lwt.cmi
+rdf_4s_lwt.cmi : rdf_uri.cmi rdf_sparql_protocol.cmo rdf_sparql_http_lwt.cmi \
+    rdf_iri.cmi rdf_graph.cmi
 rdf_bgp.cmi : rdf_term.cmi rdf_sparql_ms.cmo rdf_sparql_algebra.cmo
 rdf_config.cmi :
 rdf_dc.cmi : rdf_iri.cmi

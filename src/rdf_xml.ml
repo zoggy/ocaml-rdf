@@ -128,7 +128,8 @@ let get_first_child xml tag =
   match xml with
     D _ -> None
   | E ((_,_),subs) ->
-      Some (List.find (function E ((t,_),_) -> t = tag | _ -> false) subs)
+      try Some (List.find (function E ((t,_),_) -> t = tag | _ -> false) subs)
+      with Not_found -> None
 ;;
 
 let is_element iri (pref,loc) =

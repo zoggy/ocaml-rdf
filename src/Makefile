@@ -190,16 +190,19 @@ test_uncodepoint: rdf_utf8.cmx rdf_sparql_lex.cmx test_uncodepoint.ml
 	$(OCAMLFIND) ocamlopt -package ulex -linkpkg -linkall -o $@ $^
 
 rdf_sparql_test: $(LIB_RDF) rdf_sparql_test.cmx rdf_sparql_test_main.cmx
-		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall $(COMPFLAGS) $^
 
 rdf_sparql_bench: $(LIB_RDF) $(LIB_MYSQL) $(LIB_POSTGRESQL) rdf_sparql_test.cmx rdf_sparql_bench.cmx
-		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
 rdf_turtle_test: $(LIB_RDF) rdf_turtle_test.cmx
-		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
 
 test_iri: $(LIB_RDF) test_iri.cmx
-		$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -package config-file -linkpkg -o $@ -linkall -inline 10000 $(COMPFLAGS) $^
+
+test_sparql_protocol: $(LIB_RDF) $(LIB_LWT) test_sparql_protocol.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(COMPFLAGS) $^
 
 # Documentation :
 #################
