@@ -22,61 +22,35 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** *)
+(** RDF Sparql protocol.
 
-(** This code is adapted from CCSS: file ccss.ml *)
+  [http://www.w3.org/TR/rdf-sparql-protocol/]
+*)
 
-let lexpos pos lexbuf =
-  let s = Ulexing.utf8_lexeme lexbuf in
-  { pos with
-    Lexing.pos_cnum = pos.Lexing.pos_cnum + (Rdf_utf8.utf8_string_length s);
+type in_dataset = {
+  inds_default : Rdf_iri.iri option;
+  inds_named : Rdf_iri.iri list ;
   }
-;;
 
-let lexpos_nl pos lexbuf =
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  let rec iter pos i =
-    if i < len then
-      let pos =
-        match s.[i] with
-          '\n' ->
-            let c = pos.Lexing.pos_cnum + 1 in
-            { pos with
-              Lexing.pos_bol = c ;
-              Lexing.pos_cnum = c ;
-              Lexing.pos_lnum = pos.Lexing.pos_lnum + 1 ;
-            }
-        | _ ->
-            { pos with Lexing.pos_cnum = pos.Lexing.pos_cnum + 1 }
-      in
-      iter pos (i+(Rdf_utf8.utf8_nb_bytes_of_char s.[i]))
-    else
-      pos
-  in
-  iter pos 0
-;;
+val empty_dataset : in_dataset
 
-exception Parse_error of exn * Lexing.position
+type in_message = {
+    in_query : string ;
+    in_dataset : in_dataset ;
+  }
 
-let menhir_with_ulex menhir_parser lexer ?(fname="") lexbuf =
-	let position = ref
-		{
-      Lexing.pos_fname = fname ;
-      pos_lnum = 1;
-      pos_bol = 0;
-      pos_cnum = 0;
-    }
-  in
-  let lexer_maker () =
-    let ante_position = !position in
-    let (pos, token) = lexer !position lexbuf in
-    position := pos ;
-    (token, ante_position, !position)
-  in
-  let revised_parser = MenhirLib.Convert.Simplified.traditional2revised menhir_parser in
-  try revised_parser lexer_maker
-  with
-    Parse_error _ as e -> raise e
-  | e -> raise (Parse_error (e, !position))
-;;
+type error =
+  | Malformed_query of string
+  | Query_request_refused of string
+  | Error_other of string
+
+type out_message =
+| Ok (** This is for queries not returning results; by now the Sparql
+         protocol does not specify such queries, but it can be useful
+         for example for 4store, which allows to post updates. *)
+| Result of Rdf_sparql.query_result
+| Error of error
+
+val string_of_error : error -> string
+
+
