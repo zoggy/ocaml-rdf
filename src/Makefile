@@ -207,12 +207,13 @@ test_sparql_protocol: $(LIB_RDF) $(LIB_LWT) test_sparql_protocol.cmx
 # Documentation :
 #################
 dump.odoc: *.mli *.ml
-	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) $(INCLUDES) -sort -dump dump.odoc \
-	`ls $^ | grep -v example | grep -v test | grep -v bench | grep -v _parser.ml | grep -v _lex.ml`
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) $(INCLUDES) -sort -dump dump.odoc \
+	-syntax camlp4o -package lwt.syntax \
+	`ls $^ | grep -v example | grep -v test | grep -v -E "rdf_iri.ml$$" | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" `
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc
-	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(OCAMLPP) \
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) \
 	-t OCaml-RDF \
 	-load $^ \
 	-d ocamldoc -html -intro index.text
@@ -220,7 +221,7 @@ doc: dump.odoc
 
 docg: dump.odoc
 	$(MKDIR) ocamldoc
-	ocamldoc $(OCAMLPP) \
+	ocamldoc $(MT_FLAGS) \
 	-t OCaml-RDF \
 	-load $^ intro index.text \
 	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
@@ -228,7 +229,7 @@ docg: dump.odoc
 
 docstog: dump.odoc
 	$(MKDIR) ../web/refdoc
-	ocamldoc.opt $(OCAMLPP) \
+	ocamldoc.opt $(MT_FLAGS) \
 	-t "OCaml-RDF reference documentation" \
 	-load $^ -intro index.text \
 	-d ../web/refdoc -g odoc_stog.cmxs \

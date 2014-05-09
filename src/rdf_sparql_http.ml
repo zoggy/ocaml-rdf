@@ -1,16 +1,10 @@
-(** HTTP bindings for Sparql protocol.
-
-  [http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http]
-
-  Using [http://www.w3.org/2005/sparql-results#] as reference for
-  representation of Sparql results.
-*)
+(** *)
 
 open Rdf_sparql_protocol
 open Rdf_xml
 
 exception Unsupported_content_type of string
-exception Invalid_response of string * string (** error * body *)
+exception Invalid_response of string * string
 
 (* sparql-results namespace *)
 let spr_ns = "http://www.w3.org/2005/sparql-results#"

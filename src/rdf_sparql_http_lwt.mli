@@ -1,4 +1,4 @@
-(** Lwt-based Sparql PRotocol HTTP Binding.
+(** Lwt-based Sparql Protocol HTTP Binding.
 
    Using the {!Rdf_sparql_http.Make} functor.
 *)

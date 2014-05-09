@@ -1,4 +1,3 @@
-
 open Rdf_sparql_protocol
 
 (* Getting result *)

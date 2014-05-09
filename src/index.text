@@ -25,7 +25,7 @@ Rdf_utf8
 
 {2 Sparql protocol}
 
-{!modules: Rdf_sparql_protocol Rdf_sparql_http_lwt}
+{!modules: Rdf_sparql_protocol Rdf_sparql_http Rdf_sparql_http_lwt}
 
 {2 Namespaces}
 {!modules:
