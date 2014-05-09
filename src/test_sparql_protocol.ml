@@ -19,37 +19,54 @@ let safe_main main =
 (*/c==v=[Misc.safe_main]=1.0====*)
 
 let main () =
-  if Array.length Sys.argv < 3 then fatal usage;
-  let options = [ "storage", "mem" ] in
-  let base = Rdf_iri.iri "http://hello.fr" in
-  let g = Rdf_graph.open_graph ~options base in
-  let url = Rdf_uri.uri Sys.argv.(1) in
-  let query = Sys.argv.(2) in
-  let in_message = { in_query = query ; in_dataset = empty_dataset } in
-  Rdf_sparql_http_lwt.get ~graph: g ~base url in_message >>=
-    (fun res ->
-       let () =
-         match res with
-           Rdf_sparql_protocol.Error e -> prerr_endline (Rdf_sparql_protocol.string_of_error e)
-         | Ok -> print_endline "Ok"
-         | Result res ->
+  let accept = ref None in
+  let remain = ref [] in
+  let options =
+    [ "--accept", Arg.String (fun s -> accept := Some s),
+      " set the Accept header used in HTTP request";
+    ]
+  in
+  Arg.parse options (fun f -> remain := !remain @ [f]) usage;
+  match !remain with
+    [] | [_] -> fatal usage
+  | url :: query :: _ ->
+      let options = [ "storage", "mem" ] in
+      let base = Rdf_iri.iri "http://hello.fr" in
+      let g = Rdf_graph.open_graph ~options base in
+      let url = Rdf_uri.uri url in
+      let in_message = { in_query = query ; in_dataset = empty_dataset } in
+      Rdf_sparql_http_lwt.get ~graph: g ~base ?accept: !accept url in_message >>=
+        (fun res ->
+           let () =
              match res with
+               Rdf_sparql_protocol.Error e -> prerr_endline (Rdf_sparql_protocol.string_of_error e)
+             | Ok -> print_endline "Ok"
+             | Result res ->
+                 match res with
              | Rdf_sparql.Bool true -> print_endline "true"
-             | Rdf_sparql.Bool false -> print_endline "false"
-             | Rdf_sparql.Graph _ -> print_endline "graph"
-             | Rdf_sparql.Solutions sols ->
-                 let f_sol sol =
-                   Rdf_sparql.solution_iter
-                     (fun name term -> print_string (name^"->"^(Rdf_term.string_of_term term)^" ; "))
-                     sol;
-                   print_newline()
-                 in
-                 print_endline "Solutions:";
-                 List.iter f_sol sols
-       in
-       Lwt.return_unit
-    )
+                 | Rdf_sparql.Bool false -> print_endline "false"
+                 | Rdf_sparql.Graph _ -> 
+                     let file = "/tmp/"^(Filename.basename Sys.argv.(0))^".ttl" in
+                     Rdf_ttl.to_file g file;
+                     print_endline ("graph stored in "^file)
+                 | Rdf_sparql.Solutions sols ->
+                     let f_sol sol =
+                       Rdf_sparql.solution_iter
+                         (fun name term -> print_string (name^"->"^(Rdf_term.string_of_term term)^" ; "))
+                         sol;
+                       print_newline()
+                     in
+                     print_endline "Solutions:";
+                     List.iter f_sol sols
+           in
+           Lwt.return_unit
+        )
 ;;
 
 
-let () = Lwt_main.run (safe_main main);;
+let () =
+  try Lwt_main.run (safe_main main)
+  with Rdf_sparql_http.Invalid_response (s1, s2) ->
+    prerr_endline ("Invalid response: "^s1^"\n"^s2);
+    exit 1
+;;

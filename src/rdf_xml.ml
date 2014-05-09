@@ -408,6 +408,8 @@ let from_input g ?base i =
   input_tree g ?base tree
 ;;
 
+let from_xml = input_tree;;
+
 let from_string g ?base s =
   let i = Xmlm.make_input ~strip: true (`String (0, s)) in
   from_input g ?base i

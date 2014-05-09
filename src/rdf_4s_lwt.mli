@@ -16,7 +16,7 @@ open Rdf_sparql_http_lwt
 (** [get uri ?default_graph_uri ?named_graph_uri query]
     [query] If you could like to select a named-graph, it has to be made in the query.
     This method allows: select/ask/describe query.*)
-val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri ->
+val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
   Rdf_uri.uri -> Rdf_sparql_protocol.in_message ->
     Rdf_sparql_protocol.out_message Lwt.t
 

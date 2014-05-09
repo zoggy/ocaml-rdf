@@ -74,6 +74,11 @@ val from_file : Rdf_graph.graph -> ?base: Rdf_iri.iri -> string -> unit
 (** Same as {!from_string} but read from the given Xmlm.input handle. *)
 val from_input : Rdf_graph.graph -> ?base: Rdf_iri.iri -> Xmlm.input -> unit
 
+(** Same as {!from_string} but read from the given Xml tree. *)
+val from_xml : Rdf_graph.graph -> ?base: Rdf_iri.iri -> tree -> unit
+
+
+
 val to_string :
   ?namespaces: (Rdf_iri.iri * string) list -> Rdf_graph.graph -> string
 

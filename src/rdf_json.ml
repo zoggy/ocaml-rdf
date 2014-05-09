@@ -11,9 +11,12 @@ let mk_term v = function
   | _                           -> Rdf_term.Blank
 
 let term_of_json json =
-  let e_type = Yojson.Util.(to_string (member "type" json)) in
-  let value = Yojson.Util.(to_string (member "value" json)) in
-  mk_term value e_type
+  try
+    let e_type = Yojson.Util.(to_string (member "type" json)) in
+    let value = Yojson.Util.(to_string (member "value" json)) in
+    mk_term value e_type
+  with
+    Yojson.Util.Type_error (s,_) -> raise (Unexpected_json (s, json))
 
 (** {2 Serializing SPARQL Query Results in JSON}
 
@@ -43,9 +46,14 @@ let sparql_result_of_json json =
   match Yojson.Util.member "boolean" json with
     `Bool b -> Rdf_sparql.Bool b
   | `Null ->
-      let results_assoc = Yojson.Util.(member "results" json) in
-      let bindings = Yojson.Util.(member "bindings" results_assoc) in
-      Rdf_sparql.Solutions (solutions_of_json bindings)
+      begin
+        try
+          let results_assoc = Yojson.Util.(member "results" json) in
+          let bindings = Yojson.Util.(member "bindings" results_assoc) in
+          Rdf_sparql.Solutions (solutions_of_json bindings)
+        with
+          Yojson.Util.Type_error (s, _) -> raise (Unexpected_json (s, json))
+      end
   | _ -> raise (Unexpected_json ("query result", json))
 ;;
 

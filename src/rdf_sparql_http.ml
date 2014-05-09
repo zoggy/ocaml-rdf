@@ -15,16 +15,16 @@ exception Invalid_response of string * string (** error * body *)
 (* sparql-results namespace *)
 let spr_ns = "http://www.w3.org/2005/sparql-results#"
 
-let xml_first_child xml tag =
-  match xml with
-    D _ -> None
-  | E ((_,_),subs) ->
-      try Some (List.find (function E (((_,t),_),_) -> t = tag | _ -> false) subs)
-      with Not_found -> None
-;;
 
 module Xml =
   struct
+    let first_child xml tag =
+      match xml with
+        D _ -> None
+      | E ((_,_),subs) ->
+          try Some (List.find (function E (((_,t),_),_) -> t = tag | _ -> false) subs)
+      with Not_found -> None
+
     let get_att name atts =
      try Some (List.assoc name atts)
       with Not_found -> None
@@ -62,41 +62,13 @@ module Xml =
               | Some term -> Some (name, term)
         end
     | _ -> None
-  end;;
-
-module type P =
-  sig
-    type 'a t
-    val get : Rdf_uri.uri -> ?accept: string ->
-      (content_type:string -> string -> Rdf_sparql_protocol.out_message) ->
-        Rdf_sparql_protocol.out_message t
-(*    val post : Rdf_uri.uri ->
-      ?accept: string -> content_type: string -> content: string ->
-        (content_type: string -> string ->  Rdf_sparql_protocol.out_message) ->
-        Rdf_sparql_protocol.out_message t
-*)
-  end;;
-
-module type S =
-  sig
-    type result
-    val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
-    val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
-  end
-
-module Make (P : P) =
-  (*: S with type result = Rdf_sparql_protocol.out_message P.t *)
-  struct
-    type result = Rdf_sparql_protocol.out_message P.t
 
     let solution_of_xmls xmls =
       let mu = Rdf_sparql_ms.mu_0 in
       let rec iter acc = function
         [] -> Rdf_sparql.solution_of_mu acc
       | xml :: q ->
-          match Xml.binding_of_xml xml with
+          match binding_of_xml xml with
             None -> iter acc q
           | Some (name,term) ->
               let acc = Rdf_sparql_ms.mu_add name term acc in
@@ -116,42 +88,87 @@ module Make (P : P) =
       iter []
 
     let result_of_xml xml =
-      match xml_first_child xml "boolean" with
+      match first_child xml "boolean" with
         Some (D s) ->
           Rdf_sparql.Bool (String.lowercase s = "true")
       | Some (E _) -> raise (Invalid_response ("bad boolean content", "<...>...</...>"))
       | None ->
-          match xml_first_child xml "results" with
+          match first_child xml "results" with
             None -> raise (Invalid_response ("no <results> node", ""))
           | Some (D _) -> assert false
           | Some (E (_, xmls)) ->
               let solutions = results_of_xmls xmls in
               Rdf_sparql.Solutions solutions
+  end;;
 
+module type P =
+  sig
+    type 'a t
+    val get : Rdf_uri.uri -> ?accept: string ->
+      (content_type:string -> string -> Rdf_sparql_protocol.out_message) ->
+        Rdf_sparql_protocol.out_message t
+(*    val post : Rdf_uri.uri ->
+      ?accept: string -> content_type: string -> content: string ->
+        (content_type: string -> string ->  Rdf_sparql_protocol.out_message) ->
+        Rdf_sparql_protocol.out_message t
+*)
+  end;;
+
+module type S =
+  sig
+    type result
+    val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+    val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+  end
+
+module Make (P : P) =
+  struct
+    type result = Rdf_sparql_protocol.out_message P.t
+
+    let read_rdf_xml ?graph ~base xml =
+      begin
+        let g =
+          match graph with
+            Some g -> g
+          | None -> Rdf_graph.open_graph base
+        in
+        try
+          Rdf_xml.from_xml g ~base xml;
+          Rdf_sparql_protocol.Result (Rdf_sparql.Graph g)
+        with
+          Rdf_xml.Invalid_rdf s ->
+            raise (Invalid_response (s, ""))
+      end
+      
     let result_of_string ?graph ~base ~content_type body =
+      (*print_endline ("Content-Type received = "^content_type);*)
       match content_type with
-       | "application/sparql-results+xml" ->
+      | "application/xml"
+      | "text/xml"
+      | "application/sparql-results+xml" ->
           begin
             let xml =
               try Rdf_xml.xml_of_string body
               with Failure msg -> raise (Invalid_response (msg, body))
             in
-            Rdf_sparql_protocol.Result (result_of_xml xml)
+            try Rdf_sparql_protocol.Result (Xml.result_of_xml xml)
+            with Invalid_response (msg,_) -> 
+                (* it may not be a solution or boolean, but rather an rdf
+                   graph, let's try to load it*)
+                read_rdf_xml ?graph ~base xml              
           end
       | "application/rdf+xml" ->
           begin
-            let g =
-              match graph with
-                Some g -> g
-              | None -> Rdf_graph.open_graph base
+            let xml = 
+              try Rdf_xml.xml_of_string body 
+              with Failure msg -> raise (Invalid_response (msg, body))
             in
-            try
-              Rdf_xml.from_string g ~base body;
-              Rdf_sparql_protocol.Result (Rdf_sparql.Graph g)
-           with
-              Rdf_xml.Invalid_rdf s ->
-                raise (Invalid_response (s, body))
+            read_rdf_xml ?graph ~base xml
           end
+          
+      | "application/x-turtle"
       | "text/turtle" ->
           begin
             let g =
@@ -179,7 +196,12 @@ module Make (P : P) =
           end
       | s -> raise (Unsupported_content_type s)
 
-    let get ?graph ~base uri msg =
+    let default_accept =
+      "application/xml, text/xml, application/sparql-results+xml, application/rdf+xml,"^
+      "application/x-turtle, text/turtle, "^
+      "application/sparql-results+json, application/json"
+
+    let get ?graph ~base ?(accept=default_accept) uri msg =
       let url = Rdf_uri.neturl uri in
       let enc = Netencoding.Url.encode in
       let query =
@@ -197,10 +219,8 @@ module Make (P : P) =
       in
       let url = Neturl.modify_url ~query ~encoded: true url in
       let uri = Rdf_uri.of_neturl url in
-      P.get uri (result_of_string ?graph ~base)
+      P.get uri ~accept (result_of_string ?graph ~base)
 
-    let post ?graph ~base uri msg = assert false
-
-
+    let post ?graph ~base ?(accept=default_accept) uri msg = assert false
 
   end
