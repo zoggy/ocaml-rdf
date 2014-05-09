@@ -33,4 +33,4 @@ val clean_query : string -> string
 val get :
   Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
   ?named_graph_uri:Rdf_uri.uri list -> string ->
-  Rdf_sparql.solution list result Lwt.t
+  Rdf_sparql.query_result result Lwt.t

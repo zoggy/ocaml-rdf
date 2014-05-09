@@ -18,7 +18,7 @@ open Rdf_sparql_http_lwt
     This method allows: select/ask/describe query.*)
 val get : Rdf_uri.uri -> ?default_graph_uri:Rdf_uri.uri list ->
   ?named_graph_uri:Rdf_uri.uri list -> string ->
-  Rdf_sparql.solution list result Lwt.t
+  Rdf_sparql.query_result result Lwt.t
 
 (** [post_update uri query]
     [query] If you would like to update a named-graph, it has to be made in the query.

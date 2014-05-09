@@ -71,10 +71,10 @@ AC_SUBST(LWT_PACKAGES)
 AC_SUBST(MENHIR)
 
 RDF_PACKAGES=$PACKAGE
-PACKAGES=netstring,uuidm,xmlm,ulex,menhirLib,cryptokit,pcre
+PACKAGES=netstring,uuidm,xmlm,ulex,menhirLib,cryptokit,pcre,yojson
 if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
 if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
-if test -n "$LIB_LWT" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.lwt"; LWT_PACKAGES="cohttp.lwt,yojson"; fi
+if test -n "$LIB_LWT" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.lwt"; LWT_PACKAGES="cohttp.lwt"; fi
 
 # Finally create the master.Makefile.in
 ACFILES="master.Makefile src/META src/rdf_config.ml"

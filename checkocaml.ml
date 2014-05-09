@@ -900,6 +900,7 @@ let _ = check_ocamlfind_package conf "netstring";;
 let _ = check_ocamlfind_package conf "ulex";;
 let _ = check_ocamlfind_package conf "pcre";;
 let _ = check_ocamlfind_package conf "cryptokit";;
+let _ = check_ocamlfind_package conf "yojson";;
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "mysql" with
@@ -918,7 +919,6 @@ let _ = check_ocamlfind_package conf "uuidm";;
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "cohttp.lwt"
-    && check_ocamlfind_package conf ~fail: false "yojson"
   with
     true -> add_subst "LIB_LWT" "rdf_lwt.cmxa"
   | _ -> ();;

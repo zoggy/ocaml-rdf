@@ -86,7 +86,8 @@ LIB_RDF_CMOFILES= \
 	rdf_ttl.cmo \
 	rdf_sparql_expand.cmo \
 	rdf_sparql_eval.cmo \
-	rdf_sparql.cmo
+	rdf_sparql.cmo \
+	rdf_json.cmo
 
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
@@ -248,7 +249,7 @@ clean:: dummy
 
 .depend depend:
 	$(RM) .depend
-	$(OCAMLDEP) *.ml *.mli > .depend
+	$(OCAMLFIND) ocamldep -syntax camlp4o -package lwt.syntax *.ml *.mli > .depend
 
 dummy:
 
@@ -292,15 +293,15 @@ rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
 
 rdf_sparql_http_lwt.cmo: rdf_sparql_http_lwt.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
 
 rdf_sparql_http_lwt.cmx: rdf_sparql_http_lwt.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
 
 rdf_4s_lwt.cmo: rdf_4s_lwt.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
 
 rdf_4s_lwt.cmx: rdf_4s_lwt.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
 
 
