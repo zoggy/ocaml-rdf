@@ -3,6 +3,8 @@ test_ttl
 test_sparql
 test_mysql
 test_iri
+test_sparql_protocol
+test_uncodepoint
 rdf_sparql_test
 rdf_sparql_bench
 rdf_turtle_test
