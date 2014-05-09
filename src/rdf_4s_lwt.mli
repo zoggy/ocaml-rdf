@@ -3,7 +3,7 @@
    This Module implement the http binding of 4Store}
 *)
 
-open Rdf_sparql_http
+open Rdf_sparql_http_lwt
 
 (** {6 Bindings}
     In this document:

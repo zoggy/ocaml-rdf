@@ -916,6 +916,13 @@ let _ =
 let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
 let _ = check_ocamlfind_package conf "uuidm";;
 
+let _ =
+  match check_ocamlfind_package conf ~fail: false "cohttp.lwt"
+    && check_ocamlfind_package conf ~fail: false "yojson"
+  with
+    true -> add_subst "LIB_LWT" "rdf_lwt.cmxa"
+  | _ -> ();;
+
 let _ = !print "\n###\n"
 
 let _ = add_conf_variables conf

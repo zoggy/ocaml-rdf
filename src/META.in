@@ -23,3 +23,13 @@ package "postgresql" (
   archive(native) = "rdf_postgresql.cmxa"
   archive(native,plugin) = "rdf_postgresql.cmxs"
 )
+
+package "lwt" (
+  exists_if = "rdf_lwt.cma"
+  version = "@VERSION@"
+  description = "Sparql HTTP with Lwt"
+  requires = "lwt,yojson,rdf"
+  archive(byte) = "rdf_lwt.cma"
+  archive(native) = "rdf_lwt.cmxa"
+  archive(native,plugin) = "rdf_lwt.cmxs"
+)

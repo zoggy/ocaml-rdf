@@ -24,7 +24,7 @@
 
 include ../master.Makefile
 
-OF_FLAGS=-package $(PACKAGES)
+OF_FLAGS=-package $(PACKAGES),$(LWT_PACKAGES)
 INCLUDES=
 
 COMPFLAGS=$(INCLUDES) -g $(MT_FLAGS) #-annot
@@ -41,6 +41,10 @@ LIB_MYSQL_CMXS=$(LIB_MYSQL:.cmxa=.cmxs)
 
 LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 LIB_POSTGRESQL_CMXS=$(LIB_POSTGRESQL:.cmxa=.cmxs)
+
+
+LIB_LWT_BYTE=$(LIB_LWT:.cmxa=.cma)
+LIB_LWT_CMXS=$(LIB_LWT:.cmxa=.cmxs)
 
 # Compilation
 #############
@@ -95,9 +99,15 @@ LIB_POSTGRESQL_CMOFILES=rdf_pg.cmo
 LIB_POSTGRESQL_CMIFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmi)
 LIB_POSTGRESQL_CMXFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmx)
 
+
+LIB_LWT_CMOFILES=rdf_sparql_http_lwt.cmo rdf_4s_lwt.cmo
+LIB_LWT_CMIFILES=$(LIB_LWT_CMOFILES:.cmo=.cmi)
+LIB_LWT_CMXFILES=$(LIB_LWT_CMOFILES:.cmo=.cmx)
+
 RDF_LIBS=$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_MYSQL) $(LIB_MYSQL_CMXS) \
-	$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS)
-RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) $(LIB_POSTGRESQL_BYTE)
+	$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_LWT) $(LIB_LWT_CMXS)
+RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) \
+	$(LIB_POSTGRESQL_BYTE) $(LIB_LWT_BYTE)
 
 all: opt byte
 opt: $(RDF_LIBS)
@@ -125,6 +135,8 @@ $(LIB_RDF_CMXS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
 $(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
 
+# MYSQL
+
 $(LIB_MYSQL): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMXFILES)
 	$(OCAMLFIND) ocamlopt -a -o $@ $(COMPFLAGS) $(LIB_MYSQL_CMXFILES)
 
@@ -134,6 +146,8 @@ $(LIB_MYSQL_CMXS): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMXFILES)
 $(LIB_MYSQL_BYTE): $(LIB_MYSQL_CMIFILES) $(LIB_MYSQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_MYSQL_CMOFILES)
 
+# POSTGRESQL
+
 $(LIB_POSTGRESQL): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMXFILES)
 	$(OCAMLFIND) ocamlopt -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMXFILES)
 
@@ -142,6 +156,19 @@ $(LIB_POSTGRESQL_CMXS): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMXFILES)
 
 $(LIB_POSTGRESQL_BYTE): $(LIB_POSTGRESQL_CMIFILES) $(LIB_POSTGRESQL_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_POSTGRESQL_CMOFILES)
+
+# LWT
+
+$(LIB_LWT): $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES)
+	$(OCAMLFIND) ocamlopt -a -o $@ $(COMPFLAGS) $(LIB_LWT_CMXFILES)
+
+$(LIB_LWT_CMXS): $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES)
+	$(OCAMLFIND) ocamlopt -shared -o $@ $(COMPFLAGS) $(LIB_LWT_CMXFILES)
+
+$(LIB_LWT_BYTE): $(LIB_LWT_CMIFILES) $(LIB_LWT_CMOFILES)
+	$(OCAMLFIND) ocamlc -a -o $@ $(COMPFLAGS) $(LIB_LWT_CMOFILES)
+
+# TEST PROGRAMS
 
 test_mysql: $(LIB_RDF) $(LIB_MYSQL) rdf_test_mysql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall $(COMPFLAGS) rdf_test_mysql.cmx
@@ -234,7 +261,8 @@ install: all
 	$(OCAMLFIND) install $(PACKAGE) META \
 		$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_RDF_BYTE) \
 		$(LIB_MYSQL) $(LIB_MYSQL_CMXS) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE) \
-		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE)
+		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE) \
+		$(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_BYTE)
 
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
@@ -262,3 +290,17 @@ rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
+
+rdf_sparql_http_lwt.cmo: rdf_sparql_http_lwt.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+
+rdf_sparql_http_lwt.cmx: rdf_sparql_http_lwt.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+
+rdf_4s_lwt.cmo: rdf_4s_lwt.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+
+rdf_4s_lwt.cmx: rdf_4s_lwt.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $^
+
+
