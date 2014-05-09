@@ -81,5 +81,5 @@ let compare = String.compare
 let equal u1 u2 = u1 = u2 ;;
 
 
-module Irimap = Map.Make (struct type t = uri let compare = compare end);;
-module Iriset = Set.Make (struct type t = uri let compare = compare end);;
+module Urimap = Map.Make (struct type t = uri let compare = compare end);;
+module Uriset = Set.Make (struct type t = uri let compare = compare end);;
