@@ -19,23 +19,41 @@ let safe_main main =
 (*/c==v=[Misc.safe_main]=1.0====*)
 
 let main () =
+  let query_file = ref None in
   let accept = ref None in
+  let post = ref false in
   let remain = ref [] in
   let options =
     [ "--accept", Arg.String (fun s -> accept := Some s),
-      " set the Accept header used in HTTP request";
+      "<s> set the Accept header used in HTTP request";
+      
+      "--post", Arg.Set post, " send POST request instead of GET" ;
+      
+      "--query-file", Arg.String (fun s -> query_file := Some s),
+      "<file> read query from file instead of second argument" ;
     ]
   in
   Arg.parse options (fun f -> remain := !remain @ [f]) usage;
   match !remain with
-    [] | [_] -> fatal usage
-  | url :: query :: _ ->
+    [] -> fatal usage
+  | url :: q ->
+      let query =
+        match !query_file, q with
+          Some f, _ -> Rdf_misc.string_of_file f
+        | None, query :: _ -> query
+        | None, [] -> fatal usage
+      in
       let options = [ "storage", "mem" ] in
       let base = Rdf_iri.iri "http://hello.fr" in
       let g = Rdf_graph.open_graph ~options base in
       let url = Rdf_uri.uri url in
       let in_message = { in_query = query ; in_dataset = empty_dataset } in
-      Rdf_sparql_http_lwt.get ~graph: g ~base ?accept: !accept url in_message >>=
+      let f =
+        match !post with
+          false -> Rdf_sparql_http_lwt.get
+         | true -> Rdf_sparql_http_lwt.post
+      in
+      f ~graph: g ~base ?accept: !accept url in_message >>=
         (fun res ->
            let () =
              match res with

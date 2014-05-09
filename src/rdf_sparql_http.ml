@@ -107,11 +107,10 @@ module type P =
     val get : Rdf_uri.uri -> ?accept: string ->
       (content_type:string -> string -> Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
-(*    val post : Rdf_uri.uri ->
+    val post : Rdf_uri.uri ->
       ?accept: string -> content_type: string -> content: string ->
         (content_type: string -> string ->  Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
-*)
   end;;
 
 module type S =
@@ -141,9 +140,15 @@ module Make (P : P) =
           Rdf_xml.Invalid_rdf s ->
             raise (Invalid_response (s, ""))
       end
-      
+
     let result_of_string ?graph ~base ~content_type body =
       (*print_endline ("Content-Type received = "^content_type);*)
+      (* get rid of charset=... eventually *)
+      let content_type =
+        match Rdf_misc.split_string content_type [';'] with
+         [] -> content_type
+       | h :: _ -> h
+      in
       match content_type with
       | "application/xml"
       | "text/xml"
@@ -154,20 +159,20 @@ module Make (P : P) =
               with Failure msg -> raise (Invalid_response (msg, body))
             in
             try Rdf_sparql_protocol.Result (Xml.result_of_xml xml)
-            with Invalid_response (msg,_) -> 
+            with Invalid_response (msg,_) ->
                 (* it may not be a solution or boolean, but rather an rdf
                    graph, let's try to load it*)
-                read_rdf_xml ?graph ~base xml              
+                read_rdf_xml ?graph ~base xml
           end
       | "application/rdf+xml" ->
           begin
-            let xml = 
-              try Rdf_xml.xml_of_string body 
+            let xml =
+              try Rdf_xml.xml_of_string body
               with Failure msg -> raise (Invalid_response (msg, body))
             in
             read_rdf_xml ?graph ~base xml
           end
-          
+
       | "application/x-turtle"
       | "text/turtle" ->
           begin
@@ -201,26 +206,32 @@ module Make (P : P) =
       "application/x-turtle, text/turtle, "^
       "application/sparql-results+json, application/json"
 
+    let make_query_string msg =
+      let enc = Netencoding.Url.encode in
+      let spql_query = "query="^(enc msg.in_query) in
+      let ds = msg.in_dataset in
+      let l =
+        (match ds.inds_default with
+           None -> []
+         | Some iri -> ["default-graph-uri="^(Rdf_iri.string iri)]) @
+          (List.map (fun iri -> "named-graph-uri="^(Rdf_iri.string iri)) ds.inds_named)
+      in
+      match l with
+        [] -> spql_query
+      | _ -> spql_query^"&"^(String.concat "&" l)
+
     let get ?graph ~base ?(accept=default_accept) uri msg =
       let url = Rdf_uri.neturl uri in
-      let enc = Netencoding.Url.encode in
-      let query =
-        let spql_query = "query="^(enc msg.in_query) in
-        let ds = msg.in_dataset in
-        let l =
-          (match ds.inds_default with
-             None -> []
-           | Some iri -> ["default-graph-uri="^(Rdf_iri.string iri)]) @
-            (List.map (fun iri -> "named-graph-uri="^(Rdf_iri.string iri)) ds.inds_named)
-        in
-        match l with
-          [] -> spql_query
-        | _ -> spql_query^"&"^(String.concat "&" l)
-      in
+      let query = make_query_string msg in
       let url = Neturl.modify_url ~query ~encoded: true url in
       let uri = Rdf_uri.of_neturl url in
       P.get uri ~accept (result_of_string ?graph ~base)
 
-    let post ?graph ~base ?(accept=default_accept) uri msg = assert false
+    let post ?graph ~base ?(accept=default_accept) uri msg =
+      let query = make_query_string msg in
+      P.post uri ~accept
+        ~content_type: "application/x-www-form-urlencoded"
+        ~content: query
+        (result_of_string ?graph ~base)
 
   end

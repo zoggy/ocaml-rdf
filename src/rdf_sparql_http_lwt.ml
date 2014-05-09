@@ -32,11 +32,6 @@ let base_headers ?accept () =
   in
   Cohttp.Header.add headers "user-agent" ("ocaml-rdf/"^Rdf_config.version)
 
-let clean_query query =
-  let regexp = Str.regexp "[\n]+" in
-  Str.global_replace regexp " " query
-
-(*** Lwt based HTTP Binding with Rdf_sparql_http.Make functor.  ***)
 
 module P =
   struct
@@ -45,15 +40,25 @@ module P =
       let uri = Uri.of_string (Rdf_uri.string uri) in
       let headers = base_headers ?accept () in
       lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
-      let x = result_of_response f res in
-      (x :> Rdf_sparql_protocol.out_message Lwt.t)
-(*
-    let post (uri : Rdf_uri.uri) ?(accept="") ~content_type
+      result_of_response f res
+
+    let post (uri : Rdf_uri.uri) ?accept ~content_type ~content
       (f : content_type: string -> string -> out_message) =
-        ignore(compare content_type "coucou");
-        let x = Lwt.return (Error (Error_other "POST not implemented")) in
-        (x :Rdf_sparql_protocol.out_message t)
-*)
+      let uri = Uri.of_string (Rdf_uri.string uri) in
+      let headers = base_headers ?accept () in
+      let headers = Cohttp.Header.add headers "Content-Type" content_type in
+      let headers = Cohttp.Header.add headers
+        "Content-Length" (string_of_int (String.length content))
+      in
+      let body =
+        let stream = Cohttp_lwt_body.create_stream
+          (fun s -> Lwt.return (Cohttp.Transfer.Final_chunk s)) content
+        in
+        Cohttp_lwt_body.of_stream stream
+      in
+      lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked: false ~headers uri in
+      result_of_response f res
+
   end
 
 module M = Rdf_sparql_http.Make (P)
