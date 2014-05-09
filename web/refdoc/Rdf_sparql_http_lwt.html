@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_sparql_http_lwt</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_sparql_http.html" title="Rdf_sparql_http">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_sparql_map.html" title="Rdf_sparql_map">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a></h1>
+
+<pre><span class="keyword">module</span> Rdf_sparql_http_lwt: <code class="code">sig</code> <a href="Rdf_sparql_http_lwt.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Lwt-based Sparql Protocol HTTP Binding.
+<div class="vertical-space"> </div>
+
+   Using the <a href="Rdf_sparql_http.Make.html"><code class="code">Rdf_sparql_http.Make</code></a> functor.<br/>
+</div>
+<hr width="100%"/>
+
+<pre><span id="VALbase_headers"><span class="keyword">val</span> base_headers</span> : <code class="type">?accept:string -&gt; unit -&gt; Cohttp.Header.t</code></pre><div class="info ">
+<code class="code">base_headers ()</code> Gives the base headers used for bindings<br/>
+</div>
+
+<pre><span id="VALresult_of_response"><span class="keyword">val</span> result_of_response</span> : <code class="type">(content_type:string -&gt; string -&gt; <a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a>) -&gt;<br/>       Cohttp.Response.t * Cohttp_lwt_body.t -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a> Lwt.t</code></pre><div class="info ">
+<code class="code">result_of_response f response</code>
+    <code class="code">f</code> will be applied on the content-type and body string of the response.
+    If the status is between 200 and 300 exclued, <code class="code">f</code> is called,
+    else <a href="Rdf_sparql_protocol.html"><code class="code">Rdf_sparql_protocol</code></a><code class="code">.Error</code> is returned.<br/>
+</div>
+<br/>
+The following items are created with the <a href="Rdf_sparql_http.Make.html"><code class="code">Rdf_sparql_http.Make</code></a> functor.
+  See the documentation of <a href="Rdf_sparql_http.S.html"><code class="code">Rdf_sparql_http.S</code></a>.<br/>
+
+<pre><span id="TYPEresult"><span class="keyword">type</span> result</span> = <code class="type"><a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a> Lwt.t</code> </pre>
+
+
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">result</a></code></pre>
+<pre><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">result</a></code></pre></div></contents></ocamldoc>

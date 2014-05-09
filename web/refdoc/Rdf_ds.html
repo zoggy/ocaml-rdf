@@ -64,8 +64,15 @@ A dataset.<br/>
 <pre><span id="VALsimple_dataset"><span class="keyword">val</span> simple_dataset</span> : <code class="type">?named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info ">
 <code class="code">simple_dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
 </div>
+<div class="param_info"><code class="code">named</code> : can be used to specify named graphs. The <code class="code">get_named</code> function
+  is created from this closed list of named graphs and raise <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a>
+  in case a required graph is not part of the list.</div>
 
 <pre><span id="VALdataset"><span class="keyword">val</span> dataset</span> : <code class="type">?get_named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) -&gt;<br/>       ?named:Rdf_iri.Iriset.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info ">
 <code class="code">dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
 </div>
+<div class="param_info"><code class="code">get_named</code> : is the function to retrieve graph by name (URI). If it
+  is not provided, the default function always raises <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a>.</div>
+<div class="param_info"><code class="code">named</code> : is used to specify the sef of named graphs, but it
+  does not create a get_named function.</div>
 </div></contents></ocamldoc>

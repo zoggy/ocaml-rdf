@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_sparql_http</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_sparql_expand.html" title="Rdf_sparql_expand">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_sparql_http_lwt.html" title="Rdf_sparql_http_lwt">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_http.html">Rdf_sparql_http</a></h1>
+
+<pre><span class="keyword">module</span> Rdf_sparql_http: <code class="code">sig</code> <a href="Rdf_sparql_http.html">..</a> <code class="code">end</code></pre><div class="info module top">
+HTTP bindings for Sparql protocol.
+<div class="vertical-space"> </div>
+
+  <code class="code">http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http</code>
+<div class="vertical-space"> </div>
+
+  Using <code class="code">http://www.w3.org/2005/sparql-results#</code> as reference for
+  representation of Sparql results.
+<div class="vertical-space"> </div>
+
+  This module provides a functor to create a HTTP binding.
+  It requires a module able to send GET and POST requests
+  and handle the response. The encoding and decoding of the
+  Sparql protocol into request contents is done by the functor.<br/>
+</div>
+<hr width="100%"/>
+
+<pre><span id="EXCEPTIONUnsupported_content_type"><span class="keyword">exception</span> Unsupported_content_type</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info ">
+content-type<br/>
+</div>
+
+<pre><span id="EXCEPTIONInvalid_response"><span class="keyword">exception</span> Invalid_response</span> <span class="keyword">of</span> <code class="type">string * string</code></pre>
+<div class="info ">
+error * body<br/>
+</div>
+
+<pre><span class="keyword">module type</span> <a href="Rdf_sparql_http.P.html">P</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.P.html">..</a> <code class="code">end</code></pre><div class="info">
+The type of the module implementing HTTP requests.
+</div>
+
+<pre><span class="keyword">module type</span> <a href="Rdf_sparql_http.S.html">S</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.S.html">..</a> <code class="code">end</code></pre><div class="info">
+The signature of the resulting module when buildting the binding.
+</div>
+
+<pre><span class="keyword">module</span> <a href="Rdf_sparql_http.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">P</code><code class="code"> : </code><code class="type"><a href="Rdf_sparql_http.P.html">P</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_sparql_http.S.html">S</a></code><code class="type">  with type result = Rdf_sparql_protocol.out_message P.t</code></div></pre></div></contents></ocamldoc>

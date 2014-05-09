@@ -34,11 +34,21 @@ val base_headers : ?accept: string -> unit -> Cohttp.Header.t
 (** [result_of_response f response]
     [f] will be applied on the content-type and body string of the response.
     If the status is between 200 and 300 exclued, [f] is called,
-    else a {!Rdf_sparql_protocol.Error} is returned.
+    else {!Rdf_sparql_protocol}[.Error] is returned.
 *)
 val result_of_response:
   (content_type: string -> string -> Rdf_sparql_protocol.out_message) ->
     Cohttp.Response.t * Cohttp_lwt_body.t ->
     Rdf_sparql_protocol.out_message Lwt.t
 
-include Rdf_sparql_http.S with type result = Rdf_sparql_protocol.out_message Lwt.t
+(** The following items are created with the {!Rdf_sparql_http.Make} functor.
+  See the documentation of {!Rdf_sparql_http.S}.
+*)
+
+type result = Rdf_sparql_protocol.out_message Lwt.t
+
+val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+  Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+
+val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+  Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result

@@ -3,7 +3,7 @@
 <title>OCaml-RDF reference documentation : Rdf_iri</title><contents><div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_graph.html" title="Rdf_graph">Previous</a>
 &#160;<a class="up" href="index.html" title="Index">Up</a>
-&#160;<a class="post" href="Rdf_loc.html" title="Rdf_loc">Next</a>
+&#160;<a class="post" href="Rdf_json.html" title="Rdf_json">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_iri.html">Rdf_iri</a></h1>
 
@@ -66,7 +66,7 @@ Add the given string to the path of the given IRI.<br/>
 <pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; bool</code></pre>
 <pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; int</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_iri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = iri</code></pre>
-<pre><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type doc = iri</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_iri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = iri</code></pre>
 <pre><span id="VALscheme"><span class="keyword">val</span> scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string</code></pre>
 <pre><span id="VALset_scheme"><span class="keyword">val</span> set_scheme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">iri</a></code></pre>
 <pre><span id="VALuser"><span class="keyword">val</span> user</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">iri</a> -&gt; string option</code></pre>

@@ -135,6 +135,11 @@ Execute the given ASK query.
 <tr><td align="left"><br/>B</td></tr>
 <tr><td><a href="Kw_to_re.html#VALb">b</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALbase_headers">base_headers</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td><div class="info">
+<code class="code">base_headers ()</code> Gives the base headers used for bindings
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_bnode">bi_bnode</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_coalesce">bi_coalesce</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -536,6 +541,12 @@ The nature or genre of the resource.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALdefault">default</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALdelete">delete</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">delete uri graph_uri</code>
+    This method removes the entire <code class="code">graph_uri</code>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql.html#VALdescribe">describe</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
 Execute the given DESCRIBE query.
@@ -950,6 +961,8 @@ Evaluate boolean expression.
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALempty">empty</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_protocol.html#VALempty_dataset">empty_dataset</a> [<a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_iri.html#VALensure_absolute">ensure_absolute</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td><div class="info">
 <code class="code">ensure_absolute base s</code> creates an IRI from <code class="code">s</code>, using the given <code class="code">base</code>
@@ -1119,7 +1132,7 @@ Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="cod
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_graph_node">expand_graph_node</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_expand.html#VALexpand_graph_pattern_doc">expand_graph_pattern_doc</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
+<tr><td><a href="Rdf_sparql_expand.html#VALexpand_graph_pattern_elt">expand_graph_pattern_elt</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_graph_term">expand_graph_term</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
@@ -1145,9 +1158,9 @@ Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="cod
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_path">expand_path</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_expand.html#VALexpand_path_doc">expand_path_doc</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
+<tr><td><a href="Rdf_sparql_expand.html#VALexpand_path_elt">expand_path_elt</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_expand.html#VALexpand_path_doc_or_inverse">expand_path_doc_or_inverse</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
+<tr><td><a href="Rdf_sparql_expand.html#VALexpand_path_elt_or_inverse">expand_path_elt_or_inverse</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_expand.html#VALexpand_path_one_in_prop_set">expand_path_one_in_prop_set</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
@@ -1657,6 +1670,11 @@ Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_st
 Same as <a href="Rdf_ttl.html#VALfrom_string"><code class="code">Rdf_ttl.from_string</code></a> but read from the given file.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_xml.html#VALfrom_input">from_input</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xmlm.input handle.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_xml.html#VALfrom_string">from_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td><div class="info">
 Input graph from string.
@@ -1665,6 +1683,11 @@ Input graph from string.
 <tr><td><a href="Rdf_ttl.html#VALfrom_string">from_string</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
 <td><div class="info">
 Input graph from string.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_xml.html#VALfrom_xml">from_xml</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xml tree.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALfun_datetime">fun_datetime</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -1676,6 +1699,22 @@ Input graph from string.
 <tr><td align="left"><br/>G</td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALgen_blank_id">gen_blank_id</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALget">get</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.P.html#VALget">get</a> [<a href="Rdf_sparql_http.P.html">Rdf_sparql_http.P</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.S.html#VALget">get</a> [<a href="Rdf_sparql_http.S.html">Rdf_sparql_http.S</a>]</td>
+<td><div class="info">
+<code class="code">get uri msg</code> sends the Sparql query corresponding to the given
+         <a href="Rdf_sparql_protocol.html#TYPEin_message"><code class="code">Rdf_sparql_protocol.in_message</code></a> with the GET method.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALget">get</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">get uri ?default_graph_uri ?named_graph_uri query</code>
+    <code class="code">query</code> If you could like to select a named-graph, it has to be made in the query.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_xml.html#VALget_blank_node">get_blank_node</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALget_bnode">get_bnode</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
@@ -1686,6 +1725,13 @@ Input graph from string.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_datetime">get_datetime</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_xml.html#VALget_first_child">get_first_child</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+<code class="code">get_first tree tag</code> returns the first child with tag <code class="code">s</code>
+  of the given xml tree or <code class="code">None</code> if the given node has
+  no such child.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_float">get_float</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_int">get_int</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
@@ -1747,9 +1793,9 @@ Access to the graph name, as specified at its creation.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALgraph_node">graph_node</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_vis.html#VALgraph_pattern_doc">graph_pattern_doc</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
+<tr><td><a href="Rdf_sparql_vis.html#VALgraph_pattern_elt">graph_pattern_elt</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_map.html#VALgraph_pattern_doc">graph_pattern_doc</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
+<tr><td><a href="Rdf_sparql_map.html#VALgraph_pattern_elt">graph_pattern_elt</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALgraph_size">graph_size</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
 <td></td></tr>
@@ -1891,10 +1937,6 @@ Create an IRI from a string.
 <td></td></tr>
 <tr><td><a href="Kw_to_re.html#VALlen">len</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALlexpos">lexpos</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALlexpos_nl">lexpos_nl</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALlimit_offset_clause">limit_offset_clause</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALlimit_offset_clause">limit_offset_clause</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
@@ -1928,8 +1970,6 @@ Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code><
 <tr><td><a href="Rdf_sparql_expand.html#VALmap_opt">map_opt</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALmap_opt">map_opt</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALmenhir_with_ulex">menhir_with_ulex</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_graph.html#VALmerge">merge</a> [<a href="Rdf_graph.html">Rdf_graph</a>]</td>
 <td><div class="info">
@@ -2234,13 +2274,13 @@ Get the path part of the URI.
 <td></td></tr>
 <tr><td><a href="Rdf_iri.html#VALpath">path</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_vis.html#VALpath_doc">path_doc</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
+<tr><td><a href="Rdf_sparql_vis.html#VALpath_elt">path_elt</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_map.html#VALpath_doc">path_doc</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
+<tr><td><a href="Rdf_sparql_map.html#VALpath_elt">path_elt</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_vis.html#VALpath_doc_or_inverse">path_doc_or_inverse</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
+<tr><td><a href="Rdf_sparql_vis.html#VALpath_elt_or_inverse">path_elt_or_inverse</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_map.html#VALpath_doc_or_inverse">path_doc_or_inverse</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
+<tr><td><a href="Rdf_sparql_map.html#VALpath_elt_or_inverse">path_elt_or_inverse</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALpath_iri_first">path_iri_first</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
@@ -2262,6 +2302,27 @@ Get the path part of the URI.
 <td></td></tr>
 <tr><td><a href="Rdf_iri.html#VALport">port</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALpost">post</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.P.html#VALpost">post</a> [<a href="Rdf_sparql_http.P.html">Rdf_sparql_http.P</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.S.html#VALpost">post</a> [<a href="Rdf_sparql_http.S.html">Rdf_sparql_http.S</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_sparql_http.S.html#VALget"><code class="code">Rdf_sparql_http.S.get</code></a> but using the POST method.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALpost_append">post_append</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">post_append uri data ?data_type graph_uri</code>
+    This method allow to append <code class="code">data</code> into <code class="code">graph_uri</code>.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALpost_update">post_update</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">post_update uri query</code>
+    <code class="code">query</code> If you would like to update a named-graph, it has to be made in the query.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALpp">pp</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALpredicates">predicates</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
@@ -2425,7 +2486,7 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_graph_node">print_graph_node</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_print.html#VALprint_graph_pattern_doc">print_graph_pattern_doc</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
+<tr><td><a href="Rdf_sparql_print.html#VALprint_graph_pattern_elt">print_graph_pattern_elt</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_graph_term">print_graph_term</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
@@ -2459,9 +2520,9 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_path">print_path</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_print.html#VALprint_path_doc">print_path_doc</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
+<tr><td><a href="Rdf_sparql_print.html#VALprint_path_elt">print_path_elt</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_print.html#VALprint_path_doc_or_inverse">print_path_doc_or_inverse</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
+<tr><td><a href="Rdf_sparql_print.html#VALprint_path_elt_or_inverse">print_path_elt_or_inverse</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALprint_path_mod">print_path_mod</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
@@ -2533,6 +2594,12 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_rdfs.html#VALproperty">property</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALput">put</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">put uri data ?data_type graph_uri</code>
+    This method allows to replace initial data from <code class="code">graph_uri</code> by <code class="code">data</code>.
+</div>
+</td></tr>
 <tr><td align="left"><br/>Q</td></tr>
 <tr><td><a href="Rdf_iri.html#VALquery">query</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td></td></tr>
@@ -2787,6 +2854,12 @@ Removing a triple from the graph, curryfied form.
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALrem_triple_t">rem_triple_t</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALresult_of_response">result_of_response</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td><div class="info">
+<code class="code">result_of_response f response</code>
+    <code class="code">f</code> will be applied on the content-type and body string of the response.
+</div>
+</td></tr>
 <tr><td align="left"><br/>S</td></tr>
 <tr><td><a href="Kw_to_re.html#VALs">s</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
@@ -2895,6 +2968,8 @@ From the given utf8 string and start and stop characters, return
   the corresponding location.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_json.html#VALsparql_result_of_json">sparql_result_of_json</a> [<a href="Rdf_json.html">Rdf_json</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALsplit_string">split_string</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
 <td><div class="info">
 Separate the given string according to the given list of characters.
@@ -2934,6 +3009,8 @@ Get a string from a blank term id.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_ttl.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_protocol.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -3127,6 +3204,8 @@ Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_integer in
 Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_json.html#VALterm_of_json">term_of_json</a> [<a href="Rdf_json.html">Rdf_json</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_term.html#VALterm_of_literal_string">term_of_literal_string</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
 Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code>
@@ -3687,9 +3766,9 @@ Translate group graph pattern as explained here:
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path">translate_path</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path_doc">translate_path_doc</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
+<tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path_elt">translate_path_elt</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path_doc_or_inverse">translate_path_doc_or_inverse</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
+<tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path_elt_or_inverse">translate_path_elt_or_inverse</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_algebra.html#VALtranslate_path_primary">translate_path_primary</a> [<a href="Rdf_sparql_algebra.html">Rdf_sparql_algebra</a>]</td>
 <td></td></tr>
@@ -3871,6 +3950,10 @@ Return the number of bytes taken by a the first byte
 <tr><td align="left"><br/>X</td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALx_list">x_list</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_xml.html#VALxml_of_string">xml_of_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+</div>
+</td></tr>
 <tr><td><a href="Rdf_rdf.html#VALxsd">xsd</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALxsd_">xsd_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>

@@ -213,7 +213,7 @@ dump.odoc: *.mli *.ml
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc
-	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) \
+	$(OCAMLFIND) ocamldoc $(OF_FLAGS) \
 	-t OCaml-RDF \
 	-load $^ \
 	-d ocamldoc -html -intro index.text
@@ -221,7 +221,7 @@ doc: dump.odoc
 
 docg: dump.odoc
 	$(MKDIR) ocamldoc
-	ocamldoc $(MT_FLAGS) \
+	ocamldoc \
 	-t OCaml-RDF \
 	-load $^ intro index.text \
 	-d ocamldoc -g odoc_depgraph.cma -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
@@ -229,7 +229,7 @@ docg: dump.odoc
 
 docstog: dump.odoc
 	$(MKDIR) ../web/refdoc
-	ocamldoc.opt $(MT_FLAGS) \
+	ocamldoc.opt \
 	-t "OCaml-RDF reference documentation" \
 	-load $^ -intro index.text \
 	-d ../web/refdoc -g odoc_stog.cmxs \

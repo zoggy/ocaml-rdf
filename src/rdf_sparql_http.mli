@@ -67,7 +67,7 @@ module type S =
          @param graph and [base] parameters are the same as in
          {!Rdf_sparql.execute}.
          @param accept can be used to specify the [Accept:] header. Beware
-         that the implementation handle only some content-types. This
+         that the implementation handles only some content-types. This
          parameter can be used to require a response in, for example,
          the "application/rdf+xml" format.
     *)

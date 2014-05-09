@@ -16,6 +16,7 @@
 &#160;&#160;<span class="keyword">val</span>&#160;query_from_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.query<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;string_of_query&#160;:&#160;<span class="constructor">Rdf_sparql</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">type</span>&#160;solution<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;solution_of_mu&#160;:&#160;<span class="constructor">Rdf_sparql_ms</span>.mu&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql</span>.solution<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;get_term&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;is_bound&#160;:&#160;<span class="constructor">Rdf_sparql</span>.solution&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;solution_fold&#160;:<br/>

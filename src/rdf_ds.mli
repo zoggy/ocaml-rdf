@@ -49,16 +49,16 @@ type dataset = {
 }
 
 (** [simple_dataset graph] returns a dataset with [graph] as default graph.
-  @params named can be used to specify named graphs. The [get_named] function
+  @param named can be used to specify named graphs. The [get_named] function
   is created from this closed list of named graphs and raise {!Could_not_retrieve_graph}
   in case a required graph is not part of the list. *)
 val simple_dataset :
   ?named:(Rdf_iri.iri * Rdf_graph.graph) list -> Rdf_graph.graph -> dataset
 
 (** [dataset graph] returns a dataset with [graph] as default graph.
-  @params named is used to specify the sef of named graphs, but it
+  @param named is used to specify the sef of named graphs, but it
   does not create a get_named function.
-  @params get_named is the function to retrieve graph by name (URI). If it
+  @param get_named is the function to retrieve graph by name (URI). If it
   is not provided, the default function always raises {!Could_not_retrieve_graph}.
 *)
 val dataset :

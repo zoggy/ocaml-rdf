@@ -1,8 +1,11 @@
 Next release:
 - require yojson package
 - new Rdf_lwt library implementing Sparql protocol if
-  Cohttp with lwt is intalled
-
+  Cohttp with lwt is intalled.
+- Support for Sparql protocol initiated by Aranud Parant then
+  made more generic to support various HTTP implementations and
+  the whole protocol.
+- Support for 4store access through Sparql protocol (by Arnaud Parant)
 Release 0.8.0:
 - change Rdf_rdf.dc to http://purl.org/dc/elements/1.1/
 - add: convenient functions to create RDF vocabularies in Rdf_rdfs
