@@ -226,7 +226,10 @@ module Make (P : P) =
 
     let make_query_string msg =
       let enc = Netencoding.Url.encode in
-      let spql_query = "query="^(enc msg.in_query) in
+      let regexp = Str.regexp "[\n]+" in
+      let spql_query = Str.global_replace regexp " "
+        "query="^(enc msg.in_query)
+      in
       let ds = msg.in_dataset in
       let l =
         (match ds.inds_default with

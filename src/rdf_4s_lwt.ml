@@ -26,10 +26,6 @@
 
 let default_type = "x-turtle"
 
-let clean_query query =
-  let regexp = Str.regexp "[\n]+" in
-  Str.global_replace regexp " " query
-
 let get_headers ?content_type ?content_length () =
   let map f value header = match value with
     | None      -> header
