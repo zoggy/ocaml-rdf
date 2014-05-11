@@ -51,4 +51,5 @@ val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
   Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
 
 val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
-  Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+  Rdf_uri.uri -> ?msg_param_name: string -> Rdf_sparql_protocol.in_message ->
+  result

@@ -137,7 +137,8 @@ module type S =
     val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
       Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
     val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+      Rdf_uri.uri -> ?msg_param_name: string ->
+      Rdf_sparql_protocol.in_message -> result
   end
 
 module Make (P : P) =
@@ -224,11 +225,11 @@ module Make (P : P) =
       "application/x-turtle, text/turtle, "^
       "application/sparql-results+json, application/json"
 
-    let make_query_string msg =
+    let make_query_string ?(msg_param_name="query") msg =
       let enc = Netencoding.Url.encode in
       let regexp = Str.regexp "[\n]+" in
       let spql_query = Str.global_replace regexp " "
-        "query="^(enc msg.in_query)
+        (msg_param_name^"="^(enc msg.in_query))
       in
       let ds = msg.in_dataset in
       let l =
@@ -248,8 +249,8 @@ module Make (P : P) =
       let uri = Rdf_uri.of_neturl url in
       P.get uri ~accept (result_of_string ?graph ~base)
 
-    let post ?graph ~base ?(accept=default_accept) uri msg =
-      let query = make_query_string msg in
+    let post ?graph ~base ?(accept=default_accept) uri ?msg_param_name msg =
+      let query = make_query_string ?msg_param_name msg in
       P.post uri ~accept
         ~content_type: "application/x-www-form-urlencoded"
         ~content: query
