@@ -50,7 +50,7 @@ let result_of_null_response = Rdf_sparql_http_lwt.result_of_response
 let get = Rdf_sparql_http_lwt.get
 
 let post_update ?graph ~base ?accept uri msg =
-  Rdf_sparql_http_lwt.post ?graph ~base ?accept uri ~msg_param_name:"update" msg
+  Rdf_sparql_http_lwt.post ?graph ~base ?accept uri ~query_var:"update" msg
 
 let delete uri graph_uri =
   let url = Rdf_uri.neturl uri in
@@ -75,4 +75,4 @@ let post_append uri content content_type graph_uri =
   in
   let base = Rdf_iri.iri ~check:false "" in
   let msg = {in_query = content'; in_dataset = empty_dataset} in
-  Rdf_sparql_http_lwt.post ~base uri ~msg_param_name:"data" msg
+  Rdf_sparql_http_lwt.post ~base uri ~query_var:"data" msg
