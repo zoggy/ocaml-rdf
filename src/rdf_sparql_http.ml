@@ -218,12 +218,14 @@ module Make (P : P) =
               Rdf_json.Unexpected_json (s,_) ->
                 raise (Invalid_response (s, body))
           end
+      | "text/plain" -> Ok
       | s -> raise (Unsupported_content_type s)
 
     let default_accept =
       "application/xml, text/xml, application/sparql-results+xml, application/rdf+xml,"^
       "application/x-turtle, text/turtle, "^
-      "application/sparql-results+json, application/json"
+      "application/sparql-results+json, application/json, " ^
+      "text/plain"
 
     let make_query_string ?(query_var="query") msg =
       let enc = Netencoding.Url.encode in
