@@ -76,9 +76,12 @@ module type S =
 
     (** Same as {!get} but using the POST method. To be used when sending
       large queries.
+        @param query_var allows to change the message query name send
+        ("query" by default)
     *)
     val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+      Rdf_uri.uri -> ?query_var: string ->
+      Rdf_sparql_protocol.in_message -> result
   end
 
 module Make : functor (P : P) -> S with type result = Rdf_sparql_protocol.out_message P.t

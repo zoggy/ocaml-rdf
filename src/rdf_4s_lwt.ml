@@ -22,13 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
+open Rdf_sparql_protocol
+
 (** Tools  *)
-
-let default_type = "x-turtle"
-
-let clean_query query =
-  let regexp = Str.regexp "[\n]+" in
-  Str.global_replace regexp " " query
 
 let get_headers ?content_type ?content_length () =
   let map f value header = match value with
@@ -37,7 +33,7 @@ let get_headers ?content_type ?content_length () =
   in
   let add arg_name f hd v = Cohttp.Header.add hd arg_name (f v) in
   map (add "content-length" string_of_int) content_length
-    (map (add "content-type" ((^) "application/")) content_type
+    (map (add "content-type" (fun v -> v)) content_type
        (Rdf_sparql_http_lwt.base_headers ()))
 
 let body_of_string body_string =
@@ -53,45 +49,30 @@ let result_of_null_response = Rdf_sparql_http_lwt.result_of_response
 
 let get = Rdf_sparql_http_lwt.get
 
-let post_update uri query =
-  let uri = Uri.of_string ((Rdf_uri.string uri) ^ "/update/") in
-  let body_string = Uri.pct_encode ("update=" ^ (clean_query query)) in
-  let content_length = String.length body_string in
-  let body = body_of_string body_string in
-  let headers = get_headers ~content_type:"x-www-form-urlencoded"
-    ~content_length ()
-  in
-  lwt response = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
-  result_of_null_response response
+let post_update ?graph ~base ?accept uri msg =
+  Rdf_sparql_http_lwt.post ?graph ~base ?accept uri ~query_var:"update" msg
 
 let delete uri graph_uri =
-  let uri = Uri.of_string
-    ((Rdf_uri.string uri) ^ "/data/?graph=" ^ (Rdf_uri.string graph_uri))
-  in
+  let url = Rdf_uri.neturl uri in
+  let query = "graph=" ^ (Rdf_uri.string graph_uri) in
+  let url' = Neturl.modify_url ~query ~encoded:true url in
+  let uri' = Uri.of_string (Rdf_uri.string (Rdf_uri.of_neturl url')) in
   let headers = get_headers () in
-  lwt response = Cohttp_lwt_unix.Client.delete ~headers uri in
+  lwt response = Cohttp_lwt_unix.Client.delete ~headers uri' in
   result_of_null_response response
 
-let put uri data ?(data_type=default_type) graph_uri =
-  let uri = Uri.of_string
-    ((Rdf_uri.string uri) ^ "/data/" ^ (Rdf_uri.string graph_uri))
-  in
-  let content_length = String.length data in
-  let body = body_of_string data in
-  let headers = get_headers ~content_type:data_type ~content_length () in
+let put uri content content_type graph_uri =
+  let uri = Uri.of_string ((Rdf_uri.string uri) ^ (Rdf_uri.string graph_uri)) in
+  let content_length = String.length content in
+  let body = body_of_string content in
+  let headers = get_headers ~content_type ~content_length () in
   lwt response = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
   result_of_null_response response
 
-let post_append uri data ?(data_type=default_type) graph_uri =
-  let uri = Uri.of_string ((Rdf_uri.string uri) ^ "/data/") in
-  let body_string = Uri.pct_encode
-    ("data=" ^ data ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
-        "&mime-type=application/" ^ data_type)
+let post_append uri content content_type graph_uri =
+  let content' = (content ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
+                    "&mime-type=" ^ content_type)
   in
-  let content_length = String.length body_string in
-  let body = body_of_string body_string in
-  let headers = get_headers ~content_type:"x-www-form-urlencoded"
-    ~content_length ()
-  in
-  lwt response = Cohttp_lwt_unix.Client.post ~body ~chunked:false ~headers uri in
-  result_of_null_response response
+  let base = Rdf_iri.iri ~check:false "" in
+  let msg = {in_query = content'; in_dataset = empty_dataset} in
+  Rdf_sparql_http_lwt.post ~base uri ~query_var:"data" msg
