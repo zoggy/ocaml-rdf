@@ -218,7 +218,7 @@ module Make (P : P) =
               Rdf_json.Unexpected_json (s,_) ->
                 raise (Invalid_response (s, body))
           end
-      | "text/plain" -> Ok
+      | "text/plain" -> Rdf_sparql_protocol.Ok
       | s -> raise (Unsupported_content_type s)
 
     let default_accept =
