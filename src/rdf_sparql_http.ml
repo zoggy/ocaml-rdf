@@ -118,8 +118,11 @@ module Xml =
            (* try to get a <boolean> node first, if not, we look for solutions *)
           | Some (E (_, xmls) as x) ->
               match first_child x "boolean" with
+              | Some (D _) -> assert false
               | Some (E (_, [ D s ])) ->
                   Rdf_sparql.Bool (String.lowercase s = "true")
+              | Some (E _) ->
+                  raise (Invalid_response ("bad boolean content", "<...>...</...>"))
               | None ->
                   let solutions = results_of_xmls xmls in
                   Rdf_sparql.Solutions solutions
@@ -224,7 +227,13 @@ module Make (P : P) =
               Rdf_json.Unexpected_json (s,_) ->
                 raise (Invalid_response (s, body))
           end
-      | "text/plain" -> Rdf_sparql_protocol.Ok
+      | "text/plain" ->
+          begin
+            match String.lowercase body with
+            | "true" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool true)
+            | "false" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool false)
+            | _-> Rdf_sparql_protocol.Ok
+          end
       | s -> raise (Unsupported_content_type s)
 
     let default_accept =
