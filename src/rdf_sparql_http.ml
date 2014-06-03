@@ -107,16 +107,22 @@ module Xml =
 
     let result_of_xml xml =
       match first_child xml "boolean" with
-        Some (D s) ->
+        Some (D _) -> assert false
+      | Some (E (_, [ D s ])) ->
           Rdf_sparql.Bool (String.lowercase s = "true")
       | Some (E _) -> raise (Invalid_response ("bad boolean content", "<...>...</...>"))
       | None ->
           match first_child xml "results" with
             None -> raise (Invalid_response ("no <results> node", ""))
           | Some (D _) -> assert false
-          | Some (E (_, xmls)) ->
-              let solutions = results_of_xmls xmls in
-              Rdf_sparql.Solutions solutions
+           (* try to get a <boolean> node first, if not, we look for solutions *)
+          | Some (E (_, xmls) as x) ->
+              match first_child x "boolean" with
+              | Some (E (_, [ D s ])) ->
+                  Rdf_sparql.Bool (String.lowercase s = "true")
+              | None ->
+                  let solutions = results_of_xmls xmls in
+                  Rdf_sparql.Solutions solutions
   end;;
 
 module type P =
