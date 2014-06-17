@@ -7,6 +7,7 @@ Rdf_dt
 Rdf_graph
 Rdf_iri
 Rdf_json
+Rdf_json_ld
 Rdf_loc
 Rdf_misc
 Rdf_term
