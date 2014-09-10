@@ -880,7 +880,7 @@ let add_conf_variables c =
 
 (*/c==m=[OCaml_conf]=0.8=t==*)
 
-let ocaml_required = [3;12;0]
+let ocaml_required = [4;2;0]
 let conf = ocaml_conf ();;
 print_conf conf;;
 

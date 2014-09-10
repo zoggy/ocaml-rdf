@@ -42,9 +42,11 @@ LIB_MYSQL_CMXS=$(LIB_MYSQL:.cmxa=.cmxs)
 LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 LIB_POSTGRESQL_CMXS=$(LIB_POSTGRESQL:.cmxa=.cmxs)
 
-
 LIB_LWT_BYTE=$(LIB_LWT:.cmxa=.cma)
 LIB_LWT_CMXS=$(LIB_LWT:.cmxa=.cmxs)
+
+PPX=ppx_rdf
+PPX_BYTE=$(PPX).byte
 
 # Compilation
 #############
@@ -113,8 +115,8 @@ RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) \
 	$(LIB_POSTGRESQL_BYTE) $(LIB_LWT_BYTE)
 
 all: opt byte
-opt: $(RDF_LIBS)
-byte: $(RDF_LIBS_BYTE)
+opt: $(RDF_LIBS) $(PPX)
+byte: $(RDF_LIBS_BYTE) $(PPX_BYTE)
 tools: $(LIB_RDF)
 	cd tools && $(MAKE) all
 
@@ -137,6 +139,12 @@ $(LIB_RDF_CMXS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
 
 $(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
+
+$(PPX): $(LIB_RDF) ppx_rdf.ml
+	$(OCAMLFIND) ocamlopt -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
+
+$(PPX_BYTE): $(LIB_RDF_BYTE) ppx_rdf.ml
+	$(OCAMLFIND) ocamlc -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
 
 # MYSQL
 

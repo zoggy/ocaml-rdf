@@ -17,3 +17,5 @@ rdf_*parser.mli
 rdf_ttl_lex.ml
 rdf_sparql_lex.ml
 *.conflicts
+ppx_rdf
+ppx_rdf.byte
