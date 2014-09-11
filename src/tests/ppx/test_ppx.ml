@@ -1,15 +1,12 @@
 
-let q = {sparql|PREFIX foaf:<http://xmlns.com/foaf/0.1/> SELECT ?name WHERE {}|sparql}
-let q =
-  try [%sparql
+let term = Rdf_term.term_of_iri_string "http://xmlns.com/foaf/0.1/"
+let q1 = {sparql|PREFIX foaf:<http://xmlns.com/foaf/0.1/> SELECT ?name WHERE { ?x foaf:name ?name}|sparql}
+let q2 = [%sparql
   "PREFIX foaf: %{term}
    SELECT ?name
    WHERE { ?x foaf:name ?name }"
-      (Rdf_term.term_of_iri_string "http://xmlns.com/foaf/0.1/")
-      ]
-  with Rdf_sparql.Error e ->
-    prerr_endline (Rdf_sparql.string_of_error e);
-    exit 1
+      term
+  ]
 
 let base = Rdf_iri.iri "http://foo.bar"
 let g = Rdf_graph.open_graph base
@@ -41,4 +38,4 @@ let eval_query query =
       List.iter f_sol sols
 ;;
 
-let () = eval_query q
+let () = List.iter eval_query [q1 ; q2]

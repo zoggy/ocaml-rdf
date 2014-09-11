@@ -79,6 +79,60 @@ let check_query_fmt loc fmt =
       let msg = Printf.sprintf "Checking syntax of query\n  %s\n%s" q (Rdf_sparql.string_of_error e) in
       raise (Error (loc, msg))
 
+let lid_sprintf = Location.mknoloc (Longident.parse "Printf.sprintf")
+let lid_sparql_error = Location.mknoloc (Longident.parse "Rdf_sparql.Error")
+let lid_sparql_parse_error = Location.mknoloc (Longident.parse "Rdf_sparql.Parse_error")
+
+let gen_code ~loc ~attrs fmt args =
+  let args =
+    ("", Exp.constant ~loc (Const_string (fmt, None))) ::
+      args
+  in
+  let f =
+    let e =
+      Exp.apply ~loc (Exp.ident (Location.mknoloc (Longident.parse "Rdf_sparql.query_from_string")))
+        [
+          "", Exp.ident(Location.mknoloc (Longident.parse "_q")) ;
+        ]
+    in
+    let case =
+      let pat = Pat.construct lid_sparql_error
+        (Some (Pat.construct lid_sparql_parse_error
+          (Some (Pat.tuple [ Pat.var (Location.mknoloc "eloc") ; Pat.var (Location.mknoloc "msg")]))
+         ))
+      in
+      let e =
+        Exp.let_ Nonrecursive
+          [ Vb.mk (Pat.var (Location.mknoloc "msg"))
+            (Exp.apply (Exp.ident lid_sprintf)
+             [ "", Exp.constant (Const_string ("%s\nin %s", None)) ;
+               "", Exp.ident (Location.mknoloc (Longident.parse "msg")) ;
+               "", Exp.ident (Location.mknoloc (Longident.parse "_q")) ;
+             ]
+            )
+          ]
+          (Exp.apply (Exp.ident (Location.mknoloc (Longident.parse "raise")))
+           [ "",
+             Exp.construct lid_sparql_error
+               (Some (Exp.construct lid_sparql_parse_error
+                 (Some (Exp.tuple [
+                     Exp.ident (Location.mknoloc (Longident.parse  "eloc")) ;
+                     Exp.ident (Location.mknoloc (Longident.parse  "msg")) ;
+                   ]))
+                ))
+           ]
+          )
+      in
+      Exp.case pat e
+    in
+    let body = Exp.try_ ~loc ~attrs e [case] in
+    Exp.fun_ "" None (Pat.var (Location.mknoloc "_q")) body
+  in
+  Exp.apply ~loc ~attrs
+    (Exp.ident (Location.mknoloc (Longident.parse "Printf.ksprintf")))
+    (("", f) :: args)
+;;
+
 let getenv_mapper argv =
   { default_mapper with
     expr = fun mapper expr ->
@@ -86,11 +140,7 @@ let getenv_mapper argv =
       | { pexp_desc = Pexp_constant (Const_string (s, Some id)) } when id = sparql_node ->
           begin
             check_query_fmt expr.pexp_loc s ;
-            Exp.apply ~loc: expr.pexp_loc ~attrs: expr.pexp_attributes
-              (Exp.ident (Location.mknoloc (Longident.parse "Printf.ksprintf")))
-              ["", Exp.ident (Location.mknoloc (Longident.parse "Rdf_sparql.query_from_string")) ;
-                "", Exp.constant ~loc: expr.pexp_loc (Const_string (s, None))
-              ]
+            gen_code ~loc:  expr.pexp_loc ~attrs: expr.pexp_attributes s []
           end
       | { pexp_desc = Pexp_extension ({ txt = id}, PStr [ { pstr_desc = Pstr_eval (e, atts)}  ]) }
             when id = sparql_node ->
@@ -126,14 +176,7 @@ let getenv_mapper argv =
                 | x :: q -> x :: iter (i+1) q
                 in
                 let args = iter 0 args in
-                let args =
-                  ("", Exp.ident (Location.mknoloc (Longident.parse "Rdf_sparql.query_from_string"))) ::
-                    ("", Exp.constant ~loc (Const_string (fmt, None))) ::
-                    args
-                in
-                Exp.apply ~loc: expr.pexp_loc ~attrs: expr.pexp_attributes
-                  (Exp.ident (Location.mknoloc (Longident.parse "Printf.ksprintf")))
-                  args
+                gen_code ~loc: expr.pexp_loc ~attrs: expr.pexp_attributes fmt args
           end
        (* Delegate to the default mapper. *)
       | x -> default_mapper.expr mapper x;
