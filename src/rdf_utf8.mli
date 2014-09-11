@@ -24,7 +24,7 @@
 
 (** Handling UTF-8 strings. *)
 
-(** Return the number of bytes taken by a the first byte
+(** Return the number of string taken by a the first byte
   (as character) of a UTF-8 character. *)
 val utf8_nb_bytes_of_char : char -> int
 
@@ -39,7 +39,7 @@ val utf8_char_of_index : string -> int -> int
 
 (** [utf8_string_length str] returns the number of utf8
   characters in [str]. *)
-val utf8_string_length : string -> int
+val utf8_length : string -> int
 
 (** [utf8_substr str pos l] returns the substring of [str]
   from utf8 position [pos] to [pos+l-1]. *)
@@ -72,10 +72,10 @@ val utf8_strafter : string -> string -> string
 (** [utf8_char_of_code n] return the UTF8 character from a given codepoint. *)
 val utf8_char_of_code : int32 -> string
 
-(** [utf8_string_get_bol str] returns the list of pairs
+(** [utf8_get_bol str] returns the list of pairs
   [(line number, char position)] giving the position of beginning of each line
   in the given string. *)
-val utf8_string_get_bol : string -> (int * int) list
+val utf8_get_bol : string -> (int * int) list
 
 (** [utf8_count_nl str] returns the number of newline \n characters found
   in the given UTF-8 string. *)

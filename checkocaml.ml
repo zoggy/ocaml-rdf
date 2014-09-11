@@ -26,7 +26,7 @@
 
 (* $Id$ *)
 
-(*c==m=[OCaml_conf]=0.8=t==*)
+(*c==m=[OCaml_conf]=0.9=t==*)
 
 
   open Sys
@@ -202,23 +202,25 @@ let testfile flags filename =
 ;;
 
 let buffer_size = 4096
-let string_from_descr fd =
-  let rec readfd accu =
-    let str = String.create buffer_size in
+    let string_from_descr fd =
+    let rec readfd accu =
+    let str = Bytes.make buffer_size '\000' in
     match restart_on_EINTR (read fd str 0) buffer_size with
-    | 0 -> String.concat ""  accu
+    | 0 -> String.concat""  accu
     | n ->
-        let str = if n < buffer_size then String.sub str 0 n else str in
-        readfd (str :: accu) in
-  readfd []
+        let str = if n < buffer_size then Bytes.sub str 0 n else str in
+        readfd (Bytes.to_string str :: accu)
+    in
+    readfd []
 ;;
 
 let descr_from_string str fd =
+  let str = Bytes.of_string str in
   let rec writefd offset left =
     if left > 0 then
       let n = restart_on_EINTR (single_write fd str offset) left in
       writefd (offset + n) (left - n) in
-  writefd 0 (String.length str)
+  writefd 0 (Bytes.length str)
 ;;
 
 let perm = 0o640;;
@@ -878,7 +880,7 @@ let add_conf_variables c =
    List.iter (fun (var,v) -> add_subst var v) l
 
 
-(*/c==m=[OCaml_conf]=0.8=t==*)
+(*/c==m=[OCaml_conf]=0.9=t==*)
 
 let ocaml_required = [4;2;0]
 let conf = ocaml_conf ();;

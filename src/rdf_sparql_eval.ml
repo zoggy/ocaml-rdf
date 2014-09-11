@@ -466,7 +466,7 @@ let bi_strlen name =
     [e] ->
       (try
          let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e) in
-         Int (Rdf_utf8.utf8_string_length s)
+         Int (Rdf_utf8.utf8_length s)
        with e -> Err (Rdf_dt.Exception e)
       )
   | l -> error (Invalid_built_in_fun_argument (name, l))
@@ -501,7 +501,7 @@ let bi_substr name =
       in
       (* Convert positions to 0-based positions, and according
         to string length, since we return empty string in case of invalid bounds. *)
-      let len_s = Rdf_utf8.utf8_string_length s in
+      let len_s = Rdf_utf8.utf8_length s in
       let start = pos - 1 in
       let len =
         match len with

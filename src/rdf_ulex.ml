@@ -29,7 +29,7 @@
 let lexpos pos lexbuf =
   let s = Ulexing.utf8_lexeme lexbuf in
   { pos with
-    Lexing.pos_cnum = pos.Lexing.pos_cnum + (Rdf_utf8.utf8_string_length s);
+    Lexing.pos_cnum = pos.Lexing.pos_cnum + (Rdf_utf8.utf8_length s);
   }
 ;;
 

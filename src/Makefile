@@ -27,7 +27,7 @@ include ../master.Makefile
 OF_FLAGS=-package $(PACKAGES),$(LWT_PACKAGES)
 INCLUDES=
 
-COMPFLAGS=$(INCLUDES) -g $(MT_FLAGS) #-annot
+COMPFLAGS=$(INCLUDES) -safe-string -g $(MT_FLAGS) #-annot
    # beware that outputting annotation takes a long time for the sparql parser
 LINKFLAGS=$(INCLUDES)
 
@@ -259,6 +259,7 @@ clean:: dummy
 	$(RM) *.cm* *.a *.o *.annot
 	$(RM) dump.odoc
 	$(RM) test_mysql
+	$(RM) $(PPX) $(PPX_BYTE)
 	cd tools && $(MAKE) clean
 
 .depend depend:
@@ -277,7 +278,8 @@ install: all
 		$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_RDF_BYTE) \
 		$(LIB_MYSQL) $(LIB_MYSQL_CMXS) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE) \
 		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE) \
-		$(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES) $(LIB_LWT_BYTE)
+		$(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES) $(LIB_LWT_BYTE) \
+		$(PPX) $(PPX_BYTE)
 
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
