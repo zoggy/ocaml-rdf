@@ -1,3 +1,7 @@
+(*
+ ocamlfind ocamlopt -package rdf.lwt -linkpkg -o t.x ask.ml
+*)
+
 let query_dbpedia =
   "PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
