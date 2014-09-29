@@ -1,4 +1,6 @@
 Next release:
+- use -safe-string compilation option
+- provide rdf.ppx package for [%sparql ] and {sparql|...|sparql} syntax
 - require yojson package
 - new Rdf_lwt library implementing Sparql protocol if
   Cohttp with lwt is intalled.
