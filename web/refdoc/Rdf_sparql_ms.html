@@ -42,7 +42,7 @@ A solution mapping : variable -&gt; rdf term<br/>
 
 
 <pre><span id="VALmu_0"><span class="keyword">val</span> mu_0</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
-<pre><span id="VALmu_add"><span class="keyword">val</span> mu_add</span> : <code class="type">SMap.key -&gt;<br/>       <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
+<pre><span id="VALmu_add"><span class="keyword">val</span> mu_add</span> : <code class="type">SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
 <pre><span id="VALmu_copy"><span class="keyword">val</span> mu_copy</span> : <code class="type"><a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
 <pre><span id="VALmu"><span class="keyword">val</span> mu</span> : <code class="type">SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
 <pre><span id="VALgen_blank_id"><span class="keyword">val</span> gen_blank_id</span> : <code class="type">unit -&gt; string</code></pre>
@@ -52,7 +52,7 @@ A solution mapping : variable -&gt; rdf term<br/>
 <pre><span id="VALmu_find_varname"><span class="keyword">val</span> mu_find_varname</span> : <code class="type">SMap.key -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre>
 <pre><span id="VALmu_find_var"><span class="keyword">val</span> mu_find_var</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a></code></pre>
 <pre><span id="VALmu_project"><span class="keyword">val</span> mu_project</span> : <code class="type">SSet.t -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a></code></pre>
-<pre><span id="VALmu_fold"><span class="keyword">val</span> mu_fold</span> : <code class="type">(SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; 'a -&gt; 'a) -&gt;<br/>       <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; 'a -&gt; 'a</code></pre>
+<pre><span id="VALmu_fold"><span class="keyword">val</span> mu_fold</span> : <code class="type">(SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; 'a -&gt; 'a) -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; 'a -&gt; 'a</code></pre>
 <pre><span id="VALmu_iter"><span class="keyword">val</span> mu_iter</span> : <code class="type">(SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit) -&gt; <a href="Rdf_sparql_ms.html#TYPEmu">mu</a> -&gt; unit</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.MuOrdered.html">MuOrdered</a>: <code class="code">sig</code> <a href="Rdf_sparql_ms.MuOrdered.html">..</a> <code class="code">end</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_sparql_ms.MuSet.html">MuSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_ms.MuOrdered.html">MuOrdered</a></code><code class="code">)</code></pre>

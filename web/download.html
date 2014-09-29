@@ -16,6 +16,22 @@ Then read the <page href="doc-install"/> section.
 
 <section id="releases" title="Releases">
 <ul>
+<li><strong><a href="ocaml-rdf-0.9.0.tar.gz">0.9.0</a></strong>
+[2014-09-29]:
+  <ul id="changes0.9.0">
+<li>use <icode>-safe-string</icode> compilation option (and require OCaml &gt;= 4.02),</li>
+<li>provide <icode>rdf.ppx</icode> package for <ml>[%sparql ]</ml> and
+  <ml>{sparql|...|sparql}</ml> syntax,</li>
+<li>new <ml>Rdf_lwt</ml> library implementing Sparql protocol if
+  Cohttp with lwt is installed,</li>
+<li>Support for <ext-a href="http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http">Sparql protocol</ext-a>
+  initiated by Aranud Parant then made more generic to support
+  various HTTP implementations and the whole protocol,</li>
+<li>Support for 4store access through Sparql protocol (by Arnaud Parant),</li>
+<li>Fix parsing of IRIs.</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.8.0.tar.gz">0.8.0</a></strong>
 [2014-01-21]:
   <ul id="changes0.8.0">

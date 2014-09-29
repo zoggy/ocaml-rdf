@@ -28,8 +28,10 @@ The signature of the resulting module when buildting the binding.<br/>
          parameter can be used to require a response in, for example,
          the "application/rdf+xml" format.</div>
 
-<pre><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre><div class="info ">
+<pre><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt;<br/>       ?query_var:string -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre><div class="info ">
 Same as <a href="Rdf_sparql_http.S.html#VALget"><code class="code">Rdf_sparql_http.S.get</code></a> but using the POST method. To be used when sending
       large queries.<br/>
 </div>
+<div class="param_info"><code class="code">query_var</code> : allows to change the message query name send
+        ("query" by default)</div>
 </div></contents></ocamldoc>
