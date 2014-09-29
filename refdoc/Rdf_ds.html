@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_ds</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -39,7 +39,7 @@
 </div>
 <h1>Module <a href="type_Rdf_ds.html">Rdf_ds</a></h1>
 
-<pre id="moduleRdf_dssigend"><a class="paragraph-url" href="#moduleRdf_dssigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_ds: <code class="code">sig</code> <a href="Rdf_ds.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_dssigend"><a class="paragraph-url" href="#moduleRdf_dssigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_ds: <code class="code">sig</code> <a href="Rdf_ds.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Datasets.
 <div class="vertical-space"> </div>
 
@@ -52,39 +52,48 @@ A dataset is composed of:<ul>
 </div>
 <hr width="100%"/>
 
-<pre id="exceptionCould_not_retri"><a class="paragraph-url" href="#exceptionCould_not_retri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONCould_not_retrieve_graph"><span class="keyword">exception</span> Could_not_retrieve_graph</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string</code></pre>
+<pre id="exceptionCould_not_retri"><a class="paragraph-url" href="#exceptionCould_not_retri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONCould_not_retrieve_graph"><span class="keyword">exception</span> Could_not_retrieve_graph</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string</code></pre>
 <div class="info">
 This exception indicates that a graph could not be retrieved.
   It can be raised by functions retrieving graphs, in a <a href="Rdf_ds.html#VALdataset"><code class="code">Rdf_ds.dataset</code></a>
   structure. The URI of the graph and an error message must be provided.<br/>
 </div>
 
-<pre id="valcould_not_retrieve_gr"><a class="paragraph-url" href="#valcould_not_retrieve_gr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcould_not_retrieve_graph"><span class="keyword">val</span> could_not_retrieve_graph</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; 'a</code></pre><div class="info">
+<pre id="valcould_not_retrieve_gr"><a class="paragraph-url" href="#valcould_not_retrieve_gr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcould_not_retrieve_graph"><span class="keyword">val</span> could_not_retrieve_graph</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; 'a</code></pre><div class="info">
 This function raises the <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a> exception.<br/>
 </div>
 
-<pre id="typedataset"><a class="paragraph-url" href="#typedataset"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEdataset"><span class="keyword">type</span> dataset</span> = {</code></pre><table class="typetable">
+<pre id="typedataset"><a class="paragraph-url" href="#typedataset"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEdataset"><span class="keyword">type</span> dataset</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTdataset.default">default</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code>;</code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top">The default graph.</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+The default graph.<br/>
+</div>
+</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTdataset.named">named</span> : <code class="type">Rdf_iri.Iriset.t</code>;</code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top">The set of named graphs.</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+The set of named graphs.<br/>
+</div>
+</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTdataset.get_named">get_named</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code>;</code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top">The function to get a graph by its name (URI).
-       The function must raise <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a> in case of error.</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+The function to get a graph by its name (URI).
+       The function must raise <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a> in case of error.<br/>
+</div>
+</td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
 </tr></table>
 }
 
@@ -93,13 +102,20 @@ A dataset.<br/>
 </div>
 
 
-<pre id="valsimple_datasetnamedRd"><a class="paragraph-url" href="#valsimple_datasetnamedRd"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsimple_dataset"><span class="keyword">val</span> simple_dataset</span> : <code class="type">?named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
+<pre id="valsimple_datasetnamedRd"><a class="paragraph-url" href="#valsimple_datasetnamedRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsimple_dataset"><span class="keyword">val</span> simple_dataset</span> : <code class="type">?named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) list -&gt;<br/>       <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
 <code class="code">simple_dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
 </div>
+<div class="param_info"><code class="code">named</code> : can be used to specify named graphs. The <code class="code">get_named</code> function
+  is created from this closed list of named graphs and raise <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a>
+  in case a required graph is not part of the list.</div>
 
-<pre id="valdatasetget_namedRdf_i"><a class="paragraph-url" href="#valdatasetget_namedRdf_i"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdataset"><span class="keyword">val</span> dataset</span> : <code class="type">?get_named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) -&gt;<br/>       ?named:Rdf_iri.Iriset.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
+<pre id="valdatasetget_namedRdf_i"><a class="paragraph-url" href="#valdatasetget_namedRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdataset"><span class="keyword">val</span> dataset</span> : <code class="type">?get_named:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>) -&gt;<br/>       ?named:Rdf_iri.Iriset.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">dataset</a></code></pre><div class="info">
 <code class="code">dataset graph</code> returns a dataset with <code class="code">graph</code> as default graph.<br/>
 </div>
+<div class="param_info"><code class="code">get_named</code> : is the function to retrieve graph by name (URI). If it
+  is not provided, the default function always raises <a href="Rdf_ds.html#EXCEPTIONCould_not_retrieve_graph"><code class="code">Rdf_ds.Could_not_retrieve_graph</code></a>.</div>
+<div class="param_info"><code class="code">named</code> : is used to specify the sef of named graphs, but it
+  does not create a get_named function.</div>
 </div>
 
 
@@ -107,8 +123,8 @@ A dataset.<br/>
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

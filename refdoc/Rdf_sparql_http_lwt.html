@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_http_lwt</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_sparql_http.html" title="Rdf_sparql_http">Previous</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_sparql_map.html" title="Rdf_sparql_map">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a></h1>
+
+<pre id="moduleRdf_sparql_http_lw"><a class="paragraph-url" href="#moduleRdf_sparql_http_lw"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_sparql_http_lwt: <code class="code">sig</code> <a href="Rdf_sparql_http_lwt.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Lwt-based Sparql Protocol HTTP Binding.
+<div class="vertical-space"> </div>
+
+   Using the <a href="Rdf_sparql_http.Make.html"><code class="code">Rdf_sparql_http.Make</code></a> functor.<br/>
+</div>
+<hr width="100%"/>
+
+<pre id="valbase_headersacceptstr"><a class="paragraph-url" href="#valbase_headersacceptstr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbase_headers"><span class="keyword">val</span> base_headers</span> : <code class="type">?accept:string -&gt; unit -&gt; Cohttp.Header.t</code></pre><div class="info">
+<code class="code">base_headers ()</code> Gives the base headers used for bindings<br/>
+</div>
+
+<pre id="valresult_of_responsecon"><a class="paragraph-url" href="#valresult_of_responsecon"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALresult_of_response"><span class="keyword">val</span> result_of_response</span> : <code class="type">(content_type:string -&gt; string -&gt; <a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a>) -&gt;<br/>       Cohttp.Response.t * Cohttp_lwt_body.t -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a> Lwt.t</code></pre><div class="info">
+<code class="code">result_of_response f response</code>
+    <code class="code">f</code> will be applied on the content-type and body string of the response.
+    If the status is between 200 and 300 exclued, <code class="code">f</code> is called,
+    else <a href="Rdf_sparql_protocol.html"><code class="code">Rdf_sparql_protocol</code></a><code class="code">.Error</code> is returned.<br/>
+</div>
+<br/>
+The following items are created with the <a href="Rdf_sparql_http.Make.html"><code class="code">Rdf_sparql_http.Make</code></a> functor.
+  See the documentation of <a href="Rdf_sparql_http.S.html"><code class="code">Rdf_sparql_http.S</code></a>.<br/>
+
+<pre id="typeresultRdf_sparql_pro"><a class="paragraph-url" href="#typeresultRdf_sparql_pro"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEresult"><span class="keyword">type</span> result</span> = <code class="type"><a href="Rdf_sparql_protocol.html#TYPEout_message">Rdf_sparql_protocol.out_message</a> Lwt.t</code> </pre>
+
+
+<pre id="valgetgraphRdf_graphgrap"><a class="paragraph-url" href="#valgetgraphRdf_graphgrap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">result</a></code></pre>
+<pre id="valpostgraphRdf_graphgra"><a class="paragraph-url" href="#valpostgraphRdf_graphgra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt;<br/>       ?query_var:string -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">result</a></code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

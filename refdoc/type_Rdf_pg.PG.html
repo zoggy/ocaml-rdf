@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_pg.PG</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -33,241 +33,15 @@
 <span></span>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> oid = int<br/>
-  <span class="keyword">type</span> large_object = <span class="constructor">Postgresql</span>.large_object<br/>
-  <span class="keyword">module</span> <span class="constructor">FFormat</span> : <span class="keyword">sig</span> <span class="keyword">type</span> t = <span class="constructor">Postgresql</span>.<span class="constructor">FFormat</span>.t = <span class="constructor">TEXT</span> <span class="keywordsign">|</span> <span class="constructor">BINARY</span> <span class="keyword">end</span><br/>
-  <span class="keyword">type</span> ftype =<br/>
-    <span class="constructor">Postgresql</span>.ftype =<br/>
-      <span class="constructor">BOOL</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">BYTEA</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CHAR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">NAME</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INT8</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INT2</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INT2VECTOR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INT4</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGPROC</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TEXT</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">OID</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TID</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">XID</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CID</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">OIDVECTOR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">POINT</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">LSEG</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">PATH</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">BOX</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">POLYGON</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">LINE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">FLOAT4</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">FLOAT8</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">ABSTIME</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">RELTIME</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TINTERVAL</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">UNKNOWN</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CIRCLE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CASH</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">MACADDR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INET</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CIDR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">ACLITEM</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">BPCHAR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">VARCHAR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">DATE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TIME</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TIMESTAMP</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TIMESTAMPTZ</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INTERVAL</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TIMETZ</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">BIT</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">VARBIT</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">NUMERIC</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REFCURSOR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGPROCEDURE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGOPER</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGOPERATOR</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGCLASS</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">REGTYPE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">RECORD</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">CSTRING</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">ANY</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">ANYARRAY</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">VOID</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">TRIGGER</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">LANGUAGE_HANDLER</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">INTERNAL</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">OPAQUE</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">ANYELEMENT</span><br/>
-  <span class="keyword">type</span> result_status =<br/>
-    <span class="constructor">Postgresql</span>.result_status =<br/>
-      <span class="constructor">Empty_query</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Command_ok</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Tuples_ok</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Copy_out</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Copy_in</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Bad_response</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Nonfatal_error</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Fatal_error</span><br/>
-  <span class="keyword">type</span> getline_result = <span class="constructor">Postgresql</span>.getline_result = <span class="constructor">EOF</span> <span class="keywordsign">|</span> <span class="constructor">LineRead</span> <span class="keywordsign">|</span> <span class="constructor">BufFull</span><br/>
-  <span class="keyword">type</span> getline_async_result =<br/>
-    <span class="constructor">Postgresql</span>.getline_async_result =<br/>
-      <span class="constructor">EndOfData</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">NoData</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">DataRead</span> <span class="keyword">of</span> int<br/>
-    <span class="keywordsign">|</span> <span class="constructor">PartDataRead</span> <span class="keyword">of</span> int<br/>
-  <span class="keyword">type</span> seek_cmd = <span class="constructor">Postgresql</span>.seek_cmd = <span class="constructor">SEEK_SET</span> <span class="keywordsign">|</span> <span class="constructor">SEEK_CUR</span> <span class="keywordsign">|</span> <span class="constructor">SEEK_END</span><br/>
-  <span class="keyword">type</span> error =<br/>
-    <span class="constructor">Postgresql</span>.error =<br/>
-      <span class="constructor">Field_out_of_range</span> <span class="keyword">of</span> int * int<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Tuple_out_of_range</span> <span class="keyword">of</span> int * int<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Binary</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Connection_failure</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Unexpected_status</span> <span class="keyword">of</span> result_status * string * result_status list<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Cancel_failure</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> error<br/>
-  <span class="keyword">val</span> string_of_error : error <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">exception</span> <span class="constructor">Oid</span> <span class="keyword">of</span> oid<br/>
-  <span class="keyword">val</span> unescape_bytea : string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">external</span> ftype_of_oid : oid <span class="keywordsign">-&gt;</span> ftype = <span class="string">&quot;ftype_of_oid_stub&quot;</span><br/>
-  <span class="keyword">external</span> oid_of_ftype : ftype <span class="keywordsign">-&gt;</span> oid = <span class="string">&quot;oid_of_ftype_stub&quot;</span><br/>
-  <span class="keyword">val</span> string_of_ftype : ftype <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> ftype_of_string : string <span class="keywordsign">-&gt;</span> ftype<br/>
-  <span class="keyword">external</span> result_status : result_status <span class="keywordsign">-&gt;</span> string = <span class="string">&quot;PQresStatus_stub&quot;</span><br/>
-  <span class="keyword">val</span> invalid_oid : oid<br/>
-  <span class="keyword">val</span> null : string<br/>
-  <span class="keyword">class</span> <span class="keyword">type</span> result =<br/>
-    <span class="keyword">object</span><br/>
-      <span class="keyword">method</span> binary_tuples : bool<br/>
-      <span class="keyword">method</span> cmd_status : string<br/>
-      <span class="keyword">method</span> cmd_tuples : string<br/>
-      <span class="keyword">method</span> error : string<br/>
-      <span class="keyword">method</span> fformat : int <span class="keywordsign">-&gt;</span> <span class="constructor">FFormat</span>.t<br/>
-      <span class="keyword">method</span> fmod : int <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> fname : int <span class="keywordsign">-&gt;</span> string<br/>
-      <span class="keyword">method</span> fnumber : string <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> fsize : int <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> ftype : int <span class="keywordsign">-&gt;</span> ftype<br/>
-      <span class="keyword">method</span> get_all : string array array<br/>
-      <span class="keyword">method</span> get_all_lst : string list list<br/>
-      <span class="keyword">method</span> get_escaped_value : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string<br/>
-      <span class="keyword">method</span> get_fnames : string array<br/>
-      <span class="keyword">method</span> get_fnames_lst : string list<br/>
-      <span class="keyword">method</span> get_tuple : int <span class="keywordsign">-&gt;</span> string array<br/>
-      <span class="keyword">method</span> get_tuple_lst : int <span class="keywordsign">-&gt;</span> string list<br/>
-      <span class="keyword">method</span> getisnull : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">method</span> getlength : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> getvalue : int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string<br/>
-      <span class="keyword">method</span> nfields : int<br/>
-      <span class="keyword">method</span> nparams : int<br/>
-      <span class="keyword">method</span> ntuples : int<br/>
-      <span class="keyword">method</span> oid_value : oid<br/>
-      <span class="keyword">method</span> paramtype : int <span class="keywordsign">-&gt;</span> ftype<br/>
-      <span class="keyword">method</span> status : result_status<br/>
-    <span class="keyword">end</span><br/>
-  <span class="keyword">type</span> connection_status = <span class="constructor">Postgresql</span>.connection_status = <span class="constructor">Ok</span> <span class="keywordsign">|</span> <span class="constructor">Bad</span><br/>
-  <span class="keyword">type</span> conninfo_option =<br/>
-    <span class="constructor">Postgresql</span>.conninfo_option = {<br/>
-    cio_keyword : string;<br/>
-    cio_envvar : string option;<br/>
-    cio_compiled : string option;<br/>
-    cio_val : string option;<br/>
-    cio_label : string;<br/>
-    cio_dispchar : string;<br/>
-    cio_dispsize : int;<br/>
-  }<br/>
-  <span class="keyword">external</span> conndefaults : unit <span class="keywordsign">-&gt;</span> conninfo_option array<br/>
-    = <span class="string">&quot;PQconndefaults_stub&quot;</span><br/>
-  <span class="keyword">class</span> connection :<br/>
-    ?host:string <span class="keywordsign">-&gt;</span><br/>
-    ?hostaddr:string <span class="keywordsign">-&gt;</span><br/>
-    ?port:string <span class="keywordsign">-&gt;</span><br/>
-    ?dbname:string <span class="keywordsign">-&gt;</span><br/>
-    ?user:string <span class="keywordsign">-&gt;</span><br/>
-    ?password:string <span class="keywordsign">-&gt;</span><br/>
-    ?options:string <span class="keywordsign">-&gt;</span><br/>
-    ?tty:string <span class="keywordsign">-&gt;</span><br/>
-    ?requiressl:string <span class="keywordsign">-&gt;</span><br/>
-    ?conninfo:string <span class="keywordsign">-&gt;</span><br/>
-    unit <span class="keywordsign">-&gt;</span><br/>
-    <span class="keyword">object</span><br/>
-      <span class="keyword">method</span> backend_pid : int<br/>
-      <span class="keyword">method</span> consume_input : unit<br/>
-      <span class="keyword">method</span> copy_in_channel : in_channel <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> copy_out : (string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> copy_out_channel : out_channel <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> db : string<br/>
-      <span class="keyword">method</span> describe_prepared : string <span class="keywordsign">-&gt;</span> result<br/>
-      <span class="keyword">method</span> empty_result : result_status <span class="keywordsign">-&gt;</span> result<br/>
-      <span class="keyword">method</span> endcopy : unit<br/>
-      <span class="keyword">method</span> error_message : string<br/>
-      <span class="keyword">method</span> escape_bytea : ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string<br/>
-      <span class="keyword">method</span> escape_string : ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string<br/>
-      <span class="keyword">method</span> exec :<br/>
-        ?expect:result_status list <span class="keywordsign">-&gt;</span><br/>
-        ?params:string array <span class="keywordsign">-&gt;</span> ?binary_params:bool array <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> result<br/>
-      <span class="keyword">method</span> exec_prepared :<br/>
-        ?expect:result_status list <span class="keywordsign">-&gt;</span><br/>
-        ?params:string array <span class="keywordsign">-&gt;</span> ?binary_params:bool array <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> result<br/>
-      <span class="keyword">method</span> finish : unit<br/>
-      <span class="keyword">method</span> flush : unit<br/>
-      <span class="keyword">method</span> get_result : result option<br/>
-      <span class="keyword">method</span> getline : ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> getline_result<br/>
-      <span class="keyword">method</span> getline_async :<br/>
-        ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> getline_async_result<br/>
-      <span class="keyword">method</span> host : string<br/>
-      <span class="keyword">method</span> is_busy : bool<br/>
-      <span class="keyword">method</span> is_nonblocking : bool<br/>
-      <span class="keyword">method</span> lo_close : large_object <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> lo_creat : oid<br/>
-      <span class="keyword">method</span> lo_export : oid <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> lo_import : string <span class="keywordsign">-&gt;</span> oid<br/>
-      <span class="keyword">method</span> lo_open : oid <span class="keywordsign">-&gt;</span> large_object<br/>
-      <span class="keyword">method</span> lo_read : large_object <span class="keywordsign">-&gt;</span> ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> lo_read_ba :<br/>
-        large_object <span class="keywordsign">-&gt;</span><br/>
-        ?pos:int <span class="keywordsign">-&gt;</span><br/>
-        ?len:int <span class="keywordsign">-&gt;</span><br/>
-        (char, <span class="constructor">Bigarray</span>.int8_unsigned_elt, <span class="constructor">Bigarray</span>.c_layout)<br/>
-        <span class="constructor">Bigarray</span>.<span class="constructor">Array1</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> lo_seek : ?pos:int <span class="keywordsign">-&gt;</span> ?whence:seek_cmd <span class="keywordsign">-&gt;</span> large_object <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> lo_tell : large_object <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">method</span> lo_unlink : oid <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> lo_write :<br/>
-        ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> large_object <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> lo_write_ba :<br/>
-        ?pos:int <span class="keywordsign">-&gt;</span><br/>
-        ?len:int <span class="keywordsign">-&gt;</span><br/>
-        (char, <span class="constructor">Bigarray</span>.int8_unsigned_elt, <span class="constructor">Bigarray</span>.c_layout)<br/>
-        <span class="constructor">Bigarray</span>.<span class="constructor">Array1</span>.t <span class="keywordsign">-&gt;</span> large_object <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> notifies : (string * int) option<br/>
-      <span class="keyword">method</span> options : string<br/>
-      <span class="keyword">method</span> pass : string<br/>
-      <span class="keyword">method</span> port : string<br/>
-      <span class="keyword">method</span> prepare : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> result<br/>
-      <span class="keyword">method</span> putline : string <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> putnbytes : ?pos:int <span class="keywordsign">-&gt;</span> ?len:int <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> request_cancel : unit<br/>
-      <span class="keyword">method</span> reset : unit<br/>
-      <span class="keyword">method</span> send_query :<br/>
-        ?params:string array <span class="keywordsign">-&gt;</span> ?binary_params:bool array <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> set_nonblocking : bool <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> set_notice_processor : (string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">method</span> socket : int<br/>
-      <span class="keyword">method</span> status : connection_status<br/>
-      <span class="keyword">method</span> try_reset : unit<br/>
-      <span class="keyword">method</span> tty : string<br/>
-      <span class="keyword">method</span> user : string<br/>
-    <span class="keyword">end</span><br/>
-<span class="keyword">end</span></code></div>
+<code class="code">(<span class="keyword">module</span> <span class="constructor">Postgresql</span>)</code></div>
 
 
 </div>
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

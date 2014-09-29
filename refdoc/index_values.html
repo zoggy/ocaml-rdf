@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Index of values</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -168,6 +168,11 @@ Execute the given ASK query.
 <tr><td align="left"><br/>B</td></tr>
 <tr><td><a href="Kw_to_re.html#VALb">b</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALbase_headers">base_headers</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td><div class="info">
+<code class="code">base_headers ()</code> Gives the base headers used for bindings
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_bnode">bi_bnode</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALbi_coalesce">bi_coalesce</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -481,12 +486,101 @@ Parse a literal to get a datetime.
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALdc">dc</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc">dc</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+<code class="code">http://purl.org/dc/elements/1.1/</code>
+</div>
+</td></tr>
 <tr><td><a href="Rdf_rdf.html#VALdc_">dc_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_">dc_</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_contributor">dc_contributor</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity responsible for making contributions to the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_coverage">dc_coverage</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_creator">dc_creator</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity primarily responsible for making the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_date">dc_date</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A point or period of time associated with an event in the lifecycle of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_description">dc_description</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An account of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_format">dc_format</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The file format, physical medium, or dimensions of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_identifier">dc_identifier</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An unambiguous reference to the resource within a given context.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_language">dc_language</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A language of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_publisher">dc_publisher</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity responsible for making the resource available.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_relation">dc_relation</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_rights">dc_rights</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Information about rights held in and over the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_source">dc_source</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource from which the described resource is derived.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_subject">dc_subject</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The topic of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_title">dc_title</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A name given to the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALdc_type">dc_type</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The nature or genre of the resource.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALdefault">default</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALdefault">default</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALdelete">delete</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">delete url graph_uri</code>
+    <code class="code">url</code> including &quot;/data/&quot;
+    This method removes the entire <code class="code">graph_uri</code>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql.html#VALdescribe">describe</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td><div class="info">
 Execute the given DESCRIBE query.
@@ -900,6 +994,8 @@ Evaluate boolean expression.
 <tr><td><a href="Rdf_sparql_eval.html#VALebv_lit">ebv_lit</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALempty">empty</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_protocol.html#VALempty_dataset">empty_dataset</a> [<a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_iri.html#VALensure_absolute">ensure_absolute</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td><div class="info">
@@ -1608,6 +1704,11 @@ Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_st
 Same as <a href="Rdf_ttl.html#VALfrom_string"><code class="code">Rdf_ttl.from_string</code></a> but read from the given file.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_xml.html#VALfrom_input">from_input</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xmlm.input handle.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_xml.html#VALfrom_string">from_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td><div class="info">
 Input graph from string.
@@ -1616,6 +1717,11 @@ Input graph from string.
 <tr><td><a href="Rdf_ttl.html#VALfrom_string">from_string</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
 <td><div class="info">
 Input graph from string.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_xml.html#VALfrom_xml">from_xml</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xml tree.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALfun_datetime">fun_datetime</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
@@ -1627,6 +1733,23 @@ Input graph from string.
 <tr><td align="left"><br/>G</td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALgen_blank_id">gen_blank_id</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALget">get</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.P.html#VALget">get</a> [<a href="Rdf_sparql_http.P.html">Rdf_sparql_http.P</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.S.html#VALget">get</a> [<a href="Rdf_sparql_http.S.html">Rdf_sparql_http.S</a>]</td>
+<td><div class="info">
+<code class="code">get uri msg</code> sends the Sparql query corresponding to the given
+         <a href="Rdf_sparql_protocol.html#TYPEin_message"><code class="code">Rdf_sparql_protocol.in_message</code></a> with the GET method.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALget">get</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">get url msg</code>
+    <code class="code">url</code> including &quot;/sparql/&quot;
+    This method allows: select/ask/describe queries.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_xml.html#VALget_blank_node">get_blank_node</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_ms.html#VALget_bnode">get_bnode</a> [<a href="Rdf_sparql_ms.html">Rdf_sparql_ms</a>]</td>
@@ -1637,6 +1760,13 @@ Input graph from string.
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_datetime">get_datetime</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_xml.html#VALget_first_child">get_first_child</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+<code class="code">get_first tree tag</code> returns the first child with tag <code class="code">s</code>
+  of the given xml tree or <code class="code">None</code> if the given node has
+  no such child.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_float">get_float</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql.html#VALget_int">get_int</a> [<a href="Rdf_sparql.html">Rdf_sparql</a>]</td>
@@ -1842,10 +1972,6 @@ Create an IRI from a string.
 <td></td></tr>
 <tr><td><a href="Kw_to_re.html#VALlen">len</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALlexpos">lexpos</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALlexpos_nl">lexpos_nl</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
-<td></td></tr>
 <tr><td><a href="Rdf_sparql_vis.html#VALlimit_offset_clause">limit_offset_clause</a> [<a href="Rdf_sparql_vis.html">Rdf_sparql_vis</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_map.html#VALlimit_offset_clause">limit_offset_clause</a> [<a href="Rdf_sparql_map.html">Rdf_sparql_map</a>]</td>
@@ -1879,8 +2005,6 @@ Same as <a href="Rdf_dt.html#VALstring"><code class="code">Rdf_dt.string</code><
 <tr><td><a href="Rdf_sparql_expand.html#VALmap_opt">map_opt</a> [<a href="Rdf_sparql_expand.html">Rdf_sparql_expand</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALmap_opt">map_opt</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
-<td></td></tr>
-<tr><td><a href="Rdf_ulex.html#VALmenhir_with_ulex">menhir_with_ulex</a> [<a href="Rdf_ulex.html">Rdf_ulex</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_graph.html#VALmerge">merge</a> [<a href="Rdf_graph.html">Rdf_graph</a>]</td>
 <td><div class="info">
@@ -2213,6 +2337,29 @@ Get the path part of the URI.
 <td></td></tr>
 <tr><td><a href="Rdf_iri.html#VALport">port</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALpost">post</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.P.html#VALpost">post</a> [<a href="Rdf_sparql_http.P.html">Rdf_sparql_http.P</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_http.S.html#VALpost">post</a> [<a href="Rdf_sparql_http.S.html">Rdf_sparql_http.S</a>]</td>
+<td><div class="info">
+Same as <a href="Rdf_sparql_http.S.html#VALget"><code class="code">Rdf_sparql_http.S.get</code></a> but using the POST method.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALpost_append">post_append</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">post_append url content content_type graph_uri</code>
+    <code class="code">url</code> including &quot;/data/&quot;
+    This method allow to append <code class="code">content</code> into <code class="code">graph_uri</code>.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALpost_update">post_update</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">post_update url msg</code>
+    <code class="code">url</code> including &quot;/update/&quot;
+    This method allows: update/insert/delete queries.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALpp">pp</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_pg.Postgresql.html#VALpredicates">predicates</a> [<a href="Rdf_pg.Postgresql.html">Rdf_pg.Postgresql</a>]</td>
@@ -2484,6 +2631,13 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_rdfs.html#VALproperty">property</a> [<a href="Rdf_rdfs.html">Rdf_rdfs</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_4s_lwt.html#VALput">put</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
+<td><div class="info">
+<code class="code">put url content content_type graph_uri</code>
+    <code class="code">url</code> including &quot;/data/&quot;
+    This method allows to replace initial data from <code class="code">graph_uri</code> by <code class="code">content</code>.
+</div>
+</td></tr>
 <tr><td align="left"><br/>Q</td></tr>
 <tr><td><a href="Rdf_iri.html#VALquery">query</a> [<a href="Rdf_iri.html">Rdf_iri</a>]</td>
 <td></td></tr>
@@ -2738,6 +2892,12 @@ Removing a triple from the graph, curryfied form.
 </td></tr>
 <tr><td><a href="Rdf_graph.Graph.html#VALrem_triple_t">rem_triple_t</a> [<a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_sparql_http_lwt.html#VALresult_of_response">result_of_response</a> [<a href="Rdf_sparql_http_lwt.html">Rdf_sparql_http_lwt</a>]</td>
+<td><div class="info">
+<code class="code">result_of_response f response</code>
+    <code class="code">f</code> will be applied on the content-type and body string of the response.
+</div>
+</td></tr>
 <tr><td align="left"><br/>S</td></tr>
 <tr><td><a href="Kw_to_re.html#VALs">s</a> [<a href="Kw_to_re.html">Kw_to_re</a>]</td>
 <td></td></tr>
@@ -2846,6 +3006,8 @@ From the given utf8 string and start and stop characters, return
   the corresponding location.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_json.html#VALsparql_result_of_json">sparql_result_of_json</a> [<a href="Rdf_json.html">Rdf_json</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_misc.html#VALsplit_string">split_string</a> [<a href="Rdf_misc.html">Rdf_misc</a>]</td>
 <td><div class="info">
 Separate the given string according to the given list of characters.
@@ -2885,6 +3047,8 @@ Get a string from a blank term id.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_ttl.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_sparql_protocol.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_sparql_eval.html#VALstring_of_error">string_of_error</a> [<a href="Rdf_sparql_eval.html">Rdf_sparql_eval</a>]</td>
 <td></td></tr>
@@ -3078,9 +3242,463 @@ Shortcut for <code class="code">Literal (mk_literal ~typ: Rdf_rdf.xsd_integer in
 Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_json.html#VALterm_of_json">term_of_json</a> [<a href="Rdf_json.html">Rdf_json</a>]</td>
+<td></td></tr>
 <tr><td><a href="Rdf_term.html#VALterm_of_literal_string">term_of_literal_string</a> [<a href="Rdf_term.html">Rdf_term</a>]</td>
 <td><div class="info">
 Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms">terms</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+<code class="code">http://purl.org/dc/terms/</code>
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_">terms_</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td></td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Agent">terms_Agent</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A resource that acts or has the power to act.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_AgentClass">terms_AgentClass</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A group of agents.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_BibliographicResource">terms_BibliographicResource</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A book, article, or other documentary resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Box">terms_Box</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_FileFormat">terms_FileFormat</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A digital resource format.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Frequency">terms_Frequency</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A rate at which something recurs.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_ISO3166">terms_ISO3166</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of codes listed in ISO 3166-1 for the representation of names of countries.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_ISO639_2">terms_ISO639_2</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_ISO639_3">terms_ISO639_3</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of three-letter codes listed in ISO 639-3 for the representation of names of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Jurisdiction">terms_Jurisdiction</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The extent or range of judicial, law enforcement, or other authority.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_LicenseDocument">terms_LicenseDocument</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A legal document giving official permission to do something with a Resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_LinguisticSystem">terms_LinguisticSystem</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A system of signs, symbols, sounds, gestures, or rules used in communication.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Location">terms_Location</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A spatial region or named place.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_LocationPeriodOrJurisdiction">terms_LocationPeriodOrJurisdiction</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A location, period of time, or jurisdiction.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_MediaType">terms_MediaType</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A file format or physical medium.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_MediaTypeOrExtent">terms_MediaTypeOrExtent</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A media type or extent.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_MethodOfAccrual">terms_MethodOfAccrual</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A method by which resources are added to a collection.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_MethodOfInstruction">terms_MethodOfInstruction</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A process that is used to engender knowledge, attitudes, and skills.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Period">terms_Period</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_PeriodOfTime">terms_PeriodOfTime</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An interval of time that is named or defined by its start and end dates.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_PhysicalMedium">terms_PhysicalMedium</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A physical material or carrier.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_PhysicalResource">terms_PhysicalResource</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A material thing.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Point">terms_Point</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Policy">terms_Policy</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A plan or course of action by an authority, intended to influence and determine decisions, actions, and other matters.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_ProvenanceStatement">terms_ProvenanceStatement</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_RFC1766">terms_RFC1766</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of tags, constructed according to RFC 1766, for the identification of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_RFC3066">terms_RFC3066</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of tags constructed according to RFC 3066 for the identification of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_RFC4646">terms_RFC4646</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of tags constructed according to RFC 4646 for the identification of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_RFC5646">terms_RFC5646</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of tags constructed according to RFC 5646 for the identification of languages.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_RightsStatement">terms_RightsStatement</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A statement about the intellectual property rights (IPR) held in or over a Resource, a legal document giving official permission to do something with a resource, or a statement about access rights.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_SizeOrDuration">terms_SizeOrDuration</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A dimension or extent, or a time taken to play or execute.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_Standard">terms_Standard</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A basis for comparison; a reference point against which other things can be evaluated.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_URI">terms_URI</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_W3CDTF">terms_W3CDTF</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The set of dates and times constructed according to the W3C Date and Time Formats Specification.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_abstract">terms_abstract</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A summary of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_accessRights">terms_accessRights</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Information about who can access the resource or an indication of its security status.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_accrualMethod">terms_accrualMethod</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The method by which items are added to a collection.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_accrualPeriodicity">terms_accrualPeriodicity</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The frequency with which items are added to a collection.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_accrualPolicy">terms_accrualPolicy</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The policy governing the addition of items to a collection.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_alternative">terms_alternative</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An alternative name for the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_audience">terms_audience</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A class of entity for whom the resource is intended or useful.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_available">terms_available</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date (often a range) that the resource became or will become available.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_bibliographicCitation">terms_bibliographicCitation</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A bibliographic reference for the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_conformsTo">terms_conformsTo</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An established standard to which the described resource conforms.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_contributor">terms_contributor</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity responsible for making contributions to the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_coverage">terms_coverage</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_created">terms_created</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date of creation of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_creator">terms_creator</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity primarily responsible for making the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_date">terms_date</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A point or period of time associated with an event in the lifecycle of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_dateAccepted">terms_dateAccepted</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date of acceptance of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_dateCopyrighted">terms_dateCopyrighted</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date of copyright.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_dateSubmitted">terms_dateSubmitted</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date of submission of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_description">terms_description</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An account of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_educationLevel">terms_educationLevel</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_extent">terms_extent</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The size or duration of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_format">terms_format</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The file format, physical medium, or dimensions of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_hasFormat">terms_hasFormat</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is substantially the same as the pre-existing described resource, but in another format.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_hasPart">terms_hasPart</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is included either physically or logically in the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_hasVersion">terms_hasVersion</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is a version, edition, or adaptation of the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_identifier">terms_identifier</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An unambiguous reference to the resource within a given context.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_instructionalMethod">terms_instructionalMethod</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isFormatOf">terms_isFormatOf</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is substantially the same as the described resource, but in another format.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isPartOf">terms_isPartOf</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource in which the described resource is physically or logically included.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isReferencedBy">terms_isReferencedBy</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that references, cites, or otherwise points to the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isReplacedBy">terms_isReplacedBy</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that supplants, displaces, or supersedes the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isRequiredBy">terms_isRequiredBy</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that requires the described resource to support its function, delivery, or coherence.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_isVersionOf">terms_isVersionOf</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource of which the described resource is a version, edition, or adaptation.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_issued">terms_issued</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date of formal issuance (e.g., publication) of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_language">terms_language</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A language of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_license">terms_license</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A legal document giving official permission to do something with the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_mediator">terms_mediator</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity that mediates access to the resource and for whom the resource is intended or useful.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_medium">terms_medium</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The material or physical carrier of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_modified">terms_modified</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date on which the resource was changed.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_provenance">terms_provenance</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_publisher">terms_publisher</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+An entity responsible for making the resource available.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_references">terms_references</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is referenced, cited, or otherwise pointed to by the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_relation">terms_relation</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_replaces">terms_replaces</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is supplanted, displaced, or superseded by the described resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_requires">terms_requires</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource that is required by the described resource to support its function, delivery, or coherence.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_rights">terms_rights</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Information about rights held in and over the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_rightsHolder">terms_rightsHolder</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A person or organization owning or managing rights over the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_source">terms_source</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A related resource from which the described resource is derived.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_spatial">terms_spatial</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Spatial characteristics of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_subject">terms_subject</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The topic of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_tableOfContents">terms_tableOfContents</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A list of subunits of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_temporal">terms_temporal</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Temporal characteristics of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_title">terms_title</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+A name given to the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_type">terms_type</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+The nature or genre of the resource.
+</div>
+</td></tr>
+<tr><td><a href="Rdf_dc.html#VALterms_valid">terms_valid</a> [<a href="Rdf_dc.html">Rdf_dc</a>]</td>
+<td><div class="info">
+Date (often a range) of validity of a resource.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_ttl.html#VALto_">to_</a> [<a href="Rdf_ttl.html">Rdf_ttl</a>]</td>
@@ -3266,6 +3884,13 @@ Create a URI from a string.
   \(quotes), \' and \\ but does not escape \u nor \U.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_get_bol">utf8_get_bol</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_get_bol str</code> returns the list of pairs
+  <code class="code">(line number, char position)</code> giving the position of beginning of each line
+  in the given string.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_index_of_char">utf8_index_of_char</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_index_of_char str n</code> returns the position in byte
@@ -3282,6 +3907,12 @@ Create a URI from a string.
 <code class="code">utf8_is_suffix s1 s2</code> returns whether <code class="code">s2</code> is suffix of <code class="code">s1</code>.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_length">utf8_length</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_string_length str</code> returns the number of utf8
+  characters in <code class="code">str</code>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_lowercase">utf8_lowercase</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_lowercase s</code> returns a new string, with some characters
@@ -3290,7 +3921,7 @@ Create a URI from a string.
 </td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_nb_bytes_of_char">utf8_nb_bytes_of_char</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
-Return the number of bytes taken by a the first byte
+Return the number of string taken by a the first byte
   (as character) of a UTF-8 character.
 </div>
 </td></tr>
@@ -3302,19 +3933,6 @@ Return the number of bytes taken by a the first byte
 <tr><td><a href="Rdf_utf8.html#VALutf8_strbefore">utf8_strbefore</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_strbefore s1 s2</code> returns the substring before <code class="code">s2</code> in <code class="code">s1</code>.
-</div>
-</td></tr>
-<tr><td><a href="Rdf_utf8.html#VALutf8_string_get_bol">utf8_string_get_bol</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
-<td><div class="info">
-<code class="code">utf8_string_get_bol str</code> returns the list of pairs
-  <code class="code">(line number, char position)</code> giving the position of beginning of each line
-  in the given string.
-</div>
-</td></tr>
-<tr><td><a href="Rdf_utf8.html#VALutf8_string_length">utf8_string_length</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
-<td><div class="info">
-<code class="code">utf8_string_length str</code> returns the number of utf8
-  characters in <code class="code">str</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_substr">utf8_substr</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
@@ -3370,6 +3988,10 @@ Return the number of bytes taken by a the first byte
 <tr><td align="left"><br/>X</td></tr>
 <tr><td><a href="Rdf_mem.Triples.html#VALx_list">x_list</a> [<a href="Rdf_mem.Triples.html">Rdf_mem.Triples</a>]</td>
 <td></td></tr>
+<tr><td><a href="Rdf_xml.html#VALxml_of_string">xml_of_string</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
+<td><div class="info">
+</div>
+</td></tr>
 <tr><td><a href="Rdf_rdf.html#VALxsd">xsd</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
 <td></td></tr>
 <tr><td><a href="Rdf_rdf.html#VALxsd_">xsd_</a> [<a href="Rdf_rdf.html">Rdf_rdf</a>]</td>
@@ -3396,8 +4018,8 @@ Return the number of bytes taken by a the first byte
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

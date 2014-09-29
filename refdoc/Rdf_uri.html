@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_uri</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -33,85 +33,85 @@
 <span></span>
 
 <div class="ocamldoc-page">
-<div class="navbar"><a class="pre" href="Rdf_ulex.html" title="Rdf_ulex">Previous</a>
+<div class="navbar"><a class="pre" href="Rdf_types.html" title="Rdf_types">Previous</a>
  <a class="up" href="index.html" title="Index">Up</a>
  <a class="post" href="Rdf_utf8.html" title="Rdf_utf8">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_uri.html">Rdf_uri</a></h1>
 
-<pre id="moduleRdf_urisigend"><a class="paragraph-url" href="#moduleRdf_urisigend"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_uri: <code class="code">sig</code> <a href="Rdf_uri.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_urisigend"><a class="paragraph-url" href="#moduleRdf_urisigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_uri: <code class="code">sig</code> <a href="Rdf_uri.html">..</a> <code class="code">end</code></pre><div class="info module top">
 URIs.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="typeuri"><a class="paragraph-url" href="#typeuri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEuri"><span class="keyword">type</span> uri</span> </pre>
+<pre id="typeuri"><a class="paragraph-url" href="#typeuri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEuri"><span class="keyword">type</span> uri</span> </pre>
 <div class="info">
 URIs are abstract. <b>Do not compare with generic comparison
   functions</b> (<code class="code">Pervasives.compare</code>, (=), ...). Use <a href="Rdf_uri.html#VALequal"><code class="code">Rdf_uri.equal</code></a> or <a href="Rdf_uri.html#VALcompare"><code class="code">Rdf_uri.compare</code></a>.<br/>
 </div>
 
 
-<pre id="exceptionInvalid_uriofst"><a class="paragraph-url" href="#exceptionInvalid_uriofst"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_uri"><span class="keyword">exception</span> Invalid_uri</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre id="exceptionInvalid_uriofst"><a class="paragraph-url" href="#exceptionInvalid_uriofst"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_uri"><span class="keyword">exception</span> Invalid_uri</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre id="valstringuristring"><a class="paragraph-url" href="#valstringuristring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string</code></pre><div class="info">
+<pre id="valstringuristring"><a class="paragraph-url" href="#valstringuristring"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring"><span class="keyword">val</span> string</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string</code></pre><div class="info">
 Create a string from a URI.<br/>
 </div>
 
-<pre id="valuricheckboolstringuri"><a class="paragraph-url" href="#valuricheckboolstringuri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALuri"><span class="keyword">val</span> uri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valuricheckboolstringuri"><a class="paragraph-url" href="#valuricheckboolstringuri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALuri"><span class="keyword">val</span> uri</span> : <code class="type">?check:bool -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Create a URI from a string.<br/>
 <b>Raises</b> <code>Invalid_uri</code> in case the string does not represent a valid URL.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent URI parsing.
      Parsing will be done later if needed, and may then raise <code class="code">Invalid_uri</code>.</div>
 
-<pre id="valconcaturistringuri"><a class="paragraph-url" href="#valconcaturistringuri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valconcaturistringuri"><a class="paragraph-url" href="#valconcaturistringuri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALconcat"><span class="keyword">val</span> concat</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Add the given string to the path of the given URI, using '/' as separator.<br/>
 </div>
 
-<pre id="valappendcheckbooluristr"><a class="paragraph-url" href="#valappendcheckbooluristr"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valappendcheckbooluristr"><a class="paragraph-url" href="#valappendcheckbooluristr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type">?check:bool -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Append the given string to the given URI.<br/>
 </div>
 <div class="param_info"><code class="code">check</code> : can be specified to <code class="code">false</code> to prevent URI parsing.</div>
 
-<pre id="valparenturiuri"><a class="paragraph-url" href="#valparenturiuri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALparent"><span class="keyword">val</span> parent</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valparenturiuri"><a class="paragraph-url" href="#valparenturiuri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALparent"><span class="keyword">val</span> parent</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Return a new URI with the path modified to parent path of the original URI.<br/>
 </div>
 
-<pre id="valset_fragmenturistring"><a class="paragraph-url" href="#valset_fragmenturistring"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valset_fragmenturistring"><a class="paragraph-url" href="#valset_fragmenturistring"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALset_fragment"><span class="keyword">val</span> set_fragment</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Modify the fragment part of the URI.<br/>
 </div>
 
-<pre id="valpathuristringlist"><a class="paragraph-url" href="#valpathuristringlist"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string list</code></pre><div class="info">
+<pre id="valpathuristringlist"><a class="paragraph-url" href="#valpathuristringlist"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpath"><span class="keyword">val</span> path</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; string list</code></pre><div class="info">
 Get the path part of the URI.<br/>
 </div>
 
-<pre id="valcompareuriuriint"><a class="paragraph-url" href="#valcompareuriuriint"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; int</code></pre><div class="info">
+<pre id="valcompareuriuriint"><a class="paragraph-url" href="#valcompareuriuriint"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; int</code></pre><div class="info">
 Comparison of two URIs, as usual.<br/>
 </div>
 
-<pre id="valequaluriuribool"><a class="paragraph-url" href="#valequaluriuribool"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; bool</code></pre><div class="info">
+<pre id="valequaluriuribool"><a class="paragraph-url" href="#valequaluriuribool"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; bool</code></pre><div class="info">
 Equality over URIs.<br/>
 </div>
 
-<pre id="valneturluriNeturlurl"><a class="paragraph-url" href="#valneturluriNeturlurl"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALneturl"><span class="keyword">val</span> neturl</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; Neturl.url</code></pre><div class="info">
+<pre id="valneturluriNeturlurl"><a class="paragraph-url" href="#valneturluriNeturlurl"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALneturl"><span class="keyword">val</span> neturl</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">uri</a> -&gt; Neturl.url</code></pre><div class="info">
 Get a <code class="code">Neturl.url</code> from the given URI. (<code class="code">Neturl.url</code>
   is the underlying represention of URIs).<br/>
 </div>
 
-<pre id="valof_neturlNeturlurluri"><a class="paragraph-url" href="#valof_neturlNeturlurluri"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALof_neturl"><span class="keyword">val</span> of_neturl</span> : <code class="type">Neturl.url -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
+<pre id="valof_neturlNeturlurluri"><a class="paragraph-url" href="#valof_neturlNeturlurluri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALof_neturl"><span class="keyword">val</span> of_neturl</span> : <code class="type">Neturl.url -&gt; <a href="Rdf_uri.html#TYPEuri">uri</a></code></pre><div class="info">
 Get a <a href="Rdf_uri.html#VALuri"><code class="code">Rdf_uri.uri</code></a> from the given <code class="code">Neturl.url</code>.<br/>
 </div>
 
-<pre id="moduleIrimapMapSwithtype"><a class="paragraph-url" href="#moduleIrimapMapSwithtype"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_uri.Irimap.html">Irimap</a>: <code class="type">Map.S</code><code class="type">  with type key = uri</code></pre>
-<pre id="moduleIrisetSetSwithtype"><a class="paragraph-url" href="#moduleIrisetSetSwithtype"><img alt="anchor" src="http://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_uri.Iriset.html">Iriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = uri</code></pre></div>
+<pre id="moduleUrimapMapSwithtype"><a class="paragraph-url" href="#moduleUrimapMapSwithtype"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_uri.Urimap.html">Urimap</a>: <code class="type">Map.S</code><code class="type">  with type key = uri</code></pre>
+<pre id="moduleUrisetSetSwithtype"><a class="paragraph-url" href="#moduleUrisetSetSwithtype"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_uri.Uriset.html">Uriset</a>: <code class="type">Set.S</code><code class="type">  with type elt = uri</code></pre></div>
 
 
 </div>
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

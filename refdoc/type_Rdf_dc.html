@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dc</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed></rssfeed>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+
+
+</div>
+<span></span>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span><br/>
+  <span class="keyword">val</span> dc : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_contributor : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_coverage : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_creator : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_date : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_description : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_format : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_identifier : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_language : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_publisher : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_relation : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_rights : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_source : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_subject : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_title : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> dc_type : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_abstract : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_accessRights : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_accrualMethod : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_accrualPeriodicity : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_accrualPolicy : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Agent : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_AgentClass : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_alternative : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_audience : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_available : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_bibliographicCitation : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_BibliographicResource : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Box : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_conformsTo : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_contributor : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_coverage : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_created : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_creator : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_date : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_dateAccepted : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_dateCopyrighted : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_dateSubmitted : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_description : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_educationLevel : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_extent : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_FileFormat : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_format : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Frequency : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_hasFormat : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_hasPart : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_hasVersion : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_identifier : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_instructionalMethod : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isFormatOf : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_ISO3166 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_ISO639_2 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_ISO639_3 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isPartOf : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isReferencedBy : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isReplacedBy : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isRequiredBy : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_issued : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_isVersionOf : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Jurisdiction : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_language : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_license : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_LicenseDocument : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_LinguisticSystem : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Location : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_LocationPeriodOrJurisdiction : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_mediator : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_MediaType : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_MediaTypeOrExtent : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_medium : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_MethodOfAccrual : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_MethodOfInstruction : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_modified : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Period : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_PeriodOfTime : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_PhysicalMedium : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_PhysicalResource : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Point : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Policy : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_provenance : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_ProvenanceStatement : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_publisher : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_references : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_relation : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_replaces : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_requires : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_RFC1766 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_RFC3066 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_RFC4646 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_RFC5646 : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_rights : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_rightsHolder : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_RightsStatement : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_SizeOrDuration : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_source : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_spatial : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_Standard : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_subject : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_tableOfContents : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_temporal : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_title : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_type : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_URI : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_valid : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> terms_W3CDTF : <span class="constructor">Rdf_iri</span>.iri<br/>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_my1.Mysql</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -79,19 +79,7 @@
   <span class="keyword">val</span> add_namespace : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
   <span class="keyword">val</span> rem_namespace : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
   <span class="keyword">val</span> set_namespaces : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">module</span> <span class="constructor">BGP</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">type</span> term = <span class="constructor">Int64</span>.t<br/>
-      <span class="keyword">type</span> g = <span class="constructor">Rdf_my</span>.t<br/>
-      <span class="keyword">val</span> term : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> int64<br/>
-      <span class="keyword">val</span> rdfterm : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> int64 <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
-      <span class="keyword">val</span> compare : <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="constructor">Int64</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Int64</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">val</span> subjects : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> int64 list<br/>
-      <span class="keyword">val</span> objects : <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> int64 list<br/>
-      <span class="keyword">val</span> find :<br/>
-        ?sub:int64 <span class="keywordsign">-&gt;</span><br/>
-        ?pred:int64 <span class="keywordsign">-&gt;</span> ?obj:int64 <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_my</span>.t <span class="keywordsign">-&gt;</span> (int64 * int64 * int64) list<br/>
-    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="constructor">BGP</span> = <span class="constructor">MyBGP</span><br/>
 <span class="keyword">end</span></code></div>
 
 
@@ -99,8 +87,8 @@
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>

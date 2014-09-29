@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_xml</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<link href="http://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
 <rssfeed></rssfeed>
 </head><body>
 <div id="page">
@@ -12,11 +12,11 @@
 
   <div class="nav-collapse">
   <ul class="nav">
-    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/ocaml-rdf">OCaml-RDF</a></li>
-    <li class="&lt;navbar-download/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
-    <li class="active"><a href="http://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
-    <li class="&lt;navbar-blog/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
-    <li class="&lt;navbar-about/&gt;"><a href="http://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
   </ul>
   </div>
   <div class="nav pull-right">
@@ -66,6 +66,9 @@
       <span class="keyword">val</span> mapi : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t<br/>
     <span class="keyword">end</span><br/>
   <span class="keyword">type</span> tree = <span class="constructor">E</span> <span class="keyword">of</span> <span class="constructor">Xmlm</span>.tag * <span class="constructor">Rdf_xml</span>.tree list <span class="keywordsign">|</span> <span class="constructor">D</span> <span class="keyword">of</span> string<br/>
+  <span class="keyword">val</span> xml_of_string : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree<br/>
+  <span class="keyword">val</span> get_first_child :<br/>
+    <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> string * string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree option<br/>
   <span class="keyword">type</span> state = {<br/>
     subject : <span class="constructor">Rdf_term</span>.term option;<br/>
     predicate : <span class="constructor">Rdf_iri</span>.iri option;<br/>
@@ -92,6 +95,8 @@
     <span class="constructor">Rdf_xml</span>.global_state * int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.global_state * int<br/>
   <span class="keyword">val</span> from_string : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
   <span class="keyword">val</span> from_file : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_input : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Xmlm</span>.input <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_xml : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> unit<br/>
   <span class="keyword">val</span> to_string :<br/>
     ?namespaces:(<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string<br/>
   <span class="keyword">val</span> to_file :<br/>
@@ -104,8 +109,8 @@
 
 <footer id="bottombar">
 </footer>
-<script src="http://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
-<script src="http://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
 
 </body>
 </html>
