@@ -42,7 +42,7 @@ let dummy_loc = {
 
 
 let source_info_string s start stop =
-  let bols = List.rev (Rdf_utf8.utf8_string_get_bol s) in
+  let bols = List.rev (Rdf_utf8.utf8_get_bol s) in
   let rec search cnum = function
     [] -> (1,0)
   | (line,bol) :: q ->

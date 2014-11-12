@@ -11,7 +11,7 @@
 </div>
 <hr width="100%"/>
 
-<pre><span class="keyword">module</span> <a href="Rdf_sparql_map.T.html">T</a>: <code class="type">Rdf_sparql_types</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_sparql_map.T.html">T</a>: <code class="type"><a href="Rdf_sparql_types.html">Rdf_sparql_types</a></code></pre>
 <pre><span id="VALmap_opt"><span class="keyword">val</span> map_opt</span> : <code class="type">('a -&gt; 'b) -&gt; 'a option -&gt; 'b option</code></pre>
 <pre><span id="TYPEmap_fun"><span class="keyword">type</span> <code class="type">('acc, 't)</code> map_fun</span> = <code class="type">'acc <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt; 'acc -&gt; 't -&gt; 't</code> </pre>
 
@@ -407,7 +407,7 @@
 <pre><span id="VALfunction_call"><span class="keyword">val</span> function_call</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; T.function_call -&gt; <a href="Rdf_sparql_types.html#TYPEfunction_call">Rdf_sparql_types.function_call</a></code></pre>
 <pre><span id="VALbinary_op"><span class="keyword">val</span> binary_op</span> : <code class="type">'a -&gt; 'b -&gt; 'c -&gt; 'c</code></pre>
 <pre><span id="VALexpr"><span class="keyword">val</span> expr</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEexpr">Rdf_sparql_types.expr</a> -&gt; <a href="Rdf_sparql_types.html#TYPEexpr">Rdf_sparql_types.expr</a></code></pre>
-<pre><span id="VALexpression"><span class="keyword">val</span> expression</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; T.expression -&gt; T.expression</code></pre>
+<pre><span id="VALexpression"><span class="keyword">val</span> expression</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt; 'a -&gt; T.expression -&gt; T.expression</code></pre>
 <pre><span id="VALbuilt_in_call"><span class="keyword">val</span> built_in_call</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEbuilt_in_call">Rdf_sparql_types.built_in_call</a> -&gt; <a href="Rdf_sparql_types.html#TYPEbuilt_in_call">Rdf_sparql_types.built_in_call</a></code></pre>
 <pre><span id="VALaggregate"><span class="keyword">val</span> aggregate</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEaggregate">Rdf_sparql_types.aggregate</a> -&gt; <a href="Rdf_sparql_types.html#TYPEaggregate">Rdf_sparql_types.aggregate</a></code></pre>
 <pre><span id="VALgroup_var"><span class="keyword">val</span> group_var</span> : <code class="type">'a <a href="Rdf_sparql_map.html#TYPEmapper">mapper</a> -&gt;<br/>       'a -&gt; <a href="Rdf_sparql_types.html#TYPEgroup_var">Rdf_sparql_types.group_var</a> -&gt; <a href="Rdf_sparql_types.html#TYPEgroup_var">Rdf_sparql_types.group_var</a></code></pre>

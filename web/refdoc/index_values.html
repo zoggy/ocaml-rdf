@@ -543,7 +543,8 @@ The nature or genre of the resource.
 <td></td></tr>
 <tr><td><a href="Rdf_4s_lwt.html#VALdelete">delete</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
 <td><div class="info">
-<code class="code">delete uri graph_uri</code>
+<code class="code">delete url graph_uri</code>
+    <code class="code">url</code> including "/data/"
     This method removes the entire <code class="code">graph_uri</code>.
 </div>
 </td></tr>
@@ -1711,8 +1712,9 @@ Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_st
 </td></tr>
 <tr><td><a href="Rdf_4s_lwt.html#VALget">get</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
 <td><div class="info">
-<code class="code">get uri ?default_graph_uri ?named_graph_uri query</code>
-    <code class="code">query</code> If you could like to select a named-graph, it has to be made in the query.
+<code class="code">get url msg</code>
+    <code class="code">url</code> including "/sparql/"
+    This method allows: select/ask/describe queries.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_xml.html#VALget_blank_node">get_blank_node</a> [<a href="Rdf_xml.html">Rdf_xml</a>]</td>
@@ -2313,14 +2315,16 @@ Same as <a href="Rdf_sparql_http.S.html#VALget"><code class="code">Rdf_sparql_ht
 </td></tr>
 <tr><td><a href="Rdf_4s_lwt.html#VALpost_append">post_append</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
 <td><div class="info">
-<code class="code">post_append uri data ?data_type graph_uri</code>
-    This method allow to append <code class="code">data</code> into <code class="code">graph_uri</code>.
+<code class="code">post_append url content content_type graph_uri</code>
+    <code class="code">url</code> including "/data/"
+    This method allow to append <code class="code">content</code> into <code class="code">graph_uri</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_4s_lwt.html#VALpost_update">post_update</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
 <td><div class="info">
-<code class="code">post_update uri query</code>
-    <code class="code">query</code> If you would like to update a named-graph, it has to be made in the query.
+<code class="code">post_update url msg</code>
+    <code class="code">url</code> including "/update/"
+    This method allows: update/insert/delete queries.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_sparql_print.html#VALpp">pp</a> [<a href="Rdf_sparql_print.html">Rdf_sparql_print</a>]</td>
@@ -2596,8 +2600,9 @@ Return the list of nodes appearing in predicate position.
 <td></td></tr>
 <tr><td><a href="Rdf_4s_lwt.html#VALput">put</a> [<a href="Rdf_4s_lwt.html">Rdf_4s_lwt</a>]</td>
 <td><div class="info">
-<code class="code">put uri data ?data_type graph_uri</code>
-    This method allows to replace initial data from <code class="code">graph_uri</code> by <code class="code">data</code>.
+<code class="code">put url content content_type graph_uri</code>
+    <code class="code">url</code> including "/data/"
+    This method allows to replace initial data from <code class="code">graph_uri</code> by <code class="code">content</code>.
 </div>
 </td></tr>
 <tr><td align="left"><br/>Q</td></tr>
@@ -3846,6 +3851,13 @@ Create a URI from a string.
   \(quotes), \' and \\ but does not escape \u nor \U.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_get_bol">utf8_get_bol</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_get_bol str</code> returns the list of pairs
+  <code class="code">(line number, char position)</code> giving the position of beginning of each line
+  in the given string.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_index_of_char">utf8_index_of_char</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_index_of_char str n</code> returns the position in byte
@@ -3862,6 +3874,12 @@ Create a URI from a string.
 <code class="code">utf8_is_suffix s1 s2</code> returns whether <code class="code">s2</code> is suffix of <code class="code">s1</code>.
 </div>
 </td></tr>
+<tr><td><a href="Rdf_utf8.html#VALutf8_length">utf8_length</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
+<td><div class="info">
+<code class="code">utf8_string_length str</code> returns the number of utf8
+  characters in <code class="code">str</code>.
+</div>
+</td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_lowercase">utf8_lowercase</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_lowercase s</code> returns a new string, with some characters
@@ -3870,7 +3888,7 @@ Create a URI from a string.
 </td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_nb_bytes_of_char">utf8_nb_bytes_of_char</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
-Return the number of bytes taken by a the first byte
+Return the number of string taken by a the first byte
   (as character) of a UTF-8 character.
 </div>
 </td></tr>
@@ -3882,19 +3900,6 @@ Return the number of bytes taken by a the first byte
 <tr><td><a href="Rdf_utf8.html#VALutf8_strbefore">utf8_strbefore</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
 <td><div class="info">
 <code class="code">utf8_strbefore s1 s2</code> returns the substring before <code class="code">s2</code> in <code class="code">s1</code>.
-</div>
-</td></tr>
-<tr><td><a href="Rdf_utf8.html#VALutf8_string_get_bol">utf8_string_get_bol</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
-<td><div class="info">
-<code class="code">utf8_string_get_bol str</code> returns the list of pairs
-  <code class="code">(line number, char position)</code> giving the position of beginning of each line
-  in the given string.
-</div>
-</td></tr>
-<tr><td><a href="Rdf_utf8.html#VALutf8_string_length">utf8_string_length</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>
-<td><div class="info">
-<code class="code">utf8_string_length str</code> returns the number of utf8
-  characters in <code class="code">str</code>.
 </div>
 </td></tr>
 <tr><td><a href="Rdf_utf8.html#VALutf8_substr">utf8_substr</a> [<a href="Rdf_utf8.html">Rdf_utf8</a>]</td>

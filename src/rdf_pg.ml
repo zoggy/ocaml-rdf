@@ -105,8 +105,8 @@ let connect options =
     with PG.Error e -> raise (Error (PG.string_of_error e))
   in
   match c#status with
-    PG.Ok -> c
   | PG.Bad -> raise (Error "Connexion error")
+  | _ -> c
 ;;
 
 let hash_of_term dbd ?(add=false) term =

@@ -13,7 +13,7 @@ Handling UTF-8 strings.<br/>
 <hr width="100%"/>
 
 <pre><span id="VALutf8_nb_bytes_of_char"><span class="keyword">val</span> utf8_nb_bytes_of_char</span> : <code class="type">char -&gt; int</code></pre><div class="info ">
-Return the number of bytes taken by a the first byte
+Return the number of string taken by a the first byte
   (as character) of a UTF-8 character.<br/>
 </div>
 
@@ -28,7 +28,7 @@ Return the number of bytes taken by a the first byte
   position corresponding to the given byte index <code class="code">n</code>.<br/>
 </div>
 
-<pre><span id="VALutf8_string_length"><span class="keyword">val</span> utf8_string_length</span> : <code class="type">string -&gt; int</code></pre><div class="info ">
+<pre><span id="VALutf8_length"><span class="keyword">val</span> utf8_length</span> : <code class="type">string -&gt; int</code></pre><div class="info ">
 <code class="code">utf8_string_length str</code> returns the number of utf8
   characters in <code class="code">str</code>.<br/>
 </div>
@@ -70,8 +70,8 @@ Return the number of bytes taken by a the first byte
 <code class="code">utf8_char_of_code n</code> return the UTF8 character from a given codepoint.<br/>
 </div>
 
-<pre><span id="VALutf8_string_get_bol"><span class="keyword">val</span> utf8_string_get_bol</span> : <code class="type">string -&gt; (int * int) list</code></pre><div class="info ">
-<code class="code">utf8_string_get_bol str</code> returns the list of pairs
+<pre><span id="VALutf8_get_bol"><span class="keyword">val</span> utf8_get_bol</span> : <code class="type">string -&gt; (int * int) list</code></pre><div class="info ">
+<code class="code">utf8_get_bol str</code> returns the list of pairs
   <code class="code">(line number, char position)</code> giving the position of beginning of each line
   in the given string.<br/>
 </div>

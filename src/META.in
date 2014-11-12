@@ -33,3 +33,11 @@ package "lwt" (
   archive(native) = "rdf_lwt.cmxa"
   archive(native,plugin) = "rdf_lwt.cmxs"
 )
+
+package "ppx" (
+  version = "@VERSION@"
+  description = "Syntax extension for OCaml-RDF"
+  requires = "rdf"
+  ppx(byte) = "./ppx_rdf.byte"
+  ppx(native) = "./ppx_rdf"
+)

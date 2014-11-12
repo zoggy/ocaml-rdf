@@ -40,7 +40,7 @@ let utf8_index_of_char s c =
   let current = ref 0 in
   let len = String.length s in
   while !current < c && !cpt < len do
-    cpt := !cpt + utf8_nb_bytes_of_char s.[!cpt];
+    cpt := !cpt + utf8_nb_bytes_of_char (String.get s !cpt) ;
     incr current;
   done;
   if !current = c then
@@ -63,7 +63,7 @@ let utf8_char_of_index s i =
       !char_count
     end
 
-let utf8_string_length s =
+let utf8_length s =
   let len = String.length s in
   let rec iter acc n =
     if n >= len then
@@ -103,14 +103,14 @@ let () = print_endline (utf8_substr "abécédé" 2 5);;
 *)
 
 let utf8_is_prefix s1 s2 =
-  let len1 = utf8_string_length s1 in
-  let len2 = utf8_string_length s2 in
+  let len1 = utf8_length s1 in
+  let len2 = utf8_length s2 in
   (len1 >= len2) && (String.sub s1 0 len2) = s2
 ;;
 
 let utf8_is_suffix s1 s2 =
-  let len1 = utf8_string_length s1 in
-  let len2 = utf8_string_length s2 in
+  let len1 = utf8_length s1 in
+  let len2 = utf8_length s2 in
   if len1 = len2 then
     s1 = s2
   else
@@ -118,8 +118,8 @@ let utf8_is_suffix s1 s2 =
 ;;
 
 let utf8_substr_pos s1 s2 =
-  let ulen1 = utf8_string_length s1 in
-  let ulen2 = utf8_string_length s2 in
+  let ulen1 = utf8_length s1 in
+  let ulen2 = utf8_length s2 in
   let len2 = String.length s2 in
   let rec iter i n =
     if ulen1 - n >= ulen2 then
@@ -174,10 +174,10 @@ let utf8_char_of_code n =
       let y_mask = Int32.of_int 0b0000011111000000 in
       let y_part = Int32.shift_right_logical (Int32.logand n y_mask) 6 in
       let y = Int32.logor (Int32.of_int 0b11000000) y_part in
-      let s = "12" in
-      s.[0] <- Char.chr (Int32.to_int y) ;
-      s.[1] <- Char.chr (Int32.to_int z) ;
-      s
+      let s = Bytes.of_string "12" in
+      Bytes.set s 0 (Char.chr (Int32.to_int y)) ;
+      Bytes.set s 1 (Char.chr (Int32.to_int z)) ;
+      Bytes.to_string s
     else
       let y_mask = Int32.of_int 0b111111000000 in
       let y_part = Int32.shift_right_logical (Int32.logand n y_mask) 6 in
@@ -186,11 +186,11 @@ let utf8_char_of_code n =
         let x_mask = Int32.of_int (0b1111 lsl 12) in
         let x_part = Int32.shift_right_logical (Int32.logand n x_mask) 12 in
         let x = Int32.logor (Int32.of_int 0b11100000) x_part in
-        let s = "123" in
-        s.[0] <- Char.chr (Int32.to_int x) ;
-        s.[1] <- Char.chr (Int32.to_int y) ;
-        s.[2] <- Char.chr (Int32.to_int z) ;
-        s
+        let s = Bytes.of_string "123" in
+        Bytes.set s 0 (Char.chr (Int32.to_int x)) ;
+        Bytes.set s 1 (Char.chr (Int32.to_int y)) ;
+        Bytes.set s 2 (Char.chr (Int32.to_int z)) ;
+        Bytes.to_string s
       else
         if Int32.compare n (Int32.of_int 0x10FFFF) <= 0 then
           let x_mask = Int32.of_int (0b111111 lsl 12) in
@@ -199,17 +199,17 @@ let utf8_char_of_code n =
           let w_mask = Int32.of_int (0b111 lsl 18) in
           let w_part = Int32.shift_right_logical (Int32.logand n w_mask) 18 in
           let w = Int32.logor (Int32.of_int 0b11110000) w_part in
-          let s = "1234" in
-          s.[0] <- Char.chr (Int32.to_int w) ;
-          s.[1] <- Char.chr (Int32.to_int x) ;
-          s.[2] <- Char.chr (Int32.to_int y) ;
-          s.[3] <- Char.chr (Int32.to_int z) ;
-          s
+          let s = Bytes.of_string "1234" in
+          Bytes.set s 0 (Char.chr (Int32.to_int w)) ;
+          Bytes.set s 1 (Char.chr (Int32.to_int x)) ;
+          Bytes.set s 2 (Char.chr (Int32.to_int y)) ;
+          Bytes.set s 3 (Char.chr (Int32.to_int z)) ;
+          Bytes.to_string s
         else
           failwith ("UTF-8 code out of range: "^ (Int32.to_string n))
 ;;
 
-let utf8_string_get_bol =
+let utf8_get_bol =
   let rec iter acc len s line char i =
     if i >= len then
       List.rev acc
@@ -335,27 +335,27 @@ let utf8_unescape =
 ;;
 
 let utf8_lowercase s =
-  let s = String.copy s in
+  let b = Bytes.of_string s in
   let len = String.length s in
   let i = ref 0 in
   while !i < len do
     match utf8_nb_bytes_of_char s.[!i] with
-      1 -> s.[!i] <- Char.lowercase s.[!i]; incr i
+      1 -> Bytes.set b !i (Char.lowercase s.[!i]); incr i
     | n -> i := !i + n
   done;
-  s
+  Bytes.to_string b
 ;;
 
 let utf8_uppercase s =
-  let s = String.copy s in
+  let b = Bytes.of_string s in
   let len = String.length s in
   let i = ref 0 in
   while !i < len do
     match utf8_nb_bytes_of_char s.[!i] with
-      1 -> s.[!i] <- Char.uppercase s.[!i]; incr i
+      1 -> Bytes.set b !i (Char.uppercase s.[!i]); incr i
     | n -> i := !i + n
   done;
-  s
+  Bytes.to_string b
 ;;
 
 

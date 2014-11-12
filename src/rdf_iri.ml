@@ -60,7 +60,7 @@ type iri_ = {
 type iri = string
 
 let re_iri = regexp
-    (scheme^":((//((?<user>[^@]+)@)?(?<host>[^:/#]*)(:(?<port>\\d+))?(/(?<path1>[^#?]*)))|(?<path2>[^#?]*))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
+    (scheme^":((//((?<user>[^@]+)@)?(?<host>[^:/#]*)(:(?<port>\\d+))?((?<path1>(/?[^#?]*))))|(?<path2>([^#?]*)))(\\?(?<query>[^#]*))?(#(?<fragment>.*))?")
 ;;
 
 let re_nonemptypath =

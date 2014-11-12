@@ -3,7 +3,7 @@
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_nb_bytes_of_char&#160;:&#160;char&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_index_of_char&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_char_of_index&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;utf8_string_length&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;utf8_length&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_substr&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_is_prefix&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_is_suffix&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
@@ -12,7 +12,7 @@
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_strbefore&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_strafter&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_char_of_code&#160;:&#160;int32&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;utf8_string_get_bol&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;(int&#160;*&#160;int)&#160;list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;utf8_get_bol&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;(int&#160;*&#160;int)&#160;list<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_count_nl&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_escape&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;utf8_unescape&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>

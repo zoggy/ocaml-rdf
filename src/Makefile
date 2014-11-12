@@ -27,7 +27,7 @@ include ../master.Makefile
 OF_FLAGS=-package $(PACKAGES),$(LWT_PACKAGES)
 INCLUDES=
 
-COMPFLAGS=$(INCLUDES) -g $(MT_FLAGS) #-annot
+COMPFLAGS=$(INCLUDES) -safe-string -g $(MT_FLAGS) #-annot
    # beware that outputting annotation takes a long time for the sparql parser
 LINKFLAGS=$(INCLUDES)
 
@@ -42,9 +42,11 @@ LIB_MYSQL_CMXS=$(LIB_MYSQL:.cmxa=.cmxs)
 LIB_POSTGRESQL_BYTE=$(LIB_POSTGRESQL:.cmxa=.cma)
 LIB_POSTGRESQL_CMXS=$(LIB_POSTGRESQL:.cmxa=.cmxs)
 
-
 LIB_LWT_BYTE=$(LIB_LWT:.cmxa=.cma)
 LIB_LWT_CMXS=$(LIB_LWT:.cmxa=.cmxs)
+
+PPX=ppx_rdf
+PPX_BYTE=$(PPX).byte
 
 # Compilation
 #############
@@ -114,8 +116,8 @@ RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) \
 	$(LIB_POSTGRESQL_BYTE) $(LIB_LWT_BYTE)
 
 all: opt byte
-opt: $(RDF_LIBS)
-byte: $(RDF_LIBS_BYTE)
+opt: $(RDF_LIBS) $(PPX)
+byte: $(RDF_LIBS_BYTE) $(PPX_BYTE)
 tools: $(LIB_RDF)
 	cd tools && $(MAKE) all
 
@@ -138,6 +140,12 @@ $(LIB_RDF_CMXS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
 
 $(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
+
+$(PPX): $(LIB_RDF) ppx_rdf.ml
+	$(OCAMLFIND) ocamlopt -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
+
+$(PPX_BYTE): $(LIB_RDF_BYTE) ppx_rdf.ml
+	$(OCAMLFIND) ocamlc -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
 
 # MYSQL
 
@@ -210,7 +218,7 @@ test_sparql_protocol: $(LIB_RDF) $(LIB_LWT) test_sparql_protocol.cmx
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) $(INCLUDES) -sort -dump dump.odoc \
 	-syntax camlp4o -package lwt.syntax \
-	`ls $^ | grep -v example | grep -v test | grep -v -E "rdf_iri.ml$$" | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" `
+	`ls $^ | grep -v example | grep -v test | grep -v -E "rdf_iri.ml$$" | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" | grep -v ppx_ `
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc
@@ -252,6 +260,7 @@ clean:: dummy
 	$(RM) *.cm* *.a *.o *.annot
 	$(RM) dump.odoc
 	$(RM) test_mysql
+	$(RM) $(PPX) $(PPX_BYTE)
 	cd tools && $(MAKE) clean
 
 .depend depend:
@@ -270,7 +279,8 @@ install: all
 		$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_RDF_BYTE) \
 		$(LIB_MYSQL) $(LIB_MYSQL_CMXS) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE) \
 		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE) \
-		$(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES) $(LIB_LWT_BYTE)
+		`if test -n "$(LIB_LWT)"; then echo $(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES) $(LIB_LWT_BYTE) ; fi` \
+		$(PPX) $(PPX_BYTE)
 
 uninstall: dummy
 	$(OCAMLFIND) remove $(PACKAGE)
