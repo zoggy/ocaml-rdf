@@ -295,10 +295,10 @@ let prepare_queries dbd table =
   let query = "SELECT iri, name FROM "^nstable in
   prepare_query dbd prepared_namespaces query;
 
-  let query = "DELETE FROM "^nstable^" WHERE NAME=?" in
+  let query = "DELETE FROM "^nstable^" WHERE NAME=$1" in
   prepare_query dbd prepared_delete_namespace query;
 
-  let query = "INSERT INTO "^nstable^" (iri, name) VALUES (?, ?)" in
+  let query = "INSERT INTO "^nstable^" (iri, name) VALUES ($1, $2)" in
   prepare_query dbd prepared_insert_namespace query;
 
   dbg ~level: 1 (fun () -> "done")
