@@ -35,9 +35,9 @@ let string_of_triple (sub, pred, obj) =
 
 let main () =
   let options =
-    [ "storage", "mysql" ;
+    [ "storage", "postgresql" ;
       "database", "testrdf";
-      "user", Sys.getenv "USER";
+      "user", Sys.getenv "USER" ;
     ]
   in
   let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in

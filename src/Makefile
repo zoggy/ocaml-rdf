@@ -127,6 +127,7 @@ testtools: \
 	rdf_sparql_bench \
 	rdf_sparql_test \
 	test_mysql \
+	test_pgsql \
 	test_sparql \
 	rdf_turtle_test
 
@@ -184,6 +185,9 @@ $(LIB_LWT_BYTE): $(LIB_LWT_CMIFILES) $(LIB_LWT_CMOFILES)
 
 test_mysql: $(LIB_RDF) $(LIB_MYSQL) rdf_test_mysql.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_MYSQL) -linkall $(COMPFLAGS) rdf_test_mysql.cmx
+
+test_pgsql: $(LIB_RDF) $(LIB_MYSQL) rdf_test_pgsql.cmx
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) $(LIB_POSTGRESQL) -linkall $(COMPFLAGS) rdf_test_pgsql.cmx
 
 test_xml: $(LIB_RDF) test_xml.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -linkpkg -o $@ $(LIB_RDF) -linkall $(COMPFLAGS) test_xml.cmx
@@ -260,6 +264,7 @@ clean:: dummy
 	$(RM) *.cm* *.a *.o *.annot
 	$(RM) dump.odoc
 	$(RM) test_mysql
+	$(RM) test_pgsql
 	$(RM) $(PPX) $(PPX_BYTE)
 	cd tools && $(MAKE) clean
 

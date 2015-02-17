@@ -59,7 +59,7 @@ let get_tuple res t =
   with PG.Error e -> raise (Error (PG.string_of_error e))
 ;;
 
-let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;
+(*let quote_str s = "\"" ^ (String.escaped s) ^ "\"";;*)
 
 let exec_query (dbd : PG.connection) q =
   dbg ~level: 3 (fun () -> "exec_query: " ^ q);
@@ -74,14 +74,22 @@ let exec_query (dbd : PG.connection) q =
   | _ -> raise (Error res#error)
 ;;
 
-let exec_prepared (dbd : PG.connection) stmt params =
-  dbg ~level: 2 (fun () -> "exec_prepared: " ^ stmt);
-  let query = "EXECUTE "^stmt^" " ^
-    (match params with
-       [] -> ""
-     | _ -> "(" ^ (String.concat ", " params) ^ ")")
+let exec_prepared (dbd : PG.connection) q params =
+  dbg ~level: 2 (fun () ->
+     Printf.sprintf "exec_prepared: %s(%s)" q
+       (match params with
+          [] -> ""
+        | _ -> "(" ^ (String.concat ", " params) ^ ")")
+  );
+  let res =
+    try dbd#exec_prepared ~params: (Array.of_list params) q
+    with PG.Error e -> raise (Error (PG.string_of_error e))
   in
-  exec_query dbd query
+  match res#status with
+  | PG.Command_ok
+  | PG.Tuples_ok -> res
+  | PG.Copy_out | PG.Copy_in -> assert false
+  | _ -> raise (Error res#error)
 ;;
 
 let connect options =
@@ -321,15 +329,15 @@ let namespaces g =
 ;;
 
 let rem_namespace g name =
-  let params = [ quote_str name ] in
+  let params = [ name ] in
   ignore(exec_prepared g.g_dbd prepared_delete_namespace params)
 ;;
 
 let add_namespace g iri name =
   rem_namespace g name ;
   let params = [
-      quote_str (Rdf_iri.string iri);
-      quote_str name ;
+      Rdf_iri.string iri ;
+      name ;
     ]
   in
   ignore(exec_prepared g.g_dbd prepared_insert_namespace params)
@@ -579,7 +587,7 @@ let graph_size g =
 ;;
 
 let exists ?sub ?pred ?obj g =
-  let query = "SELECT COUNT(*) FROM %"^g.g_table^
+  let query = "SELECT COUNT(*) FROM "^g.g_table^
     " where " ^ (mk_where_clause ?sub ?pred ?obj g)
   in
   let res = exec_query g.g_dbd query in
