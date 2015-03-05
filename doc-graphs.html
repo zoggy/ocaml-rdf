@@ -77,10 +77,10 @@ to associate the name &quot;Alice&quot; and the mailbox address IRI
 <p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph, in Turtle format:</p>
 
 <pre class="code-ocaml" id="prefixrdfhttpwwww3org199"><a class="paragraph-url" href="#prefixrdfhttpwwww3org199"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-69588381 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
-_:genid1-69588381 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
-_:genid0-573441213 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
-_:genid0-573441213 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
+_:genid1-939086134 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+_:genid1-939086134 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
+_:genid0-846875718 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
+_:genid0-846875718 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
 </div></pre>
 
 </div>
@@ -117,8 +117,8 @@ to display the result:
 </div></div><div># <span class="hl kwc">List</span><span class="hl std">.</span><span class="">iter</span><span class="hl std">
    (</span><span class="hl kwa">fun</span><span class="hl std"> (</span><span class="">sub</span><span class="hl std">,</span><span class="">pred</span><span class="hl std">,</span><span class="">obj</span><span class="hl std">) -&gt;
      </span><span class="">print_endline</span><span class="hl std"> (</span><span class="hl kwc">Rdf_ttl</span><span class="hl std">.</span><span class="">string_of_triple</span><span class="hl std"> </span><span class="hl kw4">~sub</span><span class="hl std"> </span><span class="hl kw4">~pred</span><span class="hl std"> </span><span class="hl kw4">~obj</span><span class="hl std">))
-   </span><span class="">triples</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="stdout">_:genid0-573441213 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
-_:genid1-69588381 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+   </span><span class="">triples</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="stdout">_:genid0-846875718 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
+_:genid1-939086134 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
 </div><div class="toplevel-out">- : unit = ()
 </div></div></pre>
 <p id="Thesearesimplewaystoquer"><a class="paragraph-url" href="#Thesearesimplewaystoquer"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>These are simple ways to query the graph.
@@ -178,10 +178,10 @@ and <code>transaction_rollback</code> of the the
 <pre class="code-ocaml"><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-885063978 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-49714096 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-_:genid0-885063978 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-885063978 ex:fullName &quot;Dave Beckett&quot; .
+_:genid0-49714096 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-49714096 ex:fullName &quot;Dave Beckett&quot; .
 </div></pre>
 
 <p id="Nowletsstartatransaction"><a class="paragraph-url" href="#Nowletsstartatransaction"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Now let's start a transaction, and modify the graph:</p>
@@ -198,10 +198,10 @@ _:genid0-885063978 ex:fullName &quot;Dave Beckett&quot; .
 <pre class="code-ocaml"><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-885063978 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-49714096 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-_:genid0-885063978 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-885063978 ex:fullName &quot;Jean Dupont&quot; .
+_:genid0-49714096 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-49714096 ex:fullName &quot;Jean Dupont&quot; .
 </div></pre>
 
 <p id="Ifwerollbackwegettheprev"><a class="paragraph-url" href="#Ifwerollbackwegettheprev"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>If we rollback, we get the previous graph:</p>
@@ -210,10 +210,10 @@ _:genid0-885063978 ex:fullName &quot;Jean Dupont&quot; .
 <pre class="code-ocaml"><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-885063978 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-49714096 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title &quot;RDF/XML Syntax Specification (Revised)&quot; .
-_:genid0-885063978 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-885063978 ex:fullName &quot;Dave Beckett&quot; .
+_:genid0-49714096 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-49714096 ex:fullName &quot;Dave Beckett&quot; .
 </div></pre>
 
 </div>
