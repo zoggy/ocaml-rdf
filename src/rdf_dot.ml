@@ -82,16 +82,20 @@ let dot_of_graph ?namespaces ?href ?iri g =
       Iri iri ->
          let iri = Rdf_iri.string iri in
          let (pref,s) = apply_namespaces namespaces iri in
-         begin
-          match pref with
-            "" -> s
-          | _ -> pref ^ ":" ^ s
-         end
+         let s =
+          begin
+            match pref with
+              "" -> s
+            | _ -> pref ^ ":" ^ s
+          end
+        in
+        Printf.sprintf "%S" s
     | Literal lit ->
-        lit.lit_value
+        Rdf_term.string_of_literal lit
+        (*lit.lit_value
           ^ (match lit.lit_language with None -> "" | Some s -> "^"^s)
-          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Rdf_iri.string iri))
-    | Blank_ _ | Blank -> ""
+          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Rdf_iri.string iri))*)
+    | Blank_ _ | Blank -> "\"\""
   in
   let id node =
     let s =
@@ -107,12 +111,12 @@ let dot_of_graph ?namespaces ?href ?iri g =
     "N" ^ (Digest.to_hex (Digest.string s))
   in
   let f set (sub, pred, obj) =
-    Printf.bprintf b "%s -> %s [label=%S];\n" (id sub) (id obj) (label (Iri pred));
+    Printf.bprintf b "%s -> %s [label=%s];\n" (id sub) (id obj) (label (Iri pred));
     Rdf_term.TSet.add sub (Rdf_term.TSet.add obj set)
   in
   let set = List.fold_left f Rdf_term.TSet.empty triples in
   let f_node node =
-    Printf.bprintf b "%s [ label=%S %s];\n" (id node) (label node)
+    Printf.bprintf b "%s [ label=%s %s];\n" (id node) (label node)
       (match href with
          None -> ""
        | Some f ->
