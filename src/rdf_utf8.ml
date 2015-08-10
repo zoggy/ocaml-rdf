@@ -255,6 +255,9 @@ let utf8_escape =
           | '\'' -> Buffer.add_string b "'"
           | '\\' when i < len - 1 && s.[i+1] <> 'u' && s.[i+1] <> 'U' ->
               Buffer.add_string b "\\\\"
+          | '\\' when i = len - 1 ->
+              (* string ending with '\', escape it too *)
+              Buffer.add_string b "\\\\"
           | c ->
             Buffer.add_string b (String.sub s i size);
          end;
