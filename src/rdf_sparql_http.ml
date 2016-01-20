@@ -143,9 +143,9 @@ module type P =
 module type S =
   sig
     type result
-    val get : ?graph: Rdf_graph.graph -> base:Iri.of_string -> ?accept: string ->
+    val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
       Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
-    val post : ?graph: Rdf_graph.graph -> base:Iri.of_string -> ?accept: string ->
+    val post : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
       Rdf_uri.uri -> ?query_var: string ->
       Rdf_sparql_protocol.in_message -> result
   end

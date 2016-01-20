@@ -134,21 +134,21 @@ let get_first_child xml tag =
 
 let is_element iri (pref,loc) =
   let iri2 = Iri.of_string (pref^loc) in
-  Rdf_iri.compare iri iri2 = 0
+  Iri.compare iri iri2 = 0
 ;;
 
 
 (** {2 Input} *)
 
 module SMap = Rdf_types.SMap;;
-module Irimap = Rdf_iri.Irimap;;
+module Irimap = Iri.Map
 
 type state =
   { subject : Rdf_term.term option ;
-    predicate : Iri.of_string option ;
-    xml_base : Iri.of_string ;
+    predicate : Iri.iri option ;
+    xml_base : Iri.iri ;
     xml_lang : string option ;
-    datatype : Iri.of_string option ;
+    datatype : Iri.iri option ;
     namespaces : string Irimap.t ;
   }
 
@@ -215,7 +215,7 @@ let get_blank_node g gstate id =
     let gstate = { gstate with blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
-let abs_iri state iri = Rdf_iri.ensure_absolute state.xml_base iri;;
+let abs_iri state iri = Iri.resolve ~base: state.xml_base iri;;
 
 let rec input_node g state gstate t =
   let (gstate, state) = update_state gstate state t in
@@ -230,9 +230,10 @@ let rec input_node g state gstate t =
       g.add_triple ~sub ~pred ~obj;
       gstate
   | E (((pref,s), atts), children) ->
+      let iri = Iri.ref_of_string s in
       let (node, gstate) =
         match get_att_iri Rdf_rdf.rdf_about atts with
-          Some s -> (Iri (abs_iri state s), gstate)
+          Some s -> (Iri (abs_iri state iri), gstate)
         | None ->
             match get_att_iri Rdf_rdf.rdf_ID atts with
               Some id -> (Iri (Iri.of_string ((Iri.to_string state.xml_base)^"#"^id)), gstate)
@@ -259,7 +260,7 @@ let rec input_node g state gstate t =
         if pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns then
           begin
             let iri_prop = Iri.of_string (pref^s) in
-            if not (List.exists (Rdf_iri.equal iri_prop) [ Rdf_rdf.rdf_about ; Rdf_rdf.rdf_ID ; Rdf_rdf.rdf_nodeID ]) then
+            if not (List.exists (Iri.equal iri_prop) [ Rdf_rdf.rdf_about ; Rdf_rdf.rdf_ID ; Rdf_rdf.rdf_nodeID ]) then
               begin
                 let obj = Rdf_term.term_of_literal_string ?lang: state.xml_lang v in
                 g.add_triple ~sub: node ~pred: iri_prop ~obj
@@ -281,14 +282,15 @@ and input_prop g state (gstate, li) t =
       let sub = match state.subject with None -> assert false | Some sub -> sub in
       let prop_iri = Iri.of_string (pref^s) in
       let (prop_iri, li) =
-        if Rdf_iri.equal prop_iri Rdf_rdf.rdf_li then
+        if Iri.equal prop_iri Rdf_rdf.rdf_li then
           (Rdf_rdf.rdf_n li, li + 1)
         else
           (prop_iri, li)
       in
       match get_att_iri Rdf_rdf.rdf_resource atts with
         Some s ->
-          let obj = Iri (abs_iri state s) in
+          let iri = Iri.ref_of_string s in
+          let obj = Iri (abs_iri state iri) in
           g.add_triple ~sub ~pred: prop_iri ~obj ;
           (gstate, li)
       | None ->
@@ -347,7 +349,7 @@ and input_prop g state (gstate, li) t =
           | None ->
               match get_att_iri Rdf_rdf.rdf_datatype atts, children with
               | Some s, [D lit] ->
-                  let typ = abs_iri state s in
+                  let typ = abs_iri state (Iri.ref_of_string s) in
                   let obj = Rdf_term.term_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: prop_iri ~obj;
                   (gstate, li)
@@ -361,7 +363,7 @@ and input_prop g state (gstate, li) t =
                     are property relations, with ommited blank nodes *)
                   let pred ((pref,s),v) =
                     pref <> Xmlm.ns_xml && pref <> Xmlm.ns_xmlns &&
-                    (let iri = Iri.of_string (pref^s) in not (Rdf_iri.equal iri Rdf_rdf.rdf_ID))
+                    (let iri = Iri.of_string (pref^s) in not (Iri.equal iri Rdf_rdf.rdf_ID))
                   in
                   match List.filter pred atts with
                     [] ->
@@ -438,7 +440,7 @@ let output g =
           let (atts, subs) =
             match lit.lit_type with
               None -> ([], [D lit.lit_value])
-            | Some iri when Rdf_iri.equal iri Rdf_rdf.rdf_XMLLiteral ->
+            | Some iri when Iri.equal iri Rdf_rdf.rdf_XMLLiteral ->
                 let subs = xmls_of_string lit.lit_value in
                 (
                  [("",Iri.to_string Rdf_rdf.rdf_parseType), "Literal"],

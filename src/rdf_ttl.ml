@@ -40,7 +40,8 @@ let string_of_error = function
     "Unknown namespace '" ^ s ^ "'"
 ;;
 
-let iri_of_iriref ctx s = Rdf_iri.ensure_absolute ctx.base s;;
+let iri_of_iriref ctx s = 
+  Iri.resolve ~base: ctx.base (Iri.ref_of_string s);;
 
 let iri_of_resource ctx = function
   Iriref iri -> iri_of_iriref ctx iri
@@ -161,7 +162,7 @@ open Lexing;;
 let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
   let gstate = {
       Rdf_xml.blanks = SMap.empty ;
-      gnamespaces = Rdf_iri.Irimap.empty ;
+      gnamespaces = Iri.Map.empty ;
     }
   in
   let ctx = {
@@ -176,12 +177,10 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
         let msg =
           match e with
             Rdf_ttl_parser.Error ->
-              let lexeme = Ulexing.utf8_lexeme lexbuf in
+              let lexeme = Sedlexing.Utf8.lexeme lexbuf in
               Printf.sprintf "Parse error on lexeme %S" lexeme
-          | Failure msg ->
-              msg
-          | Rdf_iri.Invalid_iri (s, msg) ->
-              "Invalid IRI "^s^" : "^msg
+          | Failure msg -> msg
+          | Iri.Error e -> Iri.string_of_error e
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
@@ -194,13 +193,13 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
 ;;
 
 let from_string g ?base s =
-  let lexbuf = Ulexing.from_utf8_string s in
+  let lexbuf = Sedlexing.Utf8.from_string s in
   from_lexbuf g ?base lexbuf
 ;;
 
 let from_file g ?base file =
   let ic = open_in_bin file in
-  let lexbuf = Ulexing.from_utf8_channel ic in
+  let lexbuf = Sedlexing.Utf8.from_channel ic in
   try from_lexbuf g ?base ~fname: file lexbuf
   with e ->
       close_in ic;

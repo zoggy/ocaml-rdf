@@ -71,12 +71,11 @@ let query_from_lexbuf ?fname lexbuf =
         let msg =
           match e with
             Rdf_sparql_parser.Error ->
-              let lexeme = Ulexing.utf8_lexeme lexbuf in
+              let lexeme = Sedlexing.Utf8.lexeme lexbuf in
               Printf.sprintf "Parse error on lexeme %S" lexeme
           | Failure msg ->
               msg
-          | Rdf_iri.Invalid_iri (s, msg) ->
-              "Invalid IRI "^s^" : "^msg
+          | Iri.Error e -> Iri.string_of_error e              
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
@@ -87,13 +86,13 @@ let query_from_lexbuf ?fname lexbuf =
 type query = Rdf_sparql_types.query
 
 let query_from_string s =
-  let lexbuf = Ulexing.from_utf8_string s in
+  let lexbuf = Sedlexing.Utf8.from_string s in
   query_from_lexbuf lexbuf
 ;;
 
 let query_from_file file =
   let ic = open_in file in
-  let lexbuf = Ulexing.from_utf8_channel ic in
+  let lexbuf = Sedlexing.Utf8.from_channel ic in
   try query_from_lexbuf ~fname: file lexbuf
   with e ->
       close_in ic;
@@ -203,8 +202,8 @@ let var_or_term_apply_sol sol bnode_map = function
 | Rdf_sparql_types.GraphTerm t ->
     match t with
     | GraphTermIri (PrefixedName _) -> assert false
-    | GraphTermIri (Reliri _) -> assert false
-    | GraphTermIri (Iriref ir) -> (Rdf_term.Iri (ir.ir_iri), bnode_map)
+    | GraphTermIri (Iriref _) -> assert false
+    | GraphTermIri (Iri i) -> (Rdf_term.Iri (i.iri_iri), bnode_map)
     | GraphTermLit lit
     | GraphTermNumeric lit
     | GraphTermBoolean lit -> (Rdf_term.Literal lit.rdf_lit, bnode_map)
@@ -238,9 +237,9 @@ let add_solution_to_graph graph template =
       let pred =
         match path with
           Rdf_sparql_algebra.Var v -> Rdf_sparql_types.Var v
-        | Rdf_sparql_algebra.Iri iriref ->
+        | Rdf_sparql_algebra.Iri iri ->
             Rdf_sparql_types.GraphTerm
-              (Rdf_sparql_types.GraphTermIri (Rdf_sparql_types.Iriref iriref))
+              (Rdf_sparql_types.GraphTermIri (Rdf_sparql_types.Iri iri))
         | _ -> failwith "Invalid predicate spec in template"
       in
       let (sub, bnode_map) =

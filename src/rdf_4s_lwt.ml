@@ -58,7 +58,7 @@ let delete uri graph_uri =
   let url' = Neturl.modify_url ~query ~encoded:true url in
   let uri' = Uri.of_string (Rdf_uri.string (Rdf_uri.of_neturl url')) in
   let headers = get_headers () in
-  lwt response = Cohttp_lwt_unix.Client.delete ~headers uri' in
+  let%lwt response = Cohttp_lwt_unix.Client.delete ~headers uri' in
   result_of_null_response response
 
 let put uri content content_type graph_uri =
@@ -66,13 +66,13 @@ let put uri content content_type graph_uri =
   let content_length = String.length content in
   let body = body_of_string content in
   let headers = get_headers ~content_type ~content_length () in
-  lwt response = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
+  let%lwt response = Cohttp_lwt_unix.Client.put ~body ~chunked:false ~headers uri in
   result_of_null_response response
 
 let post_append uri content content_type graph_uri =
   let content' = (content ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
                     "&mime-type=" ^ content_type)
   in
-  let base = Iri.of_string ~check:false "" in
+  let base = Iri.of_string "" in
   let msg = {in_query = content'; in_dataset = empty_dataset} in
   Rdf_sparql_http_lwt.post ~base uri ~query_var:"data" msg

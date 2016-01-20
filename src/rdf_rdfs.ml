@@ -22,8 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let rdfs = Iri.of_string "http://www.w3.org/2000/01/rdf-schema#";;
-let rdfs_ = Rdf_iri.append rdfs;;
+let rdfs_str = "http://www.w3.org/2000/01/rdf-schema#";;
+let rdfs = Iri.of_string rdfs_str ;;
+let rdfs_ s = Iri.of_string (rdfs_str ^ s);;
 
 let rdfs_Class = rdfs_"Class" ;;
 

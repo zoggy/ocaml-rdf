@@ -24,10 +24,10 @@
 
 (** *)
 
-module Irimap = Rdf_iri.Irimap
-module Iriset = Rdf_iri.Iriset
+module Irimap = Iri.Map
+module Iriset = Iri.Set
 
-exception Could_not_retrieve_graph of Iri.of_string * string
+exception Could_not_retrieve_graph of Iri.iri * string
 let could_not_retrieve_graph iri msg =
   raise (Could_not_retrieve_graph (iri, msg))
 ;;
@@ -35,7 +35,7 @@ let could_not_retrieve_graph iri msg =
 type dataset =
   { default : Rdf_graph.graph ;
     named : Iriset.t ;
-    get_named : Iri.of_string -> Rdf_graph.graph ;
+    get_named : Iri.iri -> Rdf_graph.graph ;
   }
 
 let simple_dataset ?(named=[]) default =

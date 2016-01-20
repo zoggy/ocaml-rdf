@@ -220,7 +220,6 @@ test_sparql_protocol: $(LIB_RDF) $(LIB_LWT) test_sparql_protocol.cmx
 #################
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) $(INCLUDES) -sort -dump dump.odoc \
-	-syntax camlp4o -package lwt.syntax \
 	`ls $^ | grep -v example | grep -v test | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" | grep -v ppx_ `
 
 doc: dump.odoc
@@ -269,7 +268,7 @@ clean:: dummy
 
 .depend depend:
 	$(RM) .depend
-	$(OCAMLFIND) ocamldep -syntax camlp4o -package lwt.syntax *.ml *.mli > .depend
+	$(OCAMLFIND) ocamldep -package lwt.syntax,sedlex,lwt.ppx *.ml *.mli > .depend
 
 dummy:
 
@@ -304,17 +303,5 @@ rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
-
-rdf_sparql_http_lwt.cmo: rdf_sparql_http_lwt.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
-
-rdf_sparql_http_lwt.cmx: rdf_sparql_http_lwt.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
-
-rdf_4s_lwt.cmo: rdf_4s_lwt.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
-
-rdf_4s_lwt.cmx: rdf_4s_lwt.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -syntax camlp4o -package lwt.syntax $(COMPFLAGS) -c $<
 
 

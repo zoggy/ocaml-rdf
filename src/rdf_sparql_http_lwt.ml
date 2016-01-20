@@ -33,7 +33,7 @@ let result_of_response f (header, body) =
       None -> ""
     | Some s -> s
   in
-  lwt body_string = Cohttp_lwt_body.to_string body in
+  let%lwt body_string = Cohttp_lwt_body.to_string body in
   match status with
   | 400 ->  Lwt.return (Error (Malformed_query body_string))
   | 500 ->  Lwt.return (Error (Query_request_refused body_string))
@@ -62,7 +62,7 @@ module P =
     let get uri ?accept f =
       let uri = Uri.of_string (Rdf_uri.string uri) in
       let headers = base_headers ?accept () in
-      lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
+      let%lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
       result_of_response f res
 
     let post (uri : Rdf_uri.uri) ?accept ~content_type ~content
@@ -79,7 +79,7 @@ module P =
         in
         Cohttp_lwt_body.of_stream stream
       in
-      lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked: false ~headers uri in
+      let%lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked: false ~headers uri in
       result_of_response f res
 
   end

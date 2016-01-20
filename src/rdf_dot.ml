@@ -26,7 +26,7 @@
 
 open Rdf_term;;
 
-module Irimap = Rdf_iri.Irimap;;
+module Irimap = Iri.Map
 module SSet = Rdf_types.SSet;;
 
 let apply_namespaces namespaces iri =
