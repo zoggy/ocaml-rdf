@@ -148,13 +148,13 @@ let fresh_var =
     { var_loc = Rdf_loc.dummy_loc ; var_name = label }
 ;;
 
-let path_iri_first = 
+let path_iri_first =
   Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_first } ;;
-let path_iri_rest =  
+let path_iri_rest =
   Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_rest } ;;
-let iri_nil =  
-  T.Iriref { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Iri.Iri Rdf_rdf.rdf_nil } ;;
-let iri_type = 
+let iri_nil =
+  T.Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_nil } ;;
+let iri_type =
   { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_type } ;;
 let path_iri_type = Iri iri_type ;;
 
@@ -190,7 +190,14 @@ and translate_path_elt e =
 
 and translate_path_primary = function
   | PathIri (PrefixedName _) -> assert false
-  | PathIri (Iriref _) -> assert false
+  | PathIri (Iriref r) ->
+      begin
+        match r.ir_iri with
+          Iri.Iri iri -> Iri { iri_loc = r.ir_loc ; iri_iri = iri }
+        | Iri.Rel iri ->
+            prerr_endline (Iri.to_string iri);
+            assert false
+      end
   | PathIri (Iri ir) -> Iri ir
   | PathA -> path_iri_type
   | Path p -> translate_path p
