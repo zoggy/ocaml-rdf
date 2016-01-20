@@ -29,7 +29,7 @@ open Rdf_sparql;;
 
 
 let base = Iri.of_string "http://localhost/ocamml-rdf-bench";;
-let prop_ = Rdf_iri.concat base;;
+let prop_ s = Iri.append_path base [s];;
 
 let prop_options = prop_"graphOptions";;
 let prop_source = prop_"source";;

@@ -29,7 +29,7 @@
 let base = Iri.of_string "http://www.w3.org/2013/TurtleTests/";;
 
 let mf_iri = Iri.of_string "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
-let mf_ = Rdf_iri.append mf_iri ;;
+let mf_ s = Iri.with_fragment mf_iri (Some s);;
 
 let manifest = mf_"Manifest";;
 let entries = mf_"entries";;
@@ -37,10 +37,10 @@ let action = mf_"action";;
 let result = mf_"result";;
 
 let qt_iri = Iri.of_string "http://www.w3.org/2001/sw/DataAccess/tests/test-query#";;
-let qt_ = Rdf_iri.append qt_iri ;;
+let qt_ s = Iri.with_fragment qt_iri (Some s) ;;
 
 let rdft_iri = Iri.of_string "http://www.w3.org/ns/rdftest#";;
-let rdft_ = Rdf_iri.append rdft_iri;;
+let rdft_ s = Iri.with_fragment rdft_iri (Some s);;
 
 let test_eval = rdft_"TestTurtleEval";;
 let test_eval_neg = rdft_"TestTurtleNegativeEval";;
@@ -58,7 +58,7 @@ let namespaces =
 type result = Ok of Rdf_graph.graph | Error of string;;
 
 type test =
-  | EvalPos of Iri.of_string
+  | EvalPos of Iri.iri
   | EvalNeg
   | SyntaxPos
   | SyntaxNeg
@@ -92,13 +92,13 @@ let tests g =
     let t = Rdf_sparql.get_iri sol base "type" in
     let typ =
       match t with
-      | _ when Rdf_iri.compare t test_eval = 0 ->
+      | _ when Iri.compare t test_eval = 0 ->
           EvalPos (Rdf_sparql.get_iri sol base "result")
-      | _ when Rdf_iri.compare t test_eval_neg = 0 ->
+      | _ when Iri.compare t test_eval_neg = 0 ->
           EvalNeg
-      | _ when Rdf_iri.compare t test_stx_pos = 0 ->
+      | _ when Iri.compare t test_stx_pos = 0 ->
           SyntaxPos
-      | _ when Rdf_iri.compare t test_stx_neg = 0 ->
+      | _ when Iri.compare t test_stx_neg = 0 ->
           SyntaxNeg
       | _ -> failwith ("Unknown test type "^(Iri.to_string t))
     in
@@ -129,10 +129,10 @@ let map_blanks map g =
 open Rdf_term;;
 
 type align_form =
-  ATT of term * Iri.of_string * term
-| ABT of string * Iri.of_string * term
-| ATB of term * Iri.of_string * string
-| ABB of string * Iri.of_string * string
+  ATT of term * Iri.iri * term
+| ABT of string * Iri.iri * term
+| ATB of term * Iri.iri * string
+| ABB of string * Iri.iri * string
 ;;
 
 let align_form mapped (sub, pred, obj) =
@@ -170,7 +170,7 @@ let sort_triples_for_align =
     match f1, f2 with
       ATT (s1, p1, o1), ATT (s2, p2, o2) ->
         begin
-          match Rdf_iri.compare p1 p2 with
+          match Iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare s1 s2 with
                  0 -> Rdf_term.compare o1 o2
@@ -182,7 +182,7 @@ let sort_triples_for_align =
     | _, ATT _ -> -1
     | ATB (s1, p1, o1), ATB (s2, p2, o2) ->
         begin
-          match Rdf_iri.compare p1 p2 with
+          match Iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare s1 s2 with
                  0 -> String.compare o1 o2
@@ -194,7 +194,7 @@ let sort_triples_for_align =
     | _, ATB _ -> -1
     | ABT (s1, p1, o1), ABT (s2, p2, o2) ->
         begin
-          match Rdf_iri.compare p1 p2 with
+          match Iri.compare p1 p2 with
             0 ->
               (match Rdf_term.compare o1 o2 with
                  0 -> String.compare s1 s2
@@ -206,7 +206,7 @@ let sort_triples_for_align =
     | _, ABT _ -> -1
     | ABB (s1,p1,o1), ABB (s2,p2,o2) ->
         begin
-          match Rdf_iri.compare p1 p2 with
+          match Iri.compare p1 p2 with
             0 ->
               (match String.compare s1 s2 with
                  0 -> String.compare o1 o2
@@ -266,7 +266,7 @@ let add_binding bindings mapped b1 b2 =
 ;;
 
 let bind bindings mapped ((s1, p1, o1) as t1) ((s2, p2, o2) as t2) q1 q2 =
-  match Rdf_iri.compare p1 p2 with
+  match Iri.compare p1 p2 with
     n when n <> 0 -> triples_differ t1 t2 q1 q2
   | _ ->
       let (bindings, mapped) =
@@ -349,9 +349,12 @@ let isomorphic_graphs g1 g2 =
 
 let run_test (test, action, typ) =
   let in_file =
-    match List.rev (Rdf_iri.path action) with
-      file :: _ -> file
-    | [] -> assert false
+    match Iri.path action with
+    | Iri.Absolute l
+    | Iri.Relative l ->
+        match List.rev l with
+          [] -> assert false
+        | file :: _ -> file
   in
   let result =
     try
@@ -363,7 +366,7 @@ let run_test (test, action, typ) =
         let msg_e =
           match e with
             Rdf_ttl.Error e -> Rdf_ttl.string_of_error e
-          | Rdf_iri.Invalid_iri (s,msg) -> "Invalid iri "^s^" : "^msg
+          | Iri.Error e -> Iri.string_of_error e
           | e -> raise e
         in
         let msg = in_file ^ "\n" ^ msg_e in
@@ -382,9 +385,11 @@ let run_test (test, action, typ) =
       prerr_endline ("OK "^(Iri.to_string test))
   | Ok g, EvalPos result ->
       let res_file =
-        match List.rev (Rdf_iri.path result) with
-          file :: _ -> file
-        | [] -> assert false
+        match Iri.path result with
+          Iri.Absolute l | Iri.Relative l ->
+            match List.rev l with
+              file :: _ -> file
+            | [] -> assert false
       in
       let gres = Rdf_graph.open_graph action in
       ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
