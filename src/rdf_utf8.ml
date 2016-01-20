@@ -237,8 +237,16 @@ let utf8_count_nl =
   fun s -> iter (String.length s) s 0 0
 ;;
 
+let utf8_char_escape_string dest str =
+  let len = String.length str in
+  Buffer.add_string dest "\\";
+  Buffer.add_char dest (if len <= 2 then 'u' else 'U');
+  String.iter
+    (fun c -> Printf.bprintf dest "%02X" (Char.code c))
+    str
+
 let utf8_escape =
-  let rec iter b len s i =
+(*  let rec iter b len s i =
     if i >= len then
       ()
     else
@@ -259,15 +267,37 @@ let utf8_escape =
               (* string ending with '\', escape it too *)
               Buffer.add_string b "\\\\"
           | c ->
-            Buffer.add_string b (String.sub s i size);
+            if size > 1 then
+              utf8_char_escape_string b (String.sub s i size)
+            else
+              Buffer.add_string b (String.sub s i size);
          end;
          iter b len s (i+size)
        end
+  in*)
+  let f b i = function
+    `Malformed str -> Buffer.add_string b str; b
+  | `Uchar cp ->
+       match cp with
+         0x08 (* '\b' *) -> Buffer.add_string b "\\b"; b
+       | 0x09 (* '\t' *) -> Buffer.add_string b "\\t"; b
+       | 0x0A (* '\n' *) -> Buffer.add_string b "\\n"; b
+       | 0x0C (* '\f' *) -> Buffer.add_string b "\\f"; b
+       | 0x0D (* '\r' *) -> Buffer.add_string b "\\r"; b
+       | 0x22 (* quote *) -> Buffer.add_string b "\\\""; b
+       | 0x5C (* \ *) -> Buffer.add_string b "\\\\"; b
+       | n when n < 128 -> Uutf.Buffer.add_utf_8 b cp; b
+       | n ->
+           let str = Printf.sprintf "%x" n in
+           if String.length str > 4 then
+             Printf.bprintf b "\\U%08X" n
+           else
+             Printf.bprintf b "\\u%04X" n;
+           b
   in
   fun s ->
-    let len = String.length s in
-    let b = Buffer.create len in
-    iter b len s 0 ;
+    let b = Buffer.create (String.length s) in
+    ignore(Uutf.String.fold_utf_8 f b s) ;
     Buffer.contents b
 ;;
 

@@ -40,8 +40,8 @@ let string_of_error = function
     "Unknown namespace '" ^ s ^ "'"
 ;;
 
-let iri_of_iriref ctx s = 
-  Iri.resolve ~base: ctx.base (Iri.ref_of_string s);;
+let iri_of_iriref ctx s =
+  Iri.resolve ~base: ctx.base (Iri.ref_of_string ~pctdecode:false s);;
 
 let iri_of_resource ctx = function
   Iriref iri -> iri_of_iriref ctx iri
@@ -62,9 +62,9 @@ let iri_of_resource ctx = function
       match n with
         None -> base
       | Some n ->
-          let iri = (Iri.to_string base)^n in
+          let iri = (Iri.to_string ~pctencode: false base)^n in
           (*prerr_endline (Printf.sprintf "Apply prefix: p=%s, => base=%s, n=%s" p (Iri.to_string base) n);*)
-          Iri.of_string iri
+          Iri.of_string ~pctdecode: false iri
     end
 ;;
 
@@ -223,6 +223,16 @@ let escape_reserved_chars =
         iter b len s (i+size)
       end
   in
+(*  let f b _i = function
+    `Malformed str -> Buffer.add_string b str
+  | `Uchar codepoint ->
+      if is_safe_char codepoint then
+        Uutf.Buffer.add_utf_8 b codepoint
+      else
+        pct_encode_utf8 b codepoint
+  in
+  fun b is_safe_char s ->
+    Uutf.String.fold_utf_8 (f is_safe_char b) () s*)
   fun s ->
     let len = String.length s in
     let b = Buffer.create len in
@@ -249,7 +259,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
           (match lit.Rdf_term.lit_type with
              None -> ""
            | Some iri ->
-               let iri = Iri.to_string iri in
+               let iri = Iri.to_string ~pctencode: false iri in
                let s =
                  match Rdf_dot.apply_namespaces ns iri with
                    ("",iri) -> "<"^iri^">"
@@ -258,7 +268,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
                "^^" ^ s
           )
     | Rdf_term.Iri iri ->
-        let s = Iri.to_string iri in
+        let s = Iri.to_string ~pctencode: false iri in
         match Rdf_dot.apply_namespaces ns s with
           ("",iri) -> "<" ^ iri ^ ">"
         | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
