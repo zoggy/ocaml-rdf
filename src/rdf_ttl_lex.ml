@@ -73,7 +73,7 @@ let unescape_reserved_chars =
 
 
 
-let digit = [%sedlex.regexp? '0'..'0']
+let digit = [%sedlex.regexp? '0'..'9']
 let alpha = [%sedlex.regexp? 'a'..'z' | 'A'..'Z']
 let hex = [%sedlex.regexp? digit | 'A'..'F' | 'a'..'f']
 let pn_chars_base = [%sedlex.regexp ? alpha | 0x00C0..0x00D6 | 0x00D8..0x00F6 | 0x00F8..0x02FF | 0x0370..0x037D | 0x037F..0x1FFF | 0x200C..0x200D | 0x2070..0x218F | 0x2C00..0x2FEF | 0x3001..0xD7FF | 0xF900..0xFDCF | 0xFDF0..0xFFFD | 0x10000..0xEFFFF]
