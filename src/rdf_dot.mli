@@ -37,7 +37,7 @@ val apply_namespaces : (string * string) list -> string -> string * string
   as a list of pairs [(prefix, iri)] usable by {!apply_namespaces}.
   @param namespaces is used to specify additional namespaces. *)
 val build_namespaces :
-  ?namespaces:(Iri.iri * string) list ->
+  ?namespaces:(Iri.t * string) list ->
      Rdf_graph.graph -> (string * string) list
 
 (** [dot_of_graph graph] returns the Graphviz code to represent the given [graph].
@@ -49,12 +49,12 @@ val build_namespaces :
    This is useful to provide clickable nodes in SVG output, for example.
 *)
 val dot_of_graph :
-  ?namespaces:(Iri.iri * string) list ->
+  ?namespaces:(Iri.t * string) list ->
   ?href:(Rdf_term.term -> string option) -> Rdf_graph.graph -> string
 
 (** Same as {!dot_of_graph} but return code to represent only the triples
   having the given IRI as subject or object. *)
 val dot_of_iri :
-  ?namespaces:(Iri.iri * string) list -> ?href:(Rdf_term.term -> string option) ->
-    Rdf_graph.graph -> Iri.iri -> string
+  ?namespaces:(Iri.t * string) list -> ?href:(Rdf_term.term -> string option) ->
+    Rdf_graph.graph -> Iri.t -> string
 

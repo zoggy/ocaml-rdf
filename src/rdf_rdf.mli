@@ -31,59 +31,59 @@ open Iri
 
 (** {3 Common namespaces} *)
 
-val rdf : iri
-val rdf_ : string -> iri
+val rdf : t
+val rdf_ : string -> t
 
-val xsd : iri
-val xsd_ : string -> iri
+val xsd : t
+val xsd_ : string -> t
 
-val dc : iri
-val dc_ : string -> iri
+val dc : t
+val dc_ : string -> t
 
 (** {3 Syntax names} *)
 
-val rdf_about : iri
-val rdf_datatype : iri
-val rdf_Description : iri
-val rdf_ID : iri
-val rdf_li : iri
-val rdf_nodeID : iri
-val rdf_RDF : iri
-val rdf_parseType : iri
-val rdf_resource : iri
+val rdf_about : t
+val rdf_datatype : t
+val rdf_Description : t
+val rdf_ID : t
+val rdf_li : t
+val rdf_nodeID : t
+val rdf_RDF : t
+val rdf_parseType : t
+val rdf_resource : t
 
 (** {3 Class names} *)
 
-val rdf_Alt : iri
-val rdf_Bag : iri
-val rdf_List : iri
-val rdf_Property : iri
-val rdf_Seq : iri
-val rdf_Statement : iri
-val rdf_XMLLiteral : iri
+val rdf_Alt : t
+val rdf_Bag : t
+val rdf_List : t
+val rdf_Property : t
+val rdf_Seq : t
+val rdf_Statement : t
+val rdf_XMLLiteral : t
 
 (** {3 Property names} *)
 
-val rdf_subject : iri
-val rdf_predicate : iri
-val rdf_object : iri
-val rdf_type : iri
-val rdf_value : iri
-val rdf_first : iri
-val rdf_rest : iri
-val rdf_n : int -> iri
+val rdf_subject : t
+val rdf_predicate : t
+val rdf_object : t
+val rdf_type : t
+val rdf_value : t
+val rdf_first : t
+val rdf_rest : t
+val rdf_n : int -> t
 
 (** {3 Resource names} *)
 
-val rdf_nil : iri
+val rdf_nil : t
 
 (** {3 XML Schema datatypes} *)
 
-val xsd_integer : iri
-val xsd_double : iri
-val xsd_decimal : iri
-val xsd_boolean : iri
-val xsd_string : iri
-val xsd_datetime : iri
-val rdf_langstring : iri
+val xsd_integer : t
+val xsd_double : t
+val xsd_decimal : t
+val xsd_boolean : t
+val xsd_string : t
+val xsd_datetime : t
+val rdf_langstring : t
 

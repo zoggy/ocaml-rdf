@@ -29,19 +29,19 @@ let () = Random.self_init();;
 type literal = {
     lit_value : string ;
     lit_language : string option ;
-    lit_type : Iri.iri option ;
+    lit_type : Iri.t option ;
   }
 type blank_id = string
 
 type term =
-  | Iri of Iri.iri
+  | Iri of Iri.t
   | Literal of literal
   | Blank
   | Blank_ of blank_id
 
 
 
-type triple = term * Iri.iri * term
+type triple = term * Iri.t * term
 
 let string_of_blank_id id = id;;
 let blank_id_of_string str = str;;

@@ -145,10 +145,10 @@ module Irimap = Iri.Map
 
 type state =
   { subject : Rdf_term.term option ;
-    predicate : Iri.iri option ;
-    xml_base : Iri.iri ;
+    predicate : Iri.t option ;
+    xml_base : Iri.t ;
     xml_lang : string option ;
-    datatype : Iri.iri option ;
+    datatype : Iri.t option ;
     namespaces : string Irimap.t ;
   }
 

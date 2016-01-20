@@ -131,10 +131,10 @@ module Xml =
 module type P =
   sig
     type 'a t
-    val get : Rdf_uri.uri -> ?accept: string ->
+    val get : Uri.t -> ?accept: string ->
       (content_type:string -> string -> Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
-    val post : Rdf_uri.uri ->
+    val post : Uri.t ->
       ?accept: string -> content_type: string -> content: string ->
         (content_type: string -> string ->  Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
@@ -143,10 +143,10 @@ module type P =
 module type S =
   sig
     type result
-    val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
-    val post : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> ?query_var: string ->
+    val get : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+      Uri.t -> Rdf_sparql_protocol.in_message -> result
+    val post : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+      Uri.t -> ?query_var: string ->
       Rdf_sparql_protocol.in_message -> result
   end
 
@@ -243,10 +243,10 @@ module Make (P : P) =
       "text/plain"
 
     let make_query_string ?(query_var="query") msg =
-      let enc = Netencoding.Url.encode in
+      let enc_v = Uri.pct_encode ~component: `Query_value in
       let regexp = Str.regexp "[\n]+" in
       let spql_query = Str.global_replace regexp " "
-        (query_var^"="^(enc msg.in_query))
+        (query_var^"="^(enc_v msg.in_query))
       in
       let ds = msg.in_dataset in
       let l =
@@ -260,10 +260,9 @@ module Make (P : P) =
       | _ -> spql_query^"&"^(String.concat "&" l)
 
     let get ?graph ~base ?(accept=default_accept) uri msg =
-      let url = Rdf_uri.neturl uri in
       let query = make_query_string msg in
-      let url = Neturl.modify_url ~query ~encoded: true url in
-      let uri = Rdf_uri.of_neturl url in
+      let query = Uri.query_of_encoded query in
+      let uri = Uri.with_query uri query in
       P.get uri ~accept (result_of_string ?graph ~base)
 
     let post ?graph ~base ?(accept=default_accept) uri ?query_var msg =

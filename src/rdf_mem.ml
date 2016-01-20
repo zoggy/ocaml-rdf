@@ -114,12 +114,12 @@ module Triples_p_o = Triples(Iri.Map)(Rdf_term.TMap)(Rdf_term.TSet);;
 module Triples_o_s = Triples(Rdf_term.TMap)(Rdf_term.TMap)(Iri.Set);;
 
 type t =
-  { g_name : Iri.iri ; (* graph name *)
+  { g_name : Iri.t ; (* graph name *)
     mutable g_set_sub : Triples_s_p.t ; (* sub -> (pred -> obj set) *)
     mutable g_set_pred : Triples_p_o.t ; (* pred -> (obj -> sub set) *)
     mutable g_set_obj : Triples_o_s.t ; (* obj -> (sub -> pred set) *)
     mutable g_in_transaction : t option ; (* Some t: t is the state before starting the transaction *)
-    mutable g_ns : Iri.iri SMap.t ;
+    mutable g_ns : Iri.t SMap.t ;
   }
 
 type error = string

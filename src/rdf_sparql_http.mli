@@ -44,11 +44,11 @@ module type P =
   sig
     type 'a t
 
-    val get : Rdf_uri.uri -> ?accept: string ->
+    val get : Uri.t -> ?accept: string ->
       (content_type:string -> string -> Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
 
-    val post : Rdf_uri.uri ->
+    val post : Uri.t ->
       ?accept: string -> content_type: string -> content: string ->
         (content_type: string -> string ->  Rdf_sparql_protocol.out_message) ->
         Rdf_sparql_protocol.out_message t
@@ -71,16 +71,16 @@ module type S =
          parameter can be used to require a response in, for example,
          the "application/rdf+xml" format.
     *)
-    val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+    val get : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+      Uri.t -> Rdf_sparql_protocol.in_message -> result
 
     (** Same as {!get} but using the POST method. To be used when sending
       large queries.
         @param query_var allows to change the message query name send
         ("query" by default)
     *)
-    val post : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-      Rdf_uri.uri -> ?query_var: string ->
+    val post : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+      Uri.t -> ?query_var: string ->
       Rdf_sparql_protocol.in_message -> result
   end
 

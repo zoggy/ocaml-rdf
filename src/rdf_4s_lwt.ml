@@ -53,16 +53,18 @@ let post_update ?graph ~base ?accept uri msg =
   Rdf_sparql_http_lwt.post ?graph ~base ?accept uri ~query_var:"update" msg
 
 let delete uri graph_uri =
-  let url = Rdf_uri.neturl uri in
-  let query = "graph=" ^ (Rdf_uri.string graph_uri) in
-  let url' = Neturl.modify_url ~query ~encoded:true url in
-  let uri' = Uri.of_string (Rdf_uri.string (Rdf_uri.of_neturl url')) in
+  let query =
+    let k = Uri.pct_encode ~component: `Query_key "graph" in
+    let v = Uri.to_string graph_uri in
+    [ k, [v] ]
+  in
+  let uri' = Uri.with_query uri query in
   let headers = get_headers () in
   let%lwt response = Cohttp_lwt_unix.Client.delete ~headers uri' in
   result_of_null_response response
 
 let put uri content content_type graph_uri =
-  let uri = Uri.of_string ((Rdf_uri.string uri) ^ (Rdf_uri.string graph_uri)) in
+  let uri = Uri.of_string ((Uri.to_string uri) ^ (Uri.to_string graph_uri)) in
   let content_length = String.length content in
   let body = body_of_string content in
   let headers = get_headers ~content_type ~content_length () in
@@ -70,7 +72,7 @@ let put uri content content_type graph_uri =
   result_of_null_response response
 
 let post_append uri content content_type graph_uri =
-  let content' = (content ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
+  let content' = (content ^ "&graph=" ^ (Uri.to_string graph_uri) ^
                     "&mime-type=" ^ content_type)
   in
   let base = Iri.of_string "" in

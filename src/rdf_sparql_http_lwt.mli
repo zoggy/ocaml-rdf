@@ -47,9 +47,9 @@ val result_of_response:
 
 type result = Rdf_sparql_protocol.out_message Lwt.t
 
-val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-  Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+val get : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+  Uri.t -> Rdf_sparql_protocol.in_message -> result
 
-val post : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-  Rdf_uri.uri -> ?query_var: string -> Rdf_sparql_protocol.in_message ->
+val post : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+  Uri.t -> ?query_var: string -> Rdf_sparql_protocol.in_message ->
   result

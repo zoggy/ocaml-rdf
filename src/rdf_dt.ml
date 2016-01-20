@@ -34,14 +34,14 @@ type error =
 and value =
   | Err of error
   | Blank of string
-  | Iri of Iri.iri
+  | Iri of Iri.t
   | String of string
   | Int of int
   | Float of float
   | Bool of bool
   | Datetime of Netdate.t
   | Ltrl of string * string option (* optional language *)
-  | Ltrdt of string * Iri.iri (* datatyped literal, with unsupported datatype *)
+  | Ltrdt of string * Iri.t (* datatyped literal, with unsupported datatype *)
 
 exception Error of error
 let error e = raise (Error e)

@@ -27,7 +27,7 @@
 module Irimap = Iri.Map
 module Iriset = Iri.Set
 
-exception Could_not_retrieve_graph of Iri.iri * string
+exception Could_not_retrieve_graph of Iri.t * string
 let could_not_retrieve_graph iri msg =
   raise (Could_not_retrieve_graph (iri, msg))
 ;;
@@ -35,7 +35,7 @@ let could_not_retrieve_graph iri msg =
 type dataset =
   { default : Rdf_graph.graph ;
     named : Iriset.t ;
-    get_named : Iri.iri -> Rdf_graph.graph ;
+    get_named : Iri.t -> Rdf_graph.graph ;
   }
 
 let simple_dataset ?(named=[]) default =

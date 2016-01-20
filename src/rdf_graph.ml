@@ -62,26 +62,26 @@ module type Storage =
     exception Error of error
     val string_of_error : error -> string
 
-    val open_graph : ?options: (string * string) list -> Iri.iri -> g
-    val graph_name : g -> Iri.iri
+    val open_graph : ?options: (string * string) list -> Iri.t -> g
+    val graph_name : g -> Iri.t
     val graph_size : g -> int
 
-    val add_triple : g -> sub: term -> pred: Iri.iri -> obj: term -> unit
-    val rem_triple : g -> sub: term -> pred: Iri.iri -> obj: term -> unit
+    val add_triple : g -> sub: term -> pred: Iri.t -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: Iri.t -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: Iri.iri -> obj: term -> term list
-    val predicates_of : g -> sub: term -> obj: term -> Iri.iri list
-    val objects_of : g -> sub: term -> pred: Iri.iri -> term list
+    val subjects_of : g -> pred: Iri.t -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> Iri.t list
+    val objects_of : g -> sub: term -> pred: Iri.t -> term list
 
-    val find : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> g -> triple list
-    val exists : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> g -> bool
+    val find : ?sub: term -> ?pred: Iri.t -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: Iri.t -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
     val subjects : g -> term list
-    val predicates : g -> Iri.iri list
+    val predicates : g -> Iri.t list
     val objects : g -> term list
 
     val transaction_start : g -> unit
@@ -90,10 +90,10 @@ module type Storage =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
-    val namespaces : g -> (Iri.iri * string) list
-    val add_namespace : g -> Iri.iri -> string -> unit
+    val namespaces : g -> (Iri.t * string) list
+    val add_namespace : g -> Iri.t -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (Iri.iri * string) list -> unit
+    val set_namespaces : g -> (Iri.t * string) list -> unit
 
     module BGP : Storage_BGP with type g = g
   end
@@ -147,26 +147,26 @@ module type Graph =
   sig
     type g
 
-    val open_graph : ?options: (string * string) list -> Iri.iri -> g
-    val graph_name : g -> Iri.iri
+    val open_graph : ?options: (string * string) list -> Iri.t -> g
+    val graph_name : g -> Iri.t
     val graph_size : g -> int
 
-    val add_triple : g -> sub: term -> pred: Iri.iri -> obj: term -> unit
-    val rem_triple : g -> sub: term -> pred: Iri.iri -> obj: term -> unit
+    val add_triple : g -> sub: term -> pred: Iri.t -> obj: term -> unit
+    val rem_triple : g -> sub: term -> pred: Iri.t -> obj: term -> unit
 
     val add_triple_t : g -> triple -> unit
     val rem_triple_t : g -> triple -> unit
 
-    val subjects_of : g -> pred: Iri.iri -> obj: term -> term list
-    val predicates_of : g -> sub: term -> obj: term -> Iri.iri list
-    val objects_of : g -> sub: term -> pred: Iri.iri -> term list
+    val subjects_of : g -> pred: Iri.t -> obj: term -> term list
+    val predicates_of : g -> sub: term -> obj: term -> Iri.t list
+    val objects_of : g -> sub: term -> pred: Iri.t -> term list
 
-    val find : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> g -> triple list
-    val exists : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> g -> bool
+    val find : ?sub: term -> ?pred: Iri.t -> ?obj: term -> g -> triple list
+    val exists : ?sub: term -> ?pred: Iri.t -> ?obj: term -> g -> bool
     val exists_t : triple -> g -> bool
 
     val subjects : g -> term list
-    val predicates : g -> Iri.iri list
+    val predicates : g -> Iri.t list
     val objects : g -> term list
 
     val transaction_start : g -> unit
@@ -175,10 +175,10 @@ module type Graph =
 
     val new_blank_id : g -> Rdf_term.blank_id
 
-    val namespaces : g -> (Iri.iri * string) list
-    val add_namespace : g -> Iri.iri -> string -> unit
+    val namespaces : g -> (Iri.t * string) list
+    val add_namespace : g -> Iri.t -> string -> unit
     val rem_namespace : g -> string -> unit
-    val set_namespaces : g -> (Iri.iri * string) list -> unit
+    val set_namespaces : g -> (Iri.t * string) list -> unit
 
     module BGP : Storage_BGP with type g = g
   end
@@ -192,30 +192,30 @@ let add_storage m =
 
 type graph =
   {
-    name : unit -> Iri.iri ;
+    name : unit -> Iri.t ;
     size : unit -> int ;
-    add_triple : sub: term -> pred: Iri.iri -> obj: term -> unit ;
-    rem_triple : sub: term -> pred: Iri.iri -> obj: term -> unit ;
+    add_triple : sub: term -> pred: Iri.t -> obj: term -> unit ;
+    rem_triple : sub: term -> pred: Iri.t -> obj: term -> unit ;
     add_triple_t : triple -> unit ;
     rem_triple_t : triple -> unit ;
-    subjects_of : pred: Iri.iri -> obj: term -> term list ;
-    predicates_of : sub: term -> obj: term -> Iri.iri list ;
-    objects_of : sub: term -> pred: Iri.iri -> term list ;
-    find : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> unit -> triple list ;
-    exists : ?sub: term -> ?pred: Iri.iri -> ?obj: term -> unit -> bool ;
+    subjects_of : pred: Iri.t -> obj: term -> term list ;
+    predicates_of : sub: term -> obj: term -> Iri.t list ;
+    objects_of : sub: term -> pred: Iri.t -> term list ;
+    find : ?sub: term -> ?pred: Iri.t -> ?obj: term -> unit -> triple list ;
+    exists : ?sub: term -> ?pred: Iri.t -> ?obj: term -> unit -> bool ;
     exists_t : triple -> bool ;
     subjects : unit -> term list ;
-    predicates : unit -> Iri.iri list ;
+    predicates : unit -> Iri.t list ;
     objects : unit -> term list ;
     transaction_start : unit -> unit ;
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
     new_blank_id : unit -> Rdf_term.blank_id ;
 
-    namespaces : unit -> (Iri.iri * string) list ;
-    add_namespace : Iri.iri -> string -> unit ;
+    namespaces : unit -> (Iri.t * string) list ;
+    add_namespace : Iri.t -> string -> unit ;
     rem_namespace : string -> unit ;
-    set_namespaces : (Iri.iri * string) list -> unit ;
+    set_namespaces : (Iri.t * string) list -> unit ;
 
     bgp : (module Rdf_bgp.S) ;
   }

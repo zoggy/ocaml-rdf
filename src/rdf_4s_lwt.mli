@@ -37,28 +37,28 @@ open Rdf_sparql_http_lwt
 (** [get url msg]
     [url] including "/sparql/"
     This method allows: select/ask/describe queries.*)
-val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
-  Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+val get : ?graph: Rdf_graph.graph -> base:Iri.t -> ?accept: string ->
+  Uri.t -> Rdf_sparql_protocol.in_message -> result
 
 (** [post_update url msg]
     [url] including "/update/"
     This method allows: update/insert/delete queries. *)
-val post_update : ?graph: Rdf_graph.graph -> base:Iri.iri ->
-  ?accept: string -> Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
+val post_update : ?graph: Rdf_graph.graph -> base:Iri.t ->
+  ?accept: string -> Uri.t -> Rdf_sparql_protocol.in_message -> result
 
 (** [delete url graph_uri]
     [url] including "/data/"
     This method removes the entire [graph_uri]. *)
-val delete : Rdf_uri.uri -> Rdf_uri.uri -> result
+val delete : Uri.t -> Uri.t -> result
 
 (** [put url content content_type graph_uri]
     [url] including "/data/"
     This method allows to replace initial data from [graph_uri] by [content].
     Refer to the 4Store documentation to know authorized content_type. *)
-val put : Rdf_uri.uri -> string -> string -> Rdf_uri.uri -> result
+val put : Uri.t -> string -> string -> Uri.t -> result
 
 (** [post_append url content content_type graph_uri]
     [url] including "/data/"
     This method allow to append [content] into [graph_uri].
     Refer to the 4Store documentation to know authorized content_type. *)
-val post_append : Rdf_uri.uri -> string -> string -> Rdf_uri.uri -> result
+val post_append : Uri.t -> string -> string -> Uri.t -> result

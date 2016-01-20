@@ -28,7 +28,7 @@
 type literal = {
   lit_value : string;
   lit_language : string option;
-  lit_type : Iri.iri option;
+  lit_type : Iri.t option;
 }
 
 (** Type for blank node ids. *)
@@ -36,7 +36,7 @@ type blank_id
 
 (** Various kinds of terms. *)
 type term =
-  | Iri of Iri.iri
+  | Iri of Iri.t
   | Literal of literal
   | Blank
   | Blank_ of blank_id
@@ -48,7 +48,7 @@ module TSet : Set.S with type elt = term
 module TMap : Map.S with type key = term
 
 (** A RDF triple is triple (term, iri, term). *)
-type triple = term * Iri.iri * term
+type triple = term * Iri.t * term
 
 (** Get a string from a blank term id. *)
 val string_of_blank_id : blank_id -> string
@@ -56,11 +56,11 @@ val string_of_blank_id : blank_id -> string
 (** Make a blank term id from a string. *)
 val blank_id_of_string : string -> blank_id
 
-(** Shortcut for [Iri (Iri.iri string)]. *)
+(** Shortcut for [Iri (Iri.of_string string)]. *)
 val term_of_iri_string : string -> term
 
 (** Creation of a literal. *)
-val mk_literal : ?typ:Iri.iri -> ?lang:string -> string -> literal
+val mk_literal : ?typ:Iri.t -> ?lang:string -> string -> literal
 
 (** Create a datetime literal with type iri from the given datetime [d].
   If no date is given, [Unix.time()] is used.*)
@@ -85,7 +85,7 @@ val mk_literal_double : float -> literal
 val bool_of_literal : literal -> bool
 
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
-val term_of_literal_string : ?typ:Iri.iri -> ?lang:string -> string -> term
+val term_of_literal_string : ?typ:Iri.t -> ?lang:string -> string -> term
 
 (** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)] *)
 val term_of_int : int -> term

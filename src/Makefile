@@ -57,7 +57,6 @@ LIB_RDF_CMOFILES= \
 	rdf_utf8.cmo \
 	rdf_misc.cmo \
 	rdf_loc.cmo \
-	rdf_uri.cmo \
 	rdf_rdf.cmo \
 	rdf_term.cmo \
 	rdf_doap.cmo \

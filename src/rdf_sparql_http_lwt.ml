@@ -60,14 +60,12 @@ module P =
   struct
     type 'a t = 'a Lwt.t
     let get uri ?accept f =
-      let uri = Uri.of_string (Rdf_uri.string uri) in
       let headers = base_headers ?accept () in
       let%lwt res = Cohttp_lwt_unix.Client.get ~headers uri in
       result_of_response f res
 
-    let post (uri : Rdf_uri.uri) ?accept ~content_type ~content
+    let post (uri : Uri.t) ?accept ~content_type ~content
       (f : content_type: string -> string -> out_message) =
-      let uri = Uri.of_string (Rdf_uri.string uri) in
       let headers = base_headers ?accept () in
       let headers = Cohttp.Header.add headers "Content-Type" content_type in
       let headers = Cohttp.Header.add headers

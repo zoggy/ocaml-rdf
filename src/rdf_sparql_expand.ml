@@ -31,11 +31,11 @@ let map_opt = Rdf_misc.map_opt;;
 module SMap = Rdf_xml.SMap;;
 
 type env =
-  { base : Iri.iri ;
-    prefixes : Iri.iri SMap.t ;
+  { base : Iri.t ;
+    prefixes : Iri.t SMap.t ;
   }
 
-type dataset = { from : Iri.iri list ; from_named : Iri.Set.t }
+type dataset = { from : Iri.t list ; from_named : Iri.Set.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 

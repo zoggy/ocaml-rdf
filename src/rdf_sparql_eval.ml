@@ -41,12 +41,12 @@ type error =
 | Not_a_integer of Rdf_term.literal
 | Not_a_double_or_decimal of Rdf_term.literal
 | Type_mismatch of Rdf_dt.value * Rdf_dt.value
-| Invalid_fun_argument of Iri.iri
-| Unknown_fun of Iri.iri
+| Invalid_fun_argument of Iri.t
+| Unknown_fun of Iri.t
 | Invalid_built_in_fun_argument of string * expression list
 | Unknown_built_in_fun of string
 | No_term
-| Cannot_compare_for_datatype of Iri.iri
+| Cannot_compare_for_datatype of Iri.t
 | Unhandled_regex_flag of char
 | Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 | Empty_set of string (** sparql function name *)
@@ -91,7 +91,7 @@ module Irimap = Iri.Map
 module Iriset = Iri.Set
 
 type context =
-    { base : Iri.iri ;
+    { base : Iri.t ;
       named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
