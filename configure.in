@@ -71,7 +71,7 @@ AC_SUBST(LWT_PACKAGES)
 AC_SUBST(MENHIR)
 
 RDF_PACKAGES="$PACKAGE, $PACKAGE.ppx"
-PACKAGES=netstring,uuidm,xmlm,ulex,menhirLib,cryptokit,pcre,yojson,iri
+PACKAGES=netstring,uuidm,uutf,xmlm,sedlex,menhirLib,cryptokit,pcre,yojson,iri
 if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
 if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
 if test -n "$LIB_LWT" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.lwt"; LWT_PACKAGES="cohttp.lwt"; fi

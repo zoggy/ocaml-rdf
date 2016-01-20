@@ -1,3 +1,5 @@
+- update package list from configure.in
+
 - represent and use IRIs in Sparql instead of URIs
 
 - built in calls:

@@ -27,12 +27,14 @@
 open Rdf_sparql_types;;
 open Rdf_sparql_parser;;
 
+module L = Sedlex.Utf8
+
 let mk_loc lb =
   let start =
-    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = Ulexing.lexeme_start lb; pos_fname = "" }
+    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = L.lexeme_start lb; pos_fname = "" }
   in
   let stop =
-    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = Ulexing.lexeme_end lb ; pos_fname = "" }
+    { Lexing.pos_lnum = 0 ; pos_bol = 0 ; pos_cnum = L.lexeme_end lb ; pos_fname = "" }
   in
   { Rdf_sparql_types.loc_start = start ; loc_end = stop }
 ;;
@@ -58,44 +60,53 @@ let add_echar b = function
   | c -> Buffer.add_char b c
 ;;
 
-let regexp hex = ['0'-'9'] | ['A'-'F'] | ['a'-'f']
-let regexp codepoint_u = "\\u" hex hex hex hex
-let regexp codepoint_U = "\\U" hex hex hex hex hex hex hex hex
-let regexp codepoint_any = [0x00-0x10FFFF]
+let hex = [%sedlex.regexp? '0'..'9' | 'A'..'F' | 'a'..'f']
+let codepoint_u = [%sedlex.regexp? "\\u", hex, hex, hex, hex]
+let codepoint_U = [%sedlex.regexp? "\\U", hex, hex, hex, hex, hex, hex, hex, hex]
+let codepoint_any = [%sedlex.regexp? 0x00..0x10FFFF]
 
-let regexp iriref = '<' ([^ '<' '>' '"' '{' '}' '|' '^' '`' '\\' ' ' 0000-0020])* '>'
+let iriref = [%sedlex.regexp?
+  '<', Star(Compl(Chars "<>\"{}|^`\\ " 0000..0020)), '>']
 
-let regexp pn_chars_base = ['A'-'Z'] | ['a'-'z'] | [0x00C0-0x00D6] | [0x00D8-0x00F6] | [0x00F8-0x02FF] | [0x0370-0x037D] | [0x037F-0x1FFF] | [0x200C-0x200D] | [0x2070-0x218F] | [0x2C00-0x2FEF] | [0x3001-0xD7FF] | [0xF900-0xFDCF] | [0xFDF0-0xFFFD] | [0x10000-0xEFFFF]
-let regexp pn_chars_u = pn_chars_base | '_'
-let regexp pn_chars = pn_chars_u | '-' | ['0'-'9'] | 0x00B7 | [0x0300-0x036F] | [0x203F-0x2040]
-let regexp pn_prefix = pn_chars_base ((pn_chars|'.')* pn_chars)?
-let regexp pname_ns = pn_prefix? ':'
-let regexp pn_local_esc = '\\' ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )
+let pn_chars_base = [%sedlex.regexp?
+  'A'..'Z' | 'a'..'z' | 0x00C0..0x00D6 | 0x00D8..0x00F6 | 0x00F8..0x02FF | 0x0370..0x037D
+  | 0x037F..0x1FFF | 0x200C..0x200D | 0x2070..0x218F | 0x2C00..0x2FEF | 0x3001..0xD7FF
+  | 0xF900..0xFDCF | 0xFDF0..0xFFFD | 0x10000..0xEFFFF
+  ]
+let pn_chars_u = [%sedlex.regexp? pn_chars_base | '_']
+let pn_chars = [%sedlex.regexp? pn_chars_u | '-' | '0'..'9'
+  | 0x00B7 | 0x0300..0x036F | 0x203F..0x2040 ]
+let pn_prefix = [%sedlex.regexp? pn_chars_base, Opt(Star(pn_chars|'.'), pn_chars)]
+let pname_ns = [%sedlex.regexp? Opt(pn_prefix), ':']
+let pn_local_esc = [%sedlex.regexp? '\\', ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )]
 
-let regexp percent = '%' hex hex
-let regexp plx = percent | pn_local_esc
-let regexp pn_local = (pn_chars_u | ':' | ['0'-'9'] | plx ) ((pn_chars | '.' | ':' | plx)* (pn_chars | ':' | plx) )?
-let regexp pname_ln = pname_ns pn_local
-let regexp blank_node_label = "_:" ( pn_chars_u | ['0'-'9'] ) ((pn_chars|'.')* pn_chars)?
-let regexp varname = ( pn_chars_u | ['0'-'9'] ) ( pn_chars_u | ['0'-'9'] | 0x00B7 | [0x0300-0x036F] | [0x203F-0x2040] )*
-let regexp var1 = '?' varname
-let regexp var2 = '$' varname
-let regexp langtag = '@' ['a'-'z''A'-'Z']+ ('-' ['a'-'z''A'-'Z''0'-'9']+)*
-let regexp integer = ['0'-'9']+
-let regexp decimal = ['0'-'9']* '.' ['0'-'9']+
-let regexp exponent = ['e''E'] ['+''-']? ['0'-'9']+
-let regexp double = ['0'-'9']+ '.' ['0'-'9']* exponent | '.' (['0'-'9'])+ exponent | (['0'-'9'])+ exponent
-let regexp integer_positive = '+'integer
-let regexp decimal_positive = '+'decimal
-let regexp double_positive = '+'double
-let regexp integer_negative = '-'integer
-let regexp decimal_negative = '-'decimal
-let regexp double_negative = '-'double
-let regexp boolean = "true" | "false"
-let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
+let percent = [%sedlex.regexp? '%', hex, hex]
+let plx = [%sedlex.regexp? percent | pn_local_esc]
+let pn_local = [%sedlex.regexp? (pn_chars_u | ':' | '0'..'9' | plx ), Opt(Star(pn_chars | '.' | ':' | plx), (pn_chars | ':' | plx) )]
+let pname_ln = [%sedlex.regexp? pname_ns, pn_local]
+let blank_node_label = [%sedlex.regexp? "_:", ( pn_chars_u | '0'..'9' ), Opt(Star(pn_chars|'.'), pn_chars)]
+let varname = [%sedlex.regexp? ( pn_chars_u | '0'..'9' ), Star( pn_chars_u | '0'..'9' | 0x00B7 | 0x0300..0x036F | 0x203F..0x2040 )]
+let var1 = [%sedlex.regexp? '?', varname]
+let var2 = [%sedlex.regexp? '$', varname]
+let langtag = [%sedlex.regexp? '@', Plus('a'..'z'|'A'..'Z'), Star('-', Plus('a'..'z'|'A'..'Z'|'0'..'9'))]
+let integer = [%sedlex.regexp? Plus('0'..'9')]
+let decimal = [%sedlex.regexp? Star('0'..'9'), '.', Plus('0'..'9')]
+let exponent = [%sedlex.regexp? ('e'|'E'), Opt('+'|'-'), Plus('0'..'9')]
+let double = [%sedlex.regexp?
+    (Plus('0'..'9'), '.'; Star('0'..'9'), exponent)
+  | ('.', Plus('0'..'9'), exponent)
+  | (Plus('0'..'9'), exponent)]
+let integer_positive = [%sedlex.regexp? '+',integer]
+let decimal_positive = [%sedlex.regexp '+',decimal]
+let double_positive = [%sedlex.regexp? '+',double]
+let integer_negative = [%sedlex.regexp? '-',integer]
+let decimal_negative = [%sedlex.regexp? '-',decimal]
+let double_negative = [%sedlex.regexp? '-',double]
+let boolean = [%sedlex.regexp? "true" | "false"]
+let echar = [%sedlex.regexp? 't'|'b'|'n'|'r'|'f'|'\\'|'"'|'\'']
 
-let regexp schar_quote = ([^0x27 0x5C 0xA 0xD])+
-let regexp schar_dquote = ([^0x22 0x5C 0xA 0xD])+
+let schar_quote = [%sedlex.regexp? Plus(Compl(0x27|0x5C|0xA|0xD))]
+let schar_dquote = [%sedlex.regexp? Plus(Compl(0x22|0x5C|0xA|0xD))]
 
 (*
 let regexp string_literal1 = "'" ( ([^0x27 0x5C 0xA 0xD]) | echar )* "'"
@@ -104,15 +115,14 @@ let regexp string_literal_long1 = "'''" ( ( "'" | "''" )? ( [^'\'' '\\'] | echar
 let regexp string_literal_long2 = "\"\"\"" ( ( '"' | "\"\"" )? ( [^'"' '\\'] | echar ) )* "\"\"\""
 *)
 
-let regexp longstring_quote_delim = 0x27 0x27 0x27
-let regexp longstring_dquote_delim = 0x22 0x22 0x22
+let longstring_quote_delim = [%sedlex.regexp? 0x27, 0x27, 0x27]
+let longstring_dquote_delim = [%sedlex.regexp? 0x22, 0x22, 0x22]
 
-let regexp ws = 0x20 | 0x9 | 0xD | 0xA
-let regexp nil = '(' ws* ')'
-let regexp anon = '[' ws* ']';;
+let ws = [%sedlex.regexp? 0x20 | 0x9 | 0xD | 0xA]
+let nil = [%sedlex.regexp? '(', Star(ws), ')']
+let anon = [%sedlex.regexp? '[', Star(ws), ']'];;
 
-let lexpos = Rdf_ulex.lexpos
-let lexpos_nl = Rdf_ulex.lexpos_nl
+let lexpos = Rdf_ulex.upd
 
 let rec string_quote b pos = lexer
 | '\'' -> (lexpos pos lexbuf), String_literal (Buffer.contents b)
@@ -159,7 +169,7 @@ let rec longstring_quote b pos = lexer
 | ('\'' | ( [^'\'' '\\'] | '\n')* ) ->
     let s = Ulexing.utf8_lexeme lexbuf in
     Buffer.add_string b s ;
-    longstring_quote b (lexpos_nl pos lexbuf) lexbuf
+    longstring_quote b (lexpos pos lexbuf) lexbuf
 | eof ->
    failwith "Unterminated long quoted string"
 ;;
@@ -177,7 +187,7 @@ let rec longstring_dquote b pos = lexer
 | ('"' | ( [^'"' '\\'] | '\n')* ) ->
     let s = Ulexing.utf8_lexeme lexbuf in
     Buffer.add_string b s ;
-    longstring_dquote b (lexpos_nl pos lexbuf) lexbuf
+    longstring_dquote b (lexpos pos lexbuf) lexbuf
 | eof ->
    failwith "Unterminated long double-quoted string"
 ;;
@@ -220,10 +230,10 @@ let rec main pos = lexer
 | ">=" -> (lexpos pos lexbuf), GTE
 
 | nil ->
-   ((lexpos_nl pos lexbuf), NIL)
+   ((lexpos pos lexbuf), NIL)
 
 | ws ->
-  main ((lexpos_nl pos lexbuf)) lexbuf
+  main ((lexpos pos lexbuf)) lexbuf
 
 | langtag ->
   let s = Ulexing.utf8_lexeme lexbuf in
@@ -378,7 +388,7 @@ let rec main pos = lexer
   (lexpos pos lexbuf), Blank_node_label label
 
 | anon ->
-  (lexpos_nl pos lexbuf), ANON
+  (lexpos pos lexbuf), ANON
 
 | pname_ln ->
   let t = Ulexing.lexeme lexbuf in
@@ -401,7 +411,7 @@ let rec main pos = lexer
     | _ ->
         Some { pname_local_loc = loc ; pname_local_name = ln }
   in
-  (lexpos_nl pos lexbuf,
+  (lexpos pos lexbuf,
    Pname_ln
     {
       pname_loc = loc ;
@@ -420,7 +430,7 @@ let rec main pos = lexer
     (lexpos pos lexbuf), EOF
 | _ ->
   let s = Ulexing.utf8_lexeme lexbuf in
-  let pos = Rdf_ulex.lexpos_nl pos lexbuf in
+  let pos = lexpos pos lexbuf in
   let e = Failure (Printf.sprintf "Unexpected lexeme: %S" s) in
   raise (Rdf_ulex.Parse_error (e, pos))
 ;;

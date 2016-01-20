@@ -26,38 +26,29 @@
 
 (** This code is adapted from CCSS: file ccss.ml *)
 
-let lexpos pos lexbuf =
-  let s = Ulexing.utf8_lexeme lexbuf in
-  { pos with
-    Lexing.pos_cnum = pos.Lexing.pos_cnum + (Rdf_utf8.utf8_length s);
-  }
-;;
-
-let lexpos_nl pos lexbuf =
-  let s = Ulexing.utf8_lexeme lexbuf in
-  let len = String.length s in
-  let rec iter pos i =
-    if i < len then
-      let pos =
-        match s.[i] with
-          '\n' ->
-            let c = pos.Lexing.pos_cnum + 1 in
-            { pos with
-              Lexing.pos_bol = c ;
-              Lexing.pos_cnum = c ;
-              Lexing.pos_lnum = pos.Lexing.pos_lnum + 1 ;
-            }
-        | _ ->
-            { pos with Lexing.pos_cnum = pos.Lexing.pos_cnum + 1 }
-      in
-      iter pos (i+(Rdf_utf8.utf8_nb_bytes_of_char s.[i]))
-    else
-      pos
-  in
-  iter pos 0
-;;
-
 exception Parse_error of exn * Lexing.position
+
+let nl_code = Char.code '\n'
+
+let update_pos pos str =
+  let open Lexing in
+  let f pos i = function
+  | `Malformed msg -> 
+      let exn = Failure msg in
+      raise (Parse_error (exn, pos))
+  | `Uchar c when c = nl_code ->
+      let bol = pos.pos_cnum in
+      { pos with
+        pos_lnum = pos.pos_lnum + 1;
+        pos_bol = bol ;
+        pos_cnum = pos.pos_cnum + 1 ;
+      }
+  | _ -> { pos with pos_cnum = pos.pos_cnum + 1}
+  in
+  Uutf.String.fold_utf_8 f pos str
+
+let upd pos lexbuf = update_pos pos (Sedlexing.Utf8.lexeme lexbuf)
+
 
 let menhir_with_ulex menhir_parser lexer ?(fname="") lexbuf =
 	let position = ref

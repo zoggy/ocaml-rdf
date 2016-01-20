@@ -303,10 +303,6 @@ rdf_ttl_lex.ml: rdf_ttl_lex.mll
 rdf_ttl_parser.ml rdf_ttl_parser.mli: rdf_ttl_parser.mly
 	$(MENHIR) --explain --base rdf_ttl_parser $^
 
-rdf_sparql_lex.ml: rdf_sparql_lex.mll
-	camlp4o -printer Camlp4OCamlPrinter.cmo \
-	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
-
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 	$(MENHIR) --explain --infer --base rdf_sparql_parser $^  #--trace
 
