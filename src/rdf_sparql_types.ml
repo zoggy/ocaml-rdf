@@ -56,7 +56,7 @@ type var = {
 
 type iriref =
   { ir_loc : loc ;
-    ir_iri : Rdf_iri.iri ;
+    ir_iri : Iri.iri_reference ;
   }
 
 type prefixed_name =
@@ -65,22 +65,22 @@ type prefixed_name =
     pname_local : pname_local option ;
   }
 
-type rel_iri =
+type iriloc =
   {
-    reliri_loc : loc ;
-    reliri : string ;
+    iri_loc : loc ;
+    iri_iri : Iri.iri ;
   }
 
 type iri =
-  | Iriref of iriref
-  | PrefixedName of prefixed_name
-  | Reliri of rel_iri
+    | Iri of iriloc
+    | Iriref of iriref
+    | PrefixedName of prefixed_name
 ;;
 
-type prefix_decl = pname_ns * rel_iri;;
+type prefix_decl = pname_ns * iriref;;
 
 type query_prolog_decl =
-  | BaseDecl of rel_iri
+  | BaseDecl of iriref
   | PrefixDecl of prefix_decl
 ;;
 

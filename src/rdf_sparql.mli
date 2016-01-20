@@ -93,7 +93,7 @@ calls {!Rdf_dt.int} to retrieve an [Int n] value, then return [n].
 val get_string : solution -> string -> string
 
 (** See comment of {!Rdf_dt.iri}. *)
-val get_iri : solution -> Rdf_iri.iri -> string -> Rdf_iri.iri
+val get_iri : solution -> Iri.iri -> string -> Iri.iri
 val get_int : solution -> string -> int
 val get_float : solution -> string -> float
 val get_bool : solution -> string -> bool
@@ -125,7 +125,7 @@ type query_result =
   @raise Error in case of error.
 *)
 val execute : ?graph: Rdf_graph.graph ->
-  base:Rdf_iri.iri -> Rdf_ds.dataset -> query -> query_result
+  base:Iri.iri -> Rdf_ds.dataset -> query -> query_result
 
 (** {3 Convenient functions for querying} *)
 
@@ -133,25 +133,25 @@ val execute : ?graph: Rdf_graph.graph ->
   @raise Not_select is the query is not a SELECT.
 *)
 val select :
-  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> solution list
+  base: Iri.iri -> Rdf_ds.dataset -> query -> solution list
 
 (** Execute the given CONSTRUCT query.
   @raise Not_construct is the query is not a CONSTRUCT.
 *)
 val construct : ?graph: Rdf_graph.graph ->
-  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
+  base: Iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** Execute the given ASK query.
   @raise Not_ask is the query is not a ASK.
 *)
 val ask :
-  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> bool
+  base: Iri.iri -> Rdf_ds.dataset -> query -> bool
 
 (** Execute the given DESCRIBE query.
   @raise Not_describe is the query is not a DESCRIBE.
 *)
 val describe : ?graph: Rdf_graph.graph ->
-  base: Rdf_iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
+  base: Iri.iri -> Rdf_ds.dataset -> query -> Rdf_graph.graph
 
 (** {2 Predefined functions}
 
@@ -161,5 +161,5 @@ These are the functions named by an IRI,
 (** A function takes a list of values and returns a value. *)
 type iri_fun = Rdf_dt.value list -> Rdf_dt.value
 
-val iri_funs : unit -> iri_fun Rdf_iri.Irimap.t
-val add_iri_fun : Rdf_iri.iri -> iri_fun -> unit
+val iri_funs : unit -> iri_fun Iri.Map.t
+val add_iri_fun : Iri.iri -> iri_fun -> unit

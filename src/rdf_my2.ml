@@ -42,24 +42,24 @@ let creation_queries =
 ;;
 
 let hash_of_term = function
-| Rdf_term.Iri iri -> "U"^(Rdf_iri.string iri)
+| Rdf_term.Iri iri -> "U"^(Iri.to_string iri)
 | Rdf_term.Blank -> assert false
 | Rdf_term.Blank_ id -> "B"^(Rdf_term.string_of_blank_id id)
 | Rdf_term.Literal lit ->
-    let iri = Rdf_misc.map_opt Rdf_iri.string lit.lit_type in
+    let iri = Rdf_misc.map_opt Iri.to_string lit.lit_type in
     "L"^(Marshal.to_string (lit.lit_value, lit.lit_language, iri) [])
 ;;
 
 let term_of_hash dbd hash =
   match hash.[0] with
-    'U' -> Rdf_term.Iri (Rdf_iri.iri ~check: false (String.sub hash 1 (String.length hash - 1)))
+    'U' -> Rdf_term.Iri (Iri.of_string ~check: false (String.sub hash 1 (String.length hash - 1)))
   | 'B' -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string (String.sub hash 1 (String.length hash -1)))
   | 'L' ->
       let (v,lang,iri) = Marshal.from_string hash 1 in
       Rdf_term.Literal
         { Rdf_term.lit_value = v ;
           lit_language = lang ;
-          lit_type = Rdf_misc.map_opt (Rdf_iri.iri ~check: false) iri ;
+          lit_type = Rdf_misc.map_opt (Iri.of_string ~check: false) iri ;
         }
   | c -> raise (Error ("Bad term header '"^(String.make 1 c)^"'"))
 ;;
@@ -102,7 +102,7 @@ let query_term_list g stmt params =
 let query_pred_list g stmt params =
   let res = Rdf_my.exec_prepared g.g_dbd stmt params in
   let f = function
-  | [| Some s |] -> Rdf_iri.iri ~check: false (Mysql.blob2ml s)
+  | [| Some s |] -> Iri.of_string ~check: false (Mysql.blob2ml s)
   | _ -> raise (Error "Invalid result: NULL hash or too many fields")
   in
   Mysql.map res ~f
@@ -116,7 +116,7 @@ let query_triple_list g where_clause =
   let f = function
   | [| Some sub ; Some pred ; Some obj |] ->
       (term_of_hash g.g_dbd (Mysql.blob2ml sub),
-       Rdf_iri.iri ~check: false (Mysql.blob2ml pred),
+       Iri.of_string ~check: false (Mysql.blob2ml pred),
        term_of_hash g.g_dbd (Mysql.blob2ml obj)
       )
   | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")
@@ -146,7 +146,7 @@ let open_graph ?(options=[]) name =
 
 let add_triple g ~sub ~pred ~obj =
   let sub = hash_of_term sub in
-  let pred = Rdf_iri.string pred in
+  let pred = Iri.to_string pred in
   let obj = hash_of_term obj in
   let params = [
     Rdf_my.mysql_quote g sub ;
@@ -164,7 +164,7 @@ let add_triple g ~sub ~pred ~obj =
 
 let rem_triple g ~sub ~pred ~obj =
   let sub = hash_of_term sub in
-  let pred = Rdf_iri.string pred in
+  let pred = Iri.to_string pred in
   let obj = hash_of_term obj in
   ignore(Rdf_my.exec_prepared g.g_dbd
    prepared_delete_triple
@@ -177,7 +177,7 @@ let rem_triple g ~sub ~pred ~obj =
 
 let subjects_of g ~pred ~obj =
   query_term_list g prepared_subjects_of
-  [ Rdf_my.mysql_quote g (Rdf_iri.string pred) ;
+  [ Rdf_my.mysql_quote g (Iri.to_string pred) ;
     Rdf_my.mysql_quote g (hash_of_term obj) ;
   ]
 ;;
@@ -192,7 +192,7 @@ let predicates_of g ~sub ~obj =
 let objects_of g ~sub ~pred =
   query_term_list g prepared_objects_of
   [ Rdf_my.mysql_quote g (hash_of_term sub) ;
-    Rdf_my.mysql_quote g (Rdf_iri.string pred) ;
+    Rdf_my.mysql_quote g (Iri.to_string pred) ;
   ]
 ;;
 
@@ -208,7 +208,7 @@ let mk_where_clause ?sub ?pred ?obj g =
       let pred_cond =
         match pred with
           None -> []
-        | Some p -> ["predicate="^(Rdf_my.mysql_quote g (Rdf_iri.string p) )]
+        | Some p -> ["predicate="^(Rdf_my.mysql_quote g (Iri.to_string p) )]
       in
       let l =
         (mk_cond "subject" sub) @

@@ -29,17 +29,17 @@ exception Error of error
 val string_of_error : error -> string
 
 (** Input graph from string. Default base is the graph name. *)
-val from_string : Rdf_graph.graph -> ?base:Rdf_iri.iri -> string -> unit
+val from_string : Rdf_graph.graph -> ?base:Iri.iri -> string -> unit
 
 (** Same as {!from_string} but read from the given file. *)
-val from_file : Rdf_graph.graph -> ?base:Rdf_iri.iri -> string -> unit
+val from_file : Rdf_graph.graph -> ?base:Iri.iri -> string -> unit
 
 val string_of_triple :
-  sub:Rdf_term.term -> pred:Rdf_iri.iri -> obj:Rdf_term.term -> string
+  sub:Rdf_term.term -> pred:Iri.iri -> obj:Rdf_term.term -> string
 
-val to_ : ?namespaces: (Rdf_iri.iri * string) list ->
+val to_ : ?namespaces: (Iri.iri * string) list ->
   (string -> unit) -> Rdf_graph.graph -> unit
-val to_string : ?namespaces: (Rdf_iri.iri * string) list ->
+val to_string : ?namespaces: (Iri.iri * string) list ->
   Rdf_graph.graph -> string
-val to_file : ?namespaces: (Rdf_iri.iri * string) list ->
+val to_file : ?namespaces: (Iri.iri * string) list ->
   Rdf_graph.graph -> string -> unit

@@ -32,12 +32,12 @@ open Rdf_sparql;;
 let verb = print_endline;;
 
 type test_spec =
-  { base : Rdf_iri.iri option ;
+  { base : Iri.of_string option ;
     title : string ;
     desc : string option;
     query : string ;
     default_graph : string option ;
-    named : (Rdf_iri.iri * string) list ;
+    named : (Iri.of_string * string) list ;
     options : (string * string) list ;
   }
 
@@ -79,8 +79,8 @@ let load_file ?graph_options file =
        let wr = C.list_wrappers (C.tuple2_wrappers C.string_wrappers C.string_wrappers) in
        wr.C.of_raw (C.Raw.of_string s)
   in
-  let named = List.map (fun (iri, s) -> (Rdf_iri.iri iri, mk_filename s)) named#get in
-  { base = Rdf_misc.map_opt Rdf_iri.iri base#get ;
+  let named = List.map (fun (iri, s) -> (Iri.of_string iri, mk_filename s)) named#get in
+  { base = Rdf_misc.map_opt Iri.of_string base#get ;
     title = title#get ;
     desc = Rdf_misc.opt_of_string desc#get ;
     query = mk_filename query#get ;
@@ -102,7 +102,7 @@ let load_ttl g base file =
 let mk_dataset spec =
   let base =
     match spec.base with
-      None -> Rdf_iri.iri "http://localhost/"
+      None -> Iri.of_string "http://localhost/"
     | Some iri -> iri
   in
   let default =

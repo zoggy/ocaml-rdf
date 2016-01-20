@@ -43,18 +43,18 @@ val get_first_child : tree -> (string * string) -> tree option
 (** Type of current state when walking through the xml tree. *)
 type state =
   { subject : Rdf_term.term option ;
-    predicate : Rdf_iri.iri option ;
-    xml_base : Rdf_iri.iri ;
+    predicate : Iri.iri option ;
+    xml_base : Iri.iri ;
     xml_lang : string option ;
-    datatype : Rdf_iri.iri option ;
-    namespaces : string Rdf_iri.Irimap.t ;
+    datatype : Iri.iri option ;
+    namespaces : string Iri.Map.t ;
   }
 
 (** Global state of the analysis. *)
 type global_state =
   {
     blanks : Rdf_term.blank_id SMap.t ;
-    gnamespaces : string Rdf_iri.Irimap.t ;
+    gnamespaces : string Iri.Map.t ;
   }
 
 val get_blank_node : Rdf_graph.graph -> global_state -> SMap.key -> Rdf_term.term * global_state
@@ -66,22 +66,22 @@ val input_node: Rdf_graph.graph -> state -> global_state -> tree -> global_state
 val input_prop : Rdf_graph.graph -> state -> (global_state * int) -> tree -> (global_state * int)
 
 (** Input graph from string.  Default base is the graph name. *)
-val from_string : Rdf_graph.graph -> ?base: Rdf_iri.iri -> string -> unit
+val from_string : Rdf_graph.graph -> ?base: Iri.iri -> string -> unit
 
 (** Same as {!from_string} but read from the given file. *)
-val from_file : Rdf_graph.graph -> ?base: Rdf_iri.iri -> string -> unit
+val from_file : Rdf_graph.graph -> ?base: Iri.iri -> string -> unit
 
 (** Same as {!from_string} but read from the given Xmlm.input handle. *)
-val from_input : Rdf_graph.graph -> ?base: Rdf_iri.iri -> Xmlm.input -> unit
+val from_input : Rdf_graph.graph -> ?base: Iri.iri -> Xmlm.input -> unit
 
 (** Same as {!from_string} but read from the given Xml tree. *)
-val from_xml : Rdf_graph.graph -> ?base: Rdf_iri.iri -> tree -> unit
+val from_xml : Rdf_graph.graph -> ?base: Iri.iri -> tree -> unit
 
 
 
 val to_string :
-  ?namespaces: (Rdf_iri.iri * string) list -> Rdf_graph.graph -> string
+  ?namespaces: (Iri.iri * string) list -> Rdf_graph.graph -> string
 
 val to_file :
-  ?namespaces: (Rdf_iri.iri * string) list ->
+  ?namespaces: (Iri.iri * string) list ->
     Rdf_graph.graph -> string -> unit

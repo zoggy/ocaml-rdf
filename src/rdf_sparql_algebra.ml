@@ -60,14 +60,14 @@ exception Implicit_aggregate_found
 
 type path =
     | Var of var
-    | Iri of iriref
+    | Iri of iriloc
     | Inv of path
     | Alt of path * path
     | Seq of path * path
     | ZeroOrMore of path
     | OneOrMore of path
     | ZeroOrOne of path
-    | NPS of iriref list
+    | NPS of iriloc list
 
 type triple = var_or_term * path * var_or_term
 
@@ -148,11 +148,15 @@ let fresh_var =
     { var_loc = Rdf_loc.dummy_loc ; var_name = label }
 ;;
 
-let path_iri_first = Iri { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_first } ;;
-let path_iri_rest =  Iri { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_rest } ;;
-let iri_nil =  T.Iriref { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_nil } ;;
-let iriref_type = { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Rdf_rdf.rdf_type } ;;
-let path_iri_type = Iri iriref_type ;;
+let path_iri_first = 
+  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_first } ;;
+let path_iri_rest =  
+  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_rest } ;;
+let iri_nil =  
+  T.Iriref { ir_loc = Rdf_loc.dummy_loc ; ir_iri = Iri.Iri Rdf_rdf.rdf_nil } ;;
+let iri_type = 
+  { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_type } ;;
+let path_iri_type = Iri iri_type ;;
 
 let rec translate_path = function
 | [] -> assert false
@@ -186,8 +190,8 @@ and translate_path_elt e =
 
 and translate_path_primary = function
   | PathIri (PrefixedName _) -> assert false
-  | PathIri (Reliri _) -> assert false
-  | PathIri (Iriref ir) -> Iri ir
+  | PathIri (Iriref _) -> assert false
+  | PathIri (Iri ir) -> Iri ir
   | PathA -> path_iri_type
   | Path p -> translate_path p
   | PathNegPropSet l ->
@@ -203,13 +207,13 @@ and partition_path_one_in_prop_set =
   | h :: q ->
      match h with
      | PathOneInIri (PrefixedName _) -> assert false
-     | PathOneInIri (Reliri _) -> assert false
-     | PathOneInIri (Iriref iriref) -> (iriref :: acc, acc_inv)
-     | PathOneInA -> (iriref_type :: acc, acc_inv)
+     | PathOneInIri (Iriref _) -> assert false
+     | PathOneInIri (Iri iri) -> (iri :: acc, acc_inv)
+     | PathOneInA -> (iri_type :: acc, acc_inv)
      | PathOneInNotIri (PrefixedName _) -> assert false
-     | PathOneInNotIri (Reliri _) -> assert false
-     | PathOneInNotIri (Iriref iriref)-> (acc, iriref :: acc_inv)
-     | PathOneInNotA -> (acc, iriref_type :: acc_inv)
+     | PathOneInNotIri (Iriref _) -> assert false
+     | PathOneInNotIri (Iri iri)-> (acc, iri :: acc_inv)
+     | PathOneInNotA -> (acc, iri_type :: acc_inv)
   in
   iter ([], [])
 
@@ -231,8 +235,8 @@ let rec build_triples_path subject acc prop_obj_list =
     | VerbPath path -> translate_path path
     | VerbVar var -> Var var
     | VerbIri (PrefixedName _) -> assert false
-    | VerbIri (Reliri _) -> assert false
-    | VerbIri (T.Iriref iriref) -> Iri iriref
+    | VerbIri (Iriref _) -> assert false
+    | VerbIri (T.Iri iri) -> Iri iri
     | VerbA -> path_iri_type
   in
   List.fold_left
@@ -594,9 +598,9 @@ let string_of_var_or_term = function
 | GraphTerm t ->
     match t with
       GraphTermIri (PrefixedName _) -> assert false
-    | GraphTermIri (Reliri _) -> assert false
-    | GraphTermIri (Iriref ir) ->
-        "<"^(Rdf_iri.string ir.ir_iri)^">"
+    | GraphTermIri (Iriref _) -> assert false
+    | GraphTermIri (Iri iri) ->
+        "<"^(Iri.to_string iri.iri_iri)^">"
     | GraphTermLit lit
     | GraphTermNumeric lit
     | GraphTermBoolean lit ->
@@ -612,7 +616,7 @@ let string_of_var_or_term = function
 
 let rec string_of_path = function
   Var v ->  "?"^v.var_name
-| Iri ir -> "<"^(Rdf_iri.string ir.ir_iri)^">"
+| Iri ir -> "<"^(Iri.to_string ir.iri_iri)^">"
 | Inv p -> "(^"^(string_of_path p)^")"
 | Alt (p1, p2) -> "("^(string_of_path p1)^" | "^(string_of_path p2)^")"
 | Seq (p1, p2) -> "("^(string_of_path p1)^" / "^(string_of_path p2)^")"

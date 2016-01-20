@@ -22,8 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let foaf = Rdf_iri.iri "http://xmlns.com/foaf/0.1/";;
-let foaf_ = Rdf_iri.append foaf;;
+let foaf_str = "http://xmlns.com/foaf/0.1/";;
+let foaf = Iri.of_string foaf_str ;;
+let foaf_ s = Iri.of_string (foaf_str ^ s);;
 
 let foaf_account = foaf_"account" ;;
 

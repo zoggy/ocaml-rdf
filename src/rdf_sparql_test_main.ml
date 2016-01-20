@@ -31,7 +31,7 @@ let run_test spec =
     let dataset = mk_dataset spec in
     let query = Rdf_sparql.query_from_file spec.query in
     let base = match spec.base with
-      None -> Rdf_iri.iri "http://foo.bar"
+      None -> Iri.of_string "http://foo.bar"
     | Some iri -> iri
     in
     let res = Rdf_sparql.execute base dataset query in

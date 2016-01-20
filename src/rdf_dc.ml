@@ -22,8 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let dc = Rdf_iri.iri "http://purl.org/dc/elements/1.1/";;
-let dc_ = Rdf_iri.append dc;;
+let dc_str = "http://purl.org/dc/elements/1.1/";;
+let dc = Iri.of_string dc_str ;;
+let dc_ s = Iri.of_string (dc_str ^ s);;
 
 let dc_contributor = dc_"contributor" ;;
 
@@ -56,8 +57,9 @@ let dc_title = dc_"title" ;;
 let dc_type = dc_"type" ;;
 
 
-let terms = Rdf_iri.iri "http://purl.org/dc/terms/";;
-let terms_ = Rdf_iri.append terms;;
+let terms_str = "http://purl.org/dc/terms/";;
+let terms = Iri.of_string terms_str ;;
+let terms_ s = Iri.of_string (terms_str ^ s);;
 
 let terms_abstract = terms_"abstract" ;;
 

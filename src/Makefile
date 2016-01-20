@@ -58,7 +58,6 @@ LIB_RDF_CMOFILES= \
 	rdf_misc.cmo \
 	rdf_loc.cmo \
 	rdf_uri.cmo \
-	rdf_iri.cmo \
 	rdf_rdf.cmo \
 	rdf_term.cmo \
 	rdf_doap.cmo \
@@ -222,7 +221,7 @@ test_sparql_protocol: $(LIB_RDF) $(LIB_LWT) test_sparql_protocol.cmx
 dump.odoc: *.mli *.ml
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) $(MT_FLAGS) $(INCLUDES) -sort -dump dump.odoc \
 	-syntax camlp4o -package lwt.syntax \
-	`ls $^ | grep -v example | grep -v test | grep -v -E "rdf_iri.ml$$" | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" | grep -v ppx_ `
+	`ls $^ | grep -v example | grep -v test | grep -v "bench" | grep -v "_parser.ml" | grep -v "lex.ml" | grep -v ppx_ `
 
 doc: dump.odoc
 	$(MKDIR) ocamldoc

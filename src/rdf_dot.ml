@@ -61,7 +61,7 @@ let build_namespaces ?(namespaces=[]) g =
           )
   in
   let (map, _) = List.fold_left f (Irimap.empty, SSet.empty) l in
-  Irimap.fold (fun iri s acc -> (s, Rdf_iri.string iri) :: acc) map []
+  Irimap.fold (fun iri s acc -> (s, Iri.to_string iri) :: acc) map []
 ;;
 
 let dot_of_graph ?namespaces ?href ?iri g =
@@ -80,7 +80,7 @@ let dot_of_graph ?namespaces ?href ?iri g =
   let label node =
     match node with
       Iri iri ->
-         let iri = Rdf_iri.string iri in
+         let iri = Iri.to_string iri in
          let (pref,s) = apply_namespaces namespaces iri in
          let s =
           begin
@@ -94,18 +94,18 @@ let dot_of_graph ?namespaces ?href ?iri g =
         Rdf_term.string_of_literal lit
         (*lit.lit_value
           ^ (match lit.lit_language with None -> "" | Some s -> "^"^s)
-          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Rdf_iri.string iri))*)
+          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Iri.to_string iri))*)
     | Blank_ _ | Blank -> "\"\""
   in
   let id node =
     let s =
       match node with
-        Iri iri -> Rdf_iri.string iri
+        Iri iri -> Iri.to_string iri
       | Blank_ id -> "b"^(string_of_blank_id id)
       | Literal lit ->
           lit.lit_value
             ^ "^" ^ (match lit.lit_language with None -> "" | Some s -> s)
-            ^ "@" ^ (match lit.lit_type with None -> "" | Some iri -> Rdf_iri.string iri)
+            ^ "@" ^ (match lit.lit_type with None -> "" | Some iri -> Iri.to_string iri)
       | Blank -> assert false
     in
     "N" ^ (Digest.to_hex (Digest.string s))

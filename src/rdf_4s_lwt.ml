@@ -73,6 +73,6 @@ let post_append uri content content_type graph_uri =
   let content' = (content ^ "&graph=" ^ (Rdf_uri.string graph_uri) ^
                     "&mime-type=" ^ content_type)
   in
-  let base = Rdf_iri.iri ~check:false "" in
+  let base = Iri.of_string ~check:false "" in
   let msg = {in_query = content'; in_dataset = empty_dataset} in
   Rdf_sparql_http_lwt.post ~base uri ~query_var:"data" msg

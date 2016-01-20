@@ -25,8 +25,8 @@
 (** *)
 
 type in_dataset = {
-  inds_default : Rdf_iri.iri option;
-  inds_named : Rdf_iri.iri list ;
+  inds_default : Iri.of_string option;
+  inds_named : Iri.of_string list ;
   }
 
 let empty_dataset = { inds_default = None ; inds_named = [] }

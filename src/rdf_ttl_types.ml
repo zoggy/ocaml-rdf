@@ -27,8 +27,8 @@
 module SMap = Rdf_xml.SMap;;
 
 type context =
-  { base : Rdf_iri.iri ;
-    prefixes : Rdf_iri.iri SMap.t ;
+  { base : Iri.iri ;
+    prefixes : Iri.iri SMap.t ;
     gstate : Rdf_xml.global_state ;
   }
 type iriref = string

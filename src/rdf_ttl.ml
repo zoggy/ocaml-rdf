@@ -61,9 +61,9 @@ let iri_of_resource ctx = function
       match n with
         None -> base
       | Some n ->
-          let iri = (Rdf_iri.string base)^n in
-          (*prerr_endline (Printf.sprintf "Apply prefix: p=%s, => base=%s, n=%s" p (Rdf_iri.string base) n);*)
-          Rdf_iri.iri iri
+          let iri = (Iri.to_string base)^n in
+          (*prerr_endline (Printf.sprintf "Apply prefix: p=%s, => base=%s, n=%s" p (Iri.to_string base) n);*)
+          Iri.of_string iri
     end
 ;;
 
@@ -140,7 +140,7 @@ let apply_statement (ctx, g) = function
   Directive (Prefix (s, iri)) ->
     (*prerr_endline (Printf.sprintf "Directive (Prefix (%S, %s))" s iri);*)
     let iri = iri_of_iriref ctx iri in
-    (*prerr_endline (Printf.sprintf "iri=%s" (Rdf_iri.string iri));*)
+    (*prerr_endline (Printf.sprintf "iri=%s" (Iri.to_string iri));*)
     let ctx = { ctx with prefixes = SMap.add s iri ctx.prefixes } in
     (ctx, g)
 | Directive (Base iri) ->
@@ -250,7 +250,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
           (match lit.Rdf_term.lit_type with
              None -> ""
            | Some iri ->
-               let iri = Rdf_iri.string iri in
+               let iri = Iri.to_string iri in
                let s =
                  match Rdf_dot.apply_namespaces ns iri with
                    ("",iri) -> "<"^iri^">"
@@ -259,7 +259,7 @@ let string_of_triple_ns ns ~sub ~pred ~obj =
                "^^" ^ s
           )
     | Rdf_term.Iri iri ->
-        let s = Rdf_iri.string iri in
+        let s = Iri.to_string iri in
         match Rdf_dot.apply_namespaces ns s with
           ("",iri) -> "<" ^ iri ^ ">"
         | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)

@@ -68,13 +68,13 @@ let hash_of_term dbd ?(add=false) term =
               Iri iri ->
                 "resources (id, value) values ("^
                   (Int64.to_string hash) ^
-                  ", " ^ (quote_str (Rdf_iri.string iri)) ^ ")"
+                  ", " ^ (quote_str (Iri.to_string iri)) ^ ")"
             | Literal lit ->
                 "literals (id, value, language, datatype) values (" ^
                   (Int64.to_string hash) ^ ", " ^
                   (quote_str lit.lit_value) ^ ", " ^
                   (quote_str (Rdf_misc.string_of_opt lit.lit_language)) ^ ", " ^
-                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_iri.string lit.lit_type))) ^ ")"
+                  (quote_str (Rdf_misc.string_of_opt (Rdf_misc.map_opt Iri.to_string lit.lit_type))) ^ ")"
             | Blank_ id ->
                 "bnodes (id, value) values (" ^
                 (Int64.to_string hash) ^ ", " ^
@@ -152,7 +152,7 @@ let term_of_hash dbd hash =
                 Rdf_term.term_of_iri_string iri
             | [| None ; None ; Some value ; lang ; typ |] ->
                 let typ = Rdf_misc.map_opt
-                  (Rdf_iri.iri ~check: false)
+                  (Iri.of_string ~check: false)
                   (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
                 in
                 Rdf_term.term_of_literal_string

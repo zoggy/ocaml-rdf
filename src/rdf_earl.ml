@@ -22,8 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let earl = Rdf_iri.iri "http://www.w3.org/ns/earl#";;
-let earl_ = Rdf_iri.append earl;;
+let earl_str = "http://www.w3.org/ns/earl#";;
+let earl = Iri.of_string earl_str ;;
+let earl_ s = Iri.of_string (earl_str ^ s);;
 
 let earl_assertedBy = earl_"assertedBy" ;;
 

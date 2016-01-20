@@ -51,8 +51,8 @@ let print_list ?sep b f l =
   iter l
 ;;
 
-let print_iriref b ir = p b ("<" ^ (Rdf_iri.string ir.ir_iri) ^ ">")
-let print_reliri b r = p b ("<" ^ r.reliri ^ ">")
+let print_iriref b ir = p b ("<" ^ (Iri.ref_to_string ir.ir_iri) ^ ">")
+let print_iriloc b r = p b ("<" ^ (Iri.to_string r.iri_iri) ^ ">")
 let print_var b v = p b ("?"^v.var_name)
 let print_bnode b bnode =
   match bnode.bnode_label with
@@ -67,7 +67,7 @@ let print_path_mod b = function
 
 let print_iri b = function
 | Iriref ir -> print_iriref b ir
-| Reliri r -> print_reliri b r
+| Iri r -> print_iriloc b r
 | PrefixedName pname ->
     p b (pname.pname_ns.pname_ns_name^":");
     (match pname.pname_local with
@@ -78,14 +78,14 @@ let print_iri b = function
 ;;
 
 let print_query_prolog_decl b = function
-| BaseDecl reliri ->
+| BaseDecl iriref ->
    p b "BASE ";
-   print_reliri b reliri;
+   print_iriref b iriref;
    p b "\n"
 
-| PrefixDecl (pname_ns, reliri) ->
+| PrefixDecl (pname_ns, iriref) ->
    p b ("PREFIX "^pname_ns.pname_ns_name^": ");
-   print_reliri b reliri;
+   print_iriref b iriref;
    p b "\n"
 ;;
 
@@ -97,7 +97,7 @@ let print_string_lit b s = p b (Rdf_term.quote_str s)
 
 let print_rdf_literal b t =
   match t.rdf_lit.Rdf_term.lit_type with
-    Some iri when Rdf_iri.equal iri Rdf_rdf.xsd_integer ->
+    Some iri when Iri.equal iri Rdf_rdf.xsd_integer ->
       p b t.rdf_lit.Rdf_term.lit_value
   | _ ->
       let lit = t.rdf_lit in

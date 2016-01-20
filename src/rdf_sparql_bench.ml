@@ -28,7 +28,7 @@ open Rdf_sparql_test;;
 open Rdf_sparql;;
 
 
-let base = Rdf_iri.iri "http://localhost/ocamml-rdf-bench";;
+let base = Iri.of_string "http://localhost/ocamml-rdf-bench";;
 let prop_ = Rdf_iri.concat base;;
 
 let prop_options = prop_"graphOptions";;
@@ -105,7 +105,7 @@ let store_operation g op =
           | None ->
               Rdf_term.Iri
                 (match op.spec.base with
-                   None -> Rdf_iri.iri "http://localhost/"
+                   None -> Iri.of_string "http://localhost/"
                  | Some u -> u)
         in
         add ~pred: prop_source ~obj: source;
@@ -133,7 +133,7 @@ let run_sparql_test ~id spec =
     try
       let dataset = Rdf_sparql_test.mk_dataset spec in
       let query = Rdf_sparql.query_from_file spec.query in
-      let base = match spec.base with None -> Rdf_iri.iri "http://localhost/" | Some u -> u in
+      let base = match spec.base with None -> Iri.of_string "http://localhost/" | Some u -> u in
       prerr_endline "Running sparql query";
       let t_start = get_time () in
       let res = Rdf_sparql.execute base dataset query in
@@ -165,12 +165,12 @@ let run_sparql_test ~id spec =
 let run_import_test ~id spec =
   let spec_base =
     match spec.base with
-      None -> Rdf_iri.iri "http://localhost/"
+      None -> Iri.of_string "http://localhost/"
     | Some iri -> iri
   in
   let g = Rdf_graph.open_graph ~options: spec.options spec_base in
   if g.Rdf_graph.size () > 0 then
-    prerr_endline ("Warning: graph "^(Rdf_iri.string spec_base)^" not empty");
+    prerr_endline ("Warning: graph "^(Iri.to_string spec_base)^" not empty");
   let (res, duration, size) =
     try
       (* use a in-memory graph first, so that parsing time
@@ -219,7 +219,7 @@ let sparql_select g q =
 module SMap = Rdf_xml.SMap;;
 type import_stats = (int * float option SMap.t) list
 
-let us = Rdf_iri.string ;;
+let us = Iri.to_string ;;
 
 let ids g =
   let q = "SELECT DISTINCT ?id

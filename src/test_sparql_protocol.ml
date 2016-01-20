@@ -68,7 +68,7 @@ let main () =
         | None, [] -> fatal usage
       in
       let options = [ "storage", "mem" ] in
-      let base = Rdf_iri.iri "http://hello.fr" in
+      let base = Iri.of_string "http://hello.fr" in
       let g = Rdf_graph.open_graph ~options base in
       let url = Rdf_uri.uri url in
       let in_message = { in_query = query ; in_dataset = empty_dataset } in

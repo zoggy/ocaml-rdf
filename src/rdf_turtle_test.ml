@@ -26,9 +26,9 @@
   @see http://www.w3.org/2011/rdf-wg/wiki/Turtle_Test_Suite
 *)
 
-let base = Rdf_iri.iri "http://www.w3.org/2013/TurtleTests/";;
+let base = Iri.of_string "http://www.w3.org/2013/TurtleTests/";;
 
-let mf_iri = Rdf_iri.iri "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
+let mf_iri = Iri.of_string "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#";;
 let mf_ = Rdf_iri.append mf_iri ;;
 
 let manifest = mf_"Manifest";;
@@ -36,10 +36,10 @@ let entries = mf_"entries";;
 let action = mf_"action";;
 let result = mf_"result";;
 
-let qt_iri = Rdf_iri.iri "http://www.w3.org/2001/sw/DataAccess/tests/test-query#";;
+let qt_iri = Iri.of_string "http://www.w3.org/2001/sw/DataAccess/tests/test-query#";;
 let qt_ = Rdf_iri.append qt_iri ;;
 
-let rdft_iri = Rdf_iri.iri "http://www.w3.org/ns/rdftest#";;
+let rdft_iri = Iri.of_string "http://www.w3.org/ns/rdftest#";;
 let rdft_ = Rdf_iri.append rdft_iri;;
 
 let test_eval = rdft_"TestTurtleEval";;
@@ -58,7 +58,7 @@ let namespaces =
 type result = Ok of Rdf_graph.graph | Error of string;;
 
 type test =
-  | EvalPos of Rdf_iri.iri
+  | EvalPos of Iri.of_string
   | EvalNeg
   | SyntaxPos
   | SyntaxNeg
@@ -69,7 +69,7 @@ let exec_select g q =
   let q =
     List.fold_right
       (fun (name, iri) acc ->
-        "PREFIX "^name^": <"^(Rdf_iri.string iri)^">\n"^acc)
+        "PREFIX "^name^": <"^(Iri.to_string iri)^">\n"^acc)
        namespaces
        q
   in
@@ -100,7 +100,7 @@ let tests g =
           SyntaxPos
       | _ when Rdf_iri.compare t test_stx_neg = 0 ->
           SyntaxNeg
-      | _ -> failwith ("Unknown test type "^(Rdf_iri.string t))
+      | _ -> failwith ("Unknown test type "^(Iri.to_string t))
     in
     (Rdf_sparql.get_iri sol base "test",
      Rdf_sparql.get_iri sol base "action",
@@ -129,10 +129,10 @@ let map_blanks map g =
 open Rdf_term;;
 
 type align_form =
-  ATT of term * Rdf_iri.iri * term
-| ABT of string * Rdf_iri.iri * term
-| ATB of term * Rdf_iri.iri * string
-| ABB of string * Rdf_iri.iri * string
+  ATT of term * Iri.of_string * term
+| ABT of string * Iri.of_string * term
+| ATB of term * Iri.of_string * string
+| ABB of string * Iri.of_string * string
 ;;
 
 let align_form mapped (sub, pred, obj) =
@@ -372,14 +372,14 @@ let run_test (test, action, typ) =
   match result, typ with
     Error msg, EvalNeg
   | Error msg, SyntaxNeg ->
-      prerr_endline ("OK "^(Rdf_iri.string test))
+      prerr_endline ("OK "^(Iri.to_string test))
   | Error msg, _ ->
-      prerr_endline ("*** KO "^(Rdf_iri.string test)^":\n"^msg)
+      prerr_endline ("*** KO "^(Iri.to_string test)^":\n"^msg)
   | Ok _, SyntaxNeg
   | Ok _, EvalNeg ->
-      prerr_endline ("*** KO (success instead of error)"^(Rdf_iri.string test))
+      prerr_endline ("*** KO (success instead of error)"^(Iri.to_string test))
   | Ok g, SyntaxPos ->
-      prerr_endline ("OK "^(Rdf_iri.string test))
+      prerr_endline ("OK "^(Iri.to_string test))
   | Ok g, EvalPos result ->
       let res_file =
         match List.rev (Rdf_iri.path result) with
@@ -389,7 +389,7 @@ let run_test (test, action, typ) =
       let gres = Rdf_graph.open_graph action in
       ignore(Rdf_ttl.from_file gres ~base: action res_file) ;
       if isomorphic_graphs g gres then
-        prerr_endline ("OK "^(Rdf_iri.string test))
+        prerr_endline ("OK "^(Iri.to_string test))
       else
         (
          let file = (Filename.chop_extension in_file)^".out" in
@@ -400,7 +400,7 @@ let run_test (test, action, typ) =
          gres.Rdf_graph.set_namespaces [];
          Rdf_ttl.to_file gres file2;
 
-         prerr_endline ("*** KO "^(Rdf_iri.string test))
+         prerr_endline ("*** KO "^(Iri.to_string test))
         )
 ;;
 

@@ -37,13 +37,13 @@ open Rdf_sparql_http_lwt
 (** [get url msg]
     [url] including "/sparql/"
     This method allows: select/ask/describe queries.*)
-val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
   Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
 
 (** [post_update url msg]
     [url] including "/update/"
     This method allows: update/insert/delete queries. *)
-val post_update : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri ->
+val post_update : ?graph: Rdf_graph.graph -> base:Iri.iri ->
   ?accept: string -> Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
 
 (** [delete url graph_uri]

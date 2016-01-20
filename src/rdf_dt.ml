@@ -34,14 +34,14 @@ type error =
 and value =
   | Err of error
   | Blank of string
-  | Iri of Rdf_iri.iri
+  | Iri of Iri.iri
   | String of string
   | Int of int
   | Float of float
   | Bool of bool
   | Datetime of Netdate.t
   | Ltrl of string * string option (* optional language *)
-  | Ltrdt of string * Rdf_iri.iri (* datatyped literal, with unsupported datatype *)
+  | Ltrdt of string * Iri.iri (* datatyped literal, with unsupported datatype *)
 
 exception Error of error
 let error e = raise (Error e)
@@ -51,7 +51,7 @@ let date_fmt = "%d %b %Y %T %z"
 let string_of_value = function
   Err _ -> "<err>"
 | Blank id -> "_:"^id
-| Iri iri -> "<"^(Rdf_iri.string iri)^">"
+| Iri iri -> "<"^(Iri.to_string iri)^">"
 | String s -> Rdf_term.quote_str s
 | Int n -> string_of_int n
 | Float f -> string_of_float f
@@ -60,7 +60,7 @@ let string_of_value = function
 | Datetime t -> Netdate.format ~fmt: date_fmt t
 | Ltrl (s,None) -> Rdf_term.quote_str s
 | Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
-| Ltrdt (s, iri) -> (Rdf_term.quote_str s)^"^^"^(Rdf_iri.string iri)
+| Ltrdt (s, iri) -> (Rdf_term.quote_str s)^"^^"^(Iri.to_string iri)
 ;;
 
 module ValueOrdered =
@@ -74,7 +74,7 @@ module ValueOrdered =
       | Blank l1, Blank l2 -> String.compare l1 l2
       | Blank _, _ -> 1
       | _, Blank _ -> -1
-      | Iri iri1, Iri iri2 -> Rdf_iri.compare iri1 iri2
+      | Iri iri1, Iri iri2 -> Iri.compare iri1 iri2
       | Iri _, _ -> 1
       | _, Iri _ -> -1
       | String s1, String s2
@@ -105,7 +105,7 @@ module ValueOrdered =
       | _, Datetime _ -> -1
       | Ltrdt (s1, iri1), Ltrdt (s2, iri2) ->
           (match String.compare s1 s2 with
-             0 -> Rdf_iri.compare iri1 iri2
+             0 -> Iri.compare iri1 iri2
            | n -> n)
        (*| Ltrdt _, _ -> 1
          | _, Ltrdt _ -> -1*)
@@ -137,7 +137,7 @@ let iri base_iri = function
 | (String s)
 | (Ltrl (s, None)) as v ->
     begin
-      try Iri (Rdf_iri.ensure_absolute base_iri s)
+      try Iri (Iri.resolve ~base: base_iri (Iri.ref_of_string s))
       with _ -> Err (Type_error (v, "iri"))
     end
 | v -> Err (Type_error (v, "iri"))
@@ -178,7 +178,7 @@ let string = function
     let s =
       match v with
       | Err e -> assert false
-      | Iri t -> Rdf_iri.string t
+      | Iri t -> Iri.to_string t
       | String s -> s
       | Int n -> string_of_int n
       | Float f -> string_of_float f
@@ -291,7 +291,7 @@ let ltrl = function
       let (s, lang) =
         match v with
         | Err e -> assert false
-        | Iri t -> (Rdf_iri.string t, None)
+        | Iri t -> (Iri.to_string t, None)
         | String s
         | Ltrdt (s, _) -> (s, None)
         | Ltrl (s, l) -> (s, l)
@@ -334,22 +334,22 @@ let numeric = function
 let of_literal lit =
   try
     match lit.lit_type with
-    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_boolean ->
+    | Some t when Iri.equal t Rdf_rdf.xsd_boolean ->
         bool (String lit.lit_value)
-    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_integer ->
+    | Some t when Iri.equal t Rdf_rdf.xsd_integer ->
         begin
           try Int (int_of_string lit.lit_value)
           with _ -> failwith ""
         end
-    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_double
-          || Rdf_iri.equal t Rdf_rdf.xsd_decimal ->
+    | Some t when Iri.equal t Rdf_rdf.xsd_double
+          || Iri.equal t Rdf_rdf.xsd_decimal ->
         begin
           try Float (float_of_string lit.lit_value)
           with _ -> failwith ""
         end
-    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_string ->
+    | Some t when Iri.equal t Rdf_rdf.xsd_string ->
         String lit.lit_value
-    | Some t when Rdf_iri.equal t Rdf_rdf.xsd_datetime ->
+    | Some t when Iri.equal t Rdf_rdf.xsd_datetime ->
         Datetime (Netdate.parse lit.lit_value)
     | None ->
         begin

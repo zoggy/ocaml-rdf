@@ -29,7 +29,7 @@ open Rdf_graph;;
 let string_of_triple (sub, pred, obj) =
   Printf.sprintf "%s %s %s."
   (Rdf_term.string_of_term sub)
-  (Rdf_iri.string pred)
+  (Iri.to_string pred)
   (Rdf_term.string_of_term obj)
 ;;
 
@@ -40,8 +40,8 @@ let main () =
       "user", Sys.getenv "USER";
     ]
   in
-  let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
-  let pred = Rdf_iri.iri "http://dis-bonjour.org" in
+  let g = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") in
+  let pred = Iri.of_string "http://dis-bonjour.org" in
   let obj = Rdf_term.term_of_literal_string "youpi" in
   let sub = Rdf_term.term_of_iri_string "http://coucou0.net" in
   for i = 0 to 10 do
@@ -74,14 +74,14 @@ let main () =
   g.transaction_rollback ();
   assert (g.exists_t (sub4, pred, obj));
 
-  g.add_namespace (Rdf_iri.iri "http://dis-bonjour.org") "bonjour" ;
-  g.add_namespace (Rdf_iri.iri "http://coucou1.net") "coucou1" ;
+  g.add_namespace (Iri.of_string "http://dis-bonjour.org") "bonjour" ;
+  g.add_namespace (Iri.of_string "http://coucou1.net") "coucou1" ;
   print_endline (Rdf_ttl.to_string g);
   g.rem_namespace "coucou1";
   g.rem_namespace "coucou2";
   g.set_namespaces [
-    (Rdf_iri.iri "http://coucou3.net", "coucou3");
-    (Rdf_iri.iri "http://coucou4.net", "coucou4");
+    (Iri.of_string "http://coucou3.net", "coucou3");
+    (Iri.of_string "http://coucou4.net", "coucou4");
   ];
   print_endline (Rdf_ttl.to_string g);
 ;;

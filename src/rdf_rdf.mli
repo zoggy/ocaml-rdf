@@ -27,7 +27,7 @@
   The others as defined in
   {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
 
-open Rdf_iri ;;
+open Iri
 
 (** {3 Common namespaces} *)
 

@@ -48,11 +48,11 @@ let main () =
 
   let files = List.rev !args in
   let options = [ "storage", "mem" ] in
-  let g = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") in
+  let g = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") in
   List.iter
     (fun file ->
        try
-         let base = match !base with None -> None | Some s -> Some (Rdf_iri.iri s) in
+         let base = match !base with None -> None | Some s -> Some (Iri.of_string s) in
          Rdf_ttl.from_file g ?base file
        with Rdf_ttl.Error e ->
            prerr_endline ("File "^file^": "^(Rdf_ttl.string_of_error e));

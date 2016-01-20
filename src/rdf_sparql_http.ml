@@ -61,7 +61,7 @@ module Xml =
           let typ =
             match get_att ("","datatype") atts with
               None -> None
-            | Some s -> Some (Rdf_iri.iri s)
+            | Some s -> Some (Iri.of_string s)
           in
           let lang = get_att (Xmlm.ns_xml, "lang") atts in
           Some (Rdf_term.term_of_literal_string ?typ ?lang s)
@@ -143,9 +143,9 @@ module type P =
 module type S =
   sig
     type result
-    val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+    val get : ?graph: Rdf_graph.graph -> base:Iri.of_string -> ?accept: string ->
       Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
-    val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+    val post : ?graph: Rdf_graph.graph -> base:Iri.of_string -> ?accept: string ->
       Rdf_uri.uri -> ?query_var: string ->
       Rdf_sparql_protocol.in_message -> result
   end
@@ -252,8 +252,8 @@ module Make (P : P) =
       let l =
         (match ds.inds_default with
            None -> []
-         | Some iri -> ["default-graph-uri="^(Rdf_iri.string iri)]) @
-          (List.map (fun iri -> "named-graph-uri="^(Rdf_iri.string iri)) ds.inds_named)
+         | Some iri -> ["default-graph-uri="^(Iri.to_string iri)]) @
+          (List.map (fun iri -> "named-graph-uri="^(Iri.to_string iri)) ds.inds_named)
       in
       match l with
         [] -> spql_query

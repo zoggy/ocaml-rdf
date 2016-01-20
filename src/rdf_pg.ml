@@ -34,7 +34,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Rdf_iri.iri ; (* graph name *)
+  { g_name : Iri.of_string ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : PG.connection ;
     mutable g_in_transaction : bool ;
@@ -139,13 +139,13 @@ let hash_of_term dbd ?(add=false) term =
               Iri iri ->
                 "resources (id, value) values ("^
                   (Int64.to_string hash) ^", '" ^
-                  (dbd#escape_string (Rdf_iri.string iri)) ^"')"
+                  (dbd#escape_string (Iri.to_string iri)) ^"')"
             | Literal lit ->
                 "literals (id, value, language, datatype) values (" ^
                   (Int64.to_string hash) ^ ", '" ^
                   (dbd#escape_string lit.lit_value) ^"', '" ^
                   (dbd#escape_string (Rdf_misc.string_of_opt lit.lit_language)) ^ "', '" ^
-                  (dbd#escape_string (Rdf_misc.string_of_opt (Rdf_misc.map_opt Rdf_iri.string lit.lit_type))) ^"')"
+                  (dbd#escape_string (Rdf_misc.string_of_opt (Rdf_misc.map_opt Iri.to_string lit.lit_type))) ^"')"
             | Blank_ id ->
                 "bnodes (id, value) values (" ^
                   (Int64.to_string hash) ^", '" ^
@@ -186,7 +186,7 @@ let init_db options =
 let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
 let rec graph_table_of_graph_name ?(first=true) (dbd : PG.connection) iri =
-  let name = Rdf_iri.string iri in
+  let name = Iri.to_string iri in
   let query = "SELECT id FROM graphs WHERE name = '" ^ (dbd#escape_string name) ^ "'" in
   let res = exec_query dbd query in
   match res#ntuples with
@@ -319,7 +319,7 @@ let namespaces g =
   let rec iter n acc =
     if n < size then
       begin
-        let v  = (Rdf_iri.iri ~check: false (getvalue res n 0), getvalue res n 1) in
+        let v  = (Iri.of_string ~check: false (getvalue res n 0), getvalue res n 1) in
         iter (n+1) (v::acc)
       end
     else
@@ -336,7 +336,7 @@ let rem_namespace g name =
 let add_namespace g iri name =
   rem_namespace g name ;
   let params = [
-      Rdf_iri.string iri ;
+      Iri.to_string iri ;
       name ;
     ]
   in
@@ -394,7 +394,7 @@ let term_of_hash dbd hash =
                match get_tuple res 0 with
                  [| _ ; _ ; value ; lang ; typ |] ->
                    let typ = Rdf_misc.map_opt
-                      Rdf_iri.iri (Rdf_misc.opt_of_string typ)
+                      Iri.of_string (Rdf_misc.opt_of_string typ)
                     in
                     Rdf_term.term_of_literal_string
                     ?lang: (Rdf_misc.opt_of_string lang)

@@ -31,30 +31,30 @@ let map_opt = Rdf_misc.map_opt;;
 module SMap = Rdf_xml.SMap;;
 
 type env =
-  { base : Rdf_iri.iri ;
-    prefixes : Rdf_iri.iri SMap.t ;
+  { base : Iri.iri ;
+    prefixes : Iri.iri SMap.t ;
   }
 
-type dataset = { from : Rdf_iri.iri list ; from_named : Rdf_iri.Iriset.t }
+type dataset = { from : Iri.iri list ; from_named : Iri.Set.t }
 
 let create_env base = { base ; prefixes = SMap.empty }
 
 let iriref_a =
   Iriref
     { ir_loc = Rdf_loc.dummy_loc ;
-      ir_iri = Rdf_rdf.rdf_type ;
+      ir_iri = Iri.Iri Rdf_rdf.rdf_type ;
     }
 ;;
 
-let expand_relative_iri env s = Rdf_iri.ensure_absolute env.base s ;;
+let expand_relative_iri env s = Iri.resolve ~base: env.base s ;;
 
 let expand_iri env = function
-| Iriref ir -> Iriref ir
-| Reliri r ->
-    Iriref {
-      ir_iri = expand_relative_iri env r.reliri ;
-      ir_loc = r.reliri_loc ;
+| Iriref ir ->
+   Iri {
+      iri_loc = ir.ir_loc ;
+      iri_iri = expand_relative_iri env ir.ir_iri ;
     }
+| (Iri _) as i -> i
 | PrefixedName pname ->
     let base =
       match pname.pname_ns.pname_ns_name with
@@ -68,21 +68,21 @@ let expand_iri env = function
       match pname.pname_local with
         None -> base
       | Some l ->
-          let s = (Rdf_iri.string base ^ l.pname_local_name) in
-          Rdf_iri.iri s
+          let s = (Iri.to_string base ^ l.pname_local_name) in
+          Iri.of_string s
     in
-    Iriref { ir_loc = pname.pname_loc ; ir_iri = iri }
+    Iri { iri_loc = pname.pname_loc ; iri_iri = iri }
 ;;
 
 let expand_query_prolog_decl (env, acc) = function
-| (BaseDecl reliri) as t
-| (PrefixDecl ({ pname_ns_name = "" }, reliri) as t) ->
-    let base = expand_relative_iri env reliri.reliri in
+| (BaseDecl iriref) as t
+| (PrefixDecl ({ pname_ns_name = "" }, iriref) as t) ->
+    let base = expand_relative_iri env iriref.ir_iri in
     let env = { env with base } in
     (env, t :: acc)
 
-| PrefixDecl (pname_ns, reliri) as t->
-    let iri = expand_relative_iri env reliri.reliri in
+| PrefixDecl (pname_ns, iriref) as t->
+    let iri = expand_relative_iri env iriref.ir_iri in
     let prefixes = SMap.add pname_ns.pname_ns_name iri env.prefixes in
     ({ env with prefixes }, t :: acc)
 ;;
@@ -98,11 +98,11 @@ let expand_rdf_literal env t =
   | Some iri ->
       match expand_iri env iri with
         PrefixedName _
-      | Reliri _  -> assert false
-      | Iriref i ->
+      | Iriref _  -> assert false
+      | Iri i ->
           { rdf_lit_loc = t.rdf_lit_loc ;
-            rdf_lit = { t.rdf_lit with Rdf_term.lit_type = Some i.ir_iri } ;
-            rdf_lit_type = Some (Iriref i) ;
+            rdf_lit = { t.rdf_lit with Rdf_term.lit_type = Some i.iri_iri } ;
+            rdf_lit_type = Some (Iri i) ;
           }
 ;;
 
@@ -459,16 +459,16 @@ let build_dataset =
   let iter env ds = function
   | DefaultGraphClause (PrefixedName _)
   | NamedGraphClause (PrefixedName _) -> assert false
-  | DefaultGraphClause (Iriref _)
-  | NamedGraphClause (Iriref _) -> assert false
-  | DefaultGraphClause (Reliri r) ->
-      { ds with from = (expand_relative_iri env r.reliri) :: ds.from }
-  | NamedGraphClause (Reliri r) ->
+  | DefaultGraphClause (Iri _)
+  | NamedGraphClause (Iri _) -> assert false
+  | DefaultGraphClause (Iriref r) ->
+      { ds with from = (expand_relative_iri env r.ir_iri) :: ds.from }
+  | NamedGraphClause (Iriref r) ->
       { ds with
-        from_named = Rdf_iri.Iriset.add (expand_relative_iri env r.reliri) ds.from_named }
+        from_named = Iri.Set.add (expand_relative_iri env r.ir_iri) ds.from_named }
   in
   let build env clauses = List.fold_left (iter env)
-    { from = [] ; from_named = Rdf_iri.Iriset.empty } clauses
+    { from = [] ; from_named = Iri.Set.empty } clauses
   in
   fun env -> function
     Select q -> build env q.select_dataset

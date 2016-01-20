@@ -28,8 +28,8 @@
 *)
 
 type in_dataset = {
-  inds_default : Rdf_iri.iri option;
-  inds_named : Rdf_iri.iri list ;
+  inds_default : Iri.iri option;
+  inds_named : Iri.iri list ;
   }
 
 val empty_dataset : in_dataset

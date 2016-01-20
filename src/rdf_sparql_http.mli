@@ -71,7 +71,7 @@ module type S =
          parameter can be used to require a response in, for example,
          the "application/rdf+xml" format.
     *)
-    val get : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+    val get : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
       Rdf_uri.uri -> Rdf_sparql_protocol.in_message -> result
 
     (** Same as {!get} but using the POST method. To be used when sending
@@ -79,7 +79,7 @@ module type S =
         @param query_var allows to change the message query name send
         ("query" by default)
     *)
-    val post : ?graph: Rdf_graph.graph -> base:Rdf_iri.iri -> ?accept: string ->
+    val post : ?graph: Rdf_graph.graph -> base:Iri.iri -> ?accept: string ->
       Rdf_uri.uri -> ?query_var: string ->
       Rdf_sparql_protocol.in_message -> result
   end

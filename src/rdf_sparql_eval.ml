@@ -41,12 +41,12 @@ type error =
 | Not_a_integer of Rdf_term.literal
 | Not_a_double_or_decimal of Rdf_term.literal
 | Type_mismatch of Rdf_dt.value * Rdf_dt.value
-| Invalid_fun_argument of Rdf_iri.iri
-| Unknown_fun of Rdf_iri.iri
+| Invalid_fun_argument of Iri.iri
+| Unknown_fun of Iri.iri
 | Invalid_built_in_fun_argument of string * expression list
 | Unknown_built_in_fun of string
 | No_term
-| Cannot_compare_for_datatype of Rdf_iri.iri
+| Cannot_compare_for_datatype of Iri.iri
 | Unhandled_regex_flag of char
 | Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 | Empty_set of string (** sparql function name *)
@@ -66,9 +66,9 @@ let string_of_error = function
 | Type_mismatch (v1, v2) ->
     "Type mismatch: "^(Rdf_dt.string_of_value v1)^" <!> "^(Rdf_dt.string_of_value v2)
 | Invalid_fun_argument iri ->
-    "Invalid argument for function "^(Rdf_iri.string iri)
+    "Invalid argument for function "^(Iri.to_string iri)
 | Unknown_fun iri ->
-    "Unknown function "^(Rdf_iri.string iri)
+    "Unknown function "^(Iri.to_string iri)
 | Invalid_built_in_fun_argument (name, _) ->
     "Invalid argument list for builtin function "^name
 | Unknown_built_in_fun name ->
@@ -76,7 +76,7 @@ let string_of_error = function
 | No_term ->
     "No term"
 | Cannot_compare_for_datatype iri ->
-    "Cannot compare values of datatype "^(Rdf_iri.string iri)
+    "Cannot compare values of datatype "^(Iri.to_string iri)
 | Unhandled_regex_flag c ->
     "Unhandled regexp flag "^(String.make 1 c)
 | Incompatible_string_literals (v1, v2) -> (* FIXME: show values *)
@@ -87,11 +87,11 @@ let string_of_error = function
     "Missing values in inline data"
 ;;
 
-module Irimap = Rdf_iri.Irimap
-module Iriset = Rdf_iri.Iriset
+module Irimap = Iri.Map
+module Iriset = Iri.Set
 
 type context =
-    { base : Rdf_iri.iri ;
+    { base : Iri.iri ;
       named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
@@ -170,7 +170,7 @@ let rec compare ?(sameterm=false) v1 v2 =
   match v1, v2 with
   | Err _, _ -> 1
   | _, Err _ -> -1
-  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Rdf_iri.compare t1 t2
+  | Rdf_dt.Iri t1, Rdf_dt.Iri t2 -> Iri.compare t1 t2
   | Rdf_dt.Blank s1, Rdf_dt.Blank s2 -> String.compare s1 s2
   | String s1, String s2
   | Ltrl (s1, None), String s2
@@ -190,7 +190,7 @@ let rec compare ?(sameterm=false) v1 v2 =
       end
   | Ltrdt (s1, dt1), Ltrdt (s2, dt2) ->
       (
-       match Rdf_iri.compare dt1 dt2 with
+       match Iri.compare dt1 dt2 with
          0 ->
            if sameterm then
              String.compare s1 s2
@@ -628,7 +628,7 @@ let bi_uuid name =
     [] ->
       let uuid = Uuidm.create `V4 in
       let uuid = Uuidm.to_string uuid in
-      Rdf_dt.Iri (Rdf_iri.iri ("urn:uuid:"^uuid))
+      Rdf_dt.Iri (Iri.of_string ("urn:uuid:"^uuid))
   | l -> error (Invalid_built_in_fun_argument (name, l))
   in
   f
@@ -954,8 +954,8 @@ let eval_var mu v =
 ;;
 
 let eval_iri = function
-  Iriref ir -> Rdf_dt.Iri ir.ir_iri
-| PrefixedName _ | Reliri _-> assert false
+  Rdf_sparql_types.Iri iri -> Rdf_dt.Iri iri.iri_iri
+| PrefixedName _ | Iriref _-> assert false
 ;;
 
 let rec eval_numeric2 f_int f_float (v1, v2) =
@@ -1057,7 +1057,7 @@ and eval_funcall ctx mu c =
   let f =
     let iri =
       match c.func_iri with
-        Iriref ir -> ir.ir_iri
+        Iri iri -> iri.iri_iri
       | _ -> assert false
     in
     try Irimap.find iri !iri_funs
@@ -1428,7 +1428,7 @@ let __print_omega o =
 let eval_datablock =
   let mu_add = Rdf_sparql_ms.mu_add in
   let add_var_value mu v = function
-  | DataBlockValueIri (Iriref ir) -> mu_add v.var_name (Rdf_term.Iri ir.ir_iri) mu
+  | DataBlockValueIri (Iri iri) -> mu_add v.var_name (Rdf_term.Iri iri.iri_iri) mu
   | DataBlockValueRdf lit
   | DataBlockValueNumeric lit
   | DataBlockValueBoolean lit ->
@@ -1436,7 +1436,7 @@ let eval_datablock =
       mu_add v.var_name (Rdf_term.Literal lit) mu
   | DataBlockValueUndef -> mu
   | DataBlockValueIri (PrefixedName _) -> assert false
-  | DataBlockValueIri (Reliri _) -> assert false
+  | DataBlockValueIri (Iriref _) -> assert false
   in
 
   let one_var =
@@ -1500,9 +1500,9 @@ let rec eval ctx = function
     union_omega o1 o2
 
 | Graph (VIIri (PrefixedName _), _) -> assert false
-| Graph (VIIri (Reliri _), _) -> assert false
-| Graph (VIIri (Iriref ir), a) ->
-    let iri = ir.ir_iri in
+| Graph (VIIri (Iriref _), _) -> assert false
+| Graph (VIIri (Iri iri), a) ->
+    let iri = iri.iri_iri in
     let ctx =
       let g = ctx.dataset.Rdf_ds.get_named iri in
       { ctx with active = g }
@@ -1519,7 +1519,7 @@ let rec eval ctx = function
           eval ctx a
         in
         let f_mu mu o =
-          dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Rdf_iri.string iri)));
+          dbg ~level: 2 (fun () -> ("Add var "^v.var_name^" with value "^(Iri.to_string iri)));
           let mu = Rdf_sparql_ms.mu_add v.var_name (Rdf_term.Iri iri) mu in
           Rdf_sparql_ms.omega_add mu o
         in

@@ -22,8 +22,9 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let doap = Rdf_iri.iri "http://usefulinc.com/ns/doap#";;
-let doap_ = Rdf_iri.append doap;;
+let doap_str = "http://usefulinc.com/ns/doap#";;
+let doap = Iri.of_string doap_str
+let doap_ s = Iri.of_string (doap_str ^ s);;
 
 let doap_anon_root = doap_"anon-root" ;;
 

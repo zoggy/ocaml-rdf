@@ -35,14 +35,14 @@ type error =
 and value =
     Err of error (** Value is an error *)
   | Blank of string (** A blank node with its label *)
-  | Iri of Rdf_iri.iri (** An IRI. *)
+  | Iri of Iri.iri (** An IRI. *)
   | String of string (** A string literal. *)
   | Int of int  (** An integer. *)
   | Float of float  (** A decimal, float or double. *)
   | Bool of bool  (** A Boolean. *)
   | Datetime of Netdate.t (** A datetime. *)
   | Ltrl of string * string option  (** A literal string with an optional language tag. *)
-  | Ltrdt of string * Rdf_iri.iri  (** A literal value with a specified datatype. *)
+  | Ltrdt of string * Iri.iri  (** A literal value with a specified datatype. *)
 
 exception Error of error
 
@@ -70,7 +70,7 @@ val string_of_error : error -> string
 (** [iri base v] returns a [Iri] value, ensure the given value is
   an IRI. If it is a literal string, convert it to an IRI, eventually
   appending to the [base] IRI if the string expresses a relative IRI. *)
-val iri : Rdf_iri.iri -> value -> value
+val iri : Iri.iri -> value -> value
 
 (** [datatype v] returns the IRI of the datatype of the value.
   If v is [Err], [Blank] or [Iri], return [Err].*)

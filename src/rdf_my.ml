@@ -32,7 +32,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Rdf_iri.iri ; (* graph name *)
+  { g_name : Iri.of_string ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
@@ -141,7 +141,7 @@ let init_db db creation_queries =
 let graph_table_of_id id = "graph" ^ (string_of_int id);;
 
 let rec graph_table_of_graph_name ?(first=true) dbd iri =
-  let name = Rdf_iri.string iri in
+  let name = Iri.to_string iri in
   let query = "SELECT id FROM graphs WHERE name = " ^(mysql_quote_dbd dbd name) in
   let res = exec_query dbd query in
   match Mysql.fetch res with
@@ -264,7 +264,7 @@ let namespaces g =
   let res = exec_prepared g.g_dbd prepared_namespaces [] in
   let f = function
   | [| Some iri ; Some name|] ->
-      (Rdf_iri.iri ~check: false (Mysql.blob2ml iri), Mysql.str2ml name)
+      (Iri.of_string ~check: false (Mysql.blob2ml iri), Mysql.str2ml name)
   | _ -> raise (Error "namespaces - invalid result: NULL value of bad number of fields")
   in
   Mysql.map res ~f
@@ -278,7 +278,7 @@ let rem_namespace g name =
 let add_namespace g iri name =
   rem_namespace g name ;
   let params = [
-      mysql_quote g (Rdf_iri.string iri);
+      mysql_quote g (Iri.to_string iri);
       mysql_quote g name ;
     ]
   in
