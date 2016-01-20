@@ -71,51 +71,55 @@ let unescape_reserved_chars =
 
 
 
-let regexp hex = ['0'-'9'] | ['A'-'F'] | ['a'-'f']
-let regexp pn_chars_base = ['A'-'Z'] | ['a'-'z'] | [0x00C0-0x00D6] | [0x00D8-0x00F6] | [0x00F8-0x02FF] | [0x0370-0x037D] | [0x037F-0x1FFF] | [0x200C-0x200D] | [0x2070-0x218F] | [0x2C00-0x2FEF] | [0x3001-0xD7FF] | [0xF900-0xFDCF] | [0xFDF0-0xFFFD] | [0x10000-0xEFFFF]
-let regexp pn_chars_u = pn_chars_base | '_'
-let regexp pn_chars = pn_chars_u | '-' | ['0'-'9'] | 0x00B7 | [0x0300-0x036F] | [0x203F-0x2040]
-let regexp pn_prefix = pn_chars_base ((pn_chars | '.')* pn_chars)?
-let regexp percent = '%' hex hex
-let regexp pn_local_sec = '\\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
-let regexp plx = percent | pn_local_sec
-let regexp pn_local = (pn_chars_u | ':' | ['0'-'9'] | plx) ((pn_chars | '.' | ':' | plx)* (pn_chars | ':' | plx))?
+let digit = [%sedlex.regexp? '0'..'0']
+let alpha = [%sedlex.regexp? 'a'..'z' | 'A'..'Z']
+let hex = [%sedlex.regexp? digit | 'A'..'F' | 'a'..'f']
+let pn_chars_base = [%sedlex.regexp ? alpha | 0x00C0..0x00D6 | 0x00D8..0x00F6 | 0x00F8..0x02FF | 0x0370..0x037D | 0x037F..0x1FFF | 0x200C..0x200D | 0x2070..0x218F | 0x2C00..0x2FEF | 0x3001..0xD7FF | 0xF900..0xFDCF | 0xFDF0..0xFFFD | 0x10000..0xEFFFF]
+let pn_chars_u = [%sedlex.regexp? pn_chars_base | '_']
+let pn_chars = [%sedlex.regexp? pn_chars_u | '-' | digit | 0x00B7 | 0x0300..0x036F | 0x203F..0x2040]
+let pn_prefix = [%sedlex.regexp? pn_chars_base, Opt(Star(pn_chars | '.'), pn_chars)]
+let percent = [%sedlex.regexp? '%', hex, hex]
+let pn_local_sec = [%sedlex.regexp? '\\', ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')]
+let plx = [%sedlex.regexp? percent | pn_local_sec]
+let pn_local = [%sedlex.regexp? (pn_chars_u | ':' | digit | plx), Opt(Star(pn_chars | '.' | ':' | plx), (pn_chars | ':' | plx))]
 
-let regexp uchar =	"\\u" hex hex hex hex | "\\U" hex hex hex hex hex hex hex hex
-let regexp iriref = '<' ([^0x00-0x20'<' '>' '\\' '"' '{' '}' '|' '^' '`'] | uchar)* '>'
-let regexp pname_ns = pn_prefix? ':'
-let regexp pname_ln = pname_ns pn_local
-let regexp blank_node_label = "_:" (pn_chars_u | ['0'-'9']) ((pn_chars | '.')* pn_chars)?
-let regexp langtag = '@' ['a'-'z' 'A'-'Z']+ ('-' ['a'-'z' 'A'-'Z' '0'-'9']+)*
-let regexp integer = ['+' '-']? ['0'-'9']+
-let regexp decimal = ['+' '-']? ['0'-'9']* '.' ['0'-'9']+
-let regexp exponent = ['e' 'E'] ['+' '-']? ['0' - '9']+
-let regexp double = ['+' '-']? (['0'-'9']+ '.' ['0'-'9']* exponent | '.' ['0'-'9']+ exponent | ['0'-'9']+ exponent)
-let regexp echar = '\\' ['t' 'b' 'n' 'r' 'f' '\\' '"' '\\']
-let regexp string_literal_quote = '"' ([^0x22 0x5C 0xA 0xD] | echar | uchar)* '"'
-let regexp string_literal_single_quote = "'" ([^ 0x27 0x5C 0xA 0xD] | echar | uchar)* "'"
-let regexp string_literal_long_single_quote = "'''" (("'" | "''")? [^'\'' '\\'] | echar | uchar)* "'''"
-let regexp string_literal_long_quote = "\"\"\"" (('"' | "\"\"")? [^'"' '\\'] | echar | uchar)* "\"\"\""
-let regexp ws = 0x20 | 0x9 | 0xD | 0xA
-let regexp anon = '[' ws* ']'
-let regexp comment = '#' ( [^0xA 0xD] )*
-let regexp boolean = "true" | "false"
+let uchar =	[%sedlex.regexp? ("\\u", hex, hex, hex, hex) | "\\U", hex, hex, hex, hex, hex, hex, hex, hex]
+let iriref = [%sedlex.regexp? '<', Star(Compl(0x00..0x20 | Chars("<>\\\"{}|^`") | uchar), '>']
+let pname_ns = [%sedlex.regexp? Opt(pn_prefix), ':']
+let pname_ln = [%sedlex.regexp? pname_ns, pn_local]
+let blank_node_label = [%sedlex.regexp? "_:", (pn_chars_u | digit), Opt(Star(pn_chars | '.'), pn_chars)]
+let langtag = [%sedlex.regexp? '@', Plus(alpha), Star('-', Plus(alpha|digit))]
+let integer = [%sedlex.regexp? Opt('+'|'-'), Plus(digit)]
+let decimal = [%sedlex.regexp? Opt(['+'|'-']), Star(digit), '.' Plus(digit)]
+let exponent = [%sedlex.regexp? ('e'|'E'), Opt('+'|'-'), Pus(digit)]
+let double = [%sedlex.regexp?
+   Opt('+'|'-'),
+   ((Plus(digit), '.', Star(digit), exponent)
+  | ('.', Plus(digit), exponent)
+  | Plus(digit),  exponent)]
+let echar = [%sedlex.regexp? '\\', ('t' | 'b' | 'n' | 'r' | 'f' | '\\' | '"' | '\\']
+let string_literal_quote = [%sedlex.regexp? '"', Star(Compl(0x22 | 0x5C | 0xA | 0xD) | echar | uchar), '"']
+let string_literal_single_quote = [%sedlex.regexp? "'", Star(Compl(0x27 | 0x5C | 0xA | 0xD) | echar | uchar), "'"]
+let string_literal_long_single_quote = [%sedlex.regexp? "'''", Star((Opt("'" | "''"), Compl('\''|'\\')) | echar | uchar), "'''"]
+let string_literal_long_quote = [%sedlex.regexp? "\"\"\"", Star((Opt('"' | "\"\""), Compl('"'|'\\')) | echar | uchar), "\"\"\""]
+let ws = [%sedlex.regexp? 0x20 | 0x9 | 0xD | 0xA]
+let anon = [%sedlex.regexp? '[', Star(ws), ']']
+let comment = [%sedlex.regexp? '#', Star(Compl(0xA|0xD))
+let boolean = [%sedlex.regexp? "true" | "false"]
 
-let regexp sparql_base = ('b'|'B') ('a'|'A') ('s'|'S') ('e'|'E')
-let regexp sparql_prefix = ('p'|'P') ('r'|'R') ('e'|'E') ('f'|'F') ('i'|'I') ('x'|'X')
+let sparql_base = [%sedlex.regexp? ('b'|'B'), ('a'|'A'), ('s'|'S'), ('e'|'E')]
+let sparql_prefix = [%sedlex.regexp? ('p'|'P'), ('r'|'R'), ('e'|'E'), ('f'|'F'), ('i'|'I'), ('x'|'X')]
 
 let lexpos = Rdf_ulex.lexpos
-let lexpos_nl = Rdf_ulex.lexpos_nl
-
 
 let rec main pos = lexer
 | 'a' -> lexpos pos lexbuf, A
-| "\r\n" -> main (lexpos_nl pos lexbuf) lexbuf
+| "\r\n" -> main (lexpos_ pos lexbuf) lexbuf
 | '\r' -> main (lexpos pos lexbuf) lexbuf
-| '\n' -> main (lexpos_nl pos lexbuf) lexbuf
+| '\n' -> main (lexpos pos lexbuf) lexbuf
 | comment -> main (lexpos pos lexbuf) lexbuf
-| ws -> main (lexpos_nl pos lexbuf) lexbuf
-| anon -> (lexpos_nl pos lexbuf), ANON
+| ws -> main (lexpos pos lexbuf) lexbuf
+| anon -> (lexpos pos lexbuf), ANON
 | '(' -> (lexpos pos lexbuf), LEFT_PAR
 | ')' -> (lexpos pos lexbuf), RIGHT_PAR
 | '[' -> (lexpos pos lexbuf), LEFT_BRACKET

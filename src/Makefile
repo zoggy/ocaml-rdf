@@ -293,10 +293,6 @@ uninstall: dummy
 # additional dependencies
 ###########################
 
-rdf_ttl_lex.ml: rdf_ttl_lex.mll
-	camlp4o -printer Camlp4OCamlPrinter.cmo \
-	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $^ > $@
-
 #rdf_ttl_lex.cmx: rdf_ttl_lex.ml
 #	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(OCAMLPP) $(COMPFLAGS) -syntax camlp4o -c $<
 

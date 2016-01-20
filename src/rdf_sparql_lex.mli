@@ -25,4 +25,4 @@
 (** Unicode lexer *)
 
 val unescape_codepoints : string -> string
-val main : Lexing.position -> Ulexing.lexbuf -> Lexing.position * Rdf_sparql_parser.token
+val main : Lexing.position -> Sedlexing.lexbuf -> Lexing.position * Rdf_sparql_parser.token
