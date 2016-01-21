@@ -112,7 +112,7 @@ let boolean = [%sedlex.regexp? "true" | "false"]
 let sparql_base = [%sedlex.regexp? ('b'|'B'), ('a'|'A'), ('s'|'S'), ('e'|'E')]
 let sparql_prefix = [%sedlex.regexp? ('p'|'P'), ('r'|'R'), ('e'|'E'), ('f'|'F'), ('i'|'I'), ('x'|'X')]
 
-let lexpos = Rdf_ulex.upd
+let lexpos = Rdf_sedlex.upd
 
 let rec main pos lexbuf =
   match%sedlex lexbuf with
@@ -196,7 +196,7 @@ let rec main pos lexbuf =
       let s = L.lexeme lexbuf in
       let pos = lexpos pos lexbuf in
       let e = Failure (Printf.sprintf "Lexeme %S not handled" s) in
-      raise (Rdf_ulex.Parse_error (e, pos))
+      raise (Rdf_sedlex.Parse_error (e, pos))
 ;;
 
 

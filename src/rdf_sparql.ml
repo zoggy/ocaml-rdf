@@ -64,10 +64,10 @@ let rec string_of_error = function
 
 
 let query_from_lexbuf ?fname lexbuf =
-  let parse = Rdf_ulex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in
+  let parse = Rdf_sedlex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in
   let q =
     try parse lexbuf
-    with Rdf_ulex.Parse_error (e, pos)->
+    with Rdf_sedlex.Parse_error (e, pos)->
         let msg =
           match e with
             Rdf_sparql_parser.Error ->

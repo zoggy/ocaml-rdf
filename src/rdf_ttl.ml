@@ -170,10 +170,10 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
       prefixes = Rdf_ttl_types.SMap.empty ;
       gstate }
   in
-  let parse = Rdf_ulex.menhir_with_ulex Rdf_ttl_parser.main Rdf_ttl_lex.main ?fname in
+  let parse = Rdf_sedlex.menhir_with_ulex Rdf_ttl_parser.main Rdf_ttl_lex.main ?fname in
   let statements =
     try parse lexbuf
-    with Rdf_ulex.Parse_error (e, pos)->
+    with Rdf_sedlex.Parse_error (e, pos)->
         let msg =
           match e with
             Rdf_ttl_parser.Error ->

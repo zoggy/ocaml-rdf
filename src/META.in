@@ -1,6 +1,6 @@
 version = "@VERSION@"
 description = "RDF and Sparql with OCaml"
-requires = "netstring,uri,iri,uuidm,xmlm,sedlex,cryptokit,pcre,menhirLib,yojson"
+requires = "calendar,uri,iri,uuidm,xmlm,sedlex,cryptokit,pcre,menhirLib,yojson"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
 archive(native,plugin) = "rdf.cmxs"

@@ -124,7 +124,7 @@ let ws = [%sedlex.regexp? 0x20 | 0x9 | 0xD | 0xA]
 let nil = [%sedlex.regexp? '(', Star(ws), ')']
 let anon = [%sedlex.regexp? '[', Star(ws), ']'];;
 
-let lexpos = Rdf_ulex.upd
+let lexpos = Rdf_sedlex.upd
 
 let invalid_char lexbuf =
   let msg = Printf.sprintf "Invalid character %s" (Sedlexing.Utf8.lexeme lexbuf) in
@@ -452,7 +452,7 @@ let rec main pos lexbuf =
   let s = L.lexeme lexbuf in
   let pos = lexpos pos lexbuf in
   let e = Failure (Printf.sprintf "Unexpected lexeme: %S" s) in
-  raise (Rdf_ulex.Parse_error (e, pos))
+  raise (Rdf_sedlex.Parse_error (e, pos))
 ;;
 
 let int_of_hex c =

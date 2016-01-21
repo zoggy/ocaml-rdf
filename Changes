@@ -1,3 +1,7 @@
+Next release:
+- drop Rdf_uri, Rdf_iri
+- use Calendar and Ocaml-uri instead of OCamlnet
+
 Release 0.9.0:
 - fix IRI parsing
 - use -safe-string compilation option

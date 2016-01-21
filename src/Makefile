@@ -64,7 +64,7 @@ LIB_RDF_CMOFILES= \
 	rdf_foaf.cmo \
 	rdf_dc.cmo \
 	rdf_dt.cmo \
-	rdf_ulex.cmo \
+	rdf_sedlex.cmo \
 	rdf_sparql_types.cmo \
 	rdf_sparql_ms.cmo \
 	rdf_sparql_vis.cmo \
