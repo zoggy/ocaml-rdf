@@ -39,7 +39,7 @@ and value =
   | Int of int
   | Float of float
   | Bool of bool
-  | Datetime of Netdate.t
+  | Datetime of CalendarLib.Fcalendar.t
   | Ltrl of string * string option (* optional language *)
   | Ltrdt of string * Iri.t (* datatyped literal, with unsupported datatype *)
 
@@ -57,7 +57,7 @@ let string_of_value = function
 | Float f -> string_of_float f
 | Bool true -> "true"
 | Bool false -> "false"
-| Datetime t -> Netdate.format ~fmt: date_fmt t
+| Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
 | Ltrl (s,None) -> Rdf_term.quote_str s
 | Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
 | Ltrdt (s, iri) -> (Rdf_term.quote_str s)^"^^"^(Iri.to_string iri)
@@ -100,7 +100,8 @@ module ValueOrdered =
       | Bool b1, Bool b2 -> Pervasives.compare b1 b2
       | Bool _, _ -> 1
       | _, Bool _ -> -1
-      | Datetime d1, Datetime d2 -> Pervasives.compare (Netdate.since_epoch d1) (Netdate.since_epoch d2)
+      | Datetime d1, Datetime d2 -> 
+          CalendarLib.Fcalendar.compare d1 d2
       | Datetime _, _ -> 1
       | _, Datetime _ -> -1
       | Ltrdt (s1, iri1), Ltrdt (s2, iri2) ->
@@ -184,7 +185,7 @@ let string = function
       | Float f -> string_of_float f
       | Bool true -> "true"
       | Bool false -> "false"
-      | Datetime t -> Netdate.format ~fmt: date_fmt t
+      | Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
       | Ltrl (s, _) -> s
       | Blank _ -> error (Type_error (v, "string"))
       | Ltrdt (s, _) -> s
@@ -275,7 +276,7 @@ let datetime = function
         | Err e -> assert false
         | String s
         | Ltrdt (s, _)
-        | Ltrl (s, _) -> Netdate.parse s
+        | Ltrl (s, _) -> Rdf_term.datetime_of_string s
         | Int _ | Float _ | Bool _  | Iri _  | Blank _ -> failwith ""
         | Datetime t -> t
       in
@@ -299,7 +300,7 @@ let ltrl = function
         | Float f -> (string_of_float f, None)
         | Bool true -> ("true", None)
         | Bool false -> ("false", None)
-        | Datetime t -> (Netdate.format ~fmt: date_fmt t, None)
+        | Datetime t -> (CalendarLib.Printer.Fcalendar.sprint date_fmt t, None)
         | Blank _ -> error (Type_error (v, "ltrl"))
       in
       Ltrl (s, lang)
@@ -350,7 +351,7 @@ let of_literal lit =
     | Some t when Iri.equal t Rdf_rdf.xsd_string ->
         String lit.lit_value
     | Some t when Iri.equal t Rdf_rdf.xsd_datetime ->
-        Datetime (Netdate.parse lit.lit_value)
+        Datetime (Rdf_term.datetime_of_string lit.lit_value)
     | None ->
         begin
           match lit.lit_language with
@@ -376,7 +377,7 @@ let to_term = function
 | Int n -> Rdf_term.term_of_int n
 | Float f -> Rdf_term.term_of_double f
 | Bool b -> Rdf_term.term_of_bool b
-| Datetime d -> Rdf_term.term_of_datetime ~d: (Netdate.since_epoch d) ()
+| Datetime d -> Rdf_term.term_of_datetime ~d ()
 | Ltrl (s,lang) -> Rdf_term.term_of_literal_string ?lang s
 | Ltrdt (s, typ) -> Rdf_term.term_of_literal_string ~typ s
 

@@ -97,7 +97,7 @@ val get_iri : solution -> Iri.t -> string -> Iri.t
 val get_int : solution -> string -> int
 val get_float : solution -> string -> float
 val get_bool : solution -> string -> bool
-val get_datetime : solution -> string -> Netdate.t
+val get_datetime : solution -> string -> CalendarLib.Fcalendar.t
 
 (** Same as {!get_string} but the associated language tag is kep, if any. *)
 val get_ltrl : solution -> string -> string * string option

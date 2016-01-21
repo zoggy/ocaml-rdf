@@ -58,7 +58,7 @@ let namespaces =
 type result = Ok of Rdf_graph.graph | Error of string;;
 
 type test =
-  | EvalPos of Iri.iri
+  | EvalPos of Iri.t
   | EvalNeg
   | SyntaxPos
   | SyntaxNeg
@@ -129,10 +129,10 @@ let map_blanks map g =
 open Rdf_term;;
 
 type align_form =
-  ATT of term * Iri.iri * term
-| ABT of string * Iri.iri * term
-| ATB of term * Iri.iri * string
-| ABB of string * Iri.iri * string
+  ATT of term * Iri.t * term
+| ABT of string * Iri.t * term
+| ATB of term * Iri.t * string
+| ABB of string * Iri.t * string
 ;;
 
 let align_form mapped (sub, pred, obj) =

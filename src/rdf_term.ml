@@ -54,8 +54,8 @@ let term_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
-let mk_literal_datetime ?(d=Unix.time()) () =
-  let v = Netdate.mk_internet_date d in
+let mk_literal_datetime ?(d=CalendarLib.Fcalendar.now()) () =
+  let v = CalendarLib.Printer.Fcalendar.sprint "%Y-%m-%dT%H:M:%S%:z" d in
   mk_literal ~typ: (Iri.of_string "http://www.w3.org/2001/XMLSchema#dateTime") v
 ;;
 
@@ -63,7 +63,17 @@ let term_of_datetime ?d () =
   Literal (mk_literal_datetime ?d ())
 ;;
 
-let datetime_of_literal lit = Netdate.parse lit.lit_value;;
+let fmt = "%Y-%m-%dT%H:M:%S"
+let fmt_tz = fmt^"%:z"
+let fmt_utc = fmt^"Z"
+
+let datetime_of_string str =
+  try CalendarLib.Printer.Fcalendar.from_fstring fmt_tz str
+  with _ ->
+      try CalendarLib.Printer.Fcalendar.from_fstring fmt_utc str
+      with _ -> CalendarLib.Printer.Fcalendar.from_fstring fmt str
+
+let datetime_of_literal lit = datetime_of_string lit.lit_value
 
 let mk_literal_bool b =
   let v = if b then "1" else "0" in

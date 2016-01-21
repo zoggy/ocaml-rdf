@@ -64,13 +64,16 @@ val mk_literal : ?typ:Iri.t -> ?lang:string -> string -> literal
 
 (** Create a datetime literal with type iri from the given datetime [d].
   If no date is given, [Unix.time()] is used.*)
-val mk_literal_datetime : ?d:float -> unit -> literal
+val mk_literal_datetime : ?d:CalendarLib.Fcalendar.t -> unit -> literal
 
 (** Create a literal term from the given datetime. (see {!mk_literal_datetime}). *)
-val term_of_datetime : ?d:float -> unit -> term
+val term_of_datetime : ?d:CalendarLib.Fcalendar.t -> unit -> term
+
+(** Parse a string to get a datetime. *)
+val datetime_of_string : string -> CalendarLib.Fcalendar.t
 
 (** Parse a literal to get a datetime. *)
-val datetime_of_literal : literal -> Netdate.t
+val datetime_of_literal : literal -> CalendarLib.Fcalendar.t
 
 (** Create a boolean literal with type iri from the given boolean. *)
 val mk_literal_bool : bool -> literal

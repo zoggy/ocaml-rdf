@@ -32,12 +32,12 @@ open Rdf_sparql;;
 let verb = print_endline;;
 
 type test_spec =
-  { base : Iri.iri option ;
+  { base : Iri.t option ;
     title : string ;
     desc : string option;
     query : string ;
     default_graph : string option ;
-    named : (Iri.iri * string) list ;
+    named : (Iri.t * string) list ;
     options : (string * string) list ;
   }
 

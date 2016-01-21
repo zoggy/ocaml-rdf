@@ -40,7 +40,7 @@ and value =
   | Int of int  (** An integer. *)
   | Float of float  (** A decimal, float or double. *)
   | Bool of bool  (** A Boolean. *)
-  | Datetime of Netdate.t (** A datetime. *)
+  | Datetime of CalendarLib.Fcalendar.t (** A datetime. *)
   | Ltrl of string * string option  (** A literal string with an optional language tag. *)
   | Ltrdt of string * Iri.t  (** A literal value with a specified datatype. *)
 

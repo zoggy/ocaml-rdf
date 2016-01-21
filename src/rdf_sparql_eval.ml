@@ -95,7 +95,8 @@ type context =
       named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
-      now : Netdate.t ; (** because all calls to NOW() must return the same value,
+      now : CalendarLib.Fcalendar.t ;
+       (** because all calls to NOW() must return the same value,
         we get it at the beginning of the evaluation and use it when required *)
     }
 
@@ -122,7 +123,7 @@ let context ~base ?(from=[]) ?(from_named=Iriset.empty) dataset =
       from_named
   in
   { base ; named = named ; dataset ; active ;
-    now = Netdate.create (Unix.gettimeofday()) ;
+    now = CalendarLib.Fcalendar.now () ;
   }
 ;;
 
@@ -181,7 +182,7 @@ let rec compare ?(sameterm=false) v1 v2 =
   | Float f1, Float f2 -> Pervasives.compare f1 f2
   | Bool b1, Bool b2 -> Pervasives.compare b1 b2
   | Datetime t1, Datetime t2 ->
-      Pervasives.compare (Netdate.since_epoch t1) (Netdate.since_epoch t2)
+      CalendarLib.Fcalendar.compare t1 t2
   | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
       begin
         match Rdf_misc.opt_compare String.compare lang1 lang2 with
@@ -639,7 +640,7 @@ let bi_encode_for_uri name =
     [e] ->
       (try
          let (s,_) = Rdf_dt.string_literal (eval_expr ctx mu e) in
-         String (Netencoding.Url.encode ~plus: false s)
+         String (Uri.pct_encode s)
        with e -> Err (Rdf_dt.Exception e)
       )
   | l -> error (Invalid_built_in_fun_argument (name, l))
@@ -812,14 +813,31 @@ let bi_on_date f name =
   f
 ;;
 
-let bi_date_year t = Int t.Netdate.year ;;
-let bi_date_month t = Int t.Netdate.month ;;
-let bi_date_day t = Int t.Netdate.day ;;
-let bi_date_hours t = Int t.Netdate.hour ;;
-let bi_date_minutes t = Int t.Netdate.minute ;;
+module C = CalendarLib.Fcalendar
+
+let int_of_month t =
+ let open C in
+  match t with
+  | Jan -> 1
+  | Feb -> 2
+  | Mar -> 3
+  | Apr -> 4
+  | May -> 5
+  | Jun -> 6
+  | Jul -> 7
+  | Aug -> 8
+  | Sep -> 9
+  | Oct -> 10
+  | Nov -> 11
+  | Dec -> 12
+
+let bi_date_year t = Int (C.year t) ;;
+let bi_date_month t = Int (int_of_month (C.month t))
+let bi_date_day t = Int (C.day_of_month t)
+let bi_date_hours t = Int (C.hour t) ;;
+let bi_date_minutes t = Int (C.minute t) ;;
 let bi_date_seconds t =
-  let dec = (float_of_int t.Netdate.nanos) /. 1_000_000_000.0 in
-  Float (float_of_int t.Netdate.second +. dec)
+  Float (C.second t)
 ;;
 
 let bi_hash f name =
