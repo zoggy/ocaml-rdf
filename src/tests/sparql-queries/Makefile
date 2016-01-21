@@ -10,3 +10,6 @@ all:
 	for i in *.test; do \
 		($(TEST) $$i > `basename "$$i" .test`.out && $(ECHO) $(OK) "$$i" || $(ECHO) $(KO) "$$i")  ; \
 	done
+
+clean:
+	rm -f *.out
