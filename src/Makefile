@@ -36,6 +36,8 @@ LIB_RDF=rdf.cmxa
 LIB_RDF_CMXS=rdf.cmxs
 LIB_RDF_BYTE=$(LIB_RDF:.cmxa=.cma)
 
+LIB_JS=rdf_js.cma
+
 LIB_MYSQL_BYTE=$(LIB_MYSQL:.cmxa=.cma)
 LIB_MYSQL_CMXS=$(LIB_MYSQL:.cmxa=.cmxs)
 
@@ -65,6 +67,7 @@ LIB_RDF_CMOFILES= \
 	rdf_dc.cmo \
 	rdf_dt.cmo \
 	rdf_sedlex.cmo \
+	rdf_stubs.cmo \
 	rdf_sparql_types.cmo \
 	rdf_sparql_ms.cmo \
 	rdf_sparql_vis.cmo \
@@ -95,6 +98,13 @@ LIB_RDF_CMOFILES= \
 LIB_RDF_CMIFILES= $(LIB_RDF_CMOFILES:.cmo=.cmi)
 LIB_RDF_CMXFILES= $(LIB_RDF_CMOFILES:.cmo=.cmx)
 
+LIB_NAT_CMOFILES= \
+	rdf_cryptokit.cmo \
+	rdf_pcre.cmo
+
+LIB_NATIVE_CMIFILES= $(LIB_NATIVE_CMOFILES:.cmo=.cmi)
+LIB_NATIVE_CMXFILES= $(LIB_NATIVE_CMOFILES:.cmo=.cmx)
+
 LIB_MYSQL_CMOFILES=rdf_my.cmo rdf_my1.cmo rdf_my2.cmo
 LIB_MYSQL_CMIFILES=$(LIB_MYSQL_CMOFILES:.cmo=.cmi)
 LIB_MYSQL_CMXFILES=$(LIB_MYSQL_CMOFILES:.cmo=.cmx)
@@ -103,14 +113,13 @@ LIB_POSTGRESQL_CMOFILES=rdf_pg.cmo
 LIB_POSTGRESQL_CMIFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmi)
 LIB_POSTGRESQL_CMXFILES=$(LIB_POSTGRESQL_CMOFILES:.cmo=.cmx)
 
-
 LIB_LWT_CMOFILES=rdf_sparql_http_lwt.cmo rdf_4s_lwt.cmo
 LIB_LWT_CMIFILES=$(LIB_LWT_CMOFILES:.cmo=.cmi)
 LIB_LWT_CMXFILES=$(LIB_LWT_CMOFILES:.cmo=.cmx)
 
 RDF_LIBS=$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_MYSQL) $(LIB_MYSQL_CMXS) \
 	$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_LWT) $(LIB_LWT_CMXS)
-RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_MYSQL_BYTE) \
+RDF_LIBS_BYTE=$(LIB_RDF_BYTE) $(LIB_JS) $(LIB_MYSQL_BYTE) \
 	$(LIB_POSTGRESQL_BYTE) $(LIB_LWT_BYTE)
 
 all: opt byte
@@ -131,13 +140,16 @@ testtools: \
 
 .PHONY: tools
 
-$(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
-	$(OCAMLFIND) ocamlopt -a -linkall -o $@ $(LIB_RDF_CMXFILES)
+$(LIB_RDF): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_NAT_CMIFILES) $(LIB_NAT_CMXFILES)
+	$(OCAMLFIND) ocamlopt -a -linkall -o $@ $(LIB_RDF_CMXFILES) $(LIB_NAT_CMXFILES)
 
-$(LIB_RDF_CMXS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES)
-	$(OCAMLFIND) ocamlopt -linkall -shared -o $@ $(LIB_RDF_CMXFILES)
+$(LIB_RDF_CMXS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_NAT_CMIFILES) $(LIB_NAT_CMXFILES)
+	$(OCAMLFIND) ocamlopt -linkall -shared -o $@ $(LIB_RDF_CMXFILES) $(LIB_NAT_CMXFILES)
 
-$(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
+$(LIB_RDF_BYTE): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES) $(LIB_NAT_CMIFILES) $(LIB_NAT_CMOFILES)
+	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES) $(LIB_NAT_CMOFILES)
+
+$(LIB_JS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
 
 $(PPX): $(LIB_RDF) ppx_rdf.ml
@@ -281,6 +293,7 @@ install: all
 		$(LIB_RDF) $(LIB_RDF_CMXS) $(LIB_RDF:.cmxa=.a) $(LIB_RDF_CMIFILES) $(LIB_RDF_CMXFILES) $(LIB_RDF_BYTE) \
 		$(LIB_MYSQL) $(LIB_MYSQL_CMXS) $(LIB_MYSQL:.cmxa=.a) $(LIB_MYSQL_BYTE) \
 		$(LIB_POSTGRESQL) $(LIB_POSTGRESQL_CMXS) $(LIB_POSTGRESQL:.cmxa=.a) $(LIB_POSTGRESQL_BYTE) \
+		$(LIB_JS) \
 		`if test -n "$(LIB_LWT)"; then echo $(LIB_LWT) $(LIB_LWT_CMXS) $(LIB_LWT:.cmxa=.a) $(LIB_LWT_CMIFILES) $(LIB_LWT_CMXFILES) $(LIB_LWT_BYTE) ; fi` \
 		$(PPX) $(PPX_BYTE)
 

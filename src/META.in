@@ -4,6 +4,12 @@ requires = "calendar,uri,iri,uuidm,xmlm,sedlex,cryptokit,pcre,menhirLib,yojson"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
 archive(native,plugin) = "rdf.cmxs"
+
+package "js" (
+  description = "RDF and Sparql with OCaml - Library to compile to Javascript"
+  requires = "calendar,uri,iri,uuidm,xmlm,sedlex,menhirLib,yojson"
+  archive(byte) = "rdf_js.cma"
+)
 package "mysql" (
   exists_if = "rdf_mysql.cma"
   version = "@VERSION@"

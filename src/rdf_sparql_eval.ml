@@ -392,8 +392,7 @@ let bi_regex name =
       in
       let flags = `UTF8 :: flags in
       dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat);
-      let rex = Pcre.regexp ~flags pat in
-      Bool (Pcre.pmatch ~rex s)
+      Bool(!Rdf_stubs.pcre_pmatch ~flags ~pat s)
     with
       e ->
         dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
@@ -731,8 +730,7 @@ let bi_replace name =
       in
       let flags = `UTF8 :: flags in
       dbg ~level: 2 (fun () -> name^": s="^s^" pat="^pat^" templ="^templ);
-      let rex = Pcre.regexp ~flags pat in
-      String (Pcre.replace ~rex ~templ s)
+      String(!Rdf_stubs.pcre_replace ~flags ~pat ~templ s)
     with
       e ->
         dbg ~level: 1 (fun () -> name^": "^(Printexc.to_string e));
@@ -858,20 +856,8 @@ let bi_hash f name =
   f;;
 
 let bi_md5 s = String (String.lowercase (Digest.to_hex (Digest.string s)));;
-let bi_sha1 s =
-  let hash = Cryptokit.Hash.sha1 () in
-  hash#add_string s ;
-  let t = Cryptokit.Hexa.encode () in
-  t#put_string hash#result ;
-  String (String.lowercase t#get_string)
-;;
-let bi_sha256 s =
-  let hash = Cryptokit.Hash.sha256 () in
-  hash#add_string s ;
-  let t = Cryptokit.Hexa.encode () in
-  t#put_string hash#result ;
-  String (String.lowercase t#get_string)
-;;
+let bi_sha1 s = String (String.lowercase (!Rdf_stubs.sha1 s));;
+let bi_sha256 s = String (String.lowercase (!Rdf_stubs.sha256 s));;
 
 let bi_lcase name =
   let f eval_expr ctx mu = function
