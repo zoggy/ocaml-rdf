@@ -1,7 +1,7 @@
 #################################################################################
 #                OCaml-RDF                                                      #
 #                                                                               #
-#    Copyright (C) 2012-2014 Institut National de Recherche en Informatique     #
+#    Copyright (C) 2012-2016 Institut National de Recherche en Informatique     #
 #    et en Automatique. All rights reserved.                                    #
 #                                                                               #
 #    This program is free software; you can redistribute it and/or modify       #
@@ -73,7 +73,7 @@ dummy:
 HEADFILES=configure.in configure \
 	master.Makefile.in Makefile src/Makefile web/Makefile src/tools/Makefile \
 	checkocaml.ml \
-	src/*.ml src/*.mli src/*.mly src/*.mll src/rdf_config.ml.in \
+	src/*.ml src/*.mli src/*.mly src/rdf_config.ml.in \
 	src/tools/*.ml
 
 headers: dummy
