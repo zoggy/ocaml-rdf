@@ -1,6 +1,9 @@
 Next release:
 - drop Rdf_uri, Rdf_iri
+- use OCaml-iri
 - use Calendar and Ocaml-uri instead of OCamlnet
+- new package rdf.js containing only parts executable after
+  js_of_ocaml translation
 
 Release 0.9.0:
 - fix IRI parsing
