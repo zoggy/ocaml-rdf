@@ -51,6 +51,7 @@ type error =
 | Incompatible_string_literals of Rdf_dt.value * Rdf_dt.value
 | Empty_set of string (** sparql function name *)
 | Missing_values_in_inline_data of inline_data_full
+| Missing_implementation of string
 
 exception Error of error
 let error e = raise (Error e)
@@ -85,6 +86,8 @@ let string_of_error = function
     "Empty set in function "^name
 | Missing_values_in_inline_data idf ->
     "Missing values in inline data"
+| Missing_implementation msg ->
+    Printf.sprintf "Missing implementation: %s" msg
 ;;
 
 module Irimap = Iri.Map
@@ -1049,7 +1052,11 @@ and eval_bic ctx mu = function
   | Bic_agg agg -> assert false
   | Bic_fun (name, args) ->
       let f = get_built_in_fun name in
-      f eval_expr ctx mu args
+      begin
+        try f eval_expr ctx mu args
+        with Rdf_stubs.Not_implemented str ->
+            error (Missing_implementation str)
+      end
   | Bic_BOUND v ->
       (try ignore(Rdf_sparql_ms.mu_find_var v mu); Bool true
        with _ -> Bool false)

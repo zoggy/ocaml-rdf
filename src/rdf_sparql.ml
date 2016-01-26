@@ -75,7 +75,7 @@ let query_from_lexbuf ?fname lexbuf =
               Printf.sprintf "Parse error on lexeme %S" lexeme
           | Failure msg ->
               msg
-          | Iri.Error e -> Iri.string_of_error e              
+          | Iri.Error e -> Iri.string_of_error e
           | e -> Printexc.to_string e
         in
         let loc = { Rdf_loc.loc_start = pos ; loc_end = pos } in
