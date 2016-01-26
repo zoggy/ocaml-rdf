@@ -898,8 +898,10 @@ let _ = !print "\n### checking required tools and libraries ###\n"
 let menhir = ocaml_prog "menhir";;
 let _ = add_subst "MENHIR" menhir;;
 
-let _ = check_ocamlfind_package conf "netstring";;
-let _ = check_ocamlfind_package conf "ulex";;
+let _ = check_ocamlfind_package conf "calendar";;
+let _ = check_ocamlfind_package conf "sedlex";;
+let _ = check_ocamlfind_package conf "iri";;
+let _ = check_ocamlfind_package conf "uri";;
 let _ = check_ocamlfind_package conf "pcre";;
 let _ = check_ocamlfind_package conf "cryptokit";;
 let _ = check_ocamlfind_package conf "yojson";;
