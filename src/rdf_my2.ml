@@ -22,7 +22,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** MySQL storage. *)
+(** *)
 
 open Rdf_term;;
 open Rdf_my;;
@@ -52,14 +52,14 @@ let hash_of_term = function
 
 let term_of_hash dbd hash =
   match hash.[0] with
-    'U' -> Rdf_term.Iri (Iri.of_string ~check: false (String.sub hash 1 (String.length hash - 1)))
+    'U' -> Rdf_term.Iri (Iri.of_string (String.sub hash 1 (String.length hash - 1)))
   | 'B' -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string (String.sub hash 1 (String.length hash -1)))
   | 'L' ->
       let (v,lang,iri) = Marshal.from_string hash 1 in
       Rdf_term.Literal
         { Rdf_term.lit_value = v ;
           lit_language = lang ;
-          lit_type = Rdf_misc.map_opt (Iri.of_string ~check: false) iri ;
+          lit_type = Rdf_misc.map_opt Iri.of_string iri ;
         }
   | c -> raise (Error ("Bad term header '"^(String.make 1 c)^"'"))
 ;;
@@ -102,7 +102,7 @@ let query_term_list g stmt params =
 let query_pred_list g stmt params =
   let res = Rdf_my.exec_prepared g.g_dbd stmt params in
   let f = function
-  | [| Some s |] -> Iri.of_string ~check: false (Mysql.blob2ml s)
+  | [| Some s |] -> Iri.of_string (Mysql.blob2ml s)
   | _ -> raise (Error "Invalid result: NULL hash or too many fields")
   in
   Mysql.map res ~f
@@ -116,7 +116,7 @@ let query_triple_list g where_clause =
   let f = function
   | [| Some sub ; Some pred ; Some obj |] ->
       (term_of_hash g.g_dbd (Mysql.blob2ml sub),
-       Iri.of_string ~check: false (Mysql.blob2ml pred),
+       Iri.of_string (Mysql.blob2ml pred),
        term_of_hash g.g_dbd (Mysql.blob2ml obj)
       )
   | _ -> raise (Error "Invalid result: NULL hash(es) or bad number of fields")

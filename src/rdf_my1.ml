@@ -22,7 +22,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** MySQL storage 1. *)
+(** *)
 
 open Rdf_term;;
 open Rdf_my;;
@@ -152,7 +152,7 @@ let term_of_hash dbd hash =
                 Rdf_term.term_of_iri_string iri
             | [| None ; None ; Some value ; lang ; typ |] ->
                 let typ = Rdf_misc.map_opt
-                  (Iri.of_string ~check: false)
+                  Iri.of_string
                   (Rdf_misc.opt_of_string (Rdf_misc.string_of_opt typ))
                 in
                 Rdf_term.term_of_literal_string

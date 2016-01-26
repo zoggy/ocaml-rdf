@@ -22,7 +22,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** Memory storage, using tree-based sets. *)
+(** *)
 
 let dbg = Rdf_misc.create_log_fun
   ~prefix: "Rdf_mem"

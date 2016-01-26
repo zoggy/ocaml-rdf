@@ -34,7 +34,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Iri.of_string ; (* graph name *)
+  { g_name : Iri.t ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : PG.connection ;
     mutable g_in_transaction : bool ;
@@ -319,7 +319,7 @@ let namespaces g =
   let rec iter n acc =
     if n < size then
       begin
-        let v  = (Iri.of_string ~check: false (getvalue res n 0), getvalue res n 1) in
+        let v  = (Iri.of_string (getvalue res n 0), getvalue res n 1) in
         iter (n+1) (v::acc)
       end
     else

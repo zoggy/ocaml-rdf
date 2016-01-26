@@ -22,7 +22,7 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-(** MySQL storage. *)
+(** *)
 
 open Rdf_term;;
 
@@ -32,7 +32,7 @@ let dbg = Rdf_misc.create_log_fun
 ;;
 
 type t =
-  { g_name : Iri.of_string ; (* graph name *)
+  { g_name : Iri.t ; (* graph name *)
     g_table : string ; (* name of the table with the statements *)
     g_dbd : Mysql.dbd ;
     mutable g_in_transaction : bool ;
@@ -264,7 +264,7 @@ let namespaces g =
   let res = exec_prepared g.g_dbd prepared_namespaces [] in
   let f = function
   | [| Some iri ; Some name|] ->
-      (Iri.of_string ~check: false (Mysql.blob2ml iri), Mysql.str2ml name)
+      (Iri.of_string (Mysql.blob2ml iri), Mysql.str2ml name)
   | _ -> raise (Error "namespaces - invalid result: NULL value of bad number of fields")
   in
   Mysql.map res ~f
