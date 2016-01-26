@@ -146,7 +146,7 @@ rdf_test_mysql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_ttl.cmx rdf_term.cmx rdf_graph.cmx
 rdf_test_pgsql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_graph.cmi
 rdf_test_pgsql.cmx : rdf_ttl.cmx rdf_term.cmx rdf_graph.cmx
-rdf_ttl.cmo : rdf_xml.cmi rdf_utf8.cmi rdf_types.cmi rdf_ttl_types.cmo \
+rdf_ttl.cmo : rdf_xml.cmi rdf_utf8.cmi rdf_types.cmi rdf_ttl_types.cmi \
     rdf_ttl_parser.cmi rdf_ttl_lex.cmi rdf_term.cmi rdf_sedlex.cmi \
     rdf_rdf.cmi rdf_loc.cmi rdf_graph.cmi rdf_dot.cmi rdf_ttl.cmi
 rdf_ttl.cmx : rdf_xml.cmx rdf_utf8.cmx rdf_types.cmx rdf_ttl_types.cmx \
@@ -156,10 +156,10 @@ rdf_ttl_lex.cmo : rdf_utf8.cmi rdf_types.cmi rdf_ttl_parser.cmi \
     rdf_sedlex.cmi rdf_ttl_lex.cmi
 rdf_ttl_lex.cmx : rdf_utf8.cmx rdf_types.cmx rdf_ttl_parser.cmx \
     rdf_sedlex.cmx rdf_ttl_lex.cmi
-rdf_ttl_parser.cmo : rdf_ttl_types.cmo rdf_rdf.cmi rdf_ttl_parser.cmi
+rdf_ttl_parser.cmo : rdf_ttl_types.cmi rdf_rdf.cmi rdf_ttl_parser.cmi
 rdf_ttl_parser.cmx : rdf_ttl_types.cmx rdf_rdf.cmx rdf_ttl_parser.cmi
-rdf_ttl_types.cmo : rdf_xml.cmi
-rdf_ttl_types.cmx : rdf_xml.cmx
+rdf_ttl_types.cmo : rdf_xml.cmi rdf_ttl_types.cmi
+rdf_ttl_types.cmx : rdf_xml.cmx rdf_ttl_types.cmi
 rdf_turtle_test.cmo : rdf_types.cmi rdf_ttl.cmi rdf_term.cmi rdf_sparql.cmi \
     rdf_rdfs.cmi rdf_rdf.cmi rdf_graph.cmi rdf_ds.cmi
 rdf_turtle_test.cmx : rdf_types.cmx rdf_ttl.cmx rdf_term.cmx rdf_sparql.cmx \
@@ -240,7 +240,8 @@ rdf_stubs.cmi :
 rdf_term.cmi :
 rdf_ttl.cmi : rdf_term.cmi rdf_loc.cmi rdf_graph.cmi
 rdf_ttl_lex.cmi : rdf_types.cmi rdf_ttl_parser.cmi
-rdf_ttl_parser.cmi : rdf_ttl_types.cmo
+rdf_ttl_parser.cmi : rdf_ttl_types.cmi
+rdf_ttl_types.cmi : rdf_xml.cmi
 rdf_types.cmi :
 rdf_utf8.cmi :
 rdf_xml.cmi : rdf_term.cmi rdf_graph.cmi
