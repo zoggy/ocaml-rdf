@@ -65,6 +65,7 @@ LIB_RDF_CMOFILES= \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
 	rdf_dc.cmo \
+	rdf_ldp.cmo \
 	rdf_dt.cmo \
 	rdf_sedlex.cmo \
 	rdf_stubs.cmo \
