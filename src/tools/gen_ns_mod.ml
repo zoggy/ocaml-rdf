@@ -43,20 +43,21 @@ let caml_kw = List.fold_right
 *)
 
 let caml_id s =
-  let len = String.length s in
+  let s = Bytes.of_string s in
+  let len = Bytes.length s in
   for i = 0 to len - 1 do
     match s.[i] with
       'a'..'z' | 'A'..'Z' | '0'..'9' | '_' -> ()
-    | _ -> s.[i] <- '_'
+    | _ -> Bytes.set s i '_'
   done;
-  s
+  Bytes.to_string s
   (*if Rdf_types.SSet.mem s caml_kw then s^"_" else s*)
 ;;
 
 let get_properties g =
   let q =
-   "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdfs.rdfs)^">
+   "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
+    PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     SELECT ?prop ?comment ?comment_en
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
@@ -96,11 +97,12 @@ let get_under s1 s2 =
 let gen_impl ?(comments=true) oc prefix base props =
   let p s = output_string oc s in
   let pc s = if comments then p ("(** "^s^" *)\n") else () in
-  pc ("Elements of ["^(Rdf_iri.string base)^"]");
+  pc ("Elements of ["^(Iri.to_string base)^"]");
   p "\n";
-  pc ("["^(Rdf_iri.string base)^"]");
-  p ("let "^prefix^" = Rdf_iri.iri \""^(Rdf_iri.string base)^"\";;\n");
-  p ("let "^prefix^"_ = Rdf_iri.append "^prefix^";;\n\n");
+  pc ("["^(Iri.to_string base)^"]");
+  p ("let "^prefix^"_str = \""^(Iri.to_string base)^"\";;\n");
+  p ("let "^prefix^" = Iri.of_string "^prefix^"_str ;;\n");
+  p ("let "^prefix^"_ s = Iri.of_string ("^prefix^"_str ^ s);;\n\n");
 
   let f (prop, comment) =
     (match comment with None -> () | Some c -> pc c) ;
@@ -112,15 +114,15 @@ let gen_impl ?(comments=true) oc prefix base props =
 let gen_intf oc prefix base props =
   let p s = output_string oc s in
   let pc s = p ("(** "^s^" *)\n") in
-  pc ("Elements of ["^(Rdf_iri.string base)^"]");
+  pc ("Elements of ["^(Iri.to_string base)^"]");
   p "\n";
-  pc ("["^(Rdf_iri.string base)^"]");
-  p ("val "^prefix^" : Rdf_iri.iri\n");
-  p ("val "^prefix^"_ : string -> Rdf_iri.iri\n\n");
+  pc ("["^(Iri.to_string base)^"]");
+  p ("val "^prefix^" : Iri.t\n");
+  p ("val "^prefix^"_ : string -> Iri.t\n\n");
 
   let f (prop, comment) =
     (match comment with None -> () | Some c -> pc c) ;
-    p ("val "^prefix^"_"^(caml_id prop)^" : Rdf_iri.iri\n\n")
+    p ("val "^prefix^"_"^(caml_id prop)^" : Iri.t\n\n")
   in
   List.iter f props
 ;;
@@ -128,9 +130,9 @@ let gen_intf oc prefix base props =
 
 let generate ?file prefix base g =
   let props = get_properties g in
-  let s_base = Rdf_iri.string base in
+  let s_base = Iri.to_string base in
   let f acc (prop, comment) =
-    let s_prop = Rdf_iri.string prop in
+    let s_prop = Iri.to_string prop in
     match get_under s_base s_prop with
       "" -> acc
     | s -> (s, comment) :: acc
@@ -174,18 +176,18 @@ let main () =
   | prefix :: base_iri :: file :: _ ->
       begin
         try
-          let base_iri = Rdf_iri.iri base_iri in
+          let base_iri = Iri.of_string base_iri in
           let prefix = caml_id prefix in
           let options = [ "storage", "mem" ] in
           let g = Rdf_graph.open_graph ~options base_iri in
           let base = match !read_base with
               None -> base_iri
-            | Some s -> Rdf_iri.iri s
+            | Some s -> Iri.of_string s
           in
           !load g ~base file ;
           generate ?file: !file_prefix prefix base_iri g
         with
-          Rdf_iri.Invalid_iri (s, msg) -> failwith ("Invalid IRI "^s^" : "^msg)
+          Iri.Error e -> failwith (Iri.string_of_error e)
         | Rdf_ttl.Error e -> failwith (Rdf_ttl.string_of_error e)
         | Rdf_xml.Invalid_rdf msg -> failwith msg
         | Rdf_sparql.Error e -> failwith (Rdf_sparql.string_of_error e)

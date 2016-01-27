@@ -35,7 +35,7 @@ let file_of_string ~file s =
 (*/c==v=[File.file_of_string]=1.1====*)
 
 let main () =
-  let base = Rdf_iri.iri "http://foo.net" in
+  let base = Iri.of_string "http://foo.net" in
   let g = Rdf_graph.open_graph base in
   Array.iter (read_file base g) (Array.sub Sys.argv 1 (Array.length Sys.argv - 1));
   let dot = Rdf_dot.dot_of_graph g in

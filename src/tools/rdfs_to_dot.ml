@@ -25,10 +25,10 @@
 (** *)
 let get_by_type g t =
   let q =
-   "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdfs.rdfs)^">
+   "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
+    PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     SELECT ?x
-      { ?x a <"^(Rdf_iri.string t)^"> . }"
+      { ?x a <"^(Iri.to_string t)^"> . }"
   in
   let ds = Rdf_ds.simple_dataset g in
   let q = Rdf_sparql.query_from_string q in
@@ -42,10 +42,10 @@ let get_by_type g t =
 
 let get_props g iri =
   let q =
-   "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdfs.rdfs)^">
+   "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
+    PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     SELECT ?prop ?range
-      { ?prop rdfs:domain <"^(Rdf_iri.string iri)^"> .
+      { ?prop rdfs:domain <"^(Iri.to_string iri)^"> .
         ?prop rdfs:range ?range .
       }"
   in
@@ -62,10 +62,10 @@ let get_props g iri =
 
 let get_parent_classes g iri =
   let q =
-   "PREFIX rdf: <"^(Rdf_iri.string Rdf_rdf.rdf)^">
-    PREFIX rdfs: <"^(Rdf_iri.string Rdf_rdfs.rdfs)^">
+   "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
+    PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     SELECT ?cl
-      { <"^(Rdf_iri.string iri)^"> rdfs:subClassOf ?cl .
+      { <"^(Iri.to_string iri)^"> rdfs:subClassOf ?cl .
       }"
   in
   let ds = Rdf_ds.simple_dataset g in
@@ -80,13 +80,13 @@ let get_parent_classes g iri =
 
 let id =
   let cpt = ref 0 in
-  let map = ref Rdf_iri.Irimap.empty in
+  let map = ref Iri.Map.empty in
   fun iri ->
-    try Rdf_iri.Irimap.find iri !map
+    try Iri.Map.find iri !map
     with Not_found ->
       incr cpt ;
       let cpt = string_of_int !cpt in
-      map := Rdf_iri.Irimap.add iri cpt !map;
+      map := Iri.Map.add iri cpt !map;
       cpt
 ;;
 
@@ -95,7 +95,7 @@ let node iri = "N"^(id iri);;
 let p = Printf.bprintf;;
 
 let label ns iri =
-  match Rdf_dot.apply_namespaces ns (Rdf_iri.string iri) with
+  match Rdf_dot.apply_namespaces ns (Iri.to_string iri) with
     ("",s) -> s
   | (p,s) -> p^":"^s
 ;;
@@ -108,8 +108,8 @@ let print_class g b ns classes iri =
     Buffer.add_string b
      ("<TR><TD BGCOLOR=\"grey87\" ALIGN=\"LEFT\" PORT=\"P"^(id prop)^"\">"^(label ns prop)^" : "^(label ns range)^"</TD></TR>");
 
-    if Rdf_iri.equal range Rdf_rdfs.rdfs_Literal
-    || not (List.exists (Rdf_iri.equal range) classes) then
+    if Iri.equal range Rdf_rdfs.rdfs_Literal
+    || not (List.exists (Iri.equal range) classes) then
       None
     else
       (
@@ -122,7 +122,7 @@ let print_class g b ns classes iri =
   List.iter (function None -> () | Some s -> Buffer.add_string b s) edges;
 
   let f_subclass cl =
-    if List.exists (Rdf_iri.equal cl) classes then
+    if List.exists (Iri.equal cl) classes then
       p b "%s -> %s:P%s [ label=\"subClassOf\", arrowhead=\"inv\", fontcolor=\"blue\", color=\"blue\"];\n"
         (node iri) (node cl) (id cl)
     else
@@ -168,17 +168,17 @@ let main () =
   | file :: _ ->
       begin
         try
-          let base_iri = Rdf_iri.iri "http://foo.net" in
+          let base_iri = Iri.of_string "http://foo.net" in
           let options = [ "storage", "mem" ] in
           let g = Rdf_graph.open_graph ~options base_iri in
           let base = match !read_base with
               None -> base_iri
-            | Some s -> Rdf_iri.iri s
+            | Some s -> Iri.of_string s
           in
           !load g ~base file ;
           generate g
         with
-          Rdf_iri.Invalid_iri (s, msg) -> failwith ("Invalid IRI "^s^" : "^msg)
+          Iri.Error e -> failwith (Iri.string_of_error e)
         | Rdf_ttl.Error e -> failwith (Rdf_ttl.string_of_error e)
         | Rdf_xml.Invalid_rdf msg -> failwith msg
         | Rdf_sparql.Error e -> failwith (Rdf_sparql.string_of_error e)
