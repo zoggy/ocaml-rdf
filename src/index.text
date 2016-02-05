@@ -32,6 +32,8 @@ Rdf_dc
 Rdf_doap
 Rdf_earl
 Rdf_foaf
+Rdf_ldp
+Rdf_owl
 Rdf_rdf
 Rdf_rdfs
 }
