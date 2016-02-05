@@ -71,7 +71,7 @@ let add_more g iri (pred, obj) =
   g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri) ~pred ~obj
 ;;
 
-let property g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
+let mk_property g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
   ?(domains=[]) ?(ranges=[]) ?subof ?(more=[]) iri =
   g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
     ~pred: Rdf_rdf.type_ ~obj: (Rdf_term.Iri Rdf_rdf.property);
@@ -90,7 +90,7 @@ let property g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
   List.iter (add_more g iri) more
 ;;
 
-let class_ g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
+let mk_class g ~label ?(label_lang=[]) ?comment ?(comment_lang=[])
    ?subof ?(more=[]) iri =
   g.Rdf_graph.add_triple ~sub: (Rdf_term.Iri iri)
     ~pred: Rdf_rdf.type_ ~obj: (Rdf_term.Iri class_);

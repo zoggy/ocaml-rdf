@@ -105,7 +105,7 @@ end
 (** Add usual [rdf] and [rdfs] namespaces in the given graph. *)
 val add_namespaces : Rdf_graph.graph -> unit
 
-val property : Rdf_graph.graph ->
+val mk_property : Rdf_graph.graph ->
   label: string ->
     ?label_lang: (string * string) list ->
     ?comment: string ->
@@ -116,7 +116,7 @@ val property : Rdf_graph.graph ->
     ?more: (Iri.t * Rdf_term.term) list ->
     Iri.t -> unit
 
-val class_ : Rdf_graph.graph ->
+val mk_class : Rdf_graph.graph ->
   label: string ->
     ?label_lang: (string * string) list ->
     ?comment: string ->
