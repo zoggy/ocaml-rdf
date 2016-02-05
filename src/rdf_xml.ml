@@ -171,12 +171,38 @@ let get_att_iri =
   fun iri l -> iter (is_element iri) l
 ;;
 
+(*
+let abs_iri state iri =
+  prerr_endline (Printf.sprintf "resolve base=%s  iri=%s"
+    (Iri.to_string state.xml_base) (Iri.ref_to_string iri));
+
+  let iri = Iri.resolve ~base: state.xml_base iri in
+  prerr_endline (Printf.sprintf "=> %s" (Iri.to_string iri));
+  iri
+*)
+
+let abs_iri state iri =
+  prerr_endline (Printf.sprintf "resolve base=%s  iri=%s"
+   (Iri.to_string state.xml_base) (Iri.ref_to_string iri));
+  let iri =
+     match iri with
+       Iri.Iri iri -> iri
+     | Iri.Rel iri ->
+         let str = (Iri.to_string state.xml_base)^(Iri.to_string iri) in
+         Iri.of_string str
+   in
+   prerr_endline (Printf.sprintf "=> %s" (Iri.to_string iri));
+   iri
+
 let set_xml_base state = function
   D _ -> state
 | E ((_,atts),_) ->
     match get_att (Xmlm.ns_xml, "base") atts with
       None -> state
-    | Some s -> { state with xml_base = Iri.of_string s }
+    | Some s ->
+        let r = Iri.ref_of_string s in
+        let xml_base = abs_iri state r in
+        { state with xml_base }
 ;;
 let set_xml_lang state = function
   D _ -> state
@@ -215,8 +241,6 @@ let get_blank_node g gstate id =
     let gstate = { gstate with blanks = SMap.add id bid gstate.blanks } in
     (Blank_ bid, gstate)
 
-let abs_iri state iri = Iri.resolve ~base: state.xml_base iri;;
-
 let rec input_node g state gstate t =
   let (gstate, state) = update_state gstate state t in
   match t with
@@ -233,7 +257,7 @@ let rec input_node g state gstate t =
       let iri = Iri.ref_of_string s in
       let (node, gstate) =
         match get_att_iri Rdf_rdf.rdf_about atts with
-          Some s -> (Iri (abs_iri state iri), gstate)
+          Some s -> (Iri (abs_iri state (Iri.ref_of_string s)), gstate)
         | None ->
             match get_att_iri Rdf_rdf.rdf_ID atts with
               Some id -> (Iri (Iri.of_string ((Iri.to_string state.xml_base)^"#"^id)), gstate)
