@@ -19,3 +19,5 @@ rdf_sparql_lex.ml
 *.conflicts
 ppx_rdf
 ppx_rdf.byte
+kw_to_re
+

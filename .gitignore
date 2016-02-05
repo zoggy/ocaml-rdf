@@ -7,11 +7,12 @@ autom4te.cache
 ocaml_config.sh
 master.Makefile
 src/rdf_config.ml
-src/*.cm*
-src/*.a
-src/*.o
-src/*.annot
+*.cm*
+*.a
+*.o
+*.annot
 src/ocamldoc
 src/dump.odoc
 src/test_mysql
+
 
