@@ -329,3 +329,7 @@ val open_graph : ?options:(string * string) list -> Iri.t -> graph
 
 (** [merge g1 g2] add triples from [g2] to [g1].*)
 val merge : graph -> graph -> unit
+
+val only_iris : Rdf_term.term list -> Iri.t list
+val iri_subjects_of : graph -> pred: Iri.t -> obj:Rdf_term.term -> Iri.t list
+val iri_objects_of : graph -> sub:Rdf_term.term -> pred: Iri.t -> Iri.t list

@@ -309,3 +309,14 @@ let merge g1 g2 =
   let triples = g2.find () in
   ignore(List.fold_left f Bid_map.empty triples)
 ;;
+
+let only_iris = List.fold_left
+  (fun acc -> function
+     | Rdf_term.Iri iri -> iri :: acc
+     | _ -> acc) []
+
+let iri_objects_of g ~sub ~pred =
+  only_iris (g.objects_of ~sub ~pred)
+
+let iri_subjects_of g ~pred ~obj =
+  only_iris (g.subjects_of ~pred ~obj)
