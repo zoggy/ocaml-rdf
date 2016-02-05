@@ -90,11 +90,11 @@ let store_operation g op =
     match op.kind, op.spec.default_graph with
       Import _, None -> assert false
     | Import res, Some file ->
-        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri type_op_import);
+        add ~pred: Rdf_rdf.type_ ~obj: (Rdf_term.Iri type_op_import);
         add ~pred: prop_source ~obj: (Rdf_term.term_of_literal_string file);
         res
     | Sparql_query res, _ ->
-        add ~pred: Rdf_rdf.rdf_type ~obj: (Rdf_term.Iri type_op_sparql);
+        add ~pred: Rdf_rdf.type_ ~obj: (Rdf_term.Iri type_op_sparql);
         add ~pred: prop_query
           ~obj: (Rdf_term.term_of_literal_string (Rdf_misc.string_of_file op.spec.query));
         add ~pred: prop_query_file
@@ -238,7 +238,7 @@ let sizes_of_op g ?(clause="") op =
   let q =
     "SELECT DISTINCT ?size
      WHERE { ?run <"^(us prop_datasize)^"> ?size .
-             ?run <"^(us Rdf_rdf.rdf_type)^"> <"^(us op)^"> .
+             ?run <"^(us Rdf_rdf.type_)^"> <"^(us op)^"> .
              "^clause^"}
      ORDER BY DESC(?size)"
   in
@@ -255,7 +255,7 @@ let import_stats ids g =
     let q = "SELECT (AVG(?dur) as ?duration)
       WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term_id)^".
               _:run <"^(us prop_datasize)^"> "^(string_of_int size)^" .
-              _:run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_import)^"> .
+              _:run <"^(us Rdf_rdf.type_)^"> <"^(us type_op_import)^"> .
               _:run <"^(us prop_duration)^"> ?dur .
               FILTER (?dur > 0.0)
             }"
@@ -308,7 +308,7 @@ let sparql_stat ids g (qfile, query) =
     let q = "SELECT (AVG(?dur) as ?duration)
        WHERE { _:run <"^(us prop_id)^"> "^(Rdf_term.string_of_term term_id)^".
               _:run <"^(us prop_datasize)^"> "^(string_of_int size)^" .
-              _:run <"^(us Rdf_rdf.rdf_type)^"> <"^(us type_op_sparql)^"> .
+              _:run <"^(us Rdf_rdf.type_)^"> <"^(us type_op_sparql)^"> .
               "^clause^"
               _:run <"^(us prop_duration)^"> ?dur .
               FILTER (?dur > 0.0)

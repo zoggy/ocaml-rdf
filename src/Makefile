@@ -318,4 +318,7 @@ rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
 
+rdf_sparql_test.cmi: rdf_sparql_test.mli
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<
+
 
