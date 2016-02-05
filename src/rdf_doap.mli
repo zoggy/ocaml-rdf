@@ -8,16 +8,16 @@ val doap_ : string -> Iri.t
 val anon_root : Iri.t
 
 (** GNU Arch source code repository. *)
-val archRepository : Iri.t
+val c_ArchRepository : Iri.t
 
 (** Description of target user base *)
 val audience : Iri.t
 
 (** Bazaar source code branch. *)
-val bazaarBranch : Iri.t
+val c_BazaarBranch : Iri.t
 
 (** BitKeeper source code repository. *)
-val bKRepository : Iri.t
+val c_BKRepository : Iri.t
 
 (** URI of a blog related to a project *)
 val blog : Iri.t
@@ -35,10 +35,10 @@ val category : Iri.t
 val created : Iri.t
 
 (** CVS source code repository. *)
-val cVSRepository : Iri.t
+val c_CVSRepository : Iri.t
 
 (** darcs source code repository. *)
-val darcsRepository : Iri.t
+val c_DarcsRepository : Iri.t
 
 (** Plain text description of a project, of 2-4 sentences in length. *)
 val description : Iri.t
@@ -59,13 +59,13 @@ val download_page : Iri.t
 val file_release : Iri.t
 
 (** Git source code repository. *)
-val gitRepository : Iri.t
+val c_GitRepository : Iri.t
 
 (** Project contributor. *)
 val helper : Iri.t
 
 (** Mercurial source code repository. *)
-val hgRepository : Iri.t
+val c_HgRepository : Iri.t
 
 (** URL of a project's homepage, associated with exactly one project. *)
 val homepage : Iri.t
@@ -110,13 +110,13 @@ val platform : Iri.t
 val programming_language : Iri.t
 
 (** A project. *)
-val project : Iri.t
+val c_Project : Iri.t
 
 (** A project release. *)
 val release : Iri.t
 
 (** Source code repository. *)
-val repository : Iri.t
+val c_Repository : Iri.t
 
 (** Source code repository. *)
 val repository : Iri.t
@@ -134,10 +134,10 @@ val service_endpoint : Iri.t
 val shortdesc : Iri.t
 
 (** A specification of a system's aspects, technical or otherwise. *)
-val specification : Iri.t
+val c_Specification : Iri.t
 
 (** Subversion source code repository. *)
-val sVNRepository : Iri.t
+val c_SVNRepository : Iri.t
 
 (** このプロジェクトのため、試験をする人や品質メンテナー。 *)
 val tester : Iri.t
@@ -152,7 +152,7 @@ val translator : Iri.t
 val vendor : Iri.t
 
 (** Version information of a project release. *)
-val version : Iri.t
+val c_Version : Iri.t
 
 (** URL of Wiki for collaborative discussion of project. *)
 val wiki : Iri.t
@@ -163,16 +163,16 @@ module Open : sig
   val doap_anon_root : Iri.t
 
   (** GNU Arch source code repository. *)
-  val doap_archRepository : Iri.t
+  val doap_c_ArchRepository : Iri.t
 
   (** Description of target user base *)
   val doap_audience : Iri.t
 
   (** Bazaar source code branch. *)
-  val doap_bazaarBranch : Iri.t
+  val doap_c_BazaarBranch : Iri.t
 
   (** BitKeeper source code repository. *)
-  val doap_bKRepository : Iri.t
+  val doap_c_BKRepository : Iri.t
 
   (** URI of a blog related to a project *)
   val doap_blog : Iri.t
@@ -190,10 +190,10 @@ module Open : sig
   val doap_created : Iri.t
 
   (** CVS source code repository. *)
-  val doap_cVSRepository : Iri.t
+  val doap_c_CVSRepository : Iri.t
 
   (** darcs source code repository. *)
-  val doap_darcsRepository : Iri.t
+  val doap_c_DarcsRepository : Iri.t
 
   (** Plain text description of a project, of 2-4 sentences in length. *)
   val doap_description : Iri.t
@@ -214,13 +214,13 @@ module Open : sig
   val doap_file_release : Iri.t
 
   (** Git source code repository. *)
-  val doap_gitRepository : Iri.t
+  val doap_c_GitRepository : Iri.t
 
   (** Project contributor. *)
   val doap_helper : Iri.t
 
   (** Mercurial source code repository. *)
-  val doap_hgRepository : Iri.t
+  val doap_c_HgRepository : Iri.t
 
   (** URL of a project's homepage, associated with exactly one project. *)
   val doap_homepage : Iri.t
@@ -265,13 +265,13 @@ module Open : sig
   val doap_programming_language : Iri.t
 
   (** A project. *)
-  val doap_project : Iri.t
+  val doap_c_Project : Iri.t
 
   (** A project release. *)
   val doap_release : Iri.t
 
   (** Source code repository. *)
-  val doap_repository : Iri.t
+  val doap_c_Repository : Iri.t
 
   (** Source code repository. *)
   val doap_repository : Iri.t
@@ -289,10 +289,10 @@ module Open : sig
   val doap_shortdesc : Iri.t
 
   (** A specification of a system's aspects, technical or otherwise. *)
-  val doap_specification : Iri.t
+  val doap_c_Specification : Iri.t
 
   (** Subversion source code repository. *)
-  val doap_sVNRepository : Iri.t
+  val doap_c_SVNRepository : Iri.t
 
   (** このプロジェクトのため、試験をする人や品質メンテナー。 *)
   val doap_tester : Iri.t
@@ -307,7 +307,7 @@ module Open : sig
   val doap_vendor : Iri.t
 
   (** Version information of a project release. *)
-  val doap_version : Iri.t
+  val doap_c_Version : Iri.t
 
   (** URL of Wiki for collaborative discussion of project. *)
   val doap_wiki : Iri.t

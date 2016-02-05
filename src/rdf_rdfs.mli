@@ -5,20 +5,20 @@ val rdfs : Iri.t
 val rdfs_ : string -> Iri.t
 
 (** The class of classes. *)
-val class_ : Iri.t
+val c_Class : Iri.t
 
 (** A description of the subject resource. *)
 val comment : Iri.t
 
 (** The class of RDF containers. *)
-val container : Iri.t
+val c_Container : Iri.t
 
 (** The class of container membership properties, rdf:_1, rdf:_2, ...,
                     all of which are sub-properties of 'member'. *)
-val containerMembershipProperty : Iri.t
+val c_ContainerMembershipProperty : Iri.t
 
 (** The class of RDF datatypes. *)
-val datatype : Iri.t
+val c_Datatype : Iri.t
 
 (** A domain of the subject property. *)
 val domain : Iri.t
@@ -30,7 +30,7 @@ val isDefinedBy : Iri.t
 val label : Iri.t
 
 (** The class of literal values, eg. textual strings and integers. *)
-val literal : Iri.t
+val c_Literal : Iri.t
 
 (** A member of the subject resource. *)
 val member : Iri.t
@@ -39,7 +39,7 @@ val member : Iri.t
 val range : Iri.t
 
 (** The class resource, everything. *)
-val resource : Iri.t
+val c_Resource : Iri.t
 
 (** Further information about the subject resource. *)
 val seeAlso : Iri.t
@@ -53,20 +53,20 @@ val subPropertyOf : Iri.t
 
 module Open : sig
   (** The class of classes. *)
-  val rdfs_class : Iri.t
+  val rdfs_c_Class : Iri.t
 
   (** A description of the subject resource. *)
   val rdfs_comment : Iri.t
 
   (** The class of RDF containers. *)
-  val rdfs_container : Iri.t
+  val rdfs_c_Container : Iri.t
 
   (** The class of container membership properties, rdf:_1, rdf:_2, ...,
                     all of which are sub-properties of 'member'. *)
-  val rdfs_containerMembershipProperty : Iri.t
+  val rdfs_c_ContainerMembershipProperty : Iri.t
 
   (** The class of RDF datatypes. *)
-  val rdfs_datatype : Iri.t
+  val rdfs_c_Datatype : Iri.t
 
   (** A domain of the subject property. *)
   val rdfs_domain : Iri.t
@@ -78,7 +78,7 @@ module Open : sig
   val rdfs_label : Iri.t
 
   (** The class of literal values, eg. textual strings and integers. *)
-  val rdfs_literal : Iri.t
+  val rdfs_c_Literal : Iri.t
 
   (** A member of the subject resource. *)
   val rdfs_member : Iri.t
@@ -87,7 +87,7 @@ module Open : sig
   val rdfs_range : Iri.t
 
   (** The class resource, everything. *)
-  val rdfs_resource : Iri.t
+  val rdfs_c_Resource : Iri.t
 
   (** Further information about the subject resource. *)
   val rdfs_seeAlso : Iri.t

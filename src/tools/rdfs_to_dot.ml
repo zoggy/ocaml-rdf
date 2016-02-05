@@ -108,7 +108,7 @@ let print_class g b ns classes iri =
     Buffer.add_string b
      ("<TR><TD BGCOLOR=\"grey87\" ALIGN=\"LEFT\" PORT=\"P"^(id prop)^"\">"^(label ns prop)^" : "^(label ns range)^"</TD></TR>");
 
-    if Iri.equal range Rdf_rdfs.literal
+    if Iri.equal range Rdf_rdfs.c_Literal
     || not (List.exists (Iri.equal range) classes) then
       None
     else
@@ -139,7 +139,7 @@ let generate g =
   let p = Printf.bprintf b in
   p "digraph g {\n  rankdir=\"LR\";\n";
   p "  node [penwidth=\"0\", shape=\"rect\", color=\"red\", fillcolor=\"lightgrey\", fontcolor=\"black\"];\n";
-  let classes = get_by_type g Rdf_rdfs.class_ in
+  let classes = get_by_type g Rdf_rdfs.c_Class in
   List.iter (print_class g b ns classes) classes;
   p "}";
   let dot = Buffer.contents b in

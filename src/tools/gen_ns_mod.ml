@@ -42,17 +42,25 @@ let caml_kw = List.fold_right
 ;;
 
 
-let caml_id ?(protect=false) s =
+let caml_id ?(protect=false) s typ =
+  let typ_prefix =
+    if Iri.equal typ Rdf_rdfs.c_Class then
+      "c_"
+    else if Iri.equal typ Rdf_rdfs.c_Datatype then
+        "dt_"
+      else
+      ""
+  in
   let s = Bytes.of_string s in
   let len = Bytes.length s in
   for i = 0 to len - 1 do
     let c = String.get s i in
     match c with
       'a'..'z' | 'A'..'Z' | '0'..'9' | '_' ->
-        if i = 0 then Bytes.set s i (Char.lowercase c)
+        if typ_prefix = "" && i = 0 then Bytes.set s i (Char.lowercase c)
     | _ -> Bytes.set s i '_'
   done;
-  let s = Bytes.to_string s in
+  let s = typ_prefix ^ (Bytes.to_string s) in
   if protect && Rdf_types.SSet.mem s caml_kw
   then s^"_"
   else s
@@ -62,7 +70,7 @@ let get_properties g =
   let q =
    "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
     PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
-    SELECT ?prop ?comment ?comment_en
+    SELECT ?prop ?comment ?comment_en ?type
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
@@ -75,6 +83,7 @@ let get_properties g =
   let sols = Rdf_sparql.select (g.Rdf_graph.name()) ds q in
   let f acc sol =
     let prop = Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "prop" in
+    let typ =  Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type" in
     let comment =
       if Rdf_sparql.is_bound sol "comment_en" then
         Some (Rdf_sparql.get_string sol "comment_en")
@@ -84,7 +93,7 @@ let get_properties g =
         else
           None
     in
-    (prop, comment) :: acc
+    (prop, comment, typ) :: acc
   in
   List.fold_left f [] sols
 ;;
@@ -113,16 +122,16 @@ let gen_impl ?(comments=true) oc prefix base props =
   p "let %s = Iri.of_string %s_str ;;\n" prefix prefix;
   p "let %s_ s = Iri.of_string (%s_str ^ s);;\n\n" prefix prefix;
 
-  let f (prop, comment) =
+  let f (prop, comment, typ) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
-    p "let %s = %s_ \"%s\" ;;\n" (caml_id ~protect: true prop) prefix prop
+    p "let %s = %s_ \"%s\" ;;\n" (caml_id ~protect: true prop typ) prefix prop
   in
   List.iter f props;
 
   p "%s" "\nmodule Open = struct\n";
-  let f (prop, comment) =
+  let f (prop, comment, typ) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
-    p "  let %s_%s = %s\n" prefix (caml_id prop) (caml_id ~protect: true prop)
+    p "  let %s_%s = %s\n" prefix (caml_id prop typ) (caml_id ~protect: true prop typ)
   in
   List.iter f props;
   p "%s" "end\n"
@@ -137,16 +146,16 @@ let gen_intf oc prefix base props =
   p "val %s : Iri.t\n" prefix ;
   p "val %s_ : string -> Iri.t\n\n" prefix ;
 
-  let f (prop, comment) =
+  let f (prop, comment, typ) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
-    p "val %s : Iri.t\n\n" (caml_id ~protect: true prop)
+    p "val %s : Iri.t\n\n" (caml_id ~protect: true prop typ)
   in
   List.iter f props;
 
   p "%s" "\nmodule Open : sig\n" ;
-  let f (prop, comment) =
+  let f (prop, comment, typ) =
     (match comment with None -> () | Some c -> pc ~margin: "  " "%s" c) ;
-    p "  val %s_%s : Iri.t\n\n" prefix (caml_id prop)
+    p "  val %s_%s : Iri.t\n\n" prefix (caml_id prop typ)
   in
   List.iter f props;
   p "%s" "end\n";
@@ -156,11 +165,11 @@ let gen_intf oc prefix base props =
 let generate ?file prefix base g =
   let props = get_properties g in
   let s_base = Iri.to_string base in
-  let f acc (prop, comment) =
+  let f acc (prop, comment, typ) =
     let s_prop = Iri.to_string prop in
     match get_under s_base s_prop with
       "" -> acc
-    | s -> (s, comment) :: acc
+    | s -> (s, comment, typ) :: acc
   in
   let props = List.fold_left f [] props in
   match file with
@@ -202,7 +211,6 @@ let main () =
       begin
         try
           let base_iri = Iri.of_string base_iri in
-          let prefix = caml_id prefix in
           let options = [ "storage", "mem" ] in
           let g = Rdf_graph.open_graph ~options base_iri in
           let base = match !read_base with

@@ -329,7 +329,7 @@ and input_prop g state (gstate, li) t =
                 (Irimap.fold (fun iri s acc -> (s, Iri.to_string iri) :: acc) state.namespaces [])
                 children
               in
-              let obj = Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xmlLiteral xml in
+              let obj = Rdf_term.term_of_literal_string ~typ: Rdf_rdf.dt_XMLLiteral xml in
               g.add_triple ~sub ~pred: prop_iri ~obj;
               (gstate, li)
           | Some "Resource" ->
@@ -463,7 +463,7 @@ let output g =
           let (atts, subs) =
             match lit.lit_type with
               None -> ([], [D lit.lit_value])
-            | Some iri when Iri.equal iri Rdf_rdf.xmlLiteral ->
+            | Some iri when Iri.equal iri Rdf_rdf.dt_XMLLiteral ->
                 let subs = xmls_of_string lit.lit_value in
                 (
                  [("",Iri.to_string Rdf_rdf.parseType), "Literal"],

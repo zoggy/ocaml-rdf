@@ -14,48 +14,48 @@ val description : Iri.t
 val id : Iri.t
 val li : Iri.t
 val nodeID : Iri.t
-val rdf : Iri.t
+val _RDF : Iri.t
 val parseType : Iri.t
 val resource : Iri.t
 
 (** The class of containers of alternatives. *)
-val alt : Iri.t
+val c_Alt : Iri.t
 
 (** The class of unordered containers. *)
-val bag : Iri.t
+val c_Bag : Iri.t
 
 (** The first item in the subject RDF list. *)
 val first : Iri.t
 
 (** The datatype of RDF literals storing fragments of HTML content *)
-val hTML : Iri.t
+val dt_HTML : Iri.t
 
 (** The datatype of language-tagged string values *)
-val langString : Iri.t
+val dt_langString : Iri.t
 
 (** The class of RDF Lists. *)
-val list : Iri.t
+val c_List : Iri.t
 
 (** The object of the subject RDF statement. *)
 val object_ : Iri.t
 
 (** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 *)
-val plainLiteral : Iri.t
+val dt_PlainLiteral : Iri.t
 
 (** The predicate of the subject RDF statement. *)
 val predicate : Iri.t
 
 (** The class of RDF properties. *)
-val property : Iri.t
+val c_Property : Iri.t
 
 (** The rest of the subject RDF list after the first item. *)
 val rest : Iri.t
 
 (** The class of ordered containers. *)
-val seq : Iri.t
+val c_Seq : Iri.t
 
 (** The class of RDF statements. *)
-val statement : Iri.t
+val c_Statement : Iri.t
 
 (** The subject of the subject RDF statement. *)
 val subject : Iri.t
@@ -67,7 +67,7 @@ val type_ : Iri.t
 val value : Iri.t
 
 (** The datatype of XML literal values. *)
-val xmlLiteral : Iri.t
+val dt_XMLLiteral : Iri.t
 
 val n : int -> Iri.t
 val nil : Iri.t
@@ -91,48 +91,49 @@ module Open :
     val rdf_nodeID : Iri.t
     val rdf_id : Iri.t
     val rdf_parseType : Iri.t
+    val rdf_RDF : Iri.t
     val rdf_resource : Iri.t
 
   (** The class of containers of alternatives. *)
-  val rdf_alt : Iri.t
+  val rdf_c_Alt : Iri.t
 
   (** The class of unordered containers. *)
-  val rdf_bag : Iri.t
+  val rdf_c_Bag : Iri.t
 
-  (** The first item in Iri.the subject RDF list. *)
+  (** The first item in the subject RDF list. *)
   val rdf_first : Iri.t
 
   (** The datatype of RDF literals storing fragments of HTML content *)
-  val rdf_hTML : Iri.t
+  val rdf_dt_HTML : Iri.t
 
   (** The datatype of language-tagged string values *)
-  val rdf_langString : Iri.t
+  val rdf_dt_langString : Iri.t
 
   (** The class of RDF Lists. *)
-  val rdf_list : Iri.t
+  val rdf_c_List : Iri.t
 
-  (** The object of Iri.the subject RDF statement. *)
+  (** The object of the subject RDF statement. *)
   val rdf_object : Iri.t
 
   (** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 *)
-  val rdf_plainLiteral : Iri.t
+  val rdf_dt_PlainLiteral : Iri.t
 
-  (** The predicate of Iri.the subject RDF statement. *)
+  (** The predicate of the subject RDF statement. *)
   val rdf_predicate : Iri.t
 
   (** The class of RDF properties. *)
-  val rdf_property : Iri.t
+  val rdf_c_Property : Iri.t
 
-  (** The rest of Iri.the subject RDF list after Iri.the first item. *)
+  (** The rest of the subject RDF list after the first item. *)
   val rdf_rest : Iri.t
 
   (** The class of ordered containers. *)
-  val rdf_seq : Iri.t
+  val rdf_c_Seq : Iri.t
 
   (** The class of RDF statements. *)
-  val rdf_statement : Iri.t
+  val rdf_c_Statement : Iri.t
 
-  (** The subject of Iri.the subject RDF statement. *)
+  (** The subject of the subject RDF statement. *)
   val rdf_subject : Iri.t
 
   (** The subject is an instance of a class. *)
@@ -142,7 +143,7 @@ module Open :
   val rdf_value : Iri.t
 
   (** The datatype of XML literal values. *)
-  val rdf_xmlLiteral : Iri.t
+  val rdf_dt_XMLLiteral : Iri.t
 
   val rdf_n : int -> Iri.t
   val rdf_nil : Iri.t

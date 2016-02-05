@@ -5,13 +5,13 @@ val owl : Iri.t
 val owl_ : string -> Iri.t
 
 (** The class of collections of pairwise different individuals. *)
-val allDifferent : Iri.t
+val c_AllDifferent : Iri.t
 
 (** The class of collections of pairwise disjoint classes. *)
-val allDisjointClasses : Iri.t
+val c_AllDisjointClasses : Iri.t
 
 (** The class of collections of pairwise disjoint properties. *)
-val allDisjointProperties : Iri.t
+val c_AllDisjointProperties : Iri.t
 
 (** The property that determines the class that a universal property restriction refers to. *)
 val allValuesFrom : Iri.t
@@ -26,43 +26,43 @@ val annotatedSource : Iri.t
 val annotatedTarget : Iri.t
 
 (** The class of annotated annotations for which the RDF serialization consists of an annotated subject, predicate and object. *)
-val annotation : Iri.t
+val c_Annotation : Iri.t
 
 (** The class of annotation properties. *)
-val annotationProperty : Iri.t
+val c_AnnotationProperty : Iri.t
 
 (** The property that determines the predicate of a negative property assertion. *)
 val assertionProperty : Iri.t
 
 (** The class of asymmetric properties. *)
-val asymmetricProperty : Iri.t
+val c_AsymmetricProperty : Iri.t
 
 (** The class of annotated axioms for which the RDF serialization consists of an annotated subject, predicate and object. *)
-val axiom : Iri.t
+val c_Axiom : Iri.t
 
 (** The property that determines the cardinality of an exact cardinality restriction. *)
 val cardinality : Iri.t
 
 (** The class of OWL classes. *)
-val class_ : Iri.t
+val c_Class : Iri.t
 
 (** The property that determines that a given class is the complement of another class. *)
 val complementOf : Iri.t
 
 (** The class of OWL data ranges, which are special kinds of datatypes. Note: The use of the IRI owl:DataRange has been deprecated as of OWL 2. The IRI rdfs:Datatype SHOULD be used instead. *)
-val dataRange : Iri.t
+val c_DataRange : Iri.t
 
 (** The property that determines that a given data range is the complement of another data range with respect to the data domain. *)
 val datatypeComplementOf : Iri.t
 
 (** The class of data properties. *)
-val datatypeProperty : Iri.t
+val c_DatatypeProperty : Iri.t
 
 (** The class of deprecated classes. *)
-val deprecatedClass : Iri.t
+val c_DeprecatedClass : Iri.t
 
 (** The class of deprecated properties. *)
-val deprecatedProperty : Iri.t
+val c_DeprecatedProperty : Iri.t
 
 (** The property that determines that two given individuals are different. *)
 val differentFrom : Iri.t
@@ -83,7 +83,7 @@ val equivalentClass : Iri.t
 val equivalentProperty : Iri.t
 
 (** The class of functional properties. *)
-val functionalProperty : Iri.t
+val c_FunctionalProperty : Iri.t
 
 (** The property that determines the collection of properties that jointly build a key. *)
 val hasKey : Iri.t
@@ -98,13 +98,13 @@ val hasValue : Iri.t
 val intersectionOf : Iri.t
 
 (** The class of inverse-functional properties. *)
-val inverseFunctionalProperty : Iri.t
+val c_InverseFunctionalProperty : Iri.t
 
 (** The property that determines that two given properties are inverse. *)
 val inverseOf : Iri.t
 
 (** The class of irreflexive properties. *)
-val irreflexiveProperty : Iri.t
+val c_IrreflexiveProperty : Iri.t
 
 (** The property that determines the cardinality of a maximum cardinality restriction. *)
 val maxCardinality : Iri.t
@@ -122,13 +122,13 @@ val minCardinality : Iri.t
 val minQualifiedCardinality : Iri.t
 
 (** The class of named individuals. *)
-val namedIndividual : Iri.t
+val c_NamedIndividual : Iri.t
 
 (** The class of negative property assertions. *)
-val negativePropertyAssertion : Iri.t
+val c_NegativePropertyAssertion : Iri.t
 
 (** The class of object properties. *)
-val objectProperty : Iri.t
+val c_ObjectProperty : Iri.t
 
 (** The property that determines the class that a qualified object cardinality restriction refers to. *)
 val onClass : Iri.t
@@ -149,10 +149,10 @@ val onProperties : Iri.t
 val onProperty : Iri.t
 
 (** The class of ontologies. *)
-val ontology : Iri.t
+val c_Ontology : Iri.t
 
 (** The class of ontology properties. *)
-val ontologyProperty : Iri.t
+val c_OntologyProperty : Iri.t
 
 (** The property that determines the n-tuple of properties that build a sub property chain of a given property. *)
 val propertyChainAxiom : Iri.t
@@ -164,10 +164,10 @@ val propertyDisjointWith : Iri.t
 val qualifiedCardinality : Iri.t
 
 (** The class of reflexive properties. *)
-val reflexiveProperty : Iri.t
+val c_ReflexiveProperty : Iri.t
 
 (** The class of property restrictions. *)
-val restriction : Iri.t
+val c_Restriction : Iri.t
 
 (** The property that determines that two given individuals are equal. *)
 val sameAs : Iri.t
@@ -179,7 +179,7 @@ val someValuesFrom : Iri.t
 val sourceIndividual : Iri.t
 
 (** The class of symmetric properties. *)
-val symmetricProperty : Iri.t
+val c_SymmetricProperty : Iri.t
 
 (** The property that determines the object of a negative object property assertion. *)
 val targetIndividual : Iri.t
@@ -188,7 +188,7 @@ val targetIndividual : Iri.t
 val targetValue : Iri.t
 
 (** The class of transitive properties. *)
-val transitiveProperty : Iri.t
+val c_TransitiveProperty : Iri.t
 
 (** The property that determines the collection of classes or data ranges that build a union. *)
 val unionOf : Iri.t
@@ -199,13 +199,13 @@ val withRestrictions : Iri.t
 
 module Open : sig
   (** The class of collections of pairwise different individuals. *)
-  val owl_allDifferent : Iri.t
+  val owl_c_AllDifferent : Iri.t
 
   (** The class of collections of pairwise disjoint classes. *)
-  val owl_allDisjointClasses : Iri.t
+  val owl_c_AllDisjointClasses : Iri.t
 
   (** The class of collections of pairwise disjoint properties. *)
-  val owl_allDisjointProperties : Iri.t
+  val owl_c_AllDisjointProperties : Iri.t
 
   (** The property that determines the class that a universal property restriction refers to. *)
   val owl_allValuesFrom : Iri.t
@@ -220,43 +220,43 @@ module Open : sig
   val owl_annotatedTarget : Iri.t
 
   (** The class of annotated annotations for which the RDF serialization consists of an annotated subject, predicate and object. *)
-  val owl_annotation : Iri.t
+  val owl_c_Annotation : Iri.t
 
   (** The class of annotation properties. *)
-  val owl_annotationProperty : Iri.t
+  val owl_c_AnnotationProperty : Iri.t
 
   (** The property that determines the predicate of a negative property assertion. *)
   val owl_assertionProperty : Iri.t
 
   (** The class of asymmetric properties. *)
-  val owl_asymmetricProperty : Iri.t
+  val owl_c_AsymmetricProperty : Iri.t
 
   (** The class of annotated axioms for which the RDF serialization consists of an annotated subject, predicate and object. *)
-  val owl_axiom : Iri.t
+  val owl_c_Axiom : Iri.t
 
   (** The property that determines the cardinality of an exact cardinality restriction. *)
   val owl_cardinality : Iri.t
 
   (** The class of OWL classes. *)
-  val owl_class : Iri.t
+  val owl_c_Class : Iri.t
 
   (** The property that determines that a given class is the complement of another class. *)
   val owl_complementOf : Iri.t
 
   (** The class of OWL data ranges, which are special kinds of datatypes. Note: The use of the IRI owl:DataRange has been deprecated as of OWL 2. The IRI rdfs:Datatype SHOULD be used instead. *)
-  val owl_dataRange : Iri.t
+  val owl_c_DataRange : Iri.t
 
   (** The property that determines that a given data range is the complement of another data range with respect to the data domain. *)
   val owl_datatypeComplementOf : Iri.t
 
   (** The class of data properties. *)
-  val owl_datatypeProperty : Iri.t
+  val owl_c_DatatypeProperty : Iri.t
 
   (** The class of deprecated classes. *)
-  val owl_deprecatedClass : Iri.t
+  val owl_c_DeprecatedClass : Iri.t
 
   (** The class of deprecated properties. *)
-  val owl_deprecatedProperty : Iri.t
+  val owl_c_DeprecatedProperty : Iri.t
 
   (** The property that determines that two given individuals are different. *)
   val owl_differentFrom : Iri.t
@@ -277,7 +277,7 @@ module Open : sig
   val owl_equivalentProperty : Iri.t
 
   (** The class of functional properties. *)
-  val owl_functionalProperty : Iri.t
+  val owl_c_FunctionalProperty : Iri.t
 
   (** The property that determines the collection of properties that jointly build a key. *)
   val owl_hasKey : Iri.t
@@ -292,13 +292,13 @@ module Open : sig
   val owl_intersectionOf : Iri.t
 
   (** The class of inverse-functional properties. *)
-  val owl_inverseFunctionalProperty : Iri.t
+  val owl_c_InverseFunctionalProperty : Iri.t
 
   (** The property that determines that two given properties are inverse. *)
   val owl_inverseOf : Iri.t
 
   (** The class of irreflexive properties. *)
-  val owl_irreflexiveProperty : Iri.t
+  val owl_c_IrreflexiveProperty : Iri.t
 
   (** The property that determines the cardinality of a maximum cardinality restriction. *)
   val owl_maxCardinality : Iri.t
@@ -316,13 +316,13 @@ module Open : sig
   val owl_minQualifiedCardinality : Iri.t
 
   (** The class of named individuals. *)
-  val owl_namedIndividual : Iri.t
+  val owl_c_NamedIndividual : Iri.t
 
   (** The class of negative property assertions. *)
-  val owl_negativePropertyAssertion : Iri.t
+  val owl_c_NegativePropertyAssertion : Iri.t
 
   (** The class of object properties. *)
-  val owl_objectProperty : Iri.t
+  val owl_c_ObjectProperty : Iri.t
 
   (** The property that determines the class that a qualified object cardinality restriction refers to. *)
   val owl_onClass : Iri.t
@@ -343,10 +343,10 @@ module Open : sig
   val owl_onProperty : Iri.t
 
   (** The class of ontologies. *)
-  val owl_ontology : Iri.t
+  val owl_c_Ontology : Iri.t
 
   (** The class of ontology properties. *)
-  val owl_ontologyProperty : Iri.t
+  val owl_c_OntologyProperty : Iri.t
 
   (** The property that determines the n-tuple of properties that build a sub property chain of a given property. *)
   val owl_propertyChainAxiom : Iri.t
@@ -358,10 +358,10 @@ module Open : sig
   val owl_qualifiedCardinality : Iri.t
 
   (** The class of reflexive properties. *)
-  val owl_reflexiveProperty : Iri.t
+  val owl_c_ReflexiveProperty : Iri.t
 
   (** The class of property restrictions. *)
-  val owl_restriction : Iri.t
+  val owl_c_Restriction : Iri.t
 
   (** The property that determines that two given individuals are equal. *)
   val owl_sameAs : Iri.t
@@ -373,7 +373,7 @@ module Open : sig
   val owl_sourceIndividual : Iri.t
 
   (** The class of symmetric properties. *)
-  val owl_symmetricProperty : Iri.t
+  val owl_c_SymmetricProperty : Iri.t
 
   (** The property that determines the object of a negative object property assertion. *)
   val owl_targetIndividual : Iri.t
@@ -382,7 +382,7 @@ module Open : sig
   val owl_targetValue : Iri.t
 
   (** The class of transitive properties. *)
-  val owl_transitiveProperty : Iri.t
+  val owl_c_TransitiveProperty : Iri.t
 
   (** The property that determines the collection of classes or data ranges that build a union. *)
   val owl_unionOf : Iri.t

@@ -20,10 +20,10 @@ val accrualPeriodicity : Iri.t
 val accrualPolicy : Iri.t
 
 (** A resource that acts or has the power to act. *)
-val agent : Iri.t
+val c_Agent : Iri.t
 
 (** A group of agents. *)
-val agentClass : Iri.t
+val c_AgentClass : Iri.t
 
 (** An alternative name for the resource. *)
 val alternative : Iri.t
@@ -38,10 +38,10 @@ val available : Iri.t
 val bibliographicCitation : Iri.t
 
 (** A book, article, or other documentary resource. *)
-val bibliographicResource : Iri.t
+val c_BibliographicResource : Iri.t
 
 (** The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme. *)
-val box : Iri.t
+val dt_Box : Iri.t
 
 (** An established standard to which the described resource conforms. *)
 val conformsTo : Iri.t
@@ -80,13 +80,13 @@ val educationLevel : Iri.t
 val extent : Iri.t
 
 (** A digital resource format. *)
-val fileFormat : Iri.t
+val c_FileFormat : Iri.t
 
 (** The file format, physical medium, or dimensions of the resource. *)
 val format : Iri.t
 
 (** A rate at which something recurs. *)
-val frequency : Iri.t
+val c_Frequency : Iri.t
 
 (** A related resource that is substantially the same as the pre-existing described resource, but in another format. *)
 val hasFormat : Iri.t
@@ -107,13 +107,13 @@ val instructionalMethod : Iri.t
 val isFormatOf : Iri.t
 
 (** The set of codes listed in ISO 3166-1 for the representation of names of countries. *)
-val iSO3166 : Iri.t
+val dt_ISO3166 : Iri.t
 
 (** The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages. *)
-val iSO639_2 : Iri.t
+val dt_ISO639_2 : Iri.t
 
 (** The set of three-letter codes listed in ISO 639-3 for the representation of names of languages. *)
-val iSO639_3 : Iri.t
+val dt_ISO639_3 : Iri.t
 
 (** A related resource in which the described resource is physically or logically included. *)
 val isPartOf : Iri.t
@@ -134,7 +134,7 @@ val issued : Iri.t
 val isVersionOf : Iri.t
 
 (** The extent or range of judicial, law enforcement, or other authority. *)
-val jurisdiction : Iri.t
+val c_Jurisdiction : Iri.t
 
 (** A language of the resource. *)
 val language : Iri.t
@@ -143,61 +143,61 @@ val language : Iri.t
 val license : Iri.t
 
 (** A legal document giving official permission to do something with a Resource. *)
-val licenseDocument : Iri.t
+val c_LicenseDocument : Iri.t
 
 (** A system of signs, symbols, sounds, gestures, or rules used in communication. *)
-val linguisticSystem : Iri.t
+val c_LinguisticSystem : Iri.t
 
 (** A spatial region or named place. *)
-val location : Iri.t
+val c_Location : Iri.t
 
 (** A location, period of time, or jurisdiction. *)
-val locationPeriodOrJurisdiction : Iri.t
+val c_LocationPeriodOrJurisdiction : Iri.t
 
 (** An entity that mediates access to the resource and for whom the resource is intended or useful. *)
 val mediator : Iri.t
 
 (** A file format or physical medium. *)
-val mediaType : Iri.t
+val c_MediaType : Iri.t
 
 (** A media type or extent. *)
-val mediaTypeOrExtent : Iri.t
+val c_MediaTypeOrExtent : Iri.t
 
 (** The material or physical carrier of the resource. *)
 val medium : Iri.t
 
 (** A method by which resources are added to a collection. *)
-val methodOfAccrual : Iri.t
+val c_MethodOfAccrual : Iri.t
 
 (** A process that is used to engender knowledge, attitudes, and skills. *)
-val methodOfInstruction : Iri.t
+val c_MethodOfInstruction : Iri.t
 
 (** Date on which the resource was changed. *)
 val modified : Iri.t
 
 (** The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme. *)
-val period : Iri.t
+val dt_Period : Iri.t
 
 (** An interval of time that is named or defined by its start and end dates. *)
-val periodOfTime : Iri.t
+val c_PeriodOfTime : Iri.t
 
 (** A physical material or carrier. *)
-val physicalMedium : Iri.t
+val c_PhysicalMedium : Iri.t
 
 (** A material thing. *)
-val physicalResource : Iri.t
+val c_PhysicalResource : Iri.t
 
 (** The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme. *)
-val point : Iri.t
+val dt_Point : Iri.t
 
 (** A plan or course of action by an authority, intended to influence and determine decisions, actions, and other matters. *)
-val policy : Iri.t
+val c_Policy : Iri.t
 
 (** A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation. *)
 val provenance : Iri.t
 
 (** A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation. *)
-val provenanceStatement : Iri.t
+val c_ProvenanceStatement : Iri.t
 
 (** An entity responsible for making the resource available. *)
 val publisher : Iri.t
@@ -215,16 +215,16 @@ val replaces : Iri.t
 val requires : Iri.t
 
 (** The set of tags, constructed according to RFC 1766, for the identification of languages. *)
-val rFC1766 : Iri.t
+val dt_RFC1766 : Iri.t
 
 (** The set of tags constructed according to RFC 3066 for the identification of languages. *)
-val rFC3066 : Iri.t
+val dt_RFC3066 : Iri.t
 
 (** The set of tags constructed according to RFC 4646 for the identification of languages. *)
-val rFC4646 : Iri.t
+val dt_RFC4646 : Iri.t
 
 (** The set of tags constructed according to RFC 5646 for the identification of languages. *)
-val rFC5646 : Iri.t
+val dt_RFC5646 : Iri.t
 
 (** Information about rights held in and over the resource. *)
 val rights : Iri.t
@@ -233,10 +233,10 @@ val rights : Iri.t
 val rightsHolder : Iri.t
 
 (** A statement about the intellectual property rights (IPR) held in or over a Resource, a legal document giving official permission to do something with a resource, or a statement about access rights. *)
-val rightsStatement : Iri.t
+val c_RightsStatement : Iri.t
 
 (** A dimension or extent, or a time taken to play or execute. *)
-val sizeOrDuration : Iri.t
+val c_SizeOrDuration : Iri.t
 
 (** A related resource from which the described resource is derived. *)
 val source : Iri.t
@@ -245,7 +245,7 @@ val source : Iri.t
 val spatial : Iri.t
 
 (** A basis for comparison; a reference point against which other things can be evaluated. *)
-val standard : Iri.t
+val c_Standard : Iri.t
 
 (** The topic of the resource. *)
 val subject : Iri.t
@@ -263,13 +263,13 @@ val title : Iri.t
 val type_ : Iri.t
 
 (** The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force. *)
-val uRI : Iri.t
+val dt_URI : Iri.t
 
 (** Date (often a range) of validity of a resource. *)
 val valid : Iri.t
 
 (** The set of dates and times constructed according to the W3C Date and Time Formats Specification. *)
-val w3CDTF : Iri.t
+val dt_W3CDTF : Iri.t
 
 
 module Open : sig
@@ -289,10 +289,10 @@ module Open : sig
   val dc_accrualPolicy : Iri.t
 
   (** A resource that acts or has the power to act. *)
-  val dc_agent : Iri.t
+  val dc_c_Agent : Iri.t
 
   (** A group of agents. *)
-  val dc_agentClass : Iri.t
+  val dc_c_AgentClass : Iri.t
 
   (** An alternative name for the resource. *)
   val dc_alternative : Iri.t
@@ -307,10 +307,10 @@ module Open : sig
   val dc_bibliographicCitation : Iri.t
 
   (** A book, article, or other documentary resource. *)
-  val dc_bibliographicResource : Iri.t
+  val dc_c_BibliographicResource : Iri.t
 
   (** The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme. *)
-  val dc_box : Iri.t
+  val dc_dt_Box : Iri.t
 
   (** An established standard to which the described resource conforms. *)
   val dc_conformsTo : Iri.t
@@ -349,13 +349,13 @@ module Open : sig
   val dc_extent : Iri.t
 
   (** A digital resource format. *)
-  val dc_fileFormat : Iri.t
+  val dc_c_FileFormat : Iri.t
 
   (** The file format, physical medium, or dimensions of the resource. *)
   val dc_format : Iri.t
 
   (** A rate at which something recurs. *)
-  val dc_frequency : Iri.t
+  val dc_c_Frequency : Iri.t
 
   (** A related resource that is substantially the same as the pre-existing described resource, but in another format. *)
   val dc_hasFormat : Iri.t
@@ -376,13 +376,13 @@ module Open : sig
   val dc_isFormatOf : Iri.t
 
   (** The set of codes listed in ISO 3166-1 for the representation of names of countries. *)
-  val dc_iSO3166 : Iri.t
+  val dc_dt_ISO3166 : Iri.t
 
   (** The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages. *)
-  val dc_iSO639_2 : Iri.t
+  val dc_dt_ISO639_2 : Iri.t
 
   (** The set of three-letter codes listed in ISO 639-3 for the representation of names of languages. *)
-  val dc_iSO639_3 : Iri.t
+  val dc_dt_ISO639_3 : Iri.t
 
   (** A related resource in which the described resource is physically or logically included. *)
   val dc_isPartOf : Iri.t
@@ -403,7 +403,7 @@ module Open : sig
   val dc_isVersionOf : Iri.t
 
   (** The extent or range of judicial, law enforcement, or other authority. *)
-  val dc_jurisdiction : Iri.t
+  val dc_c_Jurisdiction : Iri.t
 
   (** A language of the resource. *)
   val dc_language : Iri.t
@@ -412,61 +412,61 @@ module Open : sig
   val dc_license : Iri.t
 
   (** A legal document giving official permission to do something with a Resource. *)
-  val dc_licenseDocument : Iri.t
+  val dc_c_LicenseDocument : Iri.t
 
   (** A system of signs, symbols, sounds, gestures, or rules used in communication. *)
-  val dc_linguisticSystem : Iri.t
+  val dc_c_LinguisticSystem : Iri.t
 
   (** A spatial region or named place. *)
-  val dc_location : Iri.t
+  val dc_c_Location : Iri.t
 
   (** A location, period of time, or jurisdiction. *)
-  val dc_locationPeriodOrJurisdiction : Iri.t
+  val dc_c_LocationPeriodOrJurisdiction : Iri.t
 
   (** An entity that mediates access to the resource and for whom the resource is intended or useful. *)
   val dc_mediator : Iri.t
 
   (** A file format or physical medium. *)
-  val dc_mediaType : Iri.t
+  val dc_c_MediaType : Iri.t
 
   (** A media type or extent. *)
-  val dc_mediaTypeOrExtent : Iri.t
+  val dc_c_MediaTypeOrExtent : Iri.t
 
   (** The material or physical carrier of the resource. *)
   val dc_medium : Iri.t
 
   (** A method by which resources are added to a collection. *)
-  val dc_methodOfAccrual : Iri.t
+  val dc_c_MethodOfAccrual : Iri.t
 
   (** A process that is used to engender knowledge, attitudes, and skills. *)
-  val dc_methodOfInstruction : Iri.t
+  val dc_c_MethodOfInstruction : Iri.t
 
   (** Date on which the resource was changed. *)
   val dc_modified : Iri.t
 
   (** The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme. *)
-  val dc_period : Iri.t
+  val dc_dt_Period : Iri.t
 
   (** An interval of time that is named or defined by its start and end dates. *)
-  val dc_periodOfTime : Iri.t
+  val dc_c_PeriodOfTime : Iri.t
 
   (** A physical material or carrier. *)
-  val dc_physicalMedium : Iri.t
+  val dc_c_PhysicalMedium : Iri.t
 
   (** A material thing. *)
-  val dc_physicalResource : Iri.t
+  val dc_c_PhysicalResource : Iri.t
 
   (** The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme. *)
-  val dc_point : Iri.t
+  val dc_dt_Point : Iri.t
 
   (** A plan or course of action by an authority, intended to influence and determine decisions, actions, and other matters. *)
-  val dc_policy : Iri.t
+  val dc_c_Policy : Iri.t
 
   (** A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation. *)
   val dc_provenance : Iri.t
 
   (** A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation. *)
-  val dc_provenanceStatement : Iri.t
+  val dc_c_ProvenanceStatement : Iri.t
 
   (** An entity responsible for making the resource available. *)
   val dc_publisher : Iri.t
@@ -484,16 +484,16 @@ module Open : sig
   val dc_requires : Iri.t
 
   (** The set of tags, constructed according to RFC 1766, for the identification of languages. *)
-  val dc_rFC1766 : Iri.t
+  val dc_dt_RFC1766 : Iri.t
 
   (** The set of tags constructed according to RFC 3066 for the identification of languages. *)
-  val dc_rFC3066 : Iri.t
+  val dc_dt_RFC3066 : Iri.t
 
   (** The set of tags constructed according to RFC 4646 for the identification of languages. *)
-  val dc_rFC4646 : Iri.t
+  val dc_dt_RFC4646 : Iri.t
 
   (** The set of tags constructed according to RFC 5646 for the identification of languages. *)
-  val dc_rFC5646 : Iri.t
+  val dc_dt_RFC5646 : Iri.t
 
   (** Information about rights held in and over the resource. *)
   val dc_rights : Iri.t
@@ -502,10 +502,10 @@ module Open : sig
   val dc_rightsHolder : Iri.t
 
   (** A statement about the intellectual property rights (IPR) held in or over a Resource, a legal document giving official permission to do something with a resource, or a statement about access rights. *)
-  val dc_rightsStatement : Iri.t
+  val dc_c_RightsStatement : Iri.t
 
   (** A dimension or extent, or a time taken to play or execute. *)
-  val dc_sizeOrDuration : Iri.t
+  val dc_c_SizeOrDuration : Iri.t
 
   (** A related resource from which the described resource is derived. *)
   val dc_source : Iri.t
@@ -514,7 +514,7 @@ module Open : sig
   val dc_spatial : Iri.t
 
   (** A basis for comparison; a reference point against which other things can be evaluated. *)
-  val dc_standard : Iri.t
+  val dc_c_Standard : Iri.t
 
   (** The topic of the resource. *)
   val dc_subject : Iri.t
@@ -532,12 +532,12 @@ module Open : sig
   val dc_type : Iri.t
 
   (** The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force. *)
-  val dc_uRI : Iri.t
+  val dc_dt_URI : Iri.t
 
   (** Date (often a range) of validity of a resource. *)
   val dc_valid : Iri.t
 
   (** The set of dates and times constructed according to the W3C Date and Time Formats Specification. *)
-  val dc_w3CDTF : Iri.t
+  val dc_dt_W3CDTF : Iri.t
 
 end

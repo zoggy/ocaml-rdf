@@ -5,25 +5,25 @@ val ldp : Iri.t
 val ldp_ : string -> Iri.t
 
 (** An LDPC that uses a predefined predicate to simply link to its contained resources. *)
-val basicContainer : Iri.t
+val c_BasicContainer : Iri.t
 
 (** Links a resource with constraints that the server requires requests like creation and update to conform to. *)
 val constrainedBy : Iri.t
 
 (** A Linked Data Platform RDF Source (LDP-RS) that also conforms to additional patterns and conventions for managing membership. Readers should refer to the specification defining this ontology for the list of behaviors associated with it. *)
-val container : Iri.t
+val c_Container : Iri.t
 
 (** Links a container with resources created through the container. *)
 val contains : Iri.t
 
 (** An LDPC that is similar to a LDP-DC but it allows an indirection with the ability to list as member a resource, such as a URI representing a real-world object, that is different from the resource that is created. *)
-val directContainer : Iri.t
+val c_DirectContainer : Iri.t
 
 (** Indicates which predicate is used in membership triples, and that the membership triple pattern is < membership-constant-URI , object-of-hasMemberRelation, member-URI >. *)
 val hasMemberRelation : Iri.t
 
 (** An LDPC that has the flexibility of choosing what form the membership triples take. *)
-val indirectContainer : Iri.t
+val c_IndirectContainer : Iri.t
 
 (** Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful. *)
 val insertedContentRelation : Iri.t
@@ -38,10 +38,10 @@ val member : Iri.t
 val membershipResource : Iri.t
 
 (** A Linked Data Platform Resource (LDPR) whose state is NOT represented as RDF. *)
-val nonRDFSource : Iri.t
+val c_NonRDFSource : Iri.t
 
 (** URI signifying that the resource is an in-sequence page resource, as defined by LDP Paging.  Typically used on Link rel='type' response headers. *)
-val page : Iri.t
+val c_Page : Iri.t
 
 (** Link to a page sequence resource, as defined by LDP Paging.  Typically used to communicate the sorting criteria used to allocate LDPC members to pages. *)
 val pageSequence : Iri.t
@@ -53,7 +53,7 @@ val pageSortCollation : Iri.t
 val pageSortCriteria : Iri.t
 
 (** Element in the list of sorting criteria used by the server to assign container members to pages. *)
-val pageSortCriterion : Iri.t
+val c_PageSortCriterion : Iri.t
 
 (** The ascending/descending/etc order used to order the members across pages in a page sequence. *)
 val pageSortOrder : Iri.t
@@ -62,33 +62,33 @@ val pageSortOrder : Iri.t
 val pageSortPredicate : Iri.t
 
 (** A Linked Data Platform Resource (LDPR) whose state is represented as RDF. *)
-val rDFSource : Iri.t
+val c_RDFSource : Iri.t
 
 (** A HTTP-addressable resource whose lifecycle is managed by a LDP server. *)
-val resource : Iri.t
+val c_Resource : Iri.t
 
 
 module Open : sig
   (** An LDPC that uses a predefined predicate to simply link to its contained resources. *)
-  val ldp_basicContainer : Iri.t
+  val ldp_c_BasicContainer : Iri.t
 
   (** Links a resource with constraints that the server requires requests like creation and update to conform to. *)
   val ldp_constrainedBy : Iri.t
 
   (** A Linked Data Platform RDF Source (LDP-RS) that also conforms to additional patterns and conventions for managing membership. Readers should refer to the specification defining this ontology for the list of behaviors associated with it. *)
-  val ldp_container : Iri.t
+  val ldp_c_Container : Iri.t
 
   (** Links a container with resources created through the container. *)
   val ldp_contains : Iri.t
 
   (** An LDPC that is similar to a LDP-DC but it allows an indirection with the ability to list as member a resource, such as a URI representing a real-world object, that is different from the resource that is created. *)
-  val ldp_directContainer : Iri.t
+  val ldp_c_DirectContainer : Iri.t
 
   (** Indicates which predicate is used in membership triples, and that the membership triple pattern is < membership-constant-URI , object-of-hasMemberRelation, member-URI >. *)
   val ldp_hasMemberRelation : Iri.t
 
   (** An LDPC that has the flexibility of choosing what form the membership triples take. *)
-  val ldp_indirectContainer : Iri.t
+  val ldp_c_IndirectContainer : Iri.t
 
   (** Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful. *)
   val ldp_insertedContentRelation : Iri.t
@@ -103,10 +103,10 @@ module Open : sig
   val ldp_membershipResource : Iri.t
 
   (** A Linked Data Platform Resource (LDPR) whose state is NOT represented as RDF. *)
-  val ldp_nonRDFSource : Iri.t
+  val ldp_c_NonRDFSource : Iri.t
 
   (** URI signifying that the resource is an in-sequence page resource, as defined by LDP Paging.  Typically used on Link rel='type' response headers. *)
-  val ldp_page : Iri.t
+  val ldp_c_Page : Iri.t
 
   (** Link to a page sequence resource, as defined by LDP Paging.  Typically used to communicate the sorting criteria used to allocate LDPC members to pages. *)
   val ldp_pageSequence : Iri.t
@@ -118,7 +118,7 @@ module Open : sig
   val ldp_pageSortCriteria : Iri.t
 
   (** Element in the list of sorting criteria used by the server to assign container members to pages. *)
-  val ldp_pageSortCriterion : Iri.t
+  val ldp_c_PageSortCriterion : Iri.t
 
   (** The ascending/descending/etc order used to order the members across pages in a page sequence. *)
   val ldp_pageSortOrder : Iri.t
@@ -127,9 +127,9 @@ module Open : sig
   val ldp_pageSortPredicate : Iri.t
 
   (** A Linked Data Platform Resource (LDPR) whose state is represented as RDF. *)
-  val ldp_rDFSource : Iri.t
+  val ldp_c_RDFSource : Iri.t
 
   (** A HTTP-addressable resource whose lifecycle is managed by a LDP server. *)
-  val ldp_resource : Iri.t
+  val ldp_c_Resource : Iri.t
 
 end

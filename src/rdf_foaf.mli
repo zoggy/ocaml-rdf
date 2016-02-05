@@ -17,7 +17,7 @@ val accountServiceHomepage : Iri.t
 val age : Iri.t
 
 (** An agent (eg. person, group, software or physical artifact). *)
-val agent : Iri.t
+val c_Agent : Iri.t
 
 (** An AIM chat ID *)
 val aimChatID : Iri.t
@@ -41,7 +41,7 @@ val depicts : Iri.t
 val dnaChecksum : Iri.t
 
 (** A document. *)
-val document : Iri.t
+val c_Document : Iri.t
 
 (** The family name of some person. *)
 val family_name : Iri.t
@@ -71,7 +71,7 @@ val givenname : Iri.t
 val givenName : Iri.t
 
 (** A class of Agents. *)
-val group : Iri.t
+val c_Group : Iri.t
 
 (** Indicates an account held by this agent. *)
 val holdsAccount : Iri.t
@@ -83,7 +83,7 @@ val homepage : Iri.t
 val icqChatID : Iri.t
 
 (** An image. *)
-val image : Iri.t
+val c_Image : Iri.t
 
 (** An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage). *)
 val img : Iri.t
@@ -101,7 +101,7 @@ val jabberID : Iri.t
 val knows : Iri.t
 
 (** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-val labelProperty : Iri.t
+val c_LabelProperty : Iri.t
 
 (** The last name of a person. *)
 val lastName : Iri.t
@@ -140,22 +140,22 @@ val name : Iri.t
 val nick : Iri.t
 
 (** An online account. *)
-val onlineAccount : Iri.t
+val c_OnlineAccount : Iri.t
 
 (** An online chat account. *)
-val onlineChatAccount : Iri.t
+val c_OnlineChatAccount : Iri.t
 
 (** An online e-commerce account. *)
-val onlineEcommerceAccount : Iri.t
+val c_OnlineEcommerceAccount : Iri.t
 
 (** An online gaming account. *)
-val onlineGamingAccount : Iri.t
+val c_OnlineGamingAccount : Iri.t
 
 (** An OpenID for an Agent. *)
 val openid : Iri.t
 
 (** An organization. *)
-val organization : Iri.t
+val c_Organization : Iri.t
 
 (** A page or document about this thing. *)
 val page : Iri.t
@@ -164,10 +164,10 @@ val page : Iri.t
 val pastProject : Iri.t
 
 (** A person. *)
-val person : Iri.t
+val c_Person : Iri.t
 
 (** A personal profile RDF document. *)
-val personalProfileDocument : Iri.t
+val c_PersonalProfileDocument : Iri.t
 
 (** A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel). *)
 val phone : Iri.t
@@ -179,7 +179,7 @@ val plan : Iri.t
 val primaryTopic : Iri.t
 
 (** A project (a collective endeavour of some kind). *)
-val project : Iri.t
+val c_Project : Iri.t
 
 (** A link to the publications of this person. *)
 val publications : Iri.t
@@ -244,7 +244,7 @@ module Open : sig
   val foaf_age : Iri.t
 
   (** An agent (eg. person, group, software or physical artifact). *)
-  val foaf_agent : Iri.t
+  val foaf_c_Agent : Iri.t
 
   (** An AIM chat ID *)
   val foaf_aimChatID : Iri.t
@@ -268,7 +268,7 @@ module Open : sig
   val foaf_dnaChecksum : Iri.t
 
   (** A document. *)
-  val foaf_document : Iri.t
+  val foaf_c_Document : Iri.t
 
   (** The family name of some person. *)
   val foaf_family_name : Iri.t
@@ -298,7 +298,7 @@ module Open : sig
   val foaf_givenName : Iri.t
 
   (** A class of Agents. *)
-  val foaf_group : Iri.t
+  val foaf_c_Group : Iri.t
 
   (** Indicates an account held by this agent. *)
   val foaf_holdsAccount : Iri.t
@@ -310,7 +310,7 @@ module Open : sig
   val foaf_icqChatID : Iri.t
 
   (** An image. *)
-  val foaf_image : Iri.t
+  val foaf_c_Image : Iri.t
 
   (** An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage). *)
   val foaf_img : Iri.t
@@ -328,7 +328,7 @@ module Open : sig
   val foaf_knows : Iri.t
 
   (** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-  val foaf_labelProperty : Iri.t
+  val foaf_c_LabelProperty : Iri.t
 
   (** The last name of a person. *)
   val foaf_lastName : Iri.t
@@ -367,22 +367,22 @@ module Open : sig
   val foaf_nick : Iri.t
 
   (** An online account. *)
-  val foaf_onlineAccount : Iri.t
+  val foaf_c_OnlineAccount : Iri.t
 
   (** An online chat account. *)
-  val foaf_onlineChatAccount : Iri.t
+  val foaf_c_OnlineChatAccount : Iri.t
 
   (** An online e-commerce account. *)
-  val foaf_onlineEcommerceAccount : Iri.t
+  val foaf_c_OnlineEcommerceAccount : Iri.t
 
   (** An online gaming account. *)
-  val foaf_onlineGamingAccount : Iri.t
+  val foaf_c_OnlineGamingAccount : Iri.t
 
   (** An OpenID for an Agent. *)
   val foaf_openid : Iri.t
 
   (** An organization. *)
-  val foaf_organization : Iri.t
+  val foaf_c_Organization : Iri.t
 
   (** A page or document about this thing. *)
   val foaf_page : Iri.t
@@ -391,10 +391,10 @@ module Open : sig
   val foaf_pastProject : Iri.t
 
   (** A person. *)
-  val foaf_person : Iri.t
+  val foaf_c_Person : Iri.t
 
   (** A personal profile RDF document. *)
-  val foaf_personalProfileDocument : Iri.t
+  val foaf_c_PersonalProfileDocument : Iri.t
 
   (** A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel). *)
   val foaf_phone : Iri.t
@@ -406,7 +406,7 @@ module Open : sig
   val foaf_primaryTopic : Iri.t
 
   (** A project (a collective endeavour of some kind). *)
-  val foaf_project : Iri.t
+  val foaf_c_Project : Iri.t
 
   (** A link to the publications of this person. *)
   val foaf_publications : Iri.t
