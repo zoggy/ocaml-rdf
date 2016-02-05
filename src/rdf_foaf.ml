@@ -1,178 +1,158 @@
-(*********************************************************************************)
-(*                OCaml-RDF                                                      *)
-(*                                                                               *)
-(*    Copyright (C) 2012-2016 Institut National de Recherche en Informatique     *)
-(*    et en Automatique. All rights reserved.                                    *)
-(*                                                                               *)
-(*    This program is free software; you can redistribute it and/or modify       *)
-(*    it under the terms of the GNU Lesser General Public License version        *)
-(*    3 as published by the Free Software Foundation.                            *)
-(*                                                                               *)
-(*    This program is distributed in the hope that it will be useful,            *)
-(*    but WITHOUT ANY WARRANTY; without even the implied warranty of             *)
-(*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *)
-(*    GNU General Public License for more details.                               *)
-(*                                                                               *)
-(*    You should have received a copy of the GNU General Public License          *)
-(*    along with this program; if not, write to the Free Software                *)
-(*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   *)
-(*    02111-1307  USA                                                            *)
-(*                                                                               *)
-(*    Contact: Maxence.Guesdon@inria.fr                                          *)
-(*                                                                               *)
-(*********************************************************************************)
 
 let foaf_str = "http://xmlns.com/foaf/0.1/";;
 let foaf = Iri.of_string foaf_str ;;
 let foaf_ s = Iri.of_string (foaf_str ^ s);;
 
-let foaf_account = foaf_"account" ;;
-
-let foaf_accountName = foaf_"accountName" ;;
-
-let foaf_accountServiceHomepage = foaf_"accountServiceHomepage" ;;
-
-let foaf_age = foaf_"age" ;;
-
-let foaf_Agent = foaf_"Agent" ;;
-
-let foaf_aimChatID = foaf_"aimChatID" ;;
-
-let foaf_based_near = foaf_"based_near" ;;
-
-let foaf_birthday = foaf_"birthday" ;;
-
-let foaf_currentProject = foaf_"currentProject" ;;
-
-let foaf_depiction = foaf_"depiction" ;;
-
-let foaf_depicts = foaf_"depicts" ;;
-
-let foaf_dnaChecksum = foaf_"dnaChecksum" ;;
-
-let foaf_Document = foaf_"Document" ;;
-
-let foaf_family_name = foaf_"family_name" ;;
-
-let foaf_familyName = foaf_"familyName" ;;
-
-let foaf_firstName = foaf_"firstName" ;;
-
-let foaf_focus = foaf_"focus" ;;
-
-let foaf_fundedBy = foaf_"fundedBy" ;;
-
-let foaf_geekcode = foaf_"geekcode" ;;
-
-let foaf_gender = foaf_"gender" ;;
-
-let foaf_givenname = foaf_"givenname" ;;
-
-let foaf_givenName = foaf_"givenName" ;;
-
-let foaf_Group = foaf_"Group" ;;
-
-let foaf_holdsAccount = foaf_"holdsAccount" ;;
-
-let foaf_homepage = foaf_"homepage" ;;
-
-let foaf_icqChatID = foaf_"icqChatID" ;;
-
-let foaf_Image = foaf_"Image" ;;
-
-let foaf_img = foaf_"img" ;;
-
-let foaf_interest = foaf_"interest" ;;
-
-let foaf_isPrimaryTopicOf = foaf_"isPrimaryTopicOf" ;;
-
-let foaf_jabberID = foaf_"jabberID" ;;
-
-let foaf_knows = foaf_"knows" ;;
-
-let foaf_LabelProperty = foaf_"LabelProperty" ;;
-
-let foaf_lastName = foaf_"lastName" ;;
-
-let foaf_logo = foaf_"logo" ;;
-
-let foaf_made = foaf_"made" ;;
-
-let foaf_maker = foaf_"maker" ;;
-
-let foaf_mbox = foaf_"mbox" ;;
-
-let foaf_mbox_sha1sum = foaf_"mbox_sha1sum" ;;
-
-let foaf_member = foaf_"member" ;;
-
-let foaf_membershipClass = foaf_"membershipClass" ;;
-
-let foaf_msnChatID = foaf_"msnChatID" ;;
-
-let foaf_myersBriggs = foaf_"myersBriggs" ;;
-
-let foaf_name = foaf_"name" ;;
-
-let foaf_nick = foaf_"nick" ;;
-
-let foaf_OnlineAccount = foaf_"OnlineAccount" ;;
-
-let foaf_OnlineChatAccount = foaf_"OnlineChatAccount" ;;
-
-let foaf_OnlineEcommerceAccount = foaf_"OnlineEcommerceAccount" ;;
-
-let foaf_OnlineGamingAccount = foaf_"OnlineGamingAccount" ;;
-
-let foaf_openid = foaf_"openid" ;;
-
-let foaf_Organization = foaf_"Organization" ;;
-
-let foaf_page = foaf_"page" ;;
-
-let foaf_pastProject = foaf_"pastProject" ;;
-
-let foaf_Person = foaf_"Person" ;;
-
-let foaf_PersonalProfileDocument = foaf_"PersonalProfileDocument" ;;
-
-let foaf_phone = foaf_"phone" ;;
-
-let foaf_plan = foaf_"plan" ;;
-
-let foaf_primaryTopic = foaf_"primaryTopic" ;;
-
-let foaf_Project = foaf_"Project" ;;
-
-let foaf_publications = foaf_"publications" ;;
-
-let foaf_schoolHomepage = foaf_"schoolHomepage" ;;
-
-let foaf_sha1 = foaf_"sha1" ;;
-
-let foaf_skypeID = foaf_"skypeID" ;;
-
-let foaf_status = foaf_"status" ;;
-
-let foaf_surname = foaf_"surname" ;;
-
-let foaf_theme = foaf_"theme" ;;
-
-let foaf_thumbnail = foaf_"thumbnail" ;;
-
-let foaf_tipjar = foaf_"tipjar" ;;
-
-let foaf_title = foaf_"title" ;;
-
-let foaf_topic = foaf_"topic" ;;
-
-let foaf_topic_interest = foaf_"topic_interest" ;;
-
-let foaf_weblog = foaf_"weblog" ;;
-
-let foaf_workInfoHomepage = foaf_"workInfoHomepage" ;;
-
-let foaf_workplaceHomepage = foaf_"workplaceHomepage" ;;
-
-let foaf_yahooChatID = foaf_"yahooChatID" ;;
-
+let account = foaf_ "account" ;;
+let accountName = foaf_ "accountName" ;;
+let accountServiceHomepage = foaf_ "accountServiceHomepage" ;;
+let age = foaf_ "age" ;;
+let agent = foaf_ "Agent" ;;
+let aimChatID = foaf_ "aimChatID" ;;
+let based_near = foaf_ "based_near" ;;
+let birthday = foaf_ "birthday" ;;
+let currentProject = foaf_ "currentProject" ;;
+let depiction = foaf_ "depiction" ;;
+let depicts = foaf_ "depicts" ;;
+let dnaChecksum = foaf_ "dnaChecksum" ;;
+let document = foaf_ "Document" ;;
+let family_name = foaf_ "family_name" ;;
+let familyName = foaf_ "familyName" ;;
+let firstName = foaf_ "firstName" ;;
+let focus = foaf_ "focus" ;;
+let fundedBy = foaf_ "fundedBy" ;;
+let geekcode = foaf_ "geekcode" ;;
+let gender = foaf_ "gender" ;;
+let givenname = foaf_ "givenname" ;;
+let givenName = foaf_ "givenName" ;;
+let group = foaf_ "Group" ;;
+let holdsAccount = foaf_ "holdsAccount" ;;
+let homepage = foaf_ "homepage" ;;
+let icqChatID = foaf_ "icqChatID" ;;
+let image = foaf_ "Image" ;;
+let img = foaf_ "img" ;;
+let interest = foaf_ "interest" ;;
+let isPrimaryTopicOf = foaf_ "isPrimaryTopicOf" ;;
+let jabberID = foaf_ "jabberID" ;;
+let knows = foaf_ "knows" ;;
+let labelProperty = foaf_ "LabelProperty" ;;
+let lastName = foaf_ "lastName" ;;
+let logo = foaf_ "logo" ;;
+let made = foaf_ "made" ;;
+let maker = foaf_ "maker" ;;
+let mbox = foaf_ "mbox" ;;
+let mbox_sha1sum = foaf_ "mbox_sha1sum" ;;
+let member = foaf_ "member" ;;
+let membershipClass = foaf_ "membershipClass" ;;
+let msnChatID = foaf_ "msnChatID" ;;
+let myersBriggs = foaf_ "myersBriggs" ;;
+let name = foaf_ "name" ;;
+let nick = foaf_ "nick" ;;
+let onlineAccount = foaf_ "OnlineAccount" ;;
+let onlineChatAccount = foaf_ "OnlineChatAccount" ;;
+let onlineEcommerceAccount = foaf_ "OnlineEcommerceAccount" ;;
+let onlineGamingAccount = foaf_ "OnlineGamingAccount" ;;
+let openid = foaf_ "openid" ;;
+let organization = foaf_ "Organization" ;;
+let page = foaf_ "page" ;;
+let pastProject = foaf_ "pastProject" ;;
+let person = foaf_ "Person" ;;
+let personalProfileDocument = foaf_ "PersonalProfileDocument" ;;
+let phone = foaf_ "phone" ;;
+let plan = foaf_ "plan" ;;
+let primaryTopic = foaf_ "primaryTopic" ;;
+let project = foaf_ "Project" ;;
+let publications = foaf_ "publications" ;;
+let schoolHomepage = foaf_ "schoolHomepage" ;;
+let sha1 = foaf_ "sha1" ;;
+let skypeID = foaf_ "skypeID" ;;
+let status = foaf_ "status" ;;
+let surname = foaf_ "surname" ;;
+let theme = foaf_ "theme" ;;
+let thumbnail = foaf_ "thumbnail" ;;
+let tipjar = foaf_ "tipjar" ;;
+let title = foaf_ "title" ;;
+let topic = foaf_ "topic" ;;
+let topic_interest = foaf_ "topic_interest" ;;
+let weblog = foaf_ "weblog" ;;
+let workInfoHomepage = foaf_ "workInfoHomepage" ;;
+let workplaceHomepage = foaf_ "workplaceHomepage" ;;
+let yahooChatID = foaf_ "yahooChatID" ;;
+
+module Open = struct
+  let foaf_account = account
+  let foaf_accountName = accountName
+  let foaf_accountServiceHomepage = accountServiceHomepage
+  let foaf_age = age
+  let foaf_agent = agent
+  let foaf_aimChatID = aimChatID
+  let foaf_based_near = based_near
+  let foaf_birthday = birthday
+  let foaf_currentProject = currentProject
+  let foaf_depiction = depiction
+  let foaf_depicts = depicts
+  let foaf_dnaChecksum = dnaChecksum
+  let foaf_document = document
+  let foaf_family_name = family_name
+  let foaf_familyName = familyName
+  let foaf_firstName = firstName
+  let foaf_focus = focus
+  let foaf_fundedBy = fundedBy
+  let foaf_geekcode = geekcode
+  let foaf_gender = gender
+  let foaf_givenname = givenname
+  let foaf_givenName = givenName
+  let foaf_group = group
+  let foaf_holdsAccount = holdsAccount
+  let foaf_homepage = homepage
+  let foaf_icqChatID = icqChatID
+  let foaf_image = image
+  let foaf_img = img
+  let foaf_interest = interest
+  let foaf_isPrimaryTopicOf = isPrimaryTopicOf
+  let foaf_jabberID = jabberID
+  let foaf_knows = knows
+  let foaf_labelProperty = labelProperty
+  let foaf_lastName = lastName
+  let foaf_logo = logo
+  let foaf_made = made
+  let foaf_maker = maker
+  let foaf_mbox = mbox
+  let foaf_mbox_sha1sum = mbox_sha1sum
+  let foaf_member = member
+  let foaf_membershipClass = membershipClass
+  let foaf_msnChatID = msnChatID
+  let foaf_myersBriggs = myersBriggs
+  let foaf_name = name
+  let foaf_nick = nick
+  let foaf_onlineAccount = onlineAccount
+  let foaf_onlineChatAccount = onlineChatAccount
+  let foaf_onlineEcommerceAccount = onlineEcommerceAccount
+  let foaf_onlineGamingAccount = onlineGamingAccount
+  let foaf_openid = openid
+  let foaf_organization = organization
+  let foaf_page = page
+  let foaf_pastProject = pastProject
+  let foaf_person = person
+  let foaf_personalProfileDocument = personalProfileDocument
+  let foaf_phone = phone
+  let foaf_plan = plan
+  let foaf_primaryTopic = primaryTopic
+  let foaf_project = project
+  let foaf_publications = publications
+  let foaf_schoolHomepage = schoolHomepage
+  let foaf_sha1 = sha1
+  let foaf_skypeID = skypeID
+  let foaf_status = status
+  let foaf_surname = surname
+  let foaf_theme = theme
+  let foaf_thumbnail = thumbnail
+  let foaf_tipjar = tipjar
+  let foaf_title = title
+  let foaf_topic = topic
+  let foaf_topic_interest = topic_interest
+  let foaf_weblog = weblog
+  let foaf_workInfoHomepage = workInfoHomepage
+  let foaf_workplaceHomepage = workplaceHomepage
+  let foaf_yahooChatID = yahooChatID
+end

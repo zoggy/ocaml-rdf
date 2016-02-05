@@ -67,6 +67,7 @@ LIB_RDF_CMOFILES= \
 	rdf_dc.cmo \
 	rdf_ldp.cmo \
 	rdf_dt.cmo \
+	rdf_owl.cmo \
 	rdf_sedlex.cmo \
 	rdf_stubs.cmo \
 	rdf_sparql_types.cmo \

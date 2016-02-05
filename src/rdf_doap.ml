@@ -1,126 +1,110 @@
-(*********************************************************************************)
-(*                OCaml-RDF                                                      *)
-(*                                                                               *)
-(*    Copyright (C) 2012-2016 Institut National de Recherche en Informatique     *)
-(*    et en Automatique. All rights reserved.                                    *)
-(*                                                                               *)
-(*    This program is free software; you can redistribute it and/or modify       *)
-(*    it under the terms of the GNU Lesser General Public License version        *)
-(*    3 as published by the Free Software Foundation.                            *)
-(*                                                                               *)
-(*    This program is distributed in the hope that it will be useful,            *)
-(*    but WITHOUT ANY WARRANTY; without even the implied warranty of             *)
-(*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *)
-(*    GNU General Public License for more details.                               *)
-(*                                                                               *)
-(*    You should have received a copy of the GNU General Public License          *)
-(*    along with this program; if not, write to the Free Software                *)
-(*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   *)
-(*    02111-1307  USA                                                            *)
-(*                                                                               *)
-(*    Contact: Maxence.Guesdon@inria.fr                                          *)
-(*                                                                               *)
-(*********************************************************************************)
 
 let doap_str = "http://usefulinc.com/ns/doap#";;
-let doap = Iri.of_string doap_str
+let doap = Iri.of_string doap_str ;;
 let doap_ s = Iri.of_string (doap_str ^ s);;
 
-let doap_anon_root = doap_"anon-root" ;;
+let anon_root = doap_ "anon-root" ;;
+let archRepository = doap_ "ArchRepository" ;;
+let audience = doap_ "audience" ;;
+let bazaarBranch = doap_ "BazaarBranch" ;;
+let bKRepository = doap_ "BKRepository" ;;
+let blog = doap_ "blog" ;;
+let browse = doap_ "browse" ;;
+let bug_database = doap_ "bug-database" ;;
+let category = doap_ "category" ;;
+let created = doap_ "created" ;;
+let cVSRepository = doap_ "CVSRepository" ;;
+let darcsRepository = doap_ "DarcsRepository" ;;
+let description = doap_ "description" ;;
+let developer = doap_ "developer" ;;
+let documenter = doap_ "documenter" ;;
+let download_mirror = doap_ "download-mirror" ;;
+let download_page = doap_ "download-page" ;;
+let file_release = doap_ "file-release" ;;
+let gitRepository = doap_ "GitRepository" ;;
+let helper = doap_ "helper" ;;
+let hgRepository = doap_ "HgRepository" ;;
+let homepage = doap_ "homepage" ;;
+let implements = doap_ "implements" ;;
+let language = doap_ "language" ;;
+let language = doap_ "language" ;;
+let license = doap_ "license" ;;
+let location = doap_ "location" ;;
+let mailing_list = doap_ "mailing-list" ;;
+let maintainer = doap_ "maintainer" ;;
+let module_ = doap_ "module" ;;
+let name = doap_ "name" ;;
+let old_homepage = doap_ "old-homepage" ;;
+let os = doap_ "os" ;;
+let platform = doap_ "platform" ;;
+let programming_language = doap_ "programming-language" ;;
+let project = doap_ "Project" ;;
+let release = doap_ "release" ;;
+let repository = doap_ "Repository" ;;
+let repository = doap_ "repository" ;;
+let revision = doap_ "revision" ;;
+let screenshots = doap_ "screenshots" ;;
+let service_endpoint = doap_ "service-endpoint" ;;
+let shortdesc = doap_ "shortdesc" ;;
+let specification = doap_ "Specification" ;;
+let sVNRepository = doap_ "SVNRepository" ;;
+let tester = doap_ "tester" ;;
+let tester = doap_ "tester" ;;
+let translator = doap_ "translator" ;;
+let vendor = doap_ "vendor" ;;
+let version = doap_ "Version" ;;
+let wiki = doap_ "wiki" ;;
 
-let doap_ArchRepository = doap_"ArchRepository" ;;
-
-let doap_audience = doap_"audience" ;;
-
-let doap_BazaarBranch = doap_"BazaarBranch" ;;
-
-let doap_BKRepository = doap_"BKRepository" ;;
-
-let doap_blog = doap_"blog" ;;
-
-let doap_browse = doap_"browse" ;;
-
-let doap_bug_database = doap_"bug-database" ;;
-
-let doap_category = doap_"category" ;;
-
-let doap_created = doap_"created" ;;
-
-let doap_CVSRepository = doap_"CVSRepository" ;;
-
-let doap_DarcsRepository = doap_"DarcsRepository" ;;
-
-let doap_description = doap_"description" ;;
-
-let doap_developer = doap_"developer" ;;
-
-let doap_documenter = doap_"documenter" ;;
-
-let doap_download_mirror = doap_"download-mirror" ;;
-
-let doap_download_page = doap_"download-page" ;;
-
-let doap_file_release = doap_"file-release" ;;
-
-let doap_GitRepository = doap_"GitRepository" ;;
-
-let doap_helper = doap_"helper" ;;
-
-let doap_HgRepository = doap_"HgRepository" ;;
-
-let doap_homepage = doap_"homepage" ;;
-
-let doap_implements = doap_"implements" ;;
-
-let doap_language = doap_"language" ;;
-
-let doap_license = doap_"license" ;;
-
-let doap_location = doap_"location" ;;
-
-let doap_mailing_list = doap_"mailing-list" ;;
-
-let doap_maintainer = doap_"maintainer" ;;
-
-let doap_module = doap_"module" ;;
-
-let doap_name = doap_"name" ;;
-
-let doap_old_homepage = doap_"old-homepage" ;;
-
-let doap_os = doap_"os" ;;
-
-let doap_platform = doap_"platform" ;;
-
-let doap_programming_language = doap_"programming-language" ;;
-
-let doap_Project = doap_"Project" ;;
-
-let doap_release = doap_"release" ;;
-
-let doap_Repository = doap_"Repository" ;;
-
-let doap_repository = doap_"repository" ;;
-
-let doap_revision = doap_"revision" ;;
-
-let doap_screenshots = doap_"screenshots" ;;
-
-let doap_service_endpoint = doap_"service-endpoint" ;;
-
-let doap_shortdesc = doap_"shortdesc" ;;
-
-let doap_Specification = doap_"Specification" ;;
-
-let doap_SVNRepository = doap_"SVNRepository" ;;
-
-let doap_tester = doap_"tester" ;;
-
-let doap_translator = doap_"translator" ;;
-
-let doap_vendor = doap_"vendor" ;;
-
-let doap_Version = doap_"Version" ;;
-
-let doap_wiki = doap_"wiki" ;;
-
+module Open = struct
+  let doap_anon_root = anon_root
+  let doap_archRepository = archRepository
+  let doap_audience = audience
+  let doap_bazaarBranch = bazaarBranch
+  let doap_bKRepository = bKRepository
+  let doap_blog = blog
+  let doap_browse = browse
+  let doap_bug_database = bug_database
+  let doap_category = category
+  let doap_created = created
+  let doap_cVSRepository = cVSRepository
+  let doap_darcsRepository = darcsRepository
+  let doap_description = description
+  let doap_developer = developer
+  let doap_documenter = documenter
+  let doap_download_mirror = download_mirror
+  let doap_download_page = download_page
+  let doap_file_release = file_release
+  let doap_gitRepository = gitRepository
+  let doap_helper = helper
+  let doap_hgRepository = hgRepository
+  let doap_homepage = homepage
+  let doap_implements = implements
+  let doap_language = language
+  let doap_language = language
+  let doap_license = license
+  let doap_location = location
+  let doap_mailing_list = mailing_list
+  let doap_maintainer = maintainer
+  let doap_module = module_
+  let doap_name = name
+  let doap_old_homepage = old_homepage
+  let doap_os = os
+  let doap_platform = platform
+  let doap_programming_language = programming_language
+  let doap_project = project
+  let doap_release = release
+  let doap_repository = repository
+  let doap_repository = repository
+  let doap_revision = revision
+  let doap_screenshots = screenshots
+  let doap_service_endpoint = service_endpoint
+  let doap_shortdesc = shortdesc
+  let doap_specification = specification
+  let doap_sVNRepository = sVNRepository
+  let doap_tester = tester
+  let doap_tester = tester
+  let doap_translator = translator
+  let doap_vendor = vendor
+  let doap_version = version
+  let doap_wiki = wiki
+end

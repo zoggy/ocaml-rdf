@@ -1,89 +1,111 @@
-(*********************************************************************************)
-(*                OCaml-RDF                                                      *)
-(*                                                                               *)
-(*    Copyright (C) 2012-2016 Institut National de Recherche en Informatique     *)
-(*    et en Automatique. All rights reserved.                                    *)
-(*                                                                               *)
-(*    This program is free software; you can redistribute it and/or modify       *)
-(*    it under the terms of the GNU Lesser General Public License version        *)
-(*    3 as published by the Free Software Foundation.                            *)
-(*                                                                               *)
-(*    This program is distributed in the hope that it will be useful,            *)
-(*    but WITHOUT ANY WARRANTY; without even the implied warranty of             *)
-(*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *)
-(*    GNU General Public License for more details.                               *)
-(*                                                                               *)
-(*    You should have received a copy of the GNU General Public License          *)
-(*    along with this program; if not, write to the Free Software                *)
-(*    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA                   *)
-(*    02111-1307  USA                                                            *)
-(*                                                                               *)
-(*    Contact: Maxence.Guesdon@inria.fr                                          *)
-(*                                                                               *)
-(*********************************************************************************)
+(** Elements of [http://www.w3.org/1999/02/22-rdf-syntax-ns#] *)
 
-(** Rdf constants.
+(** [http://www.w3.org/1999/02/22-rdf-syntax-ns#] *)
+val rdf : Iri.t
+val rdf_ : string -> Iri.t
 
-  The others as defined in
-  {{:http://www.w3.org/TR/rdf-syntax-grammar/}RDF grammar}. *)
+(** The class of containers of alternatives. *)
+val alt : Iri.t
 
-open Iri
+(** The class of unordered containers. *)
+val bag : Iri.t
 
-(** {3 Common namespaces} *)
+(** The first item in the subject RDF list. *)
+val first : Iri.t
 
-val rdf : t
-val rdf_ : string -> t
+(** The datatype of RDF literals storing fragments of HTML content *)
+val hTML : Iri.t
 
-val xsd : t
-val xsd_ : string -> t
+(** The datatype of language-tagged string values *)
+val langString : Iri.t
 
-val dc : t
-val dc_ : string -> t
+(** The class of RDF Lists. *)
+val list : Iri.t
 
-(** {3 Syntax names} *)
+(** The object of the subject RDF statement. *)
+val object_ : Iri.t
 
-val rdf_about : t
-val rdf_datatype : t
-val rdf_Description : t
-val rdf_ID : t
-val rdf_li : t
-val rdf_nodeID : t
-val rdf_RDF : t
-val rdf_parseType : t
-val rdf_resource : t
+(** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 *)
+val plainLiteral : Iri.t
 
-(** {3 Class names} *)
+(** The predicate of the subject RDF statement. *)
+val predicate : Iri.t
 
-val rdf_Alt : t
-val rdf_Bag : t
-val rdf_List : t
-val rdf_Property : t
-val rdf_Seq : t
-val rdf_Statement : t
-val rdf_XMLLiteral : t
+(** The class of RDF properties. *)
+val property : Iri.t
 
-(** {3 Property names} *)
+(** The rest of the subject RDF list after the first item. *)
+val rest : Iri.t
 
-val rdf_subject : t
-val rdf_predicate : t
-val rdf_object : t
-val rdf_type : t
-val rdf_value : t
-val rdf_first : t
-val rdf_rest : t
-val rdf_n : int -> t
+(** The class of ordered containers. *)
+val seq : Iri.t
 
-(** {3 Resource names} *)
+(** The class of RDF statements. *)
+val statement : Iri.t
 
-val rdf_nil : t
+(** The subject of the subject RDF statement. *)
+val subject : Iri.t
 
-(** {3 XML Schema datatypes} *)
+(** The subject is an instance of a class. *)
+val type_ : Iri.t
 
-val xsd_integer : t
-val xsd_double : t
-val xsd_decimal : t
-val xsd_boolean : t
-val xsd_string : t
-val xsd_datetime : t
-val rdf_langstring : t
+(** Idiomatic property used for structured values. *)
+val value : Iri.t
 
+(** The datatype of XML literal values. *)
+val xMLLiteral : Iri.t
+
+
+module Open : sig
+  (** The class of containers of alternatives. *)
+  val rdf_alt : Iri.t
+
+  (** The class of unordered containers. *)
+  val rdf_bag : Iri.t
+
+  (** The first item in the subject RDF list. *)
+  val rdf_first : Iri.t
+
+  (** The datatype of RDF literals storing fragments of HTML content *)
+  val rdf_hTML : Iri.t
+
+  (** The datatype of language-tagged string values *)
+  val rdf_langString : Iri.t
+
+  (** The class of RDF Lists. *)
+  val rdf_list : Iri.t
+
+  (** The object of the subject RDF statement. *)
+  val rdf_object : Iri.t
+
+  (** The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2 *)
+  val rdf_plainLiteral : Iri.t
+
+  (** The predicate of the subject RDF statement. *)
+  val rdf_predicate : Iri.t
+
+  (** The class of RDF properties. *)
+  val rdf_property : Iri.t
+
+  (** The rest of the subject RDF list after the first item. *)
+  val rdf_rest : Iri.t
+
+  (** The class of ordered containers. *)
+  val rdf_seq : Iri.t
+
+  (** The class of RDF statements. *)
+  val rdf_statement : Iri.t
+
+  (** The subject of the subject RDF statement. *)
+  val rdf_subject : Iri.t
+
+  (** The subject is an instance of a class. *)
+  val rdf_type : Iri.t
+
+  (** Idiomatic property used for structured values. *)
+  val rdf_value : Iri.t
+
+  (** The datatype of XML literal values. *)
+  val rdf_xMLLiteral : Iri.t
+
+end

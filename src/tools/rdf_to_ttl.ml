@@ -25,7 +25,15 @@
 (** Read an RDF graph in XML and output it in turtle format.*)
 
 let fatal s = prerr_endline s ; exit 1 ;;
-let usage = Printf.sprintf "Usage: %s file.rdf" Sys.argv.(0);;
+
+let base = ref (Iri.of_string "http://base.foo")
+let files = ref []
+let options = [
+  "-b", Arg.String (fun s -> base := Iri.of_string s),
+  "iri use given iri as base iri" ;
+  ]
+let usage = Printf.sprintf
+  "Usage: %s [options] file.rdf [file2.rdf [...]]\nwhere options are:" Sys.argv.(0);;
 
 (*c==v=[Misc.safe_main]=1.0====*)
 let safe_main main =
@@ -38,14 +46,23 @@ let safe_main main =
 (*/c==v=[Misc.safe_main]=1.0====*)
 
 let main () =
-  let file =
-    if Array.length Sys.argv < 2 then fatal usage;
-    Sys.argv.(1)
-  in
-  let options = [ "storage", "mem" ] in
-  let g = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") in
-  Rdf_xml.from_file g file;
-  print_endline (Rdf_ttl.to_string g)
+  try
+    Arg.parse options (fun s -> files := s :: !files) usage ;
+    match List.rev !files with
+      [] -> fatal (Arg.usage_string options usage);
+    | files ->
+        let options = [ "storage", "mem" ] in
+        let g = Rdf_graph.open_graph ~options !base in
+        List.iter (Rdf_xml.from_file g) files;
+        print_endline (Rdf_ttl.to_string g)
+  with
+    e ->
+      let msg =
+        match e with
+          Iri.Error e -> Iri.string_of_error e
+        | _ -> Printexc.to_string e
+      in
+      failwith msg
 ;;
 
 let () = safe_main main;;

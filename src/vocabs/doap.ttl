@@ -1,0 +1,704 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+doap:wiki rdfs:label "\u30A6\u30A3\u30AD"@ja .
+doap:wiki rdfs:label "wiki"@fr .
+doap:wiki rdfs:label "wiki"@es .
+doap:wiki rdfs:label "wiki"@en .
+doap:wiki rdfs:label "wiki"@cs .
+doap:wiki rdfs:label "Wiki"@de .
+doap:wiki rdfs:isDefinedBy doap: .
+doap:wiki rdfs:domain doap:Project .
+doap:wiki rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u8A0E\u8AD6\u7528\u30A6\u30A3\u30AD"@ja .
+doap:wiki rdfs:comment "Wiki-URL f\u00FCr die kollaborative Dikussion eines Projektes."@de .
+doap:wiki rdfs:comment "URL of Wiki for collaborative discussion of project."@en .
+doap:wiki rdfs:comment "URL del Wiki para discusi\u00F3n colaborativa del proyecto."@es .
+doap:wiki rdfs:comment "URL adresa wiki projektu pro spole\u010Dn\u00E9 diskuse."@cs .
+doap:wiki rdfs:comment "L'URL du Wiki pour la discussion collaborative sur le projet."@fr .
+doap:wiki rdf:type rdf:Property .
+doap:vendor rdfs:range foaf:Organization .
+doap:vendor rdfs:label "\u63D0\u4F9B\u7D44\u7E54"@ja .
+doap:vendor rdfs:label "vendor"@en .
+doap:vendor rdfs:isDefinedBy doap: .
+doap:vendor rdfs:domain doap:Project .
+doap:vendor rdfs:comment "\u63D0\u4F9B\u7D44\u7E54\u3001\u5546\u696D\u306E\u7D44\u7E54\u3084\u81EA\u7531\u306E\u7D44\u7E54\u3002"@ja .
+doap:vendor rdfs:comment "Vendor organization: commercial, free or otherwise"@en .
+doap:vendor rdf:type rdf:Property .
+doap:translator rdfs:range foaf:Person .
+doap:translator rdfs:label "\u7FFB\u8A33\u8005"@ja .
+doap:translator rdfs:label "\u00DCbersetzer"@de .
+doap:translator rdfs:label "translator"@en .
+doap:translator rdfs:label "traductor"@es .
+doap:translator rdfs:label "traducteur"@fr .
+doap:translator rdfs:label "p\u0159ekladatel"@cs .
+doap:translator rdfs:isDefinedBy doap: .
+doap:translator rdfs:domain doap:Project .
+doap:translator rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u3092\u7FFB\u8A33\u3059\u308B\u8CA2\u732E\u8005"@ja .
+doap:translator rdfs:comment "Spoluautor p\u0159ekladu projektu."@cs .
+doap:translator rdfs:comment "Proveedor de traducciones al proyecto."@es .
+doap:translator rdfs:comment "Mitarbeiter an den \u00DCbersetzungen eines Projektes."@de .
+doap:translator rdfs:comment "Contributor of translations to the project."@en .
+doap:translator rdfs:comment "Collaborateur \u00E0 la traduction du projet."@fr .
+doap:translator rdf:type rdf:Property .
+doap:tester rdfs:range foaf:Person .
+doap:tester rdfs:label "\u8A66\u9A13\u8005"@ja .
+doap:tester rdfs:label "testeur"@fr .
+doap:tester rdfs:label "tester"@es .
+doap:tester rdfs:label "tester"@en .
+doap:tester rdfs:label "tester"@cs .
+doap:tester rdfs:label "Tester"@de .
+doap:tester rdfs:isDefinedBy doap: .
+doap:tester rdfs:domain doap:Project .
+doap:tester rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u305F\u3081\u3001\u8A66\u9A13\u3092\u3059\u308B\u4EBA\u3084\u54C1\u8CEA\u30E1\u30F3\u30C6\u30CA\u30FC\u3002"@en .
+doap:tester rdfs:comment "Un testeur ou un collaborateur au contr\u00F4le qualit\u00E9."@fr .
+doap:tester rdfs:comment "Un tester u otro proveedor de control de calidad."@es .
+doap:tester rdfs:comment "Tester nebo jin\u00FD spoluautor kontroluj\u00EDc\u00ED kvalitu."@cs .
+doap:tester rdfs:comment "Ein Tester oder anderer Mitarbeiter der Qualit\u00E4tskontrolle."@de .
+doap:tester rdfs:comment "A tester or other quality control contributor."@en .
+doap:tester rdf:type rdf:Property .
+doap:shortdesc rdfs:range rdfs:Literal .
+doap:shortdesc rdfs:label "\u7C21\u5358\u306A\u8AAC\u660E"@ja .
+doap:shortdesc rdfs:label "short description"@en .
+doap:shortdesc rdfs:label "kr\u00E1tk\u00FD popis"@cs .
+doap:shortdesc rdfs:label "description courte"@fr .
+doap:shortdesc rdfs:label "descripci\u00F3n corta"@es .
+doap:shortdesc rdfs:label "Kurzbeschreibung"@de .
+doap:shortdesc rdfs:isDefinedBy doap: .
+doap:shortdesc rdfs:comment "\u65E5\u672C\u8A9E\u306E\u4E8C\u5341\u6587\u5B57\u3050\u3089\u3044\u306E\u8AAC\u660E"@ja .
+doap:shortdesc rdfs:comment "Texte descriptif concis (8 ou 9 mots) d'un projet."@fr .
+doap:shortdesc rdfs:comment "Short (8 or 9 words) plain text description of a project."@en .
+doap:shortdesc rdfs:comment "Kurzbeschreibung (8 oder 9 W\u00F6rter) eines Projects als einfacher Text."@de .
+doap:shortdesc rdfs:comment "Kr\u00E1tk\u00FD (8 nebo 9 slov) \u010Dist\u011B textov\u00FD popis projektu."@cs .
+doap:shortdesc rdfs:comment "Descripci\u00F3n corta (8 o 9 palabras) en texto plano de un proyecto."@es .
+doap:shortdesc rdf:type rdf:Property .
+doap:service\-endpoint rdfs:range rdfs:Resource .
+doap:service\-endpoint rdfs:label "\u30B5\u30FC\u30D3\u30B9\u30B5\u30A4\u30C8"@ja .
+doap:service\-endpoint rdfs:label "service endpoint"@en .
+doap:service\-endpoint rdfs:isDefinedBy doap: .
+doap:service\-endpoint rdfs:domain doap:Project .
+doap:service\-endpoint rdfs:comment "\u3053\u3068\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u304C\u63D0\u4F9B\u3057\u305F\u30B5\u30FC\u30D6\u30B9\u3092\u8F09\u305B\u308B\u30B5\u30A4\u30C8\u3002"@ja .
+doap:service\-endpoint rdfs:comment "The URI of a web service endpoint where software as a service may be accessed"@en .
+doap:service\-endpoint rdf:type rdf:Property .
+doap:screenshots rdfs:label "\u30B9\u30AF\u30EA\u30FC\u30F3\u30B7\u30E7\u30C3\u30C8"@ja .
+doap:screenshots rdfs:label "sn\u00EDmek obrazovky"@cs .
+doap:screenshots rdfs:label "screenshots"@en .
+doap:screenshots rdfs:label "captures d'\u00E9cran"@fr .
+doap:screenshots rdfs:label "capturas de pantalla"@es .
+doap:screenshots rdfs:label "Screenshots"@de .
+doap:screenshots rdfs:isDefinedBy doap: .
+doap:screenshots rdfs:domain doap:Project .
+doap:screenshots rdfs:comment "\u30B9\u30AF\u30EA\u30FC\u30F3\u30B7\u30E7\u30C3\u30C8\u306E\u3042\u308B\u30A6\u30A7\u30D6\u30DA\u30FC\u30B8"@ja .
+doap:screenshots rdfs:comment "Webov\u00E1 str\u00E1nka projektu se sn\u00EDmky obrazovky."@cs .
+doap:screenshots rdfs:comment "Web-Seite mit Screenshots eines Projektes."@de .
+doap:screenshots rdfs:comment "Web page with screenshots of project."@en .
+doap:screenshots rdfs:comment "P\u00E1gina web con capturas de pantalla del proyecto."@es .
+doap:screenshots rdfs:comment "Page web avec des captures d'\u00E9cran du projet."@fr .
+doap:screenshots rdf:type rdf:Property .
+doap:revision rdfs:range rdfs:Literal .
+doap:revision rdfs:label "\u30EA\u30D3\u30B8\u30E7\u30F3\u30B3\u30FC\u30C8"@ja .
+doap:revision rdfs:label "verze"@cs .
+doap:revision rdfs:label "versi\u00F3n"@es .
+doap:revision rdfs:label "r\u00E9vision"@fr .
+doap:revision rdfs:label "revision"@en .
+doap:revision rdfs:label "Version"@de .
+doap:revision rdfs:isDefinedBy doap: .
+doap:revision rdfs:domain doap:Version .
+doap:revision rdfs:comment "\u3053\u306E\u30EA\u30EA\u30FC\u30B9\u306E\u30EA\u30D3\u30B8\u30E7\u30F3\u8B58\u5225\u5B50"@ja .
+doap:revision rdfs:comment "Versionsidentifikator eines Software-Releases."@de .
+doap:revision rdfs:comment "Revision identifier of a software release."@en .
+doap:revision rdfs:comment "Indentificador de la versi\u00F3n de un release de software."@es .
+doap:revision rdfs:comment "Identifik\u00E1tor zp\u0159\u00EDstupn\u011Bn\u00E9 revize softwaru."@cs .
+doap:revision rdfs:comment "Identifiant de r\u00E9vision d'une release du programme."@fr .
+doap:revision rdf:type rdf:Property .
+doap:repository rdfs:range doap:Repository .
+doap:repository rdfs:label "\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:repository rdfs:label "\u00FAlo\u017Ei\u0161t\u011B"@cs .
+doap:repository rdfs:label "repository"@en .
+doap:repository rdfs:label "repositorio"@es .
+doap:repository rdfs:label "d\u00E9p\u00F4t"@fr .
+doap:repository rdfs:label "Repository"@de .
+doap:repository rdfs:isDefinedBy doap: .
+doap:repository rdfs:domain doap:Project .
+doap:repository rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:repository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F."@cs .
+doap:repository rdfs:comment "Source code repository."@en .
+doap:repository rdfs:comment "Repositorio del c\u00F3digo fuente."@es .
+doap:repository rdfs:comment "Quellcode-Versionierungssystem."@de .
+doap:repository rdfs:comment "D\u00E9p\u00F4t du code source."@fr .
+doap:repository rdf:type rdf:Property .
+doap:release rdfs:range doap:Version .
+doap:release rdfs:label "\u30EA\u30EA\u30FC\u30B9"@ja .
+doap:release rdfs:label "release"@fr .
+doap:release rdfs:label "release"@es .
+doap:release rdfs:label "release"@en .
+doap:release rdfs:label "release"@cs .
+doap:release rdfs:label "Release"@de .
+doap:release rdfs:isDefinedBy doap: .
+doap:release rdfs:domain doap:Project .
+doap:release rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30EA\u30EA\u30FC\u30B9"@ja .
+doap:release rdfs:comment "Une release (r\u00E9vision) d'un projet."@fr .
+doap:release rdfs:comment "Un release (versi\u00F3n) de un proyecto."@es .
+doap:release rdfs:comment "Relase (verze) projektu."@cs .
+doap:release rdfs:comment "Ein Release (Version) eines Projekts."@de .
+doap:release rdfs:comment "A project release."@en .
+doap:release rdf:type rdf:Property .
+doap:programming\-language rdfs:range rdfs:Literal .
+doap:programming\-language rdfs:label "\u30D7\u30ED\u30B0\u30E9\u30DF\u30F3\u30B0\u8A00\u8A9E"@ja .
+doap:programming\-language rdfs:label "programovac\u00ED jazyk"@cs .
+doap:programming\-language rdfs:label "programming language"@en .
+doap:programming\-language rdfs:label "lenguaje de programaci\u00F3n"@es .
+doap:programming\-language rdfs:label "langage de programmation"@fr .
+doap:programming\-language rdfs:label "Programmiersprache"@de .
+doap:programming\-language rdfs:isDefinedBy doap: .
+doap:programming\-language rdfs:domain doap:Project .
+doap:programming\-language rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B0\u30E9\u30DF\u30F3\u30B0\u306E\u5B9F\u88C5\u306E\u30D7\u30ED\u30B0\u30E9\u30DF\u30F3\u30B0\u8A00\u8A9E\u3001\u307E\u305F\u306F\u76EE\u6307\u3057\u305F\u8A00\u8A9E\u3002"@ja .
+doap:programming\-language rdfs:comment "Programovac\u00ED jazyk, ve kter\u00E9m je projekt implementov\u00E1n nebo pro kter\u00FD je zam\u00FD\u0161len k pou\u017Eit\u00ED."@cs .
+doap:programming\-language rdfs:comment "Programming language a project is implemented in or intended for use with."@en .
+doap:programming\-language rdfs:comment "Programmiersprache in der ein Projekt implementiert ist oder intendiert wird zu benutzen."@de .
+doap:programming\-language rdfs:comment "Lenguaje de programaci\u00F3n en el que un proyecto es implementado o con el cu\u00E1l pretende usarse."@es .
+doap:programming\-language rdfs:comment "Langage de programmation avec lequel un projet est impl\u00E9ment\u00E9, ou avec lequel il est pr\u00E9vu de l'utiliser."@fr .
+doap:programming\-language rdf:type rdf:Property .
+doap:platform rdfs:range rdfs:Literal .
+doap:platform rdfs:label "\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0"@ja .
+doap:platform rdfs:label "platform"@en .
+doap:platform rdfs:isDefinedBy doap: .
+doap:platform rdfs:domain doap:Version .
+doap:platform rdfs:domain doap:Project .
+doap:platform rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u5FC5\u8981\u306A\u30D7\u30E9\u30C3\u30C8\u30D5\u30A9\u30FC\u30E0\uFF08OS\u306B\u95A2\u4FC2\u306A\u3044\uFF09\u3002\u4F8B\u3048\u3070\uFF1AJava\u3001Firefox\u3001ECMA CLR\u3068\u304B\u3002"@ja .
+doap:platform rdfs:comment "Indicator of software platform (non-OS specific), e.g. Java, Firefox, ECMA CLR"@en .
+doap:platform rdf:type rdf:Property .
+doap:os rdfs:range rdfs:Literal .
+doap:os rdfs:label "\u30AA\u30DA\u30EC\u30FC\u30C6\u30A3\u30F3\u30B0\u30B7\u30B9\u30C6\u30E0"@ja .
+doap:os rdfs:label "syst\u00E8me d'exploitation"@fr .
+doap:os rdfs:label "sistema operativo"@es .
+doap:os rdfs:label "opera\u010Dn\u00ED syst\u00E9m"@cs .
+doap:os rdfs:label "operating system"@en .
+doap:os rdfs:label "Betriebssystem"@de .
+doap:os rdfs:isDefinedBy doap: .
+doap:os rdfs:domain doap:Version .
+doap:os rdfs:domain doap:Project .
+doap:os rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u9650\u3089\u308C\u305F\u30AA\u30DA\u30EC\u30FC\u30C6\u30A3\u30F3\u30B0\u30B7\u30B9\u30C6\u30E0\u3002\u3082\u3057\u3001\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306F\u3069\u306EOS\u3082\u5927\u4E08\u592B\u306A\u3089\u3001\u3053\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u66F8\u304D\u843D\u3068\u3057\u3066\u3044\u3044\u3002"@ja .
+doap:os rdfs:comment "Syst\u00E8me d'exploitation auquel est limit\u00E9 le projet. Omettez cette propri\u00E9t\u00E9 si le projet n'est pas limit\u00E9 \u00E0 un syst\u00E8me d'exploitation."@fr .
+doap:os rdfs:comment "Sistema opertivo al cu\u00E1l est\u00E1 limitado el proyecto. Omita esta propiedad si el proyecto no es espec\u00EDfico de un sistema opertaivo en particular."@es .
+doap:os rdfs:comment "Opera\u010Dn\u00ED syst\u00E9m, na jeho\u017E pou\u017Eit\u00ED je projekt limitov\u00E1n. Vynechejte tuto vlastnost, pokud je projekt nez\u00E1visl\u00FD na opera\u010Dn\u00EDm syst\u00E9mu."@cs .
+doap:os rdfs:comment "Operating system that a project is limited to. Omit this property if the project is not OS-specific."@en .
+doap:os rdfs:comment "Betriebssystem auf dem das Projekt eingesetzt werden kann. Diese Eigenschaft kann ausgelassen werden, wenn das Projekt nicht BS-spezifisch ist."@de .
+doap:os rdf:type rdf:Property .
+doap:old\-homepage rdfs:subPropertyOf foaf:homepage .
+doap:old\-homepage rdfs:label "\u524D\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8"@ja .
+doap:old\-homepage rdfs:label "star\u00E1 domovsk\u00E1 str\u00E1nka"@cs .
+doap:old\-homepage rdfs:label "p\u00E1gina web antigua"@es .
+doap:old\-homepage rdfs:label "old homepage"@en .
+doap:old\-homepage rdfs:label "ancienne page web"@fr .
+doap:old\-homepage rdfs:label "Alte Homepage"@de .
+doap:old\-homepage rdfs:isDefinedBy doap: .
+doap:old\-homepage rdfs:domain doap:Project .
+doap:old\-homepage rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u524D\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u3002\u4ED6\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u524D\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u3058\u3083\u306A\u3044\u3053\u3068\u3002"@ja .
+doap:old\-homepage rdfs:comment "URL of a project's past homepage, associated with exactly one project."@en .
+doap:old\-homepage rdfs:comment "URL der letzten Projekt-Homepage, verbunden mit genau einem Projekt."@de .
+doap:old\-homepage rdfs:comment "URL adresa p\u0159ede\u0161l\u00E9 domovsk\u00E9 str\u00E1nky projektu asociovan\u00E9 s pr\u00E1v\u011B jedn\u00EDm projektem."@cs .
+doap:old\-homepage rdfs:comment "L'URL d'une ancienne page web d'un projet, associ\u00E9e avec un unique projet."@fr .
+doap:old\-homepage rdfs:comment "El URL de la antigua p\u00E1gina de un proyecto, asociada con exactamente un proyecto."@es .
+doap:old\-homepage rdf:type owl:InverseFunctionalProperty .
+doap:old\-homepage rdf:type rdf:Property .
+doap:name rdfs:subPropertyOf rdfs:label .
+doap:name rdfs:range rdfs:Literal .
+doap:name rdfs:label "\u540D\u524D"@ja .
+doap:name rdfs:label "nombre"@es .
+doap:name rdfs:label "nom"@fr .
+doap:name rdfs:label "name"@en .
+doap:name rdfs:label "jm\u00E9no"@cs .
+doap:name rdfs:label "Name"@de .
+doap:name rdfs:isDefinedBy doap: .
+doap:name rdfs:comment "\u4F55\u304B\u306E\u540D\u524D"@ja .
+doap:name rdfs:comment "Le nom de quelque chose."@fr .
+doap:name rdfs:comment "Jm\u00E9no n\u011B\u010Deho."@cs .
+doap:name rdfs:comment "El nombre de algo."@es .
+doap:name rdfs:comment "Der Name von Irgendwas"@de .
+doap:name rdfs:comment "A name of something."@en .
+doap:name rdf:type rdf:Property .
+doap:module rdfs:label "\u30E2\u30B8\u30E5\u30FC\u30EB\u540D\u524D"@ja .
+doap:module rdfs:label "m\u00F3dulo"@es .
+doap:module rdfs:label "module"@fr .
+doap:module rdfs:label "module"@en .
+doap:module rdfs:label "modul"@cs .
+doap:module rdfs:label "Modul"@de .
+doap:module rdfs:isDefinedBy doap: .
+doap:module rdfs:domain _:genid28-994384838 .
+doap:module rdfs:comment "\u3053\u306E\u30EA\u30DD\u30B8\u30C8\u30EA\u306E\u30E2\u30B8\u30E5\u30FC\u30EB\u540D\u524D"@ja .
+doap:module rdfs:comment "Nombre del m\u00F3dulo de un repositorio."@es .
+doap:module rdfs:comment "Nom du module d'un d\u00E9p\u00F4t."@fr .
+doap:module rdfs:comment "Module name of a repository."@en .
+doap:module rdfs:comment "Modul-Name eines Subversion."@de .
+doap:module rdfs:comment "Jm\u00E9no modulu v \u00FAlo\u017Ei\u0161ti."@cs .
+doap:module rdf:type rdf:Property .
+doap:maintainer rdfs:range foaf:Person .
+doap:maintainer rdfs:label "\u30E1\u30F3\u30C6\u30CA\u30FC"@ja .
+doap:maintainer rdfs:label "spr\u00E1vce"@cs .
+doap:maintainer rdfs:label "maintainer"@en .
+doap:maintainer rdfs:label "d\u00E9veloppeur principal"@fr .
+doap:maintainer rdfs:label "desarrollador principal"@es .
+doap:maintainer rdfs:label "Projektverantwortlicher"@de .
+doap:maintainer rdfs:isDefinedBy doap: .
+doap:maintainer rdfs:domain doap:Project .
+doap:maintainer rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30E1\u30F3\u30C6\u306A\u30FC\u53CA\u3073\u30EA\u30FC\u30C0\u3002"@ja .
+doap:maintainer rdfs:comment "Spr\u00E1vce projektu, vedouc\u00ED projektu."@cs .
+doap:maintainer rdfs:comment "Maintainer of a project, a project leader."@en .
+doap:maintainer rdfs:comment "Hauptentwickler eines Projektes, der Projektleiter"@de .
+doap:maintainer rdfs:comment "D\u00E9veloppeur principal d'un projet, un meneur du projet."@fr .
+doap:maintainer rdfs:comment "Desarrollador principal de un proyecto, un l\u00EDder de proyecto."@es .
+doap:maintainer rdf:type rdf:Property .
+doap:mailing\-list rdfs:label "\u30E1\u30FC\u30EA\u30F3\u30B0\u30EA\u30B9\u30C8"@ja .
+doap:mailing\-list rdfs:label "mailing list"@en .
+doap:mailing\-list rdfs:label "liste de diffusion"@fr .
+doap:mailing\-list rdfs:label "lista de correo"@es .
+doap:mailing\-list rdfs:label "e\u2013mailov\u00E1 diskuse"@cs .
+doap:mailing\-list rdfs:label "Mailing Liste"@de .
+doap:mailing\-list rdfs:isDefinedBy doap: .
+doap:mailing\-list rdfs:domain doap:Project .
+doap:mailing\-list rdfs:comment "\u30E1\u30FC\u30EA\u30F3\u30B0\u30EA\u30B9\u30C8\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u3084\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9"@ja .
+doap:mailing\-list rdfs:comment "P\u00E1gina web de la lista de correo o direcci\u00F3n de correo."@es .
+doap:mailing\-list rdfs:comment "Page web de la liste de diffusion, ou adresse de courriel."@fr .
+doap:mailing\-list rdfs:comment "Mailing list home page or email address."@en .
+doap:mailing\-list rdfs:comment "Homepage der Mailing Liste oder E-Mail Adresse."@de .
+doap:mailing\-list rdfs:comment "Domovsk\u00E1 str\u00E1nka nebo e\u2013mailov\u00E1 adresa e\u2013mailov\u00E9 diskuse."@cs .
+doap:mailing\-list rdf:type rdf:Property .
+doap:location rdfs:label "\u3053\u306E\u30EA\u30DD\u30B8\u30C8\u30EA\u306EURL"@ja .
+doap:location rdfs:label "um\u00EDst\u011Bn\u00ED \u00FAlo\u017Ei\u0161t\u011B"@cs .
+doap:location rdfs:label "repository location"@en .
+doap:location rdfs:label "lugar del respositorio"@es .
+doap:location rdfs:label "emplacement du d\u00E9p\u00F4t"@fr .
+doap:location rdfs:label "Repository Lokation"@de .
+doap:location rdfs:isDefinedBy doap: .
+doap:location rdfs:domain doap:Repository .
+doap:location rdfs:comment "\u3053\u306E\u30EA\u30DD\u30B8\u30C8\u30EA\u306E\u5834\u6240\u3002"@ja .
+doap:location rdfs:comment "lugar de un repositorio."@es .
+doap:location rdfs:comment "Um\u00EDst\u011Bn\u00ED \u00FAlo\u017Ei\u0161t\u011B."@cs .
+doap:location rdfs:comment "Lokation eines Repositorys."@de .
+doap:location rdfs:comment "Location of a repository."@en .
+doap:location rdfs:comment "Emplacement d'un d\u00E9p\u00F4t."@fr .
+doap:location rdf:type rdf:Property .
+doap:license rdfs:label "\u30E9\u30A4\u30BB\u30F3\u30B9"@ja .
+doap:license rdfs:label "license"@en .
+doap:license rdfs:label "licencia"@es .
+doap:license rdfs:label "licence"@fr .
+doap:license rdfs:label "licence"@cs .
+doap:license rdfs:label "Lizenz"@de .
+doap:license rdfs:isDefinedBy doap: .
+doap:license rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u6563\u5E03\u30E9\u30A4\u30BB\u30F3\u30B9\u306ERDF\u8AAC\u660E\u306EURI"@ja .
+doap:license rdfs:comment "URI adresa RDF popisu licence, pod kterou je software distribuov\u00E1n."@cs .
+doap:license rdfs:comment "The URI of an RDF description of the license the software is distributed under."@en .
+doap:license rdfs:comment "L'URI d'une description RDF de la licence sous laquelle le programme est distribu\u00E9."@fr .
+doap:license rdfs:comment "El URI de una descripci\u00F3n RDF de la licencia bajo la cu\u00E1l se distribuye el software."@es .
+doap:license rdfs:comment "Die URI einer RDF-Beschreibung einer Lizenz unter der die Software herausgegeben wird."@de .
+doap:license rdf:type rdf:Property .
+doap:language rdfs:range rdfs:Literal .
+doap:language rdfs:label "\u8A00\u8A9E"@ja .
+doap:language rdfs:label "language"@en .
+doap:language rdfs:isDefinedBy doap: .
+doap:language rdfs:domain doap:Project .
+doap:language rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u7FFB\u8A33\u3055\u308C\u305F\u8A00\u8A9E\u306EISO\u8A00\u8A9E\u30B3\u30FC\u30C8"@en .
+doap:language rdfs:comment "ISO language code a project has been translated into"@en .
+doap:language rdf:type rdf:Property .
+doap:implements rdfs:range doap:Specification .
+doap:implements rdfs:label "\u5B9F\u88C5\u3057\u305F\u660E\u7D30\u66F8"@ja .
+doap:implements rdfs:label "Implements specification"@en .
+doap:implements rdfs:isDefinedBy doap: .
+doap:implements rdfs:domain doap:Project .
+doap:implements rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u304C\u5B9F\u88C5\u3057\u305F\u30B7\u30B9\u30C6\u30E0\u306E\u660E\u7D30\u66F8\u3002\u6A19\u6E96\u3084API\u3084\u660E\u7D30\u66F8\u306E\u3088\u3046\u306A\u3082\u306E\u3002"@ja .
+doap:implements rdfs:comment "A specification that a project implements. Could be a standard, API or legally defined level of conformance."@en .
+doap:implements rdf:type rdf:Property .
+doap:homepage rdfs:subPropertyOf foaf:homepage .
+doap:homepage rdfs:label "\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8"@ja .
+doap:homepage rdfs:label "p\u00E1gina web"@es .
+doap:homepage rdfs:label "page web"@fr .
+doap:homepage rdfs:label "homepage"@en .
+doap:homepage rdfs:label "domovsk\u00E1 str\u00E1nka"@cs .
+doap:homepage rdfs:label "Homepage"@de .
+doap:homepage rdfs:isDefinedBy doap: .
+doap:homepage rdfs:domain doap:Project .
+doap:homepage rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u306EURL\u3002\u3053\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u306F\u4ED6\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30DB\u30FC\u30E0\u30DA\u30FC\u30B8\u3058\u3083\u306A\u3044\u3053\u3068\u3002"@ja .
+doap:homepage rdfs:comment "URL of a project's homepage, associated with exactly one project."@en .
+doap:homepage rdfs:comment "URL der Projekt-Homepage, verbunden mit genau einem Projekt."@de .
+doap:homepage rdfs:comment "URL adresa domovsk\u00E9 str\u00E1nky projektu asociovan\u00E9 s pr\u00E1v\u011B jedn\u00EDm projektem."@cs .
+doap:homepage rdfs:comment "L'URL de la page web d'un projet, associ\u00E9e avec un unique projet."@fr .
+doap:homepage rdfs:comment "El URL de la p\u00E1gina de un proyecto, asociada con exactamente un proyecto."@es .
+doap:homepage rdf:type owl:InverseFunctionalProperty .
+doap:homepage rdf:type rdf:Property .
+doap:helper rdfs:range foaf:Person .
+doap:helper rdfs:label "\u8CA2\u732E\u8005"@ja .
+doap:helper rdfs:label "spoluautor"@cs .
+doap:helper rdfs:label "helper"@en .
+doap:helper rdfs:label "collaborateur"@fr .
+doap:helper rdfs:label "colaborador"@es .
+doap:helper rdfs:label "Helfer"@de .
+doap:helper rdfs:isDefinedBy doap: .
+doap:helper rdfs:domain doap:Project .
+doap:helper rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u8CA2\u732E\u8005"@ja .
+doap:helper rdfs:comment "Spoluautor projektu."@cs .
+doap:helper rdfs:comment "Projekt-Mitarbeiter."@de .
+doap:helper rdfs:comment "Project contributor."@en .
+doap:helper rdfs:comment "Collaborateur au projet."@fr .
+doap:helper rdfs:comment "Colaborador del proyecto."@es .
+doap:helper rdf:type rdf:Property .
+doap:file\-release rdfs:label "\u30D5\u30A1\u30A4\u30EB"@ja .
+doap:file\-release rdfs:label "\u3053\u306E\u30EA\u30EA\u30FC\u30B9\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3067\u304D\u308B\u30D5\u30A1\u30A4\u30EB\u306EURI"@ja .
+doap:file\-release rdfs:label "soubor revize"@cs .
+doap:file\-release rdfs:label "file-release"@en .
+doap:file\-release rdfs:isDefinedBy doap: .
+doap:file\-release rdfs:domain doap:Version .
+doap:file\-release rdfs:comment "URI of download associated with this release."@en .
+doap:file\-release rdfs:comment "URI adresa sta\u017Een\u00ED asociovan\u00E9 s reviz\u00ED."@cs .
+doap:file\-release rdf:type rdf:Property .
+doap:download\-page rdfs:label "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30DA\u30FC\u30B8"@ja .
+doap:download\-page rdfs:label "str\u00E1nka pro sta\u017Een\u00ED"@cs .
+doap:download\-page rdfs:label "p\u00E1gina de descarga"@es .
+doap:download\-page rdfs:label "page de t\u00E9l\u00E9chargement"@fr .
+doap:download\-page rdfs:label "download page"@en .
+doap:download\-page rdfs:label "Seite zum Herunterladen"@de .
+doap:download\-page rdfs:isDefinedBy doap: .
+doap:download\-page rdfs:domain doap:Project .
+doap:download\-page rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3067\u304D\u308B\u30A6\u30A7\u30D6\u30DA\u30FC\u30B8"@ja .
+doap:download\-page rdfs:comment "Webov\u00E1 str\u00E1nka, na kter\u00E9 lze st\u00E1hnout projektov\u00FD software."@cs .
+doap:download\-page rdfs:comment "Web-Seite von der die Projekt-Software heruntergeladen werden kann."@de .
+doap:download\-page rdfs:comment "Web page from which the project software can be downloaded."@en .
+doap:download\-page rdfs:comment "P\u00E1gina web de la cu\u00E1l se puede bajar el software."@es .
+doap:download\-page rdfs:comment "Page web \u00E0 partir de laquelle on peut t\u00E9l\u00E9charger le programme."@fr .
+doap:download\-page rdf:type rdf:Property .
+doap:download\-mirror rdfs:label "\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30DF\u30E9\u30FC"@ja .
+doap:download\-mirror rdfs:label "zrcadlo str\u00E1nky pro sta\u017Een\u00ED"@cs .
+doap:download\-mirror rdfs:label "mirror de descarga"@es .
+doap:download\-mirror rdfs:label "miroir pour le t\u00E9l\u00E9chargement"@fr .
+doap:download\-mirror rdfs:label "download mirror"@en .
+doap:download\-mirror rdfs:label "Spiegel der Seite zum Herunterladen"@de .
+doap:download\-mirror rdfs:isDefinedBy doap: .
+doap:download\-mirror rdfs:domain doap:Project .
+doap:download\-mirror rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u30DF\u30E9\u30FC"@ja .
+doap:download\-mirror rdfs:comment "Zrcadlo str\u00E1nky pro sta\u017Een\u00ED softwaru."@cs .
+doap:download\-mirror rdfs:comment "Spiegel der Seite von die Projekt-Software heruntergeladen werden kann."@de .
+doap:download\-mirror rdfs:comment "Mirror of software download web page."@en .
+doap:download\-mirror rdfs:comment "Mirror de la p\u00E1gina web de descarga."@es .
+doap:download\-mirror rdfs:comment "Miroir de la page de t\u00E9l\u00E9chargement du programme."@fr .
+doap:download\-mirror rdf:type rdf:Property .
+doap:documenter rdfs:range foaf:Person .
+doap:documenter rdfs:label "\u6587\u7AE0\u5236\u4F5C\u8005"@ja .
+doap:documenter rdfs:label "r\u00E9dacteur de l'aide"@fr .
+doap:documenter rdfs:label "escritor de ayuda"@es .
+doap:documenter rdfs:label "dokumentarista"@cs .
+doap:documenter rdfs:label "documenter"@en .
+doap:documenter rdfs:label "Dokumentator"@de .
+doap:documenter rdfs:isDefinedBy doap: .
+doap:documenter rdfs:domain doap:Project .
+doap:documenter rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8\u306E\u8CA2\u732E\u8005"@ja .
+doap:documenter rdfs:comment "Spoluautor dokumentace projektu."@cs .
+doap:documenter rdfs:comment "Proveedor de documentaci\u00F3n para el proyecto."@es .
+doap:documenter rdfs:comment "Mitarbeiter an der Dokumentation eines Projektes."@de .
+doap:documenter rdfs:comment "Contributor of documentation to the project."@en .
+doap:documenter rdfs:comment "Collaborateur \u00E0 la documentation du projet."@fr .
+doap:documenter rdf:type rdf:Property .
+doap:developer rdfs:range foaf:Person .
+doap:developer rdfs:label "\u958B\u767A\u8005"@ja .
+doap:developer rdfs:label "v\u00FDvoj\u00E1\u0159"@cs .
+doap:developer rdfs:label "d\u00E9veloppeur"@fr .
+doap:developer rdfs:label "developer"@en .
+doap:developer rdfs:label "desarrollador"@es .
+doap:developer rdfs:label "Entwickler"@de .
+doap:developer rdfs:isDefinedBy doap: .
+doap:developer rdfs:domain doap:Project .
+doap:developer rdfs:comment "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u30BD\u30D5\u30C8\u30A6\u30A7\u30A2\u306E\u958B\u767A\u8005"@ja .
+doap:developer rdfs:comment "V\u00FDvoj\u00E1\u0159 softwaru projektu."@cs .
+doap:developer rdfs:comment "Software-Entwickler f\u00FCr eine Projekt."@de .
+doap:developer rdfs:comment "D\u00E9veloppeur pour le projet."@fr .
+doap:developer rdfs:comment "Developer of software for the project."@en .
+doap:developer rdfs:comment "Desarrollador de software para el proyecto."@es .
+doap:developer rdf:type rdf:Property .
+doap:description rdfs:range rdfs:Literal .
+doap:description rdfs:label "\u8AAC\u660E"@ja .
+doap:description rdfs:label "popis"@cs .
+doap:description rdfs:label "description"@fr .
+doap:description rdfs:label "description"@en .
+doap:description rdfs:label "descripci\u00F3n"@es .
+doap:description rdfs:label "Beschreibung"@de .
+doap:description rdfs:isDefinedBy doap: .
+doap:description rdfs:comment "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u6587\u306E\u8AAC\u660E\u30012\u304B\u30894\u307E\u3067\u306E\u884C\u6570\u3002"@ja .
+doap:description rdfs:comment "\u010Cist\u011B textov\u00FD, 2 a\u017E 4 v\u011Bty dlouh\u00FD popis projektu."@cs .
+doap:description rdfs:comment "Texte descriptif d'un projet, long de 2 \u00E0 4 phrases."@fr .
+doap:description rdfs:comment "Plain text description of a project, of 2-4 sentences in length."@en .
+doap:description rdfs:comment "Descripci\u00F3n en texto plano de un proyecto, de 2 a 4 enunciados de longitud."@es .
+doap:description rdfs:comment "Beschreibung eines Projekts als einfacher Text mit der L\u00E4nge von 2 bis 4 S\u00E4tzen."@de .
+doap:description rdf:type rdf:Property .
+doap:created rdfs:range rdfs:Literal .
+doap:created rdfs:label "\u4F5C\u6210\u65E5\u4ED8"@ja .
+doap:created rdfs:label "vytvo\u0159eno"@cs .
+doap:created rdfs:label "erstellt"@de .
+doap:created rdfs:label "cr\u00E9\u00E9"@fr .
+doap:created rdfs:label "created"@en .
+doap:created rdfs:label "creado"@es .
+doap:created rdfs:isDefinedBy doap: .
+doap:created rdfs:comment "\u4F55\u304B\u304C\u4F5C\u6210\u3055\u308C\u305F\u65E5\u4ED8\u3001AAAA-MM-JJ\u306E\u578B\u3001\u4F8B\u3048\u30702004-04-05\u3002"@ja .
+doap:created rdfs:comment "Fecha en la que algo fue creado, en formato AAAA-MM-DD. e.g. 2004-04-05"@es .
+doap:created rdfs:comment "Erstellungsdatum von Irgendwas, angegeben im YYYY-MM-DD Format, z.B. 2004-04-05."@de .
+doap:created rdfs:comment "Datum, kdy bylo n\u011Bco vytvo\u0159eno ve form\u00E1tu RRRR-MM-DD, nap\u0159. 2004-04-05"@cs .
+doap:created rdfs:comment "Date \u00E0 laquelle a \u00E9t\u00E9 cr\u00E9\u00E9 quelque chose, au format AAAA-MM-JJ (par ex. 2004-04-05)"@fr .
+doap:created rdfs:comment "Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05"@en .
+doap:created rdf:type rdf:Property .
+doap:category rdfs:label "\u5206\u985E"@ja .
+doap:category rdfs:label "kategorie"@cs .
+doap:category rdfs:label "cat\u00E9gorie"@fr .
+doap:category rdfs:label "categor\u00EDa"@es .
+doap:category rdfs:label "category"@en .
+doap:category rdfs:label "Kategorie"@de .
+doap:category rdfs:isDefinedBy doap: .
+doap:category rdfs:domain doap:Project .
+doap:category rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u5206\u985E\u3002"@ja .
+doap:category rdfs:comment "Une cat\u00E9gorie de projet."@fr .
+doap:category rdfs:comment "Una categor\u00EDa de proyecto."@es .
+doap:category rdfs:comment "Kategorie projektu."@cs .
+doap:category rdfs:comment "Eine Kategorie eines Projektes."@de .
+doap:category rdfs:comment "A category of project."@en .
+doap:category rdf:type rdf:Property .
+doap:bug\-database rdfs:label "\u30D0\u30B0\u30DA\u30FC\u30B8"@ja .
+doap:bug\-database rdfs:label "suivi des bugs"@fr .
+doap:bug\-database rdfs:label "datab\u00E1ze chyb"@cs .
+doap:bug\-database rdfs:label "bug database"@en .
+doap:bug\-database rdfs:label "base de datos de bugs"@es .
+doap:bug\-database rdfs:label "Fehlerdatenbank"@de .
+doap:bug\-database rdfs:isDefinedBy doap: .
+doap:bug\-database rdfs:domain doap:Project .
+doap:bug\-database rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u306E\u30D0\u30B0\u7BA1\u7406\u30DA\u30FC\u30B8"@ja .
+doap:bug\-database rdfs:comment "Suivi des bugs pour un projet."@fr .
+doap:bug\-database rdfs:comment "Spr\u00E1va chyb projektu."@cs .
+doap:bug\-database rdfs:comment "Fehlerdatenbank eines Projektes."@de .
+doap:bug\-database rdfs:comment "Bug tracker para un proyecto."@es .
+doap:bug\-database rdfs:comment "Bug tracker for a project."@en .
+doap:bug\-database rdf:type rdf:Property .
+doap:browse rdfs:label "\u30A6\u30A7\u30D6\u306E\u30E6\u30FC\u30B6\u30A4\u30F3\u30BF\u30D5\u30A7\u30FC\u30B9"@ja .
+doap:browse rdfs:label "visualiser"@fr .
+doap:browse rdfs:label "prohl\u00ED\u017Ee\u010D"@cs .
+doap:browse rdfs:label "navegar"@es .
+doap:browse rdfs:label "browse"@en .
+doap:browse rdfs:label "browse"@de .
+doap:browse rdfs:isDefinedBy doap: .
+doap:browse rdfs:domain doap:Repository .
+doap:browse rdfs:comment "\u3053\u306E\u30EA\u30DD\u30B8\u30C8\u30EA\u306E\u30A6\u30A7\u30D6\u306E\u30A6\u30A7\u30D6\u306E\u30E6\u30FC\u30B6\u30A4\u30F3\u30BF\u30D5\u30A7\u30FC\u30B9"@ja .
+doap:browse rdfs:comment "Webov\u00E9 rozhran\u00ED pro prohl\u00ED\u017Een\u00ED \u00FAlo\u017Ei\u0161t\u011B."@cs .
+doap:browse rdfs:comment "Web-Browser Interface f\u00FCr das Repository."@de .
+doap:browse rdfs:comment "Web browser interface to repository."@en .
+doap:browse rdfs:comment "Interface web del repositorio."@es .
+doap:browse rdfs:comment "Interface web au d\u00E9p\u00F4t."@fr .
+doap:browse rdf:type rdf:Property .
+doap:blog rdfs:range rdfs:Resource .
+doap:blog rdfs:label "\u30D6\u30ED\u30B0"@ja .
+doap:blog rdfs:label "blog"@en .
+doap:blog rdfs:isDefinedBy doap: .
+doap:blog rdfs:domain doap:Project .
+doap:blog rdfs:comment "\u3053\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306B\u95A2\u3059\u308B\u30D6\u30ED\u30B0\u306EURI"@ja .
+doap:blog rdfs:comment "URI of a blog related to a project"@en .
+doap:blog rdf:type rdf:Property .
+doap:audience rdfs:range rdfs:Literal .
+doap:audience rdfs:label "\u76EE\u6307\u3057\u305F\u30E6\u30FC\u30B6"@ja .
+doap:audience rdfs:label "audience"@en .
+doap:audience rdfs:isDefinedBy doap: .
+doap:audience rdfs:domain doap:Project .
+doap:audience rdfs:comment "\u76EE\u6307\u3057\u305F\u30E6\u30FC\u30B6\u305F\u3061\u306E\u8AAC\u660E"@ja .
+doap:audience rdfs:comment "Description of target user base"@en .
+doap:audience rdf:type rdf:Property .
+doap:anon\-root rdfs:range rdfs:Literal .
+doap:anon\-root rdfs:label "\u533F\u540D\u30EB\u30FC\u30C8"@ja .
+doap:anon\-root rdfs:label "ra\u00EDz an\u00F3nima"@es .
+doap:anon\-root rdfs:label "racine anonyme"@fr .
+doap:anon\-root rdfs:label "anonymous root"@en .
+doap:anon\-root rdfs:label "anonymn\u00ED ko\u0159en"@cs .
+doap:anon\-root rdfs:label "Anonymes Root"@de .
+doap:anon\-root rdfs:isDefinedBy doap: .
+doap:anon\-root rdfs:domain doap:Repository .
+doap:anon\-root rdfs:comment "\u533F\u540D\u3067\u30A2\u30AF\u30BB\u30B9\u3067\u304D\u308B\u30D1\u30B9"@ja .
+doap:anon\-root rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B pro anonymn\u00ED p\u0159\u00EDstup."@cs .
+doap:anon\-root rdfs:comment "Repository f\u00FCr anonymen Zugriff"@de .
+doap:anon\-root rdfs:comment "Repository for anonymous access."@en .
+doap:anon\-root rdfs:comment "Repositorio para acceso an\u00F3nimo."@es .
+doap:anon\-root rdfs:comment "D\u00E9p\u00F4t pour acc\u00E8s anonyme."@fr .
+doap:anon\-root rdf:type rdf:Property .
+doap:Version rdfs:label "\u30D0\u30FC\u30B7\u30E7\u30F3"@ja .
+doap:Version rdfs:label "Verze"@cs .
+doap:Version rdfs:label "Versi\u00F3n"@es .
+doap:Version rdfs:label "Version"@fr .
+doap:Version rdfs:label "Version"@en .
+doap:Version rdfs:label "Version"@de .
+doap:Version rdfs:isDefinedBy doap: .
+doap:Version rdfs:comment "\u30EA\u30EA\u30FC\u30B9\u306E\u30D0\u30FC\u30B7\u30E7\u30F3\u60C5\u5831"@jp .
+doap:Version rdfs:comment "Versionsinformation eines Projekt Releases."@de .
+doap:Version rdfs:comment "Version information of a project release."@en .
+doap:Version rdfs:comment "Informaci\u00F3n sobre la versi\u00F3n de un release del proyecto."@es .
+doap:Version rdfs:comment "Informace o uvoln\u011Bn\u00E9 verzi projektu."@cs .
+doap:Version rdfs:comment "D\u00E9tails sur une version d'une realease d'un projet."@fr .
+doap:Version rdf:type rdfs:Class .
+doap:Specification rdfs:subClassOf rdfs:Resource .
+doap:Specification rdfs:label "\u660E\u7D30\u66F8\u3058"@ja .
+doap:Specification rdfs:label "Specification"@en .
+doap:Specification rdfs:isDefinedBy doap: .
+doap:Specification rdfs:comment "\u3042\u308B\u30B7\u30B9\u30C6\u30E0\u306E\u8A73\u3057\u304F\u66F8\u3044\u305F\u660E\u7D30\u66F8\u3002\u591A\u5206\u6280\u8853\u7684\u306A\u3082\u306E\u3002"@ja .
+doap:Specification rdfs:comment "A specification of a system's aspects, technical or otherwise."@en .
+doap:Specification rdf:type rdfs:Class .
+doap:SVNRepository rdfs:subClassOf doap:Repository .
+doap:SVNRepository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B Subversion"@cs .
+doap:SVNRepository rdfs:label "Subversion\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:SVNRepository rdfs:label "Subversion Repository"@en .
+doap:SVNRepository rdfs:label "Subversion Repository"@de .
+doap:SVNRepository rdfs:label "Repositorio Subversion"@es .
+doap:SVNRepository rdfs:label "D\u00E9p\u00F4t Subversion"@fr .
+doap:SVNRepository rdfs:isDefinedBy doap: .
+doap:SVNRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306ESubversion\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:SVNRepository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F Subversion."@cs .
+doap:SVNRepository rdfs:comment "Subversion source code repository."@en .
+doap:SVNRepository rdfs:comment "Subversion Quellcode-Versionierungssystem."@de .
+doap:SVNRepository rdfs:comment "Repositorio Subversion del c\u00F3digo fuente."@es .
+doap:SVNRepository rdfs:comment "D\u00E9p\u00F4t Subversion du code source."@fr .
+doap:SVNRepository rdf:type rdfs:Class .
+doap:Repository rdfs:label "\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:Repository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B"@cs .
+doap:Repository rdfs:label "Repository"@en .
+doap:Repository rdfs:label "Repository"@de .
+doap:Repository rdfs:label "Repositorio"@es .
+doap:Repository rdfs:label "D\u00E9p\u00F4t"@fr .
+doap:Repository rdfs:isDefinedBy doap: .
+doap:Repository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:Repository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F."@cs .
+doap:Repository rdfs:comment "Source code repository."@en .
+doap:Repository rdfs:comment "Repositorio del c\u00F3digo fuente."@es .
+doap:Repository rdfs:comment "Quellcode-Versionierungssystem."@de .
+doap:Repository rdfs:comment "D\u00E9p\u00F4t du code source."@fr .
+doap:Repository rdf:type rdfs:Class .
+doap:Project rdfs:subClassOf <http://xmlns.com/wordnet/1.6/Project> .
+doap:Project rdfs:subClassOf foaf:Project .
+doap:Project rdfs:label "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8"@ja .
+doap:Project rdfs:label "Proyecto"@es .
+doap:Project rdfs:label "Projet"@fr .
+doap:Project rdfs:label "Projekt"@cs .
+doap:Project rdfs:label "Project"@en .
+doap:Project rdfs:label "Prijekt"@de .
+doap:Project rdfs:isDefinedBy doap: .
+doap:Project rdfs:comment "\u30D7\u30ED\u30B0\u30E9\u30DF\u30F3\u30B0\u306E\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8"@ja .
+doap:Project rdfs:comment "Un proyecto."@es .
+doap:Project rdfs:comment "Un projet."@fr .
+doap:Project rdfs:comment "Projekt."@cs .
+doap:Project rdfs:comment "Ein Projekt."@de .
+doap:Project rdfs:comment "A project."@en .
+doap:Project rdf:type rdfs:Class .
+doap:HgRepository rdfs:subClassOf doap:Repository .
+doap:HgRepository rdfs:label "Mercurial\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:HgRepository rdfs:label "Mercurial Repository"@en .
+doap:HgRepository rdfs:isDefinedBy doap: .
+doap:HgRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306EMercurial\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:HgRepository rdfs:comment "Mercurial source code repository."@en .
+doap:HgRepository rdf:type rdfs:Class .
+doap:GitRepository rdfs:subClassOf doap:Repository .
+doap:GitRepository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B Git"@cs .
+doap:GitRepository rdfs:label "Repositorio Git"@es .
+doap:GitRepository rdfs:label "Git\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:GitRepository rdfs:label "Git repository"@de .
+doap:GitRepository rdfs:label "Git Repository"@en .
+doap:GitRepository rdfs:label "D\u00E9p\u00F4t Git"@fr .
+doap:GitRepository rdfs:isDefinedBy doap: .
+doap:GitRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306EGit\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:GitRepository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F Git."@cs .
+doap:GitRepository rdfs:comment "Repositorio Git del c\u00F3digo fuente."@es .
+doap:GitRepository rdfs:comment "Git source code repository."@en .
+doap:GitRepository rdfs:comment "Git Quellcode-Versionierungssystem."@de .
+doap:GitRepository rdfs:comment "D\u00E9p\u00F4t Git du code source."@fr .
+doap:GitRepository rdf:type rdfs:Class .
+doap:DarcsRepository rdfs:subClassOf doap:Repository .
+doap:DarcsRepository rdfs:label "darcs\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:DarcsRepository rdfs:label "darcs Repository"@en .
+doap:DarcsRepository rdfs:label "Repositorio darcs"@es .
+doap:DarcsRepository rdfs:label "D\u00E9p\u00F4t darcs"@fr .
+doap:DarcsRepository rdfs:isDefinedBy doap: .
+doap:DarcsRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306Edarcs\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:DarcsRepository rdfs:comment "darcs source code repository."@en .
+doap:DarcsRepository rdfs:comment "Repositorio darcs del c\u00F3digo fuente."@es .
+doap:DarcsRepository rdfs:comment "D\u00E9p\u00F4t darcs du code source."@fr .
+doap:DarcsRepository rdf:type rdfs:Class .
+doap:CVSRepository rdfs:subClassOf doap:Repository .
+doap:CVSRepository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B CVS"@cs .
+doap:CVSRepository rdfs:label "Repositorio CVS"@es .
+doap:CVSRepository rdfs:label "D\u00E9p\u00F4t CVS"@fr .
+doap:CVSRepository rdfs:label "CVS\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:CVSRepository rdfs:label "CVS Repository"@en .
+doap:CVSRepository rdfs:label "CVS Repository"@de .
+doap:CVSRepository rdfs:isDefinedBy doap: .
+doap:CVSRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306ECVS\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:CVSRepository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F CVS."@cs .
+doap:CVSRepository rdfs:comment "Repositorio CVS del c\u00F3digo fuente."@es .
+doap:CVSRepository rdfs:comment "D\u00E9p\u00F4t CVS du code source."@fr .
+doap:CVSRepository rdfs:comment "CVS source code repository."@en .
+doap:CVSRepository rdfs:comment "CVS Quellcode-Versionierungssystem."@de .
+doap:CVSRepository rdf:type owl:Class .
+doap:CVSRepository rdf:type rdfs:Class .
+doap:BazaarBranch rdfs:subClassOf doap:Repository .
+doap:BazaarBranch rdfs:label "Bazzar\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:BazaarBranch rdfs:label "Bazaar Branch"@en .
+doap:BazaarBranch rdfs:isDefinedBy doap: .
+doap:BazaarBranch rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306EBazzar\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:BazaarBranch rdfs:comment "Bazaar source code branch."@en .
+doap:BazaarBranch rdf:type rdfs:Class .
+doap:BKRepository rdfs:subClassOf doap:Repository .
+doap:BKRepository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B BitKeeper"@cs .
+doap:BKRepository rdfs:label "Repositorio BitKeeper"@es .
+doap:BKRepository rdfs:label "D\u00E9p\u00F4t BitKeeper"@fr .
+doap:BKRepository rdfs:label "BitKeeper\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:BKRepository rdfs:label "BitKeeper Repository"@en .
+doap:BKRepository rdfs:label "BitKeeper Repository"@de .
+doap:BKRepository rdfs:isDefinedBy doap: .
+doap:BKRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306EBitKeeper\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:BKRepository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F BitKeeper."@cs .
+doap:BKRepository rdfs:comment "Repositorio BitKeeper del c\u00F3digo fuente."@es .
+doap:BKRepository rdfs:comment "D\u00E9p\u00F4t BitKeeper du code source."@fr .
+doap:BKRepository rdfs:comment "BitKeeper source code repository."@en .
+doap:BKRepository rdfs:comment "BitKeeper Quellcode-Versionierungssystem."@de .
+doap:BKRepository rdf:type owl:Class .
+doap:BKRepository rdf:type rdfs:Class .
+doap:ArchRepository rdfs:subClassOf doap:Repository .
+doap:ArchRepository rdfs:label "\u00DAlo\u017Ei\u0161t\u011B GNU Arch"@cs .
+doap:ArchRepository rdfs:label "Repositorio GNU Arch"@es .
+doap:ArchRepository rdfs:label "GNU Arch\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:ArchRepository rdfs:label "GNU Arch repository"@en .
+doap:ArchRepository rdfs:label "GNU Arch repository"@de .
+doap:ArchRepository rdfs:label "D\u00E9p\u00F4t GNU Arch"@fr .
+doap:ArchRepository rdfs:isDefinedBy doap: .
+doap:ArchRepository rdfs:comment "\u30BD\u30FC\u30B9\u30B3\u30FC\u30C9\u306EGNU Arch\u306E\u30EA\u30DD\u30B8\u30C8\u30EA"@ja .
+doap:ArchRepository rdfs:comment "\u00DAlo\u017Ei\u0161t\u011B zdrojov\u00FDch k\u00F3d\u016F GNU Arch."@cs .
+doap:ArchRepository rdfs:comment "Repositorio GNU Arch del c\u00F3digo fuente."@es .
+doap:ArchRepository rdfs:comment "GNU Arch source code repository."@en .
+doap:ArchRepository rdfs:comment "GNU Arch Quellcode-Versionierungssystem."@de .
+doap:ArchRepository rdfs:comment "D\u00E9p\u00F4t GNU Arch du code source."@fr .
+doap:ArchRepository rdf:type owl:Class .
+doap:ArchRepository rdf:type rdfs:Class .
+doap: foaf:maker _:genid1-910015238 .
+doap: owl:imports foaf:index\.rdf .
+doap: rdf:type owl:Ontology .
+doap: dc:title "Description of a Project (DOAP) vocabulary" .
+doap: dc:rights "Copyright \u00A9 2004-2009 Edd Dumbill" .
+doap: dc:format "application/rdf+xml" .
+doap: dc:description "\u30D7\u30ED\u30B8\u30A7\u30AF\u30C8\u306E\u8AAC\u660E\u306E\u8A9E\u5F59(DOAP)\u3002W3C RDF Schema\u3068Web Ontology Language\u3067\u4F5C\u3089\u308C\u305F\u3002"@ja .
+doap: dc:description "The Description of a Project (DOAP) vocabulary, described using W3C RDF Schema and the Web Ontology Language." .
+doap: dc:description "Slovn\u00EDk Description of a Project (DOAP, Popis projektu), popsan\u00FD pou\u017Eit\u00EDm W3C RDF Schema a Web Ontology Language."@cs .
+doap: dc:description "Le vocabulaire Description Of A Project (DOAP, Description D'Un Projet), d\u00E9crit en utilisant RDF Schema du W3C et OWL."@fr .
+doap: dc:description "El vocabulario Description of a Project (DOAP, Descripci\u00F3n de un Proyecto), descrito usando RDF Schema de W3C y Web Ontology Language."@es .
+doap: dc:description "Das Vokabular \"Description of a Project (DOAP)\", beschrieben durch W3C RDF Schema and the Web Ontology Language."@de .
+doap: dc:creator "Edd Dumbill" .
+_:genid31-112767297 rdf:rest rdf:nil .
+_:genid31-112767297 rdf:first doap:BKRepository .
+_:genid30-462790328 rdf:rest _:genid31-112767297 .
+_:genid30-462790328 rdf:first doap:ArchRepository .
+_:genid29-65813656 rdf:rest _:genid30-462790328 .
+_:genid29-65813656 rdf:first doap:CVSRepository .
+_:genid28-994384838 owl:unionOf _:genid29-65813656 .
+_:genid28-994384838 rdf:type owl:Class .
+_:genid1-910015238 foaf:name "Edd Dumbill" .
+_:genid1-910015238 foaf:mbox <mailto:edd@usefulinc.com> .
+_:genid1-910015238 rdf:type foaf:Person .
+

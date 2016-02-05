@@ -24,7 +24,7 @@
 
 (** Generate OCaml code defining IRIs from a RDFs graph. *)
 
-(*
+
 let caml_kw = List.fold_right
   Rdf_types.SSet.add
     [
@@ -40,18 +40,22 @@ let caml_kw = List.fold_right
     ]
     Rdf_types.SSet.empty
 ;;
-*)
 
-let caml_id s =
+
+let caml_id ?(protect=false) s =
   let s = Bytes.of_string s in
   let len = Bytes.length s in
   for i = 0 to len - 1 do
-    match s.[i] with
-      'a'..'z' | 'A'..'Z' | '0'..'9' | '_' -> ()
+    let c = String.get s i in
+    match c with
+      'a'..'z' | 'A'..'Z' | '0'..'9' | '_' ->
+        if i = 0 then Bytes.set s i (Char.lowercase c)
     | _ -> Bytes.set s i '_'
   done;
-  Bytes.to_string s
-  (*if Rdf_types.SSet.mem s caml_kw then s^"_" else s*)
+  let s = Bytes.to_string s in
+  if protect && Rdf_types.SSet.mem s caml_kw
+  then s^"_"
+  else s
 ;;
 
 let get_properties g =
@@ -95,36 +99,57 @@ let get_under s1 s2 =
 ;;
 
 let gen_impl ?(comments=true) oc prefix base props =
-  let p s = output_string oc s in
-  let pc s = if comments then p ("(** "^s^" *)\n") else () in
-  pc ("Elements of ["^(Iri.to_string base)^"]");
-  p "\n";
-  pc ("["^(Iri.to_string base)^"]");
-  p ("let "^prefix^"_str = \""^(Iri.to_string base)^"\";;\n");
-  p ("let "^prefix^" = Iri.of_string "^prefix^"_str ;;\n");
-  p ("let "^prefix^"_ s = Iri.of_string ("^prefix^"_str ^ s);;\n\n");
+  let p fmt = Printf.fprintf oc fmt in
+  let pc fmt =
+    if comments then
+      Printf.ksprintf (fun s -> p "\n(** %s *)\n" s) fmt
+    else
+      Printf.ksprintf (fun s -> ()) fmt
+  in
+  pc "Elements of [%s]" (Iri.to_string base) ;
+  p "%s" "\n";
+  pc "[%s]" (Iri.to_string base);
+  p "let %s_str = \"%s\";;\n" prefix (Iri.to_string base) ;
+  p "let %s = Iri.of_string %s_str ;;\n" prefix prefix;
+  p "let %s_ s = Iri.of_string (%s_str ^ s);;\n\n" prefix prefix;
 
   let f (prop, comment) =
-    (match comment with None -> () | Some c -> pc c) ;
-    p ("let "^prefix^"_"^(caml_id prop)^" = "^prefix^"_\""^prop^"\" ;;\n\n")
+    (match comment with None -> () | Some c -> pc "%s" c) ;
+    p "let %s = %s_ \"%s\" ;;\n" (caml_id ~protect: true prop) prefix prop
   in
-  List.iter f props
+  List.iter f props;
+
+  p "%s" "\nmodule Open = struct\n";
+  let f (prop, comment) =
+    (match comment with None -> () | Some c -> pc "%s" c) ;
+    p "  let %s_%s = %s\n" prefix (caml_id prop) (caml_id ~protect: true prop)
+  in
+  List.iter f props;
+  p "%s" "end\n"
 ;;
 
 let gen_intf oc prefix base props =
-  let p s = output_string oc s in
-  let pc s = p ("(** "^s^" *)\n") in
-  pc ("Elements of ["^(Iri.to_string base)^"]");
-  p "\n";
-  pc ("["^(Iri.to_string base)^"]");
-  p ("val "^prefix^" : Iri.t\n");
-  p ("val "^prefix^"_ : string -> Iri.t\n\n");
+  let p fmt = Printf.fprintf oc fmt in
+  let pc ?(margin="") fmt = Printf.ksprintf (fun s -> p "%s(** %s *)\n" margin s) fmt in
+  pc "Elements of [%s]" (Iri.to_string base) ;
+  p "%s" "\n";
+  pc "[%s]" (Iri.to_string base);
+  p "val %s : Iri.t\n" prefix ;
+  p "val %s_ : string -> Iri.t\n\n" prefix ;
 
   let f (prop, comment) =
-    (match comment with None -> () | Some c -> pc c) ;
-    p ("val "^prefix^"_"^(caml_id prop)^" : Iri.t\n\n")
+    (match comment with None -> () | Some c -> pc "%s" c) ;
+    p "val %s : Iri.t\n\n" (caml_id ~protect: true prop)
   in
-  List.iter f props
+  List.iter f props;
+
+  p "%s" "\nmodule Open : sig\n" ;
+  let f (prop, comment) =
+    (match comment with None -> () | Some c -> pc ~margin: "  " "%s" c) ;
+    p "  val %s_%s : Iri.t\n\n" prefix (caml_id prop)
+  in
+  List.iter f props;
+  p "%s" "end\n";
 ;;
 
 

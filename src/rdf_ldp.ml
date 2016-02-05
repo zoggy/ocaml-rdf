@@ -3,45 +3,48 @@ let ldp_str = "http://www.w3.org/ns/ldp#";;
 let ldp = Iri.of_string ldp_str ;;
 let ldp_ s = Iri.of_string (ldp_str ^ s);;
 
-let ldp_BasicContainer = ldp_"BasicContainer" ;;
+let basicContainer = ldp_ "BasicContainer" ;;
+let constrainedBy = ldp_ "constrainedBy" ;;
+let container = ldp_ "Container" ;;
+let contains = ldp_ "contains" ;;
+let directContainer = ldp_ "DirectContainer" ;;
+let hasMemberRelation = ldp_ "hasMemberRelation" ;;
+let indirectContainer = ldp_ "IndirectContainer" ;;
+let insertedContentRelation = ldp_ "insertedContentRelation" ;;
+let isMemberOfRelation = ldp_ "isMemberOfRelation" ;;
+let member = ldp_ "member" ;;
+let membershipResource = ldp_ "membershipResource" ;;
+let nonRDFSource = ldp_ "NonRDFSource" ;;
+let page = ldp_ "Page" ;;
+let pageSequence = ldp_ "pageSequence" ;;
+let pageSortCollation = ldp_ "pageSortCollation" ;;
+let pageSortCriteria = ldp_ "pageSortCriteria" ;;
+let pageSortCriterion = ldp_ "PageSortCriterion" ;;
+let pageSortOrder = ldp_ "pageSortOrder" ;;
+let pageSortPredicate = ldp_ "pageSortPredicate" ;;
+let rDFSource = ldp_ "RDFSource" ;;
+let resource = ldp_ "Resource" ;;
 
-let ldp_constrainedBy = ldp_"constrainedBy" ;;
-
-let ldp_Container = ldp_"Container" ;;
-
-let ldp_contains = ldp_"contains" ;;
-
-let ldp_DirectContainer = ldp_"DirectContainer" ;;
-
-let ldp_hasMemberRelation = ldp_"hasMemberRelation" ;;
-
-let ldp_IndirectContainer = ldp_"IndirectContainer" ;;
-
-let ldp_insertedContentRelation = ldp_"insertedContentRelation" ;;
-
-let ldp_isMemberOfRelation = ldp_"isMemberOfRelation" ;;
-
-let ldp_member = ldp_"member" ;;
-
-let ldp_membershipResource = ldp_"membershipResource" ;;
-
-let ldp_NonRDFSource = ldp_"NonRDFSource" ;;
-
-let ldp_Page = ldp_"Page" ;;
-
-let ldp_pageSequence = ldp_"pageSequence" ;;
-
-let ldp_pageSortCollation = ldp_"pageSortCollation" ;;
-
-let ldp_pageSortCriteria = ldp_"pageSortCriteria" ;;
-
-let ldp_PageSortCriterion = ldp_"PageSortCriterion" ;;
-
-let ldp_pageSortOrder = ldp_"pageSortOrder" ;;
-
-let ldp_pageSortPredicate = ldp_"pageSortPredicate" ;;
-
-let ldp_RDFSource = ldp_"RDFSource" ;;
-
-let ldp_Resource = ldp_"Resource" ;;
-
+module Open = struct
+  let ldp_basicContainer = basicContainer
+  let ldp_constrainedBy = constrainedBy
+  let ldp_container = container
+  let ldp_contains = contains
+  let ldp_directContainer = directContainer
+  let ldp_hasMemberRelation = hasMemberRelation
+  let ldp_indirectContainer = indirectContainer
+  let ldp_insertedContentRelation = insertedContentRelation
+  let ldp_isMemberOfRelation = isMemberOfRelation
+  let ldp_member = member
+  let ldp_membershipResource = membershipResource
+  let ldp_nonRDFSource = nonRDFSource
+  let ldp_page = page
+  let ldp_pageSequence = pageSequence
+  let ldp_pageSortCollation = pageSortCollation
+  let ldp_pageSortCriteria = pageSortCriteria
+  let ldp_pageSortCriterion = pageSortCriterion
+  let ldp_pageSortOrder = pageSortOrder
+  let ldp_pageSortPredicate = pageSortPredicate
+  let ldp_rDFSource = rDFSource
+  let ldp_resource = resource
+end

@@ -1,4 +1,12 @@
 Next release:
+- change of interface in namespace modules
+  (Rdf_{dc,doap, foaf, earl, ldp, owl, rdf, rdfs} so that one can
+  use for example
+     Rdf_dc.title
+  or
+    open Rdf_dc.Open;;
+    dc_title
+- various fixes in Turtle and Xml parsing
 - drop Rdf_uri, Rdf_iri
 - use OCaml-iri
 - use Calendar and Ocaml-uri instead of OCamlnet
