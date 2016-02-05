@@ -99,3 +99,28 @@ module Open : sig
   val rdfs_subPropertyOf : Iri.t
 
 end
+
+(** {2 Building vocabulary descriptions} *)
+
+(** Add usual [rdf] and [rdfs] namespaces in the given graph. *)
+val add_namespaces : Rdf_graph.graph -> unit
+
+val property : Rdf_graph.graph ->
+  label: string ->
+    ?label_lang: (string * string) list ->
+    ?comment: string ->
+    ?comment_lang: (string * string) list ->
+    ?domains: Iri.t list ->
+    ?ranges: Iri.t list ->
+    ?subof: Iri.t ->
+    ?more: (Iri.t * Rdf_term.term) list ->
+    Iri.t -> unit
+
+val class_ : Rdf_graph.graph ->
+  label: string ->
+    ?label_lang: (string * string) list ->
+    ?comment: string ->
+    ?comment_lang: (string * string) list ->
+    ?subof: Iri.t ->
+    ?more: (Iri.t * Rdf_term.term) list ->
+    Iri.t -> unit

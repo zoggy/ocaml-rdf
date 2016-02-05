@@ -79,7 +79,7 @@ let rec mk_blank ctx g = function
     let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = List.fold_left (insert_sub_predobj node) (ctx, g) l in
     (node, ctx, g)
-| Collection [] -> (Rdf_term.Iri Rdf_rdf.rdf_nil, ctx, g)
+| Collection [] -> (Rdf_term.Iri Rdf_rdf.nil, ctx, g)
 | Collection objects ->
     let node = Rdf_term.Blank_ (g.new_blank_id ()) in
     let (ctx, g) = mk_collection ctx g node objects in
@@ -89,17 +89,17 @@ and mk_collection ctx g node = function
   [] -> assert false
 | h :: q ->
    let (obj, ctx, g) = mk_object_node ctx g h in
-   g.add_triple ~sub: node ~pred: Rdf_rdf.rdf_first ~obj;
+   g.add_triple ~sub: node ~pred: Rdf_rdf.first ~obj;
    match q with
      [] ->
         g.add_triple ~sub: node
-         ~pred: Rdf_rdf.rdf_rest
-         ~obj: (Rdf_term.Iri Rdf_rdf.rdf_nil);
+         ~pred: Rdf_rdf.rest
+         ~obj: (Rdf_term.Iri Rdf_rdf.nil);
        (ctx, g)
    | _ ->
        let obj = Rdf_term.Blank_ (g.new_blank_id ()) in
         g.add_triple ~sub: node
-          ~pred: Rdf_rdf.rdf_rest
+          ~pred: Rdf_rdf.rest
           ~obj ;
        mk_collection ctx g obj q
 
@@ -124,7 +124,7 @@ and insert_sub_predobj sub (ctx, g) (pred, objs) =
   let pred =
     match pred with
       Pred_iri r -> iri_of_resource ctx r
-    | Pred_a -> Rdf_rdf.rdf_type
+    | Pred_a -> Rdf_rdf.type_
   in
   List.fold_left (insert_pred sub pred) (ctx, g) objs
 

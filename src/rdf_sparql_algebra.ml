@@ -149,13 +149,13 @@ let fresh_var =
 ;;
 
 let path_iri_first =
-  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_first } ;;
+  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.first } ;;
 let path_iri_rest =
-  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_rest } ;;
+  Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rest } ;;
 let iri_nil =
-  T.Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_nil } ;;
+  T.Iri { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.nil } ;;
 let iri_type =
-  { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.rdf_type } ;;
+  { iri_loc = Rdf_loc.dummy_loc ; iri_iri = Rdf_rdf.type_ } ;;
 let path_iri_type = Iri iri_type ;;
 
 let rec translate_path = function

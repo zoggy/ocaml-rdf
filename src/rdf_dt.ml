@@ -157,7 +157,7 @@ let datatype = function
       | Bool _ -> Rdf_rdf.xsd_boolean
       | Datetime _ -> Rdf_rdf.xsd_datetime
       | Ltrl (_, None) -> Rdf_rdf.xsd_string
-      | Ltrl (s, Some _) -> Rdf_rdf.rdf_langstring
+      | Ltrl (s, Some _) -> Rdf_rdf.langString
       | Ltrdt (_, iri) -> iri
       | Err _ | Blank _ | Iri _ -> assert false
     in

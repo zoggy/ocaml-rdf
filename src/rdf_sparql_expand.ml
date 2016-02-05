@@ -42,7 +42,7 @@ let create_env base = { base ; prefixes = SMap.empty }
 let iriref_a =
   Iriref
     { ir_loc = Rdf_loc.dummy_loc ;
-      ir_iri = Iri.Iri Rdf_rdf.rdf_type ;
+      ir_iri = Iri.Iri Rdf_rdf.type_ ;
     }
 ;;
 

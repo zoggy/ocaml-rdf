@@ -34,6 +34,8 @@ rdf_json.cmo : rdf_term.cmi rdf_sparql_ms.cmi rdf_sparql.cmi rdf_json.cmi
 rdf_json.cmx : rdf_term.cmx rdf_sparql_ms.cmx rdf_sparql.cmx rdf_json.cmi
 rdf_json_ld.cmo : rdf_json_ld.cmi
 rdf_json_ld.cmx : rdf_json_ld.cmi
+rdf_ldp.cmo : rdf_ldp.cmi
+rdf_ldp.cmx : rdf_ldp.cmi
 rdf_loc.cmo : rdf_utf8.cmi rdf_misc.cmi rdf_loc.cmi
 rdf_loc.cmx : rdf_utf8.cmx rdf_misc.cmx rdf_loc.cmi
 rdf_mem.cmo : rdf_types.cmi rdf_term.cmi rdf_misc.cmi rdf_graph.cmi \
@@ -50,6 +52,8 @@ rdf_my1.cmo : rdf_term.cmi rdf_my.cmi rdf_misc.cmi rdf_graph.cmi rdf_my1.cmi
 rdf_my1.cmx : rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx rdf_my1.cmi
 rdf_my2.cmo : rdf_term.cmi rdf_my.cmi rdf_misc.cmi rdf_graph.cmi rdf_my2.cmi
 rdf_my2.cmx : rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx rdf_my2.cmi
+rdf_owl.cmo : rdf_owl.cmi
+rdf_owl.cmx : rdf_owl.cmi
 rdf_pcre.cmo : rdf_stubs.cmi rdf_pcre.cmi
 rdf_pcre.cmx : rdf_stubs.cmx rdf_pcre.cmi
 rdf_pg.cmo : rdf_term.cmi rdf_misc.cmi rdf_graph.cmi rdf_pg.cmi
@@ -207,12 +211,14 @@ rdf_foaf.cmi :
 rdf_graph.cmi : rdf_term.cmi rdf_bgp.cmi
 rdf_json.cmi : rdf_term.cmi rdf_sparql.cmi
 rdf_json_ld.cmi :
+rdf_ldp.cmi :
 rdf_loc.cmi :
 rdf_mem.cmi : rdf_graph.cmi
 rdf_misc.cmi :
 rdf_my.cmi : rdf_term.cmi rdf_sparql_types.cmi rdf_graph.cmi
 rdf_my1.cmi : rdf_graph.cmi
 rdf_my2.cmi : rdf_graph.cmi
+rdf_owl.cmi :
 rdf_pcre.cmi :
 rdf_pg.cmi : rdf_graph.cmi
 rdf_rdf.cmi :
