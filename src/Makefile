@@ -64,6 +64,7 @@ LIB_RDF_CMOFILES= \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
+	rdf_pim.cmo \
 	rdf_dc.cmo \
 	rdf_ldp.cmo \
 	rdf_dt.cmo \
