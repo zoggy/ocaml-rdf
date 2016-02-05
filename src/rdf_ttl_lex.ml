@@ -136,6 +136,7 @@ let rec main pos lexbuf =
   | sparql_base -> (lexpos pos lexbuf), BASE
   | langtag ->
       let s = L.lexeme lexbuf in
+      let s = String.sub s 1 (String.length s - 1) in
       (lexpos pos lexbuf), At_identifier s
   | "^^" -> (lexpos pos lexbuf), HATHAT
   | boolean ->
