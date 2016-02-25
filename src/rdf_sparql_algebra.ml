@@ -192,10 +192,10 @@ and translate_path_primary = function
   | PathIri (PrefixedName _) -> assert false
   | PathIri (Iriref r) ->
       begin
-        match r.ir_iri with
-          Iri.Iri iri -> Iri { iri_loc = r.ir_loc ; iri_iri = iri }
-        | Iri.Rel iri ->
-            prerr_endline (Iri.to_string iri);
+        match Iri.is_relative r.ir_iri with
+          false -> Iri { iri_loc = r.ir_loc ; iri_iri = r.ir_iri }
+        | true ->
+            prerr_endline (Iri.to_string r.ir_iri);
             assert false
       end
   | PathIri (Iri ir) -> Iri ir

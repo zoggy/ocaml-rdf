@@ -138,7 +138,7 @@ let iri base_iri = function
 | (String s)
 | (Ltrl (s, None)) as v ->
     begin
-      try Iri (Iri.resolve ~base: base_iri (Iri.ref_of_string s))
+      try Iri (Iri.resolve ~base: base_iri (Iri.of_string s))
       with _ -> Err (Type_error (v, "iri"))
     end
 | v -> Err (Type_error (v, "iri"))

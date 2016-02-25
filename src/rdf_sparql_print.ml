@@ -51,7 +51,7 @@ let print_list ?sep b f l =
   iter l
 ;;
 
-let print_iriref b ir = p b ("<" ^ (Iri.ref_to_string ir.ir_iri) ^ ">")
+let print_iriref b ir = p b ("<" ^ (Iri.to_string ir.ir_iri) ^ ">")
 let print_iriloc b r = p b ("<" ^ (Iri.to_string r.iri_iri) ^ ">")
 let print_var b v = p b ("?"^v.var_name)
 let print_bnode b bnode =

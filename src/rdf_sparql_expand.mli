@@ -28,7 +28,7 @@ type env = { base : Iri.t; prefixes : Iri.t SMap.t; }
 type dataset = { from : Iri.t list; from_named : Iri.Set.t; }
 val create_env : Iri.t -> env
 val iriref_a : Rdf_sparql_types.iri
-val expand_relative_iri : env -> Iri.reference -> Iri.t
+val expand_relative_iri : env -> Iri.t -> Iri.t
 val expand_iri : env -> Rdf_sparql_types.iri -> Rdf_sparql_types.iri
 val expand_query_prolog_decl :
   env * Rdf_sparql_types.query_prolog_decl list ->

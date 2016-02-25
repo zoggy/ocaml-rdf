@@ -442,7 +442,7 @@ let rec main pos lexbuf =
 | iriref ->
   let s = L.lexeme lexbuf in
   let s = String.sub s 1 (String.length s - 2) in
-  let iri = Iri.ref_of_string ~pos s in
+  let iri = Iri.of_string ~pos s in
   let loc = mk_loc lexbuf in
   (lexpos pos lexbuf), Iriref_ { ir_loc = loc ; ir_iri = iri}
 

@@ -56,7 +56,7 @@ type var = {
 
 type iriref =
   { ir_loc : loc ;
-    ir_iri : Iri.reference ;
+    ir_iri : Iri.t ;
   }
 
 type prefixed_name =

@@ -34,7 +34,7 @@ type loc =
 type pname_ns = { pname_ns_loc : loc; pname_ns_name : string; }
 type pname_local = { pname_local_loc : loc; pname_local_name : string; }
 type var = { var_loc : loc; var_name : string; }
-type iriref = { ir_loc : loc; ir_iri : Iri.reference; }
+type iriref = { ir_loc : loc; ir_iri : Iri.t; }
 type prefixed_name = {
   pname_loc : loc;
   pname_ns : pname_ns;

@@ -41,7 +41,7 @@ let string_of_error = function
 ;;
 
 let iri_of_iriref ctx s =
-  Iri.resolve ~base: ctx.base (Iri.ref_of_string ~pctdecode:false s);;
+  Iri.resolve ~base: ctx.base (Iri.of_string ~pctdecode:false s);;
 
 let iri_of_resource ctx = function
   Iriref iri -> iri_of_iriref ctx iri

@@ -183,11 +183,11 @@ let abs_iri state iri =
 
 let abs_iri state iri =
   prerr_endline (Printf.sprintf "resolve base=%s  iri=%s"
-   (Iri.to_string state.xml_base) (Iri.ref_to_string iri));
+   (Iri.to_string state.xml_base) (Iri.to_string iri));
   let iri =
-     match iri with
-       Iri.Iri iri -> iri
-     | Iri.Rel iri ->
+     match Iri.is_relative iri with
+       false -> iri
+     | true ->
          let str = (Iri.to_string state.xml_base)^(Iri.to_string iri) in
          Iri.of_string str
    in
@@ -200,7 +200,7 @@ let set_xml_base state = function
     match get_att (Xmlm.ns_xml, "base") atts with
       None -> state
     | Some s ->
-        let r = Iri.ref_of_string s in
+        let r = Iri.of_string s in
         let xml_base = abs_iri state r in
         { state with xml_base }
 ;;
@@ -256,7 +256,7 @@ let rec input_node g state gstate t =
   | E (((pref,s), atts), children) ->
       let (node, gstate) =
         match get_att_iri Rdf_rdf.about atts with
-          Some s -> (Iri (abs_iri state (Iri.ref_of_string s)), gstate)
+          Some s -> (Iri (abs_iri state (Iri.of_string s)), gstate)
         | None ->
             match get_att_iri Rdf_rdf.id atts with
               Some id -> (Iri (Iri.of_string ((Iri.to_string state.xml_base)^"#"^id)), gstate)
@@ -312,7 +312,7 @@ and input_prop g state (gstate, li) t =
       in
       match get_att_iri Rdf_rdf.resource atts with
         Some s ->
-          let iri = Iri.ref_of_string s in
+          let iri = Iri.of_string s in
           let obj = Iri (abs_iri state iri) in
           g.add_triple ~sub ~pred: prop_iri ~obj ;
           (gstate, li)
@@ -372,7 +372,7 @@ and input_prop g state (gstate, li) t =
           | None ->
               match get_att_iri Rdf_rdf.datatype atts, children with
               | Some s, [D lit] ->
-                  let typ = abs_iri state (Iri.ref_of_string s) in
+                  let typ = abs_iri state (Iri.of_string s) in
                   let obj = Rdf_term.term_of_literal_string ~typ ?lang: state.xml_lang lit in
                   g.add_triple ~sub ~pred: prop_iri ~obj;
                   (gstate, li)
