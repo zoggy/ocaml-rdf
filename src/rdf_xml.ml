@@ -134,7 +134,10 @@ let get_first_child xml tag =
 
 let is_element iri (pref,loc) =
   let iri2 = Iri.of_string (pref^loc) in
-  Iri.compare iri iri2 = 0
+  let b = Iri.compare iri iri2 = 0 in
+  (*prerr_endline (Printf.sprintf "is_element %s %s: %b"
+    (Iri.to_string iri) (Iri.to_string iri2) b);*)
+   b
 ;;
 
 
@@ -182,8 +185,8 @@ let abs_iri state iri =
 *)
 
 let abs_iri state iri =
-  prerr_endline (Printf.sprintf "resolve base=%s  iri=%s"
-   (Iri.to_string state.xml_base) (Iri.to_string iri));
+  (*prerr_endline (Printf.sprintf "resolve base=%s  iri=%s"
+   (Iri.to_string state.xml_base) (Iri.to_string iri));*)
   let iri =
      match Iri.is_relative iri with
        false -> iri
@@ -191,7 +194,7 @@ let abs_iri state iri =
          let str = (Iri.to_string state.xml_base)^(Iri.to_string iri) in
          Iri.of_string str
    in
-   prerr_endline (Printf.sprintf "=> %s" (Iri.to_string iri));
+   (*prerr_endline (Printf.sprintf "=> %s" (Iri.to_string iri));*)
    iri
 
 let set_xml_base state = function
@@ -417,9 +420,7 @@ let input_tree g ?(base=g.Rdf_graph.name()) t =
   let gstate =
     match t with
       D _ -> assert false
-    | E ((e,_),children) when is_element Rdf_rdf.rdf e ->
-        (*let xml = string_of_xmls children in prerr_endline xml;*)
-
+    | E ((e,_),children) when is_element Rdf_rdf._RDF e ->
         List.fold_left (input_node g state) gstate children
     | t -> input_node g state gstate t
   in
@@ -496,7 +497,7 @@ let output g =
     (E ((("",Iri.to_string Rdf_rdf.description), atts), [xml_prop]) :: acc)
   in
   let xmls = List.fold_left f_triple [] (g.find ()) in
-  E ((("", Iri.to_string Rdf_rdf.rdf),[]), xmls)
+  E ((("", Iri.to_string Rdf_rdf._RDF),[]), xmls)
 
 
 let to_ ?namespaces g dest =
