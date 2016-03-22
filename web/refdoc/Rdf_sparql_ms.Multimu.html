@@ -6,5 +6,37 @@
 &#160;</div>
 <h1>Module <a href="type_Rdf_sparql_ms.Multimu.html">Rdf_sparql_ms.Multimu</a></h1>
 
-<pre><span class="keyword">module</span> Multimu: <code class="type">Set.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_ms.MuNOrdered.html">MuNOrdered</a></code><code class="code">)</code></pre><hr width="100%"/>
-</div></contents></ocamldoc>
+<pre><span class="keyword">module</span> Multimu: <code class="code">sig</code> <a href="Rdf_sparql_ms.Multimu.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre><span id="TYPEelt"><span class="keyword">type</span> elt</span> = <code class="type"><a href="Rdf_sparql_ms.MuNOrdered.html#TYPEt">Rdf_sparql_ms.MuNOrdered.t</a></code> </pre>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> t</span> = <code class="type">Set.Make(MuNOrdered).t</code> </pre>
+
+
+<pre><span id="VALempty"><span class="keyword">val</span> empty</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALis_empty"><span class="keyword">val</span> is_empty</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALmem"><span class="keyword">val</span> mem</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALsingleton"><span class="keyword">val</span> singleton</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALremove"><span class="keyword">val</span> remove</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALunion"><span class="keyword">val</span> union</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALinter"><span class="keyword">val</span> inter</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALdiff"><span class="keyword">val</span> diff</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALsubset"><span class="keyword">val</span> subset</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALiter"><span class="keyword">val</span> iter</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; unit) -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; unit</code></pre>
+<pre><span id="VALfold"><span class="keyword">val</span> fold</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; 'a -&gt; 'a) -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; 'a -&gt; 'a</code></pre>
+<pre><span id="VALfor_all"><span class="keyword">val</span> for_all</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; bool) -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; bool) -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALfilter"><span class="keyword">val</span> filter</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; bool) -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALpartition"><span class="keyword">val</span> partition</span> : <code class="type">(<a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt; bool) -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> * <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALcardinal"><span class="keyword">val</span> cardinal</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre><span id="VALelements"><span class="keyword">val</span> elements</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> list</code></pre>
+<pre><span id="VALmin_elt"><span class="keyword">val</span> min_elt</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a></code></pre>
+<pre><span id="VALmax_elt"><span class="keyword">val</span> max_elt</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a></code></pre>
+<pre><span id="VALchoose"><span class="keyword">val</span> choose</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a></code></pre>
+<pre><span id="VALsplit"><span class="keyword">val</span> split</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> * bool * <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> -&gt;<br/>       <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a></code></pre>
+<pre><span id="VALof_list"><span class="keyword">val</span> of_list</span> : <code class="type"><a href="Rdf_sparql_ms.Multimu.html#TYPEelt">elt</a> list -&gt; <a href="Rdf_sparql_ms.Multimu.html#TYPEt">t</a></code></pre></div></contents></ocamldoc>

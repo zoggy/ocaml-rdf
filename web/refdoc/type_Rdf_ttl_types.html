@@ -1,2 +1,37 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_ttl_types</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span>&#160;&#160;<span class="keyword">end</span></code></div></contents></ocamldoc>
+<code class="code"><span class="keyword">sig</span><br/>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SMap</span>&#160;=&#160;<span class="constructor">Rdf_xml</span>.<span class="constructor">SMap</span><br/>
+&#160;&#160;<span class="keyword">type</span>&#160;context&#160;=&#160;{<br/>
+&#160;&#160;&#160;&#160;base&#160;:&#160;<span class="constructor">Iri</span>.t;<br/>
+&#160;&#160;&#160;&#160;prefixes&#160;:&#160;<span class="constructor">Iri</span>.t&#160;<span class="constructor">SMap</span>.t;<br/>
+&#160;&#160;&#160;&#160;gstate&#160;:&#160;<span class="constructor">Rdf_xml</span>.global_state;<br/>
+&#160;&#160;}<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;iriref&#160;=&#160;string<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;directive&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Prefix</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Rdf_ttl_types</span>.iriref<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Base</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.iriref<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;qname&#160;=&#160;string&#160;option&#160;*&#160;string&#160;option<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;iri&#160;=&#160;<span class="constructor">Iriref</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.iriref&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Qname</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.qname<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;language&#160;=&#160;string<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;literal&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">String</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Rdf_ttl_types</span>.language&#160;option&#160;*<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_ttl_types</span>.iri&#160;option<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;object_&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Obj_iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.iri<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Obj_blank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.blank<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Obj_literal</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.literal<br/>
+&#160;&#160;<span class="keyword">and</span>&#160;blank&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">NodeId</span>&#160;<span class="keyword">of</span>&#160;string<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Empty</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PredObjs</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.predobj&#160;list<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Collection</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.object_&#160;list<br/>
+&#160;&#160;<span class="keyword">and</span>&#160;pred&#160;=&#160;<span class="constructor">Pred_iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.iri&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Pred_a</span><br/>
+&#160;&#160;<span class="keyword">and</span>&#160;predobj&#160;=&#160;<span class="constructor">Rdf_ttl_types</span>.pred&#160;*&#160;<span class="constructor">Rdf_ttl_types</span>.object_&#160;list<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;subject&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Sub_iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.iri<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Sub_blank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.blank<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;statement&#160;=<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Directive</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.directive<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Triples</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_ttl_types</span>.subject&#160;*&#160;<span class="constructor">Rdf_ttl_types</span>.predobj&#160;list<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;turtle&#160;=&#160;<span class="constructor">Rdf_ttl_types</span>.statement&#160;list<br/>
+<span class="keyword">end</span></code></div></contents></ocamldoc>

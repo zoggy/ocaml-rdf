@@ -1,2 +1,252 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_sparql_map</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span>&#160;&#160;<span class="keyword">end</span></code></div></contents></ocamldoc>
+<code class="code"><span class="keyword">sig</span><br/>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">T</span>&#160;=&#160;<span class="constructor">Rdf_sparql_types</span><br/>
+&#160;&#160;<span class="keyword">val</span>&#160;map_opt&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;option<br/>
+&#160;&#160;<span class="keyword">type</span>&#160;(<span class="keywordsign">'</span>acc,&#160;<span class="keywordsign">'</span>t)&#160;map_fun&#160;=&#160;<span class="keywordsign">'</span>acc&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>acc&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>t<br/>
+&#160;&#160;<span class="keyword">and</span>&#160;<span class="keywordsign">'</span>a&#160;mapper&#160;=&#160;{<br/>
+&#160;&#160;&#160;&#160;var&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.var)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;iriref&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.iriref)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;prefixed_name&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.prefixed_name)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;iriloc&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;iri&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.iri)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;rdf_literal&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;data_block_value&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;data_full_block_value&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.data_full_block_value)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;inline_data_one_var&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_one_var)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;inline_data_full&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_full)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;datablock&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.datablock)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;values_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;var_or_iri&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;blank_node&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.blank_node)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;select_var&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.select_var)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;select_vars&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.select_vars)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;select_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;dataset_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;arg_list&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.arg_list)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;function_call&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.function_call)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;binary_op&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.binary_op)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;expr&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.expr)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;expression&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.expression)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;built_in_call&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;aggregate&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;group_var&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.group_var)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;group_condition&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;constraint_&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;order_condition&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;limit_offset_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.limit_offset_clause)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;solution_modifier&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;bind&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.bind)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;service_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.service_graph_pattern)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;graph_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;graph_pattern_elt&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;graph_term&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.graph_term)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;var_or_term&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path_one_in_prop_set&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path_primary&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path_elt&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path_elt_or_inverse&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path_sequence&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;path&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.path)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;verb&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.verb)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;triples_node&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;graph_node&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;prop_object_list&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;triples_block&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.triples_block)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;triples_same_subject&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;ggp_sub&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;group_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;&#160;&#160;sub_select&#160;:&#160;(<span class="keywordsign">'</span>a,&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select)&#160;<span class="constructor">Rdf_sparql_map</span>.map_fun;<br/>
+&#160;&#160;}<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;var&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;iriref&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;prefixed_name&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;iriloc&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;iri&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;rdf_literal&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;data_block_value&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;data_full_block_value&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.data_full_block_value&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.data_full_block_value<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;inline_data_one_var&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_one_var&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_one_var<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;inline_data_full&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_full&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_full<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;datablock&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;values_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.datablock&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock&#160;option<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;var_or_iri&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;blank_node&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;select_var&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_var&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_var<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;select_vars&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_vars&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_vars<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;select_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;dataset_clause&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;arg_list&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.arg_list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.arg_list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;function_call&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">T</span>.function_call&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;binary_op&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;expr&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expr&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expr<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;expression&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">T</span>.expression&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">T</span>.expression<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;built_in_call&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;aggregate&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;group_var&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_var&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_var<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;group_condition&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;constraint_&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;order_condition&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;limit_offset_clause&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>c<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;solution_modifier&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;bind&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.bind&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.bind<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;service_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.service_graph_pattern&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.service_graph_pattern<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;graph_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;graph_pattern_elt&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;graph_term&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_term<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;var_or_term&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path_one_in_prop_set&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path_primary&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path_elt&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path_elt_or_inverse&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path_sequence&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse&#160;list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;path&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;verb&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.verb&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.verb<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;triples_node&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;graph_node&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;prop_object_list&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;triples_block&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_block&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_block<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;triples_same_subject&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;ggp_sub&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;group_graph_pattern&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;sub_select&#160;:<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper&#160;<span class="keywordsign">-&gt;</span><br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;default&#160;:&#160;<span class="keywordsign">'</span>a&#160;<span class="constructor">Rdf_sparql_map</span>.mapper<br/>
+<span class="keyword">end</span></code></div></contents></ocamldoc>

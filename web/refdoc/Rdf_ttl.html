@@ -33,15 +33,15 @@ Reading and writing Turtle.<br/>
 <pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a></code></pre>
 
 <pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Rdf_ttl.html#TYPEerror">error</a> -&gt; string</code></pre>
-<pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Input graph from string. Default base is the graph name.<br/>
 </div>
 
-<pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_ttl.html#VALfrom_string"><code class="code">Rdf_ttl.from_string</code></a> but read from the given file.<br/>
 </div>
 
-<pre><span id="VALstring_of_triple"><span class="keyword">val</span> string_of_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string</code></pre>
-<pre><span id="VALto_"><span class="keyword">val</span> to_</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt;<br/>       (string -&gt; unit) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre>
-<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
-<pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>
+<pre><span id="VALstring_of_triple"><span class="keyword">val</span> string_of_triple</span> : <code class="type">sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; string</code></pre>
+<pre><span id="VALto_"><span class="keyword">val</span> to_</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt;<br/>       (string -&gt; unit) -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre>
+<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
+<pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>

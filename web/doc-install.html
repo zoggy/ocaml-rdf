@@ -17,13 +17,12 @@ Compiling OCaml-RDF requires the following software to be installed:
 <ul>
 <li><ext-a href="http://caml.inria.fr/">OCaml &gt;= 4.02</ext-a>,</li>
 <li><ext-a href="http://projects.camlcity.org/projects/findlib.html">Findlib &gt;= 1.3.3</ext-a> (should work with priori versions),</li>
-<li><ext-a href="http://projects.camlcity.org/projects/ocamlnet.html/">OCamlnet &gt;= 3.6.5</ext-a>,</li>
-<!--<li><ext-a href="http://ocurl.forge.ocamlcore.org/">OCurl &gt;= 0.5.6</ext-a> (not tested with prior versions),</li>-->
-<li><ext-a href="https://forge.ocamlcore.org/projects/ocaml-mysql/">OCaml-MySQL &gt;= 1.1.1</ext-a> (not tested with prior versions) for MySQL backend,</li>
-<li><ext-a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</ext-a> (not tested with prior versions) for Postgresql backend,</li>
+<li><ext-a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri &gt;= 0.2.0</ext-a>,</li>
+<li><ext-a href="https://github.com/mirage/ocaml-uri/">OCaml-uri &gt;= 1.9.1</ext-a>,</li>
+<li><ext-a href="http://calendar.forge.ocamlcore.org/">Calendar &gt;= 2.04</ext-a>,</li>
 <li><ext-a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.1</ext-a>,</li>
 <li><ext-a href="http://erratique.ch/software/uuidm">Uuidm &gt;= 0.9.5</ext-a>,</li>
-<li><ext-a href="http://alain.frisch.fr/soft.html#ulex">ulex &gt;= 1.1</ext-a> (not tested with prior versions),</li>
+<li><ext-a href="https://github.com/alainfrisch/sedlex">Sedlex &gt;= 1.99.2</ext-a>,</li>
 <li><ext-a href="http://gallium.inria.fr/~fpottier/menhir">Menhir &gt;= 20120123</ext-a> (not tested with prior versions),</li>
 
 <li><ext-a href="http://pauillac.inria.fr/~xleroy/software.html#cryptokit">Cryptokit &gt;= 1.7</ext-a> (not tested with prior versions),</li>
@@ -31,8 +30,10 @@ Compiling OCaml-RDF requires the following software to be installed:
 
 <li><ext-a href="http://mjambon.com/yojson.html">Yojson &gt;= 1.1.8</ext-a> (not tested with prior versions),</li>
 
-<li><ext-a href="http://ocsigen.org/lwt/">Lwt &gt;= 2.4.5</ext-a> and <ext-a href="http://www.cl.cam.ac.uk/projects/ocamllabs/pkg/index.html">CoHTTP &gt;= 0.11.2</ext-a> (not tested with prior versions) to use the Lwt-based <ext-a href="http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http">HTTP binding of the Sparql protocol</ext-a>,
+<li>[optional] <ext-a href="http://ocsigen.org/lwt/">Lwt &gt;= 2.4.5</ext-a> and <ext-a href="http://www.cl.cam.ac.uk/projects/ocamllabs/pkg/index.html">CoHTTP &gt;= 0.11.2</ext-a> (not tested with prior versions) to use the Lwt-based <ext-a href="http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http">HTTP binding of the Sparql protocol</ext-a>,
 </li>
+<li>[optional] <ext-a href="https://forge.ocamlcore.org/projects/ocaml-mysql/">OCaml-MySQL &gt;= 1.1.1</ext-a> (not tested with prior versions) for MySQL backend,</li>
+<li>[optional] <ext-a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</ext-a> (not tested with prior versions) for Postgresql backend,</li>
 <li>[optional] <ext-a href="https://forge.ocamlcore.org/projects/config-file/">Config-file &gt;= 1.1</ext-a> to run the test suite,</li>
 
 <!--<li>[optional] <ext-a href="https://zoggy.github.com/stog">Stog &gt;= 0.8.0</ext-a> for the documentation.</li>-->
@@ -48,7 +49,7 @@ $ make all
 $ make install # with sufficient rights
 </sh>
 <p>
-This will install the packages <code>rdf</code>,
+This will install the packages <code>rdf</code>, <code>rdf.ppx</code>, <code>rdf.js</code>,
 <code>rdf.mysql</code>,<code>rdf.postgresql</code> and <code>rdf.lwt</code> with ocamlfind.
 </p>
 </subsection>

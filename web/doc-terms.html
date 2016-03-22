@@ -28,25 +28,24 @@ Let's get a string representation of the term:
 print_endline (Rdf_term.string_of_term term42) ;;
 </ocaml-eval>
 <p>
-The <refmod mod="Rdf_iri"/> module defines the type <reftyp mod="Rdf_iri" name="iri"/>
-to represent IRIs and contains functions to create IRIs and perform other
-manipulations:
+The <ext-a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri library</ext-a> is used
+to handle IRIs:
 </p>
 <ocaml-eval toplevel="true">
 let iri_s = "http://foo.bar.net/";;
-let iri = Rdf_iri.iri iri_s;;
-let iri2 = Rdf_iri.set_fragment iri (Some "id42");;
-Rdf_iri.compare iri iri2;;
-Rdf_iri.string iri2;;
+let iri = Iri.of_string iri_s;;
+let iri2 = Iri.with_fragment iri (Some "id42");;
+Iri.compare iri iri2;;
+Iri.to_string iri2;;
 </ocaml-eval>
 <p>
 The <refmod mod="Rdf_rdf"/> module defines some commonly used IRIs:
 datatypes, classes, property names, ...:
 </p>
 <ocaml-eval toplevel="true">
-Rdf_iri.string (Rdf_rdf.xsd_integer);;
-Rdf_iri.string (Rdf_rdf.xsd_double);;
-Rdf_iri.string (Rdf_rdf.rdf_about);;
+Iri.to_string (Rdf_rdf.xsd_integer);;
+Iri.to_string (Rdf_rdf.xsd_double);;
+Iri.to_string (Rdf_rdf.about);;
 </ocaml-eval>
 </contents>
 </page>

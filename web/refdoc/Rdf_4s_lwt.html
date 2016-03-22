@@ -18,32 +18,32 @@
     <code class="code">graph_uri</code> is the uri of the graph where the query is going to be executed.
     <code class="code">graph_uri</code> if is equal to <code class="code">uri</code> it is executed on the default graph<br/>
 
-<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
 <code class="code">get url msg</code>
     <code class="code">url</code> including "/sparql/"
     This method allows: select/ask/describe queries.<br/>
 </div>
 
-<pre><span id="VALpost_update"><span class="keyword">val</span> post_update</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?accept:string -&gt;<br/>       <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
+<pre><span id="VALpost_update"><span class="keyword">val</span> post_update</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
 <code class="code">post_update url msg</code>
     <code class="code">url</code> including "/update/"
     This method allows: update/insert/delete queries.<br/>
 </div>
 
-<pre><span id="VALdelete"><span class="keyword">val</span> delete</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
+<pre><span id="VALdelete"><span class="keyword">val</span> delete</span> : <code class="type">Uri.t -&gt; Uri.t -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
 <code class="code">delete url graph_uri</code>
     <code class="code">url</code> including "/data/"
     This method removes the entire <code class="code">graph_uri</code>.<br/>
 </div>
 
-<pre><span id="VALput"><span class="keyword">val</span> put</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
+<pre><span id="VALput"><span class="keyword">val</span> put</span> : <code class="type">Uri.t -&gt; string -&gt; string -&gt; Uri.t -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
 <code class="code">put url content content_type graph_uri</code>
     <code class="code">url</code> including "/data/"
     This method allows to replace initial data from <code class="code">graph_uri</code> by <code class="code">content</code>.
     Refer to the 4Store documentation to know authorized content_type.<br/>
 </div>
 
-<pre><span id="VALpost_append"><span class="keyword">val</span> post_append</span> : <code class="type"><a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; string -&gt; string -&gt; <a href="Rdf_uri.html#TYPEuri">Rdf_uri.uri</a> -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
+<pre><span id="VALpost_append"><span class="keyword">val</span> post_append</span> : <code class="type">Uri.t -&gt; string -&gt; string -&gt; Uri.t -&gt; <a href="Rdf_sparql_http_lwt.html#TYPEresult">Rdf_sparql_http_lwt.result</a></code></pre><div class="info ">
 <code class="code">post_append url content content_type graph_uri</code>
     <code class="code">url</code> including "/data/"
     This method allow to append <code class="code">content</code> into <code class="code">graph_uri</code>.

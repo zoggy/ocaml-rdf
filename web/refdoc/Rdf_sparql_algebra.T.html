@@ -99,7 +99,7 @@
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTiriref.ir_iri">ir_iri</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTiriref.ir_iri">ir_iri</span>&#160;: <code class="type">Iri.t</code>;</code></td>
 
 </tr></table>
 }
@@ -132,19 +132,19 @@
 
 
 
-<pre><code><span id="TYPErel_iri"><span class="keyword">type</span> rel_iri</span> = {</code></pre><table class="typetable">
+<pre><code><span id="TYPEiriloc"><span class="keyword">type</span> iriloc</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTrel_iri.reliri_loc">reliri_loc</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
+<code><span id="TYPEELTiriloc.iri_loc">iri_loc</span>&#160;: <code class="type"><a href="Rdf_sparql_types.html#TYPEloc">loc</a></code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTrel_iri.reliri">reliri</span>&#160;: <code class="type">string</code>;</code></td>
+<code><span id="TYPEELTiriloc.iri_iri">iri_iri</span>&#160;: <code class="type">Iri.t</code>;</code></td>
 
 </tr></table>
 }
@@ -152,6 +152,13 @@
 
 
 <pre><code><span id="TYPEiri"><span class="keyword">type</span> iri</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTiri.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriloc">iriloc</a></code></code></td>
+
+</tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
@@ -165,18 +172,11 @@
 <td align="left" valign="top" >
 <code><span id="TYPEELTiri.PrefixedName"><span class="constructor">PrefixedName</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEprefixed_name">prefixed_name</a></code></code></td>
 
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTiri.Reliri"><span class="constructor">Reliri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code></code></td>
-
 </tr></table>
 
 
 
-<pre><span id="TYPEprefix_decl"><span class="keyword">type</span> prefix_decl</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a> * <a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code> </pre>
+<pre><span id="TYPEprefix_decl"><span class="keyword">type</span> prefix_decl</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEpname_ns">pname_ns</a> * <a href="Rdf_sparql_types.html#TYPEiriref">iriref</a></code> </pre>
 
 
 <pre><code><span id="TYPEquery_prolog_decl"><span class="keyword">type</span> query_prolog_decl</span> = </code></pre><table class="typetable">
@@ -184,7 +184,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTquery_prolog_decl.BaseDecl"><span class="constructor">BaseDecl</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPErel_iri">rel_iri</a></code></code></td>
+<code><span id="TYPEELTquery_prolog_decl.BaseDecl"><span class="constructor">BaseDecl</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">iriref</a></code></code></td>
 
 </tr>
 <tr>
@@ -1800,8 +1800,4 @@ empty list means "STAR"<br/>
 
 
 
-<pre><span class="keyword">module</span> <a href="Rdf_sparql_types.VarSet.html">VarSet</a>: <code class="type">Set.Make</code><code class="code">(</code><code class="code">sig</code><div class="sig_block">
-<pre><span id="TYPEt"><span class="keyword">type</span> t</span> = <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a></code> </pre>
-
-
-<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -&gt; <a href="Rdf_sparql_types.html#TYPEvar">Rdf_sparql_types.var</a> -&gt; int</code></pre></div><code class="code">end</code><code class="code">)</code></pre></div></contents></ocamldoc>
+<pre><span class="keyword">module</span> <a href="Rdf_sparql_types.VarSet.html">VarSet</a>: <code class="code">sig</code> <a href="Rdf_sparql_types.VarSet.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

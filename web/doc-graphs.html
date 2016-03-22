@@ -8,12 +8,11 @@ with-contents="true"
 <section id="creategraph" title="Creating a graph">
 <p>
 An RDF graph needs a base IRI, which can be used to name the graph.
-Such a IRI is created using the <refdoc mod="Rdf_iri"/> module.
 Then we use the <refdoc mod="Rdf_graph" id="VALopen_graph" name="Rdf_graph.open_graph"/>
 function to create an empty graph:
 </p>
 <ocaml-eval>
-<![CDATA[let base_iri = Rdf_iri.iri "http://foo.bar.net";;
+<![CDATA[let base_iri = Iri.of_string "http://foo.bar.net";;
 let g = Rdf_graph.open_graph base_iri ;;]]>
 </ocaml-eval>
 <p>
@@ -27,8 +26,8 @@ to associate the name "Alice" and the mailbox address IRI
 "mailto:alice@mbox.net" to a new blank term:
 </p>
 <ocaml-eval toplevel="true">
-let foaf_name = Rdf_iri.iri "http://xmlns.com/foaf/0.1/name";;
-let foaf_mbox = Rdf_iri.iri "http://xmlns.com/foaf/0.1/mbox";;
+let foaf_name = Iri.of_string "http://xmlns.com/foaf/0.1/name";;
+let foaf_mbox = Iri.of_string "http://xmlns.com/foaf/0.1/mbox";;
 
 let a = Rdf_term.Blank_ (g.Rdf_graph.new_blank_id());;
 g.Rdf_graph.add_triple
@@ -37,7 +36,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: a ~pred: foaf_mbox
-   ~obj: (Rdf_term.Iri (Rdf_iri.iri "mailto:alice@mbox.net"));;
+   ~obj: (Rdf_term.Iri (Iri.of_string "mailto:alice@mbox.net"));;
 
 let b = Rdf_term.Blank_ (g.Rdf_graph.new_blank_id());;
 g.Rdf_graph.add_triple
@@ -46,7 +45,7 @@ g.Rdf_graph.add_triple
 
 g.Rdf_graph.add_triple
    ~sub: b ~pred: foaf_mbox
-   ~obj: (Rdf_term.Iri (Rdf_iri.iri "mailto:bob@mbox.net"));;
+   ~obj: (Rdf_term.Iri (Iri.of_string "mailto:bob@mbox.net"));;
 </ocaml-eval>
 <p>Here is the content of our graph, in Turtle format:</p>
 <showttl graph="g"/>
@@ -95,7 +94,7 @@ RDF/XML file <code>example.rdf</code> and exporting to a Turtle file
 <code>example.ttl</code>:
 </p>
 <ocaml-eval toplevel="true">
-let base = Rdf_iri.iri "http://hello.fr" ;;
+let base = Iri.of_string "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
 Rdf_xml.from_file g "example.rdf";;
 Rdf_ttl.to_file g "example.ttl";;
@@ -115,7 +114,7 @@ and <code>transaction_rollback</code> of the the
 </p>
 <p>As an example, let's load data from a file:</p>
 <ocaml-eval>
-let base = Rdf_iri.iri "http://hello.fr" ;;
+let base = Iri.of_string "http://hello.fr" ;;
 let g = Rdf_graph.open_graph base ;;
 Rdf_ttl.from_file g "example.ttl";;
 </ocaml-eval>
@@ -124,7 +123,7 @@ Rdf_ttl.from_file g "example.ttl";;
 <p>Now let's start a transaction, and modify the graph:</p>
 <ocaml-eval>
 g.Rdf_graph.transaction_start();;
-let pred = Rdf_iri.iri "http://example.org/stuff/1.0/fullName" ;;
+let pred = Iri.of_string "http://example.org/stuff/1.0/fullName" ;;
 match g.Rdf_graph.find ~pred () with
 | (sub,_,obj) :: _ ->
   (* remove a triple *)
@@ -179,7 +178,7 @@ functions provided in each graph:
 </p>
 <ocaml-eval toplevel="true">
 List.map
-  (fun (iri, name) -> (Rdf_iri.string iri, name))
+  (fun (iri, name) -> (Iri.to_string iri, name))
   (g.Rdf_graph.namespaces());;
 </ocaml-eval>
 <p>See <reftyp mod="Rdf_graph" name="graph"/> for other functions.</p>

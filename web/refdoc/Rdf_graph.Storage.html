@@ -44,11 +44,11 @@ This function returns a message from the given error.<br/>
 <br/>
 <div class="subsection-title" id="3_Creationandmodification">Creation and modification</div><br/>
 
-<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a></code></pre><div class="info ">
+<pre><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; Iri.t -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a></code></pre><div class="info ">
 Creationg of the graph. The graph has a name which is a IRI.<br/>
 </div>
 
-<pre><span id="VALgraph_name"><span class="keyword">val</span> graph_name</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
+<pre><span id="VALgraph_name"><span class="keyword">val</span> graph_name</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; Iri.t</code></pre><div class="info ">
 Access to the graph name, as specified at its creation.<br/>
 </div>
 
@@ -56,11 +56,11 @@ Access to the graph name, as specified at its creation.<br/>
 Return the number of triples in the graph.<br/>
 </div>
 
-<pre><span id="VALadd_triple"><span class="keyword">val</span> add_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALadd_triple"><span class="keyword">val</span> add_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code></pre><div class="info ">
 Adding a triple to the graph.<br/>
 </div>
 
-<pre><span id="VALrem_triple"><span class="keyword">val</span> rem_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALrem_triple"><span class="keyword">val</span> rem_triple</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; unit</code></pre><div class="info ">
 Removing a triple from the graph.<br/>
 </div>
 
@@ -74,28 +74,28 @@ Removing a triple from the graph, curryfied form.<br/>
 <br/>
 <div class="subsection-title" id="3_Queryingthegraph">Querying the graph</div><br/>
 
-<pre><span id="VALsubjects_of"><span class="keyword">val</span> subjects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><div class="info ">
+<pre><span id="VALsubjects_of"><span class="keyword">val</span> subjects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><div class="info ">
 <code class="code">subjects_of g ~pred ~obj</code> returns the list of nodes which are
       subjects in triples with the specified predicate and object.<br/>
 </div>
 
-<pre><span id="VALpredicates_of"><span class="keyword">val</span> predicates_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code></pre><div class="info ">
+<pre><span id="VALpredicates_of"><span class="keyword">val</span> predicates_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; Iri.t list</code></pre><div class="info ">
 <code class="code">predicates_of g ~sub ~obj</code> returns the list of nodes which are
       predicates in triples with the specified subject and object.<br/>
 </div>
 
-<pre><span id="VALobjects_of"><span class="keyword">val</span> objects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt;<br/>       sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><div class="info ">
+<pre><span id="VALobjects_of"><span class="keyword">val</span> objects_of</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list</code></pre><div class="info ">
 <code class="code">objects_of g ~sub ~pred</code> returns the list of nodes which are
       objects in triples with the specified subject and predicate.<br/>
 </div>
 
-<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code></pre><div class="info ">
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:Iri.t -&gt;<br/>       ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; <a href="Rdf_term.html#TYPEtriple">Rdf_term.triple</a> list</code></pre><div class="info ">
 <code class="code">find ?sub ?pred ?obj g</code> returns the list of triples matching the
          constraints given by the optional subject, predicate and object.
          One can specify, zero, one, two or three of these nodes.<br/>
 </div>
 
-<pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; bool</code></pre><div class="info ">
+<pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">?sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt;<br/>       ?pred:Iri.t -&gt; ?obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; <a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; bool</code></pre><div class="info ">
 Same as <a href="Rdf_graph.Storage.html#VALfind"><code class="code">Rdf_graph.Storage.find</code></a> but only returns <code class="code">true</code> if at least one triple
       of the graph matches the constraints.<br/>
 </div>
@@ -108,7 +108,7 @@ Curryfied version of <a href="Rdf_graph.Storage.html#VALexists"><code class="cod
 Return the list of nodes appearing in subject position.<br/>
 </div>
 
-<pre><span id="VALpredicates"><span class="keyword">val</span> predicates</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code></pre><div class="info ">
+<pre><span id="VALpredicates"><span class="keyword">val</span> predicates</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; Iri.t list</code></pre><div class="info ">
 Return the list of nodes appearing in predicate position.<br/>
 </div>
 
@@ -136,10 +136,10 @@ Forging a new, unique blank node id.<br/>
 <br/>
 <div class="subsection-title" id="3_Namespaces">Namespaces</div><br/>
 
-<pre><span id="VALnamespaces"><span class="keyword">val</span> namespaces</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code></pre>
-<pre><span id="VALadd_namespace"><span class="keyword">val</span> add_namespace</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre>
+<pre><span id="VALnamespaces"><span class="keyword">val</span> namespaces</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; (Iri.t * string) list</code></pre>
+<pre><span id="VALadd_namespace"><span class="keyword">val</span> add_namespace</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; Iri.t -&gt; string -&gt; unit</code></pre>
 <pre><span id="VALrem_namespace"><span class="keyword">val</span> rem_namespace</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; string -&gt; unit</code></pre>
-<pre><span id="VALset_namespaces"><span class="keyword">val</span> set_namespaces</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code></pre><br/>
+<pre><span id="VALset_namespaces"><span class="keyword">val</span> set_namespaces</span> : <code class="type"><a href="Rdf_graph.Storage.html#TYPEg">g</a> -&gt; (Iri.t * string) list -&gt; unit</code></pre><br/>
 <div class="subsection-title" id="3_Evaluatingbasicgraphpatterns">Evaluating basic graph patterns</div><br/>
 
 <pre><span class="keyword">module</span> <a href="Rdf_graph.Storage.BGP.html">BGP</a>: <code class="type"><a href="Rdf_graph.Storage_BGP.html">Rdf_graph.Storage_BGP</a></code><code class="type">  with type g = g</code></pre></div></contents></ocamldoc>

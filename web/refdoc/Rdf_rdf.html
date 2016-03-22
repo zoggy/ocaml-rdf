@@ -1,68 +1,112 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <ocamldoc with-contents="true">
 <title>OCaml-RDF reference documentation : Rdf_rdf</title><contents><div class="ocamldoc-page">
-<div class="navbar"><a class="pre" href="Rdf_pg.html" title="Rdf_pg">Previous</a>
+<div class="navbar"><a class="pre" href="Rdf_pim.html" title="Rdf_pim">Previous</a>
 &#160;<a class="up" href="index.html" title="Index">Up</a>
 &#160;<a class="post" href="Rdf_rdfs.html" title="Rdf_rdfs">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_rdf.html">Rdf_rdf</a></h1>
 
 <pre><span class="keyword">module</span> Rdf_rdf: <code class="code">sig</code> <a href="Rdf_rdf.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Rdf constants.
-<div class="vertical-space"> </div>
-
-  The others as defined in
-  <a href="http://www.w3.org/TR/rdf-syntax-grammar/">RDF grammar</a>.<br/>
+Elements of <code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code><br/>
 </div>
 <hr width="100%"/>
-<br/>
-<div class="subsection-title" id="3_Commonnamespaces">Common namespaces</div><br/>
 
-<pre><span id="VALrdf"><span class="keyword">val</span> rdf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_"><span class="keyword">val</span> rdf_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd"><span class="keyword">val</span> xsd</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_"><span class="keyword">val</span> xsd_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALdc"><span class="keyword">val</span> dc</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALdc_"><span class="keyword">val</span> dc_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><br/>
-<div class="subsection-title" id="3_Syntaxnames">Syntax names</div><br/>
+<pre><span id="VALrdf"><span class="keyword">val</span> rdf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code><br/>
+</div>
 
-<pre><span id="VALrdf_about"><span class="keyword">val</span> rdf_about</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_datatype"><span class="keyword">val</span> rdf_datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_Description"><span class="keyword">val</span> rdf_Description</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_ID"><span class="keyword">val</span> rdf_ID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_li"><span class="keyword">val</span> rdf_li</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_nodeID"><span class="keyword">val</span> rdf_nodeID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_RDF"><span class="keyword">val</span> rdf_RDF</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_parseType"><span class="keyword">val</span> rdf_parseType</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_resource"><span class="keyword">val</span> rdf_resource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><br/>
-<div class="subsection-title" id="3_Classnames">Class names</div><br/>
+<pre><span id="VALrdf_"><span class="keyword">val</span> rdf_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALxsd"><span class="keyword">val</span> xsd</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<code class="code">http://www.w3.org/2001/XMLSchema#</code><br/>
+</div>
 
-<pre><span id="VALrdf_Alt"><span class="keyword">val</span> rdf_Alt</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_Bag"><span class="keyword">val</span> rdf_Bag</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_List"><span class="keyword">val</span> rdf_List</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_Property"><span class="keyword">val</span> rdf_Property</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_Seq"><span class="keyword">val</span> rdf_Seq</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_Statement"><span class="keyword">val</span> rdf_Statement</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_XMLLiteral"><span class="keyword">val</span> rdf_XMLLiteral</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><br/>
-<div class="subsection-title" id="3_Propertynames">Property names</div><br/>
+<pre><span id="VALxsd_"><span class="keyword">val</span> xsd_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALabout"><span class="keyword">val</span> about</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALdatatype"><span class="keyword">val</span> datatype</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALdescription"><span class="keyword">val</span> description</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALli"><span class="keyword">val</span> li</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALnodeID"><span class="keyword">val</span> nodeID</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VAL_RDF"><span class="keyword">val</span> _RDF</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALparseType"><span class="keyword">val</span> parseType</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALresource"><span class="keyword">val</span> resource</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Alt"><span class="keyword">val</span> c_Alt</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of containers of alternatives.<br/>
+</div>
 
-<pre><span id="VALrdf_subject"><span class="keyword">val</span> rdf_subject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_predicate"><span class="keyword">val</span> rdf_predicate</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_object"><span class="keyword">val</span> rdf_object</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_type"><span class="keyword">val</span> rdf_type</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_value"><span class="keyword">val</span> rdf_value</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_first"><span class="keyword">val</span> rdf_first</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_rest"><span class="keyword">val</span> rdf_rest</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_n"><span class="keyword">val</span> rdf_n</span> : <code class="type">int -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><br/>
-<div class="subsection-title" id="3_Resourcenames">Resource names</div><br/>
+<pre><span id="VALc_Bag"><span class="keyword">val</span> c_Bag</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of unordered containers.<br/>
+</div>
 
-<pre><span id="VALrdf_nil"><span class="keyword">val</span> rdf_nil</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><br/>
+<pre><span id="VALfirst"><span class="keyword">val</span> first</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The first item in the subject RDF list.<br/>
+</div>
+
+<pre><span id="VALdt_HTML"><span class="keyword">val</span> dt_HTML</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The datatype of RDF literals storing fragments of HTML content<br/>
+</div>
+
+<pre><span id="VALdt_langString"><span class="keyword">val</span> dt_langString</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The datatype of language-tagged string values<br/>
+</div>
+
+<pre><span id="VALc_List"><span class="keyword">val</span> c_List</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of RDF Lists.<br/>
+</div>
+
+<pre><span id="VALobject_"><span class="keyword">val</span> object_</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The object of the subject RDF statement.<br/>
+</div>
+
+<pre><span id="VALdt_PlainLiteral"><span class="keyword">val</span> dt_PlainLiteral</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of plain (i.e. untyped) literal values, as used in RIF and OWL 2<br/>
+</div>
+
+<pre><span id="VALpredicate"><span class="keyword">val</span> predicate</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The predicate of the subject RDF statement.<br/>
+</div>
+
+<pre><span id="VALc_Property"><span class="keyword">val</span> c_Property</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of RDF properties.<br/>
+</div>
+
+<pre><span id="VALrest"><span class="keyword">val</span> rest</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The rest of the subject RDF list after the first item.<br/>
+</div>
+
+<pre><span id="VALc_Seq"><span class="keyword">val</span> c_Seq</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of ordered containers.<br/>
+</div>
+
+<pre><span id="VALc_Statement"><span class="keyword">val</span> c_Statement</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of RDF statements.<br/>
+</div>
+
+<pre><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The subject of the subject RDF statement.<br/>
+</div>
+
+<pre><span id="VALtype_"><span class="keyword">val</span> type_</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The subject is an instance of a class.<br/>
+</div>
+
+<pre><span id="VALvalue"><span class="keyword">val</span> value</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Idiomatic property used for structured values.<br/>
+</div>
+
+<pre><span id="VALdt_XMLLiteral"><span class="keyword">val</span> dt_XMLLiteral</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The datatype of XML literal values.<br/>
+</div>
+
+<pre><span id="VALn"><span class="keyword">val</span> n</span> : <code class="type">int -&gt; Iri.t</code></pre>
+<pre><span id="VALnil"><span class="keyword">val</span> nil</span> : <code class="type">Iri.t</code></pre><br/>
 <div class="subsection-title" id="3_XMLSchemadatatypes">XML Schema datatypes</div><br/>
 
-<pre><span id="VALxsd_integer"><span class="keyword">val</span> xsd_integer</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_double"><span class="keyword">val</span> xsd_double</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_decimal"><span class="keyword">val</span> xsd_decimal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_boolean"><span class="keyword">val</span> xsd_boolean</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_string"><span class="keyword">val</span> xsd_string</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALxsd_datetime"><span class="keyword">val</span> xsd_datetime</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre><span id="VALrdf_langstring"><span class="keyword">val</span> rdf_langstring</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre></div></contents></ocamldoc>
+<pre><span id="VALxsd_integer"><span class="keyword">val</span> xsd_integer</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALxsd_double"><span class="keyword">val</span> xsd_double</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALxsd_decimal"><span class="keyword">val</span> xsd_decimal</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALxsd_boolean"><span class="keyword">val</span> xsd_boolean</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALxsd_string"><span class="keyword">val</span> xsd_string</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALxsd_datetime"><span class="keyword">val</span> xsd_datetime</span> : <code class="type">Iri.t</code></pre>
+<pre><span class="keyword">module</span> <a href="Rdf_rdf.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_rdf.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

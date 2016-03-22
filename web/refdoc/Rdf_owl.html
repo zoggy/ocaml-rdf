@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_owl</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_my2.html" title="Rdf_my2">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_pcre.html" title="Rdf_pcre">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_owl.html">Rdf_owl</a></h1>
+
+<pre><span class="keyword">module</span> Rdf_owl: <code class="code">sig</code> <a href="Rdf_owl.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Elements of <code class="code">http://www.w3.org/2002/07/owl#</code><br/>
+</div>
+<hr width="100%"/>
+
+<pre><span id="VALowl"><span class="keyword">val</span> owl</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<code class="code">http://www.w3.org/2002/07/owl#</code><br/>
+</div>
+
+<pre><span id="VALowl_"><span class="keyword">val</span> owl_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALc_AllDifferent"><span class="keyword">val</span> c_AllDifferent</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of collections of pairwise different individuals.<br/>
+</div>
+
+<pre><span id="VALc_AllDisjointClasses"><span class="keyword">val</span> c_AllDisjointClasses</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of collections of pairwise disjoint classes.<br/>
+</div>
+
+<pre><span id="VALc_AllDisjointProperties"><span class="keyword">val</span> c_AllDisjointProperties</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of collections of pairwise disjoint properties.<br/>
+</div>
+
+<pre><span id="VALallValuesFrom"><span class="keyword">val</span> allValuesFrom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the class that a universal property restriction refers to.<br/>
+</div>
+
+<pre><span id="VALannotatedProperty"><span class="keyword">val</span> annotatedProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the predicate of an annotated axiom or annotated annotation.<br/>
+</div>
+
+<pre><span id="VALannotatedSource"><span class="keyword">val</span> annotatedSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the subject of an annotated axiom or annotated annotation.<br/>
+</div>
+
+<pre><span id="VALannotatedTarget"><span class="keyword">val</span> annotatedTarget</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the object of an annotated axiom or annotated annotation.<br/>
+</div>
+
+<pre><span id="VALc_Annotation"><span class="keyword">val</span> c_Annotation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of annotated annotations for which the RDF serialization consists of an annotated subject, predicate and object.<br/>
+</div>
+
+<pre><span id="VALc_AnnotationProperty"><span class="keyword">val</span> c_AnnotationProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of annotation properties.<br/>
+</div>
+
+<pre><span id="VALassertionProperty"><span class="keyword">val</span> assertionProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the predicate of a negative property assertion.<br/>
+</div>
+
+<pre><span id="VALc_AsymmetricProperty"><span class="keyword">val</span> c_AsymmetricProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of asymmetric properties.<br/>
+</div>
+
+<pre><span id="VALc_Axiom"><span class="keyword">val</span> c_Axiom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of annotated axioms for which the RDF serialization consists of an annotated subject, predicate and object.<br/>
+</div>
+
+<pre><span id="VALcardinality"><span class="keyword">val</span> cardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of an exact cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALc_Class"><span class="keyword">val</span> c_Class</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of OWL classes.<br/>
+</div>
+
+<pre><span id="VALcomplementOf"><span class="keyword">val</span> complementOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that a given class is the complement of another class.<br/>
+</div>
+
+<pre><span id="VALc_DataRange"><span class="keyword">val</span> c_DataRange</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of OWL data ranges, which are special kinds of datatypes. Note: The use of the IRI owl:DataRange has been deprecated as of OWL 2. The IRI rdfs:Datatype SHOULD be used instead.<br/>
+</div>
+
+<pre><span id="VALdatatypeComplementOf"><span class="keyword">val</span> datatypeComplementOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that a given data range is the complement of another data range with respect to the data domain.<br/>
+</div>
+
+<pre><span id="VALc_DatatypeProperty"><span class="keyword">val</span> c_DatatypeProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of data properties.<br/>
+</div>
+
+<pre><span id="VALc_DeprecatedClass"><span class="keyword">val</span> c_DeprecatedClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of deprecated classes.<br/>
+</div>
+
+<pre><span id="VALc_DeprecatedProperty"><span class="keyword">val</span> c_DeprecatedProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of deprecated properties.<br/>
+</div>
+
+<pre><span id="VALdifferentFrom"><span class="keyword">val</span> differentFrom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given individuals are different.<br/>
+</div>
+
+<pre><span id="VALdisjointUnionOf"><span class="keyword">val</span> disjointUnionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that a given class is equivalent to the disjoint union of a collection of other classes.<br/>
+</div>
+
+<pre><span id="VALdisjointWith"><span class="keyword">val</span> disjointWith</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given classes are disjoint.<br/>
+</div>
+
+<pre><span id="VALdistinctMembers"><span class="keyword">val</span> distinctMembers</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of pairwise different individuals in a owl:AllDifferent axiom.<br/>
+</div>
+
+<pre><span id="VALequivalentClass"><span class="keyword">val</span> equivalentClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given classes are equivalent, and that is used to specify datatype definitions.<br/>
+</div>
+
+<pre><span id="VALequivalentProperty"><span class="keyword">val</span> equivalentProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given properties are equivalent.<br/>
+</div>
+
+<pre><span id="VALc_FunctionalProperty"><span class="keyword">val</span> c_FunctionalProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of functional properties.<br/>
+</div>
+
+<pre><span id="VALhasKey"><span class="keyword">val</span> hasKey</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of properties that jointly build a key.<br/>
+</div>
+
+<pre><span id="VALhasSelf"><span class="keyword">val</span> hasSelf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the property that a self restriction refers to.<br/>
+</div>
+
+<pre><span id="VALhasValue"><span class="keyword">val</span> hasValue</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the individual that a has-value restriction refers to.<br/>
+</div>
+
+<pre><span id="VALintersectionOf"><span class="keyword">val</span> intersectionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of classes or data ranges that build an intersection.<br/>
+</div>
+
+<pre><span id="VALc_InverseFunctionalProperty"><span class="keyword">val</span> c_InverseFunctionalProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of inverse-functional properties.<br/>
+</div>
+
+<pre><span id="VALinverseOf"><span class="keyword">val</span> inverseOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given properties are inverse.<br/>
+</div>
+
+<pre><span id="VALc_IrreflexiveProperty"><span class="keyword">val</span> c_IrreflexiveProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of irreflexive properties.<br/>
+</div>
+
+<pre><span id="VALmaxCardinality"><span class="keyword">val</span> maxCardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of a maximum cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALmaxQualifiedCardinality"><span class="keyword">val</span> maxQualifiedCardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of a maximum qualified cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALmembers"><span class="keyword">val</span> members</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of members in either a owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.<br/>
+</div>
+
+<pre><span id="VALminCardinality"><span class="keyword">val</span> minCardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of a minimum cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALminQualifiedCardinality"><span class="keyword">val</span> minQualifiedCardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of a minimum qualified cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALc_NamedIndividual"><span class="keyword">val</span> c_NamedIndividual</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of named individuals.<br/>
+</div>
+
+<pre><span id="VALc_NegativePropertyAssertion"><span class="keyword">val</span> c_NegativePropertyAssertion</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of negative property assertions.<br/>
+</div>
+
+<pre><span id="VALc_ObjectProperty"><span class="keyword">val</span> c_ObjectProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of object properties.<br/>
+</div>
+
+<pre><span id="VALonClass"><span class="keyword">val</span> onClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the class that a qualified object cardinality restriction refers to.<br/>
+</div>
+
+<pre><span id="VALonDataRange"><span class="keyword">val</span> onDataRange</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the data range that a qualified data cardinality restriction refers to.<br/>
+</div>
+
+<pre><span id="VALonDatatype"><span class="keyword">val</span> onDatatype</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the datatype that a datatype restriction refers to.<br/>
+</div>
+
+<pre><span id="VALoneOf"><span class="keyword">val</span> oneOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of individuals or data values that build an enumeration.<br/>
+</div>
+
+<pre><span id="VALonProperties"><span class="keyword">val</span> onProperties</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the n-tuple of properties that a property restriction on an n-ary data range refers to.<br/>
+</div>
+
+<pre><span id="VALonProperty"><span class="keyword">val</span> onProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the property that a property restriction refers to.<br/>
+</div>
+
+<pre><span id="VALc_Ontology"><span class="keyword">val</span> c_Ontology</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of ontologies.<br/>
+</div>
+
+<pre><span id="VALc_OntologyProperty"><span class="keyword">val</span> c_OntologyProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of ontology properties.<br/>
+</div>
+
+<pre><span id="VALpropertyChainAxiom"><span class="keyword">val</span> propertyChainAxiom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the n-tuple of properties that build a sub property chain of a given property.<br/>
+</div>
+
+<pre><span id="VALpropertyDisjointWith"><span class="keyword">val</span> propertyDisjointWith</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given properties are disjoint.<br/>
+</div>
+
+<pre><span id="VALqualifiedCardinality"><span class="keyword">val</span> qualifiedCardinality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the cardinality of an exact qualified cardinality restriction.<br/>
+</div>
+
+<pre><span id="VALc_ReflexiveProperty"><span class="keyword">val</span> c_ReflexiveProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of reflexive properties.<br/>
+</div>
+
+<pre><span id="VALc_Restriction"><span class="keyword">val</span> c_Restriction</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of property restrictions.<br/>
+</div>
+
+<pre><span id="VALsameAs"><span class="keyword">val</span> sameAs</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines that two given individuals are equal.<br/>
+</div>
+
+<pre><span id="VALsomeValuesFrom"><span class="keyword">val</span> someValuesFrom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the class that an existential property restriction refers to.<br/>
+</div>
+
+<pre><span id="VALsourceIndividual"><span class="keyword">val</span> sourceIndividual</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the subject of a negative property assertion.<br/>
+</div>
+
+<pre><span id="VALc_SymmetricProperty"><span class="keyword">val</span> c_SymmetricProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of symmetric properties.<br/>
+</div>
+
+<pre><span id="VALtargetIndividual"><span class="keyword">val</span> targetIndividual</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the object of a negative object property assertion.<br/>
+</div>
+
+<pre><span id="VALtargetValue"><span class="keyword">val</span> targetValue</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the value of a negative data property assertion.<br/>
+</div>
+
+<pre><span id="VALc_TransitiveProperty"><span class="keyword">val</span> c_TransitiveProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of transitive properties.<br/>
+</div>
+
+<pre><span id="VALunionOf"><span class="keyword">val</span> unionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of classes or data ranges that build a union.<br/>
+</div>
+
+<pre><span id="VALwithRestrictions"><span class="keyword">val</span> withRestrictions</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The property that determines the collection of facet-value pairs that define a datatype restriction.<br/>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Rdf_owl.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_owl.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

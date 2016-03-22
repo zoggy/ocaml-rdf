@@ -16,6 +16,24 @@ Then read the <page href="doc-install"/> section.
 
 <section id="releases" title="Releases">
 <ul>
+<li><strong><a href="ocaml-rdf-0.10.0.tar.gz">0.10.0</a></strong>
+[2016-03-22]:
+  <ul id="changes0.10.0">
+<li>change of interface in namespace modules
+  <ml>Rdf_{dc,doap,foaf,earl,ldp,owl,rdf,rdfs}</ml> so that one can
+  use for example
+     <ml>Rdf_dc.title</ml> or  <ml>open Rdf_dc.Open;; dc_title</ml>,</li>
+<li>various fixes in Turtle and Xml parsers,</li>
+<li>drop <ml>Rdf_uri</ml>, <ml>Rdf_iri</ml>,</li>
+<li>use <ext-a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri</ext-a>,</li>
+<li>use <ext-a href="http://calendar.forge.ocamlcore.org/">Calendar</ext-a> and
+  <ext-a href="https://github.com/mirage/ocaml-uri">Ocaml-uri</ext-a> instead
+  of OCamlnet,</li>
+<li>new package <code>rdf.js</code> containing only parts usable in
+  code compiled with js_of_ocaml.</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.9.0.tar.gz">0.9.0</a></strong>
 [2014-09-29]:
   <ul id="changes0.9.0">

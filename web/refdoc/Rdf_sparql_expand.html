@@ -19,14 +19,14 @@ Expanding IRIs and triples in query abstract syntax tree.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTenv.base">base</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTenv.base">base</span>&#160;: <code class="type">Iri.t</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTenv.prefixes">prefixes</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
+<code><span id="TYPEELTenv.prefixes">prefixes</span>&#160;: <code class="type">Iri.t SMap.t</code>;</code></td>
 
 </tr></table>
 }
@@ -38,23 +38,23 @@ Expanding IRIs and triples in query abstract syntax tree.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdataset.from">from</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list</code>;</code></td>
+<code><span id="TYPEELTdataset.from">from</span>&#160;: <code class="type">Iri.t list</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTdataset.from_named">from_named</span>&#160;: <code class="type">Rdf_iri.Iriset.t</code>;</code></td>
+<code><span id="TYPEELTdataset.from_named">from_named</span>&#160;: <code class="type">Iri.Set.t</code>;</code></td>
 
 </tr></table>
 }
 
 
 
-<pre><span id="VALcreate_env"><span class="keyword">val</span> create_env</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_sparql_expand.html#TYPEenv">env</a></code></pre>
+<pre><span id="VALcreate_env"><span class="keyword">val</span> create_env</span> : <code class="type">Iri.t -&gt; <a href="Rdf_sparql_expand.html#TYPEenv">env</a></code></pre>
 <pre><span id="VALiriref_a"><span class="keyword">val</span> iriref_a</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEiri">Rdf_sparql_types.iri</a></code></pre>
-<pre><span id="VALexpand_relative_iri"><span class="keyword">val</span> expand_relative_iri</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
+<pre><span id="VALexpand_relative_iri"><span class="keyword">val</span> expand_relative_iri</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt; Iri.t -&gt; Iri.t</code></pre>
 <pre><span id="VALexpand_iri"><span class="keyword">val</span> expand_iri</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt; <a href="Rdf_sparql_types.html#TYPEiri">Rdf_sparql_types.iri</a> -&gt; <a href="Rdf_sparql_types.html#TYPEiri">Rdf_sparql_types.iri</a></code></pre>
 <pre><span id="VALexpand_query_prolog_decl"><span class="keyword">val</span> expand_query_prolog_decl</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> * <a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">Rdf_sparql_types.query_prolog_decl</a> list -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">Rdf_sparql_types.query_prolog_decl</a> -&gt;<br/>       <a href="Rdf_sparql_expand.html#TYPEenv">env</a> * <a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">Rdf_sparql_types.query_prolog_decl</a> list</code></pre>
 <pre><span id="VALexpand_query_prolog"><span class="keyword">val</span> expand_query_prolog</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">Rdf_sparql_types.query_prolog_decl</a> list -&gt;<br/>       <a href="Rdf_sparql_expand.html#TYPEenv">env</a> * <a href="Rdf_sparql_types.html#TYPEquery_prolog_decl">Rdf_sparql_types.query_prolog_decl</a> list</code></pre>
@@ -115,4 +115,4 @@ Expanding IRIs and triples in query abstract syntax tree.<br/>
 <pre><span id="VALexpand_ask_query"><span class="keyword">val</span> expand_ask_query</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEask_query">Rdf_sparql_types.ask_query</a> -&gt; <a href="Rdf_sparql_types.html#TYPEask_query">Rdf_sparql_types.ask_query</a></code></pre>
 <pre><span id="VALexpand_query_kind"><span class="keyword">val</span> expand_query_kind</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery_kind">Rdf_sparql_types.query_kind</a> -&gt; <a href="Rdf_sparql_types.html#TYPEquery_kind">Rdf_sparql_types.query_kind</a></code></pre>
 <pre><span id="VALbuild_dataset"><span class="keyword">val</span> build_dataset</span> : <code class="type"><a href="Rdf_sparql_expand.html#TYPEenv">env</a> -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery_kind">Rdf_sparql_types.query_kind</a> -&gt; <a href="Rdf_sparql_expand.html#TYPEdataset">dataset</a></code></pre>
-<pre><span id="VALexpand_query"><span class="keyword">val</span> expand_query</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a> -&gt;<br/>       <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_sparql_expand.html#TYPEdataset">dataset</a> * <a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a></code></pre></div></contents></ocamldoc>
+<pre><span id="VALexpand_query"><span class="keyword">val</span> expand_query</span> : <code class="type">Iri.t -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a> -&gt;<br/>       Iri.t * <a href="Rdf_sparql_expand.html#TYPEdataset">dataset</a> * <a href="Rdf_sparql_types.html#TYPEquery">Rdf_sparql_types.query</a></code></pre></div></contents></ocamldoc>

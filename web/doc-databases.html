@@ -34,7 +34,7 @@ let options =
     "port", "3306" ; (* port *)
   ]
 ;;
-let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") ;;
+let graph = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") ;;
 </ocaml-eval>
 <p>
 Both backends create a table "graphs" to associate IRIs to stored graphs.
@@ -96,7 +96,7 @@ let options =
     "engine", "MyISAM" ;
   ]
 ;;
-let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") ;;
+let graph = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") ;;
 </ocaml-eval>
 </subsection>
 </section>
@@ -120,7 +120,7 @@ let options =
     "port", "3306" ; (* port *)
   ]
 ;;
-let graph = Rdf_graph.open_graph ~options (Rdf_iri.iri "http://hello.fr") ;;
+let graph = Rdf_graph.open_graph ~options (Iri.of_string "http://hello.fr") ;;
 </ocaml-eval>
 </section>
 </prepare-toc>

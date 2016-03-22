@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <ocamldoc with-contents="true">
 <title>OCaml-RDF reference documentation : Rdf_term</title><contents><div class="ocamldoc-page">
-<div class="navbar"><a class="pre" href="Rdf_sparql_vis.html" title="Rdf_sparql_vis">Previous</a>
+<div class="navbar"><a class="pre" href="Rdf_stubs.html" title="Rdf_stubs">Previous</a>
 &#160;<a class="up" href="index.html" title="Index">Up</a>
 &#160;<a class="post" href="Rdf_ttl.html" title="Rdf_ttl">Next</a>
 </div>
@@ -31,7 +31,7 @@ RDF terms.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTliteral.lit_type">lit_type</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
+<code><span id="TYPEELTliteral.lit_type">lit_type</span>&#160;: <code class="type">Iri.t option</code>;</code></td>
 
 </tr></table>
 }
@@ -52,7 +52,7 @@ Type for blank node ids.<br/>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTterm.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></code></td>
+<code><span id="TYPEELTterm.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type">Iri.t</code></code></td>
 
 </tr>
 <tr>
@@ -86,7 +86,7 @@ Various kinds of terms.<br/>
 <pre><span class="keyword">module</span> <a href="Rdf_term.Ordered_term.html">Ordered_term</a>: <code class="code">sig</code> <a href="Rdf_term.Ordered_term.html">..</a> <code class="code">end</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_term.TSet.html">TSet</a>: <code class="type">Set.S</code><code class="type">  with type elt = term</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_term.TMap.html">TMap</a>: <code class="type">Map.S</code><code class="type">  with type key = term</code></pre>
-<pre><span id="TYPEtriple"><span class="keyword">type</span> triple</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> * <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">term</a></code> </pre>
+<pre><span id="TYPEtriple"><span class="keyword">type</span> triple</span> = <code class="type"><a href="Rdf_term.html#TYPEterm">term</a> * Iri.t * <a href="Rdf_term.html#TYPEterm">term</a></code> </pre>
 <div class="info ">
 A RDF triple is triple (term, iri, term).<br/>
 </div>
@@ -101,23 +101,27 @@ Make a blank term id from a string.<br/>
 </div>
 
 <pre><span id="VALterm_of_iri_string"><span class="keyword">val</span> term_of_iri_string</span> : <code class="type">string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info ">
-Shortcut for <code class="code">Iri (Rdf_iri.iri string)</code>.<br/>
+Shortcut for <code class="code">Iri (Iri.of_string string)</code>.<br/>
 </div>
 
-<pre><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info ">
+<pre><span id="VALmk_literal"><span class="keyword">val</span> mk_literal</span> : <code class="type">?typ:Iri.t -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info ">
 Creation of a literal.<br/>
 </div>
 
-<pre><span id="VALmk_literal_datetime"><span class="keyword">val</span> mk_literal_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info ">
+<pre><span id="VALmk_literal_datetime"><span class="keyword">val</span> mk_literal_datetime</span> : <code class="type">?d:CalendarLib.Fcalendar.t -&gt; unit -&gt; <a href="Rdf_term.html#TYPEliteral">literal</a></code></pre><div class="info ">
 Create a datetime literal with type iri from the given datetime <code class="code">d</code>.
   If no date is given, <code class="code">Unix.time()</code> is used.<br/>
 </div>
 
-<pre><span id="VALterm_of_datetime"><span class="keyword">val</span> term_of_datetime</span> : <code class="type">?d:float -&gt; unit -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info ">
+<pre><span id="VALterm_of_datetime"><span class="keyword">val</span> term_of_datetime</span> : <code class="type">?d:CalendarLib.Fcalendar.t -&gt; unit -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info ">
 Create a literal term from the given datetime. (see <a href="Rdf_term.html#VALmk_literal_datetime"><code class="code">Rdf_term.mk_literal_datetime</code></a>).<br/>
 </div>
 
-<pre><span id="VALdatetime_of_literal"><span class="keyword">val</span> datetime_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; Netdate.t</code></pre><div class="info ">
+<pre><span id="VALdatetime_of_string"><span class="keyword">val</span> datetime_of_string</span> : <code class="type">string -&gt; CalendarLib.Fcalendar.t</code></pre><div class="info ">
+Parse a string to get a datetime.<br/>
+</div>
+
+<pre><span id="VALdatetime_of_literal"><span class="keyword">val</span> datetime_of_literal</span> : <code class="type"><a href="Rdf_term.html#TYPEliteral">literal</a> -&gt; CalendarLib.Fcalendar.t</code></pre><div class="info ">
 Parse a literal to get a datetime.<br/>
 </div>
 
@@ -137,7 +141,7 @@ Create a double literal.<br/>
 Parse a literal to get a boolean.<br/>
 </div>
 
-<pre><span id="VALterm_of_literal_string"><span class="keyword">val</span> term_of_literal_string</span> : <code class="type">?typ:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info ">
+<pre><span id="VALterm_of_literal_string"><span class="keyword">val</span> term_of_literal_string</span> : <code class="type">?typ:Iri.t -&gt; ?lang:string -&gt; string -&gt; <a href="Rdf_term.html#TYPEterm">term</a></code></pre><div class="info ">
 Shortcut for <code class="code">Literal (mk_literal ?typ ?lang string)</code><br/>
 </div>
 

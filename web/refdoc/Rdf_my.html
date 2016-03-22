@@ -8,7 +8,7 @@
 <h1>Module <a href="type_Rdf_my.html">Rdf_my</a></h1>
 
 <pre><span class="keyword">module</span> Rdf_my: <code class="code">sig</code> <a href="Rdf_my.html">..</a> <code class="code">end</code></pre><div class="info module top">
-MySQL storage.<br/>
+Mysql storage common parts.<br/>
 </div>
 <hr width="100%"/>
 
@@ -18,7 +18,7 @@ MySQL storage.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTt.g_name">g_name</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTt.g_name">g_name</span>&#160;: <code class="type">Iri.t</code>;</code></td>
 
 </tr>
 <tr>
@@ -56,7 +56,7 @@ MySQL storage.<br/>
 <pre><span id="TYPEerror"><span class="keyword">type</span> error</span> = <code class="type">string</code> </pre>
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> = Mysql.Error</pre>
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
 <pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type">'a -&gt; 'a</code></pre>
 <pre><span class="keyword">module</span> <a href="Rdf_my.SMap.html">SMap</a>: <code class="type"><a href="Rdf_sparql_types.SMap.html">Rdf_sparql_types.SMap</a></code></pre>
@@ -67,7 +67,7 @@ MySQL storage.<br/>
 <pre><span id="VALmysql_quote"><span class="keyword">val</span> mysql_quote</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; string -&gt; string</code></pre>
 <pre><span id="VALinit_db"><span class="keyword">val</span> init_db</span> : <code class="type">Mysql.db -&gt; string list -&gt; Mysql.dbd</code></pre>
 <pre><span id="VALgraph_table_of_id"><span class="keyword">val</span> graph_table_of_id</span> : <code class="type">int -&gt; string</code></pre>
-<pre><span id="VALgraph_table_of_graph_name"><span class="keyword">val</span> graph_table_of_graph_name</span> : <code class="type">?first:bool -&gt; Mysql.dbd -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string</code></pre>
+<pre><span id="VALgraph_table_of_graph_name"><span class="keyword">val</span> graph_table_of_graph_name</span> : <code class="type">?first:bool -&gt; Mysql.dbd -&gt; Iri.t -&gt; string</code></pre>
 <pre><span id="VALnstable_of_graph_table"><span class="keyword">val</span> nstable_of_graph_table</span> : <code class="type">string -&gt; string</code></pre>
 <pre><span id="VALtable_exists"><span class="keyword">val</span> table_exists</span> : <code class="type">Mysql.dbd -&gt; string -&gt; bool</code></pre>
 <pre><span id="VALcreate_namespaces_table"><span class="keyword">val</span> create_namespaces_table</span> : <code class="type">Mysql.dbd -&gt; string -&gt; unit</code></pre>
@@ -87,10 +87,10 @@ MySQL storage.<br/>
 <pre><span id="VALmake_select_term_list"><span class="keyword">val</span> make_select_term_list</span> : <code class="type">string -&gt; string -&gt; string -&gt; string</code></pre>
 <pre><span id="VALprepare_query"><span class="keyword">val</span> prepare_query</span> : <code class="type">Mysql.dbd -&gt; string -&gt; string -&gt; unit</code></pre>
 <pre><span id="VALprepare_queries"><span class="keyword">val</span> prepare_queries</span> : <code class="type">Mysql.dbd -&gt; ?more:(string * string) list -&gt; string -&gt; unit</code></pre>
-<pre><span id="VALnamespaces"><span class="keyword">val</span> namespaces</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list</code></pre>
+<pre><span id="VALnamespaces"><span class="keyword">val</span> namespaces</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; (Iri.t * string) list</code></pre>
 <pre><span id="VALrem_namespace"><span class="keyword">val</span> rem_namespace</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; string -&gt; unit</code></pre>
-<pre><span id="VALadd_namespace"><span class="keyword">val</span> add_namespace</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre>
-<pre><span id="VALset_namespaces"><span class="keyword">val</span> set_namespaces</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; (<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; unit</code></pre>
+<pre><span id="VALadd_namespace"><span class="keyword">val</span> add_namespace</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; Iri.t -&gt; string -&gt; unit</code></pre>
+<pre><span id="VALset_namespaces"><span class="keyword">val</span> set_namespaces</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; (Iri.t * string) list -&gt; unit</code></pre>
 <pre><span id="VALgraph_size"><span class="keyword">val</span> graph_size</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; int</code></pre>
 <pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">(?sub:'a -&gt; ?pred:'b -&gt; ?obj:'c -&gt; <a href="Rdf_my.html#TYPEt">t</a> -&gt; string) -&gt;<br/>       ?sub:'a -&gt; ?pred:'b -&gt; ?obj:'c -&gt; <a href="Rdf_my.html#TYPEt">t</a> -&gt; bool</code></pre>
 <pre><span id="VALtransaction_start"><span class="keyword">val</span> transaction_start</span> : <code class="type"><a href="Rdf_my.html#TYPEt">t</a> -&gt; unit</code></pre>

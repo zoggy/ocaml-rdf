@@ -257,8 +257,9 @@ docstog: dump.odoc
 	ocamldoc.opt \
 	-t "OCaml-RDF reference documentation" \
 	-load $^ -intro index.text \
-	-d ../web/refdoc -g odoc_stog.cmxs \
-	-g odoc_depgraph.cmxs -width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
+	-d ../web/refdoc -i `$(OCAMLFIND) query stog` -g odoc_stog.cmxs \
+	-i `$(OCAMLFIND) query odoc-depgraph` -g odoc_depgraph.cmxs \
+	-width 500 -height 600 -dot-options "-Gnodesep=\"0.12\" -Granksep=0.05"
 
 dot: dep.dot
 dep.dot: dump.odoc

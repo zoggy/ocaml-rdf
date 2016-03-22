@@ -1,9 +1,8 @@
-(* Regexps of files to ignore *)
-ignored =
-  [".*\\.git"; ".*Makefile"; ".*tmpl$"; ".*less$"; ".*log$"; ".*\\.chamo.*" ; ".*\\.x$" ; "\\./config.txt$" ; ".*\\.cmx" ; ".*\\.cmo" ; ".*\\.o" ; ".*\\.cmi" ; ".*genet_plugin\\..*" ; ".*cmdline_doc\\.xml" ; ".*options_.*\\.txt" ;
-    ".*/mystog.*" ;]
-(* Regexps of files containing documents *)
-documents = [".*\\.xml$"; ".*html$"]
-(* Regexps of files matching 'documents' regexps but not containing documents
-   *)
-"not-documents" = [".*chamo\\.layout\\.xml"]
+{
+ignored:
+  [".*\\.git", ".*Makefile", ".*tmpl$", ".*less$", ".*log$", ".*\\.chamo.*" , ".*\\.x$" , "\\./config.txt$" , ".*\\.cmx" , ".*\\.cmo" , ".*\\.o" , ".*\\.cmi" , ".*genet_plugin\\..*" , ".*cmdline_doc\\.xml" , ".*options_.*\\.txt" ,
+    ".*/mystog.*"],
+
+documents: [".*\\.xml$", ".*html$"],
+not_documents: [".*chamo\\.layout\\.xml"]
+}

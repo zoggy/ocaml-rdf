@@ -87,6 +87,8 @@ Sparql queries.<br/>
 <pre><span id="VALstring_of_query"><span class="keyword">val</span> string_of_query</span> : <code class="type"><a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; string</code></pre><br/>
 <div class="section-title" id="2_Executingqueries">Executing queries</div><br/>
 <br/>
+<div class="section-title" id="2_Executingqueries">Executing queries</div><br/>
+<br/>
 <div class="subsection-title" id="3_Solutions">Solutions</div><br/>
 
 <pre><span id="TYPEsolution"><span class="keyword">type</span> solution</span> </pre>
@@ -128,14 +130,14 @@ then calls <a href="Rdf_dt.html#VALof_term"><code class="code">Rdf_dt.of_term</c
 calls <a href="Rdf_dt.html#VALint"><code class="code">Rdf_dt.int</code></a> to retrieve an <code class="code">Int n</code> value, then return <code class="code">n</code>.<br/>
 
 <pre><span id="VALget_string"><span class="keyword">val</span> get_string</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; string</code></pre>
-<pre><span id="VALget_iri"><span class="keyword">val</span> get_iri</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info ">
+<pre><span id="VALget_iri"><span class="keyword">val</span> get_iri</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; Iri.t -&gt; string -&gt; Iri.t</code></pre><div class="info ">
 See comment of <a href="Rdf_dt.html#VALiri"><code class="code">Rdf_dt.iri</code></a>.<br/>
 </div>
 
 <pre><span id="VALget_int"><span class="keyword">val</span> get_int</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; int</code></pre>
 <pre><span id="VALget_float"><span class="keyword">val</span> get_float</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; float</code></pre>
 <pre><span id="VALget_bool"><span class="keyword">val</span> get_bool</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; bool</code></pre>
-<pre><span id="VALget_datetime"><span class="keyword">val</span> get_datetime</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; Netdate.t</code></pre>
+<pre><span id="VALget_datetime"><span class="keyword">val</span> get_datetime</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; CalendarLib.Fcalendar.t</code></pre>
 <pre><span id="VALget_ltrl"><span class="keyword">val</span> get_ltrl</span> : <code class="type"><a href="Rdf_sparql.html#TYPEsolution">solution</a> -&gt; string -&gt; string * string option</code></pre><div class="info ">
 Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.get_string</code></a> but the associated language tag is kep, if any.<br/>
 </div>
@@ -167,7 +169,7 @@ Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.ge
 
 
 
-<pre><span id="VALexecute"><span class="keyword">val</span> execute</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEquery_result">query_result</a></code></pre><div class="info ">
+<pre><span id="VALexecute"><span class="keyword">val</span> execute</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEquery_result">query_result</a></code></pre><div class="info ">
 <code class="code">execute ~base dataset q</code> executes the sparql query <code class="code">q</code> on <code class="code">dataset</code>, using
   <code class="code">base</code> as base iri. The form of the result depends on the kind of query:<ul>
 <li>Select queries return a <code class="code">Solution solutions</code></li>
@@ -187,22 +189,22 @@ Same as <a href="Rdf_sparql.html#VALget_string"><code class="code">Rdf_sparql.ge
 <br/>
 <div class="subsection-title" id="3_Convenientfunctionsforquerying">Convenient functions for querying</div><br/>
 
-<pre><span id="VALselect"><span class="keyword">val</span> select</span> : <code class="type">base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></pre><div class="info ">
+<pre><span id="VALselect"><span class="keyword">val</span> select</span> : <code class="type">base:Iri.t -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_sparql.html#TYPEsolution">solution</a> list</code></pre><div class="info ">
 Execute the given SELECT query.<br/>
 <b>Raises</b> <code>Not_select</code> is the query is not a SELECT.<br/>
 </div>
 
-<pre><span id="VALconstruct"><span class="keyword">val</span> construct</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info ">
+<pre><span id="VALconstruct"><span class="keyword">val</span> construct</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info ">
 Execute the given CONSTRUCT query.<br/>
 <b>Raises</b> <code>Not_construct</code> is the query is not a CONSTRUCT.<br/>
 </div>
 
-<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; bool</code></pre><div class="info ">
+<pre><span id="VALask"><span class="keyword">val</span> ask</span> : <code class="type">base:Iri.t -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; bool</code></pre><div class="info ">
 Execute the given ASK query.<br/>
 <b>Raises</b> <code>Not_ask</code> is the query is not a ASK.<br/>
 </div>
 
-<pre><span id="VALdescribe"><span class="keyword">val</span> describe</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info ">
+<pre><span id="VALdescribe"><span class="keyword">val</span> describe</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt; <a href="Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a> -&gt; <a href="Rdf_sparql.html#TYPEquery">query</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a></code></pre><div class="info ">
 Execute the given DESCRIBE query.<br/>
 <b>Raises</b> <code>Not_describe</code> is the query is not a DESCRIBE.<br/>
 </div>
@@ -219,5 +221,5 @@ A function takes a list of values and returns a value.<br/>
 </div>
 
 
-<pre><span id="VALiri_funs"><span class="keyword">val</span> iri_funs</span> : <code class="type">unit -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> Rdf_iri.Irimap.t</code></pre>
-<pre><span id="VALadd_iri_fun"><span class="keyword">val</span> add_iri_fun</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> -&gt; unit</code></pre></div></contents></ocamldoc>
+<pre><span id="VALiri_funs"><span class="keyword">val</span> iri_funs</span> : <code class="type">unit -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> Iri.Map.t</code></pre>
+<pre><span id="VALadd_iri_fun"><span class="keyword">val</span> add_iri_fun</span> : <code class="type">Iri.t -&gt; <a href="Rdf_sparql.html#TYPEiri_fun">iri_fun</a> -&gt; unit</code></pre></div></contents></ocamldoc>

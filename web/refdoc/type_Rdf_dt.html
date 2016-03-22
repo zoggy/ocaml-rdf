@@ -7,14 +7,14 @@
 &#160;&#160;<span class="keyword">and</span>&#160;value&#160;=<br/>
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Err</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_dt</span>.error<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Blank</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_iri</span>.iri<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Iri</span>.t<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">String</span>&#160;<span class="keyword">of</span>&#160;string<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Int</span>&#160;<span class="keyword">of</span>&#160;int<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Float</span>&#160;<span class="keyword">of</span>&#160;float<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bool</span>&#160;<span class="keyword">of</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Datetime</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Netdate</span>.t<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Datetime</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t<br/>
 &#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Ltrl</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;string&#160;option<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Ltrdt</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Rdf_iri</span>.iri<br/>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Ltrdt</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Iri</span>.t<br/>
 &#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_dt</span>.error<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;error&#160;:&#160;<span class="constructor">Rdf_dt</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;date_fmt&#160;:&#160;string<br/>
@@ -86,7 +86,7 @@
 &#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;of_list&#160;:&#160;elt&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;t<br/>
 &#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
 &#160;&#160;<span class="keyword">val</span>&#160;string_of_error&#160;:&#160;<span class="constructor">Rdf_dt</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;iri&#160;:&#160;<span class="constructor">Rdf_iri</span>.iri&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value<br/>
+&#160;&#160;<span class="keyword">val</span>&#160;iri&#160;:&#160;<span class="constructor">Iri</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;datatype&#160;:&#160;<span class="constructor">Rdf_dt</span>.value&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;string_literal&#160;:&#160;<span class="constructor">Rdf_dt</span>.value&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;*&#160;string&#160;option<br/>
 &#160;&#160;<span class="keyword">val</span>&#160;string&#160;:&#160;<span class="constructor">Rdf_dt</span>.value&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_dt</span>.value<br/>

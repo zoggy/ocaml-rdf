@@ -57,14 +57,14 @@ The type of XML tree walked through to fill the graph.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTstate.predicate">predicate</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
+<code><span id="TYPEELTstate.predicate">predicate</span>&#160;: <code class="type">Iri.t option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTstate.xml_base">xml_base</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTstate.xml_base">xml_base</span>&#160;: <code class="type">Iri.t</code>;</code></td>
 
 </tr>
 <tr>
@@ -78,14 +78,14 @@ The type of XML tree walked through to fill the graph.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTstate.datatype">datatype</span>&#160;: <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
+<code><span id="TYPEELTstate.datatype">datatype</span>&#160;: <code class="type">Iri.t option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTstate.namespaces">namespaces</span>&#160;: <code class="type">string Rdf_iri.Irimap.t</code>;</code></td>
+<code><span id="TYPEELTstate.namespaces">namespaces</span>&#160;: <code class="type">string Iri.Map.t</code>;</code></td>
 
 </tr></table>
 }
@@ -107,7 +107,7 @@ Type of current state when walking through the xml tree.<br/>
 <td align="left" valign="top" >
 <code>&#160;&#160;</code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTglobal_state.gnamespaces">gnamespaces</span>&#160;: <code class="type">string Rdf_iri.Irimap.t</code>;</code></td>
+<code><span id="TYPEELTglobal_state.gnamespaces">gnamespaces</span>&#160;: <code class="type">string Iri.Map.t</code>;</code></td>
 
 </tr></table>
 }
@@ -124,21 +124,21 @@ Fill a graph from a current state, a pair (global state, li counter),
   and a property node.<br/>
 </div>
 
-<pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Input graph from string.  Default base is the graph name.<br/>
 </div>
 
-<pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given file.<br/>
 </div>
 
-<pre><span id="VALfrom_input"><span class="keyword">val</span> from_input</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; Xmlm.input -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_input"><span class="keyword">val</span> from_input</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; Xmlm.input -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xmlm.input handle.<br/>
 </div>
 
-<pre><span id="VALfrom_xml"><span class="keyword">val</span> from_xml</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; unit</code></pre><div class="info ">
+<pre><span id="VALfrom_xml"><span class="keyword">val</span> from_xml</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xml tree.<br/>
 </div>
 
-<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
-<pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>
+<pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
+<pre><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div></contents></ocamldoc>

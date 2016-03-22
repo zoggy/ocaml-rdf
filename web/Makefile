@@ -28,7 +28,7 @@ STOG=./mystog
 STOG_OCAML_SESSION=./mystog-ocaml-session
 DEST_DIR=`pwd`/../../ocaml-rdf-pages
 BASE_URL_OPTION=
-STOG_OPTIONS=--stog-ocaml-session "$(STOG_OCAML_SESSION)  -I ../src" -d $(DEST_DIR) $(BASE_URL_OPTION)
+STOG_OPTIONS=--stog-ocaml-session "$(STOG_OCAML_SESSION)  -I ../src  -package iri" -d $(DEST_DIR) $(BASE_URL_OPTION)
 LESSC=lessc
 CP=cp -f
 

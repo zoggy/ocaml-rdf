@@ -3,8 +3,39 @@
 <title>OCaml-RDF reference documentation : Rdf_sparql_eval.GExprMap</title><contents><div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_sparql_eval.GExprOrdered.html" title="Rdf_sparql_eval.GExprOrdered">Previous</a>
 &#160;<a class="up" href="Rdf_sparql_eval.html" title="Rdf_sparql_eval">Up</a>
-&#160;</div>
+&#160;<a class="post" href="Rdf_sparql_eval.C.html" title="Rdf_sparql_eval.C">Next</a>
+</div>
 <h1>Module <a href="type_Rdf_sparql_eval.GExprMap.html">Rdf_sparql_eval.GExprMap</a></h1>
 
-<pre><span class="keyword">module</span> GExprMap: <code class="type">Map.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_eval.GExprOrdered.html">GExprOrdered</a></code><code class="code">)</code></pre><hr width="100%"/>
-</div></contents></ocamldoc>
+<pre><span class="keyword">module</span> GExprMap: <code class="code">sig</code> <a href="Rdf_sparql_eval.GExprMap.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre><span id="TYPEkey"><span class="keyword">type</span> key</span> = <code class="type"><a href="Rdf_sparql_eval.GExprOrdered.html#TYPEt">Rdf_sparql_eval.GExprOrdered.t</a></code> </pre>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> = <code class="type">'a Map.Make(GExprOrdered).t</code> </pre>
+
+
+<pre><span id="VALempty"><span class="keyword">val</span> empty</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALis_empty"><span class="keyword">val</span> is_empty</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALmem"><span class="keyword">val</span> mem</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALsingleton"><span class="keyword">val</span> singleton</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALremove"><span class="keyword">val</span> remove</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a option -&gt; 'b option -&gt; 'c option) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'c <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type">('a -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALiter"><span class="keyword">val</span> iter</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; unit) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; unit</code></pre>
+<pre><span id="VALfold"><span class="keyword">val</span> fold</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'b -&gt; 'b) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b -&gt; 'b</code></pre>
+<pre><span id="VALfor_all"><span class="keyword">val</span> for_all</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre><span id="VALfilter"><span class="keyword">val</span> filter</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALpartition"><span class="keyword">val</span> partition</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> * 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALcardinal"><span class="keyword">val</span> cardinal</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre><span id="VALbindings"><span class="keyword">val</span> bindings</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; (<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a) list</code></pre>
+<pre><span id="VALmin_binding"><span class="keyword">val</span> min_binding</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre><span id="VALmax_binding"><span class="keyword">val</span> max_binding</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre><span id="VALchoose"><span class="keyword">val</span> choose</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre><span id="VALsplit"><span class="keyword">val</span> split</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> * 'a option * 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a</code></pre>
+<pre><span id="VALmap"><span class="keyword">val</span> map</span> : <code class="type">('a -&gt; 'b) -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre><span id="VALmapi"><span class="keyword">val</span> mapi</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'b) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre></div></contents></ocamldoc>

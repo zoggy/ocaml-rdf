@@ -84,7 +84,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a></code></code></td>
+<code><span id="TYPEELTpath.Iri"><span class="constructor">Iri</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriloc">Rdf_sparql_types.iriloc</a></code></code></td>
 
 </tr>
 <tr>
@@ -133,7 +133,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTpath.NPS"><span class="constructor">NPS</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a> list</code></code></td>
+<code><span id="TYPEELTpath.NPS"><span class="constructor">NPS</span></span> <span class="keyword">of</span> <code class="type"><a href="Rdf_sparql_types.html#TYPEiriloc">Rdf_sparql_types.iriloc</a> list</code></code></td>
 
 </tr></table>
 
@@ -279,14 +279,14 @@
 <pre><span id="VALpath_iri_first"><span class="keyword">val</span> path_iri_first</span> : <code class="type"><a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALpath_iri_rest"><span class="keyword">val</span> path_iri_rest</span> : <code class="type"><a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALiri_nil"><span class="keyword">val</span> iri_nil</span> : <code class="type">T.iri</code></pre>
-<pre><span id="VALiriref_type"><span class="keyword">val</span> iriref_type</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a></code></pre>
+<pre><span id="VALiri_type"><span class="keyword">val</span> iri_type</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEiriloc">Rdf_sparql_types.iriloc</a></code></pre>
 <pre><span id="VALpath_iri_type"><span class="keyword">val</span> path_iri_type</span> : <code class="type"><a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALtranslate_path"><span class="keyword">val</span> translate_path</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEpath">Rdf_sparql_types.path</a> -&gt; <a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALtranslate_path_sequence"><span class="keyword">val</span> translate_path_sequence</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_sequence">Rdf_sparql_types.path_sequence</a> -&gt; <a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALtranslate_path_elt_or_inverse"><span class="keyword">val</span> translate_path_elt_or_inverse</span> : <code class="type">T.path_elt_or_inverse -&gt; <a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALtranslate_path_elt"><span class="keyword">val</span> translate_path_elt</span> : <code class="type">T.path_elt -&gt; <a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
 <pre><span id="VALtranslate_path_primary"><span class="keyword">val</span> translate_path_primary</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_primary">Rdf_sparql_types.path_primary</a> -&gt; <a href="Rdf_sparql_algebra.html#TYPEpath">path</a></code></pre>
-<pre><span id="VALpartition_path_one_in_prop_set"><span class="keyword">val</span> partition_path_one_in_prop_set</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_one_in_prop_set">Rdf_sparql_types.path_one_in_prop_set</a> list -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a> list * <a href="Rdf_sparql_types.html#TYPEiriref">Rdf_sparql_types.iriref</a> list</code></pre>
+<pre><span id="VALpartition_path_one_in_prop_set"><span class="keyword">val</span> partition_path_one_in_prop_set</span> : <code class="type"><a href="Rdf_sparql_types.html#TYPEpath_one_in_prop_set">Rdf_sparql_types.path_one_in_prop_set</a> list -&gt;<br/>       <a href="Rdf_sparql_types.html#TYPEiriloc">Rdf_sparql_types.iriloc</a> list * <a href="Rdf_sparql_types.html#TYPEiriloc">Rdf_sparql_types.iriloc</a> list</code></pre>
 <pre><span id="VALtranslate_property_path_pattern"><span class="keyword">val</span> translate_property_path_pattern</span> : <code class="type">(T.var_or_term * <a href="Rdf_sparql_algebra.html#TYPEpath">path</a> * T.var_or_term) list -&gt;<br/>       T.var_or_term * <a href="Rdf_sparql_algebra.html#TYPEpath">path</a> * T.var_or_term -&gt;<br/>       (T.var_or_term * <a href="Rdf_sparql_algebra.html#TYPEpath">path</a> * T.var_or_term) list</code></pre>
 <pre><span id="VALtranslate_property_path_patterns"><span class="keyword">val</span> translate_property_path_patterns</span> : <code class="type"><a href="Rdf_sparql_algebra.html#TYPEtriple">triple</a> list -&gt;<br/>       (T.var_or_term * <a href="Rdf_sparql_algebra.html#TYPEpath">path</a> * T.var_or_term) list</code></pre>
 <pre><span id="VALbuild_triples_path"><span class="keyword">val</span> build_triples_path</span> : <code class="type">T.var_or_term -&gt;<br/>       <a href="Rdf_sparql_algebra.html#TYPEtriple">triple</a> list -&gt;<br/>       T.prop_object_list -&gt; <a href="Rdf_sparql_algebra.html#TYPEtriple">triple</a> list</code></pre>
