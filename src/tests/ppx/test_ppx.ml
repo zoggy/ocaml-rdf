@@ -8,7 +8,7 @@ let q2 = [%sparql
       term
   ]
 
-let base = Rdf_iri.iri "http://foo.bar"
+let base = Iri.of_string "http://foo.bar"
 let g = Rdf_graph.open_graph base
 let () = Rdf_ttl.from_string g ~base
 {|
