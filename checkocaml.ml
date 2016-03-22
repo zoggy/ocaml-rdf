@@ -900,7 +900,7 @@ let _ = add_subst "MENHIR" menhir;;
 
 let _ = check_ocamlfind_package conf "calendar";;
 let _ = check_ocamlfind_package conf "sedlex";;
-let _ = check_ocamlfind_package conf "iri";;
+let _ = check_ocamlfind_package conf ~min_version: [0;2] "iri";;
 let _ = check_ocamlfind_package conf "uri";;
 let _ = check_ocamlfind_package conf "pcre";;
 let _ = check_ocamlfind_package conf "cryptokit";;
