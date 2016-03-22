@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_doap.Open</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span><br/>
+  <span class="keyword">val</span> doap_anon_root : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_ArchRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_audience : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_BazaarBranch : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_BKRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_blog : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_browse : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_bug_database : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_category : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_created : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_CVSRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_DarcsRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_description : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_developer : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_documenter : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_download_mirror : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_download_page : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_file_release : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_GitRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_helper : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_HgRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_homepage : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_implements : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_language : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_license : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_location : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_mailing_list : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_maintainer : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_module : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_name : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_old_homepage : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_os : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_platform : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_programming_language : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_Project : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_release : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_Repository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_repository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_revision : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_screenshots : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_service_endpoint : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_shortdesc : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_Specification : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_SVNRepository : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_tester : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_translator : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_vendor : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_c_Version : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> doap_wiki : <span class="constructor">Iri</span>.t<br/>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

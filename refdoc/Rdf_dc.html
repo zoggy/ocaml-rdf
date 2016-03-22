@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dc</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,460 +19,396 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
-<div class="navbar"><a class="pre" href="Rdf_config.html" title="Rdf_config">Previous</a>
+<div class="navbar"><a class="pre" href="Rdf_cryptokit.html" title="Rdf_cryptokit">Previous</a>
  <a class="up" href="index.html" title="Index">Up</a>
  <a class="post" href="Rdf_doap.html" title="Rdf_doap">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_dc.html">Rdf_dc</a></h1>
 
-<pre id="moduleRdf_dcsigend"><a class="paragraph-url" href="#moduleRdf_dcsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_dc: <code class="code">sig</code> <a href="Rdf_dc.html">..</a> <code class="code">end</code></pre><div class="info module top">
-Dublin core.<br/>
+<pre id="moduleRdf_dcsigend"><a class="paragraph-url" href="#moduleRdf_dcsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_dc: <code class="code">sig</code> <a href="Rdf_dc.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Elements of <code class="code">http://purl.org/dc/terms/</code><br/>
 </div>
 <hr width="100%"/>
-<br/>
-<div class="section-title" id="2_Elementsofhttppurlorgdcelements11">Elements of <code class="code">http://purl.org/dc/elements/1.1/</code></div><br/>
 
-<pre id="valdcRdf_iriiri"><a class="paragraph-url" href="#valdcRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc"><span class="keyword">val</span> dc</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-<code class="code">http://purl.org/dc/elements/1.1/</code><br/>
-</div>
-
-<pre id="valdc_stringRdf_iriiri"><a class="paragraph-url" href="#valdc_stringRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_"><span class="keyword">val</span> dc_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre id="valdc_contributorRdf_iri"><a class="paragraph-url" href="#valdc_contributorRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_contributor"><span class="keyword">val</span> dc_contributor</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-An entity responsible for making contributions to the resource.<br/>
-</div>
-
-<pre id="valdc_coverageRdf_iriiri"><a class="paragraph-url" href="#valdc_coverageRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_coverage"><span class="keyword">val</span> dc_coverage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant.<br/>
-</div>
-
-<pre id="valdc_creatorRdf_iriiri"><a class="paragraph-url" href="#valdc_creatorRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_creator"><span class="keyword">val</span> dc_creator</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-An entity primarily responsible for making the resource.<br/>
-</div>
-
-<pre id="valdc_dateRdf_iriiri"><a class="paragraph-url" href="#valdc_dateRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_date"><span class="keyword">val</span> dc_date</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-A point or period of time associated with an event in the lifecycle of the resource.<br/>
-</div>
-
-<pre id="valdc_descriptionRdf_iri"><a class="paragraph-url" href="#valdc_descriptionRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_description"><span class="keyword">val</span> dc_description</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-An account of the resource.<br/>
-</div>
-
-<pre id="valdc_formatRdf_iriiri"><a class="paragraph-url" href="#valdc_formatRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_format"><span class="keyword">val</span> dc_format</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-The file format, physical medium, or dimensions of the resource.<br/>
-</div>
-
-<pre id="valdc_identifierRdf_irii"><a class="paragraph-url" href="#valdc_identifierRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_identifier"><span class="keyword">val</span> dc_identifier</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-An unambiguous reference to the resource within a given context.<br/>
-</div>
-
-<pre id="valdc_languageRdf_iriiri"><a class="paragraph-url" href="#valdc_languageRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_language"><span class="keyword">val</span> dc_language</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-A language of the resource.<br/>
-</div>
-
-<pre id="valdc_publisherRdf_iriir"><a class="paragraph-url" href="#valdc_publisherRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_publisher"><span class="keyword">val</span> dc_publisher</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-An entity responsible for making the resource available.<br/>
-</div>
-
-<pre id="valdc_relationRdf_iriiri"><a class="paragraph-url" href="#valdc_relationRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_relation"><span class="keyword">val</span> dc_relation</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-A related resource.<br/>
-</div>
-
-<pre id="valdc_rightsRdf_iriiri"><a class="paragraph-url" href="#valdc_rightsRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_rights"><span class="keyword">val</span> dc_rights</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-Information about rights held in and over the resource.<br/>
-</div>
-
-<pre id="valdc_sourceRdf_iriiri"><a class="paragraph-url" href="#valdc_sourceRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_source"><span class="keyword">val</span> dc_source</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-A related resource from which the described resource is derived.<br/>
-</div>
-
-<pre id="valdc_subjectRdf_iriiri"><a class="paragraph-url" href="#valdc_subjectRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_subject"><span class="keyword">val</span> dc_subject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-The topic of the resource.<br/>
-</div>
-
-<pre id="valdc_titleRdf_iriiri"><a class="paragraph-url" href="#valdc_titleRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_title"><span class="keyword">val</span> dc_title</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-A name given to the resource.<br/>
-</div>
-
-<pre id="valdc_typeRdf_iriiri"><a class="paragraph-url" href="#valdc_typeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_type"><span class="keyword">val</span> dc_type</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-The nature or genre of the resource.<br/>
-</div>
-<br/>
-<div class="section-title" id="2_Elementsofhttppurlorgdcterms">Elements of <code class="code">http://purl.org/dc/terms/</code></div><br/>
-
-<pre id="valtermsRdf_iriiri"><a class="paragraph-url" href="#valtermsRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms"><span class="keyword">val</span> terms</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdcIrit"><a class="paragraph-url" href="#valdcIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc"><span class="keyword">val</span> dc</span> : <code class="type">Iri.t</code></pre><div class="info ">
 <code class="code">http://purl.org/dc/terms/</code><br/>
 </div>
 
-<pre id="valterms_stringRdf_iriir"><a class="paragraph-url" href="#valterms_stringRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_"><span class="keyword">val</span> terms_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre id="valterms_abstractRdf_iri"><a class="paragraph-url" href="#valterms_abstractRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_abstract"><span class="keyword">val</span> terms_abstract</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdc_stringIrit"><a class="paragraph-url" href="#valdc_stringIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdc_"><span class="keyword">val</span> dc_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre id="valabstractIrit"><a class="paragraph-url" href="#valabstractIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALabstract"><span class="keyword">val</span> abstract</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A summary of the resource.<br/>
 </div>
 
-<pre id="valterms_accessRightsRdf"><a class="paragraph-url" href="#valterms_accessRightsRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_accessRights"><span class="keyword">val</span> terms_accessRights</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccessRightsIrit"><a class="paragraph-url" href="#valaccessRightsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccessRights"><span class="keyword">val</span> accessRights</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Information about who can access the resource or an indication of its security status.<br/>
 </div>
 
-<pre id="valterms_accrualMethodRd"><a class="paragraph-url" href="#valterms_accrualMethodRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_accrualMethod"><span class="keyword">val</span> terms_accrualMethod</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccrualMethodIrit"><a class="paragraph-url" href="#valaccrualMethodIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccrualMethod"><span class="keyword">val</span> accrualMethod</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The method by which items are added to a collection.<br/>
 </div>
 
-<pre id="valterms_accrualPeriodic"><a class="paragraph-url" href="#valterms_accrualPeriodic"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_accrualPeriodicity"><span class="keyword">val</span> terms_accrualPeriodicity</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccrualPeriodicityIri"><a class="paragraph-url" href="#valaccrualPeriodicityIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccrualPeriodicity"><span class="keyword">val</span> accrualPeriodicity</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The frequency with which items are added to a collection.<br/>
 </div>
 
-<pre id="valterms_accrualPolicyRd"><a class="paragraph-url" href="#valterms_accrualPolicyRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_accrualPolicy"><span class="keyword">val</span> terms_accrualPolicy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccrualPolicyIrit"><a class="paragraph-url" href="#valaccrualPolicyIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccrualPolicy"><span class="keyword">val</span> accrualPolicy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The policy governing the addition of items to a collection.<br/>
 </div>
 
-<pre id="valterms_AgentRdf_iriiri"><a class="paragraph-url" href="#valterms_AgentRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Agent"><span class="keyword">val</span> terms_Agent</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_AgentIrit"><a class="paragraph-url" href="#valc_AgentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Agent"><span class="keyword">val</span> c_Agent</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A resource that acts or has the power to act.<br/>
 </div>
 
-<pre id="valterms_AgentClassRdf_i"><a class="paragraph-url" href="#valterms_AgentClassRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_AgentClass"><span class="keyword">val</span> terms_AgentClass</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_AgentClassIrit"><a class="paragraph-url" href="#valc_AgentClassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_AgentClass"><span class="keyword">val</span> c_AgentClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A group of agents.<br/>
 </div>
 
-<pre id="valterms_alternativeRdf_"><a class="paragraph-url" href="#valterms_alternativeRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_alternative"><span class="keyword">val</span> terms_alternative</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valalternativeIrit"><a class="paragraph-url" href="#valalternativeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALalternative"><span class="keyword">val</span> alternative</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An alternative name for the resource.<br/>
 </div>
 
-<pre id="valterms_audienceRdf_iri"><a class="paragraph-url" href="#valterms_audienceRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_audience"><span class="keyword">val</span> terms_audience</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaudienceIrit"><a class="paragraph-url" href="#valaudienceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaudience"><span class="keyword">val</span> audience</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A class of entity for whom the resource is intended or useful.<br/>
 </div>
 
-<pre id="valterms_availableRdf_ir"><a class="paragraph-url" href="#valterms_availableRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_available"><span class="keyword">val</span> terms_available</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valavailableIrit"><a class="paragraph-url" href="#valavailableIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALavailable"><span class="keyword">val</span> available</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date (often a range) that the resource became or will become available.<br/>
 </div>
 
-<pre id="valterms_bibliographicCi"><a class="paragraph-url" href="#valterms_bibliographicCi"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_bibliographicCitation"><span class="keyword">val</span> terms_bibliographicCitation</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valbibliographicCitation"><a class="paragraph-url" href="#valbibliographicCitation"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbibliographicCitation"><span class="keyword">val</span> bibliographicCitation</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A bibliographic reference for the resource.<br/>
 </div>
 
-<pre id="valterms_BibliographicRe"><a class="paragraph-url" href="#valterms_BibliographicRe"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_BibliographicResource"><span class="keyword">val</span> terms_BibliographicResource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_BibliographicResour"><a class="paragraph-url" href="#valc_BibliographicResour"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_BibliographicResource"><span class="keyword">val</span> c_BibliographicResource</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A book, article, or other documentary resource.<br/>
 </div>
 
-<pre id="valterms_BoxRdf_iriiri"><a class="paragraph-url" href="#valterms_BoxRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Box"><span class="keyword">val</span> terms_Box</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_BoxIrit"><a class="paragraph-url" href="#valdt_BoxIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_Box"><span class="keyword">val</span> dt_Box</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme.<br/>
 </div>
 
-<pre id="valterms_conformsToRdf_i"><a class="paragraph-url" href="#valterms_conformsToRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_conformsTo"><span class="keyword">val</span> terms_conformsTo</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valconformsToIrit"><a class="paragraph-url" href="#valconformsToIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALconformsTo"><span class="keyword">val</span> conformsTo</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An established standard to which the described resource conforms.<br/>
 </div>
 
-<pre id="valterms_contributorRdf_"><a class="paragraph-url" href="#valterms_contributorRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_contributor"><span class="keyword">val</span> terms_contributor</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcontributorIrit"><a class="paragraph-url" href="#valcontributorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcontributor"><span class="keyword">val</span> contributor</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An entity responsible for making contributions to the resource.<br/>
 </div>
 
-<pre id="valterms_coverageRdf_iri"><a class="paragraph-url" href="#valterms_coverageRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_coverage"><span class="keyword">val</span> terms_coverage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcoverageIrit"><a class="paragraph-url" href="#valcoverageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcoverage"><span class="keyword">val</span> coverage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant.<br/>
 </div>
 
-<pre id="valterms_createdRdf_irii"><a class="paragraph-url" href="#valterms_createdRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_created"><span class="keyword">val</span> terms_created</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcreatedIrit"><a class="paragraph-url" href="#valcreatedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcreated"><span class="keyword">val</span> created</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date of creation of the resource.<br/>
 </div>
 
-<pre id="valterms_creatorRdf_irii"><a class="paragraph-url" href="#valterms_creatorRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_creator"><span class="keyword">val</span> terms_creator</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcreatorIrit"><a class="paragraph-url" href="#valcreatorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcreator"><span class="keyword">val</span> creator</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An entity primarily responsible for making the resource.<br/>
 </div>
 
-<pre id="valterms_dateRdf_iriiri"><a class="paragraph-url" href="#valterms_dateRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_date"><span class="keyword">val</span> terms_date</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdateIrit"><a class="paragraph-url" href="#valdateIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdate"><span class="keyword">val</span> date</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A point or period of time associated with an event in the lifecycle of the resource.<br/>
 </div>
 
-<pre id="valterms_dateAcceptedRdf"><a class="paragraph-url" href="#valterms_dateAcceptedRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_dateAccepted"><span class="keyword">val</span> terms_dateAccepted</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdateAcceptedIrit"><a class="paragraph-url" href="#valdateAcceptedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdateAccepted"><span class="keyword">val</span> dateAccepted</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date of acceptance of the resource.<br/>
 </div>
 
-<pre id="valterms_dateCopyrighted"><a class="paragraph-url" href="#valterms_dateCopyrighted"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_dateCopyrighted"><span class="keyword">val</span> terms_dateCopyrighted</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdateCopyrightedIrit"><a class="paragraph-url" href="#valdateCopyrightedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdateCopyrighted"><span class="keyword">val</span> dateCopyrighted</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date of copyright.<br/>
 </div>
 
-<pre id="valterms_dateSubmittedRd"><a class="paragraph-url" href="#valterms_dateSubmittedRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_dateSubmitted"><span class="keyword">val</span> terms_dateSubmitted</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdateSubmittedIrit"><a class="paragraph-url" href="#valdateSubmittedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdateSubmitted"><span class="keyword">val</span> dateSubmitted</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date of submission of the resource.<br/>
 </div>
 
-<pre id="valterms_descriptionRdf_"><a class="paragraph-url" href="#valterms_descriptionRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_description"><span class="keyword">val</span> terms_description</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdescriptionIrit"><a class="paragraph-url" href="#valdescriptionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdescription"><span class="keyword">val</span> description</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An account of the resource.<br/>
 </div>
 
-<pre id="valterms_educationLevelR"><a class="paragraph-url" href="#valterms_educationLevelR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_educationLevel"><span class="keyword">val</span> terms_educationLevel</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valeducationLevelIrit"><a class="paragraph-url" href="#valeducationLevelIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALeducationLevel"><span class="keyword">val</span> educationLevel</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended.<br/>
 </div>
 
-<pre id="valterms_extentRdf_iriir"><a class="paragraph-url" href="#valterms_extentRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_extent"><span class="keyword">val</span> terms_extent</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valextentIrit"><a class="paragraph-url" href="#valextentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALextent"><span class="keyword">val</span> extent</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The size or duration of the resource.<br/>
 </div>
 
-<pre id="valterms_FileFormatRdf_i"><a class="paragraph-url" href="#valterms_FileFormatRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_FileFormat"><span class="keyword">val</span> terms_FileFormat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_FileFormatIrit"><a class="paragraph-url" href="#valc_FileFormatIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_FileFormat"><span class="keyword">val</span> c_FileFormat</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A digital resource format.<br/>
 </div>
 
-<pre id="valterms_formatRdf_iriir"><a class="paragraph-url" href="#valterms_formatRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_format"><span class="keyword">val</span> terms_format</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valformatIrit"><a class="paragraph-url" href="#valformatIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALformat"><span class="keyword">val</span> format</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The file format, physical medium, or dimensions of the resource.<br/>
 </div>
 
-<pre id="valterms_FrequencyRdf_ir"><a class="paragraph-url" href="#valterms_FrequencyRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Frequency"><span class="keyword">val</span> terms_Frequency</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_FrequencyIrit"><a class="paragraph-url" href="#valc_FrequencyIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Frequency"><span class="keyword">val</span> c_Frequency</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A rate at which something recurs.<br/>
 </div>
 
-<pre id="valterms_hasFormatRdf_ir"><a class="paragraph-url" href="#valterms_hasFormatRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_hasFormat"><span class="keyword">val</span> terms_hasFormat</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valhasFormatIrit"><a class="paragraph-url" href="#valhasFormatIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALhasFormat"><span class="keyword">val</span> hasFormat</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is substantially the same as the pre-existing described resource, but in another format.<br/>
 </div>
 
-<pre id="valterms_hasPartRdf_irii"><a class="paragraph-url" href="#valterms_hasPartRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_hasPart"><span class="keyword">val</span> terms_hasPart</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valhasPartIrit"><a class="paragraph-url" href="#valhasPartIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALhasPart"><span class="keyword">val</span> hasPart</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is included either physically or logically in the described resource.<br/>
 </div>
 
-<pre id="valterms_hasVersionRdf_i"><a class="paragraph-url" href="#valterms_hasVersionRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_hasVersion"><span class="keyword">val</span> terms_hasVersion</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valhasVersionIrit"><a class="paragraph-url" href="#valhasVersionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALhasVersion"><span class="keyword">val</span> hasVersion</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is a version, edition, or adaptation of the described resource.<br/>
 </div>
 
-<pre id="valterms_identifierRdf_i"><a class="paragraph-url" href="#valterms_identifierRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_identifier"><span class="keyword">val</span> terms_identifier</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="validentifierIrit"><a class="paragraph-url" href="#validentifierIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALidentifier"><span class="keyword">val</span> identifier</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An unambiguous reference to the resource within a given context.<br/>
 </div>
 
-<pre id="valterms_instructionalMe"><a class="paragraph-url" href="#valterms_instructionalMe"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_instructionalMethod"><span class="keyword">val</span> terms_instructionalMethod</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valinstructionalMethodIr"><a class="paragraph-url" href="#valinstructionalMethodIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinstructionalMethod"><span class="keyword">val</span> instructionalMethod</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support.<br/>
 </div>
 
-<pre id="valterms_isFormatOfRdf_i"><a class="paragraph-url" href="#valterms_isFormatOfRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isFormatOf"><span class="keyword">val</span> terms_isFormatOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisFormatOfIrit"><a class="paragraph-url" href="#valisFormatOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisFormatOf"><span class="keyword">val</span> isFormatOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is substantially the same as the described resource, but in another format.<br/>
 </div>
 
-<pre id="valterms_ISO3166Rdf_irii"><a class="paragraph-url" href="#valterms_ISO3166Rdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_ISO3166"><span class="keyword">val</span> terms_ISO3166</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_ISO3166Irit"><a class="paragraph-url" href="#valdt_ISO3166Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_ISO3166"><span class="keyword">val</span> dt_ISO3166</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of codes listed in ISO 3166-1 for the representation of names of countries.<br/>
 </div>
 
-<pre id="valterms_ISO639_2Rdf_iri"><a class="paragraph-url" href="#valterms_ISO639_2Rdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_ISO639_2"><span class="keyword">val</span> terms_ISO639_2</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_ISO639_2Irit"><a class="paragraph-url" href="#valdt_ISO639_2Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_ISO639_2"><span class="keyword">val</span> dt_ISO639_2</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages.<br/>
 </div>
 
-<pre id="valterms_ISO639_3Rdf_iri"><a class="paragraph-url" href="#valterms_ISO639_3Rdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_ISO639_3"><span class="keyword">val</span> terms_ISO639_3</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_ISO639_3Irit"><a class="paragraph-url" href="#valdt_ISO639_3Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_ISO639_3"><span class="keyword">val</span> dt_ISO639_3</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of three-letter codes listed in ISO 639-3 for the representation of names of languages.<br/>
 </div>
 
-<pre id="valterms_isPartOfRdf_iri"><a class="paragraph-url" href="#valterms_isPartOfRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isPartOf"><span class="keyword">val</span> terms_isPartOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisPartOfIrit"><a class="paragraph-url" href="#valisPartOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisPartOf"><span class="keyword">val</span> isPartOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource in which the described resource is physically or logically included.<br/>
 </div>
 
-<pre id="valterms_isReferencedByR"><a class="paragraph-url" href="#valterms_isReferencedByR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isReferencedBy"><span class="keyword">val</span> terms_isReferencedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisReferencedByIrit"><a class="paragraph-url" href="#valisReferencedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisReferencedBy"><span class="keyword">val</span> isReferencedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that references, cites, or otherwise points to the described resource.<br/>
 </div>
 
-<pre id="valterms_isReplacedByRdf"><a class="paragraph-url" href="#valterms_isReplacedByRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isReplacedBy"><span class="keyword">val</span> terms_isReplacedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisReplacedByIrit"><a class="paragraph-url" href="#valisReplacedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisReplacedBy"><span class="keyword">val</span> isReplacedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that supplants, displaces, or supersedes the described resource.<br/>
 </div>
 
-<pre id="valterms_isRequiredByRdf"><a class="paragraph-url" href="#valterms_isRequiredByRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isRequiredBy"><span class="keyword">val</span> terms_isRequiredBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisRequiredByIrit"><a class="paragraph-url" href="#valisRequiredByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisRequiredBy"><span class="keyword">val</span> isRequiredBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that requires the described resource to support its function, delivery, or coherence.<br/>
 </div>
 
-<pre id="valterms_issuedRdf_iriir"><a class="paragraph-url" href="#valterms_issuedRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_issued"><span class="keyword">val</span> terms_issued</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valissuedIrit"><a class="paragraph-url" href="#valissuedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALissued"><span class="keyword">val</span> issued</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date of formal issuance (e.g., publication) of the resource.<br/>
 </div>
 
-<pre id="valterms_isVersionOfRdf_"><a class="paragraph-url" href="#valterms_isVersionOfRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_isVersionOf"><span class="keyword">val</span> terms_isVersionOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisVersionOfIrit"><a class="paragraph-url" href="#valisVersionOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisVersionOf"><span class="keyword">val</span> isVersionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource of which the described resource is a version, edition, or adaptation.<br/>
 </div>
 
-<pre id="valterms_JurisdictionRdf"><a class="paragraph-url" href="#valterms_JurisdictionRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Jurisdiction"><span class="keyword">val</span> terms_Jurisdiction</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_JurisdictionIrit"><a class="paragraph-url" href="#valc_JurisdictionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Jurisdiction"><span class="keyword">val</span> c_Jurisdiction</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The extent or range of judicial, law enforcement, or other authority.<br/>
 </div>
 
-<pre id="valterms_languageRdf_iri"><a class="paragraph-url" href="#valterms_languageRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_language"><span class="keyword">val</span> terms_language</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="vallanguageIrit"><a class="paragraph-url" href="#vallanguageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALlanguage"><span class="keyword">val</span> language</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A language of the resource.<br/>
 </div>
 
-<pre id="valterms_licenseRdf_irii"><a class="paragraph-url" href="#valterms_licenseRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_license"><span class="keyword">val</span> terms_license</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="vallicenseIrit"><a class="paragraph-url" href="#vallicenseIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALlicense"><span class="keyword">val</span> license</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A legal document giving official permission to do something with the resource.<br/>
 </div>
 
-<pre id="valterms_LicenseDocument"><a class="paragraph-url" href="#valterms_LicenseDocument"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_LicenseDocument"><span class="keyword">val</span> terms_LicenseDocument</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LicenseDocumentIrit"><a class="paragraph-url" href="#valc_LicenseDocumentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_LicenseDocument"><span class="keyword">val</span> c_LicenseDocument</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A legal document giving official permission to do something with a Resource.<br/>
 </div>
 
-<pre id="valterms_LinguisticSyste"><a class="paragraph-url" href="#valterms_LinguisticSyste"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_LinguisticSystem"><span class="keyword">val</span> terms_LinguisticSystem</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LinguisticSystemIri"><a class="paragraph-url" href="#valc_LinguisticSystemIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_LinguisticSystem"><span class="keyword">val</span> c_LinguisticSystem</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A system of signs, symbols, sounds, gestures, or rules used in communication.<br/>
 </div>
 
-<pre id="valterms_LocationRdf_iri"><a class="paragraph-url" href="#valterms_LocationRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Location"><span class="keyword">val</span> terms_Location</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LocationIrit"><a class="paragraph-url" href="#valc_LocationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Location"><span class="keyword">val</span> c_Location</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A spatial region or named place.<br/>
 </div>
 
-<pre id="valterms_LocationPeriodO"><a class="paragraph-url" href="#valterms_LocationPeriodO"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_LocationPeriodOrJurisdiction"><span class="keyword">val</span> terms_LocationPeriodOrJurisdiction</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LocationPeriodOrJur"><a class="paragraph-url" href="#valc_LocationPeriodOrJur"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_LocationPeriodOrJurisdiction"><span class="keyword">val</span> c_LocationPeriodOrJurisdiction</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A location, period of time, or jurisdiction.<br/>
 </div>
 
-<pre id="valterms_mediatorRdf_iri"><a class="paragraph-url" href="#valterms_mediatorRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_mediator"><span class="keyword">val</span> terms_mediator</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmediatorIrit"><a class="paragraph-url" href="#valmediatorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmediator"><span class="keyword">val</span> mediator</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An entity that mediates access to the resource and for whom the resource is intended or useful.<br/>
 </div>
 
-<pre id="valterms_MediaTypeRdf_ir"><a class="paragraph-url" href="#valterms_MediaTypeRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_MediaType"><span class="keyword">val</span> terms_MediaType</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_MediaTypeIrit"><a class="paragraph-url" href="#valc_MediaTypeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_MediaType"><span class="keyword">val</span> c_MediaType</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A file format or physical medium.<br/>
 </div>
 
-<pre id="valterms_MediaTypeOrExte"><a class="paragraph-url" href="#valterms_MediaTypeOrExte"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_MediaTypeOrExtent"><span class="keyword">val</span> terms_MediaTypeOrExtent</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_MediaTypeOrExtentIr"><a class="paragraph-url" href="#valc_MediaTypeOrExtentIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_MediaTypeOrExtent"><span class="keyword">val</span> c_MediaTypeOrExtent</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A media type or extent.<br/>
 </div>
 
-<pre id="valterms_mediumRdf_iriir"><a class="paragraph-url" href="#valterms_mediumRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_medium"><span class="keyword">val</span> terms_medium</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmediumIrit"><a class="paragraph-url" href="#valmediumIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmedium"><span class="keyword">val</span> medium</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The material or physical carrier of the resource.<br/>
 </div>
 
-<pre id="valterms_MethodOfAccrual"><a class="paragraph-url" href="#valterms_MethodOfAccrual"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_MethodOfAccrual"><span class="keyword">val</span> terms_MethodOfAccrual</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_MethodOfAccrualIrit"><a class="paragraph-url" href="#valc_MethodOfAccrualIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_MethodOfAccrual"><span class="keyword">val</span> c_MethodOfAccrual</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A method by which resources are added to a collection.<br/>
 </div>
 
-<pre id="valterms_MethodOfInstruc"><a class="paragraph-url" href="#valterms_MethodOfInstruc"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_MethodOfInstruction"><span class="keyword">val</span> terms_MethodOfInstruction</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_MethodOfInstruction"><a class="paragraph-url" href="#valc_MethodOfInstruction"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_MethodOfInstruction"><span class="keyword">val</span> c_MethodOfInstruction</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A process that is used to engender knowledge, attitudes, and skills.<br/>
 </div>
 
-<pre id="valterms_modifiedRdf_iri"><a class="paragraph-url" href="#valterms_modifiedRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_modified"><span class="keyword">val</span> terms_modified</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmodifiedIrit"><a class="paragraph-url" href="#valmodifiedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmodified"><span class="keyword">val</span> modified</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date on which the resource was changed.<br/>
 </div>
 
-<pre id="valterms_PeriodRdf_iriir"><a class="paragraph-url" href="#valterms_PeriodRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Period"><span class="keyword">val</span> terms_Period</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_PeriodIrit"><a class="paragraph-url" href="#valdt_PeriodIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_Period"><span class="keyword">val</span> dt_Period</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme.<br/>
 </div>
 
-<pre id="valterms_PeriodOfTimeRdf"><a class="paragraph-url" href="#valterms_PeriodOfTimeRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_PeriodOfTime"><span class="keyword">val</span> terms_PeriodOfTime</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PeriodOfTimeIrit"><a class="paragraph-url" href="#valc_PeriodOfTimeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_PeriodOfTime"><span class="keyword">val</span> c_PeriodOfTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An interval of time that is named or defined by its start and end dates.<br/>
 </div>
 
-<pre id="valterms_PhysicalMediumR"><a class="paragraph-url" href="#valterms_PhysicalMediumR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_PhysicalMedium"><span class="keyword">val</span> terms_PhysicalMedium</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PhysicalMediumIrit"><a class="paragraph-url" href="#valc_PhysicalMediumIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_PhysicalMedium"><span class="keyword">val</span> c_PhysicalMedium</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A physical material or carrier.<br/>
 </div>
 
-<pre id="valterms_PhysicalResourc"><a class="paragraph-url" href="#valterms_PhysicalResourc"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_PhysicalResource"><span class="keyword">val</span> terms_PhysicalResource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PhysicalResourceIri"><a class="paragraph-url" href="#valc_PhysicalResourceIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_PhysicalResource"><span class="keyword">val</span> c_PhysicalResource</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A material thing.<br/>
 </div>
 
-<pre id="valterms_PointRdf_iriiri"><a class="paragraph-url" href="#valterms_PointRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Point"><span class="keyword">val</span> terms_Point</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_PointIrit"><a class="paragraph-url" href="#valdt_PointIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_Point"><span class="keyword">val</span> dt_Point</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme.<br/>
 </div>
 
-<pre id="valterms_PolicyRdf_iriir"><a class="paragraph-url" href="#valterms_PolicyRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Policy"><span class="keyword">val</span> terms_Policy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PolicyIrit"><a class="paragraph-url" href="#valc_PolicyIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Policy"><span class="keyword">val</span> c_Policy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A plan or course of action by an authority, intended to influence and determine decisions, actions, and other matters.<br/>
 </div>
 
-<pre id="valterms_provenanceRdf_i"><a class="paragraph-url" href="#valterms_provenanceRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_provenance"><span class="keyword">val</span> terms_provenance</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valprovenanceIrit"><a class="paragraph-url" href="#valprovenanceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALprovenance"><span class="keyword">val</span> provenance</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation.<br/>
 </div>
 
-<pre id="valterms_ProvenanceState"><a class="paragraph-url" href="#valterms_ProvenanceState"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_ProvenanceStatement"><span class="keyword">val</span> terms_ProvenanceStatement</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_ProvenanceStatement"><a class="paragraph-url" href="#valc_ProvenanceStatement"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_ProvenanceStatement"><span class="keyword">val</span> c_ProvenanceStatement</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation.<br/>
 </div>
 
-<pre id="valterms_publisherRdf_ir"><a class="paragraph-url" href="#valterms_publisherRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_publisher"><span class="keyword">val</span> terms_publisher</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valpublisherIrit"><a class="paragraph-url" href="#valpublisherIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpublisher"><span class="keyword">val</span> publisher</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An entity responsible for making the resource available.<br/>
 </div>
 
-<pre id="valterms_referencesRdf_i"><a class="paragraph-url" href="#valterms_referencesRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_references"><span class="keyword">val</span> terms_references</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valreferencesIrit"><a class="paragraph-url" href="#valreferencesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALreferences"><span class="keyword">val</span> references</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is referenced, cited, or otherwise pointed to by the described resource.<br/>
 </div>
 
-<pre id="valterms_relationRdf_iri"><a class="paragraph-url" href="#valterms_relationRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_relation"><span class="keyword">val</span> terms_relation</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrelationIrit"><a class="paragraph-url" href="#valrelationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrelation"><span class="keyword">val</span> relation</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource.<br/>
 </div>
 
-<pre id="valterms_replacesRdf_iri"><a class="paragraph-url" href="#valterms_replacesRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_replaces"><span class="keyword">val</span> terms_replaces</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valreplacesIrit"><a class="paragraph-url" href="#valreplacesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALreplaces"><span class="keyword">val</span> replaces</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is supplanted, displaced, or superseded by the described resource.<br/>
 </div>
 
-<pre id="valterms_requiresRdf_iri"><a class="paragraph-url" href="#valterms_requiresRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_requires"><span class="keyword">val</span> terms_requires</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrequiresIrit"><a class="paragraph-url" href="#valrequiresIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrequires"><span class="keyword">val</span> requires</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource that is required by the described resource to support its function, delivery, or coherence.<br/>
 </div>
 
-<pre id="valterms_RFC1766Rdf_irii"><a class="paragraph-url" href="#valterms_RFC1766Rdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_RFC1766"><span class="keyword">val</span> terms_RFC1766</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_RFC1766Irit"><a class="paragraph-url" href="#valdt_RFC1766Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_RFC1766"><span class="keyword">val</span> dt_RFC1766</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of tags, constructed according to RFC 1766, for the identification of languages.<br/>
 </div>
 
-<pre id="valterms_RFC3066Rdf_irii"><a class="paragraph-url" href="#valterms_RFC3066Rdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_RFC3066"><span class="keyword">val</span> terms_RFC3066</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_RFC3066Irit"><a class="paragraph-url" href="#valdt_RFC3066Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_RFC3066"><span class="keyword">val</span> dt_RFC3066</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of tags constructed according to RFC 3066 for the identification of languages.<br/>
 </div>
 
-<pre id="valterms_RFC4646Rdf_irii"><a class="paragraph-url" href="#valterms_RFC4646Rdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_RFC4646"><span class="keyword">val</span> terms_RFC4646</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_RFC4646Irit"><a class="paragraph-url" href="#valdt_RFC4646Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_RFC4646"><span class="keyword">val</span> dt_RFC4646</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of tags constructed according to RFC 4646 for the identification of languages.<br/>
 </div>
 
-<pre id="valterms_RFC5646Rdf_irii"><a class="paragraph-url" href="#valterms_RFC5646Rdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_RFC5646"><span class="keyword">val</span> terms_RFC5646</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_RFC5646Irit"><a class="paragraph-url" href="#valdt_RFC5646Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_RFC5646"><span class="keyword">val</span> dt_RFC5646</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of tags constructed according to RFC 5646 for the identification of languages.<br/>
 </div>
 
-<pre id="valterms_rightsRdf_iriir"><a class="paragraph-url" href="#valterms_rightsRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_rights"><span class="keyword">val</span> terms_rights</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrightsIrit"><a class="paragraph-url" href="#valrightsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrights"><span class="keyword">val</span> rights</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Information about rights held in and over the resource.<br/>
 </div>
 
-<pre id="valterms_rightsHolderRdf"><a class="paragraph-url" href="#valterms_rightsHolderRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_rightsHolder"><span class="keyword">val</span> terms_rightsHolder</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrightsHolderIrit"><a class="paragraph-url" href="#valrightsHolderIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrightsHolder"><span class="keyword">val</span> rightsHolder</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A person or organization owning or managing rights over the resource.<br/>
 </div>
 
-<pre id="valterms_RightsStatement"><a class="paragraph-url" href="#valterms_RightsStatement"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_RightsStatement"><span class="keyword">val</span> terms_RightsStatement</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_RightsStatementIrit"><a class="paragraph-url" href="#valc_RightsStatementIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_RightsStatement"><span class="keyword">val</span> c_RightsStatement</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A statement about the intellectual property rights (IPR) held in or over a Resource, a legal document giving official permission to do something with a resource, or a statement about access rights.<br/>
 </div>
 
-<pre id="valterms_SizeOrDurationR"><a class="paragraph-url" href="#valterms_SizeOrDurationR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_SizeOrDuration"><span class="keyword">val</span> terms_SizeOrDuration</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_SizeOrDurationIrit"><a class="paragraph-url" href="#valc_SizeOrDurationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_SizeOrDuration"><span class="keyword">val</span> c_SizeOrDuration</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A dimension or extent, or a time taken to play or execute.<br/>
 </div>
 
-<pre id="valterms_sourceRdf_iriir"><a class="paragraph-url" href="#valterms_sourceRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_source"><span class="keyword">val</span> terms_source</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsourceIrit"><a class="paragraph-url" href="#valsourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsource"><span class="keyword">val</span> source</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A related resource from which the described resource is derived.<br/>
 </div>
 
-<pre id="valterms_spatialRdf_irii"><a class="paragraph-url" href="#valterms_spatialRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_spatial"><span class="keyword">val</span> terms_spatial</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valspatialIrit"><a class="paragraph-url" href="#valspatialIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALspatial"><span class="keyword">val</span> spatial</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Spatial characteristics of the resource.<br/>
 </div>
 
-<pre id="valterms_StandardRdf_iri"><a class="paragraph-url" href="#valterms_StandardRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_Standard"><span class="keyword">val</span> terms_Standard</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_StandardIrit"><a class="paragraph-url" href="#valc_StandardIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Standard"><span class="keyword">val</span> c_Standard</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A basis for comparison; a reference point against which other things can be evaluated.<br/>
 </div>
 
-<pre id="valterms_subjectRdf_irii"><a class="paragraph-url" href="#valterms_subjectRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_subject"><span class="keyword">val</span> terms_subject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsubjectIrit"><a class="paragraph-url" href="#valsubjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The topic of the resource.<br/>
 </div>
 
-<pre id="valterms_tableOfContents"><a class="paragraph-url" href="#valterms_tableOfContents"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_tableOfContents"><span class="keyword">val</span> terms_tableOfContents</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtableOfContentsIrit"><a class="paragraph-url" href="#valtableOfContentsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtableOfContents"><span class="keyword">val</span> tableOfContents</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A list of subunits of the resource.<br/>
 </div>
 
-<pre id="valterms_temporalRdf_iri"><a class="paragraph-url" href="#valterms_temporalRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_temporal"><span class="keyword">val</span> terms_temporal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtemporalIrit"><a class="paragraph-url" href="#valtemporalIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtemporal"><span class="keyword">val</span> temporal</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Temporal characteristics of the resource.<br/>
 </div>
 
-<pre id="valterms_titleRdf_iriiri"><a class="paragraph-url" href="#valterms_titleRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_title"><span class="keyword">val</span> terms_title</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtitleIrit"><a class="paragraph-url" href="#valtitleIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtitle"><span class="keyword">val</span> title</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A name given to the resource.<br/>
 </div>
 
-<pre id="valterms_typeRdf_iriiri"><a class="paragraph-url" href="#valterms_typeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_type"><span class="keyword">val</span> terms_type</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtype_Irit"><a class="paragraph-url" href="#valtype_Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtype_"><span class="keyword">val</span> type_</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The nature or genre of the resource.<br/>
 </div>
 
-<pre id="valterms_URIRdf_iriiri"><a class="paragraph-url" href="#valterms_URIRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_URI"><span class="keyword">val</span> terms_URI</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_URIIrit"><a class="paragraph-url" href="#valdt_URIIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_URI"><span class="keyword">val</span> dt_URI</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force.<br/>
 </div>
 
-<pre id="valterms_validRdf_iriiri"><a class="paragraph-url" href="#valterms_validRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_valid"><span class="keyword">val</span> terms_valid</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valvalidIrit"><a class="paragraph-url" href="#valvalidIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALvalid"><span class="keyword">val</span> valid</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date (often a range) of validity of a resource.<br/>
 </div>
 
-<pre id="valterms_W3CDTFRdf_iriir"><a class="paragraph-url" href="#valterms_W3CDTFRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALterms_W3CDTF"><span class="keyword">val</span> terms_W3CDTF</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdt_W3CDTFIrit"><a class="paragraph-url" href="#valdt_W3CDTFIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdt_W3CDTF"><span class="keyword">val</span> dt_W3CDTF</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The set of dates and times constructed according to the W3C Date and Time Formats Specification.<br/>
 </div>
-</div>
+
+<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_dc.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_dc.Open.html">..</a> <code class="code">end</code></pre></div>
 
 
 </div>

@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_pim.Open</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<div class="navbar"> <a class="up" href="Rdf_pim.html" title="Rdf_pim">Up</a>
+ </div>
+<h1>Module <a href="type_Rdf_pim.Open.html">Rdf_pim.Open</a></h1>
+
+<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_pim.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre id="valpim_c_ControlledStora"><a class="paragraph-url" href="#valpim_c_ControlledStora"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_c_ControlledStorage"><span class="keyword">val</span> pim_c_ControlledStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A  storage is a space of URIs in which you can individually control for each resource
+    who has access to it.<br/>
+</div>
+
+<pre id="valpim_masterWorkspaceIr"><a class="paragraph-url" href="#valpim_masterWorkspaceIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_masterWorkspace"><span class="keyword">val</span> pim_masterWorkspace</span> : <code class="type">Iri.t</code></pre>
+<pre id="valpim_c_PersonalStorage"><a class="paragraph-url" href="#valpim_c_PersonalStorage"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_c_PersonalStorage"><span class="keyword">val</span> pim_c_PersonalStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A personal storage is a space of URIs in which you and only you have access to data,
+    you cannot give access to anyone else.<br/>
+</div>
+
+<pre id="valpim_preferencesFileIr"><a class="paragraph-url" href="#valpim_preferencesFileIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_preferencesFile"><span class="keyword">val</span> pim_preferencesFile</span> : <code class="type">Iri.t</code></pre>
+<pre id="valpim_c_PublicStorageIr"><a class="paragraph-url" href="#valpim_c_PublicStorageIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_c_PublicStorage"><span class="keyword">val</span> pim_c_PublicStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A public storage is a space of URIs in which you have access to data,
+    and all data is accessible to anyone without control.<br/>
+</div>
+
+<pre id="valpim_c_StorageIrit"><a class="paragraph-url" href="#valpim_c_StorageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_c_Storage"><span class="keyword">val</span> pim_c_Storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A storage is a space of URIs in which you have access to data.<br/>
+</div>
+
+<pre id="valpim_storageIrit"><a class="paragraph-url" href="#valpim_storageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_storage"><span class="keyword">val</span> pim_storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The storage in which this workspace is<br/>
+</div>
+
+<pre id="valpim_uriPrefixIrit"><a class="paragraph-url" href="#valpim_uriPrefixIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_uriPrefix"><span class="keyword">val</span> pim_uriPrefix</span> : <code class="type">Iri.t</code></pre><div class="info ">
+URIs which start with this string are in this workspace or storage.
+This may be used for constructing URIs for new storage resources.<br/>
+</div>
+
+<pre id="valpim_c_WorkspaceIrit"><a class="paragraph-url" href="#valpim_c_WorkspaceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_c_Workspace"><span class="keyword">val</span> pim_c_Workspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Workspaces are place where data is stored, and associated polices of privacy.
+A given application typically stores information in several different
+workspaces, some being user private, some shared, and some public.<br/>
+</div>
+
+<pre id="valpim_workspaceIrit"><a class="paragraph-url" href="#valpim_workspaceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpim_workspace"><span class="keyword">val</span> pim_workspace</span> : <code class="type">Iri.t</code></pre></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

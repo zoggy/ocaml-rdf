@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_expand</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,20 +19,224 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span>  <span class="keyword">end</span></code></div>
+<code class="code"><span class="keyword">sig</span><br/>
+  <span class="keyword">val</span> map_opt : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option<br/>
+  <span class="keyword">module</span> <span class="constructor">SMap</span> = <span class="constructor">Rdf_xml</span>.<span class="constructor">SMap</span><br/>
+  <span class="keyword">type</span> env = { base : <span class="constructor">Iri</span>.t; prefixes : <span class="constructor">Iri</span>.t <span class="constructor">SMap</span>.t; }<br/>
+  <span class="keyword">type</span> dataset = { from : <span class="constructor">Iri</span>.t list; from_named : <span class="constructor">Iri</span>.<span class="constructor">Set</span>.t; }<br/>
+  <span class="keyword">val</span> create_env : <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_expand</span>.env<br/>
+  <span class="keyword">val</span> iriref_a : <span class="constructor">Rdf_sparql_types</span>.iri<br/>
+  <span class="keyword">val</span> expand_relative_iri : <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> expand_iri :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.iri<br/>
+  <span class="keyword">val</span> expand_query_prolog_decl :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env * <span class="constructor">Rdf_sparql_types</span>.query_prolog_decl list <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.query_prolog_decl <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env * <span class="constructor">Rdf_sparql_types</span>.query_prolog_decl list<br/>
+  <span class="keyword">val</span> expand_query_prolog :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.query_prolog_decl list <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env * <span class="constructor">Rdf_sparql_types</span>.query_prolog_decl list<br/>
+  <span class="keyword">val</span> expand_rdf_literal :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.rdf_literal <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
+  <span class="keyword">val</span> expand_data_block_value :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.data_block_value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.data_block_value<br/>
+  <span class="keyword">val</span> expand_data_full_block_value :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.data_full_block_value <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.data_full_block_value<br/>
+  <span class="keyword">val</span> expand_inline_data_one_var :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.inline_data_one_var <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.inline_data_one_var<br/>
+  <span class="keyword">val</span> expand_inline_data_full :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.inline_data_full <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.inline_data_full<br/>
+  <span class="keyword">val</span> expand_datablock :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.datablock <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.datablock<br/>
+  <span class="keyword">val</span> expand_values_clause :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.datablock option <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.datablock option<br/>
+  <span class="keyword">val</span> expand_var_or_iri :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.var_or_iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.var_or_iri<br/>
+  <span class="keyword">val</span> expand_select_var :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.select_var <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.select_var<br/>
+  <span class="keyword">val</span> expand_select_vars :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.select_vars <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.select_vars<br/>
+  <span class="keyword">val</span> expand_select_clause :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.select_clause <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.select_clause<br/>
+  <span class="keyword">val</span> expand_source_selector :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.source_selector <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.source_selector<br/>
+  <span class="keyword">val</span> expand_dataset_clause :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.dataset_clause <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.dataset_clause<br/>
+  <span class="keyword">val</span> expand_arg_list :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.arg_list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.arg_list<br/>
+  <span class="keyword">val</span> expand_function_call :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.function_call <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.function_call<br/>
+  <span class="keyword">val</span> expand_expr :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.expr <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.expr<br/>
+  <span class="keyword">val</span> expand_expression :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.expression <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.expression<br/>
+  <span class="keyword">val</span> expand_aggregate :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.aggregate <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.aggregate<br/>
+  <span class="keyword">val</span> expand_built_in_call :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.built_in_call <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.built_in_call<br/>
+  <span class="keyword">val</span> expand_group_var :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.group_var <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.group_var<br/>
+  <span class="keyword">val</span> expand_group_condition :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.group_condition <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.group_condition<br/>
+  <span class="keyword">val</span> expand_constraint :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.having_condition <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.having_condition<br/>
+  <span class="keyword">val</span> expand_having_condition :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.having_condition <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.having_condition<br/>
+  <span class="keyword">val</span> expand_order_condition :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.order_condition <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.order_condition<br/>
+  <span class="keyword">val</span> expand_limit_offset_clause :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.limit_offset_clause <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.limit_offset_clause<br/>
+  <span class="keyword">val</span> expand_solution_modifier :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.solution_modifier <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.solution_modifier<br/>
+  <span class="keyword">val</span> expand_bind :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.bind <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.bind<br/>
+  <span class="keyword">val</span> expand_service_graph_pattern :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.service_graph_pattern <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.service_graph_pattern<br/>
+  <span class="keyword">val</span> expand_graph_graph_pattern :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern<br/>
+  <span class="keyword">val</span> expand_graph_pattern_elt :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt<br/>
+  <span class="keyword">val</span> expand_graph_term :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.graph_term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.graph_term<br/>
+  <span class="keyword">val</span> expand_var_or_term :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.var_or_term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.var_or_term<br/>
+  <span class="keyword">val</span> expand_path_one_in_prop_set :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set<br/>
+  <span class="keyword">val</span> expand_path_primary :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_primary <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.path_primary<br/>
+  <span class="keyword">val</span> expand_path_elt :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.path_elt<br/>
+  <span class="keyword">val</span> expand_path_elt_or_inverse :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse<br/>
+  <span class="keyword">val</span> expand_path_sequence :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.path_sequence <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.path_sequence<br/>
+  <span class="keyword">val</span> expand_path :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.path <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.path<br/>
+  <span class="keyword">val</span> expand_verb :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.verb <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.verb<br/>
+  <span class="keyword">val</span> expand_triples_node :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_node <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.triples_node<br/>
+  <span class="keyword">val</span> expand_graph_node :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.object_ <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.object_<br/>
+  <span class="keyword">val</span> expand_object :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.object_ <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.object_<br/>
+  <span class="keyword">val</span> expand_prop_object_list :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.prop_object_list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.prop_object_list<br/>
+  <span class="keyword">val</span> expand_triples_block :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_block <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.triples_block<br/>
+  <span class="keyword">val</span> expand_triples_same_subject :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject<br/>
+  <span class="keyword">val</span> expand_ggp_sub :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.ggp_sub <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.ggp_sub<br/>
+  <span class="keyword">val</span> expand_group_graph_pattern :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.group_graph_pattern <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
+  <span class="keyword">val</span> expand_sub_select :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.sub_select <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.sub_select<br/>
+  <span class="keyword">val</span> expand_select_query :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.select_query <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.select_query<br/>
+  <span class="keyword">val</span> expand_triples_template :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject list <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject list<br/>
+  <span class="keyword">val</span> expand_construct_template :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject list <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.triples_same_subject list<br/>
+  <span class="keyword">val</span> expand_construct_where :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.construct_where <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.construct_where<br/>
+  <span class="keyword">val</span> expand_construct_query :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.construct_query <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.construct_query<br/>
+  <span class="keyword">val</span> expand_describe_query :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.describe_query <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.describe_query<br/>
+  <span class="keyword">val</span> expand_ask_query :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.ask_query <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.ask_query<br/>
+  <span class="keyword">val</span> expand_query_kind :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.query_kind <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.query_kind<br/>
+  <span class="keyword">val</span> build_dataset :<br/>
+    <span class="constructor">Rdf_sparql_expand</span>.env <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.query_kind <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_expand</span>.dataset<br/>
+  <span class="keyword">val</span> expand_query :<br/>
+    <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.query <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Iri</span>.t * <span class="constructor">Rdf_sparql_expand</span>.dataset * <span class="constructor">Rdf_sparql_types</span>.query<br/>
+<span class="keyword">end</span></code></div>
 
 
 </div>

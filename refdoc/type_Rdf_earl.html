@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_earl</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,46 +19,77 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> earl : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_assertedBy : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_Assertion : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_Assertor : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_CannotTell : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_Fail : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_info : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_mainAssertor : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_mode : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_NotApplicable : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_NotTested : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_outcome : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_OutcomeValue : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_Pass : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_pointer : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_result : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_Software : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_subject : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_test : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestCase : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestCriterion : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestMode : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestRequirement : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestResult : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> earl_TestSubject : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> earl : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> earl_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> assertedBy : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Assertion : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Assertor : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_CannotTell : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Fail : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> info : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> mainAssertor : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> mode : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_NotApplicable : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_NotTested : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> outcome : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_OutcomeValue : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Pass : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> pointer : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> result : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Software : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> subject : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> test : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestCase : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestCriterion : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestMode : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestRequirement : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestResult : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_TestSubject : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">module</span> <span class="constructor">Open</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">val</span> earl_assertedBy : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_Assertion : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_Assertor : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_CannotTell : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_Fail : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_info : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_mainAssertor : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_mode : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_NotApplicable : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_NotTested : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_outcome : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_OutcomeValue : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_Pass : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_pointer : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_result : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_Software : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_subject : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_test : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestCase : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestCriterion : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestMode : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestRequirement : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestResult : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> earl_c_TestSubject : <span class="constructor">Iri</span>.t<br/>
+    <span class="keyword">end</span><br/>
 <span class="keyword">end</span></code></div>
 
 

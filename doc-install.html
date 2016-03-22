@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : Installation</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,66 +19,71 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
 <div class="page-title">Installation</div>
 </div>
-<span></span>
+<span/>
 
 
-<div class="section"><div class="section-title" id="31a7-ac66-a31e-5c19">With opam</div>
-<p id="OCamlRDFisavailableinOPA"><a class="paragraph-url" href="#OCamlRDFisavailableinOPA"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<div class="section"><div class="section-title" id="6c1a-4be5-d45a-a799">With opam</div>
+<p id="OCamlRDFisavailableinOPA"><a class="paragraph-url" href="#OCamlRDFisavailableinOPA"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 OCaml-RDF is available in <span class="ext-a"><a href="http://opam.ocamlpro.com">OPAM</a></span>:
 </p>
-<pre class="code-sh" id="opaminstallrdf"><a class="paragraph-url" href="#opaminstallrdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ opam <span class="hl kwc">install</span> rdf</pre>
+<pre class="code-sh" id="opaminstallrdf"><a class="paragraph-url" href="#opaminstallrdf"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ opam <span class="hl kwc">install</span> rdf</pre>
 </div>
 
-<div class="section"><div class="section-title" id="9fe2-c796-ec18-dda2">Manual installation</div>
+<div class="section"><div class="section-title" id="dbd6-1067-7f7e-b9ab">Manual installation</div>
 
 <div class="subsection"><div class="subsection-title" id="deps">Dependencies</div>
-<p id="CompilingOCamlRDFrequire"><a class="paragraph-url" href="#CompilingOCamlRDFrequire"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="CompilingOCamlRDFrequire"><a class="paragraph-url" href="#CompilingOCamlRDFrequire"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Compiling OCaml-RDF requires the following software to be installed:
 </p>
 <ul>
 <li><span class="ext-a"><a href="http://caml.inria.fr/">OCaml &gt;= 4.02</a></span>,</li>
 <li><span class="ext-a"><a href="http://projects.camlcity.org/projects/findlib.html">Findlib &gt;= 1.3.3</a></span> (should work with priori versions),</li>
-<li><span class="ext-a"><a href="http://projects.camlcity.org/projects/ocamlnet.html/">OCamlnet &gt;= 3.6.5</a></span>,</li>
-
-<li><span class="ext-a"><a href="https://forge.ocamlcore.org/projects/ocaml-mysql/">OCaml-MySQL &gt;= 1.1.1</a></span> (not tested with prior versions) for MySQL backend,</li>
-<li><span class="ext-a"><a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</a></span> (not tested with prior versions) for Postgresql backend,</li>
+<li><span class="ext-a"><a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri &gt;= 0.2.0</a></span>,</li>
+<li><span class="ext-a"><a href="https://github.com/mirage/ocaml-uri/">OCaml-uri &gt;= 1.9.1</a></span>,</li>
+<li><span class="ext-a"><a href="http://calendar.forge.ocamlcore.org/">Calendar &gt;= 2.03.2</a></span>,</li>
 <li><span class="ext-a"><a href="http://erratique.ch/software/xmlm">Xmlm &gt;= 1.1.1</a></span>,</li>
 <li><span class="ext-a"><a href="http://erratique.ch/software/uuidm">Uuidm &gt;= 0.9.5</a></span>,</li>
-<li><span class="ext-a"><a href="http://alain.frisch.fr/soft.html#ulex">ulex &gt;= 1.1</a></span> (not tested with prior versions),</li>
-<li><span class="ext-a"><a href="http://gallium.inria.fr/~fpottier/menhir">Menhir &gt;= 20120123</a></span> (not tested with prior versions),</li>
+<li><span class="ext-a"><a href="https://github.com/alainfrisch/sedlex">Sedlex &gt;= 1.99.2</a></span>,</li>
+<li><span class="ext-a"><a href="http://gallium.inria.fr/~fpottier/menhir">Menhir &gt;= 20151112</a></span> (not tested with prior versions),</li>
 
 <li><span class="ext-a"><a href="http://pauillac.inria.fr/~xleroy/software.html#cryptokit">Cryptokit &gt;= 1.7</a></span> (not tested with prior versions),</li>
 <li><span class="ext-a"><a href="https://bitbucket.org/mmottl/pcre-ocaml">PCRE-OCaml &gt;= 7.0.2</a></span> (not tested with prior versions),</li>
 
 <li><span class="ext-a"><a href="http://mjambon.com/yojson.html">Yojson &gt;= 1.1.8</a></span> (not tested with prior versions),</li>
 
-<li><span class="ext-a"><a href="http://ocsigen.org/lwt/">Lwt &gt;= 2.4.5</a></span> and <span class="ext-a"><a href="http://www.cl.cam.ac.uk/projects/ocamllabs/pkg/index.html">CoHTTP &gt;= 0.11.2</a></span> (not tested with prior versions) to use the Lwt-based <span class="ext-a"><a href="http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http">HTTP binding of the Sparql protocol</a></span>,
+<li>[optional] <span class="ext-a"><a href="http://ocsigen.org/lwt/">Lwt &gt;= 2.4.5</a></span> and <span class="ext-a"><a href="http://www.cl.cam.ac.uk/projects/ocamllabs/pkg/index.html">CoHTTP &gt;= 0.11.2</a></span> (not tested with prior versions) to use the Lwt-based <span class="ext-a"><a href="http://www.w3.org/TR/rdf-sparql-protocol/#query-bindings-http">HTTP binding of the Sparql protocol</a></span>,
 </li>
+<li>[optional] <span class="ext-a"><a href="https://forge.ocamlcore.org/projects/ocaml-mysql/">OCaml-MySQL &gt;= 1.1.1</a></span> (not tested with prior versions) for MySQL backend,</li>
+<li>[optional] <span class="ext-a"><a href="https://bitbucket.org/mmottl/postgresql-ocaml">Postgresql-ocaml &gt;= 2.0.2</a></span> (not tested with prior versions) for Postgresql backend,</li>
 <li>[optional] <span class="ext-a"><a href="https://forge.ocamlcore.org/projects/config-file/">Config-file &gt;= 1.1</a></span> to run the test suite,</li>
 
-
+<!--&lt;li&gt;[optional] &lt;ext-a href="https://zoggy.github.com/stog"&gt;Stog &gt;= 0.8.0&lt;/ext-a&gt; for the documentation.&lt;/li&gt;-->
 </ul>
 </div>
 
 <div class="subsection"><div class="subsection-title" id="making">Compiling and installing</div>
-<p id="Afterextractingthesource"><a class="paragraph-url" href="#Afterextractingthesource"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Afterextractingthesource"><a class="paragraph-url" href="#Afterextractingthesource"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 After extracting the source tree, go to the extracted directory and type:
 </p>
-<pre class="code-sh" id="configuremakeallmakeinst"><a class="paragraph-url" href="#configuremakeallmakeinst"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ .<span class="hl opt">/</span>configure
+<pre class="code-sh" id="configuremakeallmakeinst"><a class="paragraph-url" href="#configuremakeallmakeinst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ .<span class="hl opt">/</span>configure
 $ <span class="hl kwc">make</span> all
 $ <span class="hl kwc">make install</span> <span class="hl slc"># with sufficient rights</span></pre>
-<p id="Thiswillinstallthepackag"><a class="paragraph-url" href="#Thiswillinstallthepackag"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
-This will install the packages <code>rdf</code>,
+<p id="Thiswillinstallthepackag"><a class="paragraph-url" href="#Thiswillinstallthepackag"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+This will install the packages <code>rdf</code>, <code>rdf.ppx</code>, <code>rdf.js</code>,
 <code>rdf.mysql</code>,<code>rdf.postgresql</code> and <code>rdf.lwt</code> with ocamlfind.
 </p>
 </div>

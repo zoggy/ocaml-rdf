@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_rdfs</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_rdf.html" title="Rdf_rdf">Previous</a>
@@ -39,84 +42,86 @@
 </div>
 <h1>Module <a href="type_Rdf_rdfs.html">Rdf_rdfs</a></h1>
 
-<pre id="moduleRdf_rdfssigend"><a class="paragraph-url" href="#moduleRdf_rdfssigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_rdfs: <code class="code">sig</code> <a href="Rdf_rdfs.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_rdfssigend"><a class="paragraph-url" href="#moduleRdf_rdfssigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_rdfs: <code class="code">sig</code> <a href="Rdf_rdfs.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Elements of <code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
 </div>
 <hr width="100%"/>
 
-<pre id="valrdfsRdf_iriiri"><a class="paragraph-url" href="#valrdfsRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs"><span class="keyword">val</span> rdfs</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrdfsIrit"><a class="paragraph-url" href="#valrdfsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs"><span class="keyword">val</span> rdfs</span> : <code class="type">Iri.t</code></pre><div class="info ">
 <code class="code">http://www.w3.org/2000/01/rdf-schema#</code><br/>
 </div>
 
-<pre id="valrdfs_stringRdf_iriiri"><a class="paragraph-url" href="#valrdfs_stringRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_"><span class="keyword">val</span> rdfs_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre id="valrdfs_ClassRdf_iriiri"><a class="paragraph-url" href="#valrdfs_ClassRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_Class"><span class="keyword">val</span> rdfs_Class</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrdfs_stringIrit"><a class="paragraph-url" href="#valrdfs_stringIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_"><span class="keyword">val</span> rdfs_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre id="valc_ClassIrit"><a class="paragraph-url" href="#valc_ClassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Class"><span class="keyword">val</span> c_Class</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The class of classes.<br/>
 </div>
 
-<pre id="valrdfs_commentRdf_iriir"><a class="paragraph-url" href="#valrdfs_commentRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_comment"><span class="keyword">val</span> rdfs_comment</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcommentIrit"><a class="paragraph-url" href="#valcommentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcomment"><span class="keyword">val</span> comment</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A description of the subject resource.<br/>
 </div>
 
-<pre id="valrdfs_ContainerRdf_iri"><a class="paragraph-url" href="#valrdfs_ContainerRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_Container"><span class="keyword">val</span> rdfs_Container</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_ContainerIrit"><a class="paragraph-url" href="#valc_ContainerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Container"><span class="keyword">val</span> c_Container</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The class of RDF containers.<br/>
 </div>
 
-<pre id="valrdfs_ContainerMembers"><a class="paragraph-url" href="#valrdfs_ContainerMembers"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_ContainerMembershipProperty"><span class="keyword">val</span> rdfs_ContainerMembershipProperty</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
-The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.<br/>
+<pre id="valc_ContainerMembership"><a class="paragraph-url" href="#valc_ContainerMembership"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_ContainerMembershipProperty"><span class="keyword">val</span> c_ContainerMembershipProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of container membership properties, rdf:_1, rdf:_2, ...,
+                    all of which are sub-properties of 'member'.<br/>
 </div>
 
-<pre id="valrdfs_DatatypeRdf_irii"><a class="paragraph-url" href="#valrdfs_DatatypeRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_Datatype"><span class="keyword">val</span> rdfs_Datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_DatatypeIrit"><a class="paragraph-url" href="#valc_DatatypeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Datatype"><span class="keyword">val</span> c_Datatype</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The class of RDF datatypes.<br/>
 </div>
 
-<pre id="valrdfs_domainRdf_iriiri"><a class="paragraph-url" href="#valrdfs_domainRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_domain"><span class="keyword">val</span> rdfs_domain</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdomainIrit"><a class="paragraph-url" href="#valdomainIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdomain"><span class="keyword">val</span> domain</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A domain of the subject property.<br/>
 </div>
 
-<pre id="valrdfs_isDefinedByRdf_i"><a class="paragraph-url" href="#valrdfs_isDefinedByRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_isDefinedBy"><span class="keyword">val</span> rdfs_isDefinedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisDefinedByIrit"><a class="paragraph-url" href="#valisDefinedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisDefinedBy"><span class="keyword">val</span> isDefinedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The defininition of the subject resource.<br/>
 </div>
 
-<pre id="valrdfs_labelRdf_iriiri"><a class="paragraph-url" href="#valrdfs_labelRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_label"><span class="keyword">val</span> rdfs_label</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="vallabelIrit"><a class="paragraph-url" href="#vallabelIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALlabel"><span class="keyword">val</span> label</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A human-readable name for the subject.<br/>
 </div>
 
-<pre id="valrdfs_LiteralRdf_iriir"><a class="paragraph-url" href="#valrdfs_LiteralRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_Literal"><span class="keyword">val</span> rdfs_Literal</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LiteralIrit"><a class="paragraph-url" href="#valc_LiteralIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Literal"><span class="keyword">val</span> c_Literal</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The class of literal values, eg. textual strings and integers.<br/>
 </div>
 
-<pre id="valrdfs_memberRdf_iriiri"><a class="paragraph-url" href="#valrdfs_memberRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_member"><span class="keyword">val</span> rdfs_member</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmemberIrit"><a class="paragraph-url" href="#valmemberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmember"><span class="keyword">val</span> member</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A member of the subject resource.<br/>
 </div>
 
-<pre id="valrdfs_rangeRdf_iriiri"><a class="paragraph-url" href="#valrdfs_rangeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_range"><span class="keyword">val</span> rdfs_range</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valrangeIrit"><a class="paragraph-url" href="#valrangeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrange"><span class="keyword">val</span> range</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A range of the subject property.<br/>
 </div>
 
-<pre id="valrdfs_ResourceRdf_irii"><a class="paragraph-url" href="#valrdfs_ResourceRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_Resource"><span class="keyword">val</span> rdfs_Resource</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_ResourceIrit"><a class="paragraph-url" href="#valc_ResourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Resource"><span class="keyword">val</span> c_Resource</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The class resource, everything.<br/>
 </div>
 
-<pre id="valrdfs_seeAlsoRdf_iriir"><a class="paragraph-url" href="#valrdfs_seeAlsoRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_seeAlso"><span class="keyword">val</span> rdfs_seeAlso</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valseeAlsoIrit"><a class="paragraph-url" href="#valseeAlsoIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALseeAlso"><span class="keyword">val</span> seeAlso</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Further information about the subject resource.<br/>
 </div>
 
-<pre id="valrdfs_subClassOfRdf_ir"><a class="paragraph-url" href="#valrdfs_subClassOfRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_subClassOf"><span class="keyword">val</span> rdfs_subClassOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsubClassOfIrit"><a class="paragraph-url" href="#valsubClassOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubClassOf"><span class="keyword">val</span> subClassOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The subject is a subclass of a class.<br/>
 </div>
 
-<pre id="valrdfs_subPropertyOfRdf"><a class="paragraph-url" href="#valrdfs_subPropertyOfRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrdfs_subPropertyOf"><span class="keyword">val</span> rdfs_subPropertyOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsubPropertyOfIrit"><a class="paragraph-url" href="#valsubPropertyOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubPropertyOf"><span class="keyword">val</span> subPropertyOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The subject is a subproperty of a property.<br/>
 </div>
-<br/>
+
+<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_rdfs.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_rdfs.Open.html">..</a> <code class="code">end</code></pre><br/>
 <div class="section-title" id="2_Buildingvocabularydescriptions">Building vocabulary descriptions</div><br/>
 
-<pre id="valadd_namespacesRdf_gra"><a class="paragraph-url" href="#valadd_namespacesRdf_gra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd_namespaces"><span class="keyword">val</span> add_namespaces</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre><div class="info">
+<pre id="valadd_namespacesRdf_gra"><a class="paragraph-url" href="#valadd_namespacesRdf_gra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd_namespaces"><span class="keyword">val</span> add_namespaces</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; unit</code></pre><div class="info ">
 Add usual <code class="code">rdf</code> and <code class="code">rdfs</code> namespaces in the given graph.<br/>
 </div>
 
-<pre id="valpropertyRdf_graphgrap"><a class="paragraph-url" href="#valpropertyRdf_graphgrap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALproperty"><span class="keyword">val</span> property</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?domains:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list -&gt;<br/>       ?ranges:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> list -&gt;<br/>       ?subof:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?more:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; unit</code></pre>
-<pre id="valclass_Rdf_graphgraphl"><a class="paragraph-url" href="#valclass_Rdf_graphgraphl"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALclass_"><span class="keyword">val</span> class_</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?subof:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt;<br/>       ?more:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; unit</code></pre></div>
+<pre id="valmk_propertyRdf_graphg"><a class="paragraph-url" href="#valmk_propertyRdf_graphg"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmk_property"><span class="keyword">val</span> mk_property</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?domains:Iri.t list -&gt;<br/>       ?ranges:Iri.t list -&gt;<br/>       ?subof:Iri.t -&gt; ?more:(Iri.t * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; Iri.t -&gt; unit</code></pre>
+<pre id="valmk_classRdf_graphgrap"><a class="paragraph-url" href="#valmk_classRdf_graphgrap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmk_class"><span class="keyword">val</span> mk_class</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       label:string -&gt;<br/>       ?label_lang:(string * string) list -&gt;<br/>       ?comment:string -&gt;<br/>       ?comment_lang:(string * string) list -&gt;<br/>       ?subof:Iri.t -&gt; ?more:(Iri.t * <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a>) list -&gt; Iri.t -&gt; unit</code></pre></div>
 
 
 </div>

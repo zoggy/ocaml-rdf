@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_xml</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <code class="code"><span class="keyword">sig</span><br/>
@@ -71,15 +74,15 @@
     <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> string * string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree option<br/>
   <span class="keyword">type</span> state = {<br/>
     subject : <span class="constructor">Rdf_term</span>.term option;<br/>
-    predicate : <span class="constructor">Rdf_iri</span>.iri option;<br/>
-    xml_base : <span class="constructor">Rdf_iri</span>.iri;<br/>
+    predicate : <span class="constructor">Iri</span>.t option;<br/>
+    xml_base : <span class="constructor">Iri</span>.t;<br/>
     xml_lang : string option;<br/>
-    datatype : <span class="constructor">Rdf_iri</span>.iri option;<br/>
-    namespaces : string <span class="constructor">Rdf_iri</span>.<span class="constructor">Irimap</span>.t;<br/>
+    datatype : <span class="constructor">Iri</span>.t option;<br/>
+    namespaces : string <span class="constructor">Iri</span>.<span class="constructor">Map</span>.t;<br/>
   }<br/>
   <span class="keyword">type</span> global_state = {<br/>
     blanks : <span class="constructor">Rdf_term</span>.blank_id <span class="constructor">Rdf_xml</span>.<span class="constructor">SMap</span>.t;<br/>
-    gnamespaces : string <span class="constructor">Rdf_iri</span>.<span class="constructor">Irimap</span>.t;<br/>
+    gnamespaces : string <span class="constructor">Iri</span>.<span class="constructor">Map</span>.t;<br/>
   }<br/>
   <span class="keyword">val</span> get_blank_node :<br/>
     <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
@@ -93,15 +96,14 @@
     <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
     <span class="constructor">Rdf_xml</span>.state <span class="keywordsign">-&gt;</span><br/>
     <span class="constructor">Rdf_xml</span>.global_state * int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.global_state * int<br/>
-  <span class="keyword">val</span> from_string : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> from_file : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> from_input : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Xmlm</span>.input <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> from_xml : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_string : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_file : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_input : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Xmlm</span>.input <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> from_xml : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_xml</span>.tree <span class="keywordsign">-&gt;</span> unit<br/>
   <span class="keyword">val</span> to_string :<br/>
-    ?namespaces:(<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string<br/>
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string<br/>
   <span class="keyword">val</span> to_file :<br/>
-    ?namespaces:(<span class="constructor">Rdf_iri</span>.iri * string) list <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
 <span class="keyword">end</span></code></div>
 
 

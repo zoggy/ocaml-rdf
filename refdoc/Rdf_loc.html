@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_loc</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,31 +19,35 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
-<div class="navbar"><a class="pre" href="Rdf_json.html" title="Rdf_json">Previous</a>
+<div class="navbar"><a class="pre" href="Rdf_ldp.html" title="Rdf_ldp">Previous</a>
  <a class="up" href="index.html" title="Index">Up</a>
  <a class="post" href="Rdf_mem.html" title="Rdf_mem">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_loc.html">Rdf_loc</a></h1>
 
-<pre id="moduleRdf_locsigend"><a class="paragraph-url" href="#moduleRdf_locsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_loc: <code class="code">sig</code> <a href="Rdf_loc.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_locsigend"><a class="paragraph-url" href="#moduleRdf_locsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_loc: <code class="code">sig</code> <a href="Rdf_loc.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Locations.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="typeloc"><a class="paragraph-url" href="#typeloc"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEloc"><span class="keyword">type</span> loc</span> = {</code></pre><table class="typetable">
+<pre id="typeloc"><a class="paragraph-url" href="#typeloc"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEloc"><span class="keyword">type</span> loc</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
@@ -63,22 +66,22 @@ Locations.<br/>
 
 
 
-<pre id="valdummy_locloc"><a class="paragraph-url" href="#valdummy_locloc"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdummy_loc"><span class="keyword">val</span> dummy_loc</span> : <code class="type"><a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info">
+<pre id="valdummy_locloc"><a class="paragraph-url" href="#valdummy_locloc"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdummy_loc"><span class="keyword">val</span> dummy_loc</span> : <code class="type"><a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info ">
 Dummy location.<br/>
 </div>
 
-<pre id="valsource_info_stringstr"><a class="paragraph-url" href="#valsource_info_stringstr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsource_info_string"><span class="keyword">val</span> source_info_string</span> : <code class="type">string -&gt; int -&gt; int -&gt; <a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info">
+<pre id="valsource_info_stringstr"><a class="paragraph-url" href="#valsource_info_stringstr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsource_info_string"><span class="keyword">val</span> source_info_string</span> : <code class="type">string -&gt; int -&gt; int -&gt; <a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info ">
 From the given utf8 string and start and stop characters, return
   the corresponding location.<br/>
 </div>
 
-<pre id="valsource_info_filestrin"><a class="paragraph-url" href="#valsource_info_filestrin"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsource_info_file"><span class="keyword">val</span> source_info_file</span> : <code class="type">string -&gt; int -&gt; int -&gt; <a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info">
+<pre id="valsource_info_filestrin"><a class="paragraph-url" href="#valsource_info_filestrin"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsource_info_file"><span class="keyword">val</span> source_info_file</span> : <code class="type">string -&gt; int -&gt; int -&gt; <a href="Rdf_loc.html#TYPEloc">loc</a></code></pre><div class="info ">
 From the given file and start and stop characters, read
   the content of the file as utf8, and return the corresponding
   location.<br/>
 </div>
 
-<pre id="valstring_of_loclocstrin"><a class="paragraph-url" href="#valstring_of_loclocstrin"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring_of_loc"><span class="keyword">val</span> string_of_loc</span> : <code class="type"><a href="Rdf_loc.html#TYPEloc">loc</a> -&gt; string</code></pre><div class="info">
+<pre id="valstring_of_loclocstrin"><a class="paragraph-url" href="#valstring_of_loclocstrin"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring_of_loc"><span class="keyword">val</span> string_of_loc</span> : <code class="type"><a href="Rdf_loc.html#TYPEloc">loc</a> -&gt; string</code></pre><div class="info ">
 Return a string representing the given location.<br/>
 </div>
 </div>

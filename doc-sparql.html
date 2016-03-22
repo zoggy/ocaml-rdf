@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : Executing Sparql queries</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,124 +19,128 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
 <div class="page-title">Executing Sparql queries</div>
 </div>
-<span></span>
+<span/>
 
 
 
-<p id="OCamlRDFimplementsSparql"><a class="paragraph-url" href="#OCamlRDFimplementsSparql"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="OCamlRDFimplementsSparql"><a class="paragraph-url" href="#OCamlRDFimplementsSparql"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 OCaml-RDF implements <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/">Sparql 1.1 Query</a></span>.
 <a href="https://zoggy.github.io/ocaml-rdf/doc-todo.html#limitations">Some features are missing</a> but it's already quite complete.
 The main module of the implementation is 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html">Rdf_sparql</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_/&gt;">Rdf_sparql</a>
 . We consider
 this module open in the examples below:
 </p>
-<pre class="code-ocaml" id="openRdf_sparql"><a class="paragraph-url" href="#openRdf_sparql"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">open</span><span class="hl std"> </span><span class="hl kwc">Rdf_sparql</span><span class="hl std">;;</span></div></pre>
+<pre class="code-ocaml" id="openRdf_sparql"><a class="paragraph-url" href="#openRdf_sparql"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">open</span><span class="hl std"> </span><span class="hl kwc">Rdf_sparql</span><span class="hl std">;;</span></div></pre>
 <ul class="toc"><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html#parsing">Parsing and printing queries</a></li><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html#dataset">Datasets</a></li><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html#execution">Executing a query</a></li><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html#construct">CONSTRUCT queries</a></li></ul>
 <div class="section"><div class="section-title" id="parsing">Parsing and printing queries</div>
-<p id="TheexamplebelowparsesaSp"><a class="paragraph-url" href="#TheexamplebelowparsesaSp"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="TheexamplebelowparsesaSp"><a class="paragraph-url" href="#TheexamplebelowparsesaSp"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The example below parses a Sparql query, then prints it:
 </p>
-<pre class="code-ocaml" id="letquerytryquery_from_st"><a class="paragraph-url" href="#letquerytryquery_from_st"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> =
+<pre class="code-ocaml" id="letquerytryquery_from_st"><a class="paragraph-url" href="#letquerytryquery_from_st"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> =
   </span><span class="hl kwb">try</span><span class="hl std"> </span><span class="">query_from_string</span><span class="hl std">
-    </span><span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+    </span><span class="hl str">"PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
      SELECT ?name ?mbox ?hpage
      WHERE  { ?x foaf:name  ?name .
          OPTIONAL { ?x foaf:mbox ?mbox } .
          OPTIONAL { ?x foaf:homepage ?hpage }
-       }&quot;</span><span class="hl std">
+       }"</span><span class="hl std">
   </span><span class="hl kwb">with</span><span class="hl std"> </span><span class="hl kwc">Error</span><span class="hl std"> </span><span class="">e</span><span class="hl std"> -&gt; </span><span class="">failwith</span><span class="hl std"> (</span><span class="">string_of_error</span><span class="hl std"> </span><span class="">e</span><span class="hl std">)
 ;;</span></div><div><span class="">print_endline</span><span class="hl std"> (</span><span class="">string_of_query</span><span class="hl std"> </span><span class="">query</span><span class="hl std">);;</span></div></pre>
 </div>
 
 <div class="section"><div class="section-title" id="dataset">Datasets</div>
-<p id="ASparqlqueryisexecutedon"><a class="paragraph-url" href="#ASparqlqueryisexecutedon"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="ASparqlqueryisexecutedon"><a class="paragraph-url" href="#ASparqlqueryisexecutedon"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 A Sparql query is executed on a
 <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/#rdfDataset"><em>dataset</em></a></span>,
 which is composed of a default (unnamed) graph, and other (named) graphs each associated
 to an IRI.
 </p>
-<p id="TheRdf_dsdatasettyperepr"><a class="paragraph-url" href="#TheRdf_dsdatasettyperepr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>The 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a>
+<p id="TheRdf_dsdatasettyperepr"><a class="paragraph-url" href="#TheRdf_dsdatasettyperepr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>The 
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ds.html&lt;main_&gt;#TYPEdataset&lt;/main_&gt;">Rdf_ds.dataset</a>
  type represents a dataset and contains
 a default graph (which can be empty), a set of graph names (i.e. a set of IRIs), and
 a function to get a graph by its IRI.
 </p>
-<p id="Theexamplebelowloadsagra"><a class="paragraph-url" href="#Theexamplebelowloadsagra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>The example below loads a graph from the file <code>optional.ttl</code> then
+<p id="Theexamplebelowloadsagra"><a class="paragraph-url" href="#Theexamplebelowloadsagra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>The example below loads a graph from the file <code>optional.ttl</code> then
 creates a dataset with this graph as default graph, and no named graphs:
 </p>
-<pre class="code-ocaml" id="letbaseRdf_iriirihttpfoo"><a class="paragraph-url" href="#letbaseRdf_iriirihttpfoo"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> = </span><span class="hl kwc">Rdf_iri</span><span class="hl std">.</span><span class="">iri</span><span class="hl std"> </span><span class="hl str">&quot;http://foo.net&quot;</span><span class="hl std">;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> ;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl std">.</span><span class="">from_file</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> </span><span class="hl str">&quot;optional.ttl&quot;</span><span class="hl std">;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> = </span><span class="hl kwc">Rdf_ds</span><span class="hl std">.</span><span class="">simple_dataset</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> ;;</span></div></pre>
-<p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph:</p>
+<pre class="code-ocaml" id="letbaseIriof_stringhttpf"><a class="paragraph-url" href="#letbaseIriof_stringhttpf"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> = </span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="hl str">"http://foo.net"</span><span class="hl std">;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> ;;</span></div><div><span class="hl kwc">Rdf_ttl</span><span class="hl std">.</span><span class="">from_file</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> </span><span class="hl str">"optional.ttl"</span><span class="hl std">;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> = </span><span class="hl kwc">Rdf_ds</span><span class="hl std">.</span><span class="">simple_dataset</span><span class="hl std"> </span><span class="">g</span><span class="hl std"> ;;</span></div></pre>
+<p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph:</p>
 
-<pre class="code-ocaml" id="prefixfoafhttpxmlnscomfo"><a class="paragraph-url" href="#prefixfoafhttpxmlnscomfo"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+<pre class="code-ocaml" id="prefixfoafhttpxmlnscomfo"><a class="paragraph-url" href="#prefixfoafhttpxmlnscomfo"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-1011306017 foaf:name &quot;Bob&quot; .
-_:genid1-1011306017 foaf:mbox &lt;mailto:bob@work.example&gt; .
-_:genid0-939606857 foaf:name &quot;Alice&quot; .
-_:genid0-939606857 foaf:homepage &lt;http://work.example.org/alice/&gt; .
+_:genid1-802583589 foaf:name "Bob" .
+_:genid1-802583589 foaf:mbox &lt;mailto:bob@work.example&gt; .
+_:genid0-952190189 foaf:name "Alice" .
+_:genid0-952190189 foaf:homepage &lt;http://work.example.org/alice/&gt; .
 </div></pre>
 
 </div>
 
 <div class="section"><div class="section-title" id="execution">Executing a query</div>
-<p id="Thefollowingcodeexecutes"><a class="paragraph-url" href="#Thefollowingcodeexecutes"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Thefollowingcodeexecutes"><a class="paragraph-url" href="#Thefollowingcodeexecutes"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The following code executes the query parsed above, on the dataset
 defined in previous section. Since this is a SELECT query, the
 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html#VALexecute">Rdf_sparql.execute</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_&gt;#VALexecute&lt;/main_&gt;">Rdf_sparql.execute</a>
   function returns a <code>Solutions</code>
 constructor with the sequence of solutions.
 </p>
-<pre class="code-ocaml" id="letresexecutebasedataset"><a class="paragraph-url" href="#letresexecutebasedataset"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">res</span><span class="hl std"> = </span><span class="">execute</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val res : Rdf_sparql.query_result = Solutions [&lt;abstr&gt;; &lt;abstr&gt;]
+<pre class="code-ocaml" id="letresexecutebasedataset"><a class="paragraph-url" href="#letresexecutebasedataset"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">res</span><span class="hl std"> = </span><span class="">execute</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val res : Rdf_sparql.query_result = Solutions [&lt;abstr&gt;; &lt;abstr&gt;]
 </div></div></pre>
-<p id="Sinceweknowthatourqueryi"><a class="paragraph-url" href="#Sinceweknowthatourqueryi"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Sinceweknowthatourqueryi"><a class="paragraph-url" href="#Sinceweknowthatourqueryi"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Since we know that our query is a SELECT, we can use a convenient function
 which will ensure that the query is a SELECT and return directly the sequence
 of solutions:
 </p>
-<pre class="code-ocaml" id="letsolutionsselectbaseda"><a class="paragraph-url" href="#letsolutionsselectbaseda"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">solutions</span><span class="hl std"> = </span><span class="">select</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> ;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val solutions : Rdf_sparql.solution list = [&lt;abstr&gt;; &lt;abstr&gt;]
+<pre class="code-ocaml" id="letsolutionsselectbaseda"><a class="paragraph-url" href="#letsolutionsselectbaseda"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">solutions</span><span class="hl std"> = </span><span class="">select</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> ;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val solutions : Rdf_sparql.solution list = [&lt;abstr&gt;; &lt;abstr&gt;]
 </div></div></pre>
-<p id="LetsdisplaytheresultAsol"><a class="paragraph-url" href="#LetsdisplaytheresultAsol"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="LetsdisplaytheresultAsol"><a class="paragraph-url" href="#LetsdisplaytheresultAsol"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Let's display the result. A solution, of type 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html#TYPEsolution">Rdf_sparql.solution</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_&gt;#TYPEsolution&lt;/main_&gt;">Rdf_sparql.solution</a>
 ,
 is a map from variable name (string) to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#TYPEterm&lt;/main_&gt;">Rdf_term.term</a>
 .
 Let's print the solutions we obtained.
 </p>
-<pre class="code-ocaml" id="letprint_solletprintvarn"><a class="paragraph-url" href="#letprint_solletprintvarn"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">print_sol</span><span class="hl std"> =
+<pre class="code-ocaml" id="letprint_solletprintvarn"><a class="paragraph-url" href="#letprint_solletprintvarn"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">print_sol</span><span class="hl std"> =
   </span><span class="hl kwa">let</span><span class="hl std"> </span><span class="">print</span><span class="hl std"> </span><span class="">varname</span><span class="hl std"> </span><span class="">term</span><span class="hl std"> =
-     </span><span class="hl kwc">Printf</span><span class="hl std">.</span><span class="">printf</span><span class="hl std"> </span><span class="hl str">&quot;%s =&gt; %s\n&quot;</span><span class="hl std"> </span><span class="">varname</span><span class="hl std"> (</span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">string_of_term</span><span class="hl std"> </span><span class="">term</span><span class="hl std">)
+     </span><span class="hl kwc">Printf</span><span class="hl std">.</span><span class="">printf</span><span class="hl std"> </span><span class="hl str">"%s =&gt; %s\n"</span><span class="hl std"> </span><span class="">varname</span><span class="hl std"> (</span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">string_of_term</span><span class="hl std"> </span><span class="">term</span><span class="hl std">)
   </span><span class="hl kwa">in</span><span class="hl std">
   </span><span class="hl kwa">fun</span><span class="hl std"> </span><span class="">sol</span><span class="hl std"> -&gt;
-    </span><span class="">print_endline</span><span class="hl std"> </span><span class="hl str">&quot;Solution:&quot;</span><span class="hl std">;
+    </span><span class="">print_endline</span><span class="hl std"> </span><span class="hl str">"Solution:"</span><span class="hl std">;
     </span><span class="">solution_iter</span><span class="hl std"> </span><span class="">print</span><span class="hl std"> </span><span class="">sol</span><span class="hl std"> ;
     </span><span class="">print_newline</span><span class="hl std">();;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val print_sol : Rdf_sparql.solution -&gt; unit = &lt;fun&gt;
 </div></div><div># <span class="hl kwc">List</span><span class="hl std">.</span><span class="">iter</span><span class="hl std"> </span><span class="">print_sol</span><span class="hl std"> </span><span class="">solutions</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="stdout">Solution:
 hpage =&gt; &lt;http://work.example.org/alice/&gt;
-name =&gt; &quot;Alice&quot;
+name =&gt; "Alice"
 
 Solution:
 mbox =&gt; &lt;mailto:bob@work.example&gt;
-name =&gt; &quot;Bob&quot;
+name =&gt; "Bob"
 
 </div><div class="toplevel-out">- : unit = ()
 </div></div></pre>
 </div>
 
 <div class="section"><div class="section-title" id="construct">CONSTRUCT queries</div>
-<p id="Insteadofreturningaseque"><a class="paragraph-url" href="#Insteadofreturningaseque"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Insteadofreturningaseque"><a class="paragraph-url" href="#Insteadofreturningaseque"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Instead of returning a sequence of solutions, CONSTRUCT queries return
 a graph. In the example below, we give an existing graph, in which triples
 will be added. If we do not give a graph, a new (in memory) graph is returned.
@@ -145,18 +148,18 @@ We begin by creating a new graph which will receive the new triples,
 then parse the CONSTRUCT query, then execute it. Then we show the resulting
 graph.
 </p>
-<pre class="code-ocaml" id="letg2Rdf_graphopen_graph"><a class="paragraph-url" href="#letg2Rdf_graphopen_graph"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">g2</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> ;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> = </span><span class="">query_from_string</span><span class="hl std">
-  </span><span class="hl str">&quot;PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+<pre class="code-ocaml" id="letg2Rdf_graphopen_graph"><a class="paragraph-url" href="#letg2Rdf_graphopen_graph"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">g2</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="">base</span><span class="hl std"> ;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">query</span><span class="hl std"> = </span><span class="">query_from_string</span><span class="hl std">
+  </span><span class="hl str">"PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
    CONSTRUCT { ?x foaf:name ?name ; foaf:mbox ?mbox . }
    WHERE  { ?x foaf:name  ?name .
        OPTIONAL { ?x foaf:mbox ?mbox } .
        OPTIONAL { ?x foaf:homepage ?hpage }
-  }&quot;</span><span class="hl std">;;</span></div><div><span class="">construct</span><span class="hl std"> </span><span class="hl kw4">~graph</span><span class="hl std">: </span><span class="">g2</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std">;;</span></div></pre>
+  }"</span><span class="hl std">;;</span></div><div><span class="">construct</span><span class="hl std"> </span><span class="hl kw4">~graph</span><span class="hl std">: </span><span class="">g2</span><span class="hl std"> </span><span class="hl kw4">~base</span><span class="hl std"> </span><span class="">dataset</span><span class="hl std"> </span><span class="">query</span><span class="hl std">;;</span></div></pre>
 
-<pre class="code-ocaml" id="prefixrdfhttpwwww3org199"><a class="paragraph-url" href="#prefixrdfhttpwwww3org199"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:__b2__ &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+<pre class="code-ocaml" id="prefixrdfhttpwwww3org199"><a class="paragraph-url" href="#prefixrdfhttpwwww3org199"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div></div><div class="ocaml-toplevel"></div><div></div><div class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+_:__b2__ &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
 _:__b2__ &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@work.example&gt; .
-_:__b1__ &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Alice&quot; .
+_:__b1__ &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
 </div></pre>
 
 </div>

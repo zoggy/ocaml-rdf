@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF 0.7.0</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,20 +19,24 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
 <div class="page-title">OCaml-RDF 0.7.0</div>
 </div>
-<span></span>
+<span/>
 <div class="date">September 24, 2013</div>
 
-<p id="Release070ofOCamlRDFisav"><a class="paragraph-url" href="#Release070ofOCamlRDFisav"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Release070ofOCamlRDFisav"><a class="paragraph-url" href="#Release070ofOCamlRDFisav"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Release 0.7.0 of OCaml-RDF is available from
 the <a href="https://zoggy.github.io/ocaml-rdf/download.html">download page</a>.
 It contains a lot of changes:
@@ -41,7 +44,7 @@ It contains a lot of changes:
 
 <ul id="changes0.7.0">
 <li>
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_iri.html">Rdf_iri</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_iri.html&lt;main_/&gt;">Rdf_iri</a>
  now replaces Rdf_uri,</li>
 <li><code>Rdf_sparql.parse_from_*</code>  renamed to <code>query_from_*</code>,</li>
 <li><code>Rdf_uri.Invalid_url</code> renamed to <code>Invalid_uri</code>,</li>
@@ -51,16 +54,16 @@ It contains a lot of changes:
   <code>Rdf_xml.from_*</code> is now optional; if not given, the graph name
   is used as base,</li>
 <li>Add namespace modules: 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_earl.html">Rdf_earl</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_earl.html&lt;main_/&gt;">Rdf_earl</a>
 ,
   
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdfs.html">Rdf_rdfs</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdfs.html&lt;main_/&gt;">Rdf_rdfs</a>
 ,</li>
 <li>Partial fix: implement simple version of Sparql's builtin funs LCASE and UCASE,</li>
 <li>Upgrade turtle parser/printer to W3C RC of 2013/02/19, passes all tests
@@ -71,18 +74,18 @@ It contains a lot of changes:
 <li>Functor to create new backends now allows to keep a backend-specific representation
   of terms during Basic Graph Pattern evaluation; this is used to optimize database
   backends,</li>
-<li>New &quot;mysql2&quot; backend, faster for queries but slower for insertions,</li>
-<li>MySQL backend now supports the &quot;engine&quot; option, default is INNODB,
-  but it can be &quot;MyISAM&quot; (faster, but does not support transactions),</li>
+<li>New "mysql2" backend, faster for queries but slower for insertions,</li>
+<li>MySQL backend now supports the "engine" option, default is INNODB,
+  but it can be "MyISAM" (faster, but does not support transactions),</li>
 <li>Remove graph debug dump which was performed at each sparql query evaluation,</li>
 <li><code>Rdf_node</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html">Rdf_term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_/&gt;">Rdf_term</a>
 ,</li>
 <li><code>Rdf_node.node</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#TYPEterm&lt;/main_&gt;">Rdf_term.term</a>
 ,</li>
 <li><code>Rdf_node.NSet</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.TSet.html">Rdf_term.TSet</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.TSet.html&lt;main_/&gt;">Rdf_term.TSet</a>
 ,</li>
 <li>In triples, predicates are now IRIs and not any term.</li>
 <li>+ lots of bug fixes.</li>
@@ -93,7 +96,8 @@ It contains a lot of changes:
 <div>
 <div class="doc-keywords">
   <div class="bloc-keywords">
-  Topics: <div class="keywords"><a href="https://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html"><span itemprop="keywords">ocaml-rdf</span></a></div>
+  Topics: <div class="keywords"><a href="https://zoggy.github.io/ocaml-rdf/topic_ocaml-rdf.html"><span itemprop="keywords">ocaml-rdf</span>
+</a></div>
   </div>
   <div class="bloc-keywords">
   Keywords: <div class="keywords"><a href="https://zoggy.github.io/ocaml-rdf/kw_release.html"><span itemprop="keywords">release</span></a></div>
@@ -101,7 +105,7 @@ It contains a lot of changes:
 </div>
 </div>
 <div class="section" itemprop="articleSection">
-      <div id="disqus_thread"></div>
+  <div id="disqus_thread"/>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'ocamlrdf'; // required: replace example with your forum shortname

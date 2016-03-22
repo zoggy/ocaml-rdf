@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_earl</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_dt.html" title="Rdf_dt">Previous</a>
@@ -39,112 +42,113 @@
 </div>
 <h1>Module <a href="type_Rdf_earl.html">Rdf_earl</a></h1>
 
-<pre id="moduleRdf_earlsigend"><a class="paragraph-url" href="#moduleRdf_earlsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_earl: <code class="code">sig</code> <a href="Rdf_earl.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_earlsigend"><a class="paragraph-url" href="#moduleRdf_earlsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_earl: <code class="code">sig</code> <a href="Rdf_earl.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Elements of <code class="code">http://www.w3.org/ns/earl#</code><br/>
 </div>
 <hr width="100%"/>
 
-<pre id="valearlRdf_iriiri"><a class="paragraph-url" href="#valearlRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl"><span class="keyword">val</span> earl</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valearlIrit"><a class="paragraph-url" href="#valearlIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl"><span class="keyword">val</span> earl</span> : <code class="type">Iri.t</code></pre><div class="info ">
 <code class="code">http://www.w3.org/ns/earl#</code><br/>
 </div>
 
-<pre id="valearl_stringRdf_iriiri"><a class="paragraph-url" href="#valearl_stringRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_"><span class="keyword">val</span> earl_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre id="valearl_assertedByRdf_ir"><a class="paragraph-url" href="#valearl_assertedByRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_assertedBy"><span class="keyword">val</span> earl_assertedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valearl_stringIrit"><a class="paragraph-url" href="#valearl_stringIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_"><span class="keyword">val</span> earl_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre id="valassertedByIrit"><a class="paragraph-url" href="#valassertedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALassertedBy"><span class="keyword">val</span> assertedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 assertor of an assertion<br/>
 </div>
 
-<pre id="valearl_AssertionRdf_iri"><a class="paragraph-url" href="#valearl_AssertionRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_Assertion"><span class="keyword">val</span> earl_Assertion</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_AssertionIrit"><a class="paragraph-url" href="#valc_AssertionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Assertion"><span class="keyword">val</span> c_Assertion</span> : <code class="type">Iri.t</code></pre><div class="info ">
 a statement that embodies the results of a test<br/>
 </div>
 
-<pre id="valearl_AssertorRdf_irii"><a class="paragraph-url" href="#valearl_AssertorRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_Assertor"><span class="keyword">val</span> earl_Assertor</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_AssertorIrit"><a class="paragraph-url" href="#valc_AssertorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Assertor"><span class="keyword">val</span> c_Assertor</span> : <code class="type">Iri.t</code></pre><div class="info ">
 an entity such as a person, a software tool, an organization, or any other grouping that carries out a test collectively<br/>
 </div>
 
-<pre id="valearl_CannotTellRdf_ir"><a class="paragraph-url" href="#valearl_CannotTellRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_CannotTell"><span class="keyword">val</span> earl_CannotTell</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_CannotTellIrit"><a class="paragraph-url" href="#valc_CannotTellIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_CannotTell"><span class="keyword">val</span> c_CannotTell</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote an undetermined outcome<br/>
 </div>
 
-<pre id="valearl_FailRdf_iriiri"><a class="paragraph-url" href="#valearl_FailRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_Fail"><span class="keyword">val</span> earl_Fail</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_FailIrit"><a class="paragraph-url" href="#valc_FailIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Fail"><span class="keyword">val</span> c_Fail</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote failing a test<br/>
 </div>
 
-<pre id="valearl_infoRdf_iriiri"><a class="paragraph-url" href="#valearl_infoRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_info"><span class="keyword">val</span> earl_info</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valinfoIrit"><a class="paragraph-url" href="#valinfoIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type">Iri.t</code></pre><div class="info ">
 additional warnings or error messages in a human-readable form<br/>
 </div>
 
-<pre id="valearl_mainAssertorRdf_"><a class="paragraph-url" href="#valearl_mainAssertorRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_mainAssertor"><span class="keyword">val</span> earl_mainAssertor</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmainAssertorIrit"><a class="paragraph-url" href="#valmainAssertorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmainAssertor"><span class="keyword">val</span> mainAssertor</span> : <code class="type">Iri.t</code></pre><div class="info ">
 assertor that is primarily responsible for performing the test<br/>
 </div>
 
-<pre id="valearl_modeRdf_iriiri"><a class="paragraph-url" href="#valearl_modeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_mode"><span class="keyword">val</span> earl_mode</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmodeIrit"><a class="paragraph-url" href="#valmodeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmode"><span class="keyword">val</span> mode</span> : <code class="type">Iri.t</code></pre><div class="info ">
 mode in which the test was performed<br/>
 </div>
 
-<pre id="valearl_NotApplicableRdf"><a class="paragraph-url" href="#valearl_NotApplicableRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_NotApplicable"><span class="keyword">val</span> earl_NotApplicable</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_NotApplicableIrit"><a class="paragraph-url" href="#valc_NotApplicableIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_NotApplicable"><span class="keyword">val</span> c_NotApplicable</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote the test is not applicable<br/>
 </div>
 
-<pre id="valearl_NotTestedRdf_iri"><a class="paragraph-url" href="#valearl_NotTestedRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_NotTested"><span class="keyword">val</span> earl_NotTested</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_NotTestedIrit"><a class="paragraph-url" href="#valc_NotTestedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_NotTested"><span class="keyword">val</span> c_NotTested</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote the test has not been carried out<br/>
 </div>
 
-<pre id="valearl_outcomeRdf_iriir"><a class="paragraph-url" href="#valearl_outcomeRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_outcome"><span class="keyword">val</span> earl_outcome</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valoutcomeIrit"><a class="paragraph-url" href="#valoutcomeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALoutcome"><span class="keyword">val</span> outcome</span> : <code class="type">Iri.t</code></pre><div class="info ">
 outcome of performing the test<br/>
 </div>
 
-<pre id="valearl_OutcomeValueRdf_"><a class="paragraph-url" href="#valearl_OutcomeValueRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_OutcomeValue"><span class="keyword">val</span> earl_OutcomeValue</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OutcomeValueIrit"><a class="paragraph-url" href="#valc_OutcomeValueIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_OutcomeValue"><span class="keyword">val</span> c_OutcomeValue</span> : <code class="type">Iri.t</code></pre><div class="info ">
 a discrete value that describes a resulting condition from carrying out the test<br/>
 </div>
 
-<pre id="valearl_PassRdf_iriiri"><a class="paragraph-url" href="#valearl_PassRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_Pass"><span class="keyword">val</span> earl_Pass</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PassIrit"><a class="paragraph-url" href="#valc_PassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Pass"><span class="keyword">val</span> c_Pass</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote passing a test<br/>
 </div>
 
-<pre id="valearl_pointerRdf_iriir"><a class="paragraph-url" href="#valearl_pointerRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_pointer"><span class="keyword">val</span> earl_pointer</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valpointerIrit"><a class="paragraph-url" href="#valpointerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpointer"><span class="keyword">val</span> pointer</span> : <code class="type">Iri.t</code></pre><div class="info ">
 location within a test subject that are most relevant to a test result<br/>
 </div>
 
-<pre id="valearl_resultRdf_iriiri"><a class="paragraph-url" href="#valearl_resultRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_result"><span class="keyword">val</span> earl_result</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valresultIrit"><a class="paragraph-url" href="#valresultIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALresult"><span class="keyword">val</span> result</span> : <code class="type">Iri.t</code></pre><div class="info ">
 result of an assertion<br/>
 </div>
 
-<pre id="valearl_SoftwareRdf_irii"><a class="paragraph-url" href="#valearl_SoftwareRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_Software"><span class="keyword">val</span> earl_Software</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_SoftwareIrit"><a class="paragraph-url" href="#valc_SoftwareIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Software"><span class="keyword">val</span> c_Software</span> : <code class="type">Iri.t</code></pre><div class="info ">
 any piece of software such as an authoring tool, browser, or evaluation tool<br/>
 </div>
 
-<pre id="valearl_subjectRdf_iriir"><a class="paragraph-url" href="#valearl_subjectRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_subject"><span class="keyword">val</span> earl_subject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsubjectIrit"><a class="paragraph-url" href="#valsubjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre><div class="info ">
 test subject of an assertion<br/>
 </div>
 
-<pre id="valearl_testRdf_iriiri"><a class="paragraph-url" href="#valearl_testRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_test"><span class="keyword">val</span> earl_test</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtestIrit"><a class="paragraph-url" href="#valtestIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtest"><span class="keyword">val</span> test</span> : <code class="type">Iri.t</code></pre><div class="info ">
 test criterion of an assertion<br/>
 </div>
 
-<pre id="valearl_TestCaseRdf_irii"><a class="paragraph-url" href="#valearl_TestCaseRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestCase"><span class="keyword">val</span> earl_TestCase</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestCaseIrit"><a class="paragraph-url" href="#valc_TestCaseIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestCase"><span class="keyword">val</span> c_TestCase</span> : <code class="type">Iri.t</code></pre><div class="info ">
 an atomic test, usually one that is a partial test for a requirement<br/>
 </div>
 
-<pre id="valearl_TestCriterionRdf"><a class="paragraph-url" href="#valearl_TestCriterionRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestCriterion"><span class="keyword">val</span> earl_TestCriterion</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestCriterionIrit"><a class="paragraph-url" href="#valc_TestCriterionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestCriterion"><span class="keyword">val</span> c_TestCriterion</span> : <code class="type">Iri.t</code></pre><div class="info ">
 a testable statement, usually one that can be passed or failed<br/>
 </div>
 
-<pre id="valearl_TestModeRdf_irii"><a class="paragraph-url" href="#valearl_TestModeRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestMode"><span class="keyword">val</span> earl_TestMode</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestModeIrit"><a class="paragraph-url" href="#valc_TestModeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestMode"><span class="keyword">val</span> c_TestMode</span> : <code class="type">Iri.t</code></pre><div class="info ">
 describes how a test was carried out<br/>
 </div>
 
-<pre id="valearl_TestRequirementR"><a class="paragraph-url" href="#valearl_TestRequirementR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestRequirement"><span class="keyword">val</span> earl_TestRequirement</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestRequirementIrit"><a class="paragraph-url" href="#valc_TestRequirementIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestRequirement"><span class="keyword">val</span> c_TestRequirement</span> : <code class="type">Iri.t</code></pre><div class="info ">
 a higher-level requirement that is tested by executing one or more sub-tests<br/>
 </div>
 
-<pre id="valearl_TestResultRdf_ir"><a class="paragraph-url" href="#valearl_TestResultRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestResult"><span class="keyword">val</span> earl_TestResult</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestResultIrit"><a class="paragraph-url" href="#valc_TestResultIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestResult"><span class="keyword">val</span> c_TestResult</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the actual result of performing the test<br/>
 </div>
 
-<pre id="valearl_TestSubjectRdf_i"><a class="paragraph-url" href="#valearl_TestSubjectRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALearl_TestSubject"><span class="keyword">val</span> earl_TestSubject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_TestSubjectIrit"><a class="paragraph-url" href="#valc_TestSubjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_TestSubject"><span class="keyword">val</span> c_TestSubject</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of things that have been tested against some test criterion<br/>
 </div>
-</div>
+
+<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_earl.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_earl.Open.html">..</a> <code class="code">end</code></pre></div>
 
 
 </div>

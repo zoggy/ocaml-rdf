@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_eval.GExprMap</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,26 +19,61 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_sparql_eval.GExprOrdered.html" title="Rdf_sparql_eval.GExprOrdered">Previous</a>
  <a class="up" href="Rdf_sparql_eval.html" title="Rdf_sparql_eval">Up</a>
- </div>
+ <a class="post" href="Rdf_sparql_eval.C.html" title="Rdf_sparql_eval.C">Next</a>
+</div>
 <h1>Module <a href="type_Rdf_sparql_eval.GExprMap.html">Rdf_sparql_eval.GExprMap</a></h1>
 
-<pre id="moduleGExprMapMapMakeGEx"><a class="paragraph-url" href="#moduleGExprMapMapMakeGEx"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> GExprMap: <code class="type">Map.Make</code><code class="code">(</code><code class="type"><a href="Rdf_sparql_eval.GExprOrdered.html">GExprOrdered</a></code><code class="code">)</code></pre><hr width="100%"/>
-</div>
+<pre id="moduleGExprMapsigend"><a class="paragraph-url" href="#moduleGExprMapsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> GExprMap: <code class="code">sig</code> <a href="Rdf_sparql_eval.GExprMap.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre id="typekeyRdf_sparql_evalGE"><a class="paragraph-url" href="#typekeyRdf_sparql_evalGE"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEkey"><span class="keyword">type</span> key</span> = <code class="type"><a href="Rdf_sparql_eval.GExprOrdered.html#TYPEt">Rdf_sparql_eval.GExprOrdered.t</a></code> </pre>
+
+
+<pre id="typeataMapMakeGExprOrder"><a class="paragraph-url" href="#typeataMapMakeGExprOrder"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> = <code class="type">'a Map.Make(GExprOrdered).t</code> </pre>
+
+
+<pre id="valemptyat"><a class="paragraph-url" href="#valemptyat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALempty"><span class="keyword">val</span> empty</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valis_emptyatbool"><a class="paragraph-url" href="#valis_emptyatbool"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALis_empty"><span class="keyword">val</span> is_empty</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre id="valmemkeyatbool"><a class="paragraph-url" href="#valmemkeyatbool"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmem"><span class="keyword">val</span> mem</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre id="valaddkeyaatat"><a class="paragraph-url" href="#valaddkeyaatat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valsingletonkeyaat"><a class="paragraph-url" href="#valsingletonkeyaat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsingleton"><span class="keyword">val</span> singleton</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valremovekeyatat"><a class="paragraph-url" href="#valremovekeyatat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALremove"><span class="keyword">val</span> remove</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valmergekeyaoptionboptio"><a class="paragraph-url" href="#valmergekeyaoptionboptio"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a option -&gt; 'b option -&gt; 'c option) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'c <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valcompareaaintatatint"><a class="paragraph-url" href="#valcompareaaintatatint"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare"><span class="keyword">val</span> compare</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre id="valequalaaboolatatbool"><a class="paragraph-url" href="#valequalaaboolatatbool"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALequal"><span class="keyword">val</span> equal</span> : <code class="type">('a -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre id="valiterkeyaunitatunit"><a class="paragraph-url" href="#valiterkeyaunitatunit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALiter"><span class="keyword">val</span> iter</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; unit) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; unit</code></pre>
+<pre id="valfoldkeyabbatbb"><a class="paragraph-url" href="#valfoldkeyabbatbb"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfold"><span class="keyword">val</span> fold</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'b -&gt; 'b) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b -&gt; 'b</code></pre>
+<pre id="valfor_allkeyaboolatbool"><a class="paragraph-url" href="#valfor_allkeyaboolatbool"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfor_all"><span class="keyword">val</span> for_all</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre id="valexistskeyaboolatbool"><a class="paragraph-url" href="#valexistskeyaboolatbool"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; bool</code></pre>
+<pre id="valfilterkeyaboolatat"><a class="paragraph-url" href="#valfilterkeyaboolatat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfilter"><span class="keyword">val</span> filter</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valpartitionkeyaboolatat"><a class="paragraph-url" href="#valpartitionkeyaboolatat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpartition"><span class="keyword">val</span> partition</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; bool) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> * 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valcardinalatint"><a class="paragraph-url" href="#valcardinalatint"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcardinal"><span class="keyword">val</span> cardinal</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; int</code></pre>
+<pre id="valbindingsatkeyalist"><a class="paragraph-url" href="#valbindingsatkeyalist"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbindings"><span class="keyword">val</span> bindings</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; (<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a) list</code></pre>
+<pre id="valmin_bindingatkeya"><a class="paragraph-url" href="#valmin_bindingatkeya"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmin_binding"><span class="keyword">val</span> min_binding</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre id="valmax_bindingatkeya"><a class="paragraph-url" href="#valmax_bindingatkeya"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmax_binding"><span class="keyword">val</span> max_binding</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre id="valchooseatkeya"><a class="paragraph-url" href="#valchooseatkeya"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALchoose"><span class="keyword">val</span> choose</span> : <code class="type">'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; <a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> * 'a</code></pre>
+<pre id="valsplitkeyatataoptionat"><a class="paragraph-url" href="#valsplitkeyatataoptionat"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsplit"><span class="keyword">val</span> split</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> * 'a option * 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valfindkeyata"><a class="paragraph-url" href="#valfindkeyata"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type"><a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'a</code></pre>
+<pre id="valmapabatbt"><a class="paragraph-url" href="#valmapabatbt"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmap"><span class="keyword">val</span> map</span> : <code class="type">('a -&gt; 'b) -&gt; 'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre>
+<pre id="valmapikeyabatbt"><a class="paragraph-url" href="#valmapikeyabatbt"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmapi"><span class="keyword">val</span> mapi</span> : <code class="type">(<a href="Rdf_sparql_eval.GExprMap.html#TYPEkey">key</a> -&gt; 'a -&gt; 'b) -&gt;<br/>       'a <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a> -&gt; 'b <a href="Rdf_sparql_eval.GExprMap.html#TYPEt">t</a></code></pre></div>
 
 
 </div>

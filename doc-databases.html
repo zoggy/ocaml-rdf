@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : Using database backends for graphs</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,135 +19,139 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
 <div class="page-title">Using database backends for graphs</div>
 </div>
-<span></span>
+<span/>
 
 
 
-<ul class="toc"><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql">MySQL backend</a><ul class="toc"><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql1">&quot;mysql&quot; backend</a></li><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql2">&quot;mysql2&quot; backend</a></li><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysqlengine">Engine</a></li></ul></li><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#postgresql">Postgresql backend</a></li></ul>
-<p id="Twobackendsareavailablet"><a class="paragraph-url" href="#Twobackendsareavailablet"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<ul class="toc"><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql">MySQL backend</a><ul class="toc"><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql1">"mysql" backend</a></li><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysql2">"mysql2" backend</a></li><li class="toc-subsection"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#mysqlengine">Engine</a></li></ul></li><li class="toc-section"><a href="https://zoggy.github.io/ocaml-rdf/doc-databases.html#postgresql">Postgresql backend</a></li></ul>
+<p id="Twobackendsareavailablet"><a class="paragraph-url" href="#Twobackendsareavailablet"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Two backends are available to store graphs in databases rather than
 in memory: MySQL and Postgresql. This allows to create persistent
 graphs.
 The choice of the backend is made with the <code>options</code>
 optional parameter of 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
 .
 </p>
 <div class="section"><div class="section-title" id="mysql">MySQL backend</div>
-<p id="TheMySQLbackendcomesintw"><a class="paragraph-url" href="#TheMySQLbackendcomesintw"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="TheMySQLbackendcomesintw"><a class="paragraph-url" href="#TheMySQLbackendcomesintw"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The MySQL backend comes in two flavours, corresponding to two
 representations in the database, <code>mysql</code> and
 <code>mysql2</code> (see below).
 </p>
-<p id="UsingtheMySQLbackendrequ"><a class="paragraph-url" href="#UsingtheMySQLbackendrequ"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="UsingtheMySQLbackendrequ"><a class="paragraph-url" href="#UsingtheMySQLbackendrequ"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Using the MySQL backend requires to link with the <code>rdf.mysql</code>
 ocamlfind package. Then, after creating a database with proper rights
 on the server, the following code creates a graph in the database:
 </p>
-<pre class="code-ocaml" id="letoptionsstoragemysqlth"><a class="paragraph-url" href="#letoptionsstoragemysqlth"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
+<pre class="code-ocaml" id="letoptionsstoragemysqlth"><a class="paragraph-url" href="#letoptionsstoragemysqlth"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
   [
-    </span><span class="hl str">&quot;storage&quot;</span><span class="hl std">, </span><span class="hl str">&quot;mysql&quot;</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here mysql backend *)</span><span class="hl std">
-    </span><span class="hl str">&quot;database&quot;</span><span class="hl std">, </span><span class="hl str">&quot;mydb&quot;</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
-    </span><span class="hl str">&quot;user&quot;</span><span class="hl std">, </span><span class="hl str">&quot;john&quot;</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
-    </span><span class="hl str">&quot;password&quot;</span><span class="hl std">, </span><span class="hl str">&quot;foobar&quot;</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
-    </span><span class="hl str">&quot;host&quot;</span><span class="hl std">, </span><span class="hl str">&quot;myhost.foo.net&quot;</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
-    </span><span class="hl str">&quot;port&quot;</span><span class="hl std">, </span><span class="hl str">&quot;3306&quot;</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
+    </span><span class="hl str">"storage"</span><span class="hl std">, </span><span class="hl str">"mysql"</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here mysql backend *)</span><span class="hl std">
+    </span><span class="hl str">"database"</span><span class="hl std">, </span><span class="hl str">"mydb"</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
+    </span><span class="hl str">"user"</span><span class="hl std">, </span><span class="hl str">"john"</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
+    </span><span class="hl str">"password"</span><span class="hl std">, </span><span class="hl str">"foobar"</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
+    </span><span class="hl str">"host"</span><span class="hl std">, </span><span class="hl str">"myhost.foo.net"</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
+    </span><span class="hl str">"port"</span><span class="hl std">, </span><span class="hl str">"3306"</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
   ]
-;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Rdf_iri</span><span class="hl std">.</span><span class="">iri</span><span class="hl std"> </span><span class="hl str">&quot;http://hello.fr&quot;</span><span class="hl std">) ;;</span></div></pre>
-<p id="Bothbackendscreateatable"><a class="paragraph-url" href="#Bothbackendscreateatable"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
-Both backends create a table &quot;graphs&quot; to associate IRIs to stored graphs.
+;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="hl str">"http://hello.fr"</span><span class="hl std">) ;;</span></div></pre>
+<p id="Bothbackendscreateatable"><a class="paragraph-url" href="#Bothbackendscreateatable"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+Both backends create a table "graphs" to associate IRIs to stored graphs.
 </p>
-<div class="subsection"><div class="subsection-title" id="mysql1">&quot;mysql&quot; backend</div>
-<p id="Thisbackendcreatesvariou"><a class="paragraph-url" href="#Thisbackendcreatesvariou"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<div class="subsection"><div class="subsection-title" id="mysql1">"mysql" backend</div>
+<p id="Thisbackendcreatesvariou"><a class="paragraph-url" href="#Thisbackendcreatesvariou"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 This backend creates various tables:
 </p>
 <ul>
-<li>one table per graph (&quot;graph1&quot;, &quot;graph2&quot;, ...),</li>
-<li>a table &quot;literals&quot;, to store hashes of literals,</li>
-<li>a table &quot;bnodes&quot;, to store hashes of blank nodes,</li>
-<li>a table &quot;resources&quot;, to store hashes of IRIs.</li>
+<li>one table per graph ("graph1", "graph2", ...),</li>
+<li>a table "literals", to store hashes of literals,</li>
+<li>a table "bnodes", to store hashes of blank nodes,</li>
+<li>a table "resources", to store hashes of IRIs.</li>
 </ul>
-<p id="ThegraphNtablescontaintr"><a class="paragraph-url" href="#ThegraphNtablescontaintr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
-The &quot;graphN&quot; tables contain triples, composed of references to
+<p id="ThegraphNtablescontaintr"><a class="paragraph-url" href="#ThegraphNtablescontaintr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+The "graphN" tables contain triples, composed of references to
 hashes. This model is copied from the Redland's Librdf library.
 </p>
-<p id="Allthecommontablesarecre"><a class="paragraph-url" href="#Allthecommontablesarecre"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Allthecommontablesarecre"><a class="paragraph-url" href="#Allthecommontablesarecre"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 All the common tables are created at connection time, and the
 table of each graph in created when the graph is created.
 When 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
  is called with
 an IRI corresponding to an existing graph in the database, then
 this graph is used, with all existing triples.
 </p>
 </div>
-<div class="subsection"><div class="subsection-title" id="mysql2">&quot;mysql2&quot; backend</div>
-<p id="Thisbackendisabout12time"><a class="paragraph-url" href="#Thisbackendisabout12time"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<div class="subsection"><div class="subsection-title" id="mysql2">"mysql2" backend</div>
+<p id="Thisbackendisabout12time"><a class="paragraph-url" href="#Thisbackendisabout12time"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 This backend is about 12 times faster for querying, but about
 5 times slower for inserting. In this backend, only one table per
 graph is created, storing complete information about triples.
 This takes more place but requires less queries to retrieve
 complete parts of the triples.
 </p>
-<p id="Tousethisbackendjustspec"><a class="paragraph-url" href="#Tousethisbackendjustspec"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
-To use this backend, just specify <code>&quot;mysql2&quot;</code> as
-for the <code>&quot;storage&quot;</code> option.
+<p id="Tousethisbackendjustspec"><a class="paragraph-url" href="#Tousethisbackendjustspec"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+To use this backend, just specify <code>"mysql2"</code> as
+for the <code>"storage"</code> option.
 </p>
 </div>
 <div class="subsection"><div class="subsection-title" id="mysqlengine">Engine</div>
-<p id="Thedefaultengineusedtost"><a class="paragraph-url" href="#Thedefaultengineusedtost"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Thedefaultengineusedtost"><a class="paragraph-url" href="#Thedefaultengineusedtost"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The default engine used to store MySQL tables is InnoDB, which allows
 transactions, but is quite slow.
 </p>
-<p id="Theengineoptioncanbeused"><a class="paragraph-url" href="#Theengineoptioncanbeused"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
-The <code>&quot;engine&quot;</code> option can be used to specify another engine,
-usually &quot;MyISAM&quot;. With this engine, transactions are not allowed, though.
+<p id="Theengineoptioncanbeused"><a class="paragraph-url" href="#Theengineoptioncanbeused"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+The <code>"engine"</code> option can be used to specify another engine,
+usually "MyISAM". With this engine, transactions are not allowed, though.
 Here is an example to use the <code>mysql2</code> backend with MyISAM tables:
 </p>
-<pre class="code-ocaml" id="letoptionsstoragemysql2t"><a class="paragraph-url" href="#letoptionsstoragemysql2t"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
+<pre class="code-ocaml" id="letoptionsstoragemysql2t"><a class="paragraph-url" href="#letoptionsstoragemysql2t"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
   [
-    </span><span class="hl str">&quot;storage&quot;</span><span class="hl std">, </span><span class="hl str">&quot;mysql2&quot;</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here mysql backend *)</span><span class="hl std">
-    </span><span class="hl str">&quot;database&quot;</span><span class="hl std">, </span><span class="hl str">&quot;mydb&quot;</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
-    </span><span class="hl str">&quot;user&quot;</span><span class="hl std">, </span><span class="hl str">&quot;john&quot;</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
-    </span><span class="hl str">&quot;password&quot;</span><span class="hl std">, </span><span class="hl str">&quot;foobar&quot;</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
-    </span><span class="hl str">&quot;host&quot;</span><span class="hl std">, </span><span class="hl str">&quot;myhost.foo.net&quot;</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
-    </span><span class="hl str">&quot;port&quot;</span><span class="hl std">, </span><span class="hl str">&quot;3306&quot;</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
-    </span><span class="hl str">&quot;engine&quot;</span><span class="hl std">, </span><span class="hl str">&quot;MyISAM&quot;</span><span class="hl std"> ;
+    </span><span class="hl str">"storage"</span><span class="hl std">, </span><span class="hl str">"mysql2"</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here mysql backend *)</span><span class="hl std">
+    </span><span class="hl str">"database"</span><span class="hl std">, </span><span class="hl str">"mydb"</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
+    </span><span class="hl str">"user"</span><span class="hl std">, </span><span class="hl str">"john"</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
+    </span><span class="hl str">"password"</span><span class="hl std">, </span><span class="hl str">"foobar"</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
+    </span><span class="hl str">"host"</span><span class="hl std">, </span><span class="hl str">"myhost.foo.net"</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
+    </span><span class="hl str">"port"</span><span class="hl std">, </span><span class="hl str">"3306"</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
+    </span><span class="hl str">"engine"</span><span class="hl std">, </span><span class="hl str">"MyISAM"</span><span class="hl std"> ;
   ]
-;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Rdf_iri</span><span class="hl std">.</span><span class="">iri</span><span class="hl std"> </span><span class="hl str">&quot;http://hello.fr&quot;</span><span class="hl std">) ;;</span></div></pre>
+;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="hl str">"http://hello.fr"</span><span class="hl std">) ;;</span></div></pre>
 </div>
 </div>
 
 <div class="section"><div class="section-title" id="postgresql">Postgresql backend</div>
-<p id="ThePostgresqlbackendwork"><a class="paragraph-url" href="#ThePostgresqlbackendwork"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="ThePostgresqlbackendwork"><a class="paragraph-url" href="#ThePostgresqlbackendwork"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The Postgresql backend works the same way as the MySQL backend.
 Using the MySQL backend requires to link with the <code>rdf.postgresql</code>
 ocamlfind package.
 To create or open a graph stored in a Postgresql database, use
 the <code>options</code> parameter of 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
 :
 </p>
-<pre class="code-ocaml" id="letoptionsstoragepostgre"><a class="paragraph-url" href="#letoptionsstoragepostgre"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
+<pre class="code-ocaml" id="letoptionsstoragepostgre"><a class="paragraph-url" href="#letoptionsstoragepostgre"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
   [
-    </span><span class="hl str">&quot;storage&quot;</span><span class="hl std">, </span><span class="hl str">&quot;postgresql&quot;</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here postresql backend *)</span><span class="hl std">
-    </span><span class="hl str">&quot;database&quot;</span><span class="hl std">, </span><span class="hl str">&quot;mydb&quot;</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
-    </span><span class="hl str">&quot;user&quot;</span><span class="hl std">, </span><span class="hl str">&quot;john&quot;</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
-    </span><span class="hl str">&quot;password&quot;</span><span class="hl std">, </span><span class="hl str">&quot;foobar&quot;</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
-    </span><span class="hl str">&quot;host&quot;</span><span class="hl std">, </span><span class="hl str">&quot;myhost.foo.net&quot;</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
-    </span><span class="hl str">&quot;port&quot;</span><span class="hl std">, </span><span class="hl str">&quot;3306&quot;</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
+    </span><span class="hl str">"storage"</span><span class="hl std">, </span><span class="hl str">"postgresql"</span><span class="hl std"> ; </span><span class="hl com">(* the type of storage, here postresql backend *)</span><span class="hl std">
+    </span><span class="hl str">"database"</span><span class="hl std">, </span><span class="hl str">"mydb"</span><span class="hl std">; </span><span class="hl com">(* database name *)</span><span class="hl std">
+    </span><span class="hl str">"user"</span><span class="hl std">, </span><span class="hl str">"john"</span><span class="hl std"> ; </span><span class="hl com">(* user used to connect the database *)</span><span class="hl std">
+    </span><span class="hl str">"password"</span><span class="hl std">, </span><span class="hl str">"foobar"</span><span class="hl std"> ; </span><span class="hl com">(* password *)</span><span class="hl std">
+    </span><span class="hl str">"host"</span><span class="hl std">, </span><span class="hl str">"myhost.foo.net"</span><span class="hl std"> ; </span><span class="hl com">(* hostname *)</span><span class="hl std">
+    </span><span class="hl str">"port"</span><span class="hl std">, </span><span class="hl str">"3306"</span><span class="hl std"> ; </span><span class="hl com">(* port *)</span><span class="hl std">
   ]
-;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Rdf_iri</span><span class="hl std">.</span><span class="">iri</span><span class="hl std"> </span><span class="hl str">&quot;http://hello.fr&quot;</span><span class="hl std">) ;;</span></div></pre>
+;;</span></div><div><span class="hl kwa">let</span><span class="hl std"> </span><span class="">graph</span><span class="hl std"> = </span><span class="hl kwc">Rdf_graph</span><span class="hl std">.</span><span class="">open_graph</span><span class="hl std"> </span><span class="hl kw4">~options</span><span class="hl std"> (</span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="hl str">"http://hello.fr"</span><span class="hl std">) ;;</span></div></pre>
 </div>
 
 

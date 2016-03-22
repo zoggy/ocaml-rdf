@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_xml</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_utf8.html" title="Rdf_utf8">Previous</a>
@@ -38,15 +41,15 @@
  </div>
 <h1>Module <a href="type_Rdf_xml.html">Rdf_xml</a></h1>
 
-<pre id="moduleRdf_xmlsigend"><a class="paragraph-url" href="#moduleRdf_xmlsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_xml: <code class="code">sig</code> <a href="Rdf_xml.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_xmlsigend"><a class="paragraph-url" href="#moduleRdf_xmlsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_xml: <code class="code">sig</code> <a href="Rdf_xml.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Reading and writing RDF/XML.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="exceptionInvalid_rdfofst"><a class="paragraph-url" href="#exceptionInvalid_rdfofst"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_rdf"><span class="keyword">exception</span> Invalid_rdf</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<pre id="exceptionInvalid_rdfofst"><a class="paragraph-url" href="#exceptionInvalid_rdfofst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_rdf"><span class="keyword">exception</span> Invalid_rdf</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre id="moduleSMapMapSwithtypeke"><a class="paragraph-url" href="#moduleSMapMapSwithtypeke"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_xml.SMap.html">SMap</a>: <code class="type">Map.S</code><code class="type">  with type key = string</code></pre>
-<pre id="typetree"><a class="paragraph-url" href="#typetree"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEtree"><span class="keyword">type</span> tree</span> = </code></pre><table class="typetable">
+<pre id="moduleSMapMapSwithtypeke"><a class="paragraph-url" href="#moduleSMapMapSwithtypeke"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_xml.SMap.html">SMap</a>: <code class="type">Map.S</code><code class="type">  with type key = string</code></pre>
+<pre id="typetree"><a class="paragraph-url" href="#typetree"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEtree"><span class="keyword">type</span> tree</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code><span class="keyword">|</span></code></td>
@@ -62,22 +65,22 @@ Reading and writing RDF/XML.<br/>
 
 </tr></table>
 
-<div class="info">
+<div class="info ">
 The type of XML tree walked through to fill the graph.<br/>
 </div>
 
 
-<pre id="valxml_of_stringstringtr"><a class="paragraph-url" href="#valxml_of_stringstringtr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALxml_of_string"><span class="keyword">val</span> xml_of_string</span> : <code class="type">string -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a></code></pre><div class="info">
+<pre id="valxml_of_stringstringtr"><a class="paragraph-url" href="#valxml_of_stringstringtr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALxml_of_string"><span class="keyword">val</span> xml_of_string</span> : <code class="type">string -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a></code></pre><div class="info ">
 <b>Raises</b> <code>Failure</code> in case of invalid XML.<br/>
 </div>
 
-<pre id="valget_first_childtreest"><a class="paragraph-url" href="#valget_first_childtreest"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_first_child"><span class="keyword">val</span> get_first_child</span> : <code class="type"><a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; string * string -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> option</code></pre><div class="info">
+<pre id="valget_first_childtreest"><a class="paragraph-url" href="#valget_first_childtreest"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_first_child"><span class="keyword">val</span> get_first_child</span> : <code class="type"><a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; string * string -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> option</code></pre><div class="info ">
 <code class="code">get_first tree tag</code> returns the first child with tag <code class="code">s</code>
   of the given xml tree or <code class="code">None</code> if the given node has
   no such child.<br/>
 </div>
 
-<pre id="typestate"><a class="paragraph-url" href="#typestate"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEstate"><span class="keyword">type</span> state</span> = {</code></pre><table class="typetable">
+<pre id="typestate"><a class="paragraph-url" href="#typestate"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEstate"><span class="keyword">type</span> state</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
@@ -89,14 +92,14 @@ The type of XML tree walked through to fill the graph.<br/>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTstate.predicate">predicate</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
+<code><span id="TYPEELTstate.predicate">predicate</span> : <code class="type">Iri.t option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTstate.xml_base">xml_base</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
+<code><span id="TYPEELTstate.xml_base">xml_base</span> : <code class="type">Iri.t</code>;</code></td>
 
 </tr>
 <tr>
@@ -110,24 +113,24 @@ The type of XML tree walked through to fill the graph.<br/>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTstate.datatype">datatype</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> option</code>;</code></td>
+<code><span id="TYPEELTstate.datatype">datatype</span> : <code class="type">Iri.t option</code>;</code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTstate.namespaces">namespaces</span> : <code class="type">string Rdf_iri.Irimap.t</code>;</code></td>
+<code><span id="TYPEELTstate.namespaces">namespaces</span> : <code class="type">string Iri.Map.t</code>;</code></td>
 
 </tr></table>
 }
 
-<div class="info">
+<div class="info ">
 Type of current state when walking through the xml tree.<br/>
 </div>
 
 
-<pre id="typeglobal_state"><a class="paragraph-url" href="#typeglobal_state"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEglobal_state"><span class="keyword">type</span> global_state</span> = {</code></pre><table class="typetable">
+<pre id="typeglobal_state"><a class="paragraph-url" href="#typeglobal_state"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEglobal_state"><span class="keyword">type</span> global_state</span> = {</code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
@@ -139,41 +142,41 @@ Type of current state when walking through the xml tree.<br/>
 <td align="left" valign="top">
 <code>  </code></td>
 <td align="left" valign="top">
-<code><span id="TYPEELTglobal_state.gnamespaces">gnamespaces</span> : <code class="type">string Rdf_iri.Irimap.t</code>;</code></td>
+<code><span id="TYPEELTglobal_state.gnamespaces">gnamespaces</span> : <code class="type">string Iri.Map.t</code>;</code></td>
 
 </tr></table>
 }
 
-<div class="info">
+<div class="info ">
 Global state of the analysis.<br/>
 </div>
 
 
-<pre id="valget_blank_nodeRdf_gra"><a class="paragraph-url" href="#valget_blank_nodeRdf_gra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_blank_node"><span class="keyword">val</span> get_blank_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt;<br/>       SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre>
-<pre id="valinput_nodeRdf_graphgr"><a class="paragraph-url" href="#valinput_nodeRdf_graphgr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinput_node"><span class="keyword">val</span> input_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre>
-<pre id="valinput_propRdf_graphgr"><a class="paragraph-url" href="#valinput_propRdf_graphgr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinput_prop"><span class="keyword">val</span> input_prop</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int</code></pre><div class="info">
+<pre id="valget_blank_nodeRdf_gra"><a class="paragraph-url" href="#valget_blank_nodeRdf_gra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_blank_node"><span class="keyword">val</span> get_blank_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt;<br/>       SMap.key -&gt; <a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> * <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre>
+<pre id="valinput_nodeRdf_graphgr"><a class="paragraph-url" href="#valinput_nodeRdf_graphgr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinput_node"><span class="keyword">val</span> input_node</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a></code></pre>
+<pre id="valinput_propRdf_graphgr"><a class="paragraph-url" href="#valinput_propRdf_graphgr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinput_prop"><span class="keyword">val</span> input_prop</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEstate">state</a> -&gt;<br/>       <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; <a href="Rdf_xml.html#TYPEglobal_state">global_state</a> * int</code></pre><div class="info ">
 Fill a graph from a current state, a pair (global state, li counter),
   and a property node.<br/>
 </div>
 
-<pre id="valfrom_stringRdf_graphg"><a class="paragraph-url" href="#valfrom_stringRdf_graphg"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info">
+<pre id="valfrom_stringRdf_graphg"><a class="paragraph-url" href="#valfrom_stringRdf_graphg"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_string"><span class="keyword">val</span> from_string</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Input graph from string.  Default base is the graph name.<br/>
 </div>
 
-<pre id="valfrom_fileRdf_graphgra"><a class="paragraph-url" href="#valfrom_fileRdf_graphgra"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; string -&gt; unit</code></pre><div class="info">
+<pre id="valfrom_fileRdf_graphgra"><a class="paragraph-url" href="#valfrom_fileRdf_graphgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_file"><span class="keyword">val</span> from_file</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; string -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given file.<br/>
 </div>
 
-<pre id="valfrom_inputRdf_graphgr"><a class="paragraph-url" href="#valfrom_inputRdf_graphgr"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_input"><span class="keyword">val</span> from_input</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; Xmlm.input -&gt; unit</code></pre><div class="info">
+<pre id="valfrom_inputRdf_graphgr"><a class="paragraph-url" href="#valfrom_inputRdf_graphgr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_input"><span class="keyword">val</span> from_input</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; Xmlm.input -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xmlm.input handle.<br/>
 </div>
 
-<pre id="valfrom_xmlRdf_graphgrap"><a class="paragraph-url" href="#valfrom_xmlRdf_graphgrap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_xml"><span class="keyword">val</span> from_xml</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; unit</code></pre><div class="info">
+<pre id="valfrom_xmlRdf_graphgrap"><a class="paragraph-url" href="#valfrom_xmlRdf_graphgrap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfrom_xml"><span class="keyword">val</span> from_xml</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; ?base:Iri.t -&gt; <a href="Rdf_xml.html#TYPEtree">tree</a> -&gt; unit</code></pre><div class="info ">
 Same as <a href="Rdf_xml.html#VALfrom_string"><code class="code">Rdf_xml.from_string</code></a> but read from the given Xml tree.<br/>
 </div>
 
-<pre id="valto_stringnamespacesRd"><a class="paragraph-url" href="#valto_stringnamespacesRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
-<pre id="valto_filenamespacesRdf_"><a class="paragraph-url" href="#valto_filenamespacesRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(<a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div>
+<pre id="valto_stringnamespacesIr"><a class="paragraph-url" href="#valto_stringnamespacesIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string</code></pre>
+<pre id="valto_filenamespacesIrit"><a class="paragraph-url" href="#valto_filenamespacesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALto_file"><span class="keyword">val</span> to_file</span> : <code class="type">?namespaces:(Iri.t * string) list -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; string -&gt; unit</code></pre></div>
 
 
 </div>

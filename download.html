@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : Download</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,38 +19,60 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
 <div class="page-title">Download</div>
 </div>
-<span></span>
+<span/>
 
 
-<div class="section"><div class="section-title" id="051d-fc9f-4bad-8dff"> </div>
-<p id="ThecodeisavailableonGith"><a class="paragraph-url" href="#ThecodeisavailableonGith"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<div class="section"><div class="section-title" id="17e5-ff39-3964-3b1a"> </div>
+<p id="ThecodeisavailableonGith"><a class="paragraph-url" href="#ThecodeisavailableonGith"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The code is available on
 <span class="ext-a"><a href="https://github.com/zoggy/ocaml-rdf">Github</a></span>.
 </p>
-<p id="Usegittogetthecurrentver"><a class="paragraph-url" href="#Usegittogetthecurrentver"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Use git to get the current version:</p>
-<pre class="code-sh" id="gitclonehttpsgithubcomzo"><a class="paragraph-url" href="#gitclonehttpsgithubcomzo"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ git clone https<span class="hl opt">://</span>github.com<span class="hl opt">/</span>zoggy<span class="hl opt">/</span>ocaml<span class="hl opt">-</span>rdf.git</pre>
-<p id="Thenreadthesection"><a class="paragraph-url" href="#Thenreadthesection"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
+<p id="Usegittogetthecurrentver"><a class="paragraph-url" href="#Usegittogetthecurrentver"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Use git to get the current version:</p>
+<pre class="code-sh" id="gitclonehttpsgithubcomzo"><a class="paragraph-url" href="#gitclonehttpsgithubcomzo"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>$ git clone https<span class="hl opt">://</span>github.com<span class="hl opt">/</span>zoggy<span class="hl opt">/</span>ocaml<span class="hl opt">-</span>rdf.git</pre>
+<p id="Thenreadthesection"><a class="paragraph-url" href="#Thenreadthesection"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Then read the <a href="https://zoggy.github.io/ocaml-rdf/doc-install.html">Installation</a> section.
 </p>
 </div>
 
 <div class="section"><div class="section-title" id="releases">Releases</div>
 <ul>
+<li><strong><a href="ocaml-rdf-0.10.0.tar.gz">0.10.0</a></strong>
+[2016-03-22]:
+  <ul id="changes0.10.0">
+<li>change of interface in namespace modules
+  <span class="icode"><span class="hl kwc">Rdf_</span><span class="hl std">{</span><span class="">dc</span><span class="hl std">,</span><span class="">doap</span><span class="hl std">,</span><span class="">foaf</span><span class="hl std">,</span><span class="">earl</span><span class="hl std">,</span><span class="">ldp</span><span class="hl std">,</span><span class="">owl</span><span class="hl std">,</span><span class="">rdf</span><span class="hl std">,</span><span class="">rdfs</span><span class="hl std">}</span></span> so that one can
+  use for example
+     <span class="icode"><span class="hl kwc">Rdf_dc</span><span class="hl std">.</span><span class="">title</span></span> or  <span class="icode"><span class="hl kwa">open</span><span class="hl std"> </span><span class="hl kwc">Rdf_dc</span><span class="hl std">.</span><span class="hl kwc">Open</span><span class="hl std">;; </span><span class="">dc_title</span></span>,</li>
+<li>various fixes in Turtle and Xml parsers,</li>
+<li>drop <span class="icode"><span class="hl kwc">Rdf_uri</span></span>, <span class="icode"><span class="hl kwc">Rdf_iri</span></span>,</li>
+<li>use <span class="ext-a"><a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri</a></span>,</li>
+<li>use <span class="ext-a"><a href="http://calendar.forge.ocamlcore.org/">Calendar</a></span> and
+  <span class="ext-a"><a href="https://github.com/mirage/ocaml-uri">Ocaml-uri</a></span> instead
+  of OCamlnet,</li>
+<li>new package <code>rdf.js</code> containing only parts usable in
+  code compiled with js_of_ocaml.</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.9.0.tar.gz">0.9.0</a></strong>
 [2014-09-29]:
   <ul id="changes0.9.0">
 <li>use <span class="icode"><span class="hl std">-safe-string</span></span> compilation option (and require OCaml &gt;= 4.02),</li>
-<li>provide <span class="icode"><span class="hl std">rdf.ppx</span></span> package for <span class="icode"><span class="hl std">[%</span><span class="">sparql</span><span class="hl std"> ]</span></span> and
+<li>provide <span class="icode"><span class="hl std">rdf.ppx</span></span> package for <span class="icode"><span class="hl std">[</span><span class="hl kw5">%sparql</span><span class="hl std"> ]</span></span> and
   <span class="icode"><span class="hl std">{</span><span class="">sparql</span><span class="hl std">|...|</span><span class="">sparql</span><span class="hl std">}</span></span> syntax,</li>
 <li>new <span class="icode"><span class="hl kwc">Rdf_lwt</span></span> library implementing Sparql protocol if
   Cohttp with lwt is installed,</li>
@@ -87,7 +108,7 @@ Then read the <a href="https://zoggy.github.io/ocaml-rdf/doc-install.html">Insta
 [2013-09-24]:
   <ul id="changes0.7.0">
 <li>
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_iri.html">Rdf_iri</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_iri.html&lt;main_/&gt;">Rdf_iri</a>
  now replaces Rdf_uri,</li>
 <li><code>Rdf_sparql.parse_from_*</code>  renamed to <code>query_from_*</code>,</li>
 <li><code>Rdf_uri.Invalid_url</code> renamed to <code>Invalid_uri</code>,</li>
@@ -97,16 +118,16 @@ Then read the <a href="https://zoggy.github.io/ocaml-rdf/doc-install.html">Insta
   <code>Rdf_xml.from_*</code> is now optional; if not given, the graph name
   is used as base,</li>
 <li>Add namespace modules: 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_earl.html">Rdf_earl</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_earl.html&lt;main_/&gt;">Rdf_earl</a>
 ,
   
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html">Rdf_foaf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_foaf.html&lt;main_/&gt;">Rdf_foaf</a>
 , 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdfs.html">Rdf_rdfs</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdfs.html&lt;main_/&gt;">Rdf_rdfs</a>
 ,</li>
 <li>Partial fix: implement simple version of Sparql's builtin funs LCASE and UCASE,</li>
 <li>Upgrade turtle parser/printer to W3C RC of 2013/02/19, passes all tests
@@ -117,18 +138,18 @@ Then read the <a href="https://zoggy.github.io/ocaml-rdf/doc-install.html">Insta
 <li>Functor to create new backends now allows to keep a backend-specific representation
   of terms during Basic Graph Pattern evaluation; this is used to optimize database
   backends,</li>
-<li>New &quot;mysql2&quot; backend, faster for queries but slower for insertions,</li>
-<li>MySQL backend now supports the &quot;engine&quot; option, default is INNODB,
-  but it can be &quot;MyISAM&quot; (faster, but does not support transactions),</li>
+<li>New "mysql2" backend, faster for queries but slower for insertions,</li>
+<li>MySQL backend now supports the "engine" option, default is INNODB,
+  but it can be "MyISAM" (faster, but does not support transactions),</li>
 <li>Remove graph debug dump which was performed at each sparql query evaluation,</li>
 <li><code>Rdf_node</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html">Rdf_term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_/&gt;">Rdf_term</a>
 ,</li>
 <li><code>Rdf_node.node</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#TYPEterm&lt;/main_&gt;">Rdf_term.term</a>
 ,</li>
 <li><code>Rdf_node.NSet</code> renamed to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.TSet.html">Rdf_term.TSet</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.TSet.html&lt;main_/&gt;">Rdf_term.TSet</a>
 ,</li>
 <li>In triples, predicates are now IRIs and not any term.</li>
 <li>+ lots of bug fixes.</li>

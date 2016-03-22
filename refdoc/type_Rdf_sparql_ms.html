@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sparql_ms</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,20 +19,214 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span>  <span class="keyword">end</span></code></div>
+<code class="code"><span class="keyword">sig</span><br/>
+  <span class="keyword">val</span> dbg : ?loc:string <span class="keywordsign">-&gt;</span> ?level:int <span class="keywordsign">-&gt;</span> (unit <span class="keywordsign">-&gt;</span> string) <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">module</span> <span class="constructor">SMap</span> = <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">SMap</span><br/>
+  <span class="keyword">module</span> <span class="constructor">SSet</span> = <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">SSet</span><br/>
+  <span class="keyword">module</span> <span class="constructor">VMap</span> = <span class="constructor">Rdf_dt</span>.<span class="constructor">VMap</span><br/>
+  <span class="keyword">exception</span> <span class="constructor">Incompatible_mus</span> <span class="keyword">of</span> string<br/>
+  <span class="keyword">exception</span> <span class="constructor">Cannot_extend_mu</span> <span class="keyword">of</span> <span class="constructor">Rdf_sparql_types</span>.var<br/>
+  <span class="keyword">type</span> mu = {<br/>
+    mu_bindings : <span class="constructor">Rdf_term</span>.term <span class="constructor">SMap</span>.t;<br/>
+    <span class="keyword">mutable</span> mu_bnodes : string <span class="constructor">VMap</span>.t;<br/>
+  }<br/>
+  <span class="keyword">val</span> mu_0 : <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> mu_add :<br/>
+    <span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> mu_copy : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> mu : <span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> gen_blank_id : unit <span class="keywordsign">-&gt;</span> string<br/>
+  <span class="keyword">val</span> get_bnode : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">VMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
+  <span class="keyword">val</span> mu_compare : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> int<br/>
+  <span class="keyword">val</span> mu_merge : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> mu_find_varname : <span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+  <span class="keyword">val</span> mu_find_var : <span class="constructor">Rdf_sparql_types</span>.var <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+  <span class="keyword">val</span> mu_project : <span class="constructor">SSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+  <span class="keyword">val</span> mu_fold :<br/>
+    (<span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
+  <span class="keyword">val</span> mu_iter :<br/>
+    (<span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">module</span> <span class="constructor">MuOrdered</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> t = <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+      <span class="keyword">val</span> compare : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> int<br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="constructor">MuSet</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> elt = <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuOrdered</span>.t<br/>
+      <span class="keyword">type</span> t = <span class="constructor">Set</span>.<span class="constructor">Make</span>(<span class="constructor">MuOrdered</span>).t<br/>
+      <span class="keyword">val</span> empty : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> is_empty : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> mem : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> add :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> singleton : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> remove :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> union :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> inter :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> diff :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> compare : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> equal : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> subset : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> iter :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> fold :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
+      <span class="keyword">val</span> for_all :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> exists :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> filter :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> partition :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t * <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> cardinal : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> elements : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt list<br/>
+      <span class="keyword">val</span> min_elt : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt<br/>
+      <span class="keyword">val</span> max_elt : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt<br/>
+      <span class="keyword">val</span> choose : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt<br/>
+      <span class="keyword">val</span> split :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t * bool * <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+      <span class="keyword">val</span> find :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt<br/>
+      <span class="keyword">val</span> of_list : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.elt list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuSet</span>.t<br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="constructor">MuNOrdered</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> t = int * <span class="constructor">Rdf_sparql_ms</span>.mu<br/>
+      <span class="keyword">val</span> compare : int * <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int * <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> int<br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">module</span> <span class="constructor">Multimu</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">type</span> elt = <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">MuNOrdered</span>.t<br/>
+      <span class="keyword">type</span> t = <span class="constructor">Set</span>.<span class="constructor">Make</span>(<span class="constructor">MuNOrdered</span>).t<br/>
+      <span class="keyword">val</span> empty : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> is_empty : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> mem : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> add :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> singleton : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> remove :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> union :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> inter :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> diff :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> compare : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> equal : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> subset : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> iter :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
+      <span class="keyword">val</span> fold :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
+      <span class="keyword">val</span> for_all :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> exists :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+      <span class="keyword">val</span> filter :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> partition :<br/>
+        (<span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t * <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> cardinal : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> int<br/>
+      <span class="keyword">val</span> elements :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt list<br/>
+      <span class="keyword">val</span> min_elt : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt<br/>
+      <span class="keyword">val</span> max_elt : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt<br/>
+      <span class="keyword">val</span> choose : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt<br/>
+      <span class="keyword">val</span> split :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t * bool * <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+      <span class="keyword">val</span> find :<br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt <span class="keywordsign">-&gt;</span><br/>
+        <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt<br/>
+      <span class="keyword">val</span> of_list : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.elt list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+    <span class="keyword">end</span><br/>
+  <span class="keyword">type</span> multiset = <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_add :<br/>
+    <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_add_if_not_present :<br/>
+    <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_0 : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega : <span class="constructor">SMap</span>.key <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> card_mu : <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> int<br/>
+  <span class="keyword">val</span> omega_filter :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_join :<br/>
+    ?pred:(<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_union :<br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_diff_pred :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">exception</span> <span class="constructor">Not_disjoint</span><br/>
+  <span class="keyword">val</span> mu_disjoint_doms : <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> bool<br/>
+  <span class="keyword">val</span> omega_minus :<br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_extend :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term) <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span><br/>
+    <span class="constructor">Rdf_sparql_types</span>.var <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t<br/>
+  <span class="keyword">val</span> omega_fold :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
+  <span class="keyword">val</span> omega_iter :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> omega_exists :<br/>
+    (<span class="constructor">Rdf_sparql_ms</span>.mu <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_ms</span>.<span class="constructor">Multimu</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
+<span class="keyword">end</span></code></div>
 
 
 </div>

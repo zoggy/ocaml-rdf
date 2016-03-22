@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_rdfs</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,56 +19,76 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> rdfs : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_Class : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_comment : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_Container : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_ContainerMembershipProperty : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_Datatype : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_domain : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_isDefinedBy : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_label : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_Literal : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_member : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_range : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_Resource : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_seeAlso : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_subClassOf : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdfs_subPropertyOf : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> rdfs : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> rdfs_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Class : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> comment : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Container : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_ContainerMembershipProperty : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Datatype : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> domain : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> isDefinedBy : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> label : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Literal : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> member : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> range : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Resource : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> seeAlso : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> subClassOf : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> subPropertyOf : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">module</span> <span class="constructor">Open</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">val</span> rdfs_c_Class : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_comment : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_c_Container : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_c_ContainerMembershipProperty : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_c_Datatype : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_domain : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_isDefinedBy : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_label : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_c_Literal : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_member : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_range : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_c_Resource : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_seeAlso : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_subClassOf : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdfs_subPropertyOf : <span class="constructor">Iri</span>.t<br/>
+    <span class="keyword">end</span><br/>
   <span class="keyword">val</span> add_namespaces : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> property :<br/>
+  <span class="keyword">val</span> mk_property :<br/>
     <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
     label:string <span class="keywordsign">-&gt;</span><br/>
     ?label_lang:(string * string) list <span class="keywordsign">-&gt;</span><br/>
     ?comment:string <span class="keywordsign">-&gt;</span><br/>
     ?comment_lang:(string * string) list <span class="keywordsign">-&gt;</span><br/>
-    ?domains:<span class="constructor">Rdf_iri</span>.iri list <span class="keywordsign">-&gt;</span><br/>
-    ?ranges:<span class="constructor">Rdf_iri</span>.iri list <span class="keywordsign">-&gt;</span><br/>
-    ?subof:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
-    ?more:(<span class="constructor">Rdf_iri</span>.iri * <span class="constructor">Rdf_term</span>.term) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> class_ :<br/>
+    ?domains:<span class="constructor">Iri</span>.t list <span class="keywordsign">-&gt;</span><br/>
+    ?ranges:<span class="constructor">Iri</span>.t list <span class="keywordsign">-&gt;</span><br/>
+    ?subof:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> ?more:(<span class="constructor">Iri</span>.t * <span class="constructor">Rdf_term</span>.term) list <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
+  <span class="keyword">val</span> mk_class :<br/>
     <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
     label:string <span class="keywordsign">-&gt;</span><br/>
     ?label_lang:(string * string) list <span class="keywordsign">-&gt;</span><br/>
     ?comment:string <span class="keywordsign">-&gt;</span><br/>
     ?comment_lang:(string * string) list <span class="keywordsign">-&gt;</span><br/>
-    ?subof:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span><br/>
-    ?more:(<span class="constructor">Rdf_iri</span>.iri * <span class="constructor">Rdf_term</span>.term) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> unit<br/>
+    ?subof:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> ?more:(<span class="constructor">Iri</span>.t * <span class="constructor">Rdf_term</span>.term) list <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
 <span class="keyword">end</span></code></div>
 
 

@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_rdf</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,58 +19,99 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> rdf : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> dc : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> dc_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_about : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_datatype : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Description : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_ID : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_li : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_nodeID : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_RDF : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_parseType : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_resource : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Alt : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Bag : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_List : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Property : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Seq : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_Statement : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_XMLLiteral : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_subject : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_predicate : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_object : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_type : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_value : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_first : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_rest : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_n : int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_nil : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_integer : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_double : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_decimal : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_boolean : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_string : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> xsd_datetime : <span class="constructor">Rdf_iri</span>.iri<br/>
-  <span class="keyword">val</span> rdf_langstring : <span class="constructor">Rdf_iri</span>.iri<br/>
+  <span class="keyword">val</span> rdf : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> rdf_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> about : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> datatype : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> description : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> id : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> li : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> nodeID : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> _RDF : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> parseType : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> resource : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Alt : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Bag : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> first : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> dt_HTML : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> dt_langString : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_List : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> object_ : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> dt_PlainLiteral : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> predicate : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Property : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> rest : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Seq : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> c_Statement : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> subject : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> type_ : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> value : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> dt_XMLLiteral : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> n : int <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> nil : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_integer : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_double : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_decimal : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_boolean : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_string : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">val</span> xsd_datetime : <span class="constructor">Iri</span>.t<br/>
+  <span class="keyword">module</span> <span class="constructor">Open</span> :<br/>
+    <span class="keyword">sig</span><br/>
+      <span class="keyword">val</span> rdf_about : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_datatype : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_description : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_li : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_nodeID : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_id : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_parseType : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_RDF : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_resource : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_Alt : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_Bag : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_first : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_dt_HTML : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_dt_langString : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_List : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_object : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_dt_PlainLiteral : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_predicate : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_Property : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_rest : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_Seq : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_c_Statement : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_subject : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_type : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_value : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_dt_XMLLiteral : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_n : int <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> rdf_nil : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_integer : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_double : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_decimal : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_boolean : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_string : <span class="constructor">Iri</span>.t<br/>
+      <span class="keyword">val</span> xsd_datetime : <span class="constructor">Iri</span>.t<br/>
+    <span class="keyword">end</span><br/>
 <span class="keyword">end</span></code></div>
 
 

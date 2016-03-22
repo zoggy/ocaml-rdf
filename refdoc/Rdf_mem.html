@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_mem</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_loc.html" title="Rdf_loc">Previous</a>
@@ -39,88 +42,13 @@
 </div>
 <h1>Module <a href="type_Rdf_mem.html">Rdf_mem</a></h1>
 
-<pre id="moduleRdf_memsigend"><a class="paragraph-url" href="#moduleRdf_memsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_mem: <code class="code">sig</code> <a href="Rdf_mem.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_memsigend"><a class="paragraph-url" href="#moduleRdf_memsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_mem: <code class="code">sig</code> <a href="Rdf_mem.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Memory storage, using tree-based sets.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="valdbglocstringlevelintu"><a class="paragraph-url" href="#valdbglocstringlevelintu"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdbg"><span class="keyword">val</span> dbg</span> : <code class="type">?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit</code></pre>
-<pre id="moduleSMapRdf_typesSMap"><a class="paragraph-url" href="#moduleSMapRdf_typesSMap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.SMap.html">SMap</a>: <code class="type"><a href="Rdf_types.SMap.html">Rdf_types.SMap</a></code></pre>
-<pre id="moduleTriplesfunctorMap1"><a class="paragraph-url" href="#moduleTriplesfunctorMap1"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples.html">Triples</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">Map1</code><code class="code"> : </code><code class="type">Map.S</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">Map2</code><code class="code"> : </code><code class="type">Map.S</code><code class="code">) -&gt; </code><div class="sig_block"><code class="code">functor (</code><code class="code">Set</code><code class="code"> : </code><code class="type">Set.S</code><code class="code">) -&gt; </code><code class="code">sig</code> <a href="Rdf_mem.Triples.html">..</a> <code class="code">end</code></div></div></div></pre>
-<pre id="moduleTriples_s_pTriples"><a class="paragraph-url" href="#moduleTriples_s_pTriples"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples_s_p.html">Triples_s_p</a>: <code class="type"><a href="Rdf_mem.Triples.html">Triples</a></code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_iri.Irimap.html">Rdf_iri.Irimap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_term.TSet.html">Rdf_term.TSet</a></code><code class="code">)</code></pre>
-<pre id="moduleTriples_p_oTriples"><a class="paragraph-url" href="#moduleTriples_p_oTriples"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples_p_o.html">Triples_p_o</a>: <code class="type"><a href="Rdf_mem.Triples.html">Triples</a></code><code class="code">(</code><code class="type"><a href="Rdf_iri.Irimap.html">Rdf_iri.Irimap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_term.TSet.html">Rdf_term.TSet</a></code><code class="code">)</code></pre>
-<pre id="moduleTriples_o_sTriples"><a class="paragraph-url" href="#moduleTriples_o_sTriples"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Triples_o_s.html">Triples_o_s</a>: <code class="type"><a href="Rdf_mem.Triples.html">Triples</a></code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_term.TMap.html">Rdf_term.TMap</a></code><code class="code">)</code><code class="code">(</code><code class="type"><a href="Rdf_iri.Iriset.html">Rdf_iri.Iriset</a></code><code class="code">)</code></pre>
-<pre id="typet"><a class="paragraph-url" href="#typet"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEt"><span class="keyword">type</span> t</span> = {</code></pre><table class="typetable">
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span id="TYPEELTt.g_name">g_name</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span class="keyword">mutable </span><span id="TYPEELTt.g_set_sub">g_set_sub</span> : <code class="type">Triples_s_p.t</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span class="keyword">mutable </span><span id="TYPEELTt.g_set_pred">g_set_pred</span> : <code class="type">Triples_p_o.t</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span class="keyword">mutable </span><span id="TYPEELTt.g_set_obj">g_set_obj</span> : <code class="type">Triples_o_s.t</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span class="keyword">mutable </span><span id="TYPEELTt.g_in_transaction">g_in_transaction</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> option</code>;</code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top">
-<code>  </code></td>
-<td align="left" valign="top">
-<code><span class="keyword">mutable </span><span id="TYPEELTt.g_ns">g_ns</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> SMap.t</code>;</code></td>
-
-</tr></table>
-}
-
-
-
-<pre id="typeerrorstring"><a class="paragraph-url" href="#typeerrorstring"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEerror"><span class="keyword">type</span> error</span> = <code class="type">string</code> </pre>
-
-
-<pre id="exceptionErroroferror"><a class="paragraph-url" href="#exceptionErroroferror"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Rdf_mem.html#TYPEerror">error</a></code></pre>
-
-<pre id="valstring_of_erroraa"><a class="paragraph-url" href="#valstring_of_erroraa"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type">'a -&gt; 'a</code></pre>
-<pre id="valopen_graphoptionsalis"><a class="paragraph-url" href="#valopen_graphoptionsalis"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:'a list -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a> -&gt; <a href="Rdf_mem.html#TYPEt">t</a></code></pre>
-<pre id="valadd_tripletsubRdf_ter"><a class="paragraph-url" href="#valadd_tripletsubRdf_ter"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd_triple"><span class="keyword">val</span> add_triple</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       sub:Rdf_term.TMap.key -&gt;<br/>       pred:Rdf_iri.Irimap.key -&gt; obj:Triples_s_p.Set.elt -&gt; unit</code></pre>
-<pre id="valrem_tripletsubRdf_ter"><a class="paragraph-url" href="#valrem_tripletsubRdf_ter"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALrem_triple"><span class="keyword">val</span> rem_triple</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       sub:Rdf_term.TMap.key -&gt;<br/>       pred:Rdf_iri.Irimap.key -&gt; obj:Triples_s_p.Set.elt -&gt; unit</code></pre>
-<pre id="valsubjects_oftpredRdf_i"><a class="paragraph-url" href="#valsubjects_oftpredRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubjects_of"><span class="keyword">val</span> subjects_of</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       pred:Rdf_iri.Irimap.key -&gt;<br/>       obj:Rdf_term.TMap.key -&gt; Triples_p_o.Set.elt list</code></pre>
-<pre id="valpredicates_oftsubRdf_"><a class="paragraph-url" href="#valpredicates_oftsubRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpredicates_of"><span class="keyword">val</span> predicates_of</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       sub:Rdf_term.TMap.key -&gt;<br/>       obj:Rdf_term.TMap.key -&gt; Triples_o_s.Set.elt list</code></pre>
-<pre id="valobjects_oftsubRdf_ter"><a class="paragraph-url" href="#valobjects_oftsubRdf_ter"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALobjects_of"><span class="keyword">val</span> objects_of</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       sub:Rdf_term.TMap.key -&gt;<br/>       pred:Rdf_iri.Irimap.key -&gt; Triples_s_p.Set.elt list</code></pre>
-<pre id="valfindsubRdf_termTMapke"><a class="paragraph-url" href="#valfindsubRdf_termTMapke"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfind"><span class="keyword">val</span> find</span> : <code class="type">?sub:Rdf_term.TMap.key -&gt;<br/>       ?pred:Rdf_iri.Irimap.key -&gt;<br/>       ?obj:Rdf_term.TMap.key -&gt;<br/>       <a href="Rdf_mem.html#TYPEt">t</a> -&gt;<br/>       (Rdf_term.TMap.key * Rdf_iri.Irimap.key * Triples_s_p.Set.elt) list</code></pre>
-<pre id="valexistssubRdf_termTMap"><a class="paragraph-url" href="#valexistssubRdf_termTMap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALexists"><span class="keyword">val</span> exists</span> : <code class="type">?sub:Rdf_term.TMap.key -&gt;<br/>       ?pred:Rdf_iri.Irimap.key -&gt; ?obj:Rdf_term.TMap.key -&gt; <a href="Rdf_mem.html#TYPEt">t</a> -&gt; bool</code></pre>
-<pre id="valsubjectstRdf_termTMap"><a class="paragraph-url" href="#valsubjectstRdf_termTMap"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsubjects"><span class="keyword">val</span> subjects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; Rdf_term.TMap.key list</code></pre>
-<pre id="valpredicatestRdf_iriIri"><a class="paragraph-url" href="#valpredicatestRdf_iriIri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpredicates"><span class="keyword">val</span> predicates</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; Rdf_iri.Irimap.key list</code></pre>
-<pre id="valobjectstRdf_termTMapk"><a class="paragraph-url" href="#valobjectstRdf_termTMapk"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALobjects"><span class="keyword">val</span> objects</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; Rdf_term.TMap.key list</code></pre>
-<pre id="valtransaction_starttuni"><a class="paragraph-url" href="#valtransaction_starttuni"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtransaction_start"><span class="keyword">val</span> transaction_start</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; unit</code></pre>
-<pre id="valtransaction_committun"><a class="paragraph-url" href="#valtransaction_committun"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtransaction_commit"><span class="keyword">val</span> transaction_commit</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; unit</code></pre>
-<pre id="valtransaction_rollbackt"><a class="paragraph-url" href="#valtransaction_rollbackt"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtransaction_rollback"><span class="keyword">val</span> transaction_rollback</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; unit</code></pre>
-<pre id="valnew_blank_idtRdf_term"><a class="paragraph-url" href="#valnew_blank_idtRdf_term"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALnew_blank_id"><span class="keyword">val</span> new_blank_id</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; <a href="Rdf_term.html#TYPEblank_id">Rdf_term.blank_id</a></code></pre>
-<pre id="valgraph_sizetint"><a class="paragraph-url" href="#valgraph_sizetint"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALgraph_size"><span class="keyword">val</span> graph_size</span> : <code class="type"><a href="Rdf_mem.html#TYPEt">t</a> -&gt; int</code></pre>
-<pre id="moduleMem_BGPsigend"><a class="paragraph-url" href="#moduleMem_BGPsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Mem_BGP.html">Mem_BGP</a>: <code class="code">sig</code> <a href="Rdf_mem.Mem_BGP.html">..</a> <code class="code">end</code></pre>
-<pre id="moduleMemsigend"><a class="paragraph-url" href="#moduleMemsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Mem.html">Mem</a>: <code class="code">sig</code> <a href="Rdf_mem.Mem.html">..</a> <code class="code">end</code></pre></div>
+<pre id="valdbglocstringlevelintu"><a class="paragraph-url" href="#valdbglocstringlevelintu"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdbg"><span class="keyword">val</span> dbg</span> : <code class="type">?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit</code></pre>
+<pre id="moduleMemRdf_graphGraph"><a class="paragraph-url" href="#moduleMemRdf_graphGraph"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_mem.Mem.html">Mem</a>: <code class="type"><a href="Rdf_graph.Graph.html">Rdf_graph.Graph</a></code><code class="type"> </code></pre></div>
 
 
 </div>

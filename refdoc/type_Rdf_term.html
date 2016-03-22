@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_term</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,28 +19,32 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <code class="code"><span class="keyword">sig</span><br/>
   <span class="keyword">type</span> literal = {<br/>
     lit_value : string;<br/>
     lit_language : string option;<br/>
-    lit_type : <span class="constructor">Rdf_iri</span>.iri option;<br/>
+    lit_type : <span class="constructor">Iri</span>.t option;<br/>
   }<br/>
   <span class="keyword">type</span> blank_id<br/>
   <span class="keyword">type</span> term =<br/>
-      <span class="constructor">Iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_iri</span>.iri<br/>
+      <span class="constructor">Iri</span> <span class="keyword">of</span> <span class="constructor">Iri</span>.t<br/>
     <span class="keywordsign">|</span> <span class="constructor">Literal</span> <span class="keyword">of</span> <span class="constructor">Rdf_term</span>.literal<br/>
     <span class="keywordsign">|</span> <span class="constructor">Blank</span><br/>
     <span class="keywordsign">|</span> <span class="constructor">Blank_</span> <span class="keyword">of</span> <span class="constructor">Rdf_term</span>.blank_id<br/>
@@ -112,21 +115,22 @@
       <span class="keyword">val</span> map : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t<br/>
       <span class="keyword">val</span> mapi : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t<br/>
     <span class="keyword">end</span><br/>
-  <span class="keyword">type</span> triple = <span class="constructor">Rdf_term</span>.term * <span class="constructor">Rdf_iri</span>.iri * <span class="constructor">Rdf_term</span>.term<br/>
+  <span class="keyword">type</span> triple = <span class="constructor">Rdf_term</span>.term * <span class="constructor">Iri</span>.t * <span class="constructor">Rdf_term</span>.term<br/>
   <span class="keyword">val</span> string_of_blank_id : <span class="constructor">Rdf_term</span>.blank_id <span class="keywordsign">-&gt;</span> string<br/>
   <span class="keyword">val</span> blank_id_of_string : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.blank_id<br/>
   <span class="keyword">val</span> term_of_iri_string : string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
-  <span class="keyword">val</span> mk_literal :<br/>
-    ?typ:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
-  <span class="keyword">val</span> mk_literal_datetime : ?d:float <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
-  <span class="keyword">val</span> term_of_datetime : ?d:float <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
-  <span class="keyword">val</span> datetime_of_literal : <span class="constructor">Rdf_term</span>.literal <span class="keywordsign">-&gt;</span> <span class="constructor">Netdate</span>.t<br/>
+  <span class="keyword">val</span> mk_literal : ?typ:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> ?lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
+  <span class="keyword">val</span> mk_literal_datetime :<br/>
+    ?d:<span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
+  <span class="keyword">val</span> term_of_datetime : ?d:<span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+  <span class="keyword">val</span> datetime_of_string : string <span class="keywordsign">-&gt;</span> <span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t<br/>
+  <span class="keyword">val</span> datetime_of_literal : <span class="constructor">Rdf_term</span>.literal <span class="keywordsign">-&gt;</span> <span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t<br/>
   <span class="keyword">val</span> mk_literal_bool : bool <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
   <span class="keyword">val</span> mk_literal_int : int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
   <span class="keyword">val</span> mk_literal_double : float <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.literal<br/>
   <span class="keyword">val</span> bool_of_literal : <span class="constructor">Rdf_term</span>.literal <span class="keywordsign">-&gt;</span> bool<br/>
   <span class="keyword">val</span> term_of_literal_string :<br/>
-    ?typ:<span class="constructor">Rdf_iri</span>.iri <span class="keywordsign">-&gt;</span> ?lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+    ?typ:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> ?lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
   <span class="keyword">val</span> term_of_int : int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
   <span class="keyword">val</span> term_of_double : float <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
   <span class="keyword">val</span> term_of_bool : bool <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>

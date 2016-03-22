@@ -1,15 +1,14 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_foaf</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 <link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
-<rssfeed></rssfeed>
+<rssfeed/>
 </head><body>
 <div id="page">
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
   <div class="nav-collapse">
   <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
@@ -20,17 +19,21 @@
   </ul>
   </div>
   <div class="nav pull-right">
-
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
   </div>
 </div>
 </div>
 </div>
 
 <div id="header">
-
-
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
 </div>
-<span></span>
+<span/>
 
 <div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_earl.html" title="Rdf_earl">Previous</a>
@@ -39,316 +42,317 @@
 </div>
 <h1>Module <a href="type_Rdf_foaf.html">Rdf_foaf</a></h1>
 
-<pre id="moduleRdf_foafsigend"><a class="paragraph-url" href="#moduleRdf_foafsigend"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_foaf: <code class="code">sig</code> <a href="Rdf_foaf.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<pre id="moduleRdf_foafsigend"><a class="paragraph-url" href="#moduleRdf_foafsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_foaf: <code class="code">sig</code> <a href="Rdf_foaf.html">..</a> <code class="code">end</code></pre><div class="info module top">
 Elements of <code class="code">http://xmlns.com/foaf/0.1/</code><br/>
 </div>
 <hr width="100%"/>
 
-<pre id="valfoafRdf_iriiri"><a class="paragraph-url" href="#valfoafRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf"><span class="keyword">val</span> foaf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfoafIrit"><a class="paragraph-url" href="#valfoafIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf"><span class="keyword">val</span> foaf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 <code class="code">http://xmlns.com/foaf/0.1/</code><br/>
 </div>
 
-<pre id="valfoaf_stringRdf_iriiri"><a class="paragraph-url" href="#valfoaf_stringRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_"><span class="keyword">val</span> foaf_</span> : <code class="type">string -&gt; <a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre>
-<pre id="valfoaf_accountRdf_iriir"><a class="paragraph-url" href="#valfoaf_accountRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_account"><span class="keyword">val</span> foaf_account</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfoaf_stringIrit"><a class="paragraph-url" href="#valfoaf_stringIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_"><span class="keyword">val</span> foaf_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre id="valaccountIrit"><a class="paragraph-url" href="#valaccountIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccount"><span class="keyword">val</span> account</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates an account held by this agent.<br/>
 </div>
 
-<pre id="valfoaf_accountNameRdf_i"><a class="paragraph-url" href="#valfoaf_accountNameRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_accountName"><span class="keyword">val</span> foaf_accountName</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccountNameIrit"><a class="paragraph-url" href="#valaccountNameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccountName"><span class="keyword">val</span> accountName</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates the name (identifier) associated with this online account.<br/>
 </div>
 
-<pre id="valfoaf_accountServiceHo"><a class="paragraph-url" href="#valfoaf_accountServiceHo"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_accountServiceHomepage"><span class="keyword">val</span> foaf_accountServiceHomepage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaccountServiceHomepag"><a class="paragraph-url" href="#valaccountServiceHomepag"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaccountServiceHomepage"><span class="keyword">val</span> accountServiceHomepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates a homepage of the service provide for this online account.<br/>
 </div>
 
-<pre id="valfoaf_ageRdf_iriiri"><a class="paragraph-url" href="#valfoaf_ageRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_age"><span class="keyword">val</span> foaf_age</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valageIrit"><a class="paragraph-url" href="#valageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALage"><span class="keyword">val</span> age</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The age in years of some agent.<br/>
 </div>
 
-<pre id="valfoaf_AgentRdf_iriiri"><a class="paragraph-url" href="#valfoaf_AgentRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Agent"><span class="keyword">val</span> foaf_Agent</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_AgentIrit"><a class="paragraph-url" href="#valc_AgentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Agent"><span class="keyword">val</span> c_Agent</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An agent (eg. person, group, software or physical artifact).<br/>
 </div>
 
-<pre id="valfoaf_aimChatIDRdf_iri"><a class="paragraph-url" href="#valfoaf_aimChatIDRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_aimChatID"><span class="keyword">val</span> foaf_aimChatID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valaimChatIDIrit"><a class="paragraph-url" href="#valaimChatIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALaimChatID"><span class="keyword">val</span> aimChatID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An AIM chat ID<br/>
 </div>
 
-<pre id="valfoaf_based_nearRdf_ir"><a class="paragraph-url" href="#valfoaf_based_nearRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_based_near"><span class="keyword">val</span> foaf_based_near</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valbased_nearIrit"><a class="paragraph-url" href="#valbased_nearIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbased_near"><span class="keyword">val</span> based_near</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A location that something is based near, for some broadly human notion of near.<br/>
 </div>
 
-<pre id="valfoaf_birthdayRdf_irii"><a class="paragraph-url" href="#valfoaf_birthdayRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_birthday"><span class="keyword">val</span> foaf_birthday</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valbirthdayIrit"><a class="paragraph-url" href="#valbirthdayIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALbirthday"><span class="keyword">val</span> birthday</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.<br/>
 </div>
 
-<pre id="valfoaf_currentProjectRd"><a class="paragraph-url" href="#valfoaf_currentProjectRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_currentProject"><span class="keyword">val</span> foaf_currentProject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valcurrentProjectIrit"><a class="paragraph-url" href="#valcurrentProjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcurrentProject"><span class="keyword">val</span> currentProject</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A current project this person works on.<br/>
 </div>
 
-<pre id="valfoaf_depictionRdf_iri"><a class="paragraph-url" href="#valfoaf_depictionRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_depiction"><span class="keyword">val</span> foaf_depiction</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdepictionIrit"><a class="paragraph-url" href="#valdepictionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdepiction"><span class="keyword">val</span> depiction</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A depiction of some thing.<br/>
 </div>
 
-<pre id="valfoaf_depictsRdf_iriir"><a class="paragraph-url" href="#valfoaf_depictsRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_depicts"><span class="keyword">val</span> foaf_depicts</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdepictsIrit"><a class="paragraph-url" href="#valdepictsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdepicts"><span class="keyword">val</span> depicts</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A thing depicted in this representation.<br/>
 </div>
 
-<pre id="valfoaf_dnaChecksumRdf_i"><a class="paragraph-url" href="#valfoaf_dnaChecksumRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_dnaChecksum"><span class="keyword">val</span> foaf_dnaChecksum</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valdnaChecksumIrit"><a class="paragraph-url" href="#valdnaChecksumIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALdnaChecksum"><span class="keyword">val</span> dnaChecksum</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A checksum for the DNA of some thing. Joke.<br/>
 </div>
 
-<pre id="valfoaf_DocumentRdf_irii"><a class="paragraph-url" href="#valfoaf_DocumentRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Document"><span class="keyword">val</span> foaf_Document</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_DocumentIrit"><a class="paragraph-url" href="#valc_DocumentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Document"><span class="keyword">val</span> c_Document</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A document.<br/>
 </div>
 
-<pre id="valfoaf_family_nameRdf_i"><a class="paragraph-url" href="#valfoaf_family_nameRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_family_name"><span class="keyword">val</span> foaf_family_name</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfamily_nameIrit"><a class="paragraph-url" href="#valfamily_nameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfamily_name"><span class="keyword">val</span> family_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The family name of some person.<br/>
 </div>
 
-<pre id="valfoaf_familyNameRdf_ir"><a class="paragraph-url" href="#valfoaf_familyNameRdf_ir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_familyName"><span class="keyword">val</span> foaf_familyName</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfamilyNameIrit"><a class="paragraph-url" href="#valfamilyNameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfamilyName"><span class="keyword">val</span> familyName</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The family name of some person.<br/>
 </div>
 
-<pre id="valfoaf_firstNameRdf_iri"><a class="paragraph-url" href="#valfoaf_firstNameRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_firstName"><span class="keyword">val</span> foaf_firstName</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfirstNameIrit"><a class="paragraph-url" href="#valfirstNameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfirstName"><span class="keyword">val</span> firstName</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The first name of a person.<br/>
 </div>
 
-<pre id="valfoaf_focusRdf_iriiri"><a class="paragraph-url" href="#valfoaf_focusRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_focus"><span class="keyword">val</span> foaf_focus</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfocusIrit"><a class="paragraph-url" href="#valfocusIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfocus"><span class="keyword">val</span> focus</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The underlying or 'focal' entity associated with some SKOS-described concept.<br/>
 </div>
 
-<pre id="valfoaf_fundedByRdf_irii"><a class="paragraph-url" href="#valfoaf_fundedByRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_fundedBy"><span class="keyword">val</span> foaf_fundedBy</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valfundedByIrit"><a class="paragraph-url" href="#valfundedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfundedBy"><span class="keyword">val</span> fundedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An organization funding a project or person.<br/>
 </div>
 
-<pre id="valfoaf_geekcodeRdf_irii"><a class="paragraph-url" href="#valfoaf_geekcodeRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_geekcode"><span class="keyword">val</span> foaf_geekcode</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valgeekcodeIrit"><a class="paragraph-url" href="#valgeekcodeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALgeekcode"><span class="keyword">val</span> geekcode</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A textual geekcode for this person, see http://www.geekcode.com/geek.html<br/>
 </div>
 
-<pre id="valfoaf_genderRdf_iriiri"><a class="paragraph-url" href="#valfoaf_genderRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_gender"><span class="keyword">val</span> foaf_gender</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valgenderIrit"><a class="paragraph-url" href="#valgenderIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALgender"><span class="keyword">val</span> gender</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The gender of this Agent (typically but not necessarily 'male' or 'female').<br/>
 </div>
 
-<pre id="valfoaf_givennameRdf_iri"><a class="paragraph-url" href="#valfoaf_givennameRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_givenname"><span class="keyword">val</span> foaf_givenname</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valgivennameIrit"><a class="paragraph-url" href="#valgivennameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALgivenname"><span class="keyword">val</span> givenname</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The given name of some person.<br/>
 </div>
 
-<pre id="valfoaf_givenNameRdf_iri"><a class="paragraph-url" href="#valfoaf_givenNameRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_givenName"><span class="keyword">val</span> foaf_givenName</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valgivenNameIrit"><a class="paragraph-url" href="#valgivenNameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALgivenName"><span class="keyword">val</span> givenName</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The given name of some person.<br/>
 </div>
 
-<pre id="valfoaf_GroupRdf_iriiri"><a class="paragraph-url" href="#valfoaf_GroupRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Group"><span class="keyword">val</span> foaf_Group</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_GroupIrit"><a class="paragraph-url" href="#valc_GroupIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Group"><span class="keyword">val</span> c_Group</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A class of Agents.<br/>
 </div>
 
-<pre id="valfoaf_holdsAccountRdf_"><a class="paragraph-url" href="#valfoaf_holdsAccountRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_holdsAccount"><span class="keyword">val</span> foaf_holdsAccount</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valholdsAccountIrit"><a class="paragraph-url" href="#valholdsAccountIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALholdsAccount"><span class="keyword">val</span> holdsAccount</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates an account held by this agent.<br/>
 </div>
 
-<pre id="valfoaf_homepageRdf_irii"><a class="paragraph-url" href="#valfoaf_homepageRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_homepage"><span class="keyword">val</span> foaf_homepage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valhomepageIrit"><a class="paragraph-url" href="#valhomepageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALhomepage"><span class="keyword">val</span> homepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A homepage for some thing.<br/>
 </div>
 
-<pre id="valfoaf_icqChatIDRdf_iri"><a class="paragraph-url" href="#valfoaf_icqChatIDRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_icqChatID"><span class="keyword">val</span> foaf_icqChatID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valicqChatIDIrit"><a class="paragraph-url" href="#valicqChatIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALicqChatID"><span class="keyword">val</span> icqChatID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An ICQ chat ID<br/>
 </div>
 
-<pre id="valfoaf_ImageRdf_iriiri"><a class="paragraph-url" href="#valfoaf_ImageRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Image"><span class="keyword">val</span> foaf_Image</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_ImageIrit"><a class="paragraph-url" href="#valc_ImageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Image"><span class="keyword">val</span> c_Image</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An image.<br/>
 </div>
 
-<pre id="valfoaf_imgRdf_iriiri"><a class="paragraph-url" href="#valfoaf_imgRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_img"><span class="keyword">val</span> foaf_img</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valimgIrit"><a class="paragraph-url" href="#valimgIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALimg"><span class="keyword">val</span> img</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage).<br/>
 </div>
 
-<pre id="valfoaf_interestRdf_irii"><a class="paragraph-url" href="#valfoaf_interestRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_interest"><span class="keyword">val</span> foaf_interest</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valinterestIrit"><a class="paragraph-url" href="#valinterestIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALinterest"><span class="keyword">val</span> interest</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A page about a topic of interest to this person.<br/>
 </div>
 
-<pre id="valfoaf_isPrimaryTopicOf"><a class="paragraph-url" href="#valfoaf_isPrimaryTopicOf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_isPrimaryTopicOf"><span class="keyword">val</span> foaf_isPrimaryTopicOf</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valisPrimaryTopicOfIrit"><a class="paragraph-url" href="#valisPrimaryTopicOfIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALisPrimaryTopicOf"><span class="keyword">val</span> isPrimaryTopicOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A document that this thing is the primary topic of.<br/>
 </div>
 
-<pre id="valfoaf_jabberIDRdf_irii"><a class="paragraph-url" href="#valfoaf_jabberIDRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_jabberID"><span class="keyword">val</span> foaf_jabberID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valjabberIDIrit"><a class="paragraph-url" href="#valjabberIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALjabberID"><span class="keyword">val</span> jabberID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A jabber ID for something.<br/>
 </div>
 
-<pre id="valfoaf_knowsRdf_iriiri"><a class="paragraph-url" href="#valfoaf_knowsRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_knows"><span class="keyword">val</span> foaf_knows</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valknowsIrit"><a class="paragraph-url" href="#valknowsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALknows"><span class="keyword">val</span> knows</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A person known by this person (indicating some level of reciprocated interaction between the parties).<br/>
 </div>
 
-<pre id="valfoaf_LabelPropertyRdf"><a class="paragraph-url" href="#valfoaf_LabelPropertyRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_LabelProperty"><span class="keyword">val</span> foaf_LabelProperty</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_LabelPropertyIrit"><a class="paragraph-url" href="#valc_LabelPropertyIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_LabelProperty"><span class="keyword">val</span> c_LabelProperty</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A foaf:LabelProperty is any RDF property with texual values that serve as labels.<br/>
 </div>
 
-<pre id="valfoaf_lastNameRdf_irii"><a class="paragraph-url" href="#valfoaf_lastNameRdf_irii"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_lastName"><span class="keyword">val</span> foaf_lastName</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="vallastNameIrit"><a class="paragraph-url" href="#vallastNameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALlastName"><span class="keyword">val</span> lastName</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The last name of a person.<br/>
 </div>
 
-<pre id="valfoaf_logoRdf_iriiri"><a class="paragraph-url" href="#valfoaf_logoRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_logo"><span class="keyword">val</span> foaf_logo</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="vallogoIrit"><a class="paragraph-url" href="#vallogoIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALlogo"><span class="keyword">val</span> logo</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A logo representing some thing.<br/>
 </div>
 
-<pre id="valfoaf_madeRdf_iriiri"><a class="paragraph-url" href="#valfoaf_madeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_made"><span class="keyword">val</span> foaf_made</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmadeIrit"><a class="paragraph-url" href="#valmadeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmade"><span class="keyword">val</span> made</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Something that was made by this agent.<br/>
 </div>
 
-<pre id="valfoaf_makerRdf_iriiri"><a class="paragraph-url" href="#valfoaf_makerRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_maker"><span class="keyword">val</span> foaf_maker</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmakerIrit"><a class="paragraph-url" href="#valmakerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmaker"><span class="keyword">val</span> maker</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An agent that made this thing.<br/>
 </div>
 
-<pre id="valfoaf_mboxRdf_iriiri"><a class="paragraph-url" href="#valfoaf_mboxRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_mbox"><span class="keyword">val</span> foaf_mbox</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmboxIrit"><a class="paragraph-url" href="#valmboxIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmbox"><span class="keyword">val</span> mbox</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox. This is a 'static inverse functional property', in that there is (across time and change) at most one individual that ever has any particular value for foaf:mbox.<br/>
 </div>
 
-<pre id="valfoaf_mbox_sha1sumRdf_"><a class="paragraph-url" href="#valfoaf_mbox_sha1sumRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_mbox_sha1sum"><span class="keyword">val</span> foaf_mbox_sha1sum</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmbox_sha1sumIrit"><a class="paragraph-url" href="#valmbox_sha1sumIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmbox_sha1sum"><span class="keyword">val</span> mbox_sha1sum</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The sha1sum of the URI of an Internet mailbox associated with exactly one owner, the first owner of the mailbox.<br/>
 </div>
 
-<pre id="valfoaf_memberRdf_iriiri"><a class="paragraph-url" href="#valfoaf_memberRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_member"><span class="keyword">val</span> foaf_member</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmemberIrit"><a class="paragraph-url" href="#valmemberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmember"><span class="keyword">val</span> member</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates a member of a Group<br/>
 </div>
 
-<pre id="valfoaf_membershipClassR"><a class="paragraph-url" href="#valfoaf_membershipClassR"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_membershipClass"><span class="keyword">val</span> foaf_membershipClass</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmembershipClassIrit"><a class="paragraph-url" href="#valmembershipClassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmembershipClass"><span class="keyword">val</span> membershipClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates the class of individuals that are a member of a Group<br/>
 </div>
 
-<pre id="valfoaf_msnChatIDRdf_iri"><a class="paragraph-url" href="#valfoaf_msnChatIDRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_msnChatID"><span class="keyword">val</span> foaf_msnChatID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmsnChatIDIrit"><a class="paragraph-url" href="#valmsnChatIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmsnChatID"><span class="keyword">val</span> msnChatID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An MSN chat ID<br/>
 </div>
 
-<pre id="valfoaf_myersBriggsRdf_i"><a class="paragraph-url" href="#valfoaf_myersBriggsRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_myersBriggs"><span class="keyword">val</span> foaf_myersBriggs</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valmyersBriggsIrit"><a class="paragraph-url" href="#valmyersBriggsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmyersBriggs"><span class="keyword">val</span> myersBriggs</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A Myers Briggs (MBTI) personality classification.<br/>
 </div>
 
-<pre id="valfoaf_nameRdf_iriiri"><a class="paragraph-url" href="#valfoaf_nameRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_name"><span class="keyword">val</span> foaf_name</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valnameIrit"><a class="paragraph-url" href="#valnameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A name for some thing.<br/>
 </div>
 
-<pre id="valfoaf_nickRdf_iriiri"><a class="paragraph-url" href="#valfoaf_nickRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_nick"><span class="keyword">val</span> foaf_nick</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valnickIrit"><a class="paragraph-url" href="#valnickIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALnick"><span class="keyword">val</span> nick</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A short informal nickname characterising an agent (includes login identifiers, IRC and other chat nicknames).<br/>
 </div>
 
-<pre id="valfoaf_OnlineAccountRdf"><a class="paragraph-url" href="#valfoaf_OnlineAccountRdf"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_OnlineAccount"><span class="keyword">val</span> foaf_OnlineAccount</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OnlineAccountIrit"><a class="paragraph-url" href="#valc_OnlineAccountIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_OnlineAccount"><span class="keyword">val</span> c_OnlineAccount</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An online account.<br/>
 </div>
 
-<pre id="valfoaf_OnlineChatAccoun"><a class="paragraph-url" href="#valfoaf_OnlineChatAccoun"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_OnlineChatAccount"><span class="keyword">val</span> foaf_OnlineChatAccount</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OnlineChatAccountIr"><a class="paragraph-url" href="#valc_OnlineChatAccountIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_OnlineChatAccount"><span class="keyword">val</span> c_OnlineChatAccount</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An online chat account.<br/>
 </div>
 
-<pre id="valfoaf_OnlineEcommerceA"><a class="paragraph-url" href="#valfoaf_OnlineEcommerceA"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_OnlineEcommerceAccount"><span class="keyword">val</span> foaf_OnlineEcommerceAccount</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OnlineEcommerceAcco"><a class="paragraph-url" href="#valc_OnlineEcommerceAcco"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_OnlineEcommerceAccount"><span class="keyword">val</span> c_OnlineEcommerceAccount</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An online e-commerce account.<br/>
 </div>
 
-<pre id="valfoaf_OnlineGamingAcco"><a class="paragraph-url" href="#valfoaf_OnlineGamingAcco"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_OnlineGamingAccount"><span class="keyword">val</span> foaf_OnlineGamingAccount</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OnlineGamingAccount"><a class="paragraph-url" href="#valc_OnlineGamingAccount"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_OnlineGamingAccount"><span class="keyword">val</span> c_OnlineGamingAccount</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An online gaming account.<br/>
 </div>
 
-<pre id="valfoaf_openidRdf_iriiri"><a class="paragraph-url" href="#valfoaf_openidRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_openid"><span class="keyword">val</span> foaf_openid</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valopenidIrit"><a class="paragraph-url" href="#valopenidIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopenid"><span class="keyword">val</span> openid</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An OpenID for an Agent.<br/>
 </div>
 
-<pre id="valfoaf_OrganizationRdf_"><a class="paragraph-url" href="#valfoaf_OrganizationRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Organization"><span class="keyword">val</span> foaf_Organization</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_OrganizationIrit"><a class="paragraph-url" href="#valc_OrganizationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Organization"><span class="keyword">val</span> c_Organization</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An organization.<br/>
 </div>
 
-<pre id="valfoaf_pageRdf_iriiri"><a class="paragraph-url" href="#valfoaf_pageRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_page"><span class="keyword">val</span> foaf_page</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valpageIrit"><a class="paragraph-url" href="#valpageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpage"><span class="keyword">val</span> page</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A page or document about this thing.<br/>
 </div>
 
-<pre id="valfoaf_pastProjectRdf_i"><a class="paragraph-url" href="#valfoaf_pastProjectRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_pastProject"><span class="keyword">val</span> foaf_pastProject</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valpastProjectIrit"><a class="paragraph-url" href="#valpastProjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpastProject"><span class="keyword">val</span> pastProject</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A project this person has previously worked on.<br/>
 </div>
 
-<pre id="valfoaf_PersonRdf_iriiri"><a class="paragraph-url" href="#valfoaf_PersonRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Person"><span class="keyword">val</span> foaf_Person</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PersonIrit"><a class="paragraph-url" href="#valc_PersonIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Person"><span class="keyword">val</span> c_Person</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A person.<br/>
 </div>
 
-<pre id="valfoaf_PersonalProfileD"><a class="paragraph-url" href="#valfoaf_PersonalProfileD"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_PersonalProfileDocument"><span class="keyword">val</span> foaf_PersonalProfileDocument</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_PersonalProfileDocu"><a class="paragraph-url" href="#valc_PersonalProfileDocu"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_PersonalProfileDocument"><span class="keyword">val</span> c_PersonalProfileDocument</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A personal profile RDF document.<br/>
 </div>
 
-<pre id="valfoaf_phoneRdf_iriiri"><a class="paragraph-url" href="#valfoaf_phoneRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_phone"><span class="keyword">val</span> foaf_phone</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valphoneIrit"><a class="paragraph-url" href="#valphoneIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALphone"><span class="keyword">val</span> phone</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel).<br/>
 </div>
 
-<pre id="valfoaf_planRdf_iriiri"><a class="paragraph-url" href="#valfoaf_planRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_plan"><span class="keyword">val</span> foaf_plan</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valplanIrit"><a class="paragraph-url" href="#valplanIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALplan"><span class="keyword">val</span> plan</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A .plan comment, in the tradition of finger and '.plan' files.<br/>
 </div>
 
-<pre id="valfoaf_primaryTopicRdf_"><a class="paragraph-url" href="#valfoaf_primaryTopicRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_primaryTopic"><span class="keyword">val</span> foaf_primaryTopic</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valprimaryTopicIrit"><a class="paragraph-url" href="#valprimaryTopicIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALprimaryTopic"><span class="keyword">val</span> primaryTopic</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The primary topic of some page or document.<br/>
 </div>
 
-<pre id="valfoaf_ProjectRdf_iriir"><a class="paragraph-url" href="#valfoaf_ProjectRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_Project"><span class="keyword">val</span> foaf_Project</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valc_ProjectIrit"><a class="paragraph-url" href="#valc_ProjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALc_Project"><span class="keyword">val</span> c_Project</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A project (a collective endeavour of some kind).<br/>
 </div>
 
-<pre id="valfoaf_publicationsRdf_"><a class="paragraph-url" href="#valfoaf_publicationsRdf_"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_publications"><span class="keyword">val</span> foaf_publications</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valpublicationsIrit"><a class="paragraph-url" href="#valpublicationsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpublications"><span class="keyword">val</span> publications</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A link to the publications of this person.<br/>
 </div>
 
-<pre id="valfoaf_schoolHomepageRd"><a class="paragraph-url" href="#valfoaf_schoolHomepageRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_schoolHomepage"><span class="keyword">val</span> foaf_schoolHomepage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valschoolHomepageIrit"><a class="paragraph-url" href="#valschoolHomepageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALschoolHomepage"><span class="keyword">val</span> schoolHomepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A homepage of a school attended by the person.<br/>
 </div>
 
-<pre id="valfoaf_sha1Rdf_iriiri"><a class="paragraph-url" href="#valfoaf_sha1Rdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_sha1"><span class="keyword">val</span> foaf_sha1</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsha1Irit"><a class="paragraph-url" href="#valsha1Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsha1"><span class="keyword">val</span> sha1</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A sha1sum hash, in hex.<br/>
 </div>
 
-<pre id="valfoaf_skypeIDRdf_iriir"><a class="paragraph-url" href="#valfoaf_skypeIDRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_skypeID"><span class="keyword">val</span> foaf_skypeID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valskypeIDIrit"><a class="paragraph-url" href="#valskypeIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALskypeID"><span class="keyword">val</span> skypeID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A Skype ID<br/>
 </div>
 
-<pre id="valfoaf_statusRdf_iriiri"><a class="paragraph-url" href="#valfoaf_statusRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_status"><span class="keyword">val</span> foaf_status</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valstatusIrit"><a class="paragraph-url" href="#valstatusIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstatus"><span class="keyword">val</span> status</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A string expressing what the user is happy for the general public (normally) to know about their current activity.<br/>
 </div>
 
-<pre id="valfoaf_surnameRdf_iriir"><a class="paragraph-url" href="#valfoaf_surnameRdf_iriir"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_surname"><span class="keyword">val</span> foaf_surname</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valsurnameIrit"><a class="paragraph-url" href="#valsurnameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsurname"><span class="keyword">val</span> surname</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The surname of some person.<br/>
 </div>
 
-<pre id="valfoaf_themeRdf_iriiri"><a class="paragraph-url" href="#valfoaf_themeRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_theme"><span class="keyword">val</span> foaf_theme</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valthemeIrit"><a class="paragraph-url" href="#valthemeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtheme"><span class="keyword">val</span> theme</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A theme.<br/>
 </div>
 
-<pre id="valfoaf_thumbnailRdf_iri"><a class="paragraph-url" href="#valfoaf_thumbnailRdf_iri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_thumbnail"><span class="keyword">val</span> foaf_thumbnail</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valthumbnailIrit"><a class="paragraph-url" href="#valthumbnailIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALthumbnail"><span class="keyword">val</span> thumbnail</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A derived thumbnail image.<br/>
 </div>
 
-<pre id="valfoaf_tipjarRdf_iriiri"><a class="paragraph-url" href="#valfoaf_tipjarRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_tipjar"><span class="keyword">val</span> foaf_tipjar</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtipjarIrit"><a class="paragraph-url" href="#valtipjarIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtipjar"><span class="keyword">val</span> tipjar</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A tipjar document for this agent, describing means for payment and reward.<br/>
 </div>
 
-<pre id="valfoaf_titleRdf_iriiri"><a class="paragraph-url" href="#valfoaf_titleRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_title"><span class="keyword">val</span> foaf_title</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtitleIrit"><a class="paragraph-url" href="#valtitleIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtitle"><span class="keyword">val</span> title</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Title (Mr, Mrs, Ms, Dr. etc)<br/>
 </div>
 
-<pre id="valfoaf_topicRdf_iriiri"><a class="paragraph-url" href="#valfoaf_topicRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_topic"><span class="keyword">val</span> foaf_topic</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtopicIrit"><a class="paragraph-url" href="#valtopicIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtopic"><span class="keyword">val</span> topic</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A topic of some page or document.<br/>
 </div>
 
-<pre id="valfoaf_topic_interestRd"><a class="paragraph-url" href="#valfoaf_topic_interestRd"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_topic_interest"><span class="keyword">val</span> foaf_topic_interest</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valtopic_interestIrit"><a class="paragraph-url" href="#valtopic_interestIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALtopic_interest"><span class="keyword">val</span> topic_interest</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A thing of interest to this person.<br/>
 </div>
 
-<pre id="valfoaf_weblogRdf_iriiri"><a class="paragraph-url" href="#valfoaf_weblogRdf_iriiri"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_weblog"><span class="keyword">val</span> foaf_weblog</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valweblogIrit"><a class="paragraph-url" href="#valweblogIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALweblog"><span class="keyword">val</span> weblog</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A weblog of some thing (whether person, group, company etc.).<br/>
 </div>
 
-<pre id="valfoaf_workInfoHomepage"><a class="paragraph-url" href="#valfoaf_workInfoHomepage"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_workInfoHomepage"><span class="keyword">val</span> foaf_workInfoHomepage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valworkInfoHomepageIrit"><a class="paragraph-url" href="#valworkInfoHomepageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALworkInfoHomepage"><span class="keyword">val</span> workInfoHomepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A work info homepage of some person; a page about their work for some organization.<br/>
 </div>
 
-<pre id="valfoaf_workplaceHomepag"><a class="paragraph-url" href="#valfoaf_workplaceHomepag"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_workplaceHomepage"><span class="keyword">val</span> foaf_workplaceHomepage</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valworkplaceHomepageIrit"><a class="paragraph-url" href="#valworkplaceHomepageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALworkplaceHomepage"><span class="keyword">val</span> workplaceHomepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A workplace homepage of some person; the homepage of an organization they work for.<br/>
 </div>
 
-<pre id="valfoaf_yahooChatIDRdf_i"><a class="paragraph-url" href="#valfoaf_yahooChatIDRdf_i"><img alt="anchor" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALfoaf_yahooChatID"><span class="keyword">val</span> foaf_yahooChatID</span> : <code class="type"><a href="Rdf_iri.html#TYPEiri">Rdf_iri.iri</a></code></pre><div class="info">
+<pre id="valyahooChatIDIrit"><a class="paragraph-url" href="#valyahooChatIDIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALyahooChatID"><span class="keyword">val</span> yahooChatID</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A Yahoo chat ID<br/>
 </div>
-</div>
+
+<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_foaf.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_foaf.Open.html">..</a> <code class="code">end</code></pre></div>
 
 
 </div>
