@@ -109,7 +109,7 @@ module Xml =
       match first_child xml "boolean" with
         Some (D _) -> assert false
       | Some (E (_, [ D s ])) ->
-          Rdf_sparql.Bool (String.lowercase s = "true")
+          Rdf_sparql.Bool (String.lowercase_ascii s = "true")
       | Some (E _) -> raise (Invalid_response ("bad boolean content", "<...>...</...>"))
       | None ->
           match first_child xml "results" with
@@ -120,7 +120,7 @@ module Xml =
               match first_child x "boolean" with
               | Some (D _) -> assert false
               | Some (E (_, [ D s ])) ->
-                  Rdf_sparql.Bool (String.lowercase s = "true")
+                  Rdf_sparql.Bool (String.lowercase_ascii s = "true")
               | Some (E _) ->
                   raise (Invalid_response ("bad boolean content", "<...>...</...>"))
               | None ->
@@ -229,7 +229,7 @@ module Make (P : P) =
           end
       | "text/plain" ->
           begin
-            match String.lowercase body with
+            match String.lowercase_ascii body with
             | "true" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool true)
             | "false" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool false)
             | _-> Rdf_sparql_protocol.Ok

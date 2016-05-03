@@ -373,7 +373,7 @@ let utf8_lowercase s =
   let i = ref 0 in
   while !i < len do
     match utf8_nb_bytes_of_char s.[!i] with
-      1 -> Bytes.set b !i (Char.lowercase s.[!i]); incr i
+      1 -> Bytes.set b !i (Char.lowercase_ascii s.[!i]); incr i
     | n -> i := !i + n
   done;
   Bytes.to_string b
@@ -385,7 +385,7 @@ let utf8_uppercase s =
   let i = ref 0 in
   while !i < len do
     match utf8_nb_bytes_of_char s.[!i] with
-      1 -> Bytes.set b !i (Char.uppercase s.[!i]); incr i
+      1 -> Bytes.set b !i (Char.uppercase_ascii s.[!i]); incr i
     | n -> i := !i + n
   done;
   Bytes.to_string b

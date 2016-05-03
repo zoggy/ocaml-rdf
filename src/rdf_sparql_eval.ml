@@ -688,8 +688,8 @@ let bi_langmatches name =
            | _ ->
              (* by now, just check language spec s2 is a prefix of
                the given language tag s1 *)
-             let s1 = String.lowercase s1 in
-             let s2 = String.lowercase s2 in
+             let s1 = String.lowercase_ascii s1 in
+             let s2 = String.lowercase_ascii s2 in
              let len1 = String.length s1 in
              let len2 = String.length s2 in
                (len1 >= len2) &&
@@ -858,9 +858,9 @@ let bi_hash f name =
   in
   f;;
 
-let bi_md5 s = String (String.lowercase (Digest.to_hex (Digest.string s)));;
-let bi_sha1 s = String (String.lowercase (!Rdf_stubs.sha1 s));;
-let bi_sha256 s = String (String.lowercase (!Rdf_stubs.sha256 s));;
+let bi_md5 s = String (String.lowercase_ascii (Digest.to_hex (Digest.string s)));;
+let bi_sha1 s = String (String.lowercase_ascii (!Rdf_stubs.sha1 s));;
+let bi_sha256 s = String (String.lowercase_ascii (!Rdf_stubs.sha256 s));;
 
 let bi_lcase name =
   let f eval_expr ctx mu = function
@@ -948,7 +948,7 @@ let built_in_funs =
 
 
 let get_built_in_fun name =
-  let name = String.uppercase name in
+  let name = String.uppercase_ascii name in
   try SMap.find name built_in_funs
   with Not_found -> error (Unknown_built_in_fun name)
 ;;
@@ -1460,25 +1460,25 @@ let eval_datablock =
       List.fold_left (f v) Rdf_sparql_ms.Multimu.empty data
   in
   let full_data =
-    let f_row vars acc = function
+    let f_row idf vars acc = function
       Nil -> Rdf_sparql_ms.omega_add Rdf_sparql_ms.mu_0 acc
     | Value dbv_list ->
         let mu = Rdf_sparql_ms.mu_0 in
-        let mu = List.fold_left2 add_var_value mu vars dbv_list in
+        let mu =
+          try List.fold_left2 add_var_value mu vars dbv_list
+          with Invalid_argument _ ->
+              error (Missing_values_in_inline_data idf)
+        in
         Rdf_sparql_ms.omega_add mu acc
     in
-    fun vars values ->
-      List.fold_left (f_row vars) Rdf_sparql_ms.Multimu.empty values
+    fun idf vars values ->
+      List.fold_left (f_row idf vars) Rdf_sparql_ms.Multimu.empty values
   in
   function
     InLineDataOneVar { idov_var = var ; idov_data = data } ->
       one_var var data
   | InLineDataFull ({ idf_vars = vars ; idf_values = values } as idf) ->
-      try full_data vars values
-      with
-        Invalid_argument "List.fold_left2" ->
-          error (Missing_values_in_inline_data idf)
-
+      full_data idf vars values
 ;;
 
 
