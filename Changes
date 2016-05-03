@@ -1,3 +1,6 @@
+Next release:
+- upgrade to ocaml 4.03.0
+
 Release 0.10.0:
 - change of interface in namespace modules
   (Rdf_{dc,doap, foaf, earl, ldp, owl, rdf, rdfs} so that one can
