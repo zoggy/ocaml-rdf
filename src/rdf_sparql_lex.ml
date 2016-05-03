@@ -65,19 +65,19 @@ let add_echar b = function
 let hex = [%sedlex.regexp? '0'..'9' | 'A'..'F' | 'a'..'f']
 let codepoint_u = [%sedlex.regexp? "\\u", hex, hex, hex, hex]
 let codepoint_U = [%sedlex.regexp? "\\U", hex, hex, hex, hex, hex, hex, hex, hex]
-let codepoint_any = [%sedlex.regexp? 0x00..0x10FFFF]
+let codepoint_any = [%sedlex.regexp? 0x00 .. 0x10FFFF]
 
 let iriref = [%sedlex.regexp?
-  '<', Star(Compl(Chars("<>\"{}|^`\\ ")|0x0000..0x0020)), '>']
+  '<', Star(Compl(Chars("<>\"{}|^`\\ ")|0x0000 .. 0x0020)), '>']
 
 let pn_chars_base = [%sedlex.regexp?
-  'A'..'Z' | 'a'..'z' | 0x00C0..0x00D6 | 0x00D8..0x00F6 | 0x00F8..0x02FF | 0x0370..0x037D
-  | 0x037F..0x1FFF | 0x200C..0x200D | 0x2070..0x218F | 0x2C00..0x2FEF | 0x3001..0xD7FF
-  | 0xF900..0xFDCF | 0xFDF0..0xFFFD | 0x10000..0xEFFFF
+  'A'..'Z' | 'a'..'z' | 0x00C0 .. 0x00D6 | 0x00D8 .. 0x00F6 | 0x00F8 .. 0x02FF | 0x0370 .. 0x037D
+  | 0x037F .. 0x1FFF | 0x200C .. 0x200D | 0x2070 .. 0x218F | 0x2C00 .. 0x2FEF | 0x3001 .. 0xD7FF
+  | 0xF900 .. 0xFDCF | 0xFDF0 .. 0xFFFD | 0x10000 .. 0xEFFFF
   ]
 let pn_chars_u = [%sedlex.regexp? pn_chars_base | '_']
 let pn_chars = [%sedlex.regexp? pn_chars_u | '-' | '0'..'9'
-  | 0x00B7 | 0x0300..0x036F | 0x203F..0x2040 ]
+  | 0x00B7 | 0x0300 .. 0x036F | 0x203F .. 0x2040 ]
 let pn_prefix = [%sedlex.regexp? pn_chars_base, Opt(Star(pn_chars|'.'), pn_chars)]
 let pname_ns = [%sedlex.regexp? Opt(pn_prefix), ':']
 let pn_local_esc = [%sedlex.regexp? '\\', ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%' )]
@@ -87,7 +87,7 @@ let plx = [%sedlex.regexp? percent | pn_local_esc]
 let pn_local = [%sedlex.regexp? (pn_chars_u | ':' | '0'..'9' | plx ), Opt(Star(pn_chars | '.' | ':' | plx), (pn_chars | ':' | plx) )]
 let pname_ln = [%sedlex.regexp? pname_ns, pn_local]
 let blank_node_label = [%sedlex.regexp? "_:", ( pn_chars_u | '0'..'9' ), Opt(Star(pn_chars|'.'), pn_chars)]
-let varname = [%sedlex.regexp? ( pn_chars_u | '0'..'9' ), Star( pn_chars_u | '0'..'9' | 0x00B7 | 0x0300..0x036F | 0x203F..0x2040 )]
+let varname = [%sedlex.regexp? ( pn_chars_u | '0'..'9' ), Star( pn_chars_u | '0'..'9' | 0x00B7 | 0x0300 .. 0x036F | 0x203F .. 0x2040 )]
 let var1 = [%sedlex.regexp? '?', varname]
 let var2 = [%sedlex.regexp? '$', varname]
 let langtag = [%sedlex.regexp? '@', Plus('a'..'z'|'A'..'Z'), Star('-', Plus('a'..'z'|'A'..'Z'|'0'..'9'))]

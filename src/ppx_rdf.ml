@@ -85,14 +85,13 @@ let lid_sparql_parse_error = Location.mknoloc (Longident.parse "Rdf_sparql.Parse
 
 let gen_code ~loc ~attrs fmt args =
   let args =
-    ("", Exp.constant ~loc (Const_string (fmt, None))) ::
-      args
+    (Nolabel, Exp.constant ~loc (Pconst_string (fmt, None))) :: args
   in
   let f =
     let e =
       Exp.apply ~loc (Exp.ident (Location.mknoloc (Longident.parse "Rdf_sparql.query_from_string")))
         [
-          "", Exp.ident(Location.mknoloc (Longident.parse "_q")) ;
+          Nolabel, Exp.ident(Location.mknoloc (Longident.parse "_q")) ;
         ]
     in
     let case =
@@ -105,14 +104,14 @@ let gen_code ~loc ~attrs fmt args =
         Exp.let_ Nonrecursive
           [ Vb.mk (Pat.var (Location.mknoloc "msg"))
             (Exp.apply (Exp.ident lid_sprintf)
-             [ "", Exp.constant (Const_string ("%s\nin %s", None)) ;
-               "", Exp.ident (Location.mknoloc (Longident.parse "msg")) ;
-               "", Exp.ident (Location.mknoloc (Longident.parse "_q")) ;
+             [ Nolabel, Exp.constant (Pconst_string ("%s\nin %s", None)) ;
+               Nolabel, Exp.ident (Location.mknoloc (Longident.parse "msg")) ;
+               Nolabel, Exp.ident (Location.mknoloc (Longident.parse "_q")) ;
              ]
             )
           ]
           (Exp.apply (Exp.ident (Location.mknoloc (Longident.parse "raise")))
-           [ "",
+           [ Nolabel,
              Exp.construct lid_sparql_error
                (Some (Exp.construct lid_sparql_parse_error
                  (Some (Exp.tuple [
@@ -126,18 +125,18 @@ let gen_code ~loc ~attrs fmt args =
       Exp.case pat e
     in
     let body = Exp.try_ ~loc ~attrs e [case] in
-    Exp.fun_ "" None (Pat.var (Location.mknoloc "_q")) body
+    Exp.fun_ Nolabel None (Pat.var (Location.mknoloc "_q")) body
   in
   Exp.apply ~loc ~attrs
     (Exp.ident (Location.mknoloc (Longident.parse "Printf.ksprintf")))
-    (("", f) :: args)
+    ((Nolabel, f) :: args)
 ;;
 
 let getenv_mapper argv =
   { default_mapper with
     expr = fun mapper expr ->
       match expr with
-      | { pexp_desc = Pexp_constant (Const_string (s, Some id)) } when id = sparql_node ->
+      | { pexp_desc = Pexp_constant (Pconst_string (s, Some id)) } when id = sparql_node ->
           begin
             check_query_fmt expr.pexp_loc s ;
             gen_code ~loc:  expr.pexp_loc ~attrs: expr.pexp_attributes s []
@@ -147,8 +146,8 @@ let getenv_mapper argv =
           begin
             match
               match e.pexp_desc with
-              | Pexp_constant (Const_string (s, _)) -> Some (e.pexp_loc, s, [])
-              | Pexp_apply ({ pexp_desc = Pexp_constant (Const_string (s, _)) ; pexp_loc}, args) ->
+              | Pexp_constant (Pconst_string (s, _)) -> Some (e.pexp_loc, s, [])
+              | Pexp_apply ({ pexp_desc = Pexp_constant (Pconst_string (s, _)) ; pexp_loc}, args) ->
                   Some (pexp_loc, s, args)
               | _ -> None
             with
@@ -170,7 +169,7 @@ let getenv_mapper argv =
                 | (l, e) :: q when List.mem i !terms ->
                     let e = Exp.apply
                       (Exp.ident (Location.mknoloc (Longident.parse "Rdf_term.string_of_term")))
-                      [ "", e ]
+                      [ Nolabel, e ]
                     in
                     (l, e) :: iter (i+1) q
                 | x :: q -> x :: iter (i+1) q
