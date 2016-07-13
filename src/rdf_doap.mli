@@ -8,6 +8,9 @@ val doap_ : string -> Iri.t
 val anon_root : Iri.t
 
 (** GNU Arch source code repository. *)
+val archRepository : Iri.t
+
+(** GNU Arch source code repository. *)
 val c_ArchRepository : Iri.t
 
 (** Description of target user base *)
@@ -15,6 +18,9 @@ val audience : Iri.t
 
 (** Bazaar source code branch. *)
 val c_BazaarBranch : Iri.t
+
+(** BitKeeper source code repository. *)
+val bKRepository : Iri.t
 
 (** BitKeeper source code repository. *)
 val c_BKRepository : Iri.t
@@ -33,6 +39,9 @@ val category : Iri.t
 
 (** Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05 *)
 val created : Iri.t
+
+(** CVS source code repository. *)
+val cVSRepository : Iri.t
 
 (** CVS source code repository. *)
 val c_CVSRepository : Iri.t
@@ -163,6 +172,9 @@ module Open : sig
   val doap_anon_root : Iri.t
 
   (** GNU Arch source code repository. *)
+  val doap_archRepository : Iri.t
+
+  (** GNU Arch source code repository. *)
   val doap_c_ArchRepository : Iri.t
 
   (** Description of target user base *)
@@ -170,6 +182,9 @@ module Open : sig
 
   (** Bazaar source code branch. *)
   val doap_c_BazaarBranch : Iri.t
+
+  (** BitKeeper source code repository. *)
+  val doap_bKRepository : Iri.t
 
   (** BitKeeper source code repository. *)
   val doap_c_BKRepository : Iri.t
@@ -188,6 +203,9 @@ module Open : sig
 
   (** Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05 *)
   val doap_created : Iri.t
+
+  (** CVS source code repository. *)
+  val doap_cVSRepository : Iri.t
 
   (** CVS source code repository. *)
   val doap_c_CVSRepository : Iri.t

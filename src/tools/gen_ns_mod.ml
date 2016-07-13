@@ -70,11 +70,12 @@ let get_properties g =
   let q =
    "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
     PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
+    PREFIX owl: <"^(Iri.to_string Rdf_owl.owl)^">
     SELECT ?prop ?comment ?comment_en ?type
       { ?prop a ?type .
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
-        FILTER (?type IN (rdf:Property, rdfs:Class, rdfs:Datatype))
+        FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, rdfs:Datatype))
       }
       ORDER BY LCASE(STR(?prop))"
   in
@@ -82,18 +83,23 @@ let get_properties g =
   let q = Rdf_sparql.query_from_string q in
   let sols = Rdf_sparql.select (g.Rdf_graph.name()) ds q in
   let f acc sol =
-    let prop = Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "prop" in
-    let typ =  Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type" in
-    let comment =
-      if Rdf_sparql.is_bound sol "comment_en" then
-        Some (Rdf_sparql.get_string sol "comment_en")
-      else
-        if Rdf_sparql.is_bound sol "comment" then
-          Some (Rdf_sparql.get_string sol "comment")
-        else
-          None
-    in
-    (prop, comment, typ) :: acc
+    match Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "prop" with
+      exception Rdf_dt.Error _ ->
+        prerr_endline (Printf.sprintf "Ignoring prop %s"
+          (Rdf_term.string_of_term (Rdf_sparql.get_term sol "prop")));
+        acc
+    | prop ->
+        let typ =  Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type" in
+        let comment =
+          if Rdf_sparql.is_bound sol "comment_en" then
+            Some (Rdf_sparql.get_string sol "comment_en")
+          else
+            if Rdf_sparql.is_bound sol "comment" then
+              Some (Rdf_sparql.get_string sol "comment")
+            else
+              None
+        in
+        (prop, comment, typ) :: acc
   in
   List.fold_left f [] sols
 ;;
@@ -224,6 +230,7 @@ let main () =
         | Rdf_ttl.Error e -> failwith (Rdf_ttl.string_of_error e)
         | Rdf_xml.Invalid_rdf msg -> failwith msg
         | Rdf_sparql.Error e -> failwith (Rdf_sparql.string_of_error e)
+       (* | Rdf_dt.Error e -> failwith (Rdf_dt.string_of_error e)*)
       end
   | _ -> fatal usage
 ;;

@@ -127,6 +127,9 @@ val c_NamedIndividual : Iri.t
 (** The class of negative property assertions. *)
 val c_NegativePropertyAssertion : Iri.t
 
+(** This is the empty class. *)
+val nothing : Iri.t
+
 (** The class of object properties. *)
 val c_ObjectProperty : Iri.t
 
@@ -186,6 +189,9 @@ val targetIndividual : Iri.t
 
 (** The property that determines the value of a negative data property assertion. *)
 val targetValue : Iri.t
+
+(** The class of OWL individuals. *)
+val thing : Iri.t
 
 (** The class of transitive properties. *)
 val c_TransitiveProperty : Iri.t
@@ -321,6 +327,9 @@ module Open : sig
   (** The class of negative property assertions. *)
   val owl_c_NegativePropertyAssertion : Iri.t
 
+  (** This is the empty class. *)
+  val owl_nothing : Iri.t
+
   (** The class of object properties. *)
   val owl_c_ObjectProperty : Iri.t
 
@@ -380,6 +389,9 @@ module Open : sig
 
   (** The property that determines the value of a negative data property assertion. *)
   val owl_targetValue : Iri.t
+
+  (** The class of OWL individuals. *)
+  val owl_thing : Iri.t
 
   (** The class of transitive properties. *)
   val owl_c_TransitiveProperty : Iri.t
