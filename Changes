@@ -1,5 +1,8 @@
 Next release:
 - upgrade to ocaml 4.03.0
+- handle owl in schema when generating modules from ontology (src/tool/gen_ns_mod)
+- add time ontology (Rdf_time)
+- add missing properties and classes in rdf_{dc,doap,foaf,earl,owl}
 
 Release 0.10.0:
 - change of interface in namespace modules
