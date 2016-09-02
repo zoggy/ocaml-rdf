@@ -1,0 +1,52 @@
+
+let time_str = "http://www.w3.org/2006/time#";;
+let time = Iri.of_string time_str ;;
+let time_ s = Iri.of_string (time_str ^ s);;
+
+let dateTimeDescription = time_ "DateTimeDescription" ;;
+let dateTimeInterval = time_ "DateTimeInterval" ;;
+let dayOfWeek = time_ "DayOfWeek" ;;
+let duration = time_ "Duration" ;;
+let duration = time_ "Duration" ;;
+let durationDescription = time_ "DurationDescription" ;;
+let generalDateTimeDescription = time_ "GeneralDateTimeDescription" ;;
+let dt_generalDay = time_ "generalDay" ;;
+let generalDurationDescription = time_ "GeneralDurationDescription" ;;
+let dt_generalMonth = time_ "generalMonth" ;;
+let dt_generalYear = time_ "generalYear" ;;
+let instant = time_ "Instant" ;;
+let interval = time_ "Interval" ;;
+let dt_Number = time_ "Number" ;;
+let dt_Number = time_ "Number" ;;
+let properInterval = time_ "ProperInterval" ;;
+let temporalEntity = time_ "TemporalEntity" ;;
+let temporalUnit = time_ "TemporalUnit" ;;
+let timePosition = time_ "TimePosition" ;;
+let tRS = time_ "TRS" ;;
+let year = time_ "Year" ;;
+let year = time_ "Year" ;;
+
+module Open = struct
+  let time_dateTimeDescription = dateTimeDescription
+  let time_dateTimeInterval = dateTimeInterval
+  let time_dayOfWeek = dayOfWeek
+  let time_duration = duration
+  let time_duration = duration
+  let time_durationDescription = durationDescription
+  let time_generalDateTimeDescription = generalDateTimeDescription
+  let time_dt_generalDay = dt_generalDay
+  let time_generalDurationDescription = generalDurationDescription
+  let time_dt_generalMonth = dt_generalMonth
+  let time_dt_generalYear = dt_generalYear
+  let time_instant = instant
+  let time_interval = interval
+  let time_dt_Number = dt_Number
+  let time_dt_Number = dt_Number
+  let time_properInterval = properInterval
+  let time_temporalEntity = temporalEntity
+  let time_temporalUnit = temporalUnit
+  let time_timePosition = timePosition
+  let time_tRS = tRS
+  let time_year = year
+  let time_year = year
+end
