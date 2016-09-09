@@ -61,16 +61,7 @@ LIB_RDF_CMOFILES= \
 	rdf_loc.cmo \
 	rdf_rdf.cmo \
 	rdf_term.cmo \
-	rdf_doap.cmo \
-	rdf_earl.cmo \
-	rdf_foaf.cmo \
-	rdf_pim.cmo \
-	rdf_dc.cmo \
-	rdf_ldp.cmo \
 	rdf_dt.cmo \
-	rdf_owl.cmo \
-	rdf_solid.cmo \
-	rdf_time.cmo \
 	rdf_sedlex.cmo \
 	rdf_stubs.cmo \
 	rdf_sparql_types.cmo \
@@ -84,6 +75,15 @@ LIB_RDF_CMOFILES= \
 	rdf_bgp.cmo \
 	rdf_graph.cmo \
 	rdf_rdfs.cmo \
+	rdf_doap.cmo \
+	rdf_earl.cmo \
+	rdf_foaf.cmo \
+	rdf_pim.cmo \
+	rdf_dc.cmo \
+	rdf_ldp.cmo \
+	rdf_owl.cmo \
+	rdf_solid.cmo \
+	rdf_time.cmo \
 	rdf_ds.cmo \
 	rdf_mem.cmo \
 	rdf_dot.cmo \

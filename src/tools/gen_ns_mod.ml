@@ -41,16 +41,19 @@ let caml_kw = List.fold_right
     Rdf_types.SSet.empty
 ;;
 
+let typ_prefix typ =
+  match typ with
+    Some typ ->
+      if Iri.equal typ Rdf_rdfs.c_Class then
+        "c_"
+      else if Iri.equal typ Rdf_rdfs.c_Datatype then
+          "dt_"
+        else
+          ""
+  | None -> "c_"
 
 let caml_id ?(protect=false) s typ =
-  let typ_prefix =
-    if Iri.equal typ Rdf_rdfs.c_Class then
-      "c_"
-    else if Iri.equal typ Rdf_rdfs.c_Datatype then
-        "dt_"
-      else
-      ""
-  in
+  let typ_prefix = typ_prefix typ in
   let s = Bytes.of_string s in
   let len = Bytes.length s in
   for i = 0 to len - 1 do
@@ -72,36 +75,43 @@ let get_properties g =
     PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     PREFIX owl: <"^(Iri.to_string Rdf_owl.owl)^">
     SELECT ?prop ?comment ?comment_en ?type
-      { ?prop a ?type .
+      { { ?prop rdfs:subClassOf ?foo } UNION
+        { ?prop a ?type . FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, rdfs:Datatype)) }
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
-        FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, rdfs:Datatype))
       }
-      ORDER BY LCASE(STR(?prop))"
+      ORDER BY STR(?prop) STR(?type)"
   in
   let ds = Rdf_ds.simple_dataset g in
   let q = Rdf_sparql.query_from_string q in
   let sols = Rdf_sparql.select (g.Rdf_graph.name()) ds q in
-  let f acc sol =
+  let f (acc, prev) sol =
     match Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "prop" with
       exception Rdf_dt.Error _ ->
         prerr_endline (Printf.sprintf "Ignoring prop %s"
           (Rdf_term.string_of_term (Rdf_sparql.get_term sol "prop")));
-        acc
+        (acc, prev)
     | prop ->
-        let typ =  Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type" in
-        let comment =
-          if Rdf_sparql.is_bound sol "comment_en" then
-            Some (Rdf_sparql.get_string sol "comment_en")
-          else
-            if Rdf_sparql.is_bound sol "comment" then
-              Some (Rdf_sparql.get_string sol "comment")
+        if prev = prop then
+          (acc, prev)
+        else
+          let typ =
+            try Some (Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type")
+            with _ -> None
+          in
+          let comment =
+            if Rdf_sparql.is_bound sol "comment_en" then
+              Some (Rdf_sparql.get_string sol "comment_en")
             else
-              None
-        in
-        (prop, comment, typ) :: acc
+              if Rdf_sparql.is_bound sol "comment" then
+                Some (Rdf_sparql.get_string sol "comment")
+              else
+                None
+          in
+          ((prop, comment, typ) :: acc, prop)
   in
-  List.fold_left f [] sols
+  let (l, _) = List.fold_left f ([],Iri.of_string "") sols in
+  l
 ;;
 
 let get_under s1 s2 =
@@ -140,7 +150,24 @@ let gen_impl ?(comments=true) oc prefix base props =
     p "  let %s_%s = %s\n" prefix (caml_id prop typ) (caml_id ~protect: true prop typ)
   in
   List.iter f props;
-  p "%s" "end\n"
+  p "%s" "end\n\n";
+
+  p "class from ?sub g =\n";
+  p "  let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in\n" ;
+  p "  let sub = Rdf_term.Iri sub in\n" ;
+  p "  let get_prop_list pred =\n    \
+         Rdf_graph.iri_objects_of g ~sub ~pred\n  \
+       in\n";
+  p  "  object\n";
+  let f (prop, _, typ) =
+     match typ_prefix typ with
+       "" ->
+        let id = caml_id ~protect: true prop typ in
+        p "  method %s = get_prop_list %s\n" id id ;
+     | _ -> ()
+  in
+  List.iter f props ;
+  p "%s" "  end\n";
 ;;
 
 let gen_intf oc prefix base props =
@@ -164,7 +191,18 @@ let gen_intf oc prefix base props =
     p "  val %s_%s : Iri.t\n\n" prefix (caml_id prop typ)
   in
   List.iter f props;
-  p "%s" "end\n";
+  p "%s" "end\n\n";
+
+  p "class from : ?sub: Iri.t -> Rdf_graph.graph ->\n  object\n";
+  let f (prop, _, typ) =
+     match typ_prefix typ with
+       "" ->
+        let id = caml_id ~protect: true prop typ in
+        p "    method %s : Iri.t list\n" id
+     | _ -> ()
+  in
+  List.iter f props ;
+  p "%s" "  end\n";
 ;;
 
 
@@ -213,7 +251,7 @@ let main () =
     (fun s -> args := s :: !args)
     (usage^"\nwhere options are:");
   match List.rev !args with
-  | prefix :: base_iri :: file :: _ ->
+  | prefix :: base_iri :: files ->
       begin
         try
           let base_iri = Iri.of_string base_iri in
@@ -223,7 +261,7 @@ let main () =
               None -> base_iri
             | Some s -> Iri.of_string s
           in
-          !load g ~base file ;
+          List.iter (!load g ~base) files ;
           generate ?file: !file_prefix prefix base_iri g
         with
           Iri.Error e -> failwith (Iri.string_of_error e)

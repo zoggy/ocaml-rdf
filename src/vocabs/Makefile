@@ -25,7 +25,7 @@ owl: owl.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/2002/07/owl#" $<
 
 pim: pim.ttl
-	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/pim/space#" $<
+	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/pim/space#" $^
 
 rdf: rdf.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/1999/02/22-rdf-syntax-ns#" $<

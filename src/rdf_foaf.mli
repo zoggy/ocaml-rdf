@@ -4,6 +4,45 @@
 val foaf : Iri.t
 val foaf_ : string -> Iri.t
 
+(** An agent (eg. person, group, software or physical artifact). *)
+val c_Agent : Iri.t
+
+(** A document. *)
+val c_Document : Iri.t
+
+(** A class of Agents. *)
+val c_Group : Iri.t
+
+(** An image. *)
+val c_Image : Iri.t
+
+(** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
+val c_LabelProperty : Iri.t
+
+(** An online account. *)
+val c_OnlineAccount : Iri.t
+
+(** An online chat account. *)
+val c_OnlineChatAccount : Iri.t
+
+(** An online e-commerce account. *)
+val c_OnlineEcommerceAccount : Iri.t
+
+(** An online gaming account. *)
+val c_OnlineGamingAccount : Iri.t
+
+(** An organization. *)
+val c_Organization : Iri.t
+
+(** A person. *)
+val c_Person : Iri.t
+
+(** A personal profile RDF document. *)
+val c_PersonalProfileDocument : Iri.t
+
+(** A project (a collective endeavour of some kind). *)
+val c_Project : Iri.t
+
 (** Indicates an account held by this agent. *)
 val account : Iri.t
 
@@ -15,12 +54,6 @@ val accountServiceHomepage : Iri.t
 
 (** The age in years of some agent. *)
 val age : Iri.t
-
-(** An agent (eg. person, group, software or physical artifact). *)
-val agent : Iri.t
-
-(** An agent (eg. person, group, software or physical artifact). *)
-val c_Agent : Iri.t
 
 (** An AIM chat ID *)
 val aimChatID : Iri.t
@@ -43,17 +76,11 @@ val depicts : Iri.t
 (** A checksum for the DNA of some thing. Joke. *)
 val dnaChecksum : Iri.t
 
-(** A document. *)
-val document : Iri.t
-
-(** A document. *)
-val c_Document : Iri.t
+(** The family name of some person. *)
+val familyName : Iri.t
 
 (** The family name of some person. *)
 val family_name : Iri.t
-
-(** The family name of some person. *)
-val familyName : Iri.t
 
 (** The first name of a person. *)
 val firstName : Iri.t
@@ -71,16 +98,10 @@ val geekcode : Iri.t
 val gender : Iri.t
 
 (** The given name of some person. *)
-val givenname : Iri.t
-
-(** The given name of some person. *)
 val givenName : Iri.t
 
-(** A class of Agents. *)
-val group : Iri.t
-
-(** A class of Agents. *)
-val c_Group : Iri.t
+(** The given name of some person. *)
+val givenname : Iri.t
 
 (** Indicates an account held by this agent. *)
 val holdsAccount : Iri.t
@@ -90,12 +111,6 @@ val homepage : Iri.t
 
 (** An ICQ chat ID *)
 val icqChatID : Iri.t
-
-(** An image. *)
-val image : Iri.t
-
-(** An image. *)
-val c_Image : Iri.t
 
 (** An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage). *)
 val img : Iri.t
@@ -111,12 +126,6 @@ val jabberID : Iri.t
 
 (** A person known by this person (indicating some level of reciprocated interaction between the parties). *)
 val knows : Iri.t
-
-(** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-val labelProperty : Iri.t
-
-(** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-val c_LabelProperty : Iri.t
 
 (** The last name of a person. *)
 val lastName : Iri.t
@@ -154,56 +163,14 @@ val name : Iri.t
 (** A short informal nickname characterising an agent (includes login identifiers, IRC and other chat nicknames). *)
 val nick : Iri.t
 
-(** An online account. *)
-val onlineAccount : Iri.t
-
-(** An online account. *)
-val c_OnlineAccount : Iri.t
-
-(** An online chat account. *)
-val onlineChatAccount : Iri.t
-
-(** An online chat account. *)
-val c_OnlineChatAccount : Iri.t
-
-(** An online e-commerce account. *)
-val onlineEcommerceAccount : Iri.t
-
-(** An online e-commerce account. *)
-val c_OnlineEcommerceAccount : Iri.t
-
-(** An online gaming account. *)
-val onlineGamingAccount : Iri.t
-
-(** An online gaming account. *)
-val c_OnlineGamingAccount : Iri.t
-
 (** An OpenID for an Agent. *)
 val openid : Iri.t
-
-(** An organization. *)
-val organization : Iri.t
-
-(** An organization. *)
-val c_Organization : Iri.t
 
 (** A page or document about this thing. *)
 val page : Iri.t
 
 (** A project this person has previously worked on. *)
 val pastProject : Iri.t
-
-(** A person. *)
-val person : Iri.t
-
-(** A person. *)
-val c_Person : Iri.t
-
-(** A personal profile RDF document. *)
-val personalProfileDocument : Iri.t
-
-(** A personal profile RDF document. *)
-val c_PersonalProfileDocument : Iri.t
 
 (** A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel). *)
 val phone : Iri.t
@@ -213,12 +180,6 @@ val plan : Iri.t
 
 (** The primary topic of some page or document. *)
 val primaryTopic : Iri.t
-
-(** A project (a collective endeavour of some kind). *)
-val project : Iri.t
-
-(** A project (a collective endeavour of some kind). *)
-val c_Project : Iri.t
 
 (** A link to the publications of this person. *)
 val publications : Iri.t
@@ -270,6 +231,45 @@ val yahooChatID : Iri.t
 
 
 module Open : sig
+  (** An agent (eg. person, group, software or physical artifact). *)
+  val foaf_c_Agent : Iri.t
+
+  (** A document. *)
+  val foaf_c_Document : Iri.t
+
+  (** A class of Agents. *)
+  val foaf_c_Group : Iri.t
+
+  (** An image. *)
+  val foaf_c_Image : Iri.t
+
+  (** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
+  val foaf_c_LabelProperty : Iri.t
+
+  (** An online account. *)
+  val foaf_c_OnlineAccount : Iri.t
+
+  (** An online chat account. *)
+  val foaf_c_OnlineChatAccount : Iri.t
+
+  (** An online e-commerce account. *)
+  val foaf_c_OnlineEcommerceAccount : Iri.t
+
+  (** An online gaming account. *)
+  val foaf_c_OnlineGamingAccount : Iri.t
+
+  (** An organization. *)
+  val foaf_c_Organization : Iri.t
+
+  (** A person. *)
+  val foaf_c_Person : Iri.t
+
+  (** A personal profile RDF document. *)
+  val foaf_c_PersonalProfileDocument : Iri.t
+
+  (** A project (a collective endeavour of some kind). *)
+  val foaf_c_Project : Iri.t
+
   (** Indicates an account held by this agent. *)
   val foaf_account : Iri.t
 
@@ -281,12 +281,6 @@ module Open : sig
 
   (** The age in years of some agent. *)
   val foaf_age : Iri.t
-
-  (** An agent (eg. person, group, software or physical artifact). *)
-  val foaf_agent : Iri.t
-
-  (** An agent (eg. person, group, software or physical artifact). *)
-  val foaf_c_Agent : Iri.t
 
   (** An AIM chat ID *)
   val foaf_aimChatID : Iri.t
@@ -309,17 +303,11 @@ module Open : sig
   (** A checksum for the DNA of some thing. Joke. *)
   val foaf_dnaChecksum : Iri.t
 
-  (** A document. *)
-  val foaf_document : Iri.t
-
-  (** A document. *)
-  val foaf_c_Document : Iri.t
+  (** The family name of some person. *)
+  val foaf_familyName : Iri.t
 
   (** The family name of some person. *)
   val foaf_family_name : Iri.t
-
-  (** The family name of some person. *)
-  val foaf_familyName : Iri.t
 
   (** The first name of a person. *)
   val foaf_firstName : Iri.t
@@ -337,16 +325,10 @@ module Open : sig
   val foaf_gender : Iri.t
 
   (** The given name of some person. *)
-  val foaf_givenname : Iri.t
-
-  (** The given name of some person. *)
   val foaf_givenName : Iri.t
 
-  (** A class of Agents. *)
-  val foaf_group : Iri.t
-
-  (** A class of Agents. *)
-  val foaf_c_Group : Iri.t
+  (** The given name of some person. *)
+  val foaf_givenname : Iri.t
 
   (** Indicates an account held by this agent. *)
   val foaf_holdsAccount : Iri.t
@@ -356,12 +338,6 @@ module Open : sig
 
   (** An ICQ chat ID *)
   val foaf_icqChatID : Iri.t
-
-  (** An image. *)
-  val foaf_image : Iri.t
-
-  (** An image. *)
-  val foaf_c_Image : Iri.t
 
   (** An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage). *)
   val foaf_img : Iri.t
@@ -377,12 +353,6 @@ module Open : sig
 
   (** A person known by this person (indicating some level of reciprocated interaction between the parties). *)
   val foaf_knows : Iri.t
-
-  (** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-  val foaf_labelProperty : Iri.t
-
-  (** A foaf:LabelProperty is any RDF property with texual values that serve as labels. *)
-  val foaf_c_LabelProperty : Iri.t
 
   (** The last name of a person. *)
   val foaf_lastName : Iri.t
@@ -420,56 +390,14 @@ module Open : sig
   (** A short informal nickname characterising an agent (includes login identifiers, IRC and other chat nicknames). *)
   val foaf_nick : Iri.t
 
-  (** An online account. *)
-  val foaf_onlineAccount : Iri.t
-
-  (** An online account. *)
-  val foaf_c_OnlineAccount : Iri.t
-
-  (** An online chat account. *)
-  val foaf_onlineChatAccount : Iri.t
-
-  (** An online chat account. *)
-  val foaf_c_OnlineChatAccount : Iri.t
-
-  (** An online e-commerce account. *)
-  val foaf_onlineEcommerceAccount : Iri.t
-
-  (** An online e-commerce account. *)
-  val foaf_c_OnlineEcommerceAccount : Iri.t
-
-  (** An online gaming account. *)
-  val foaf_onlineGamingAccount : Iri.t
-
-  (** An online gaming account. *)
-  val foaf_c_OnlineGamingAccount : Iri.t
-
   (** An OpenID for an Agent. *)
   val foaf_openid : Iri.t
-
-  (** An organization. *)
-  val foaf_organization : Iri.t
-
-  (** An organization. *)
-  val foaf_c_Organization : Iri.t
 
   (** A page or document about this thing. *)
   val foaf_page : Iri.t
 
   (** A project this person has previously worked on. *)
   val foaf_pastProject : Iri.t
-
-  (** A person. *)
-  val foaf_person : Iri.t
-
-  (** A person. *)
-  val foaf_c_Person : Iri.t
-
-  (** A personal profile RDF document. *)
-  val foaf_personalProfileDocument : Iri.t
-
-  (** A personal profile RDF document. *)
-  val foaf_c_PersonalProfileDocument : Iri.t
 
   (** A phone, specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel). *)
   val foaf_phone : Iri.t
@@ -479,12 +407,6 @@ module Open : sig
 
   (** The primary topic of some page or document. *)
   val foaf_primaryTopic : Iri.t
-
-  (** A project (a collective endeavour of some kind). *)
-  val foaf_project : Iri.t
-
-  (** A project (a collective endeavour of some kind). *)
-  val foaf_c_Project : Iri.t
 
   (** A link to the publications of this person. *)
   val foaf_publications : Iri.t
@@ -535,3 +457,69 @@ module Open : sig
   val foaf_yahooChatID : Iri.t
 
 end
+
+class from : ?sub: Iri.t -> Rdf_graph.graph ->
+  object
+    method account : Iri.t list
+    method accountName : Iri.t list
+    method accountServiceHomepage : Iri.t list
+    method age : Iri.t list
+    method aimChatID : Iri.t list
+    method based_near : Iri.t list
+    method birthday : Iri.t list
+    method currentProject : Iri.t list
+    method depiction : Iri.t list
+    method depicts : Iri.t list
+    method dnaChecksum : Iri.t list
+    method familyName : Iri.t list
+    method family_name : Iri.t list
+    method firstName : Iri.t list
+    method focus : Iri.t list
+    method fundedBy : Iri.t list
+    method geekcode : Iri.t list
+    method gender : Iri.t list
+    method givenName : Iri.t list
+    method givenname : Iri.t list
+    method holdsAccount : Iri.t list
+    method homepage : Iri.t list
+    method icqChatID : Iri.t list
+    method img : Iri.t list
+    method interest : Iri.t list
+    method isPrimaryTopicOf : Iri.t list
+    method jabberID : Iri.t list
+    method knows : Iri.t list
+    method lastName : Iri.t list
+    method logo : Iri.t list
+    method made : Iri.t list
+    method maker : Iri.t list
+    method mbox : Iri.t list
+    method mbox_sha1sum : Iri.t list
+    method member : Iri.t list
+    method membershipClass : Iri.t list
+    method msnChatID : Iri.t list
+    method myersBriggs : Iri.t list
+    method name : Iri.t list
+    method nick : Iri.t list
+    method openid : Iri.t list
+    method page : Iri.t list
+    method pastProject : Iri.t list
+    method phone : Iri.t list
+    method plan : Iri.t list
+    method primaryTopic : Iri.t list
+    method publications : Iri.t list
+    method schoolHomepage : Iri.t list
+    method sha1 : Iri.t list
+    method skypeID : Iri.t list
+    method status : Iri.t list
+    method surname : Iri.t list
+    method theme : Iri.t list
+    method thumbnail : Iri.t list
+    method tipjar : Iri.t list
+    method title : Iri.t list
+    method topic : Iri.t list
+    method topic_interest : Iri.t list
+    method weblog : Iri.t list
+    method workInfoHomepage : Iri.t list
+    method workplaceHomepage : Iri.t list
+    method yahooChatID : Iri.t list
+  end
