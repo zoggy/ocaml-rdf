@@ -1,7 +1,7 @@
 
 GEN=../tools/gen_ns_mod --ttl
 
-all: dc doap foaf earl ldp owl pim rdf rdfs time
+all: dc doap foaf earl ldp owl pim rdf rdfs solid time
 
 clean:
 	rm -f *.ml *.mli
@@ -32,6 +32,9 @@ rdf: rdf.ttl
 
 rdfs: rdfs.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/2000/01/rdf-schema#" $<
+
+solid: solid_terms.ttl
+	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/solid/terms#" $<
 
 time: time.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/2006/time#" $<
