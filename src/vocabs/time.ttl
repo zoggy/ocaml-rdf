@@ -1,0 +1,578 @@
+<http://www.w3.org/2006/timezone#TimeZone> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#years> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#years> <http://www.w3.org/2000/01/rdf-schema#label> "years"@en .
+<http://www.w3.org/2006/time#years> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#years> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in years"@en .
+<http://www.w3.org/2006/time#years> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#year> <http://www.w3.org/2000/01/rdf-schema#label> "year"@en .
+<http://www.w3.org/2006/time#year> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#year> <http://www.w3.org/2000/01/rdf-schema#comment> "Year position in a calendar-clock system.\n\nThe range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar. "@en .
+<http://www.w3.org/2006/time#year> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#xsdDateTime> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://www.w3.org/2006/time#xsdDateTime> <http://www.w3.org/2000/01/rdf-schema#label> "has XSD Date-Time"@en .
+<http://www.w3.org/2006/time#xsdDateTime> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#DateTimeInterval> .
+<http://www.w3.org/2006/time#xsdDateTime> <http://www.w3.org/2000/01/rdf-schema#comment> "Value of DateTimeInterval expressed as a compact value."@en .
+<http://www.w3.org/2006/time#xsdDateTime> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#weeks> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#weeks> <http://www.w3.org/2000/01/rdf-schema#label> "weeks"@en .
+<http://www.w3.org/2006/time#weeks> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#weeks> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in weeks"@en .
+<http://www.w3.org/2006/time#weeks> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#week> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+<http://www.w3.org/2006/time#week> <http://www.w3.org/2000/01/rdf-schema#label> "week"@en .
+<http://www.w3.org/2006/time#week> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#week> <http://www.w3.org/2000/01/rdf-schema#comment> "The number of the week within the year"@en .
+<http://www.w3.org/2006/time#week> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#unitYear> <http://www.w3.org/2000/01/rdf-schema#label> "Year (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitYear> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitWeek> <http://www.w3.org/2000/01/rdf-schema#label> "Week (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitWeek> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitType> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitType> <http://www.w3.org/2000/01/rdf-schema#label> "temporal unit type"@en .
+<http://www.w3.org/2006/time#unitType> <http://www.w3.org/2000/01/rdf-schema#domain> _:genid137-589760767 .
+<http://www.w3.org/2006/time#unitType> <http://www.w3.org/2000/01/rdf-schema#comment> "The temporal unit which provides the precision of a date-time value or scale of a temporal extent"@en .
+<http://www.w3.org/2006/time#unitType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#unitSecond> <http://www.w3.org/2000/01/rdf-schema#label> "Second (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitSecond> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitMonth> <http://www.w3.org/2000/01/rdf-schema#label> "Month (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitMonth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitMinute> <http://www.w3.org/2000/01/rdf-schema#label> "Minute (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitMinute> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitHour> <http://www.w3.org/2000/01/rdf-schema#label> "Hour (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitHour> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#unitDay> <http://www.w3.org/2000/01/rdf-schema#label> "Day (unit of temporal duration)"@en .
+<http://www.w3.org/2006/time#unitDay> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#TemporalUnit> .
+<http://www.w3.org/2006/time#timeZone> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/timezone#TimeZone> .
+<http://www.w3.org/2006/time#timeZone> <http://www.w3.org/2000/01/rdf-schema#label> "in time zone"@en .
+<http://www.w3.org/2006/time#timeZone> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#timeZone> <http://www.w3.org/2000/01/rdf-schema#comment> "The time zone for clock elements in the temporal position"@en .
+<http://www.w3.org/2006/time#timeZone> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.bipm.org/en/publications/si-brochure/second.html> .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/2000/01/rdf-schema#label> "seconds"@en .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in seconds"@en .
+<http://www.w3.org/2006/time#seconds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#second> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#decimal> .
+<http://www.w3.org/2006/time#second> <http://www.w3.org/2000/01/rdf-schema#label> "second"@en .
+<http://www.w3.org/2006/time#second> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#second> <http://www.w3.org/2000/01/rdf-schema#comment> "Second position in a calendar-clock system."@en .
+<http://www.w3.org/2006/time#second> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#numericPosition> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#numericPosition> <http://www.w3.org/2000/01/rdf-schema#label> "Numeric value of temporal position"@en .
+<http://www.w3.org/2006/time#numericPosition> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TimePosition> .
+<http://www.w3.org/2006/time#numericPosition> <http://www.w3.org/2000/01/rdf-schema#comment> "The (numeric) value indicating position within a temporal coordinate system "@en .
+<http://www.w3.org/2006/time#numericPosition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#numericDuration> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#numericDuration> <http://www.w3.org/2000/01/rdf-schema#label> "Numeric value of temporal duration"@en .
+<http://www.w3.org/2006/time#numericDuration> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#Duration> .
+<http://www.w3.org/2006/time#numericDuration> <http://www.w3.org/2000/01/rdf-schema#comment> "Value of a temporal extent expressed as a number scaled by a temporal unit"@en .
+<http://www.w3.org/2006/time#numericDuration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#nominalPosition> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#nominalPosition> <http://www.w3.org/2000/01/rdf-schema#label> "Name of temporal position"@en .
+<http://www.w3.org/2006/time#nominalPosition> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TimePosition> .
+<http://www.w3.org/2006/time#nominalPosition> <http://www.w3.org/2000/01/rdf-schema#comment> "The (nominal) value indicating temporal position in an ordinal reference system "@en .
+<http://www.w3.org/2006/time#nominalPosition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#months> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#months> <http://www.w3.org/2000/01/rdf-schema#label> "months"@en .
+<http://www.w3.org/2006/time#months> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#months> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in months"@en .
+<http://www.w3.org/2006/time#months> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#month> <http://www.w3.org/2000/01/rdf-schema#label> "month"@en .
+<http://www.w3.org/2006/time#month> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#month> <http://www.w3.org/2000/01/rdf-schema#comment> "Month position in a calendar-clock system.\n\nThe range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar. "@en .
+<http://www.w3.org/2006/time#month> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#minutes> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#minutes> <http://www.w3.org/2000/01/rdf-schema#label> "minutes"@en .
+<http://www.w3.org/2006/time#minutes> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#minutes> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in minutes"@en .
+<http://www.w3.org/2006/time#minutes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#minute> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+<http://www.w3.org/2006/time#minute> <http://www.w3.org/2000/01/rdf-schema#label> "minute"@en .
+<http://www.w3.org/2006/time#minute> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#minute> <http://www.w3.org/2000/01/rdf-schema#comment> "Minute position in a calendar-clock system."@en .
+<http://www.w3.org/2006/time#minute> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#intervalStarts> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalStarts> <http://www.w3.org/2000/01/rdf-schema#label> "interval starts"@en .
+<http://www.w3.org/2006/time#intervalStarts> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalStarts> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalStarts another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is before the end of T2."@en .
+<http://www.w3.org/2006/time#intervalStarts> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalStartedBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalStarts> .
+<http://www.w3.org/2006/time#intervalStartedBy> <http://www.w3.org/2000/01/rdf-schema#label> "interval started by"@en .
+<http://www.w3.org/2006/time#intervalStartedBy> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalStarted another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is after the end of T2."@en .
+<http://www.w3.org/2006/time#intervalStartedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalOverlaps> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalOverlaps> <http://www.w3.org/2000/01/rdf-schema#label> "interval overlaps"@en .
+<http://www.w3.org/2006/time#intervalOverlaps> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalOverlaps> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalOverlaps another proper interval T2, then the beginning of T1 is before the beginning of T2, the end of T1 is after the beginning of T2, and the end of T1 is before the end of T2."@en .
+<http://www.w3.org/2006/time#intervalOverlaps> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalOverlappedBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalOverlaps> .
+<http://www.w3.org/2006/time#intervalOverlappedBy> <http://www.w3.org/2000/01/rdf-schema#label> "interval overlapped by"@en .
+<http://www.w3.org/2006/time#intervalOverlappedBy> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalOverlappedBy another proper interval T2, then the beginning of T1 is after the beginning of T2, the beginning of T1 is before the end of T2, and the end of T1 is after the end of T2."@en .
+<http://www.w3.org/2006/time#intervalOverlappedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalMetBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalMeets> .
+<http://www.w3.org/2006/time#intervalMetBy> <http://www.w3.org/2000/01/rdf-schema#label> "interval met by"@en .
+<http://www.w3.org/2006/time#intervalMetBy> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalMetBy another proper interval T2, then the beginning of T1 is the end of T2."@en .
+<http://www.w3.org/2006/time#intervalMetBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalMeets> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalMeets> <http://www.w3.org/2000/01/rdf-schema#label> "interval meets"@en .
+<http://www.w3.org/2006/time#intervalMeets> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalMeets> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalMeets another proper interval T2, then the end of T1 is the beginning of T2."@en .
+<http://www.w3.org/2006/time#intervalMeets> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalFinishes> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalFinishes> <http://www.w3.org/2000/01/rdf-schema#label> "interval finishes"@en .
+<http://www.w3.org/2006/time#intervalFinishes> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalFinishes> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalFinishes another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is the end of T2."@en .
+<http://www.w3.org/2006/time#intervalFinishes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalFinishedBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalFinishes> .
+<http://www.w3.org/2006/time#intervalFinishedBy> <http://www.w3.org/2000/01/rdf-schema#label> "interval finished by"@en .
+<http://www.w3.org/2006/time#intervalFinishedBy> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalFinishedBy another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is the end of T2."@en .
+<http://www.w3.org/2006/time#intervalFinishedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalEquals> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalEquals> <http://www.w3.org/2000/01/rdf-schema#label> "interval equals"@en .
+<http://www.w3.org/2006/time#intervalEquals> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalEquals> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalEquals another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is the end of T2."@en .
+<http://www.w3.org/2006/time#intervalEquals> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalDuring> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalDuring> <http://www.w3.org/2000/01/rdf-schema#label> "interval during"@en .
+<http://www.w3.org/2006/time#intervalDuring> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalDuring> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalDuring another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before the end of T2."@en .
+<http://www.w3.org/2006/time#intervalDuring> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalContains> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalDuring> .
+<http://www.w3.org/2006/time#intervalContains> <http://www.w3.org/2000/01/rdf-schema#label> "interval contains"@en .
+<http://www.w3.org/2006/time#intervalContains> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalContains another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after the end of T2."@en .
+<http://www.w3.org/2006/time#intervalContains> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2006/time#before> .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/2000/01/rdf-schema#label> "interval before"@en .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalBefore another proper interval T2, then the end of T1 is before the beginning of T2."@en .
+<http://www.w3.org/2006/time#intervalBefore> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#intervalAfter> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#intervalBefore> .
+<http://www.w3.org/2006/time#intervalAfter> <http://www.w3.org/2000/01/rdf-schema#label> "interval after"@en .
+<http://www.w3.org/2006/time#intervalAfter> <http://www.w3.org/2000/01/rdf-schema#comment> "If a proper interval T1 is intervalAfter another proper interval T2, then the beginning of T1 is after the end of T2."@en .
+<http://www.w3.org/2006/time#intervalAfter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#inside> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#inside> <http://www.w3.org/2000/01/rdf-schema#label> "has instant inside"@en .
+<http://www.w3.org/2006/time#inside> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#Interval> .
+<http://www.w3.org/2006/time#inside> <http://www.w3.org/2000/01/rdf-schema#comment> "An instant that falls inside the interval. It is not intended to include beginnings and ends of intervals."@en .
+<http://www.w3.org/2006/time#inside> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#inXSDDateTime> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#dateTime> .
+<http://www.w3.org/2006/time#inXSDDateTime> <http://www.w3.org/2000/01/rdf-schema#label> "in XSD Date-Time"@en .
+<http://www.w3.org/2006/time#inXSDDateTime> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#inXSDDateTime> <http://www.w3.org/2000/01/rdf-schema#comment> "Position of an instant, expressed using xsd:DateTime"@en .
+<http://www.w3.org/2006/time#inXSDDateTime> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#inTimePosition> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#TimePosition> .
+<http://www.w3.org/2006/time#inTimePosition> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal position"@en .
+<http://www.w3.org/2006/time#inTimePosition> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#inTimePosition> <http://www.w3.org/2000/01/rdf-schema#comment> "Position of a time instant expressed as a TimePosition"@en .
+<http://www.w3.org/2006/time#inTimePosition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#inDateTime> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#inDateTime> <http://www.w3.org/2000/01/rdf-schema#label> "in Date-Time description"@en .
+<http://www.w3.org/2006/time#inDateTime> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#inDateTime> <http://www.w3.org/2000/01/rdf-schema#comment> "Position of an instant, expressed using a structured description"@en .
+<http://www.w3.org/2006/time#inDateTime> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hours> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#hours> <http://www.w3.org/2000/01/rdf-schema#label> "hours"@en .
+<http://www.w3.org/2006/time#hours> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#hours> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in hours"@en .
+<http://www.w3.org/2006/time#hours> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#hour> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+<http://www.w3.org/2006/time#hour> <http://www.w3.org/2000/01/rdf-schema#label> "hour"@en .
+<http://www.w3.org/2006/time#hour> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#hour> <http://www.w3.org/2000/01/rdf-schema#comment> "Hour position in a calendar-clock system."@en .
+<http://www.w3.org/2006/time#hour> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#hasTRS> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#TRS> .
+<http://www.w3.org/2006/time#hasTRS> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal reference system used"@en .
+<http://www.w3.org/2006/time#hasTRS> <http://www.w3.org/2000/01/rdf-schema#comment> "The temporal reference system used by a temporal position or extent description. "@en .
+<http://www.w3.org/2006/time#hasTRS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasTRS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#FunctionalProperty> .
+<http://www.w3.org/2006/time#hasMember> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#hasMember> <http://www.w3.org/2000/01/rdf-schema#label> "member entity"@en .
+<http://www.w3.org/2006/time#hasMember> <http://www.w3.org/2000/01/rdf-schema#comment> "Supports the inclusion of temporal entities in other resources, such as temporal reference systems."@en .
+<http://www.w3.org/2006/time#hasMember> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasEnd> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#hasEnd> <http://www.w3.org/2000/01/rdf-schema#label> "has end"@en .
+<http://www.w3.org/2006/time#hasEnd> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#hasEnd> <http://www.w3.org/2000/01/rdf-schema#comment> "End of a temporal entity."@en .
+<http://www.w3.org/2006/time#hasEnd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasDurationDescription> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#hasDurationDescription> <http://www.w3.org/2000/01/rdf-schema#label> "has duration description"@en .
+<http://www.w3.org/2006/time#hasDurationDescription> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#hasDurationDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Duration of a temporal entity, expressed using a structured description"@en .
+<http://www.w3.org/2006/time#hasDurationDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasDuration> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Duration> .
+<http://www.w3.org/2006/time#hasDuration> <http://www.w3.org/2000/01/rdf-schema#label> "has duration"@en .
+<http://www.w3.org/2006/time#hasDuration> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#hasDuration> <http://www.w3.org/2000/01/rdf-schema#comment> "Duration of a temporal entity, expressed as a scaled value or nominal value"@en .
+<http://www.w3.org/2006/time#hasDuration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#hasDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#label> "has Date-Time description"@en .
+<http://www.w3.org/2006/time#hasDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#DateTimeInterval> .
+<http://www.w3.org/2006/time#hasDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Value of DateTimeInterval expressed as a structured value."@en .
+<http://www.w3.org/2006/time#hasDateTimeDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2000/01/rdf-schema#label> "has beginning"@en .
+<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/2000/01/rdf-schema#comment> "Beginning of a temporal entity."@en .
+<http://www.w3.org/2006/time#hasBeginning> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/2002/07/owl#withRestrictions> _:genid93-10556680 .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/2002/07/owl#onDatatype> <http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/2000/01/rdf-schema#label> "Generalized year"@en .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/2000/01/rdf-schema#comment> "Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."@en .
+<http://www.w3.org/2006/time#generalYear> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/2006/time#generalMonth> <http://www.w3.org/2002/07/owl#withRestrictions> _:genid90-498465615 .
+<http://www.w3.org/2006/time#generalMonth> <http://www.w3.org/2002/07/owl#onDatatype> <http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#generalMonth> <http://www.w3.org/2000/01/rdf-schema#label> "Generalized month"@en .
+<http://www.w3.org/2006/time#generalMonth> <http://www.w3.org/2000/01/rdf-schema#comment> "Month of year - generalization of xsd:gMonth, formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type."@en .
+<http://www.w3.org/2006/time#generalMonth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/2006/time#generalDay> <http://www.w3.org/2002/07/owl#withRestrictions> _:genid87-540959502 .
+<http://www.w3.org/2006/time#generalDay> <http://www.w3.org/2002/07/owl#onDatatype> <http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#generalDay> <http://www.w3.org/2000/01/rdf-schema#label> "Generalized day"@en .
+<http://www.w3.org/2006/time#generalDay> <http://www.w3.org/2000/01/rdf-schema#comment> "Day of month - generalization of xsd:gDay, formulated as a text string with a pattern constraint to reproduce the same lexical form as gDay, except that values up to 99 are permitted, in order to support calendars with more than 31 days in a month. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type. "@en .
+<http://www.w3.org/2006/time#generalDay> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/2006/time#days> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#Number> .
+<http://www.w3.org/2006/time#days> <http://www.w3.org/2000/01/rdf-schema#label> "days"@en .
+<http://www.w3.org/2006/time#days> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#days> <http://www.w3.org/2000/01/rdf-schema#comment> "length of a temporal extent expressed in days"@en .
+<http://www.w3.org/2006/time#days> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#dayOfYear> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+<http://www.w3.org/2006/time#dayOfYear> <http://www.w3.org/2000/01/rdf-schema#label> "day of year"@en .
+<http://www.w3.org/2006/time#dayOfYear> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#dayOfYear> <http://www.w3.org/2000/01/rdf-schema#comment> "The number of the day within the year"@en .
+<http://www.w3.org/2006/time#dayOfYear> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#dayOfWeek> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#dayOfWeek> <http://www.w3.org/2000/01/rdf-schema#label> "day of week"@en .
+<http://www.w3.org/2006/time#dayOfWeek> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#dayOfWeek> <http://www.w3.org/2000/01/rdf-schema#comment> "The day of week, whose value is a member of the class time:DayOfWeek"@en .
+<http://www.w3.org/2006/time#dayOfWeek> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#day> <http://www.w3.org/2000/01/rdf-schema#label> "day"@en .
+<http://www.w3.org/2006/time#day> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#day> <http://www.w3.org/2000/01/rdf-schema#comment> "Day position in a calendar-clock system.\n\nThe range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar. "@en .
+<http://www.w3.org/2006/time#day> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/2000/01/rdf-schema#label> "before"@en .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/2000/01/rdf-schema#comment> "Gives directionality to time. If a temporal entity T1 is before another temporal entity T2, then the end of T1 is before the beginning of T2. Thus, before can be considered to be basic to instants and derived for intervals."@en .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://www.w3.org/2006/time#before> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#after> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2006/time#before> .
+<http://www.w3.org/2006/time#after> <http://www.w3.org/2000/01/rdf-schema#label> "after"@en .
+<http://www.w3.org/2006/time#after> <http://www.w3.org/2000/01/rdf-schema#comment> "Gives directionality to time. If a temporal entity T1 is after another temporal entity T2, then the beginning of T1 is after the end of T2."@en .
+<http://www.w3.org/2006/time#after> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2002/07/owl#deprecated> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#DurationDescription> .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid79-352256300 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid78-216697061 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid77-689689791 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid76-336085751 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid75-749300689 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid74-487631011 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid73-37719757 .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#comment> "Duration year, not a calendar year!"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/2000/01/rdf-schema#comment> "Deprecated because it is only an orphaned example from the 2006 draft"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://www.w3.org/2006/time#Year> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Wednesday> <http://www.w3.org/2000/01/rdf-schema#label> "Wednesday"@en .
+<http://www.w3.org/2006/time#Wednesday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#Tuesday> <http://www.w3.org/2000/01/rdf-schema#label> "Tuesday"@en .
+<http://www.w3.org/2006/time#Tuesday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#TimePosition> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid69-459574642 .
+<http://www.w3.org/2006/time#TimePosition> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid64-157310230 .
+<http://www.w3.org/2006/time#TimePosition> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal position"@en .
+<http://www.w3.org/2006/time#TimePosition> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal position described using either a (nominal) value from an ordinal reference system, or a (numeric) value in a temporal coordinate system. "@en .
+<http://www.w3.org/2006/time#TimePosition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Thursday> <http://www.w3.org/2000/01/rdf-schema#label> "Thursday"@en .
+<http://www.w3.org/2006/time#Thursday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#TemporalUnit> <http://www.w3.org/2004/02/skos/core#changeNote> "Remove enumeration from definition, in order to allow other units to be used when required in other coordinate systems. \nNOTE: existing units are still present as members of the class, but the class membership is now open. \n\nIn the original OWL-Time the following constraint appeared: \n  owl:oneOf (\n      time:unitSecond\n      time:unitMinute\n      time:unitHour\n      time:unitDay\n      time:unitWeek\n      time:unitMonth\n      time:unitYear\n    ) ;"@en .
+<http://www.w3.org/2006/time#TemporalUnit> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+<http://www.w3.org/2006/time#TemporalUnit> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal unit"@en .
+<http://www.w3.org/2006/time#TemporalUnit> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal unit of measure, which provides a scale factor for a time quantity."@en .
+<http://www.w3.org/2006/time#TemporalUnit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#TemporalEntity> <http://www.w3.org/2002/07/owl#unionOf> _:genid59-443086118 .
+<http://www.w3.org/2006/time#TemporalEntity> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+<http://www.w3.org/2006/time#TemporalEntity> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal entity"@en .
+<http://www.w3.org/2006/time#TemporalEntity> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal interval or instant."@en .
+<http://www.w3.org/2006/time#TemporalEntity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#TRS> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal Reference System"@en .
+<http://www.w3.org/2006/time#TRS> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. \n\nThis is a stub class, representing the set of all temporal reference systems."@en .
+<http://www.w3.org/2006/time#TRS> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Sunday> <http://www.w3.org/2000/01/rdf-schema#label> "Sunday"@en .
+<http://www.w3.org/2006/time#Sunday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#Saturday> <http://www.w3.org/2000/01/rdf-schema#label> "Saturday"@en .
+<http://www.w3.org/2006/time#Saturday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#ProperInterval> <http://www.w3.org/2002/07/owl#disjointWith> <http://www.w3.org/2006/time#Instant> .
+<http://www.w3.org/2006/time#ProperInterval> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#Interval> .
+<http://www.w3.org/2006/time#ProperInterval> <http://www.w3.org/2000/01/rdf-schema#label> "Proper interval"@en .
+<http://www.w3.org/2006/time#ProperInterval> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different"@en .
+<http://www.w3.org/2006/time#ProperInterval> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Number> <http://www.w3.org/2002/07/owl#equivalentClass> _:genid50-376941277 .
+<http://www.w3.org/2006/time#Number> <http://www.w3.org/2000/01/rdf-schema#label> "Number"@en .
+<http://www.w3.org/2006/time#Number> <http://www.w3.org/2000/01/rdf-schema#comment> "Note: integer is a specialization of decimal"@en .
+<http://www.w3.org/2006/time#Number> <http://www.w3.org/2000/01/rdf-schema#comment> "Generalized number"@en .
+<http://www.w3.org/2006/time#Number> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/2006/time#Monday> <http://www.w3.org/2000/01/rdf-schema#label> "Monday"@en .
+<http://www.w3.org/2006/time#Monday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#Interval> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#Interval> <http://www.w3.org/2000/01/rdf-schema#label> "Time interval"@en .
+<http://www.w3.org/2006/time#Interval> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal entity with an extent or duration"@en .
+<http://www.w3.org/2006/time#Interval> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Instant> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#TemporalEntity> .
+<http://www.w3.org/2006/time#Instant> <http://www.w3.org/2000/01/rdf-schema#label> "Time instant"@en .
+<http://www.w3.org/2006/time#Instant> <http://www.w3.org/2000/01/rdf-schema#comment> "A temporal entity with zero extent or duration"@en .
+<http://www.w3.org/2006/time#Instant> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid45-575561264 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid44-555037524 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid43-637641511 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid42-470684969 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid41-629511018 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid40-949106314 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid39-78364980 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid38-573099990 .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Generalized duration description"@en .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Description of temporal extent structured with separate values for the various elements of a calendar-clock system."@en .
+<http://www.w3.org/2006/time#GeneralDurationDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid36-133406097 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid35-794136086 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid34-618096266 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid33-298259486 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid32-972236629 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid31-791212572 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid30-791683829 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid29-191878150 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid28-296325342 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid27-743658354 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid26-618596337 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid25-827276884 .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Generalized Date Time Description"@en .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Description of date and time structured with separate values for the various elements of a calendar-clock system"@en .
+<http://www.w3.org/2006/time#GeneralDateTimeDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Friday> <http://www.w3.org/2000/01/rdf-schema#label> "Friday"@en .
+<http://www.w3.org/2006/time#Friday> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2006/time#DayOfWeek> .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#GeneralDurationDescription> .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid22-976718520 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid21-290988047 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid20-705229820 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid19-315211951 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid18-300406731 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid17-92402224 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid16-220438099 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid15-510384299 .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Duration description"@en .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Description of temporal extent structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of each of the numeric properties is restricted to xsd:decimal"@en .
+<http://www.w3.org/2006/time#DurationDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid13-953278127 .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid12-714396256 .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/2000/01/rdf-schema#label> "Temporal duration"@en .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/2000/01/rdf-schema#comment> "Duration of a temporal extent expressed as a number scaled by a temporal unit"@en .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/2000/01/rdf-schema#comment> "Alternative to time:DurationDescription to support description of a temporal duration other than using a calendar/clock system."@en .
+<http://www.w3.org/2006/time#Duration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#DayOfWeek> <http://www.w3.org/2004/02/skos/core#changeNote> "Remove enumeration from definition, in order to allow other days to be used when required in other calendars. \nNOTE: existing days are still present as members of the class, but the class membership is now open. \n\nIn the original OWL-Time the following constraint appeared: \n  owl:oneOf (\n      time:Monday\n      time:Tuesday\n      time:Wednesday\n      time:Thursday\n      time:Friday\n      time:Saturday\n      time:Sunday\n    ) ;"@en .
+<http://www.w3.org/2006/time#DayOfWeek> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+<http://www.w3.org/2006/time#DayOfWeek> <http://www.w3.org/2000/01/rdf-schema#label> "Day of week"@en .
+<http://www.w3.org/2006/time#DayOfWeek> <http://www.w3.org/2000/01/rdf-schema#comment> "The day of week"@en .
+<http://www.w3.org/2006/time#DayOfWeek> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#DateTimeInterval> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#ProperInterval> .
+<http://www.w3.org/2006/time#DateTimeInterval> <http://www.w3.org/2000/01/rdf-schema#label> "Date-Time interval"@en .
+<http://www.w3.org/2006/time#DateTimeInterval> <http://www.w3.org/2000/01/rdf-schema#comment> "DateTimeInterval is a subclass of ProperInterval, defined using the multi-element DateTimeDescription."@en .
+<http://www.w3.org/2006/time#DateTimeInterval> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid8-885425631 .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid7-511198525 .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid6-914469970 .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> _:genid5-778071342 .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Date-Time description"@en .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/2000/01/rdf-schema#comment> "Description of date and time structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively."@en .
+<http://www.w3.org/2006/time#DateTimeDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2002/07/owl#versionIRI> <http://www.w3.org/2006/time#2016> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2002/07/owl#priorVersion> <http://www.w3.org/2006/time#2006> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2002/07/owl#imports> <http://purl.org/dc/elements/1.1/> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/TR/owl-time> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.semantic-web-journal.net/content/time-ontology-extended-non-gregorian-calendar-applications> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.isi.edu/~pan/time/pub/hobbs-pan-TALIP04.pdf> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.isi.edu/~pan/OWL-Time.html> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://dx.doi.org/10.3233/SW-150187> .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#label> "OWL-Time"@en .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#comment> "Update of OWL-Time ontology, extended to support general temporal reference systems"@en .
+<http://www.w3.org/2006/time> <http://www.w3.org/2000/01/rdf-schema#comment> "An OWL Ontology of Time (OWL-Time)."@en .
+<http://www.w3.org/2006/time> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/rights> "Copyright \u00A9 2006-2016 W3C All Rights Reserved. W3C liability, trademark and document use rules apply."@en .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/modified> "2016-07-12"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/isVersionOf> <http://www.w3.org/TR/owl-time> .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/creator> _:genid3-69423348 .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/creator> _:genid2-242700023 .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/created> "2006-09-27"^^<http://www.w3.org/2001/XMLSchema#date> .
+<http://www.w3.org/2006/time> <http://purl.org/dc/terms/contributor> _:genid1-453761498 .
+_:genid93-963790585 <http://www.w3.org/2001/XMLSchema#pattern> "-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:genid93-10556680 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid93-10556680 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:genid93-963790585 .
+_:genid90-498465615 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid90-498465615 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:genid90-1047876058 .
+_:genid90-1047876058 <http://www.w3.org/2001/XMLSchema#pattern> "--(0[1-9]|1[0-9]|20)(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:genid87-687519616 <http://www.w3.org/2001/XMLSchema#pattern> "---(0[1-9]|[1-9][0-9])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"^^<http://www.w3.org/2001/XMLSchema#string> .
+_:genid87-540959502 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid87-540959502 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:genid87-687519616 .
+_:genid8-885425631 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hasTRS> .
+_:genid8-885425631 <http://www.w3.org/2002/07/owl#hasValue> <http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> .
+_:genid8-885425631 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid79-352256300 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#years> .
+_:genid79-352256300 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid79-352256300 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid78-216697061 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#weeks> .
+_:genid78-216697061 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid78-216697061 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid77-689689791 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#seconds> .
+_:genid77-689689791 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid77-689689791 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid76-336085751 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#months> .
+_:genid76-336085751 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid76-336085751 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid75-749300689 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#minutes> .
+_:genid75-749300689 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid75-749300689 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid74-487631011 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hours> .
+_:genid74-487631011 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid74-487631011 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid73-37719757 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#days> .
+_:genid73-37719757 <http://www.w3.org/2002/07/owl#cardinality> "0"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid73-37719757 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid7-511198525 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#year> .
+_:genid7-511198525 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#gYear> .
+_:genid7-511198525 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid69-459574642 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hasTRS> .
+_:genid69-459574642 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid69-459574642 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid67-508326344 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid67-508326344 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:genid67-35986930 .
+_:genid67-35986930 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#nominalPosition> .
+_:genid67-35986930 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid67-35986930 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid65-891992003 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#numericPosition> .
+_:genid65-891992003 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid65-891992003 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid65-250294938 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:genid67-508326344 .
+_:genid65-250294938 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:genid65-891992003 .
+_:genid64-157310230 <http://www.w3.org/2002/07/owl#unionOf> _:genid65-250294938 .
+_:genid64-157310230 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+_:genid60-837279887 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid60-837279887 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2006/time#Interval> .
+_:genid6-914469970 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#month> .
+_:genid6-914469970 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#gMonth> .
+_:genid6-914469970 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid59-443086118 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:genid60-837279887 .
+_:genid59-443086118 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2006/time#Instant> .
+_:genid53-1911055 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid53-1911055 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid52-1068499291 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:genid53-1911055 .
+_:genid52-1068499291 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2001/XMLSchema#float> .
+_:genid51-226821924 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:genid52-1068499291 .
+_:genid51-226821924 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2001/XMLSchema#double> .
+_:genid50-376941277 <http://www.w3.org/2002/07/owl#unionOf> _:genid51-226821924 .
+_:genid50-376941277 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+_:genid5-778071342 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#day> .
+_:genid5-778071342 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#gDay> .
+_:genid5-778071342 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid45-575561264 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#years> .
+_:genid45-575561264 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid45-575561264 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid44-555037524 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#weeks> .
+_:genid44-555037524 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid44-555037524 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid43-637641511 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#seconds> .
+_:genid43-637641511 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid43-637641511 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid42-470684969 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#months> .
+_:genid42-470684969 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid42-470684969 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid41-629511018 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#minutes> .
+_:genid41-629511018 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid41-629511018 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid40-949106314 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hours> .
+_:genid40-949106314 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid40-949106314 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid39-78364980 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#days> .
+_:genid39-78364980 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid39-78364980 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid38-573099990 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hasTRS> .
+_:genid38-573099990 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid38-573099990 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid36-133406097 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#year> .
+_:genid36-133406097 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid36-133406097 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid35-794136086 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#week> .
+_:genid35-794136086 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid35-794136086 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid34-618096266 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#timeZone> .
+_:genid34-618096266 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid34-618096266 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid33-298259486 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#second> .
+_:genid33-298259486 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid33-298259486 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid32-972236629 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#month> .
+_:genid32-972236629 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid32-972236629 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid31-791212572 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#minute> .
+_:genid31-791212572 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid31-791212572 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid30-791683829 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hour> .
+_:genid30-791683829 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid30-791683829 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid3-69423348 <http://xmlns.com/foaf/0.1/name> "Pan Feng" .
+_:genid3-69423348 <http://xmlns.com/foaf/0.1/mbox> <mailto:panfeng66@gmail.com> .
+_:genid29-191878150 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#dayOfYear> .
+_:genid29-191878150 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid29-191878150 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid28-296325342 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#dayOfWeek> .
+_:genid28-296325342 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid28-296325342 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid27-743658354 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#day> .
+_:genid27-743658354 <http://www.w3.org/2002/07/owl#maxCardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid27-743658354 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid26-618596337 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#unitType> .
+_:genid26-618596337 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid26-618596337 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid25-827276884 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hasTRS> .
+_:genid25-827276884 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid25-827276884 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid22-976718520 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hasTRS> .
+_:genid22-976718520 <http://www.w3.org/2002/07/owl#hasValue> <http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> .
+_:genid22-976718520 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid21-290988047 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#years> .
+_:genid21-290988047 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid21-290988047 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid20-705229820 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#weeks> .
+_:genid20-705229820 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid20-705229820 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid2-242700023 <http://xmlns.com/foaf/0.1/name> "Jerry Hobbs" .
+_:genid2-242700023 <http://xmlns.com/foaf/0.1/isPrimaryTopicOf> <https://en.wikipedia.org/wiki/Jerry_Hobbs> .
+_:genid19-315211951 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#seconds> .
+_:genid19-315211951 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid19-315211951 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid18-300406731 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#months> .
+_:genid18-300406731 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid18-300406731 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid17-92402224 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#minutes> .
+_:genid17-92402224 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid17-92402224 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid16-220438099 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#hours> .
+_:genid16-220438099 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid16-220438099 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid15-510384299 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#days> .
+_:genid15-510384299 <http://www.w3.org/2002/07/owl#allValuesFrom> <http://www.w3.org/2001/XMLSchema#decimal> .
+_:genid15-510384299 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid139-981069261 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
+_:genid139-981069261 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2006/time#Duration> .
+_:genid138-509047325 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:genid139-981069261 .
+_:genid138-509047325 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2006/time#GeneralDateTimeDescription> .
+_:genid137-589760767 <http://www.w3.org/2002/07/owl#unionOf> _:genid138-509047325 .
+_:genid137-589760767 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+_:genid13-953278127 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#unitType> .
+_:genid13-953278127 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid13-953278127 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid12-714396256 <http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2006/time#numericDuration> .
+_:genid12-714396256 <http://www.w3.org/2002/07/owl#cardinality> "1"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+_:genid12-714396256 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Restriction> .
+_:genid1-453761498 <http://xmlns.com/foaf/0.1/name> "Simon J D Cox" .
+_:genid1-453761498 <http://xmlns.com/foaf/0.1/mbox> <mailto:simon.cox@csiro.au> .
+_:genid1-453761498 <http://purl.org/dc/terms/identifier> <http://orcid.org/0000-0002-3884-3420> .
