@@ -12,6 +12,7 @@ Rdf_misc
 Rdf_term
 Rdf_types
 Rdf_utf8
+Rdf_utils
 }
 
 {2 Reading and writing graphs}
