@@ -461,57 +461,57 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method account : Iri.t list
-    method accountName : Iri.t list
+    method accountName : Rdf_term.literal list
     method accountServiceHomepage : Iri.t list
-    method age : Iri.t list
-    method aimChatID : Iri.t list
+    method age : Rdf_term.literal list
+    method aimChatID : Rdf_term.literal list
     method based_near : Iri.t list
-    method birthday : Iri.t list
+    method birthday : Rdf_term.literal list
     method currentProject : Iri.t list
     method depiction : Iri.t list
     method depicts : Iri.t list
-    method dnaChecksum : Iri.t list
-    method familyName : Iri.t list
-    method family_name : Iri.t list
-    method firstName : Iri.t list
+    method dnaChecksum : Rdf_term.literal list
+    method familyName : Rdf_term.literal list
+    method family_name : Rdf_term.literal list
+    method firstName : Rdf_term.literal list
     method focus : Iri.t list
     method fundedBy : Iri.t list
-    method geekcode : Iri.t list
-    method gender : Iri.t list
+    method geekcode : Rdf_term.literal list
+    method gender : Rdf_term.literal list
     method givenName : Iri.t list
     method givenname : Iri.t list
     method holdsAccount : Iri.t list
     method homepage : Iri.t list
-    method icqChatID : Iri.t list
+    method icqChatID : Rdf_term.literal list
     method img : Iri.t list
     method interest : Iri.t list
     method isPrimaryTopicOf : Iri.t list
-    method jabberID : Iri.t list
+    method jabberID : Rdf_term.literal list
     method knows : Iri.t list
-    method lastName : Iri.t list
+    method lastName : Rdf_term.literal list
     method logo : Iri.t list
     method made : Iri.t list
     method maker : Iri.t list
     method mbox : Iri.t list
-    method mbox_sha1sum : Iri.t list
+    method mbox_sha1sum : Rdf_term.literal list
     method member : Iri.t list
     method membershipClass : Iri.t list
-    method msnChatID : Iri.t list
-    method myersBriggs : Iri.t list
-    method name : Iri.t list
+    method msnChatID : Rdf_term.literal list
+    method myersBriggs : Rdf_term.literal list
+    method name : Rdf_term.literal list
     method nick : Iri.t list
     method openid : Iri.t list
     method page : Iri.t list
     method pastProject : Iri.t list
     method phone : Iri.t list
-    method plan : Iri.t list
+    method plan : Rdf_term.literal list
     method primaryTopic : Iri.t list
     method publications : Iri.t list
     method schoolHomepage : Iri.t list
     method sha1 : Iri.t list
-    method skypeID : Iri.t list
-    method status : Iri.t list
-    method surname : Iri.t list
+    method skypeID : Rdf_term.literal list
+    method status : Rdf_term.literal list
+    method surname : Rdf_term.literal list
     method theme : Iri.t list
     method thumbnail : Iri.t list
     method tipjar : Iri.t list
@@ -521,5 +521,5 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method weblog : Iri.t list
     method workInfoHomepage : Iri.t list
     method workplaceHomepage : Iri.t list
-    method yahooChatID : Iri.t list
+    method yahooChatID : Rdf_term.literal list
   end

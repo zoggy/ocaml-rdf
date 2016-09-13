@@ -48,23 +48,20 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  let get_prop_list pred =
-    Rdf_graph.iri_objects_of g ~sub ~pred
-  in
   object
-  method dateTimeDescription = get_prop_list dateTimeDescription
-  method dateTimeInterval = get_prop_list dateTimeInterval
-  method dayOfWeek = get_prop_list dayOfWeek
-  method duration = get_prop_list duration
-  method durationDescription = get_prop_list durationDescription
-  method generalDateTimeDescription = get_prop_list generalDateTimeDescription
-  method generalDurationDescription = get_prop_list generalDurationDescription
-  method instant = get_prop_list instant
-  method interval = get_prop_list interval
-  method properInterval = get_prop_list properInterval
-  method tRS = get_prop_list tRS
-  method temporalEntity = get_prop_list temporalEntity
-  method temporalUnit = get_prop_list temporalUnit
-  method timePosition = get_prop_list timePosition
-  method year = get_prop_list year
+  method dateTimeDescription = Rdf_graph.iri_objects_of g ~sub ~pred: dateTimeDescription
+  method dateTimeInterval = Rdf_graph.iri_objects_of g ~sub ~pred: dateTimeInterval
+  method dayOfWeek = Rdf_graph.iri_objects_of g ~sub ~pred: dayOfWeek
+  method duration = Rdf_graph.iri_objects_of g ~sub ~pred: duration
+  method durationDescription = Rdf_graph.iri_objects_of g ~sub ~pred: durationDescription
+  method generalDateTimeDescription = Rdf_graph.iri_objects_of g ~sub ~pred: generalDateTimeDescription
+  method generalDurationDescription = Rdf_graph.iri_objects_of g ~sub ~pred: generalDurationDescription
+  method instant = Rdf_graph.iri_objects_of g ~sub ~pred: instant
+  method interval = Rdf_graph.iri_objects_of g ~sub ~pred: interval
+  method properInterval = Rdf_graph.iri_objects_of g ~sub ~pred: properInterval
+  method tRS = Rdf_graph.iri_objects_of g ~sub ~pred: tRS
+  method temporalEntity = Rdf_graph.iri_objects_of g ~sub ~pred: temporalEntity
+  method temporalUnit = Rdf_graph.iri_objects_of g ~sub ~pred: temporalUnit
+  method timePosition = Rdf_graph.iri_objects_of g ~sub ~pred: timePosition
+  method year = Rdf_graph.iri_objects_of g ~sub ~pred: year
   end

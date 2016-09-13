@@ -549,19 +549,19 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method accrualMethod : Iri.t list
     method accrualPeriodicity : Iri.t list
     method accrualPolicy : Iri.t list
-    method alternative : Iri.t list
+    method alternative : Rdf_term.literal list
     method audience : Iri.t list
-    method available : Iri.t list
-    method bibliographicCitation : Iri.t list
+    method available : Rdf_term.literal list
+    method bibliographicCitation : Rdf_term.literal list
     method conformsTo : Iri.t list
     method contributor : Iri.t list
     method coverage : Iri.t list
-    method created : Iri.t list
+    method created : Rdf_term.literal list
     method creator : Iri.t list
-    method date : Iri.t list
-    method dateAccepted : Iri.t list
-    method dateCopyrighted : Iri.t list
-    method dateSubmitted : Iri.t list
+    method date : Rdf_term.literal list
+    method dateAccepted : Rdf_term.literal list
+    method dateCopyrighted : Rdf_term.literal list
+    method dateSubmitted : Rdf_term.literal list
     method description : Iri.t list
     method educationLevel : Iri.t list
     method extent : Iri.t list
@@ -569,7 +569,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method hasFormat : Iri.t list
     method hasPart : Iri.t list
     method hasVersion : Iri.t list
-    method identifier : Iri.t list
+    method identifier : Rdf_term.literal list
     method instructionalMethod : Iri.t list
     method isFormatOf : Iri.t list
     method isPartOf : Iri.t list
@@ -577,12 +577,12 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method isReplacedBy : Iri.t list
     method isRequiredBy : Iri.t list
     method isVersionOf : Iri.t list
-    method issued : Iri.t list
+    method issued : Rdf_term.literal list
     method language : Iri.t list
     method license : Iri.t list
     method mediator : Iri.t list
     method medium : Iri.t list
-    method modified : Iri.t list
+    method modified : Rdf_term.literal list
     method provenance : Iri.t list
     method publisher : Iri.t list
     method references : Iri.t list
@@ -596,7 +596,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method subject : Iri.t list
     method tableOfContents : Iri.t list
     method temporal : Iri.t list
-    method title : Iri.t list
+    method title : Rdf_term.literal list
     method type_ : Iri.t list
-    method valid : Iri.t list
+    method valid : Rdf_term.literal list
   end

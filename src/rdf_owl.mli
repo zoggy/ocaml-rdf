@@ -445,7 +445,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method someValuesFrom : Iri.t list
     method sourceIndividual : Iri.t list
     method targetIndividual : Iri.t list
-    method targetValue : Iri.t list
+    method targetValue : Rdf_term.literal list
     method unionOf : Iri.t list
     method withRestrictions : Iri.t list
   end

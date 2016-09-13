@@ -52,20 +52,17 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  let get_prop_list pred =
-    Rdf_graph.iri_objects_of g ~sub ~pred
-  in
   object
-  method constrainedBy = get_prop_list constrainedBy
-  method contains = get_prop_list contains
-  method hasMemberRelation = get_prop_list hasMemberRelation
-  method insertedContentRelation = get_prop_list insertedContentRelation
-  method isMemberOfRelation = get_prop_list isMemberOfRelation
-  method member = get_prop_list member
-  method membershipResource = get_prop_list membershipResource
-  method pageSequence = get_prop_list pageSequence
-  method pageSortCollation = get_prop_list pageSortCollation
-  method pageSortCriteria = get_prop_list pageSortCriteria
-  method pageSortOrder = get_prop_list pageSortOrder
-  method pageSortPredicate = get_prop_list pageSortPredicate
+  method constrainedBy = Rdf_graph.iri_objects_of g ~sub ~pred: constrainedBy
+  method contains = Rdf_graph.iri_objects_of g ~sub ~pred: contains
+  method hasMemberRelation = Rdf_graph.iri_objects_of g ~sub ~pred: hasMemberRelation
+  method insertedContentRelation = Rdf_graph.iri_objects_of g ~sub ~pred: insertedContentRelation
+  method isMemberOfRelation = Rdf_graph.iri_objects_of g ~sub ~pred: isMemberOfRelation
+  method member = Rdf_graph.iri_objects_of g ~sub ~pred: member
+  method membershipResource = Rdf_graph.iri_objects_of g ~sub ~pred: membershipResource
+  method pageSequence = Rdf_graph.iri_objects_of g ~sub ~pred: pageSequence
+  method pageSortCollation = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortCollation
+  method pageSortCriteria = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortCriteria
+  method pageSortOrder = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortOrder
+  method pageSortPredicate = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortPredicate
   end

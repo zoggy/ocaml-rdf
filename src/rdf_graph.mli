@@ -331,5 +331,8 @@ val open_graph : ?options:(string * string) list -> Iri.t -> graph
 val merge : graph -> graph -> unit
 
 val only_iris : Rdf_term.term list -> Iri.t list
+val only_literals : Rdf_term.term list -> Rdf_term.literal list
 val iri_subjects_of : graph -> pred: Iri.t -> obj:Rdf_term.term -> Iri.t list
 val iri_objects_of : graph -> sub:Rdf_term.term -> pred: Iri.t -> Iri.t list
+val literal_objects_of : graph -> sub:Rdf_term.term -> pred: Iri.t -> Rdf_term.literal list
+

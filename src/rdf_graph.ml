@@ -315,8 +315,16 @@ let only_iris = List.fold_left
      | Rdf_term.Iri iri -> iri :: acc
      | _ -> acc) []
 
+let only_literals = List.fold_left
+  (fun acc -> function
+     | Rdf_term.Literal lit -> lit :: acc
+     | _ -> acc) []
+
 let iri_objects_of g ~sub ~pred =
   only_iris (g.objects_of ~sub ~pred)
 
 let iri_subjects_of g ~pred ~obj =
   only_iris (g.subjects_of ~pred ~obj)
+
+let literal_objects_of g ~sub ~pred =
+  only_literals (g.objects_of ~sub ~pred)

@@ -155,7 +155,7 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method assertedBy : Iri.t list
-    method info : Iri.t list
+    method info : Rdf_term.literal list
     method mainAssertor : Iri.t list
     method mode : Iri.t list
     method outcome : Iri.t list

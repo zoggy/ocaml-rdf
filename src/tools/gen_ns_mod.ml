@@ -52,6 +52,10 @@ let typ_prefix typ =
           ""
   | None -> "c_"
 
+let is_literal = function
+  None -> false
+| Some iri -> Iri.equal Rdf_rdfs.c_Literal iri
+
 let caml_id ?(protect=false) s typ =
   let typ_prefix = typ_prefix typ in
   let s = Bytes.of_string s in
@@ -74,11 +78,12 @@ let get_properties g =
    "PREFIX rdf: <"^(Iri.to_string Rdf_rdf.rdf)^">
     PREFIX rdfs: <"^(Iri.to_string Rdf_rdfs.rdfs)^">
     PREFIX owl: <"^(Iri.to_string Rdf_owl.owl)^">
-    SELECT ?prop ?comment ?comment_en ?type
+    SELECT ?prop ?comment ?comment_en ?type ?range
       { { ?prop rdfs:subClassOf ?foo } UNION
         { ?prop a ?type . FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, rdfs:Datatype)) }
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
+        OPTIONAL { ?prop rdfs:range ?range }
       }
       ORDER BY STR(?prop) STR(?type)"
   in
@@ -99,6 +104,10 @@ let get_properties g =
             try Some (Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "type")
             with _ -> None
           in
+          let range =
+            try Some (Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "range")
+            with _ -> None
+          in
           let comment =
             if Rdf_sparql.is_bound sol "comment_en" then
               Some (Rdf_sparql.get_string sol "comment_en")
@@ -108,7 +117,7 @@ let get_properties g =
               else
                 None
           in
-          ((prop, comment, typ) :: acc, prop)
+          ((prop, comment, typ, range) :: acc, prop)
   in
   let (l, _) = List.fold_left f ([],Iri.of_string "") sols in
   l
@@ -138,14 +147,14 @@ let gen_impl ?(comments=true) oc prefix base props =
   p "let %s = Iri.of_string %s_str ;;\n" prefix prefix;
   p "let %s_ s = Iri.of_string (%s_str ^ s);;\n\n" prefix prefix;
 
-  let f (prop, comment, typ) =
+  let f (prop, comment, typ, range) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
     p "let %s = %s_ \"%s\" ;;\n" (caml_id ~protect: true prop typ) prefix prop
   in
   List.iter f props;
 
   p "%s" "\nmodule Open = struct\n";
-  let f (prop, comment, typ) =
+  let f (prop, comment, typ, range) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
     p "  let %s_%s = %s\n" prefix (caml_id prop typ) (caml_id ~protect: true prop typ)
   in
@@ -155,15 +164,16 @@ let gen_impl ?(comments=true) oc prefix base props =
   p "class from ?sub g =\n";
   p "  let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in\n" ;
   p "  let sub = Rdf_term.Iri sub in\n" ;
-  p "  let get_prop_list pred =\n    \
-         Rdf_graph.iri_objects_of g ~sub ~pred\n  \
-       in\n";
   p  "  object\n";
-  let f (prop, _, typ) =
+  let f (prop, _, typ, range) =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        p "  method %s = get_prop_list %s\n" id id ;
+        let f = if is_literal range
+          then  "Rdf_graph.literal_objects_of"
+          else "Rdf_graph.iri_objects_of"
+        in
+        p "  method %s = %s g ~sub ~pred: %s\n" id f id ;
      | _ -> ()
   in
   List.iter f props ;
@@ -179,14 +189,14 @@ let gen_intf oc prefix base props =
   p "val %s : Iri.t\n" prefix ;
   p "val %s_ : string -> Iri.t\n\n" prefix ;
 
-  let f (prop, comment, typ) =
+  let f (prop, comment, typ, range) =
     (match comment with None -> () | Some c -> pc "%s" c) ;
     p "val %s : Iri.t\n\n" (caml_id ~protect: true prop typ)
   in
   List.iter f props;
 
   p "%s" "\nmodule Open : sig\n" ;
-  let f (prop, comment, typ) =
+  let f (prop, comment, typ, range) =
     (match comment with None -> () | Some c -> pc ~margin: "  " "%s" c) ;
     p "  val %s_%s : Iri.t\n\n" prefix (caml_id prop typ)
   in
@@ -194,11 +204,12 @@ let gen_intf oc prefix base props =
   p "%s" "end\n\n";
 
   p "class from : ?sub: Iri.t -> Rdf_graph.graph ->\n  object\n";
-  let f (prop, _, typ) =
+  let f (prop, _, typ, range) =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        p "    method %s : Iri.t list\n" id
+        let t = if is_literal range then "Rdf_term.literal" else "Iri.t" in
+        p "    method %s : %s list\n" id t
      | _ -> ()
   in
   List.iter f props ;
@@ -209,11 +220,11 @@ let gen_intf oc prefix base props =
 let generate ?file prefix base g =
   let props = get_properties g in
   let s_base = Iri.to_string base in
-  let f acc (prop, comment, typ) =
+  let f acc (prop, comment, typ, range) =
     let s_prop = Iri.to_string prop in
     match get_under s_base s_prop with
       "" -> acc
-    | s -> (s, comment, typ) :: acc
+    | s -> (s, comment, typ, range) :: acc
   in
   let props = List.fold_left f [] props in
   match file with

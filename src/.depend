@@ -14,28 +14,28 @@ rdf_config.cmo : rdf_config.cmi
 rdf_config.cmx : rdf_config.cmi
 rdf_cryptokit.cmo : rdf_stubs.cmi rdf_cryptokit.cmi
 rdf_cryptokit.cmx : rdf_stubs.cmx rdf_cryptokit.cmi
-rdf_dc.cmo : rdf_dc.cmi
-rdf_dc.cmx : rdf_dc.cmi
-rdf_doap.cmo : rdf_doap.cmi
-rdf_doap.cmx : rdf_doap.cmi
+rdf_dc.cmo : rdf_term.cmi rdf_graph.cmi rdf_dc.cmi
+rdf_dc.cmx : rdf_term.cmx rdf_graph.cmx rdf_dc.cmi
+rdf_doap.cmo : rdf_term.cmi rdf_graph.cmi rdf_doap.cmi
+rdf_doap.cmx : rdf_term.cmx rdf_graph.cmx rdf_doap.cmi
 rdf_dot.cmo : rdf_types.cmi rdf_term.cmi rdf_graph.cmi rdf_dot.cmi
 rdf_dot.cmx : rdf_types.cmx rdf_term.cmx rdf_graph.cmx rdf_dot.cmi
 rdf_ds.cmo : rdf_graph.cmi rdf_ds.cmi
 rdf_ds.cmx : rdf_graph.cmx rdf_ds.cmi
 rdf_dt.cmo : rdf_term.cmi rdf_rdf.cmi rdf_dt.cmi
 rdf_dt.cmx : rdf_term.cmx rdf_rdf.cmx rdf_dt.cmi
-rdf_earl.cmo : rdf_earl.cmi
-rdf_earl.cmx : rdf_earl.cmi
-rdf_foaf.cmo : rdf_foaf.cmi
-rdf_foaf.cmx : rdf_foaf.cmi
+rdf_earl.cmo : rdf_term.cmi rdf_graph.cmi rdf_earl.cmi
+rdf_earl.cmx : rdf_term.cmx rdf_graph.cmx rdf_earl.cmi
+rdf_foaf.cmo : rdf_term.cmi rdf_graph.cmi rdf_foaf.cmi
+rdf_foaf.cmx : rdf_term.cmx rdf_graph.cmx rdf_foaf.cmi
 rdf_graph.cmo : rdf_term.cmi rdf_rdf.cmi rdf_bgp.cmi rdf_graph.cmi
 rdf_graph.cmx : rdf_term.cmx rdf_rdf.cmx rdf_bgp.cmx rdf_graph.cmi
 rdf_json.cmo : rdf_term.cmi rdf_sparql_ms.cmi rdf_sparql.cmi rdf_json.cmi
 rdf_json.cmx : rdf_term.cmx rdf_sparql_ms.cmx rdf_sparql.cmx rdf_json.cmi
 rdf_json_ld.cmo : rdf_json_ld.cmi
 rdf_json_ld.cmx : rdf_json_ld.cmi
-rdf_ldp.cmo : rdf_ldp.cmi
-rdf_ldp.cmx : rdf_ldp.cmi
+rdf_ldp.cmo : rdf_term.cmi rdf_graph.cmi rdf_ldp.cmi
+rdf_ldp.cmx : rdf_term.cmx rdf_graph.cmx rdf_ldp.cmi
 rdf_loc.cmo : rdf_utf8.cmi rdf_misc.cmi rdf_loc.cmi
 rdf_loc.cmx : rdf_utf8.cmx rdf_misc.cmx rdf_loc.cmi
 rdf_mem.cmo : rdf_types.cmi rdf_term.cmi rdf_misc.cmi rdf_graph.cmi \
@@ -52,18 +52,22 @@ rdf_my1.cmo : rdf_term.cmi rdf_my.cmi rdf_misc.cmi rdf_graph.cmi rdf_my1.cmi
 rdf_my1.cmx : rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx rdf_my1.cmi
 rdf_my2.cmo : rdf_term.cmi rdf_my.cmi rdf_misc.cmi rdf_graph.cmi rdf_my2.cmi
 rdf_my2.cmx : rdf_term.cmx rdf_my.cmx rdf_misc.cmx rdf_graph.cmx rdf_my2.cmi
-rdf_owl.cmo : rdf_owl.cmi
-rdf_owl.cmx : rdf_owl.cmi
+rdf_owl.cmo : rdf_term.cmi rdf_graph.cmi rdf_owl.cmi
+rdf_owl.cmx : rdf_term.cmx rdf_graph.cmx rdf_owl.cmi
 rdf_pcre.cmo : rdf_stubs.cmi rdf_pcre.cmi
 rdf_pcre.cmx : rdf_stubs.cmx rdf_pcre.cmi
 rdf_pg.cmo : rdf_term.cmi rdf_misc.cmi rdf_graph.cmi rdf_pg.cmi
 rdf_pg.cmx : rdf_term.cmx rdf_misc.cmx rdf_graph.cmx rdf_pg.cmi
+rdf_pim.cmo : rdf_term.cmi rdf_graph.cmi rdf_pim.cmi
+rdf_pim.cmx : rdf_term.cmx rdf_graph.cmx rdf_pim.cmi
 rdf_rdf.cmo : rdf_rdf.cmi
 rdf_rdf.cmx : rdf_rdf.cmi
 rdf_rdfs.cmo : rdf_term.cmi rdf_rdf.cmi rdf_graph.cmi rdf_rdfs.cmi
 rdf_rdfs.cmx : rdf_term.cmx rdf_rdf.cmx rdf_graph.cmx rdf_rdfs.cmi
 rdf_sedlex.cmo : rdf_sedlex.cmi
 rdf_sedlex.cmx : rdf_sedlex.cmi
+rdf_solid.cmo : rdf_term.cmi rdf_graph.cmi rdf_solid.cmi
+rdf_solid.cmx : rdf_term.cmx rdf_graph.cmx rdf_solid.cmi
 rdf_sparql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_sparql_vis.cmi \
     rdf_sparql_types.cmi rdf_sparql_print.cmi rdf_sparql_parser.cmi \
     rdf_sparql_ms.cmi rdf_sparql_lex.cmi rdf_sparql_expand.cmi \
@@ -150,6 +154,8 @@ rdf_test_mysql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_graph.cmi
 rdf_test_mysql.cmx : rdf_ttl.cmx rdf_term.cmx rdf_graph.cmx
 rdf_test_pgsql.cmo : rdf_ttl.cmi rdf_term.cmi rdf_graph.cmi
 rdf_test_pgsql.cmx : rdf_ttl.cmx rdf_term.cmx rdf_graph.cmx
+rdf_time.cmo : rdf_term.cmi rdf_graph.cmi rdf_time.cmi
+rdf_time.cmx : rdf_term.cmx rdf_graph.cmx rdf_time.cmi
 rdf_ttl.cmo : rdf_xml.cmi rdf_utf8.cmi rdf_types.cmi rdf_ttl_types.cmi \
     rdf_ttl_parser.cmi rdf_ttl_lex.cmi rdf_term.cmi rdf_sedlex.cmi \
     rdf_rdf.cmi rdf_loc.cmi rdf_graph.cmi rdf_dot.cmi rdf_ttl.cmi
@@ -201,29 +207,31 @@ rdf_4s_lwt.cmi : rdf_sparql_protocol.cmi rdf_sparql_http_lwt.cmi \
 rdf_bgp.cmi : rdf_term.cmi rdf_sparql_ms.cmi rdf_sparql_algebra.cmi
 rdf_config.cmi :
 rdf_cryptokit.cmi :
-rdf_dc.cmi :
-rdf_doap.cmi :
+rdf_dc.cmi : rdf_graph.cmi
+rdf_doap.cmi : rdf_graph.cmi
 rdf_dot.cmi : rdf_term.cmi rdf_graph.cmi
 rdf_ds.cmi : rdf_graph.cmi
 rdf_dt.cmi : rdf_term.cmi
-rdf_earl.cmi :
-rdf_foaf.cmi :
+rdf_earl.cmi : rdf_graph.cmi
+rdf_foaf.cmi : rdf_graph.cmi
 rdf_graph.cmi : rdf_term.cmi rdf_bgp.cmi
 rdf_json.cmi : rdf_term.cmi rdf_sparql.cmi
 rdf_json_ld.cmi :
-rdf_ldp.cmi :
+rdf_ldp.cmi : rdf_graph.cmi
 rdf_loc.cmi :
 rdf_mem.cmi : rdf_graph.cmi
 rdf_misc.cmi :
 rdf_my.cmi : rdf_term.cmi rdf_sparql_types.cmi rdf_graph.cmi
 rdf_my1.cmi : rdf_graph.cmi
 rdf_my2.cmi : rdf_graph.cmi
-rdf_owl.cmi :
+rdf_owl.cmi : rdf_graph.cmi
 rdf_pcre.cmi :
 rdf_pg.cmi : rdf_graph.cmi
+rdf_pim.cmi : rdf_graph.cmi
 rdf_rdf.cmi :
 rdf_rdfs.cmi : rdf_term.cmi rdf_graph.cmi
 rdf_sedlex.cmi :
+rdf_solid.cmi : rdf_graph.cmi
 rdf_sparql.cmi : rdf_term.cmi rdf_sparql_types.cmi rdf_sparql_ms.cmi \
     rdf_sparql_eval.cmi rdf_sparql_algebra.cmi rdf_loc.cmi rdf_graph.cmi \
     rdf_dt.cmi rdf_ds.cmi
@@ -244,6 +252,7 @@ rdf_sparql_types.cmi : rdf_types.cmi rdf_term.cmi rdf_loc.cmi
 rdf_sparql_vis.cmi : rdf_sparql_types.cmi
 rdf_stubs.cmi :
 rdf_term.cmi :
+rdf_time.cmi : rdf_graph.cmi
 rdf_ttl.cmi : rdf_term.cmi rdf_loc.cmi rdf_graph.cmi
 rdf_ttl_lex.cmi : rdf_types.cmi rdf_ttl_parser.cmi
 rdf_ttl_parser.cmi : rdf_ttl_types.cmi

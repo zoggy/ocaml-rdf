@@ -32,14 +32,11 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  let get_prop_list pred =
-    Rdf_graph.iri_objects_of g ~sub ~pred
-  in
   object
-  method account = get_prop_list account
-  method inbox = get_prop_list inbox
-  method notification = get_prop_list notification
-  method read = get_prop_list read
-  method timeline = get_prop_list timeline
-  method typeIndex = get_prop_list typeIndex
+  method account = Rdf_graph.iri_objects_of g ~sub ~pred: account
+  method inbox = Rdf_graph.iri_objects_of g ~sub ~pred: inbox
+  method notification = Rdf_graph.iri_objects_of g ~sub ~pred: notification
+  method read = Rdf_graph.iri_objects_of g ~sub ~pred: read
+  method timeline = Rdf_graph.iri_objects_of g ~sub ~pred: timeline
+  method typeIndex = Rdf_graph.iri_objects_of g ~sub ~pred: typeIndex
   end

@@ -58,17 +58,14 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  let get_prop_list pred =
-    Rdf_graph.iri_objects_of g ~sub ~pred
-  in
   object
-  method assertedBy = get_prop_list assertedBy
-  method info = get_prop_list info
-  method mainAssertor = get_prop_list mainAssertor
-  method mode = get_prop_list mode
-  method outcome = get_prop_list outcome
-  method pointer = get_prop_list pointer
-  method result = get_prop_list result
-  method subject = get_prop_list subject
-  method test = get_prop_list test
+  method assertedBy = Rdf_graph.iri_objects_of g ~sub ~pred: assertedBy
+  method info = Rdf_graph.literal_objects_of g ~sub ~pred: info
+  method mainAssertor = Rdf_graph.iri_objects_of g ~sub ~pred: mainAssertor
+  method mode = Rdf_graph.iri_objects_of g ~sub ~pred: mode
+  method outcome = Rdf_graph.iri_objects_of g ~sub ~pred: outcome
+  method pointer = Rdf_graph.iri_objects_of g ~sub ~pred: pointer
+  method result = Rdf_graph.iri_objects_of g ~sub ~pred: result
+  method subject = Rdf_graph.iri_objects_of g ~sub ~pred: subject
+  method test = Rdf_graph.iri_objects_of g ~sub ~pred: test
   end

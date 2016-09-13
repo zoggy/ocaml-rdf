@@ -304,14 +304,14 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method anon_root : Iri.t list
-    method audience : Iri.t list
+    method anon_root : Rdf_term.literal list
+    method audience : Rdf_term.literal list
     method blog : Iri.t list
     method browse : Iri.t list
     method bug_database : Iri.t list
     method category : Iri.t list
-    method created : Iri.t list
-    method description : Iri.t list
+    method created : Rdf_term.literal list
+    method description : Rdf_term.literal list
     method developer : Iri.t list
     method documenter : Iri.t list
     method download_mirror : Iri.t list
@@ -320,23 +320,23 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method helper : Iri.t list
     method homepage : Iri.t list
     method implements : Iri.t list
-    method language : Iri.t list
+    method language : Rdf_term.literal list
     method license : Iri.t list
     method location : Iri.t list
     method mailing_list : Iri.t list
     method maintainer : Iri.t list
     method module_ : Iri.t list
-    method name : Iri.t list
+    method name : Rdf_term.literal list
     method old_homepage : Iri.t list
-    method os : Iri.t list
-    method platform : Iri.t list
-    method programming_language : Iri.t list
+    method os : Rdf_term.literal list
+    method platform : Rdf_term.literal list
+    method programming_language : Rdf_term.literal list
     method release : Iri.t list
     method repository : Iri.t list
-    method revision : Iri.t list
+    method revision : Rdf_term.literal list
     method screenshots : Iri.t list
     method service_endpoint : Iri.t list
-    method shortdesc : Iri.t list
+    method shortdesc : Rdf_term.literal list
     method tester : Iri.t list
     method translator : Iri.t list
     method vendor : Iri.t list
