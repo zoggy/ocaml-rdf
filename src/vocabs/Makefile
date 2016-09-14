@@ -1,7 +1,7 @@
 
 GEN=../tools/gen_ns_mod --ttl
 
-all: dc doap foaf earl ldp owl pim rdf rdfs solid time
+all: dc doap foaf earl ldp owl pim rdf rdfs sioc solid time
 
 clean:
 	rm -f *.ml *.mli

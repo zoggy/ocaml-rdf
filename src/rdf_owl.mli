@@ -56,7 +56,7 @@ val c_NamedIndividual : Iri.t
 val c_NegativePropertyAssertion : Iri.t
 
 (** This is the empty class. *)
-val nothing : Iri.t
+val c_Nothing : Iri.t
 
 (** The class of object properties. *)
 val c_ObjectProperty : Iri.t
@@ -77,7 +77,7 @@ val c_Restriction : Iri.t
 val c_SymmetricProperty : Iri.t
 
 (** The class of OWL individuals. *)
-val thing : Iri.t
+val c_Thing : Iri.t
 
 (** The class of transitive properties. *)
 val c_TransitiveProperty : Iri.t
@@ -96,6 +96,9 @@ val annotatedTarget : Iri.t
 
 (** The property that determines the predicate of a negative property assertion. *)
 val assertionProperty : Iri.t
+
+(** The data property that does not relate any individual to any data value. *)
+val bottomDataProperty : Iri.t
 
 (** The property that determines the cardinality of an exact cardinality restriction. *)
 val cardinality : Iri.t
@@ -196,6 +199,9 @@ val targetIndividual : Iri.t
 (** The property that determines the value of a negative data property assertion. *)
 val targetValue : Iri.t
 
+(** The data property that relates every individual to every data value. *)
+val topDataProperty : Iri.t
+
 (** The property that determines the collection of classes or data ranges that build a union. *)
 val unionOf : Iri.t
 
@@ -256,7 +262,7 @@ module Open : sig
   val owl_c_NegativePropertyAssertion : Iri.t
 
   (** This is the empty class. *)
-  val owl_nothing : Iri.t
+  val owl_c_Nothing : Iri.t
 
   (** The class of object properties. *)
   val owl_c_ObjectProperty : Iri.t
@@ -277,7 +283,7 @@ module Open : sig
   val owl_c_SymmetricProperty : Iri.t
 
   (** The class of OWL individuals. *)
-  val owl_thing : Iri.t
+  val owl_c_Thing : Iri.t
 
   (** The class of transitive properties. *)
   val owl_c_TransitiveProperty : Iri.t
@@ -296,6 +302,9 @@ module Open : sig
 
   (** The property that determines the predicate of a negative property assertion. *)
   val owl_assertionProperty : Iri.t
+
+  (** The data property that does not relate any individual to any data value. *)
+  val owl_bottomDataProperty : Iri.t
 
   (** The property that determines the cardinality of an exact cardinality restriction. *)
   val owl_cardinality : Iri.t
@@ -396,6 +405,9 @@ module Open : sig
   (** The property that determines the value of a negative data property assertion. *)
   val owl_targetValue : Iri.t
 
+  (** The data property that relates every individual to every data value. *)
+  val owl_topDataProperty : Iri.t
+
   (** The property that determines the collection of classes or data ranges that build a union. *)
   val owl_unionOf : Iri.t
 
@@ -406,13 +418,12 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method nothing : Iri.t list
-    method thing : Iri.t list
     method allValuesFrom : Iri.t list
     method annotatedProperty : Iri.t list
     method annotatedSource : Iri.t list
     method annotatedTarget : Iri.t list
     method assertionProperty : Iri.t list
+    method bottomDataProperty : Rdf_term.literal list
     method cardinality : Iri.t list
     method complementOf : Iri.t list
     method datatypeComplementOf : Iri.t list
@@ -446,6 +457,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method sourceIndividual : Iri.t list
     method targetIndividual : Iri.t list
     method targetValue : Rdf_term.literal list
+    method topDataProperty : Rdf_term.literal list
     method unionOf : Iri.t list
     method withRestrictions : Iri.t list
   end

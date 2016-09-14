@@ -5,54 +5,65 @@ val time : Iri.t
 val time_ : string -> Iri.t
 
 (** Description of date and time structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively. *)
-val dateTimeDescription : Iri.t
+val c_DateTimeDescription : Iri.t
 
 (** DateTimeInterval is a subclass of ProperInterval, defined using the multi-element DateTimeDescription. *)
-val dateTimeInterval : Iri.t
+val c_DateTimeInterval : Iri.t
 
 (** The day of week *)
-val dayOfWeek : Iri.t
+val c_DayOfWeek : Iri.t
 
 (** Duration of a temporal extent expressed as a number scaled by a temporal unit *)
-val duration : Iri.t
+val c_Duration : Iri.t
 
 (** Description of temporal extent structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of each of the numeric properties is restricted to xsd:decimal *)
-val durationDescription : Iri.t
+val c_DurationDescription : Iri.t
 
 (** Description of date and time structured with separate values for the various elements of a calendar-clock system *)
-val generalDateTimeDescription : Iri.t
+val c_GeneralDateTimeDescription : Iri.t
 
 (** Description of temporal extent structured with separate values for the various elements of a calendar-clock system. *)
-val generalDurationDescription : Iri.t
+val c_GeneralDurationDescription : Iri.t
 
 (** A temporal entity with zero extent or duration *)
-val instant : Iri.t
+val c_Instant : Iri.t
 
 (** A temporal entity with an extent or duration *)
-val interval : Iri.t
+val c_Interval : Iri.t
 
 (** Note: integer is a specialization of decimal *)
 val dt_Number : Iri.t
 
 (** A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different *)
-val properInterval : Iri.t
+val c_ProperInterval : Iri.t
 
 (** A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
 
 This is a stub class, representing the set of all temporal reference systems. *)
-val tRS : Iri.t
+val c_TRS : Iri.t
 
 (** A temporal interval or instant. *)
-val temporalEntity : Iri.t
+val c_TemporalEntity : Iri.t
 
 (** A temporal unit of measure, which provides a scale factor for a time quantity. *)
-val temporalUnit : Iri.t
+val c_TemporalUnit : Iri.t
 
 (** A temporal position described using either a (nominal) value from an ordinal reference system, or a (numeric) value in a temporal coordinate system.  *)
-val timePosition : Iri.t
+val c_TimePosition : Iri.t
 
 (** Duration year, not a calendar year! *)
-val year : Iri.t
+val c_Year : Iri.t
+
+(** Day position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.  *)
+val day : Iri.t
+
+(** The number of the day within the year *)
+val dayOfYear : Iri.t
+
+(** length of a temporal extent expressed in days *)
+val days : Iri.t
 
 (** Day of month - generalization of xsd:gDay, formulated as a text string with a pattern constraint to reproduce the same lexical form as gDay, except that values up to 99 are permitted, in order to support calendars with more than 31 days in a month. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.  *)
 val dt_generalDay : Iri.t
@@ -63,57 +74,123 @@ val dt_generalMonth : Iri.t
 (** Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type. *)
 val dt_generalYear : Iri.t
 
+(** Hour position in a calendar-clock system. *)
+val hour : Iri.t
+
+(** length of a temporal extent expressed in hours *)
+val hours : Iri.t
+
+(** Position of an instant, expressed using xsd:DateTime *)
+val inXSDDateTime : Iri.t
+
+(** Minute position in a calendar-clock system. *)
+val minute : Iri.t
+
+(** length of a temporal extent expressed in minutes *)
+val minutes : Iri.t
+
+(** Month position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar.  *)
+val month : Iri.t
+
+(** length of a temporal extent expressed in months *)
+val months : Iri.t
+
+(** The (nominal) value indicating temporal position in an ordinal reference system  *)
+val nominalPosition : Iri.t
+
+(** Value of a temporal extent expressed as a number scaled by a temporal unit *)
+val numericDuration : Iri.t
+
+(** The (numeric) value indicating position within a temporal coordinate system  *)
+val numericPosition : Iri.t
+
+(** Second position in a calendar-clock system. *)
+val second : Iri.t
+
+(** length of a temporal extent expressed in seconds *)
+val seconds : Iri.t
+
+(** The number of the week within the year *)
+val week : Iri.t
+
+(** length of a temporal extent expressed in weeks *)
+val weeks : Iri.t
+
+(** Value of DateTimeInterval expressed as a compact value. *)
+val xsdDateTime : Iri.t
+
+(** Year position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar.  *)
+val year : Iri.t
+
+(** length of a temporal extent expressed in years *)
+val years : Iri.t
+
 
 module Open : sig
   (** Description of date and time structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively. *)
-  val time_dateTimeDescription : Iri.t
+  val time_c_DateTimeDescription : Iri.t
 
   (** DateTimeInterval is a subclass of ProperInterval, defined using the multi-element DateTimeDescription. *)
-  val time_dateTimeInterval : Iri.t
+  val time_c_DateTimeInterval : Iri.t
 
   (** The day of week *)
-  val time_dayOfWeek : Iri.t
+  val time_c_DayOfWeek : Iri.t
 
   (** Duration of a temporal extent expressed as a number scaled by a temporal unit *)
-  val time_duration : Iri.t
+  val time_c_Duration : Iri.t
 
   (** Description of temporal extent structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of each of the numeric properties is restricted to xsd:decimal *)
-  val time_durationDescription : Iri.t
+  val time_c_DurationDescription : Iri.t
 
   (** Description of date and time structured with separate values for the various elements of a calendar-clock system *)
-  val time_generalDateTimeDescription : Iri.t
+  val time_c_GeneralDateTimeDescription : Iri.t
 
   (** Description of temporal extent structured with separate values for the various elements of a calendar-clock system. *)
-  val time_generalDurationDescription : Iri.t
+  val time_c_GeneralDurationDescription : Iri.t
 
   (** A temporal entity with zero extent or duration *)
-  val time_instant : Iri.t
+  val time_c_Instant : Iri.t
 
   (** A temporal entity with an extent or duration *)
-  val time_interval : Iri.t
+  val time_c_Interval : Iri.t
 
   (** Note: integer is a specialization of decimal *)
   val time_dt_Number : Iri.t
 
   (** A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different *)
-  val time_properInterval : Iri.t
+  val time_c_ProperInterval : Iri.t
 
   (** A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
 
 This is a stub class, representing the set of all temporal reference systems. *)
-  val time_tRS : Iri.t
+  val time_c_TRS : Iri.t
 
   (** A temporal interval or instant. *)
-  val time_temporalEntity : Iri.t
+  val time_c_TemporalEntity : Iri.t
 
   (** A temporal unit of measure, which provides a scale factor for a time quantity. *)
-  val time_temporalUnit : Iri.t
+  val time_c_TemporalUnit : Iri.t
 
   (** A temporal position described using either a (nominal) value from an ordinal reference system, or a (numeric) value in a temporal coordinate system.  *)
-  val time_timePosition : Iri.t
+  val time_c_TimePosition : Iri.t
 
   (** Duration year, not a calendar year! *)
-  val time_year : Iri.t
+  val time_c_Year : Iri.t
+
+  (** Day position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.  *)
+  val time_day : Iri.t
+
+  (** The number of the day within the year *)
+  val time_dayOfYear : Iri.t
+
+  (** length of a temporal extent expressed in days *)
+  val time_days : Iri.t
 
   (** Day of month - generalization of xsd:gDay, formulated as a text string with a pattern constraint to reproduce the same lexical form as gDay, except that values up to 99 are permitted, in order to support calendars with more than 31 days in a month. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.  *)
   val time_dt_generalDay : Iri.t
@@ -124,23 +201,83 @@ This is a stub class, representing the set of all temporal reference systems. *)
   (** Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type. *)
   val time_dt_generalYear : Iri.t
 
+  (** Hour position in a calendar-clock system. *)
+  val time_hour : Iri.t
+
+  (** length of a temporal extent expressed in hours *)
+  val time_hours : Iri.t
+
+  (** Position of an instant, expressed using xsd:DateTime *)
+  val time_inXSDDateTime : Iri.t
+
+  (** Minute position in a calendar-clock system. *)
+  val time_minute : Iri.t
+
+  (** length of a temporal extent expressed in minutes *)
+  val time_minutes : Iri.t
+
+  (** Month position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar.  *)
+  val time_month : Iri.t
+
+  (** length of a temporal extent expressed in months *)
+  val time_months : Iri.t
+
+  (** The (nominal) value indicating temporal position in an ordinal reference system  *)
+  val time_nominalPosition : Iri.t
+
+  (** Value of a temporal extent expressed as a number scaled by a temporal unit *)
+  val time_numericDuration : Iri.t
+
+  (** The (numeric) value indicating position within a temporal coordinate system  *)
+  val time_numericPosition : Iri.t
+
+  (** Second position in a calendar-clock system. *)
+  val time_second : Iri.t
+
+  (** length of a temporal extent expressed in seconds *)
+  val time_seconds : Iri.t
+
+  (** The number of the week within the year *)
+  val time_week : Iri.t
+
+  (** length of a temporal extent expressed in weeks *)
+  val time_weeks : Iri.t
+
+  (** Value of DateTimeInterval expressed as a compact value. *)
+  val time_xsdDateTime : Iri.t
+
+  (** Year position in a calendar-clock system.
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar.  *)
+  val time_year : Iri.t
+
+  (** length of a temporal extent expressed in years *)
+  val time_years : Iri.t
+
 end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method dateTimeDescription : Iri.t list
-    method dateTimeInterval : Iri.t list
-    method dayOfWeek : Iri.t list
-    method duration : Iri.t list
-    method durationDescription : Iri.t list
-    method generalDateTimeDescription : Iri.t list
-    method generalDurationDescription : Iri.t list
-    method instant : Iri.t list
-    method interval : Iri.t list
-    method properInterval : Iri.t list
-    method tRS : Iri.t list
-    method temporalEntity : Iri.t list
-    method temporalUnit : Iri.t list
-    method timePosition : Iri.t list
+    method day : Iri.t list
+    method dayOfYear : Iri.t list
+    method days : Iri.t list
+    method hour : Iri.t list
+    method hours : Iri.t list
+    method inXSDDateTime : Iri.t list
+    method minute : Iri.t list
+    method minutes : Iri.t list
+    method month : Iri.t list
+    method months : Iri.t list
+    method nominalPosition : Iri.t list
+    method numericDuration : Iri.t list
+    method numericPosition : Iri.t list
+    method second : Iri.t list
+    method seconds : Iri.t list
+    method week : Iri.t list
+    method weeks : Iri.t list
+    method xsdDateTime : Iri.t list
     method year : Iri.t list
+    method years : Iri.t list
   end
