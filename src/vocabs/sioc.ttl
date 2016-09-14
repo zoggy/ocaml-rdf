@@ -1,0 +1,623 @@
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+foaf:depiction rdf:type owl:ObjectProperty .
+foaf:account rdf:type owl:ObjectProperty .
+foaf:OnlineAccount rdf:type owl:Class .
+foaf:Document rdf:type owl:Class .
+foaf:Agent rdf:type owl:Class .
+sioc:usergroup\_of owl:inverseOf sioc:has\_usergroup .
+sioc:usergroup\_of rdfs:range sioc:Space .
+sioc:usergroup\_of rdfs:label "usergroup of"@en .
+sioc:usergroup\_of rdfs:isDefinedBy sioc: .
+sioc:usergroup\_of rdfs:domain sioc:Usergroup .
+sioc:usergroup\_of rdfs:comment "A Space that the Usergroup has access to."@en .
+sioc:usergroup\_of rdf:type owl:ObjectProperty .
+sioc:topic rdfs:subPropertyOf dcterms:subject .
+sioc:topic rdfs:label "topic"@en .
+sioc:topic rdfs:isDefinedBy sioc: .
+sioc:topic rdfs:comment "A topic of interest, linking to the appropriate URI, e.g. in the Open Directory Project or of a SKOS category."@en .
+sioc:topic rdf:type owl:ObjectProperty .
+sioc:title owl:versionInfo "This property is deprecated. Use dcterms:title from the Dublin Core ontology instead." .
+sioc:title rdfs:range rdfs:Literal .
+sioc:title rdfs:label "title"@en .
+sioc:title rdfs:isDefinedBy sioc: .
+sioc:title rdfs:domain sioc:Post .
+sioc:title rdfs:comment "This is the title (subject line) of the Post. Note that for a Post within a threaded discussion that has no parents, it would detail the topic thread."@en .
+sioc:title rdf:type owl:DeprecatedProperty .
+sioc:title rdf:type owl:DatatypeProperty .
+sioc:subscriber\_of owl:inverseOf sioc:has\_subscriber .
+sioc:subscriber\_of rdfs:seeAlso sioc:feed .
+sioc:subscriber\_of rdfs:range sioc:Container .
+sioc:subscriber\_of rdfs:label "subscriber of"@en .
+sioc:subscriber\_of rdfs:isDefinedBy sioc: .
+sioc:subscriber\_of rdfs:domain sioc:UserAccount .
+sioc:subscriber\_of rdfs:comment "A Container that a UserAccount is subscribed to."@en .
+sioc:subscriber\_of rdf:type owl:ObjectProperty .
+sioc:subject owl:versionInfo "This property is deprecated. Use dcterms:subject from the Dublin Core ontology for text keywords and sioc:topic if the subject can be represented by a URI instead." .
+sioc:subject rdfs:range rdfs:Literal .
+sioc:subject rdfs:label "subject"@en .
+sioc:subject rdfs:isDefinedBy sioc: .
+sioc:subject rdfs:domain sioc:Post .
+sioc:subject rdfs:comment "Keyword(s) describing subject of the Post."@en .
+sioc:subject rdf:type owl:DeprecatedProperty .
+sioc:subject rdf:type owl:DatatypeProperty .
+sioc:space\_of owl:inverseOf sioc:has\_space .
+sioc:space\_of rdfs:label "space of"@en .
+sioc:space\_of rdfs:isDefinedBy sioc: .
+sioc:space\_of rdfs:domain sioc:Space .
+sioc:space\_of rdfs:comment "A resource which belongs to this data Space."@en .
+sioc:space\_of rdf:type owl:ObjectProperty .
+sioc:sibling rdfs:range sioc:Item .
+sioc:sibling rdfs:label "sibling"@en .
+sioc:sibling rdfs:isDefinedBy sioc: .
+sioc:sibling rdfs:domain sioc:Item .
+sioc:sibling rdfs:comment "An Item may have a sibling or a twin that exists in a different Container, but the siblings may differ in some small way (for example, language, category, etc.). The sibling of this Item should be self-describing (that is, it should contain all available information)."@en .
+sioc:sibling rdf:type owl:SymmetricProperty .
+sioc:scope\_of owl:inverseOf sioc:has\_scope .
+sioc:scope\_of rdfs:range sioc:Role .
+sioc:scope\_of rdfs:label "scope of"@en .
+sioc:scope\_of rdfs:isDefinedBy sioc: .
+sioc:scope\_of rdfs:comment "A Role that has a scope of this resource."@en .
+sioc:scope\_of rdf:type owl:ObjectProperty .
+sioc:reply\_of owl:inverseOf sioc:has\_reply .
+sioc:reply\_of rdfs:subPropertyOf sioc:related\_to .
+sioc:reply\_of rdfs:range sioc:Item .
+sioc:reply\_of rdfs:label "reply of"@en .
+sioc:reply\_of rdfs:isDefinedBy sioc: .
+sioc:reply\_of rdfs:domain sioc:Item .
+sioc:reply\_of rdfs:comment "Links to an Item or Post which this Item or Post is a reply to."@en .
+sioc:reply\_of rdf:type owl:ObjectProperty .
+sioc:related\_to rdfs:label "related to"@en .
+sioc:related\_to rdfs:isDefinedBy sioc: .
+sioc:related\_to rdfs:comment "Related Posts for this Post, perhaps determined implicitly from topics or references."@en .
+sioc:related\_to rdf:type owl:ObjectProperty .
+sioc:reference owl:versionInfo "Renamed to sioc:links_to." .
+sioc:reference rdfs:label "reference"@en .
+sioc:reference rdfs:isDefinedBy sioc: .
+sioc:reference rdfs:domain sioc:Post .
+sioc:reference rdfs:comment "Links either created explicitly or extracted implicitly on the HTML level from the Post."@en .
+sioc:reference rdf:type owl:ObjectProperty .
+sioc:reference rdf:type owl:DeprecatedProperty .
+sioc:previous\_version owl:inverseOf sioc:next\_version .
+sioc:previous\_version rdfs:subPropertyOf sioc:earlier\_version .
+sioc:previous\_version rdfs:range sioc:Item .
+sioc:previous\_version rdfs:label "previous version"@en .
+sioc:previous\_version rdfs:isDefinedBy sioc: .
+sioc:previous\_version rdfs:domain sioc:Item .
+sioc:previous\_version rdfs:comment "Links to the previous revision of this Item or Post."@en .
+sioc:previous\_version rdf:type owl:ObjectProperty .
+sioc:previous\_by\_date owl:inverseOf sioc:next\_by\_date .
+sioc:previous\_by\_date rdfs:range sioc:Item .
+sioc:previous\_by\_date rdfs:label "previous by date"@en .
+sioc:previous\_by\_date rdfs:isDefinedBy sioc: .
+sioc:previous\_by\_date rdfs:domain sioc:Item .
+sioc:previous\_by\_date rdfs:comment "Previous Item or Post in a given Container sorted by date."@en .
+sioc:previous\_by\_date rdf:type owl:ObjectProperty .
+sioc:part\_of owl:versionInfo "This property is deprecated. Use dcterms:isPartOf from the Dublin Core ontology instead." .
+sioc:part\_of owl:inverseOf sioc:has\_part .
+sioc:part\_of rdfs:label "part of"@en .
+sioc:part\_of rdfs:isDefinedBy sioc: .
+sioc:part\_of rdfs:comment "A resource that the subject is a part of."@en .
+sioc:part\_of rdf:type owl:ObjectProperty .
+sioc:part\_of rdf:type owl:DeprecatedProperty .
+sioc:parent\_of owl:inverseOf sioc:has\_parent .
+sioc:parent\_of rdfs:range sioc:Container .
+sioc:parent\_of rdfs:label "parent of"@en .
+sioc:parent\_of rdfs:isDefinedBy sioc: .
+sioc:parent\_of rdfs:domain sioc:Container .
+sioc:parent\_of rdfs:comment "A child Container or Forum that this Container or Forum is a parent of."@en .
+sioc:parent\_of rdf:type owl:ObjectProperty .
+sioc:owner\_of owl:inverseOf sioc:has\_owner .
+sioc:owner\_of rdfs:label "owner of"@en .
+sioc:owner\_of rdfs:isDefinedBy sioc: .
+sioc:owner\_of rdfs:domain sioc:UserAccount .
+sioc:owner\_of rdfs:comment "A resource owned by a particular UserAccount, for example, a weblog or image gallery."@en .
+sioc:owner\_of rdf:type owl:ObjectProperty .
+sioc:num\_views rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+sioc:num\_views rdfs:label "num views"@en .
+sioc:num\_views rdfs:isDefinedBy sioc: .
+sioc:num\_views rdfs:comment "The number of times this Item, Thread, UserAccount profile, etc. has been viewed."@en .
+sioc:num\_views rdf:type owl:DatatypeProperty .
+sioc:num\_threads rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+sioc:num\_threads rdfs:label "num threads"@en .
+sioc:num\_threads rdfs:isDefinedBy sioc: .
+sioc:num\_threads rdfs:domain sioc:Forum .
+sioc:num\_threads rdfs:comment "The number of Threads (AKA discussion topics) in a Forum."@en .
+sioc:num\_threads rdf:type owl:DatatypeProperty .
+sioc:num\_replies rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+sioc:num\_replies rdfs:label "num replies"@en .
+sioc:num\_replies rdfs:isDefinedBy sioc: .
+sioc:num\_replies rdfs:comment "The number of replies that this Item, Thread, Post, etc. has. Useful for when the reply structure is absent."@en .
+sioc:num\_replies rdf:type owl:DatatypeProperty .
+sioc:num\_items rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+sioc:num\_items rdfs:label "num items"@en .
+sioc:num\_items rdfs:isDefinedBy sioc: .
+sioc:num\_items rdfs:domain sioc:Container .
+sioc:num\_items rdfs:comment "The number of Posts (or Items) in a Forum (or a Container)."@en .
+sioc:num\_items rdf:type owl:DatatypeProperty .
+sioc:num\_authors rdfs:range <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+sioc:num\_authors rdfs:label "num authors"@en .
+sioc:num\_authors rdfs:isDefinedBy sioc: .
+sioc:num\_authors rdfs:comment "The number of unique authors (UserAccounts and unregistered posters) who have contributed to this Item, Thread, Post, etc."@en .
+sioc:num\_authors rdf:type owl:DatatypeProperty .
+sioc:note rdfs:range rdfs:Literal .
+sioc:note rdfs:label "note"@en .
+sioc:note rdfs:isDefinedBy sioc: .
+sioc:note rdfs:comment "A note associated with this resource, for example, if it has been edited by a UserAccount."@en .
+sioc:note rdf:type owl:DatatypeProperty .
+sioc:next\_version owl:inverseOf sioc:previous\_version .
+sioc:next\_version rdfs:subPropertyOf sioc:later\_version .
+sioc:next\_version rdfs:range sioc:Item .
+sioc:next\_version rdfs:label "next version"@en .
+sioc:next\_version rdfs:isDefinedBy sioc: .
+sioc:next\_version rdfs:domain sioc:Item .
+sioc:next\_version rdfs:comment "Links to the next revision of this Item or Post."@en .
+sioc:next\_version rdf:type owl:ObjectProperty .
+sioc:next\_by\_date owl:inverseOf sioc:previous\_by\_date .
+sioc:next\_by\_date rdfs:range sioc:Item .
+sioc:next\_by\_date rdfs:label "next by date"@en .
+sioc:next\_by\_date rdfs:isDefinedBy sioc: .
+sioc:next\_by\_date rdfs:domain sioc:Item .
+sioc:next\_by\_date rdfs:comment "Next Item or Post in a given Container sorted by date."@en .
+sioc:next\_by\_date rdf:type owl:ObjectProperty .
+sioc:name rdfs:range rdfs:Literal .
+sioc:name rdfs:label "name"@en .
+sioc:name rdfs:isDefinedBy sioc: .
+sioc:name rdfs:comment "The name of a SIOC concept instance, e.g. a username for a UserAccount, group name for a Usergroup, etc."@en .
+sioc:name rdf:type owl:DatatypeProperty .
+sioc:modifier\_of owl:inverseOf sioc:has\_modifier .
+sioc:modifier\_of rdfs:range sioc:Item .
+sioc:modifier\_of rdfs:label "modifier of"@en .
+sioc:modifier\_of rdfs:isDefinedBy sioc: .
+sioc:modifier\_of rdfs:domain sioc:UserAccount .
+sioc:modifier\_of rdfs:comment "An Item that this UserAccount has modified."@en .
+sioc:modifier\_of rdf:type owl:ObjectProperty .
+sioc:modified\_at owl:versionInfo "This property is deprecated. Use dcterms:modified from the Dublin Core ontology instead." .
+sioc:modified\_at rdfs:range rdfs:Literal .
+sioc:modified\_at rdfs:label "modified at"@en .
+sioc:modified\_at rdfs:isDefinedBy sioc: .
+sioc:modified\_at rdfs:domain sioc:Post .
+sioc:modified\_at rdfs:comment "When this was modified, in ISO 8601 format."@en .
+sioc:modified\_at rdf:type owl:DeprecatedProperty .
+sioc:modified\_at rdf:type owl:DatatypeProperty .
+sioc:moderator\_of owl:inverseOf sioc:has\_moderator .
+sioc:moderator\_of rdfs:range sioc:Forum .
+sioc:moderator\_of rdfs:label "moderator of"@en .
+sioc:moderator\_of rdfs:isDefinedBy sioc: .
+sioc:moderator\_of rdfs:domain sioc:UserAccount .
+sioc:moderator\_of rdfs:comment "A Forum that a UserAccount is a moderator of."@en .
+sioc:moderator\_of rdf:type owl:ObjectProperty .
+sioc:member\_of owl:inverseOf sioc:has\_member .
+sioc:member\_of rdfs:range sioc:Usergroup .
+sioc:member\_of rdfs:label "member of"@en .
+sioc:member\_of rdfs:isDefinedBy sioc: .
+sioc:member\_of rdfs:domain sioc:UserAccount .
+sioc:member\_of rdfs:comment "A Usergroup that this UserAccount is a member of."@en .
+sioc:member\_of rdf:type owl:ObjectProperty .
+sioc:links\_to rdfs:subPropertyOf dcterms:references .
+sioc:links\_to rdfs:label "links to"@en .
+sioc:links\_to rdfs:isDefinedBy sioc: .
+sioc:links\_to rdfs:comment "Links extracted from hyperlinks within a SIOC concept, e.g. Post or Site."@en .
+sioc:links\_to rdf:type owl:ObjectProperty .
+sioc:link rdfs:label "link"@en .
+sioc:link rdfs:isDefinedBy sioc: .
+sioc:link rdfs:comment "A URI of a document which contains this SIOC object."@en .
+sioc:link rdf:type owl:ObjectProperty .
+sioc:latest\_version rdfs:range sioc:Item .
+sioc:latest\_version rdfs:label "latest version"@en .
+sioc:latest\_version rdfs:isDefinedBy sioc: .
+sioc:latest\_version rdfs:domain sioc:Item .
+sioc:latest\_version rdfs:comment "Links to the latest revision of this Item or Post."@en .
+sioc:latest\_version rdf:type owl:ObjectProperty .
+sioc:later\_version owl:inverseOf sioc:earlier\_version .
+sioc:later\_version rdfs:range sioc:Item .
+sioc:later\_version rdfs:label "later version"@en .
+sioc:later\_version rdfs:isDefinedBy sioc: .
+sioc:later\_version rdfs:domain sioc:Item .
+sioc:later\_version rdfs:comment "Links to a later (newer) revision of this Item or Post."@en .
+sioc:later\_version rdf:type owl:TransitiveProperty .
+sioc:last\_reply\_date rdfs:subPropertyOf dcterms:date .
+sioc:last\_reply\_date rdfs:range rdfs:Literal .
+sioc:last\_reply\_date rdfs:label "last reply date"@en .
+sioc:last\_reply\_date rdfs:isDefinedBy sioc: .
+sioc:last\_reply\_date rdfs:comment "The date and time of the last reply Post or Comment, which could be associated with a starter Item or Post or with a Thread, and expressed in ISO 8601 format."@en .
+sioc:last\_reply\_date rdf:type owl:DatatypeProperty .
+sioc:last\_name owl:versionInfo "This property is deprecated. Use foaf:name or foaf:surname from the FOAF vocabulary instead." .
+sioc:last\_name rdfs:range rdfs:Literal .
+sioc:last\_name rdfs:label "last name"@en .
+sioc:last\_name rdfs:isDefinedBy sioc: .
+sioc:last\_name rdfs:domain sioc:UserAccount .
+sioc:last\_name rdfs:comment "Last (real) name of this user. Synonyms include surname or family name."@en .
+sioc:last\_name rdf:type owl:DeprecatedProperty .
+sioc:last\_name rdf:type owl:DatatypeProperty .
+sioc:last\_item\_date rdfs:subPropertyOf dcterms:date .
+sioc:last\_item\_date rdfs:range rdfs:Literal .
+sioc:last\_item\_date rdfs:label "last item date"@en .
+sioc:last\_item\_date rdfs:isDefinedBy sioc: .
+sioc:last\_item\_date rdfs:domain sioc:Container .
+sioc:last\_item\_date rdfs:comment "The date and time of the last Post (or Item) in a Forum (or a Container), in ISO 8601 format."@en .
+sioc:last\_item\_date rdf:type owl:DatatypeProperty .
+sioc:last\_activity\_date rdfs:subPropertyOf dcterms:date .
+sioc:last\_activity\_date rdfs:range rdfs:Literal .
+sioc:last\_activity\_date rdfs:label "last activity date"@en .
+sioc:last\_activity\_date rdfs:isDefinedBy sioc: .
+sioc:last\_activity\_date rdfs:comment "The date and time of the last activity associated with a SIOC concept instance, and expressed in ISO 8601 format. This could be due to a reply Post or Comment, a modification to an Item, etc."@en .
+sioc:last\_activity\_date rdf:type owl:DatatypeProperty .
+sioc:ip\_address rdfs:range rdfs:Literal .
+sioc:ip\_address rdfs:label "ip address"@en .
+sioc:ip\_address rdfs:isDefinedBy sioc: .
+sioc:ip\_address rdfs:domain sioc:Item .
+sioc:ip\_address rdfs:comment "The IP address used when creating this Item. This can be associated with a creator. Some wiki articles list the IP addresses for the creator or modifiers when the usernames are absent."@en .
+sioc:ip\_address rdf:type owl:DatatypeProperty .
+sioc:id rdfs:range rdfs:Literal .
+sioc:id rdfs:label "id"@en .
+sioc:id rdfs:isDefinedBy sioc: .
+sioc:id rdfs:comment "An identifier of a SIOC concept instance. For example, a user ID. Must be unique for instances of each type of SIOC concept within the same site."@en .
+sioc:id rdf:type owl:DatatypeProperty .
+sioc:host\_of owl:inverseOf sioc:has\_host .
+sioc:host\_of rdfs:range sioc:Forum .
+sioc:host\_of rdfs:label "host of"@en .
+sioc:host\_of rdfs:isDefinedBy sioc: .
+sioc:host\_of rdfs:domain sioc:Site .
+sioc:host\_of rdfs:comment "A Forum that is hosted on this Site."@en .
+sioc:host\_of rdf:type owl:ObjectProperty .
+sioc:has\_usergroup owl:inverseOf sioc:usergroup\_of .
+sioc:has\_usergroup rdfs:range sioc:Usergroup .
+sioc:has\_usergroup rdfs:label "has usergroup"@en .
+sioc:has\_usergroup rdfs:isDefinedBy sioc: .
+sioc:has\_usergroup rdfs:domain sioc:Space .
+sioc:has\_usergroup rdfs:comment "Points to a Usergroup that has certain access to this Space."@en .
+sioc:has\_usergroup rdf:type owl:ObjectProperty .
+sioc:has\_subscriber owl:inverseOf sioc:subscriber\_of .
+sioc:has\_subscriber rdfs:seeAlso sioc:feed .
+sioc:has\_subscriber rdfs:range sioc:UserAccount .
+sioc:has\_subscriber rdfs:label "has subscriber"@en .
+sioc:has\_subscriber rdfs:isDefinedBy sioc: .
+sioc:has\_subscriber rdfs:domain sioc:Container .
+sioc:has\_subscriber rdfs:comment "A UserAccount that is subscribed to this Container."@en .
+sioc:has\_subscriber rdf:type owl:ObjectProperty .
+sioc:has\_space owl:inverseOf sioc:space\_of .
+sioc:has\_space rdfs:range sioc:Space .
+sioc:has\_space rdfs:label "has space"@en .
+sioc:has\_space rdfs:isDefinedBy sioc: .
+sioc:has\_space rdfs:comment "A data Space which this resource is a part of."@en .
+sioc:has\_space rdf:type owl:ObjectProperty .
+sioc:has\_scope owl:inverseOf sioc:scope\_of .
+sioc:has\_scope rdfs:label "has scope"@en .
+sioc:has\_scope rdfs:isDefinedBy sioc: .
+sioc:has\_scope rdfs:domain sioc:Role .
+sioc:has\_scope rdfs:comment "A resource that this Role applies to."@en .
+sioc:has\_scope rdf:type owl:ObjectProperty .
+sioc:has\_reply owl:inverseOf sioc:reply\_of .
+sioc:has\_reply rdfs:subPropertyOf sioc:related\_to .
+sioc:has\_reply rdfs:range sioc:Item .
+sioc:has\_reply rdfs:label "has reply"@en .
+sioc:has\_reply rdfs:isDefinedBy sioc: .
+sioc:has\_reply rdfs:domain sioc:Item .
+sioc:has\_reply rdfs:comment "Points to an Item or Post that is a reply or response to this Item or Post."@en .
+sioc:has\_reply rdf:type owl:ObjectProperty .
+sioc:has\_part owl:versionInfo "This property is deprecated. Use dcterms:hasPart from the Dublin Core ontology instead." .
+sioc:has\_part owl:inverseOf sioc:part\_of .
+sioc:has\_part rdfs:label "has part"@en .
+sioc:has\_part rdfs:isDefinedBy sioc: .
+sioc:has\_part rdfs:comment "An resource that is a part of this subject."@en .
+sioc:has\_part rdf:type owl:ObjectProperty .
+sioc:has\_part rdf:type owl:DeprecatedProperty .
+sioc:has\_parent owl:inverseOf sioc:parent\_of .
+sioc:has\_parent rdfs:range sioc:Container .
+sioc:has\_parent rdfs:label "has parent"@en .
+sioc:has\_parent rdfs:isDefinedBy sioc: .
+sioc:has\_parent rdfs:domain sioc:Container .
+sioc:has\_parent rdfs:comment "A Container or Forum that this Container or Forum is a child of."@en .
+sioc:has\_parent rdf:type owl:ObjectProperty .
+sioc:has\_owner owl:inverseOf sioc:owner\_of .
+sioc:has\_owner rdfs:range sioc:UserAccount .
+sioc:has\_owner rdfs:label "has owner"@en .
+sioc:has\_owner rdfs:isDefinedBy sioc: .
+sioc:has\_owner rdfs:comment "A UserAccount that this resource is owned by."@en .
+sioc:has\_owner rdf:type owl:ObjectProperty .
+sioc:has\_modifier owl:inverseOf sioc:modifier\_of .
+sioc:has\_modifier rdfs:range sioc:UserAccount .
+sioc:has\_modifier rdfs:label "has modifier"@en .
+sioc:has\_modifier rdfs:isDefinedBy sioc: .
+sioc:has\_modifier rdfs:domain sioc:Item .
+sioc:has\_modifier rdfs:comment "A UserAccount that modified this Item."@en .
+sioc:has\_modifier rdf:type owl:ObjectProperty .
+sioc:has\_moderator rdfs:range sioc:UserAccount .
+sioc:has\_moderator rdfs:label "has moderator"@en .
+sioc:has\_moderator rdfs:isDefinedBy sioc: .
+sioc:has\_moderator rdfs:domain sioc:Forum .
+sioc:has\_moderator rdfs:comment "A UserAccount that is a moderator of this Forum."@en .
+sioc:has\_moderator rdf:type owl:ObjectProperty .
+sioc:has\_member owl:inverseOf sioc:member\_of .
+sioc:has\_member rdfs:range sioc:UserAccount .
+sioc:has\_member rdfs:label "has member"@en .
+sioc:has\_member rdfs:isDefinedBy sioc: .
+sioc:has\_member rdfs:domain sioc:Usergroup .
+sioc:has\_member rdfs:comment "A UserAccount that is a member of this Usergroup."@en .
+sioc:has\_member rdf:type owl:ObjectProperty .
+sioc:has\_host owl:inverseOf sioc:host\_of .
+sioc:has\_host rdfs:range sioc:Site .
+sioc:has\_host rdfs:label "has host"@en .
+sioc:has\_host rdfs:isDefinedBy sioc: .
+sioc:has\_host rdfs:domain sioc:Forum .
+sioc:has\_host rdfs:comment "The Site that hosts this Forum."@en .
+sioc:has\_host rdf:type owl:ObjectProperty .
+sioc:has\_group owl:versionInfo "This property has been renamed. Use sioc:has_usergroup instead." .
+sioc:has\_group owl:inverseOf sioc:group\_of .
+sioc:has\_group rdfs:label "has group"@en .
+sioc:has\_group rdf:type owl:ObjectProperty .
+sioc:has\_group rdf:type owl:DeprecatedProperty .
+sioc:has\_function owl:inverseOf sioc:function\_of .
+sioc:has\_function rdfs:range sioc:Role .
+sioc:has\_function rdfs:label "has function"@en .
+sioc:has\_function rdfs:isDefinedBy sioc: .
+sioc:has\_function rdfs:comment "A Role that this UserAccount has."@en .
+sioc:has\_function rdf:type owl:ObjectProperty .
+sioc:has\_discussion rdfs:label "has discussion"@en .
+sioc:has\_discussion rdfs:isDefinedBy sioc: .
+sioc:has\_discussion rdfs:domain sioc:Item .
+sioc:has\_discussion rdfs:comment "The discussion that is related to this Item."@en .
+sioc:has\_discussion rdf:type owl:ObjectProperty .
+sioc:has\_creator owl:inverseOf sioc:creator\_of .
+sioc:has\_creator rdfs:range sioc:UserAccount .
+sioc:has\_creator rdfs:label "has creator"@en .
+sioc:has\_creator rdfs:isDefinedBy sioc: .
+sioc:has\_creator rdfs:comment "This is the UserAccount that made this resource."@en .
+sioc:has\_creator rdf:type owl:ObjectProperty .
+sioc:has\_container owl:inverseOf sioc:container\_of .
+sioc:has\_container rdfs:range sioc:Container .
+sioc:has\_container rdfs:label "has container"@en .
+sioc:has\_container rdfs:isDefinedBy sioc: .
+sioc:has\_container rdfs:domain sioc:Item .
+sioc:has\_container rdfs:comment "The Container to which this Item belongs."@en .
+sioc:has\_container rdf:type owl:ObjectProperty .
+sioc:has\_administrator owl:inverseOf sioc:administrator\_of .
+sioc:has\_administrator rdfs:range sioc:UserAccount .
+sioc:has\_administrator rdfs:label "has administrator"@en .
+sioc:has\_administrator rdfs:isDefinedBy sioc: .
+sioc:has\_administrator rdfs:domain sioc:Site .
+sioc:has\_administrator rdfs:comment "A UserAccount that is an administrator of this Site."@en .
+sioc:has\_administrator rdf:type owl:ObjectProperty .
+sioc:group\_of owl:versionInfo "This property has been renamed. Use sioc:usergroup_of instead." .
+sioc:group\_of owl:inverseOf sioc:has\_group .
+sioc:group\_of rdfs:label "group of"@en .
+sioc:group\_of rdf:type owl:ObjectProperty .
+sioc:group\_of rdf:type owl:DeprecatedProperty .
+sioc:function\_of owl:inverseOf sioc:has\_function .
+sioc:function\_of rdfs:label "function of"@en .
+sioc:function\_of rdfs:isDefinedBy sioc: .
+sioc:function\_of rdfs:domain sioc:Role .
+sioc:function\_of rdfs:comment "A UserAccount that has this Role."@en .
+sioc:function\_of rdf:type owl:ObjectProperty .
+sioc:follows rdfs:range sioc:UserAccount .
+sioc:follows rdfs:label "follows"@en .
+sioc:follows rdfs:isDefinedBy sioc: .
+sioc:follows rdfs:domain sioc:UserAccount .
+sioc:follows rdfs:comment "Indicates that one UserAccount follows another UserAccount (e.g. for microblog posts or other content item updates)."@en .
+sioc:follows rdf:type owl:ObjectProperty .
+sioc:first\_name owl:versionInfo "This property is deprecated. Use foaf:name or foaf:firstName from the FOAF vocabulary instead." .
+sioc:first\_name rdfs:range rdfs:Literal .
+sioc:first\_name rdfs:label "first name"@en .
+sioc:first\_name rdfs:isDefinedBy sioc: .
+sioc:first\_name rdfs:domain sioc:UserAccount .
+sioc:first\_name rdfs:comment "First (real) name of this User. Synonyms include given name or christian name."@en .
+sioc:first\_name rdf:type owl:DeprecatedProperty .
+sioc:first\_name rdf:type owl:DatatypeProperty .
+sioc:feed rdfs:label "feed"@en .
+sioc:feed rdfs:isDefinedBy sioc: .
+sioc:feed rdfs:comment "A feed (e.g. RSS, Atom, etc.) pertaining to this resource (e.g. for a Forum, Site, UserAccount, etc.)."@en .
+sioc:feed rdf:type owl:ObjectProperty .
+sioc:embeds\_knowledge rdfs:range <http://www.w3.org/2004/03/trix/rdfg-1/Graph> .
+sioc:embeds\_knowledge rdfs:label "embeds knowledge"@en .
+sioc:embeds\_knowledge rdfs:isDefinedBy sioc: .
+sioc:embeds\_knowledge rdfs:domain sioc:Item .
+sioc:embeds\_knowledge rdfs:comment "This links Items to embedded statements, facts and structured content."@en .
+sioc:embeds\_knowledge rdf:type owl:ObjectProperty .
+sioc:email\_sha1 rdfs:range rdfs:Literal .
+sioc:email\_sha1 rdfs:label "email sha1"@en .
+sioc:email\_sha1 rdfs:isDefinedBy sioc: .
+sioc:email\_sha1 rdfs:domain sioc:UserAccount .
+sioc:email\_sha1 rdfs:comment "An electronic mail address of the UserAccount, encoded using SHA1."@en .
+sioc:email\_sha1 rdf:type owl:DatatypeProperty .
+sioc:email rdfs:label "email"@en .
+sioc:email rdfs:isDefinedBy sioc: .
+sioc:email rdfs:domain sioc:UserAccount .
+sioc:email rdfs:comment "An electronic mail address of the UserAccount."@en .
+sioc:email rdf:type owl:ObjectProperty .
+sioc:earlier\_version owl:inverseOf sioc:later\_version .
+sioc:earlier\_version rdfs:range sioc:Item .
+sioc:earlier\_version rdfs:label "earlier version"@en .
+sioc:earlier\_version rdfs:isDefinedBy sioc: .
+sioc:earlier\_version rdfs:domain sioc:Item .
+sioc:earlier\_version rdfs:comment "Links to a previous (older) revision of this Item or Post."@en .
+sioc:earlier\_version rdf:type owl:TransitiveProperty .
+sioc:description owl:versionInfo "This property is deprecated. Use sioc:content or other methods (AtomOwl, content:encoded from RSS 1.0, etc.) instead." .
+sioc:description rdfs:range rdfs:Literal .
+sioc:description rdfs:label "description"@en .
+sioc:description rdfs:isDefinedBy sioc: .
+sioc:description rdfs:domain sioc:Post .
+sioc:description rdfs:comment "The content of the Post."@en .
+sioc:description rdf:type owl:DeprecatedProperty .
+sioc:description rdf:type owl:DatatypeProperty .
+sioc:creator\_of owl:inverseOf sioc:has\_creator .
+sioc:creator\_of rdfs:label "creator of"@en .
+sioc:creator\_of rdfs:isDefinedBy sioc: .
+sioc:creator\_of rdfs:domain sioc:UserAccount .
+sioc:creator\_of rdfs:comment "A resource that the UserAccount is a creator of."@en .
+sioc:creator\_of rdf:type owl:ObjectProperty .
+sioc:created\_at owl:versionInfo "This property is deprecated. Use dcterms:created from the Dublin Core ontology instead." .
+sioc:created\_at rdfs:range rdfs:Literal .
+sioc:created\_at rdfs:label "created at"@en .
+sioc:created\_at rdfs:isDefinedBy sioc: .
+sioc:created\_at rdfs:domain sioc:Post .
+sioc:created\_at rdfs:comment "When this was created, in ISO 8601 format."@en .
+sioc:created\_at rdf:type owl:DeprecatedProperty .
+sioc:created\_at rdf:type owl:DatatypeProperty .
+sioc:content\_encoded owl:versionInfo "This property is deprecated. Use content:encoded from the RSS 1.0 content module instead." .
+sioc:content\_encoded rdfs:range rdfs:Literal .
+sioc:content\_encoded rdfs:label "content encoded"@en .
+sioc:content\_encoded rdfs:isDefinedBy sioc: .
+sioc:content\_encoded rdfs:domain sioc:Post .
+sioc:content\_encoded rdfs:comment "The encoded content of the Post, contained in CDATA areas."@en .
+sioc:content\_encoded rdf:type owl:DeprecatedProperty .
+sioc:content\_encoded rdf:type owl:DatatypeProperty .
+sioc:content rdfs:range rdfs:Literal .
+sioc:content rdfs:label "content"@en .
+sioc:content rdfs:isDefinedBy sioc: .
+sioc:content rdfs:domain sioc:Item .
+sioc:content rdfs:comment "The content of the Item in plain text format."@en .
+sioc:content rdf:type owl:DatatypeProperty .
+sioc:container\_of owl:inverseOf sioc:has\_container .
+sioc:container\_of rdfs:range sioc:Item .
+sioc:container\_of rdfs:label "container of"@en .
+sioc:container\_of rdfs:isDefinedBy sioc: .
+sioc:container\_of rdfs:domain sioc:Container .
+sioc:container\_of rdfs:comment "An Item that this Container contains."@en .
+sioc:container\_of rdf:type owl:ObjectProperty .
+sioc:avatar rdfs:subPropertyOf foaf:depiction .
+sioc:avatar rdfs:label "avatar"@en .
+sioc:avatar rdfs:isDefinedBy sioc: .
+sioc:avatar rdfs:domain sioc:UserAccount .
+sioc:avatar rdfs:comment "An image or depiction used to represent this UserAccount."@en .
+sioc:avatar rdf:type owl:ObjectProperty .
+sioc:attachment rdfs:label "attachment"@en .
+sioc:attachment rdfs:isDefinedBy sioc: .
+sioc:attachment rdfs:domain sioc:Item .
+sioc:attachment rdfs:comment "The URI of a file attached to an Item."@en .
+sioc:attachment rdf:type owl:ObjectProperty .
+sioc:administrator\_of owl:inverseOf sioc:has\_administrator .
+sioc:administrator\_of rdfs:range sioc:Site .
+sioc:administrator\_of rdfs:label "administrator of"@en .
+sioc:administrator\_of rdfs:isDefinedBy sioc: .
+sioc:administrator\_of rdfs:domain sioc:UserAccount .
+sioc:administrator\_of rdfs:comment "A Site that the UserAccount is an administrator of."@en .
+sioc:administrator\_of rdf:type owl:ObjectProperty .
+sioc:addressed\_to rdfs:label "addressed to"@en .
+sioc:addressed\_to rdfs:isDefinedBy sioc: .
+sioc:addressed\_to rdfs:domain sioc:Item .
+sioc:addressed\_to rdfs:comment "Refers to who (e.g. a UserAccount, e-mail address, etc.) a particular Item is addressed to."@en .
+sioc:addressed\_to rdf:type owl:ObjectProperty .
+sioc:account\_of owl:inverseOf foaf:account .
+sioc:account\_of rdfs:range foaf:Agent .
+sioc:account\_of rdfs:label "account of"@en .
+sioc:account\_of rdfs:isDefinedBy sioc: .
+sioc:account\_of rdfs:domain sioc:UserAccount .
+sioc:account\_of rdfs:comment "Refers to the foaf:Agent or foaf:Person who owns this sioc:UserAccount."@en .
+sioc:account\_of rdf:type owl:ObjectProperty .
+sioc:about rdfs:label "about"@en .
+sioc:about rdfs:isDefinedBy sioc: .
+sioc:about rdfs:domain sioc:Item .
+sioc:about rdfs:comment "Specifies that this Item is about a particular resource, e.g. a Post describing a book, hotel, etc."@en .
+sioc:about rdf:type owl:ObjectProperty .
+sioc:Usergroup owl:disjointWith sioc:UserAccount .
+sioc:Usergroup owl:disjointWith sioc:Space .
+sioc:Usergroup owl:disjointWith sioc:Role .
+sioc:Usergroup owl:disjointWith sioc:Item .
+sioc:Usergroup owl:disjointWith sioc:Container .
+sioc:Usergroup rdfs:label "Usergroup"@en .
+sioc:Usergroup rdfs:isDefinedBy sioc: .
+sioc:Usergroup rdfs:comment "A set of UserAccounts whose owners have a common purpose or interest. Can be used for access control purposes."@en .
+sioc:Usergroup rdf:type owl:Class .
+sioc:UserAccount owl:disjointWith sioc:Usergroup .
+sioc:UserAccount owl:disjointWith sioc:Space .
+sioc:UserAccount owl:disjointWith sioc:Role .
+sioc:UserAccount owl:disjointWith sioc:Item .
+sioc:UserAccount owl:disjointWith sioc:Container .
+sioc:UserAccount rdfs:subClassOf foaf:OnlineAccount .
+sioc:UserAccount rdfs:label "User Account"@en .
+sioc:UserAccount rdfs:isDefinedBy sioc: .
+sioc:UserAccount rdfs:comment "A user account in an online community site."@en .
+sioc:UserAccount rdf:type owl:Class .
+sioc:User owl:versionInfo "This class is deprecated. Use sioc:UserAccount from the SIOC ontology instead." .
+sioc:User owl:equivalentClass sioc:UserAccount .
+sioc:User owl:disjointWith sioc:Usergroup .
+sioc:User owl:disjointWith sioc:Space .
+sioc:User owl:disjointWith sioc:Role .
+sioc:User owl:disjointWith sioc:Item .
+sioc:User owl:disjointWith sioc:Container .
+sioc:User rdfs:subClassOf foaf:OnlineAccount .
+sioc:User rdfs:label "User"@en .
+sioc:User rdfs:isDefinedBy sioc: .
+sioc:User rdfs:comment "UserAccount is now preferred. This is a deprecated class for a User in an online community site."@en .
+sioc:User rdf:type owl:DeprecatedClass .
+sioc:Thread rdfs:subClassOf sioc:Container .
+sioc:Thread rdfs:label "Thread"@en .
+sioc:Thread rdfs:isDefinedBy sioc: .
+sioc:Thread rdfs:comment "A container for a series of threaded discussion Posts or Items."@en .
+sioc:Thread rdf:type owl:Class .
+sioc:Space owl:disjointWith sioc:Usergroup .
+sioc:Space owl:disjointWith sioc:UserAccount .
+sioc:Space owl:disjointWith sioc:Role .
+sioc:Space owl:disjointWith sioc:Item .
+sioc:Space rdfs:label "Space"@en .
+sioc:Space rdfs:isDefinedBy sioc: .
+sioc:Space rdfs:comment "A Space is a place where data resides, e.g. on a website, desktop, fileshare, etc."@en .
+sioc:Space rdf:type owl:Class .
+sioc:Site rdfs:subClassOf sioc:Space .
+sioc:Site rdfs:label "Site"@en .
+sioc:Site rdfs:isDefinedBy sioc: .
+sioc:Site rdfs:comment "A Site can be the location of an online community or set of communities, with UserAccounts and Usergroups creating Items in a set of Containers. It can be thought of as a web-accessible data Space."@en .
+sioc:Site rdf:type owl:Class .
+sioc:Role owl:disjointWith sioc:Usergroup .
+sioc:Role owl:disjointWith sioc:UserAccount .
+sioc:Role owl:disjointWith sioc:Space .
+sioc:Role owl:disjointWith sioc:Item .
+sioc:Role owl:disjointWith sioc:Container .
+sioc:Role rdfs:label "Role"@en .
+sioc:Role rdfs:isDefinedBy sioc: .
+sioc:Role rdfs:comment "A Role is a function of a UserAccount within a scope of a particular Forum, Site, etc."@en .
+sioc:Role rdf:type owl:Class .
+sioc:Post rdfs:subClassOf foaf:Document .
+sioc:Post rdfs:subClassOf sioc:Item .
+sioc:Post rdfs:label "Post"@en .
+sioc:Post rdfs:isDefinedBy sioc: .
+sioc:Post rdfs:comment "An article or message that can be posted to a Forum."@en .
+sioc:Post rdf:type owl:Class .
+sioc:Item owl:disjointWith sioc:Usergroup .
+sioc:Item owl:disjointWith sioc:UserAccount .
+sioc:Item owl:disjointWith sioc:Space .
+sioc:Item owl:disjointWith sioc:Role .
+sioc:Item owl:disjointWith sioc:Container .
+sioc:Item rdfs:label "Item"@en .
+sioc:Item rdfs:isDefinedBy sioc: .
+sioc:Item rdfs:comment "An Item is something which can be in a Container."@en .
+sioc:Item rdf:type owl:Class .
+sioc:Forum rdfs:subClassOf sioc:Container .
+sioc:Forum rdfs:label "Forum"@en .
+sioc:Forum rdfs:isDefinedBy sioc: .
+sioc:Forum rdfs:comment "A discussion area on which Posts or entries are made."@en .
+sioc:Forum rdf:type owl:Class .
+sioc:Container owl:disjointWith sioc:Usergroup .
+sioc:Container owl:disjointWith sioc:UserAccount .
+sioc:Container owl:disjointWith sioc:Role .
+sioc:Container owl:disjointWith sioc:Item .
+sioc:Container rdfs:label "Container"@en .
+sioc:Container rdfs:isDefinedBy sioc: .
+sioc:Container rdfs:comment "An area in which content Items are contained."@en .
+sioc:Container rdf:type owl:Class .
+sioc:Community owl:disjointWith sioc:UserAccount .
+sioc:Community owl:disjointWith sioc:Role .
+sioc:Community owl:disjointWith sioc:Item .
+sioc:Community rdfs:label "Community"@en .
+sioc:Community rdfs:isDefinedBy sioc: .
+sioc:Community rdfs:comment "Community is a high-level concept that defines an online community and what it consists of."@en .
+sioc:Community rdf:type owl:Class .
+sioc: owl:versionInfo "Revision: 1.35" .
+sioc: rdfs:seeAlso <http://rdfs.org/sioc/spec> .
+sioc: rdf:type owl:Ontology .
+sioc: rdf:type "http://www.w3.org/2002/07/owl#Thing" .
+sioc: dcterms:title "SIOC Core Ontology Namespace"@en .
+sioc: dcterms:description "SIOC (Semantically-Interlinked Online Communities) is an ontology for describing the information in online communities. This information can be used to export information from online communities and to link them together. The scope of the application areas that SIOC can be used for includes (and is not limited to) weblogs, message boards, mailing lists and chat channels."@en .
+dcterms:title rdf:type owl:DatatypeProperty .
+dcterms:subject rdf:type owl:ObjectProperty .
+dcterms:references rdf:type owl:ObjectProperty .
+dcterms:description rdf:type owl:DatatypeProperty .
+dcterms:date rdf:type owl:DatatypeProperty .
+

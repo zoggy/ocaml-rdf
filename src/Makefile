@@ -82,6 +82,7 @@ LIB_RDF_CMOFILES= \
 	rdf_dc.cmo \
 	rdf_ldp.cmo \
 	rdf_owl.cmo \
+	rdf_sioc.cmo \
 	rdf_solid.cmo \
 	rdf_time.cmo \
 	rdf_ds.cmo \

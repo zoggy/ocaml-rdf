@@ -33,6 +33,9 @@ rdf: rdf.ttl
 rdfs: rdfs.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/2000/01/rdf-schema#" $<
 
+sioc: sioc.ttl
+	$(GEN) -f rdf_$@ $@ "http://rdfs.org/sioc/ns#" $<
+
 solid: solid_terms.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/solid/terms#" $<
 
