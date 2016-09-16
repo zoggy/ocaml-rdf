@@ -97,8 +97,14 @@ val annotatedTarget : Iri.t
 (** The property that determines the predicate of a negative property assertion. *)
 val assertionProperty : Iri.t
 
+(** The annotation property that indicates that a given ontology is backward compatible with another ontology. *)
+val backwardCompatibleWith : Iri.t
+
 (** The data property that does not relate any individual to any data value. *)
 val bottomDataProperty : Iri.t
+
+(** The object property that does not relate any two individuals. *)
+val bottomObjectProperty : Iri.t
 
 (** The property that determines the cardinality of an exact cardinality restriction. *)
 val cardinality : Iri.t
@@ -108,6 +114,9 @@ val complementOf : Iri.t
 
 (** The property that determines that a given data range is the complement of another data range with respect to the data domain. *)
 val datatypeComplementOf : Iri.t
+
+(** The annotation property that indicates that a given entity has been deprecated. *)
+val deprecated : Iri.t
 
 (** The property that determines that two given individuals are different. *)
 val differentFrom : Iri.t
@@ -135,6 +144,9 @@ val hasSelf : Iri.t
 
 (** The property that determines the individual that a has-value restriction refers to. *)
 val hasValue : Iri.t
+
+(** The annotation property that indicates that a given ontology is incompatible with another ontology. *)
+val incompatibleWith : Iri.t
 
 (** The property that determines the collection of classes or data ranges that build an intersection. *)
 val intersectionOf : Iri.t
@@ -175,6 +187,9 @@ val onProperty : Iri.t
 (** The property that determines the collection of individuals or data values that build an enumeration. *)
 val oneOf : Iri.t
 
+(** The annotation property that indicates the predecessor ontology of a given ontology. *)
+val priorVersion : Iri.t
+
 (** The property that determines the n-tuple of properties that build a sub property chain of a given property. *)
 val propertyChainAxiom : Iri.t
 
@@ -202,8 +217,14 @@ val targetValue : Iri.t
 (** The data property that relates every individual to every data value. *)
 val topDataProperty : Iri.t
 
+(** The object property that relates every two individuals. *)
+val topObjectProperty : Iri.t
+
 (** The property that determines the collection of classes or data ranges that build a union. *)
 val unionOf : Iri.t
+
+(** The annotation property that provides version information for an ontology or another OWL construct. *)
+val versionInfo : Iri.t
 
 (** The property that determines the collection of facet-value pairs that define a datatype restriction. *)
 val withRestrictions : Iri.t
@@ -303,8 +324,14 @@ module Open : sig
   (** The property that determines the predicate of a negative property assertion. *)
   val owl_assertionProperty : Iri.t
 
+  (** The annotation property that indicates that a given ontology is backward compatible with another ontology. *)
+  val owl_backwardCompatibleWith : Iri.t
+
   (** The data property that does not relate any individual to any data value. *)
   val owl_bottomDataProperty : Iri.t
+
+  (** The object property that does not relate any two individuals. *)
+  val owl_bottomObjectProperty : Iri.t
 
   (** The property that determines the cardinality of an exact cardinality restriction. *)
   val owl_cardinality : Iri.t
@@ -314,6 +341,9 @@ module Open : sig
 
   (** The property that determines that a given data range is the complement of another data range with respect to the data domain. *)
   val owl_datatypeComplementOf : Iri.t
+
+  (** The annotation property that indicates that a given entity has been deprecated. *)
+  val owl_deprecated : Iri.t
 
   (** The property that determines that two given individuals are different. *)
   val owl_differentFrom : Iri.t
@@ -341,6 +371,9 @@ module Open : sig
 
   (** The property that determines the individual that a has-value restriction refers to. *)
   val owl_hasValue : Iri.t
+
+  (** The annotation property that indicates that a given ontology is incompatible with another ontology. *)
+  val owl_incompatibleWith : Iri.t
 
   (** The property that determines the collection of classes or data ranges that build an intersection. *)
   val owl_intersectionOf : Iri.t
@@ -381,6 +414,9 @@ module Open : sig
   (** The property that determines the collection of individuals or data values that build an enumeration. *)
   val owl_oneOf : Iri.t
 
+  (** The annotation property that indicates the predecessor ontology of a given ontology. *)
+  val owl_priorVersion : Iri.t
+
   (** The property that determines the n-tuple of properties that build a sub property chain of a given property. *)
   val owl_propertyChainAxiom : Iri.t
 
@@ -408,8 +444,14 @@ module Open : sig
   (** The data property that relates every individual to every data value. *)
   val owl_topDataProperty : Iri.t
 
+  (** The object property that relates every two individuals. *)
+  val owl_topObjectProperty : Iri.t
+
   (** The property that determines the collection of classes or data ranges that build a union. *)
   val owl_unionOf : Iri.t
+
+  (** The annotation property that provides version information for an ontology or another OWL construct. *)
+  val owl_versionInfo : Iri.t
 
   (** The property that determines the collection of facet-value pairs that define a datatype restriction. *)
   val owl_withRestrictions : Iri.t
@@ -423,10 +465,13 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method annotatedSource : Iri.t list
     method annotatedTarget : Iri.t list
     method assertionProperty : Iri.t list
+    method backwardCompatibleWith : Iri.t list
     method bottomDataProperty : Rdf_term.literal list
+    method bottomObjectProperty : Iri.t list
     method cardinality : Iri.t list
     method complementOf : Iri.t list
     method datatypeComplementOf : Iri.t list
+    method deprecated : Iri.t list
     method differentFrom : Iri.t list
     method disjointUnionOf : Iri.t list
     method disjointWith : Iri.t list
@@ -436,6 +481,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method hasKey : Iri.t list
     method hasSelf : Iri.t list
     method hasValue : Iri.t list
+    method incompatibleWith : Iri.t list
     method intersectionOf : Iri.t list
     method inverseOf : Iri.t list
     method maxCardinality : Iri.t list
@@ -449,6 +495,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method onProperties : Iri.t list
     method onProperty : Iri.t list
     method oneOf : Iri.t list
+    method priorVersion : Iri.t list
     method propertyChainAxiom : Iri.t list
     method propertyDisjointWith : Iri.t list
     method qualifiedCardinality : Iri.t list
@@ -458,6 +505,8 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method targetIndividual : Iri.t list
     method targetValue : Rdf_term.literal list
     method topDataProperty : Rdf_term.literal list
+    method topObjectProperty : Iri.t list
     method unionOf : Iri.t list
+    method versionInfo : Iri.t list
     method withRestrictions : Iri.t list
   end

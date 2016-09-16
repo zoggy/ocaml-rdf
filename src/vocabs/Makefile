@@ -1,7 +1,7 @@
 
 GEN=../tools/gen_ns_mod --ttl
 
-all: dc doap foaf earl ldp owl pim rdf rdfs sioc solid time
+all: dc doap foaf earl ldp owl pim prov rdf rdfs sioc solid time
 
 clean:
 	rm -f *.ml *.mli
@@ -26,6 +26,9 @@ owl: owl.ttl
 
 pim: pim.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/pim/space#" $^
+
+prov: prov.ttl
+	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/prov#" $^
 
 rdf: rdf.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/1999/02/22-rdf-syntax-ns#" $<

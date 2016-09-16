@@ -54,10 +54,19 @@ val c_TimePosition : Iri.t
 (** Duration year, not a calendar year! *)
 val c_Year : Iri.t
 
+(** Gives directionality to time. If a temporal entity T1 is after another temporal entity T2, then the beginning of T1 is after the end of T2. *)
+val after : Iri.t
+
+(** Gives directionality to time. If a temporal entity T1 is before another temporal entity T2, then the end of T1 is before the beginning of T2. Thus, before can be considered to be basic to instants and derived for intervals. *)
+val before : Iri.t
+
 (** Day position in a calendar-clock system.
 
 The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.  *)
 val day : Iri.t
+
+(** The day of week, whose value is a member of the class time:DayOfWeek *)
+val dayOfWeek : Iri.t
 
 (** The number of the day within the year *)
 val dayOfYear : Iri.t
@@ -74,14 +83,83 @@ val dt_generalMonth : Iri.t
 (** Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type. *)
 val dt_generalYear : Iri.t
 
+(** Beginning of a temporal entity. *)
+val hasBeginning : Iri.t
+
+(** Value of DateTimeInterval expressed as a structured value. *)
+val hasDateTimeDescription : Iri.t
+
+(** Duration of a temporal entity, expressed as a scaled value or nominal value *)
+val hasDuration : Iri.t
+
+(** Duration of a temporal entity, expressed using a structured description *)
+val hasDurationDescription : Iri.t
+
+(** End of a temporal entity. *)
+val hasEnd : Iri.t
+
+(** Supports the inclusion of temporal entities in other resources, such as temporal reference systems. *)
+val hasMember : Iri.t
+
+(** The temporal reference system used by a temporal position or extent description.  *)
+val hasTRS : Iri.t
+
 (** Hour position in a calendar-clock system. *)
 val hour : Iri.t
 
 (** length of a temporal extent expressed in hours *)
 val hours : Iri.t
 
+(** Position of an instant, expressed using a structured description *)
+val inDateTime : Iri.t
+
+(** Position of a time instant expressed as a TimePosition *)
+val inTimePosition : Iri.t
+
 (** Position of an instant, expressed using xsd:DateTime *)
 val inXSDDateTime : Iri.t
+
+(** An instant that falls inside the interval. It is not intended to include beginnings and ends of intervals. *)
+val inside : Iri.t
+
+(** If a proper interval T1 is intervalAfter another proper interval T2, then the beginning of T1 is after the end of T2. *)
+val intervalAfter : Iri.t
+
+(** If a proper interval T1 is intervalBefore another proper interval T2, then the end of T1 is before the beginning of T2. *)
+val intervalBefore : Iri.t
+
+(** If a proper interval T1 is intervalContains another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after the end of T2. *)
+val intervalContains : Iri.t
+
+(** If a proper interval T1 is intervalDuring another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before the end of T2. *)
+val intervalDuring : Iri.t
+
+(** If a proper interval T1 is intervalEquals another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is the end of T2. *)
+val intervalEquals : Iri.t
+
+(** If a proper interval T1 is intervalFinishedBy another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is the end of T2. *)
+val intervalFinishedBy : Iri.t
+
+(** If a proper interval T1 is intervalFinishes another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is the end of T2. *)
+val intervalFinishes : Iri.t
+
+(** If a proper interval T1 is intervalMeets another proper interval T2, then the end of T1 is the beginning of T2. *)
+val intervalMeets : Iri.t
+
+(** If a proper interval T1 is intervalMetBy another proper interval T2, then the beginning of T1 is the end of T2. *)
+val intervalMetBy : Iri.t
+
+(** If a proper interval T1 is intervalOverlappedBy another proper interval T2, then the beginning of T1 is after the beginning of T2, the beginning of T1 is before the end of T2, and the end of T1 is after the end of T2. *)
+val intervalOverlappedBy : Iri.t
+
+(** If a proper interval T1 is intervalOverlaps another proper interval T2, then the beginning of T1 is before the beginning of T2, the end of T1 is after the beginning of T2, and the end of T1 is before the end of T2. *)
+val intervalOverlaps : Iri.t
+
+(** If a proper interval T1 is intervalStarted another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is after the end of T2. *)
+val intervalStartedBy : Iri.t
+
+(** If a proper interval T1 is intervalStarts another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is before the end of T2. *)
+val intervalStarts : Iri.t
 
 (** Minute position in a calendar-clock system. *)
 val minute : Iri.t
@@ -111,6 +189,12 @@ val second : Iri.t
 
 (** length of a temporal extent expressed in seconds *)
 val seconds : Iri.t
+
+(** The time zone for clock elements in the temporal position *)
+val timeZone : Iri.t
+
+(** The temporal unit which provides the precision of a date-time value or scale of a temporal extent *)
+val unitType : Iri.t
 
 (** The number of the week within the year *)
 val week : Iri.t
@@ -181,10 +265,19 @@ This is a stub class, representing the set of all temporal reference systems. *)
   (** Duration year, not a calendar year! *)
   val time_c_Year : Iri.t
 
+  (** Gives directionality to time. If a temporal entity T1 is after another temporal entity T2, then the beginning of T1 is after the end of T2. *)
+  val time_after : Iri.t
+
+  (** Gives directionality to time. If a temporal entity T1 is before another temporal entity T2, then the end of T1 is before the beginning of T2. Thus, before can be considered to be basic to instants and derived for intervals. *)
+  val time_before : Iri.t
+
   (** Day position in a calendar-clock system.
 
 The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.  *)
   val time_day : Iri.t
+
+  (** The day of week, whose value is a member of the class time:DayOfWeek *)
+  val time_dayOfWeek : Iri.t
 
   (** The number of the day within the year *)
   val time_dayOfYear : Iri.t
@@ -201,14 +294,83 @@ The range of this property is not specified, so can be replaced by any specific 
   (** Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type. *)
   val time_dt_generalYear : Iri.t
 
+  (** Beginning of a temporal entity. *)
+  val time_hasBeginning : Iri.t
+
+  (** Value of DateTimeInterval expressed as a structured value. *)
+  val time_hasDateTimeDescription : Iri.t
+
+  (** Duration of a temporal entity, expressed as a scaled value or nominal value *)
+  val time_hasDuration : Iri.t
+
+  (** Duration of a temporal entity, expressed using a structured description *)
+  val time_hasDurationDescription : Iri.t
+
+  (** End of a temporal entity. *)
+  val time_hasEnd : Iri.t
+
+  (** Supports the inclusion of temporal entities in other resources, such as temporal reference systems. *)
+  val time_hasMember : Iri.t
+
+  (** The temporal reference system used by a temporal position or extent description.  *)
+  val time_hasTRS : Iri.t
+
   (** Hour position in a calendar-clock system. *)
   val time_hour : Iri.t
 
   (** length of a temporal extent expressed in hours *)
   val time_hours : Iri.t
 
+  (** Position of an instant, expressed using a structured description *)
+  val time_inDateTime : Iri.t
+
+  (** Position of a time instant expressed as a TimePosition *)
+  val time_inTimePosition : Iri.t
+
   (** Position of an instant, expressed using xsd:DateTime *)
   val time_inXSDDateTime : Iri.t
+
+  (** An instant that falls inside the interval. It is not intended to include beginnings and ends of intervals. *)
+  val time_inside : Iri.t
+
+  (** If a proper interval T1 is intervalAfter another proper interval T2, then the beginning of T1 is after the end of T2. *)
+  val time_intervalAfter : Iri.t
+
+  (** If a proper interval T1 is intervalBefore another proper interval T2, then the end of T1 is before the beginning of T2. *)
+  val time_intervalBefore : Iri.t
+
+  (** If a proper interval T1 is intervalContains another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after the end of T2. *)
+  val time_intervalContains : Iri.t
+
+  (** If a proper interval T1 is intervalDuring another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before the end of T2. *)
+  val time_intervalDuring : Iri.t
+
+  (** If a proper interval T1 is intervalEquals another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is the end of T2. *)
+  val time_intervalEquals : Iri.t
+
+  (** If a proper interval T1 is intervalFinishedBy another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is the end of T2. *)
+  val time_intervalFinishedBy : Iri.t
+
+  (** If a proper interval T1 is intervalFinishes another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is the end of T2. *)
+  val time_intervalFinishes : Iri.t
+
+  (** If a proper interval T1 is intervalMeets another proper interval T2, then the end of T1 is the beginning of T2. *)
+  val time_intervalMeets : Iri.t
+
+  (** If a proper interval T1 is intervalMetBy another proper interval T2, then the beginning of T1 is the end of T2. *)
+  val time_intervalMetBy : Iri.t
+
+  (** If a proper interval T1 is intervalOverlappedBy another proper interval T2, then the beginning of T1 is after the beginning of T2, the beginning of T1 is before the end of T2, and the end of T1 is after the end of T2. *)
+  val time_intervalOverlappedBy : Iri.t
+
+  (** If a proper interval T1 is intervalOverlaps another proper interval T2, then the beginning of T1 is before the beginning of T2, the end of T1 is after the beginning of T2, and the end of T1 is before the end of T2. *)
+  val time_intervalOverlaps : Iri.t
+
+  (** If a proper interval T1 is intervalStarted another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is after the end of T2. *)
+  val time_intervalStartedBy : Iri.t
+
+  (** If a proper interval T1 is intervalStarts another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is before the end of T2. *)
+  val time_intervalStarts : Iri.t
 
   (** Minute position in a calendar-clock system. *)
   val time_minute : Iri.t
@@ -239,6 +401,12 @@ The range of this property is not specified, so can be replaced by any specific 
   (** length of a temporal extent expressed in seconds *)
   val time_seconds : Iri.t
 
+  (** The time zone for clock elements in the temporal position *)
+  val time_timeZone : Iri.t
+
+  (** The temporal unit which provides the precision of a date-time value or scale of a temporal extent *)
+  val time_unitType : Iri.t
+
   (** The number of the week within the year *)
   val time_week : Iri.t
 
@@ -260,12 +428,38 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
+    method after : Iri.t list
+    method before : Iri.t list
     method day : Iri.t list
+    method dayOfWeek : Iri.t list
     method dayOfYear : Iri.t list
     method days : Iri.t list
+    method hasBeginning : Iri.t list
+    method hasDateTimeDescription : Iri.t list
+    method hasDuration : Iri.t list
+    method hasDurationDescription : Iri.t list
+    method hasEnd : Iri.t list
+    method hasMember : Iri.t list
+    method hasTRS : Iri.t list
     method hour : Iri.t list
     method hours : Iri.t list
+    method inDateTime : Iri.t list
+    method inTimePosition : Iri.t list
     method inXSDDateTime : Iri.t list
+    method inside : Iri.t list
+    method intervalAfter : Iri.t list
+    method intervalBefore : Iri.t list
+    method intervalContains : Iri.t list
+    method intervalDuring : Iri.t list
+    method intervalEquals : Iri.t list
+    method intervalFinishedBy : Iri.t list
+    method intervalFinishes : Iri.t list
+    method intervalMeets : Iri.t list
+    method intervalMetBy : Iri.t list
+    method intervalOverlappedBy : Iri.t list
+    method intervalOverlaps : Iri.t list
+    method intervalStartedBy : Iri.t list
+    method intervalStarts : Iri.t list
     method minute : Iri.t list
     method minutes : Iri.t list
     method month : Iri.t list
@@ -275,6 +469,8 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method numericPosition : Iri.t list
     method second : Iri.t list
     method seconds : Iri.t list
+    method timeZone : Iri.t list
+    method unitType : Iri.t list
     method week : Iri.t list
     method weeks : Iri.t list
     method xsdDateTime : Iri.t list

@@ -79,6 +79,7 @@ LIB_RDF_CMOFILES= \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
 	rdf_pim.cmo \
+	rdf_prov.cmo \
 	rdf_dc.cmo \
 	rdf_ldp.cmo \
 	rdf_owl.cmo \

@@ -80,7 +80,7 @@ let get_properties g =
     PREFIX owl: <"^(Iri.to_string Rdf_owl.owl)^">
     SELECT ?prop ?comment ?comment_en ?type ?range
       { { ?prop rdfs:subClassOf ?foo } UNION
-        { ?prop a ?type . FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, owl:DatatypeProperty, rdfs:Datatype)) }
+        { ?prop a ?type . FILTER (?type IN (rdf:Property, rdfs:Class, owl:Class, owl:ObjectProperty, owl:AnnotationProperty, owl:DatatypeProperty, rdfs:Datatype)) }
         OPTIONAL { ?prop rdfs:comment ?comment FILTER (!LangMatches(lang(?comment),\"*\")) }
         OPTIONAL { ?prop rdfs:comment ?comment_en FILTER LangMatches(lang(?comment_en),\"en\") }
         OPTIONAL { ?prop rdfs:range ?range }
