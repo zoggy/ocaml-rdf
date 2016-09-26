@@ -1,0 +1,77 @@
+@prefix xmlns: <http://www.w3.org/ns/auth/acl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+xmlns:owner rdfs:range <http://xmlns.com/foaf/0.1/Agent> .
+xmlns:owner rdfs:label "owner"@en .
+xmlns:owner rdfs:comment "The person or other agent which owns this. For example, the owner of a file in a filesystem. There is a sense of right to control. Typically defaults to the agent who craeted something but can be changed." .
+xmlns:owner rdf:type rdf:Property .
+xmlns:mode rdfs:range rdfs:Class .
+xmlns:mode rdfs:label "access mode" .
+xmlns:mode rdfs:domain xmlns:Authorization .
+xmlns:mode rdfs:comment "A mode of access such as read or write." .
+xmlns:mode rdf:type rdf:Property .
+xmlns:delegates rdfs:range <http://xmlns.com/foaf/0.1/Agent> .
+xmlns:delegates rdfs:label "delegates"@en .
+xmlns:delegates rdfs:comment "Delegates a person or another agent to act on behalf of the agent. For example, Alice delegates Bob to act on behalf of Alice for ACL purposes." .
+xmlns:delegates rdf:type rdf:Property .
+xmlns:defaultForNew rdfs:label "default access for new things in" .
+xmlns:defaultForNew rdfs:domain xmlns:Authorization .
+xmlns:defaultForNew rdfs:comment "A directory for which this authorization is used for new files in the directory." .
+xmlns:defaultForNew rdf:type rdf:Property .
+xmlns:agentGroup rdfs:range <http://www.w3.org/2006/vcard/ns#Group> .
+xmlns:agentGroup rdfs:label "agent group" .
+xmlns:agentGroup rdfs:domain xmlns:Authorization .
+xmlns:agentGroup rdfs:comment "A group of persons or social entities to being given the right" .
+xmlns:agentGroup rdf:type rdf:Property .
+xmlns:agentClass rdfs:range rdfs:Class .
+xmlns:agentClass rdfs:label "agent class" .
+xmlns:agentClass rdfs:domain xmlns:Authorization .
+xmlns:agentClass rdfs:comment "A class of persons or social entities to being given the right" .
+xmlns:agentClass rdf:type rdf:Property .
+xmlns:agent rdfs:range <http://xmlns.com/foaf/0.1/Agent> .
+xmlns:agent rdfs:label "agent" .
+xmlns:agent rdfs:domain xmlns:Authorization .
+xmlns:agent rdfs:comment "A person or social entity to being given the right" .
+xmlns:agent rdf:type rdf:Property .
+xmlns:accessToClass rdfs:range rdfs:Class .
+xmlns:accessToClass rdfs:label "to all in" .
+xmlns:accessToClass rdfs:domain xmlns:Authorization .
+xmlns:accessToClass rdfs:comment "A class of information resources to which access is being granted." .
+xmlns:accessToClass rdf:type rdf:Property .
+xmlns:accessTo rdfs:range <http://www.w3.org/2006/gen/ont#InformationResource> .
+xmlns:accessTo rdfs:label "to" .
+xmlns:accessTo rdfs:domain xmlns:Authorization .
+xmlns:accessTo rdfs:comment "The information resource to which access is being granted." .
+xmlns:accessTo rdf:type rdf:Property .
+xmlns:accessControl rdfs:subPropertyOf rdfs:seeAlso .
+xmlns:accessControl rdfs:range <http://www.w3.org/2006/gen/ont#InformationResource> .
+xmlns:accessControl rdfs:label "access control" .
+xmlns:accessControl rdfs:domain <http://www.w3.org/2006/gen/ont#InformationResource> .
+xmlns:accessControl rdfs:comment "The Access Control file for this information resource. This may of course be a virtual resorce implemented by the access control system. Note also HTTP's header Link: foo.meta ;rel=meta can be used for this." .
+xmlns:accessControl rdf:type rdf:Property .
+xmlns:Write rdfs:subClassOf xmlns:Access .
+xmlns:Write rdfs:label "write"@en .
+xmlns:Write rdf:type rdfs:Class .
+xmlns:Read rdfs:subClassOf xmlns:Access .
+xmlns:Read rdfs:label "read"@en .
+xmlns:Read rdfs:comment "The class of read operations" .
+xmlns:Read rdf:type rdfs:Class .
+xmlns:Control rdfs:subClassOf xmlns:Access .
+xmlns:Control rdfs:label "control"@en .
+xmlns:Control rdfs:comment "Allows read/write access to the ACL for the resource(s)" .
+xmlns:Control rdf:type rdfs:Class .
+xmlns:Authorization rdfs:label "authorization" .
+xmlns:Authorization rdfs:comment "An element of access control, allowing agent to agents access of some kind to resources or classes of resources" .
+xmlns:Authorization rdf:type rdfs:Class .
+xmlns:Append rdfs:subClassOf xmlns:Write .
+xmlns:Append rdfs:subClassOf xmlns:Access .
+xmlns:Append rdfs:label "append"@en .
+xmlns:Append rdfs:comment "Append accesses are specific write access which only add information, and do not remove information. For text files, for example, append access allows bytes to be added onto the end of the file. For RDF graphs, Append access allows adds triples to the graph but does not remove any. Append access is useful for dropbox functionality. Dropbox can be used for link notification, which the information added is a notification that a some link has been made elsewhere relevant to the given resource." .
+xmlns:Append rdf:type rdfs:Class .
+xmlns:Access xmlns:label "access"@en .
+xmlns:Access rdfs:comment "Any kind of access to a resource. Don't use this, use R W and RW" .
+xmlns:Access rdf:type rdfs:Class .
+<http://base.foo/> rdfs:comment "Defines the class Authorization and its essential properties, and also some classes of access such as read and write." .
+<http://base.foo/> dc:title "Basic Access Control ontology" .
+

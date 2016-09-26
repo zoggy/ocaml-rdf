@@ -1,10 +1,13 @@
 
 GEN=../tools/gen_ns_mod --ttl
 
-all: dc doap foaf earl ldp owl pim prov rdf rdfs sioc solid time
+all: acl dc doap foaf earl ldp owl pim prov rdf rdfs sioc solid time
 
 clean:
 	rm -f *.ml *.mli
+
+acl: acl.ttl
+	$(GEN) -f rdf_$@ $@ "http://www.w3.org/ns/auth/acl#" $<
 
 dc: dc.ttl
 	$(GEN) -f rdf_$@ $@ "http://purl.org/dc/terms/" $<

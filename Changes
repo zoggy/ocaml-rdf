@@ -1,5 +1,6 @@
 Next release:
 - new Rdf_utils module
+- add Rdf_acl module with Web Access Control ontology
 - add Rdf_sioc module with SIOC ontology
 - add Rdf_solid module with SOLID terms ontology
 - upgrade to ocaml 4.03.0

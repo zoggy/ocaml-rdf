@@ -75,6 +75,7 @@ LIB_RDF_CMOFILES= \
 	rdf_bgp.cmo \
 	rdf_graph.cmo \
 	rdf_rdfs.cmo \
+	rdf_acl.cmo \
 	rdf_doap.cmo \
 	rdf_earl.cmo \
 	rdf_foaf.cmo \
