@@ -1,7 +1,7 @@
 
 GEN=../tools/gen_ns_mod --ttl
 
-all: acl dc doap foaf earl ldp owl pim prov rdf rdfs sioc solid time
+all: acl dc doap foaf earl ldp owl pim prov rdf rdfs sioc solid time vcard
 
 clean:
 	rm -f *.ml *.mli
@@ -47,3 +47,6 @@ solid: solid_terms.ttl
 
 time: time.ttl
 	$(GEN) -f rdf_$@ $@ "http://www.w3.org/2006/time#" $<
+
+vcard: vcard.ttl
+	$(GEN) -f rdf_vcard $@ "http://www.w3.org/2006/vcard/ns#" $<

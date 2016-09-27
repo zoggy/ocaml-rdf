@@ -87,6 +87,7 @@ LIB_RDF_CMOFILES= \
 	rdf_sioc.cmo \
 	rdf_solid.cmo \
 	rdf_time.cmo \
+	rdf_vcard.cmo \
 	rdf_ds.cmo \
 	rdf_mem.cmo \
 	rdf_dot.cmo \

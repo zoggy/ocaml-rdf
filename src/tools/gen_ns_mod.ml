@@ -52,9 +52,18 @@ let typ_prefix typ =
           ""
   | None -> "c_"
 
-let is_literal = function
-  None -> false
-| Some iri -> Iri.equal Rdf_rdfs.c_Literal iri
+let xsd_string = Iri.of_string "http://www.w3.org/2001/XMLSchema#string"
+
+let is_literal typ range =
+ match typ with
+    Some iri when Iri.equal iri Rdf_owl.c_DatatypeProperty -> true
+  | _ ->
+      match range with
+        None -> false
+      | Some iri ->
+          Iri.equal Rdf_rdfs.c_Literal iri ||
+            Iri.equal Rdf_rdfs.c_Datatype iri ||
+            Iri.equal xsd_string iri
 
 let caml_id ?(protect=false) s typ =
   let typ_prefix = typ_prefix typ in
@@ -108,6 +117,11 @@ let get_properties g =
             try Some (Rdf_sparql.get_iri sol (g.Rdf_graph.name()) "range")
             with _ -> None
           in
+          (*prerr_endline (Printf.sprintf "prop=%s\n  type=%s\n  range=%s"
+            (Iri.to_string prop)
+            (match typ with None -> "NONE" | Some i -> Iri.to_string i)
+            (match range with None -> "NONE" | Some i -> Iri.to_string i)
+            );*)
           let comment =
             if Rdf_sparql.is_bound sol "comment_en" then
               Some (Rdf_sparql.get_string sol "comment_en")
@@ -169,7 +183,7 @@ let gen_impl ?(comments=true) oc prefix base props =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        let f = if is_literal range
+        let f = if is_literal typ range
           then  "Rdf_graph.literal_objects_of"
           else "Rdf_graph.iri_objects_of"
         in
@@ -208,7 +222,7 @@ let gen_intf oc prefix base props =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        let t = if is_literal range then "Rdf_term.literal" else "Iri.t" in
+        let t = if is_literal typ range then "Rdf_term.literal" else "Iri.t" in
         p "    method %s : %s list\n" id t
      | _ -> ()
   in

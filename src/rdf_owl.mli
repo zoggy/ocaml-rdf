@@ -470,7 +470,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method bottomObjectProperty : Iri.t list
     method cardinality : Iri.t list
     method complementOf : Iri.t list
-    method datatypeComplementOf : Iri.t list
+    method datatypeComplementOf : Rdf_term.literal list
     method deprecated : Iri.t list
     method differentFrom : Iri.t list
     method disjointUnionOf : Iri.t list
@@ -490,8 +490,8 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method minCardinality : Iri.t list
     method minQualifiedCardinality : Iri.t list
     method onClass : Iri.t list
-    method onDataRange : Iri.t list
-    method onDatatype : Iri.t list
+    method onDataRange : Rdf_term.literal list
+    method onDatatype : Rdf_term.literal list
     method onProperties : Iri.t list
     method onProperty : Iri.t list
     method oneOf : Iri.t list

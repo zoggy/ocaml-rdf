@@ -430,10 +430,10 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method after : Iri.t list
     method before : Iri.t list
-    method day : Iri.t list
+    method day : Rdf_term.literal list
     method dayOfWeek : Iri.t list
-    method dayOfYear : Iri.t list
-    method days : Iri.t list
+    method dayOfYear : Rdf_term.literal list
+    method days : Rdf_term.literal list
     method hasBeginning : Iri.t list
     method hasDateTimeDescription : Iri.t list
     method hasDuration : Iri.t list
@@ -441,11 +441,11 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method hasEnd : Iri.t list
     method hasMember : Iri.t list
     method hasTRS : Iri.t list
-    method hour : Iri.t list
-    method hours : Iri.t list
+    method hour : Rdf_term.literal list
+    method hours : Rdf_term.literal list
     method inDateTime : Iri.t list
     method inTimePosition : Iri.t list
-    method inXSDDateTime : Iri.t list
+    method inXSDDateTime : Rdf_term.literal list
     method inside : Iri.t list
     method intervalAfter : Iri.t list
     method intervalBefore : Iri.t list
@@ -460,20 +460,20 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method intervalOverlaps : Iri.t list
     method intervalStartedBy : Iri.t list
     method intervalStarts : Iri.t list
-    method minute : Iri.t list
-    method minutes : Iri.t list
-    method month : Iri.t list
-    method months : Iri.t list
-    method nominalPosition : Iri.t list
-    method numericDuration : Iri.t list
-    method numericPosition : Iri.t list
-    method second : Iri.t list
-    method seconds : Iri.t list
+    method minute : Rdf_term.literal list
+    method minutes : Rdf_term.literal list
+    method month : Rdf_term.literal list
+    method months : Rdf_term.literal list
+    method nominalPosition : Rdf_term.literal list
+    method numericDuration : Rdf_term.literal list
+    method numericPosition : Rdf_term.literal list
+    method second : Rdf_term.literal list
+    method seconds : Rdf_term.literal list
     method timeZone : Iri.t list
     method unitType : Iri.t list
-    method week : Iri.t list
-    method weeks : Iri.t list
-    method xsdDateTime : Iri.t list
-    method year : Iri.t list
-    method years : Iri.t list
+    method week : Rdf_term.literal list
+    method weeks : Rdf_term.literal list
+    method xsdDateTime : Rdf_term.literal list
+    method year : Rdf_term.literal list
+    method years : Rdf_term.literal list
   end

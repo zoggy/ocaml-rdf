@@ -753,7 +753,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method aq : Iri.t list
     method asInBundle : Iri.t list
     method atLocation : Iri.t list
-    method atTime : Iri.t list
+    method atTime : Rdf_term.literal list
     method category : Iri.t list
     method component : Iri.t list
     method constraints : Iri.t list
@@ -765,10 +765,10 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method dm : Iri.t list
     method editorialNote : Iri.t list
     method editorsDefinition : Iri.t list
-    method endedAtTime : Iri.t list
+    method endedAtTime : Rdf_term.literal list
     method entity : Iri.t list
     method generated : Iri.t list
-    method generatedAtTime : Iri.t list
+    method generatedAtTime : Rdf_term.literal list
     method hadActivity : Iri.t list
     method hadDictionaryMember : Iri.t list
     method hadGeneration : Iri.t list
@@ -784,7 +784,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method influencer : Iri.t list
     method insertedKeyEntityPair : Iri.t list
     method invalidated : Iri.t list
-    method invalidatedAtTime : Iri.t list
+    method invalidatedAtTime : Rdf_term.literal list
     method inverse : Iri.t list
     method mentionOf : Iri.t list
     method n : Iri.t list
@@ -792,7 +792,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method pairEntity : Iri.t list
     method pairKey : Rdf_term.literal list
     method pingback : Iri.t list
-    method provenanceUriTemplate : Iri.t list
+    method provenanceUriTemplate : Rdf_term.literal list
     method qualifiedAssociation : Iri.t list
     method qualifiedAttribution : Iri.t list
     method qualifiedCommunication : Iri.t list
@@ -813,11 +813,11 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method removedKey : Rdf_term.literal list
     method sharesDefinitionWith : Iri.t list
     method specializationOf : Iri.t list
-    method startedAtTime : Iri.t list
+    method startedAtTime : Rdf_term.literal list
     method todo : Iri.t list
     method unqualifiedForm : Iri.t list
     method used : Iri.t list
-    method value : Iri.t list
+    method value : Rdf_term.literal list
     method wasAssociatedWith : Iri.t list
     method wasAttributedTo : Iri.t list
     method wasDerivedFrom : Iri.t list

@@ -590,11 +590,11 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method next_by_date : Iri.t list
     method next_version : Iri.t list
     method note : Rdf_term.literal list
-    method num_authors : Iri.t list
-    method num_items : Iri.t list
-    method num_replies : Iri.t list
-    method num_threads : Iri.t list
-    method num_views : Iri.t list
+    method num_authors : Rdf_term.literal list
+    method num_items : Rdf_term.literal list
+    method num_replies : Rdf_term.literal list
+    method num_threads : Rdf_term.literal list
+    method num_views : Rdf_term.literal list
     method owner_of : Iri.t list
     method parent_of : Iri.t list
     method part_of : Iri.t list
