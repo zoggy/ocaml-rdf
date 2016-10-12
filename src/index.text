@@ -29,6 +29,7 @@ Rdf_utils
 
 {2 Namespaces}
 {!modules:
+Rdf_acl
 Rdf_dc
 Rdf_doap
 Rdf_earl
@@ -36,6 +37,11 @@ Rdf_foaf
 Rdf_ldp
 Rdf_owl
 Rdf_pim
+Rdf_prov
 Rdf_rdf
 Rdf_rdfs
+Rdf_sioc
+Rdf_solid
+Rdf_time
+Rdf_vcard
 }
