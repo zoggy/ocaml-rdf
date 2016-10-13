@@ -40,6 +40,9 @@ val contains : Iri.t
 (** Indicates which predicate is used in membership triples, and that the membership triple pattern is < membership-constant-URI , object-of-hasMemberRelation, member-URI >. *)
 val hasMemberRelation : Iri.t
 
+(** Links a resource to a container where notifications for the resource can be created and discovered. *)
+val inbox : Iri.t
+
 (** Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful. *)
 val insertedContentRelation : Iri.t
 
@@ -105,6 +108,9 @@ module Open : sig
   (** Indicates which predicate is used in membership triples, and that the membership triple pattern is < membership-constant-URI , object-of-hasMemberRelation, member-URI >. *)
   val ldp_hasMemberRelation : Iri.t
 
+  (** Links a resource to a container where notifications for the resource can be created and discovered. *)
+  val ldp_inbox : Iri.t
+
   (** Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful. *)
   val ldp_insertedContentRelation : Iri.t
 
@@ -139,6 +145,7 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method constrainedBy : Iri.t list
     method contains : Iri.t list
     method hasMemberRelation : Iri.t list
+    method inbox : Iri.t list
     method insertedContentRelation : Iri.t list
     method isMemberOfRelation : Iri.t list
     method member : Iri.t list

@@ -5,6 +5,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix dcterms: <http://purl.org/dc/terms/>.
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix : <http://www.w3.org/ns/ldp#>.
 
 :
@@ -13,6 +16,12 @@
 	dcterms:title "The W3C Linked Data Platform (LDP) Vocabulary";
 	rdfs:label "W3C Linked Data Platform (LDP)";
 	rdfs:comment "This ontology provides an informal representation of the concepts and terms as defined in the LDP specification.  Consult the LDP specification for normative reference.";
+  dcterms:publisher <http://www.w3.org/data#W3C>;
+  dcterms:creator [foaf:name "Steve Speicher"], [foaf:name "John Arwe"], [foaf:name "Ashok Malhotra"];
+  foaf:maker [foaf:homepage <http://www.w3.org/2012/ldp>];
+  dcterms:created "2015-02-26"^^xsd:date;
+  vann:preferredNamespaceUri "http://www.w3.org/ns/ldp#";
+  vann:preferredNamespacePrefix "ldp";
 	rdfs:seeAlso <http://www.w3.org/2012/ldp>,
 		<http://www.w3.org/TR/ldp-ucr/>,
 		<http://www.w3.org/TR/ldp/>,
@@ -245,3 +254,11 @@
 	rdfs:isDefinedBy :;
 	rdfs:label "Page".
 
+:inbox
+    a rdf:Property;
+    rdfs:comment "Links a resource to a container where notifications for the resource can be created and discovered.";
+    vs:term_status "working-draft";
+    rdfs:isDefinedBy <https://www.w3.org/TR/ldn/>;
+    rdfs:label "inbox";
+    dcterms:issued "2016-09-29"^^xsd:date;
+    dcterms:creator <http://csarven.ca/#i>, <https://rhiaro.co.uk/#me>.
