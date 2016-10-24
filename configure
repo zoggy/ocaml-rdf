@@ -1729,7 +1729,7 @@ fi
 
 
 RDF_PACKAGES="$PACKAGE, $PACKAGE.js, $PACKAGE.ppx"
-PACKAGES=calendar,uri,uuidm,uutf,xmlm,sedlex,menhirLib,cryptokit,pcre,yojson,iri
+PACKAGES=calendar,uri,uuidm,uutf,xmlm,sedlex,menhirLib,cryptokit,pcre,yojson,iri,jsonm
 if test -n "$LIB_MYSQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.mysql"; PACKAGES=$PACKAGES,mysql; fi
 if test -n "$LIB_POSTGRESQL" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.postgresql"; PACKAGES=$PACKAGES,postgresql; fi
 if test -n "$LIB_LWT" ; then RDF_PACKAGES="$RDF_PACKAGES, $PACKAGE.lwt"; LWT_PACKAGES="cohttp.lwt,lwt.ppx"; fi

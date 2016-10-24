@@ -905,6 +905,7 @@ let _ = check_ocamlfind_package conf "uri";;
 let _ = check_ocamlfind_package conf "pcre";;
 let _ = check_ocamlfind_package conf "cryptokit";;
 let _ = check_ocamlfind_package conf "yojson";;
+let _ = check_ocamlfind_package conf "jsonm";;
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "mysql" with
