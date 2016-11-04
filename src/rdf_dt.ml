@@ -100,7 +100,7 @@ module ValueOrdered =
       | Bool b1, Bool b2 -> Pervasives.compare b1 b2
       | Bool _, _ -> 1
       | _, Bool _ -> -1
-      | Datetime d1, Datetime d2 -> 
+      | Datetime d1, Datetime d2 ->
           CalendarLib.Fcalendar.compare d1 d2
       | Datetime _, _ -> 1
       | _, Datetime _ -> -1
@@ -124,10 +124,11 @@ let rec string_of_error = function
 | Exception (Error e) ->
     string_of_error e
 | Exception e ->
-   let s =
-     match e with
-       Failure s -> "Failure: "^s
-     | e -> Printexc.to_string e
+    let s =
+      match e with
+        Failure s -> "Failure: "^s
+      | Iri.Error e -> Iri.string_of_error e
+      | e -> Printexc.to_string e
     in
     "Exception "^s
 ;;
