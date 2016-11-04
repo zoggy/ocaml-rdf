@@ -1,13 +1,13 @@
 version = "@VERSION@"
 description = "RDF and Sparql with OCaml"
-requires = "calendar,uri,iri,uuidm,xmlm,sedlex,cryptokit,pcre,menhirLib,yojson"
+requires = "calendar,uri,iri,uuidm,xmlm,sedlex,cryptokit,pcre,menhirLib,yojson,jsonm"
 archive(byte) = "rdf.cma"
 archive(native) = "rdf.cmxa"
 archive(native,plugin) = "rdf.cmxs"
 
 package "js" (
   description = "RDF and Sparql with OCaml - Library to compile to Javascript"
-  requires = "calendar,uri,iri,uuidm,xmlm,sedlex,menhirLib,yojson"
+  requires = "calendar,uri,iri,uuidm,xmlm,sedlex,menhirLib,yojson,jsonm"
   archive(byte) = "rdf_js.cma"
 )
 package "mysql" (
