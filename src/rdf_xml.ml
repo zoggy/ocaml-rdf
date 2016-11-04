@@ -191,8 +191,7 @@ let abs_iri state iri =
      match Iri.is_relative iri with
        false -> iri
      | true ->
-         let str = (Iri.to_string state.xml_base)^(Iri.to_string iri) in
-         Iri.of_string str
+       Iri.resolve ~base: state.xml_base iri
    in
    (*prerr_endline (Printf.sprintf "=> %s" (Iri.to_string iri));*)
    iri

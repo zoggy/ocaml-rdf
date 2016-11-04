@@ -9,6 +9,7 @@ Next release:
 - add time ontology (Rdf_time)
 - add missing properties and classes in rdf_{dc,doap,foaf,earl,owl}
 - add 'from' class in rdf_{...} ontology modules
+- various fixes
 
 Release 0.10.0:
 - change of interface in namespace modules
