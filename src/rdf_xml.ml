@@ -164,6 +164,13 @@ type global_state =
 exception Invalid_rdf of string
 let error s = raise (Invalid_rdf s);;
 
+let () = Printexc.register_printer
+  (function
+   | Invalid_rdf str ->
+       Some (Printf.sprintf "Invalid RDF: %s" str)
+   | _ -> None)
+
+
 let get_att att l = try Some (List.assoc att l) with Not_found -> None;;
 let get_att_iri =
   let rec iter pred = function

@@ -40,6 +40,12 @@ let string_of_error = function
     "Unknown namespace '" ^ s ^ "'"
 ;;
 
+let () = Printexc.register_printer
+  (function
+   | Error e ->
+       Some (Printf.sprintf "Parse error: %s" (string_of_error e))
+   | _ -> None)
+
 let iri_of_iriref ctx s =
   Iri.resolve ~base: ctx.base (Iri.of_string ~pctdecode:false s);;
 
@@ -178,7 +184,7 @@ let from_lexbuf g ?(base=g.Rdf_graph.name()) ?fname lexbuf =
           match e with
             Rdf_ttl_parser.Error ->
               let lexeme = Sedlexing.Utf8.lexeme lexbuf in
-              Printf.sprintf "Parse error on lexeme %S" lexeme
+              Printf.sprintf "Error on lexeme %S" lexeme
           | Failure msg -> msg
           | Iri.Error e -> Iri.string_of_error e
           | e -> Printexc.to_string e
