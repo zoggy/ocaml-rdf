@@ -31,7 +31,7 @@ let dbg = Rdf_my.dbg;;
 
 let table_options engine =
   " ENGINE="^engine^
-    (if String.lowercase engine = "myisam" then " DELAY_KEY_WRITE=1" else "")^
+    (if String.lowercase_ascii engine = "myisam" then " DELAY_KEY_WRITE=1" else "")^
     " MAX_ROWS=100000000 DEFAULT CHARSET=UTF8"
 ;;
 
@@ -227,7 +227,7 @@ let open_graph ?(options=[]) name =
       | s -> s
     with Not_found -> "InnoDB"
   in
-  let engine = String.uppercase engine in
+  let engine = String.uppercase_ascii engine in
   let dbd = init_db db engine in
   let table_name = init_graph dbd engine name in
   { g_name = name ;
