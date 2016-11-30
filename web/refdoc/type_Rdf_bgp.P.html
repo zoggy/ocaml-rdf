@@ -1,15 +1,15 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_bgp.P</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;g<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;term<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;term&#160;:&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;rdfterm&#160;:&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;subjects&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;objects&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;find&#160;:<br/>
-&#160;&#160;&#160;&#160;?sub:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;?pred:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;?obj:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;(<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;*&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;*&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term)&#160;list<br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">type</span>&#160;g
+&#160;&#160;<span class="keyword">type</span>&#160;term
+&#160;&#160;<span class="keyword">val</span>&#160;term&#160;:&#160;<span class="constructor">Rdf_term</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term
+&#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;int
+&#160;&#160;<span class="keyword">val</span>&#160;rdfterm&#160;:&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_term</span>.term
+&#160;&#160;<span class="keyword">val</span>&#160;subjects&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;objects&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;find&#160;:
+&#160;&#160;&#160;&#160;?sub:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;?pred:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;?obj:<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;(<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;*&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term&#160;*&#160;<span class="constructor">Rdf_bgp</span>.<span class="constructor">P</span>.term)&#160;list
 <span class="keyword">end</span></code></div></contents></ocamldoc>

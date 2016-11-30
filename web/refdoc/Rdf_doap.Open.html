@@ -7,24 +7,60 @@
 
 <pre><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_doap.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
 
-<pre><span id="VALdoap_anon_root"><span class="keyword">val</span> doap_anon_root</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Repository for anonymous access.<br/>
-</div>
-
 <pre><span id="VALdoap_c_ArchRepository"><span class="keyword">val</span> doap_c_ArchRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
 GNU Arch source code repository.<br/>
 </div>
 
-<pre><span id="VALdoap_audience"><span class="keyword">val</span> doap_audience</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Description of target user base<br/>
+<pre><span id="VALdoap_c_BKRepository"><span class="keyword">val</span> doap_c_BKRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+BitKeeper source code repository.<br/>
 </div>
 
 <pre><span id="VALdoap_c_BazaarBranch"><span class="keyword">val</span> doap_c_BazaarBranch</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Bazaar source code branch.<br/>
 </div>
 
-<pre><span id="VALdoap_c_BKRepository"><span class="keyword">val</span> doap_c_BKRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-BitKeeper source code repository.<br/>
+<pre><span id="VALdoap_c_CVSRepository"><span class="keyword">val</span> doap_c_CVSRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+CVS source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_DarcsRepository"><span class="keyword">val</span> doap_c_DarcsRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+darcs source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_GitRepository"><span class="keyword">val</span> doap_c_GitRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Git source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_HgRepository"><span class="keyword">val</span> doap_c_HgRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Mercurial source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_Project"><span class="keyword">val</span> doap_c_Project</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A project.<br/>
+</div>
+
+<pre><span id="VALdoap_c_Repository"><span class="keyword">val</span> doap_c_Repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_SVNRepository"><span class="keyword">val</span> doap_c_SVNRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Subversion source code repository.<br/>
+</div>
+
+<pre><span id="VALdoap_c_Specification"><span class="keyword">val</span> doap_c_Specification</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A specification of a system's aspects, technical or otherwise.<br/>
+</div>
+
+<pre><span id="VALdoap_c_Version"><span class="keyword">val</span> doap_c_Version</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Version information of a project release.<br/>
+</div>
+
+<pre><span id="VALdoap_anon_root"><span class="keyword">val</span> doap_anon_root</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Repository for anonymous access.<br/>
+</div>
+
+<pre><span id="VALdoap_audience"><span class="keyword">val</span> doap_audience</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of target user base<br/>
 </div>
 
 <pre><span id="VALdoap_blog"><span class="keyword">val</span> doap_blog</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -45,14 +81,6 @@ A category of project.<br/>
 
 <pre><span id="VALdoap_created"><span class="keyword">val</span> doap_created</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05<br/>
-</div>
-
-<pre><span id="VALdoap_c_CVSRepository"><span class="keyword">val</span> doap_c_CVSRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-CVS source code repository.<br/>
-</div>
-
-<pre><span id="VALdoap_c_DarcsRepository"><span class="keyword">val</span> doap_c_DarcsRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-darcs source code repository.<br/>
 </div>
 
 <pre><span id="VALdoap_description"><span class="keyword">val</span> doap_description</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -79,16 +107,8 @@ Web page from which the project software can be downloaded.<br/>
 URI of download associated with this release.<br/>
 </div>
 
-<pre><span id="VALdoap_c_GitRepository"><span class="keyword">val</span> doap_c_GitRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Git source code repository.<br/>
-</div>
-
 <pre><span id="VALdoap_helper"><span class="keyword">val</span> doap_helper</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Project contributor.<br/>
-</div>
-
-<pre><span id="VALdoap_c_HgRepository"><span class="keyword">val</span> doap_c_HgRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Mercurial source code repository.<br/>
 </div>
 
 <pre><span id="VALdoap_homepage"><span class="keyword">val</span> doap_homepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -101,10 +121,6 @@ A specification that a project implements. Could be a standard, API or legally d
 
 <pre><span id="VALdoap_language"><span class="keyword">val</span> doap_language</span> : <code class="type">Iri.t</code></pre><div class="info ">
 このプロジェクトの翻訳された言語のISO言語コート<br/>
-</div>
-
-<pre><span id="VALdoap_language"><span class="keyword">val</span> doap_language</span> : <code class="type">Iri.t</code></pre><div class="info ">
-ISO language code a project has been translated into<br/>
 </div>
 
 <pre><span id="VALdoap_license"><span class="keyword">val</span> doap_license</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -147,16 +163,8 @@ Indicator of software platform (non-OS specific), e.g. Java, Firefox, ECMA CLR<b
 Programming language a project is implemented in or intended for use with.<br/>
 </div>
 
-<pre><span id="VALdoap_c_Project"><span class="keyword">val</span> doap_c_Project</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A project.<br/>
-</div>
-
 <pre><span id="VALdoap_release"><span class="keyword">val</span> doap_release</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A project release.<br/>
-</div>
-
-<pre><span id="VALdoap_c_Repository"><span class="keyword">val</span> doap_c_Repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Source code repository.<br/>
 </div>
 
 <pre><span id="VALdoap_repository"><span class="keyword">val</span> doap_repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -179,20 +187,8 @@ The URI of a web service endpoint where software as a service may be accessed<br
 Short (8 or 9 words) plain text description of a project.<br/>
 </div>
 
-<pre><span id="VALdoap_c_Specification"><span class="keyword">val</span> doap_c_Specification</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A specification of a system's aspects, technical or otherwise.<br/>
-</div>
-
-<pre><span id="VALdoap_c_SVNRepository"><span class="keyword">val</span> doap_c_SVNRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Subversion source code repository.<br/>
-</div>
-
 <pre><span id="VALdoap_tester"><span class="keyword">val</span> doap_tester</span> : <code class="type">Iri.t</code></pre><div class="info ">
 このプロジェクトのため、試験をする人や品質メンテナー。<br/>
-</div>
-
-<pre><span id="VALdoap_tester"><span class="keyword">val</span> doap_tester</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A tester or other quality control contributor.<br/>
 </div>
 
 <pre><span id="VALdoap_translator"><span class="keyword">val</span> doap_translator</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -201,10 +197,6 @@ Contributor of translations to the project.<br/>
 
 <pre><span id="VALdoap_vendor"><span class="keyword">val</span> doap_vendor</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Vendor organization: commercial, free or otherwise<br/>
-</div>
-
-<pre><span id="VALdoap_c_Version"><span class="keyword">val</span> doap_c_Version</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Version information of a project release.<br/>
 </div>
 
 <pre><span id="VALdoap_wiki"><span class="keyword">val</span> doap_wiki</span> : <code class="type">Iri.t</code></pre><div class="info ">

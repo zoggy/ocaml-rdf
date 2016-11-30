@@ -64,6 +64,20 @@ let build_namespaces ?(namespaces=[]) g =
   Irimap.fold (fun iri s acc -> (s, Iri.to_string iri) :: acc) map []
 ;;
 
+let string_of_literal lit =
+  let s =
+    (lit.lit_value) ^
+      (match lit.lit_language with
+         None -> ""
+       | Some l -> "@" ^ l
+      ) ^
+      (match lit.lit_type with
+         None -> ""
+       | Some t -> "^^<" ^ (Iri.to_string t) ^ ">"
+      )
+  in
+  Printf.sprintf "\"%s\"" (Rdf_utf8.utf8_backslash_quotes s)
+
 let dot_of_graph ?namespaces ?href ?iri g =
   let namespaces = build_namespaces ?namespaces g in
   let b = Buffer.create 256 in
@@ -90,11 +104,7 @@ let dot_of_graph ?namespaces ?href ?iri g =
           end
         in
         Printf.sprintf "%S" s
-    | Literal lit ->
-        Rdf_term.string_of_literal lit
-        (*lit.lit_value
-          ^ (match lit.lit_language with None -> "" | Some s -> "^"^s)
-          ^ (match lit.lit_type with None -> "" | Some iri -> "@"^(Iri.to_string iri))*)
+    | Literal lit -> string_of_literal lit
     | Blank_ _ | Blank -> "\"\""
   in
   let id node =

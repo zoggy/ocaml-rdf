@@ -1,148 +1,148 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_sparql_algebra</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">T</span>&#160;=&#160;<span class="constructor">Rdf_sparql_types</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;error&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Variable_already_defined</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Unknown_prefix</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns<br/>
-&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.error<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;error&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_error&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;query_proj&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause&#160;option;<br/>
-&#160;&#160;&#160;&#160;query_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;&#160;&#160;query_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;&#160;&#160;query_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;filter&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_<br/>
-&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Implicit_aggregate_found</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;path&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Var</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Inv</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Alt</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Seq</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ZeroOrMore</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OneOrMore</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ZeroOrOne</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NPS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;triple&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term<br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">VS</span>&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;algebra&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BGP</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Join</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LeftJoin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.filter&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Filter</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.filter&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Union</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Graph</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Extend</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Minus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ToMultiset</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataToMultiset</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Group</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;list&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Aggregation</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">AggregateJoin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Project</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">VS</span>.t<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Distinct</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Reduced</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Slice</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;int&#160;option&#160;*&#160;int&#160;option<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderBy</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;visible_vars&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">VS</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;collect_and_remove_filters&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_&#160;list&#160;*<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;fresh_var&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;path_iri_first&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;path_iri_rest&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;iri_nil&#160;:&#160;<span class="constructor">T</span>.iri<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;iri_type&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;path_iri_type&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_path&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_path_sequence&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_path_elt_or_inverse&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.path_elt_or_inverse&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_path_elt&#160;:&#160;<span class="constructor">T</span>.path_elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_path_primary&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;partition_path_one_in_prop_set&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_property_path_pattern&#160;:<br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_property_path_patterns&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;build_triples_path&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.prop_object_list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;build_triples_prop_graph_node&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;build_triples_path_collection&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_triples_same_subject_path&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.triples_same_subject&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_ggp&#160;:&#160;<span class="constructor">T</span>.group_graph_pattern&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_subselect&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_ggp_sub&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_triples_block&#160;:&#160;<span class="constructor">T</span>.triples_block&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_union&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.group_graph_pattern&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_service&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">T</span>.service_graph_pattern&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_inline_data&#160;:&#160;<span class="constructor">T</span>.datablock&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;has_implicit_grouping&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;aggregation_step&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*<br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.var&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression)&#160;list&#160;*<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;translate_query_level&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;p&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_var_or_term&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_path&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_triple&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_triple&#160;:<br/>
-&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_triples&#160;:<br/>
-&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term)<br/>
-&#160;&#160;&#160;&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_expr&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_group_condition&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_order_cond&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print_order_conds&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;print&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_algebra&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">T</span>&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>
+&#160;&#160;<span class="keyword">type</span>&#160;error&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Variable_already_defined</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Unknown_prefix</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Error</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.error
+&#160;&#160;<span class="keyword">val</span>&#160;error&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_error&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.error&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">type</span>&#160;query&#160;=&#160;{
+&#160;&#160;&#160;&#160;query_proj&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause&#160;option;
+&#160;&#160;&#160;&#160;query_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;&#160;&#160;query_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;&#160;&#160;query_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;filter&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Implicit_aggregate_found</span>
+&#160;&#160;<span class="keyword">type</span>&#160;path&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Var</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Inv</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Alt</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Seq</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ZeroOrMore</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OneOrMore</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ZeroOrOne</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NPS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list
+&#160;&#160;<span class="keyword">type</span>&#160;triple&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">VS</span>&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>
+&#160;&#160;<span class="keyword">type</span>&#160;algebra&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BGP</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Join</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">LeftJoin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.filter&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Filter</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.filter&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Union</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Graph</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Extend</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Minus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ToMultiset</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataToMultiset</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Group</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;list&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Aggregation</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">AggregateJoin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Project</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;<span class="constructor">VS</span>.t
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Distinct</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Reduced</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Slice</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*&#160;int&#160;option&#160;*&#160;int&#160;option
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderBy</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;visible_vars&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">VS</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;collect_and_remove_filters&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_&#160;list&#160;*
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;fresh_var&#160;:&#160;unit&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;<span class="keyword">val</span>&#160;path_iri_first&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;path_iri_rest&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;iri_nil&#160;:&#160;<span class="constructor">T</span>.iri
+&#160;&#160;<span class="keyword">val</span>&#160;iri_type&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc
+&#160;&#160;<span class="keyword">val</span>&#160;path_iri_type&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;translate_path&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;translate_path_sequence&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;translate_path_elt_or_inverse&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.path_elt_or_inverse&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;translate_path_elt&#160;:&#160;<span class="constructor">T</span>.path_elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;translate_path_primary&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.path
+&#160;&#160;<span class="keyword">val</span>&#160;partition_path_one_in_prop_set&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;translate_property_path_pattern&#160;:
+&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;translate_property_path_patterns&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;build_triples_path&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.prop_object_list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;build_triples_prop_graph_node&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;build_triples_path_collection&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;translate_triples_same_subject_path&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.triple&#160;list&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.triples_same_subject&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;(<span class="constructor">T</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*&#160;<span class="constructor">T</span>.var_or_term)&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;translate_ggp&#160;:&#160;<span class="constructor">T</span>.group_graph_pattern&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_subselect&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_ggp_sub&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_triples_block&#160;:&#160;<span class="constructor">T</span>.triples_block&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_union&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.group_graph_pattern&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_service&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">T</span>.service_graph_pattern&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;translate_inline_data&#160;:&#160;<span class="constructor">T</span>.datablock&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;has_implicit_grouping&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;<span class="keyword">val</span>&#160;aggregation_step&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;*
+&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.var&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression)&#160;list&#160;*
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query
+&#160;&#160;<span class="keyword">val</span>&#160;translate_query_level&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_algebra</span>.query&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra
+&#160;&#160;<span class="keyword">val</span>&#160;p&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_var_or_term&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_path&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_triple&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;print_triple&#160;:
+&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print_triples&#160;:
+&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*&#160;<span class="constructor">Rdf_sparql_algebra</span>.path&#160;*
+&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term)
+&#160;&#160;&#160;&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print_expr&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print_group_condition&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print_order_cond&#160;:&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print_order_conds&#160;:
+&#160;&#160;&#160;&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;print&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Buffer</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_algebra&#160;:&#160;<span class="constructor">Rdf_sparql_algebra</span>.algebra&#160;<span class="keywordsign">-&gt;</span>&#160;string
 <span class="keyword">end</span></code></div></contents></ocamldoc>

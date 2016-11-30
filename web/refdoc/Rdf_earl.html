@@ -17,10 +17,6 @@ Elements of <code class="code">http://www.w3.org/ns/earl#</code><br/>
 </div>
 
 <pre><span id="VALearl_"><span class="keyword">val</span> earl_</span> : <code class="type">string -&gt; Iri.t</code></pre>
-<pre><span id="VALassertedBy"><span class="keyword">val</span> assertedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
-assertor of an assertion<br/>
-</div>
-
 <pre><span id="VALc_Assertion"><span class="keyword">val</span> c_Assertion</span> : <code class="type">Iri.t</code></pre><div class="info ">
 a statement that embodies the results of a test<br/>
 </div>
@@ -37,28 +33,12 @@ the class of outcomes to denote an undetermined outcome<br/>
 the class of outcomes to denote failing a test<br/>
 </div>
 
-<pre><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type">Iri.t</code></pre><div class="info ">
-additional warnings or error messages in a human-readable form<br/>
-</div>
-
-<pre><span id="VALmainAssertor"><span class="keyword">val</span> mainAssertor</span> : <code class="type">Iri.t</code></pre><div class="info ">
-assertor that is primarily responsible for performing the test<br/>
-</div>
-
-<pre><span id="VALmode"><span class="keyword">val</span> mode</span> : <code class="type">Iri.t</code></pre><div class="info ">
-mode in which the test was performed<br/>
-</div>
-
 <pre><span id="VALc_NotApplicable"><span class="keyword">val</span> c_NotApplicable</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote the test is not applicable<br/>
 </div>
 
 <pre><span id="VALc_NotTested"><span class="keyword">val</span> c_NotTested</span> : <code class="type">Iri.t</code></pre><div class="info ">
 the class of outcomes to denote the test has not been carried out<br/>
-</div>
-
-<pre><span id="VALoutcome"><span class="keyword">val</span> outcome</span> : <code class="type">Iri.t</code></pre><div class="info ">
-outcome of performing the test<br/>
 </div>
 
 <pre><span id="VALc_OutcomeValue"><span class="keyword">val</span> c_OutcomeValue</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -69,24 +49,8 @@ a discrete value that describes a resulting condition from carrying out the test
 the class of outcomes to denote passing a test<br/>
 </div>
 
-<pre><span id="VALpointer"><span class="keyword">val</span> pointer</span> : <code class="type">Iri.t</code></pre><div class="info ">
-location within a test subject that are most relevant to a test result<br/>
-</div>
-
-<pre><span id="VALresult"><span class="keyword">val</span> result</span> : <code class="type">Iri.t</code></pre><div class="info ">
-result of an assertion<br/>
-</div>
-
 <pre><span id="VALc_Software"><span class="keyword">val</span> c_Software</span> : <code class="type">Iri.t</code></pre><div class="info ">
 any piece of software such as an authoring tool, browser, or evaluation tool<br/>
-</div>
-
-<pre><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre><div class="info ">
-test subject of an assertion<br/>
-</div>
-
-<pre><span id="VALtest"><span class="keyword">val</span> test</span> : <code class="type">Iri.t</code></pre><div class="info ">
-test criterion of an assertion<br/>
 </div>
 
 <pre><span id="VALc_TestCase"><span class="keyword">val</span> c_TestCase</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -113,4 +77,41 @@ the actual result of performing the test<br/>
 the class of things that have been tested against some test criterion<br/>
 </div>
 
-<pre><span class="keyword">module</span> <a href="Rdf_earl.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_earl.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>
+<pre><span id="VALassertedBy"><span class="keyword">val</span> assertedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+assertor of an assertion<br/>
+</div>
+
+<pre><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type">Iri.t</code></pre><div class="info ">
+additional warnings or error messages in a human-readable form<br/>
+</div>
+
+<pre><span id="VALmainAssertor"><span class="keyword">val</span> mainAssertor</span> : <code class="type">Iri.t</code></pre><div class="info ">
+assertor that is primarily responsible for performing the test<br/>
+</div>
+
+<pre><span id="VALmode"><span class="keyword">val</span> mode</span> : <code class="type">Iri.t</code></pre><div class="info ">
+mode in which the test was performed<br/>
+</div>
+
+<pre><span id="VALoutcome"><span class="keyword">val</span> outcome</span> : <code class="type">Iri.t</code></pre><div class="info ">
+outcome of performing the test<br/>
+</div>
+
+<pre><span id="VALpointer"><span class="keyword">val</span> pointer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+location within a test subject that are most relevant to a test result<br/>
+</div>
+
+<pre><span id="VALresult"><span class="keyword">val</span> result</span> : <code class="type">Iri.t</code></pre><div class="info ">
+result of an assertion<br/>
+</div>
+
+<pre><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre><div class="info ">
+test subject of an assertion<br/>
+</div>
+
+<pre><span id="VALtest"><span class="keyword">val</span> test</span> : <code class="type">Iri.t</code></pre><div class="info ">
+test criterion of an assertion<br/>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Rdf_earl.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_earl.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_earl.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_earl.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

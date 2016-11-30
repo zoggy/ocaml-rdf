@@ -7,27 +7,58 @@
 
 <pre><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_pim.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
 
+<pre><span id="VALpim_c_ConfigurationFile"><span class="keyword">val</span> pim_c_ConfigurationFile</span> : <code class="type">Iri.t</code></pre>
 <pre><span id="VALpim_c_ControlledStorage"><span class="keyword">val</span> pim_c_ControlledStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A  storage is a space of URIs in which you can individually control for each resource
     who has access to it.<br/>
 </div>
 
-<pre><span id="VALpim_masterWorkspace"><span class="keyword">val</span> pim_masterWorkspace</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALpim_c_MasterWorkspace"><span class="keyword">val</span> pim_c_MasterWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This is a workspace for storing the 
+    information about the other workspaces.
+    As a user, you normally don't have to worry about it.<br/>
+</div>
+
 <pre><span id="VALpim_c_PersonalStorage"><span class="keyword">val</span> pim_c_PersonalStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A personal storage is a space of URIs in which you and only you have access to data,
     you cannot give access to anyone else.<br/>
 </div>
 
-<pre><span id="VALpim_preferencesFile"><span class="keyword">val</span> pim_preferencesFile</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALpim_c_PreferencesWorkspace"><span class="keyword">val</span> pim_c_PreferencesWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+AAceess may not be open to the public. 
+    Contains preferences resources<br/>
+</div>
+
+<pre><span id="VALpim_c_PrivateWorkspace"><span class="keyword">val</span> pim_c_PrivateWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Access only by the you, the user.<br/>
+</div>
+
 <pre><span id="VALpim_c_PublicStorage"><span class="keyword">val</span> pim_c_PublicStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A public storage is a space of URIs in which you have access to data,
     and all data is accessible to anyone without control.<br/>
+</div>
+
+<pre><span id="VALpim_c_PublicWorkspace"><span class="keyword">val</span> pim_c_PublicWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Aceess is open to the public. Anything in a public workspace
+    can be accesed by anyone.<br/>
+</div>
+
+<pre><span id="VALpim_c_SharedWorkspace"><span class="keyword">val</span> pim_c_SharedWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Access is to some but not all people.<br/>
 </div>
 
 <pre><span id="VALpim_c_Storage"><span class="keyword">val</span> pim_c_Storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A storage is a space of URIs in which you have access to data.<br/>
 </div>
 
+<pre><span id="VALpim_c_Workspace"><span class="keyword">val</span> pim_c_Workspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Workspaces are place where data is stored, and associated polices of privacy.
+A given application typically stores information in several different
+workspaces, some being user private, some shared, and some public.<br/>
+</div>
+
+<pre><span id="VALpim_masterWorkspace"><span class="keyword">val</span> pim_masterWorkspace</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALpim_preferencesFile"><span class="keyword">val</span> pim_preferencesFile</span> : <code class="type">Iri.t</code></pre>
 <pre><span id="VALpim_storage"><span class="keyword">val</span> pim_storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The storage in which this workspace is<br/>
 </div>
@@ -35,12 +66,6 @@ The storage in which this workspace is<br/>
 <pre><span id="VALpim_uriPrefix"><span class="keyword">val</span> pim_uriPrefix</span> : <code class="type">Iri.t</code></pre><div class="info ">
 URIs which start with this string are in this workspace or storage.
 This may be used for constructing URIs for new storage resources.<br/>
-</div>
-
-<pre><span id="VALpim_c_Workspace"><span class="keyword">val</span> pim_c_Workspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Workspaces are place where data is stored, and associated polices of privacy.
-A given application typically stores information in several different
-workspaces, some being user private, some shared, and some public.<br/>
 </div>
 
 <pre><span id="VALpim_workspace"><span class="keyword">val</span> pim_workspace</span> : <code class="type">Iri.t</code></pre></div></contents></ocamldoc>

@@ -391,6 +391,17 @@ let utf8_uppercase s =
   Bytes.to_string b
 ;;
 
-
+let quote_char = Uchar.of_char '"'
+let utf8_backslash_quotes s =
+  let b = Buffer.create 64 in
+  let f () _i = function
+  | `Malformed str -> Buffer.add_string b str
+  | `Uchar cp ->
+      if Uchar.equal cp quote_char then
+        Buffer.add_char b '\\' ;
+      Uutf.Buffer.add_utf_8 b cp
+  in
+  Uutf.String.fold_utf_8 f () s;
+  Buffer.contents b
 
 

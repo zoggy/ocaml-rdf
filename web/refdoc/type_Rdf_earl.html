@@ -1,56 +1,70 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_earl</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">val</span>&#160;earl&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;earl_&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;assertedBy&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Assertion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Assertor&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_CannotTell&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Fail&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;info&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;mainAssertor&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;mode&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_NotApplicable&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_NotTested&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;outcome&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_OutcomeValue&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Pass&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pointer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;result&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Software&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;subject&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;test&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestCase&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestCriterion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestMode&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestRequirement&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestResult&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_TestSubject&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Open</span>&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_assertedBy&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Assertion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Assertor&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_CannotTell&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Fail&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_info&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_mainAssertor&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_mode&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_NotApplicable&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_NotTested&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_outcome&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_OutcomeValue&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Pass&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_pointer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_result&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Software&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_subject&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_test&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestCase&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestCriterion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestMode&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestRequirement&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestResult&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestSubject&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">val</span>&#160;earl&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;earl_&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Assertion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Assertor&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_CannotTell&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Fail&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_NotApplicable&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_NotTested&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_OutcomeValue&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Pass&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Software&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestCase&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestCriterion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestMode&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestRequirement&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestResult&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TestSubject&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;assertedBy&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;info&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;mainAssertor&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;mode&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;outcome&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pointer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;result&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;subject&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;test&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Open</span>&#160;:
+&#160;&#160;&#160;&#160;<span class="keyword">sig</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Assertion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Assertor&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_CannotTell&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Fail&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_NotApplicable&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_NotTested&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_OutcomeValue&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Pass&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_Software&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestCase&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestCriterion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestMode&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestRequirement&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestResult&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_c_TestSubject&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_assertedBy&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_info&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_mainAssertor&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_mode&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_outcome&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_pointer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_result&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_subject&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;earl_test&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
+&#160;&#160;<span class="keyword">class</span>&#160;from&#160;:
+&#160;&#160;&#160;&#160;?sub:<span class="constructor">Iri</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="keyword">object</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;assertedBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;info&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;mainAssertor&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;mode&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;outcome&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pointer&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;result&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;subject&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;test&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
 <span class="keyword">end</span></code></div></contents></ocamldoc>

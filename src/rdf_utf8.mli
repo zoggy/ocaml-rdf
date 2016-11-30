@@ -100,3 +100,8 @@ val utf8_lowercase : string -> string
   @warning By now, it only applies OCaml's [Char.uppercase] on one byte long characters.
 *)
 val utf8_uppercase : string -> string
+
+(** [utf8_backslash_quotes s] returns a new string like [s]
+  with a backslash before each double quotes.*)
+val utf8_backslash_quotes : string -> string
+

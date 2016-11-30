@@ -1,50 +1,70 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_ldp</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">val</span>&#160;ldp&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;ldp_&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_BasicContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;constrainedBy&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Container&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;contains&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_DirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;hasMemberRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_IndirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;insertedContentRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;isMemberOfRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;member&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;membershipResource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_NonRDFSource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Page&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pageSequence&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pageSortCollation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pageSortCriteria&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_PageSortCriterion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pageSortOrder&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;pageSortPredicate&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_RDFSource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;c_Resource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Open</span>&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_BasicContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_constrainedBy&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Container&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_contains&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_DirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_hasMemberRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_IndirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_insertedContentRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_isMemberOfRelation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_member&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_membershipResource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_NonRDFSource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Page&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSequence&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortCollation&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortCriteria&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_PageSortCriterion&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortOrder&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortPredicate&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_RDFSource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Resource&#160;:&#160;<span class="constructor">Iri</span>.t<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">val</span>&#160;ldp&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;ldp_&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_BasicContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Container&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_DirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_IndirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_NonRDFSource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Page&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_PageSortCriterion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_RDFSource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Resource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;constrainedBy&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;contains&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;hasMemberRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;insertedContentRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;isMemberOfRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;member&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;membershipResource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pageSequence&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pageSortCollation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pageSortCriteria&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pageSortOrder&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;pageSortPredicate&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Open</span>&#160;:
+&#160;&#160;&#160;&#160;<span class="keyword">sig</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_BasicContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Container&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_DirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_IndirectContainer&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_NonRDFSource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Page&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_PageSortCriterion&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_RDFSource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_c_Resource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_constrainedBy&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_contains&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_hasMemberRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_insertedContentRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_isMemberOfRelation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_member&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_membershipResource&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSequence&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortCollation&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortCriteria&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortOrder&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;ldp_pageSortPredicate&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
+&#160;&#160;<span class="keyword">class</span>&#160;from&#160;:
+&#160;&#160;&#160;&#160;?sub:<span class="constructor">Iri</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="keyword">object</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;constrainedBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;contains&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;hasMemberRelation&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;inbox&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;insertedContentRelation&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;isMemberOfRelation&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;member&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;membershipResource&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pageSequence&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pageSortCollation&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pageSortCriteria&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pageSortOrder&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;pageSortPredicate&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
 <span class="keyword">end</span></code></div></contents></ocamldoc>

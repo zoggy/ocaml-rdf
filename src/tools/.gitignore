@@ -1,5 +1,6 @@
 foaf
 rdf_to_ttl
+ttl_to_rdf
 rdf_to_svgs
 rdfs_to_dot
 gen_ns_mod

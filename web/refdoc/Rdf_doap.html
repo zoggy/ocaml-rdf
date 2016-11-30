@@ -17,24 +17,60 @@ Elements of <code class="code">http://usefulinc.com/ns/doap#</code><br/>
 </div>
 
 <pre><span id="VALdoap_"><span class="keyword">val</span> doap_</span> : <code class="type">string -&gt; Iri.t</code></pre>
-<pre><span id="VALanon_root"><span class="keyword">val</span> anon_root</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Repository for anonymous access.<br/>
-</div>
-
 <pre><span id="VALc_ArchRepository"><span class="keyword">val</span> c_ArchRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
 GNU Arch source code repository.<br/>
 </div>
 
-<pre><span id="VALaudience"><span class="keyword">val</span> audience</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Description of target user base<br/>
+<pre><span id="VALc_BKRepository"><span class="keyword">val</span> c_BKRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+BitKeeper source code repository.<br/>
 </div>
 
 <pre><span id="VALc_BazaarBranch"><span class="keyword">val</span> c_BazaarBranch</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Bazaar source code branch.<br/>
 </div>
 
-<pre><span id="VALc_BKRepository"><span class="keyword">val</span> c_BKRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-BitKeeper source code repository.<br/>
+<pre><span id="VALc_CVSRepository"><span class="keyword">val</span> c_CVSRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+CVS source code repository.<br/>
+</div>
+
+<pre><span id="VALc_DarcsRepository"><span class="keyword">val</span> c_DarcsRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+darcs source code repository.<br/>
+</div>
+
+<pre><span id="VALc_GitRepository"><span class="keyword">val</span> c_GitRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Git source code repository.<br/>
+</div>
+
+<pre><span id="VALc_HgRepository"><span class="keyword">val</span> c_HgRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Mercurial source code repository.<br/>
+</div>
+
+<pre><span id="VALc_Project"><span class="keyword">val</span> c_Project</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A project.<br/>
+</div>
+
+<pre><span id="VALc_Repository"><span class="keyword">val</span> c_Repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Source code repository.<br/>
+</div>
+
+<pre><span id="VALc_SVNRepository"><span class="keyword">val</span> c_SVNRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Subversion source code repository.<br/>
+</div>
+
+<pre><span id="VALc_Specification"><span class="keyword">val</span> c_Specification</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A specification of a system's aspects, technical or otherwise.<br/>
+</div>
+
+<pre><span id="VALc_Version"><span class="keyword">val</span> c_Version</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Version information of a project release.<br/>
+</div>
+
+<pre><span id="VALanon_root"><span class="keyword">val</span> anon_root</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Repository for anonymous access.<br/>
+</div>
+
+<pre><span id="VALaudience"><span class="keyword">val</span> audience</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of target user base<br/>
 </div>
 
 <pre><span id="VALblog"><span class="keyword">val</span> blog</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -55,14 +91,6 @@ A category of project.<br/>
 
 <pre><span id="VALcreated"><span class="keyword">val</span> created</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05<br/>
-</div>
-
-<pre><span id="VALc_CVSRepository"><span class="keyword">val</span> c_CVSRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-CVS source code repository.<br/>
-</div>
-
-<pre><span id="VALc_DarcsRepository"><span class="keyword">val</span> c_DarcsRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-darcs source code repository.<br/>
 </div>
 
 <pre><span id="VALdescription"><span class="keyword">val</span> description</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -89,16 +117,8 @@ Web page from which the project software can be downloaded.<br/>
 URI of download associated with this release.<br/>
 </div>
 
-<pre><span id="VALc_GitRepository"><span class="keyword">val</span> c_GitRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Git source code repository.<br/>
-</div>
-
 <pre><span id="VALhelper"><span class="keyword">val</span> helper</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Project contributor.<br/>
-</div>
-
-<pre><span id="VALc_HgRepository"><span class="keyword">val</span> c_HgRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Mercurial source code repository.<br/>
 </div>
 
 <pre><span id="VALhomepage"><span class="keyword">val</span> homepage</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -111,10 +131,6 @@ A specification that a project implements. Could be a standard, API or legally d
 
 <pre><span id="VALlanguage"><span class="keyword">val</span> language</span> : <code class="type">Iri.t</code></pre><div class="info ">
 このプロジェクトの翻訳された言語のISO言語コート<br/>
-</div>
-
-<pre><span id="VALlanguage"><span class="keyword">val</span> language</span> : <code class="type">Iri.t</code></pre><div class="info ">
-ISO language code a project has been translated into<br/>
 </div>
 
 <pre><span id="VALlicense"><span class="keyword">val</span> license</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -157,16 +173,8 @@ Indicator of software platform (non-OS specific), e.g. Java, Firefox, ECMA CLR<b
 Programming language a project is implemented in or intended for use with.<br/>
 </div>
 
-<pre><span id="VALc_Project"><span class="keyword">val</span> c_Project</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A project.<br/>
-</div>
-
 <pre><span id="VALrelease"><span class="keyword">val</span> release</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A project release.<br/>
-</div>
-
-<pre><span id="VALc_Repository"><span class="keyword">val</span> c_Repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Source code repository.<br/>
 </div>
 
 <pre><span id="VALrepository"><span class="keyword">val</span> repository</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -189,20 +197,8 @@ The URI of a web service endpoint where software as a service may be accessed<br
 Short (8 or 9 words) plain text description of a project.<br/>
 </div>
 
-<pre><span id="VALc_Specification"><span class="keyword">val</span> c_Specification</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A specification of a system's aspects, technical or otherwise.<br/>
-</div>
-
-<pre><span id="VALc_SVNRepository"><span class="keyword">val</span> c_SVNRepository</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Subversion source code repository.<br/>
-</div>
-
 <pre><span id="VALtester"><span class="keyword">val</span> tester</span> : <code class="type">Iri.t</code></pre><div class="info ">
 このプロジェクトのため、試験をする人や品質メンテナー。<br/>
-</div>
-
-<pre><span id="VALtester"><span class="keyword">val</span> tester</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A tester or other quality control contributor.<br/>
 </div>
 
 <pre><span id="VALtranslator"><span class="keyword">val</span> translator</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -213,12 +209,9 @@ Contributor of translations to the project.<br/>
 Vendor organization: commercial, free or otherwise<br/>
 </div>
 
-<pre><span id="VALc_Version"><span class="keyword">val</span> c_Version</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Version information of a project release.<br/>
-</div>
-
 <pre><span id="VALwiki"><span class="keyword">val</span> wiki</span> : <code class="type">Iri.t</code></pre><div class="info ">
 URL of Wiki for collaborative discussion of project.<br/>
 </div>
 
-<pre><span class="keyword">module</span> <a href="Rdf_doap.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_doap.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>
+<pre><span class="keyword">module</span> <a href="Rdf_doap.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_doap.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_doap.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_doap.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

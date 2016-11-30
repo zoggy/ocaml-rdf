@@ -1,19 +1,19 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_misc</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_opt&#160;:&#160;string&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;opt_of_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;option<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;map_opt&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;option<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;opt_compare&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;int)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;create_log_fun&#160;:<br/>
-&#160;&#160;&#160;&#160;?prefix:string&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;?print:(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;?loc:string&#160;<span class="keywordsign">-&gt;</span>&#160;?level:int&#160;<span class="keywordsign">-&gt;</span>&#160;(unit&#160;<span class="keywordsign">-&gt;</span>&#160;string)&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;create_log_fun_with_set&#160;:<br/>
-&#160;&#160;&#160;&#160;?prefix:string&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;?print:(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;(?loc:string&#160;<span class="keywordsign">-&gt;</span>&#160;?level:int&#160;<span class="keywordsign">-&gt;</span>&#160;(unit&#160;<span class="keywordsign">-&gt;</span>&#160;string)&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;*&#160;(int&#160;<span class="keywordsign">-&gt;</span>&#160;unit)<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;compare_list&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;int)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;split_string&#160;:&#160;?keep_empty:bool&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;char&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;list<br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_opt&#160;:&#160;string&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;opt_of_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;option
+&#160;&#160;<span class="keyword">val</span>&#160;map_opt&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>b&#160;option
+&#160;&#160;<span class="keyword">val</span>&#160;opt_compare&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;int)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;option&#160;<span class="keywordsign">-&gt;</span>&#160;int
+&#160;&#160;<span class="keyword">val</span>&#160;create_log_fun&#160;:
+&#160;&#160;&#160;&#160;?prefix:string&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;?print:(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;?loc:string&#160;<span class="keywordsign">-&gt;</span>&#160;?level:int&#160;<span class="keywordsign">-&gt;</span>&#160;(unit&#160;<span class="keywordsign">-&gt;</span>&#160;string)&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;create_log_fun_with_set&#160;:
+&#160;&#160;&#160;&#160;?prefix:string&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;?print:(string&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;string&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;(?loc:string&#160;<span class="keywordsign">-&gt;</span>&#160;?level:int&#160;<span class="keywordsign">-&gt;</span>&#160;(unit&#160;<span class="keywordsign">-&gt;</span>&#160;string)&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;*&#160;(int&#160;<span class="keywordsign">-&gt;</span>&#160;unit)
+&#160;&#160;<span class="keyword">val</span>&#160;compare_list&#160;:&#160;(<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;int)&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;int
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;split_string&#160;:&#160;?keep_empty:bool&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;char&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;list
 <span class="keyword">end</span></code></div></contents></ocamldoc>

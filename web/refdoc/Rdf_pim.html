@@ -3,7 +3,7 @@
 <title>OCaml-RDF reference documentation : Rdf_pim</title><contents><div class="ocamldoc-page">
 <div class="navbar"><a class="pre" href="Rdf_pg.html" title="Rdf_pg">Previous</a>
 &#160;<a class="up" href="index.html" title="Index">Up</a>
-&#160;<a class="post" href="Rdf_rdf.html" title="Rdf_rdf">Next</a>
+&#160;<a class="post" href="Rdf_prov.html" title="Rdf_prov">Next</a>
 </div>
 <h1>Module <a href="type_Rdf_pim.html">Rdf_pim</a></h1>
 
@@ -17,27 +17,58 @@ Elements of <code class="code">http://www.w3.org/ns/pim/space#</code><br/>
 </div>
 
 <pre><span id="VALpim_"><span class="keyword">val</span> pim_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALc_ConfigurationFile"><span class="keyword">val</span> c_ConfigurationFile</span> : <code class="type">Iri.t</code></pre>
 <pre><span id="VALc_ControlledStorage"><span class="keyword">val</span> c_ControlledStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A  storage is a space of URIs in which you can individually control for each resource
     who has access to it.<br/>
 </div>
 
-<pre><span id="VALmasterWorkspace"><span class="keyword">val</span> masterWorkspace</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_MasterWorkspace"><span class="keyword">val</span> c_MasterWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This is a workspace for storing the 
+    information about the other workspaces.
+    As a user, you normally don't have to worry about it.<br/>
+</div>
+
 <pre><span id="VALc_PersonalStorage"><span class="keyword">val</span> c_PersonalStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A personal storage is a space of URIs in which you and only you have access to data,
     you cannot give access to anyone else.<br/>
 </div>
 
-<pre><span id="VALpreferencesFile"><span class="keyword">val</span> preferencesFile</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_PreferencesWorkspace"><span class="keyword">val</span> c_PreferencesWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+AAceess may not be open to the public. 
+    Contains preferences resources<br/>
+</div>
+
+<pre><span id="VALc_PrivateWorkspace"><span class="keyword">val</span> c_PrivateWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Access only by the you, the user.<br/>
+</div>
+
 <pre><span id="VALc_PublicStorage"><span class="keyword">val</span> c_PublicStorage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A public storage is a space of URIs in which you have access to data,
     and all data is accessible to anyone without control.<br/>
+</div>
+
+<pre><span id="VALc_PublicWorkspace"><span class="keyword">val</span> c_PublicWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Aceess is open to the public. Anything in a public workspace
+    can be accesed by anyone.<br/>
+</div>
+
+<pre><span id="VALc_SharedWorkspace"><span class="keyword">val</span> c_SharedWorkspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Access is to some but not all people.<br/>
 </div>
 
 <pre><span id="VALc_Storage"><span class="keyword">val</span> c_Storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A storage is a space of URIs in which you have access to data.<br/>
 </div>
 
+<pre><span id="VALc_Workspace"><span class="keyword">val</span> c_Workspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Workspaces are place where data is stored, and associated polices of privacy.
+A given application typically stores information in several different
+workspaces, some being user private, some shared, and some public.<br/>
+</div>
+
+<pre><span id="VALmasterWorkspace"><span class="keyword">val</span> masterWorkspace</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALpreferencesFile"><span class="keyword">val</span> preferencesFile</span> : <code class="type">Iri.t</code></pre>
 <pre><span id="VALstorage"><span class="keyword">val</span> storage</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The storage in which this workspace is<br/>
 </div>
@@ -47,11 +78,6 @@ URIs which start with this string are in this workspace or storage.
 This may be used for constructing URIs for new storage resources.<br/>
 </div>
 
-<pre><span id="VALc_Workspace"><span class="keyword">val</span> c_Workspace</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Workspaces are place where data is stored, and associated polices of privacy.
-A given application typically stores information in several different
-workspaces, some being user private, some shared, and some public.<br/>
-</div>
-
 <pre><span id="VALworkspace"><span class="keyword">val</span> workspace</span> : <code class="type">Iri.t</code></pre>
-<pre><span class="keyword">module</span> <a href="Rdf_pim.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_pim.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>
+<pre><span class="keyword">module</span> <a href="Rdf_pim.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_pim.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_pim.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_pim.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

@@ -1,378 +1,378 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_sparql_types</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">OrderedString</span>&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">sig</span>&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;string&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keyword">end</span><br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SSet</span>&#160;=&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SSet</span><br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SMap</span>&#160;=&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SMap</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;loc&#160;=<br/>
-&#160;&#160;&#160;&#160;<span class="constructor">Rdf_loc</span>.loc&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;loc_start&#160;:&#160;<span class="constructor">Lexing</span>.position;<br/>
-&#160;&#160;&#160;&#160;loc_end&#160;:&#160;<span class="constructor">Lexing</span>.position;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;pname_ns&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;pname_ns_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;pname_ns_name&#160;:&#160;string;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;pname_local&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;pname_local_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;pname_local_name&#160;:&#160;string;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;var&#160;=&#160;{&#160;var_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;var_name&#160;:&#160;string;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;iriref&#160;=&#160;{&#160;ir_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;ir_iri&#160;:&#160;<span class="constructor">Iri</span>.t;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;prefixed_name&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;pname_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;pname_ns&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns;<br/>
-&#160;&#160;&#160;&#160;pname_local&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.pname_local&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;iriloc&#160;=&#160;{&#160;iri_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;iri_iri&#160;:&#160;<span class="constructor">Iri</span>.t;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;iri&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iriref</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriref<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixedName</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prefixed_name<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;prefix_decl&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.iriref<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;query_prolog_decl&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BaseDecl</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriref<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixDecl</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prefix_decl<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;query_prolog&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.query_prolog_decl&#160;list<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;rdf_literal&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;rdf_lit_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;rdf_lit&#160;:&#160;<span class="constructor">Rdf_term</span>.literal;<br/>
-&#160;&#160;&#160;&#160;rdf_lit_type&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iri&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;data_block_value&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">DataBlockValueIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueRdf</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueNumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueUndef</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;data_full_block_value&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Nil</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Value</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value&#160;list<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;inline_data_one_var&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;idov_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;idov_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;<br/>
-&#160;&#160;&#160;&#160;idov_data&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;inline_data_full&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;idf_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;idf_vars&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;list;<br/>
-&#160;&#160;&#160;&#160;idf_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.data_full_block_value&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;datablock&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">InLineDataOneVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_one_var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">InLineDataFull</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_full<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;values_clause&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.datablock&#160;option<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;path_mod&#160;=&#160;<span class="constructor">ModOptional</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ModList</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ModOneOrMore</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;var_or_iri&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">VIVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VIIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;blank_node&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;bnode_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;bnode_label&#160;:&#160;string&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;select_clause_flag&#160;=&#160;<span class="constructor">Distinct</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Reduced</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;select_var&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;sel_var_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;sel_var_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option;<br/>
-&#160;&#160;&#160;&#160;sel_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;select_vars&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">SelectAll</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">SelectVars</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_var&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;select_clause&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;sel_flag&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause_flag&#160;option;<br/>
-&#160;&#160;&#160;&#160;sel_vars&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_vars;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;source_selector&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;dataset_clause&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">DefaultGraphClause</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.source_selector<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NamedGraphClause</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.source_selector<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;arg_list&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;argl_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;argl_distinct&#160;:&#160;bool;<br/>
-&#160;&#160;&#160;&#160;argl&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;function_call&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;func_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;func_iri&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iri;<br/>
-&#160;&#160;&#160;&#160;func_args&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.arg_list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;binary_op&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">EPlus</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EMinus</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EMult</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EDiv</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EEqual</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENotEqual</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELt</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EGt</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELte</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EGte</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EOr</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EAnd</span><br/>
-&#160;&#160;<span class="keyword">and</span>&#160;expr&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">EVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.binary_op&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENot</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EUMinus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBic</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EFuncall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELit</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EIn</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENotIn</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;expression&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;expr_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expr;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;built_in_call&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bic_agg</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_fun</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_BOUND</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_EXISTS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_NOTEXISTS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;aggregate&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bic_COUNT</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_SUM</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_MIN</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_MAX</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_AVG</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_SAMPLE</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_GROUP_CONCAT</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;string&#160;option<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;group_var&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;grpvar_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;grpvar_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option;<br/>
-&#160;&#160;&#160;&#160;grpvar&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;group_condition&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GroupBuiltInCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GroupFunctionCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GroupVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_var<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;constraint_&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">ConstrBuiltInCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ConstrFunctionCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ConstrExpr</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;having_condition&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;order_condition&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">OrderAsc</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderDesc</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderConstr</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;limit_offset_clause&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;limoff_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;limoff_offset&#160;:&#160;int&#160;option;<br/>
-&#160;&#160;&#160;&#160;limoff_limit&#160;:&#160;int&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;solution_modifier&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;solmod_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;solmod_group&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;list;<br/>
-&#160;&#160;&#160;&#160;solmod_having&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.having_condition&#160;list;<br/>
-&#160;&#160;&#160;&#160;solmod_order&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list&#160;option;<br/>
-&#160;&#160;&#160;&#160;solmod_limoff&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.limit_offset_clause&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;bind&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;bind_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;bind_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression;<br/>
-&#160;&#160;&#160;&#160;bind_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;service_graph_pattern&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;servgp_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;servgp_silent&#160;:&#160;bool;<br/>
-&#160;&#160;&#160;&#160;servgp_name&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri;<br/>
-&#160;&#160;&#160;&#160;servgp_pat&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;graph_graph_pattern&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;graphgp_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;graphgp_name&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri;<br/>
-&#160;&#160;&#160;&#160;graphgp_pat&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;graph_pattern_elt&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Triples</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_block<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Union</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Optional</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Minus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GGP</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Service</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.service_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Filter</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bind</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.bind<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">InlineData</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;graph_term&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GraphTermIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermLit</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermBlank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.blank_node<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNil</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNode</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_term</span>.term<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;var_or_term&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Var</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTerm</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_term<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path_one_in_prop_set&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">PathOneInIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInA</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInNotIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInNotA</span><br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path_primary&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">PathIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathA</span><br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathNegPropSet</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Path</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path_elt&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;pelt_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;pelt_primary&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary;<br/>
-&#160;&#160;&#160;&#160;pelt_mod&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path_mod&#160;option;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path_elt_or_inverse&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Elt</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Inv</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path_sequence&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;path&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;verb&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">VerbPath</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbA</span><br/>
-&#160;&#160;<span class="keyword">and</span>&#160;triples_node&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">TNodeCollection</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TNodeBlank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;graph_node&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GraphNodeVT</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphNodeTriples</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;object_&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;prop_object_list&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;propol_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;propol_verb&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.verb;<br/>
-&#160;&#160;&#160;&#160;propol_objects&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;triples_block&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;triples_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;triples&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;triples_same_subject&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">TriplesVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TriplesNode</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node&#160;*<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;ggp_sub&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;ggp_sub_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;ggp_sub_elts&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;group_graph_pattern&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">SubSelect</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GGPSub</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub<br/>
-&#160;&#160;<span class="keyword">and</span>&#160;sub_select&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;subsel_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;<br/>
-&#160;&#160;&#160;&#160;subsel_select&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause;<br/>
-&#160;&#160;&#160;&#160;subsel_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;&#160;&#160;subsel_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;&#160;&#160;subsel_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;select_query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;select_select&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause;<br/>
-&#160;&#160;&#160;&#160;select_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;<br/>
-&#160;&#160;&#160;&#160;select_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;&#160;&#160;select_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;triples_template&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject&#160;list<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;construct_template&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.triples_template<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;construct_where&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Constr_ggp</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Constr_template</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_template<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;construct_query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;constr_template&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.construct_template&#160;option;<br/>
-&#160;&#160;&#160;&#160;constr_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;<br/>
-&#160;&#160;&#160;&#160;constr_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.construct_where;<br/>
-&#160;&#160;&#160;&#160;constr_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;describe_query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;desc_sel&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri&#160;list;<br/>
-&#160;&#160;&#160;&#160;desc_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;<br/>
-&#160;&#160;&#160;&#160;desc_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern&#160;option;<br/>
-&#160;&#160;&#160;&#160;desc_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;ask_query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;ask_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;<br/>
-&#160;&#160;&#160;&#160;ask_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;<br/>
-&#160;&#160;&#160;&#160;ask_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;query_kind&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Select</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_query<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Construct</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.construct_query<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Describe</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.describe_query<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Ask</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ask_query<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;query&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;q_prolog&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.query_prolog;<br/>
-&#160;&#160;&#160;&#160;q_kind&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.query_kind;<br/>
-&#160;&#160;&#160;&#160;q_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">VarSet</span>&#160;:<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">sig</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.var<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;empty&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;is_empty&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mem&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;add&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;singleton&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;remove&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;union&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;inter&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;diff&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;equal&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;subset&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;iter&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;fold&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;for_all&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;exists&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;filter&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;partition&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;cardinal&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;elements&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;list<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;min_elt&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;max_elt&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;choose&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;split&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;*&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;find&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;of_list&#160;:<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-&#160;&#160;&#160;&#160;<span class="keyword">end</span><br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">OrderedString</span>&#160;:
+&#160;&#160;&#160;&#160;<span class="keyword">sig</span>&#160;<span class="keyword">type</span>&#160;t&#160;=&#160;string&#160;<span class="keyword">val</span>&#160;compare&#160;:&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">String</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keyword">end</span>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SSet</span>&#160;=&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SSet</span>
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">SMap</span>&#160;=&#160;<span class="constructor">Rdf_types</span>.<span class="constructor">SMap</span>
+&#160;&#160;<span class="keyword">type</span>&#160;loc&#160;=
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_loc</span>.loc&#160;=&#160;{
+&#160;&#160;&#160;&#160;loc_start&#160;:&#160;<span class="constructor">Lexing</span>.position;
+&#160;&#160;&#160;&#160;loc_end&#160;:&#160;<span class="constructor">Lexing</span>.position;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;pname_ns&#160;=&#160;{
+&#160;&#160;&#160;&#160;pname_ns_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;pname_ns_name&#160;:&#160;string;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;pname_local&#160;=&#160;{
+&#160;&#160;&#160;&#160;pname_local_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;pname_local_name&#160;:&#160;string;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;var&#160;=&#160;{&#160;var_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;var_name&#160;:&#160;string;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;iriref&#160;=&#160;{&#160;ir_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;ir_iri&#160;:&#160;<span class="constructor">Iri</span>.t;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;prefixed_name&#160;=&#160;{
+&#160;&#160;&#160;&#160;pname_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;pname_ns&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns;
+&#160;&#160;&#160;&#160;pname_local&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.pname_local&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;iriloc&#160;=&#160;{&#160;iri_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;&#160;iri_iri&#160;:&#160;<span class="constructor">Iri</span>.t;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;iri&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Iri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriloc
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Iriref</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriref
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixedName</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prefixed_name
+&#160;&#160;<span class="keyword">type</span>&#160;prefix_decl&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.pname_ns&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.iriref
+&#160;&#160;<span class="keyword">type</span>&#160;query_prolog_decl&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">BaseDecl</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iriref
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PrefixDecl</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prefix_decl
+&#160;&#160;<span class="keyword">type</span>&#160;query_prolog&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.query_prolog_decl&#160;list
+&#160;&#160;<span class="keyword">type</span>&#160;rdf_literal&#160;=&#160;{
+&#160;&#160;&#160;&#160;rdf_lit_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;rdf_lit&#160;:&#160;<span class="constructor">Rdf_term</span>.literal;
+&#160;&#160;&#160;&#160;rdf_lit_type&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iri&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;data_block_value&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">DataBlockValueIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueRdf</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueNumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">DataBlockValueUndef</span>
+&#160;&#160;<span class="keyword">type</span>&#160;data_full_block_value&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Nil</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Value</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value&#160;list
+&#160;&#160;<span class="keyword">type</span>&#160;inline_data_one_var&#160;=&#160;{
+&#160;&#160;&#160;&#160;idov_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;idov_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;
+&#160;&#160;&#160;&#160;idov_data&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.data_block_value&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;inline_data_full&#160;=&#160;{
+&#160;&#160;&#160;&#160;idf_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;idf_vars&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;list;
+&#160;&#160;&#160;&#160;idf_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.data_full_block_value&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;datablock&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">InLineDataOneVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_one_var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">InLineDataFull</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.inline_data_full
+&#160;&#160;<span class="keyword">type</span>&#160;values_clause&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.datablock&#160;option
+&#160;&#160;<span class="keyword">type</span>&#160;path_mod&#160;=&#160;<span class="constructor">ModOptional</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ModList</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ModOneOrMore</span>
+&#160;&#160;<span class="keyword">type</span>&#160;var_or_iri&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">VIVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VIIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;<span class="keyword">type</span>&#160;blank_node&#160;=&#160;{
+&#160;&#160;&#160;&#160;bnode_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;bnode_label&#160;:&#160;string&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;select_clause_flag&#160;=&#160;<span class="constructor">Distinct</span>&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Reduced</span>
+&#160;&#160;<span class="keyword">type</span>&#160;select_var&#160;=&#160;{
+&#160;&#160;&#160;&#160;sel_var_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;sel_var_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option;
+&#160;&#160;&#160;&#160;sel_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;select_vars&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">SelectAll</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">SelectVars</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_var&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;select_clause&#160;=&#160;{
+&#160;&#160;&#160;&#160;sel_flag&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause_flag&#160;option;
+&#160;&#160;&#160;&#160;sel_vars&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_vars;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;source_selector&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;<span class="keyword">and</span>&#160;dataset_clause&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">DefaultGraphClause</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.source_selector
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">NamedGraphClause</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.source_selector
+&#160;&#160;<span class="keyword">and</span>&#160;arg_list&#160;=&#160;{
+&#160;&#160;&#160;&#160;argl_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;argl_distinct&#160;:&#160;bool;
+&#160;&#160;&#160;&#160;argl&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;function_call&#160;=&#160;{
+&#160;&#160;&#160;&#160;func_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;func_iri&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.iri;
+&#160;&#160;&#160;&#160;func_args&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.arg_list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;binary_op&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">EPlus</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EMinus</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EMult</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EDiv</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EEqual</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENotEqual</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELt</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EGt</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELte</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EGte</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EOr</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EAnd</span>
+&#160;&#160;<span class="keyword">and</span>&#160;expr&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">EVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBin</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.binary_op&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENot</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EUMinus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBic</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EFuncall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ELit</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">EIn</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ENotIn</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;expression&#160;=&#160;{
+&#160;&#160;&#160;&#160;expr_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expr;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;built_in_call&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bic_agg</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.aggregate
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_fun</span>&#160;<span class="keyword">of</span>&#160;string&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_BOUND</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_EXISTS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_NOTEXISTS</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern
+&#160;&#160;<span class="keyword">and</span>&#160;aggregate&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bic_COUNT</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_SUM</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_MIN</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_MAX</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_AVG</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_SAMPLE</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bic_GROUP_CONCAT</span>&#160;<span class="keyword">of</span>&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;*&#160;string&#160;option
+&#160;&#160;<span class="keyword">and</span>&#160;group_var&#160;=&#160;{
+&#160;&#160;&#160;&#160;grpvar_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;grpvar_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression&#160;option;
+&#160;&#160;&#160;&#160;grpvar&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;group_condition&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GroupBuiltInCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GroupFunctionCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GroupVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_var
+&#160;&#160;<span class="keyword">and</span>&#160;constraint_&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">ConstrBuiltInCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.built_in_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ConstrFunctionCall</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.function_call
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">ConstrExpr</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;<span class="keyword">and</span>&#160;having_condition&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_
+&#160;&#160;<span class="keyword">and</span>&#160;order_condition&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">OrderAsc</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderDesc</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.expression
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderConstr</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">OrderVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;<span class="keyword">and</span>&#160;limit_offset_clause&#160;=&#160;{
+&#160;&#160;&#160;&#160;limoff_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;limoff_offset&#160;:&#160;int&#160;option;
+&#160;&#160;&#160;&#160;limoff_limit&#160;:&#160;int&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;solution_modifier&#160;=&#160;{
+&#160;&#160;&#160;&#160;solmod_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;solmod_group&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_condition&#160;list;
+&#160;&#160;&#160;&#160;solmod_having&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.having_condition&#160;list;
+&#160;&#160;&#160;&#160;solmod_order&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.order_condition&#160;list&#160;option;
+&#160;&#160;&#160;&#160;solmod_limoff&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.limit_offset_clause&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;bind&#160;=&#160;{
+&#160;&#160;&#160;&#160;bind_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;bind_expr&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.expression;
+&#160;&#160;&#160;&#160;bind_var&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;service_graph_pattern&#160;=&#160;{
+&#160;&#160;&#160;&#160;servgp_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;servgp_silent&#160;:&#160;bool;
+&#160;&#160;&#160;&#160;servgp_name&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri;
+&#160;&#160;&#160;&#160;servgp_pat&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;graph_graph_pattern&#160;=&#160;{
+&#160;&#160;&#160;&#160;graphgp_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;graphgp_name&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri;
+&#160;&#160;&#160;&#160;graphgp_pat&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;graph_pattern_elt&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Triples</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_block
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Union</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Optional</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Minus</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GGP</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Service</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.service_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Filter</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.constraint_
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Bind</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.bind
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">InlineData</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.datablock
+&#160;&#160;<span class="keyword">and</span>&#160;graph_term&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GraphTermIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermLit</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNumeric</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermBoolean</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.rdf_literal
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermBlank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.blank_node
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNil</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTermNode</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_term</span>.term
+&#160;&#160;<span class="keyword">and</span>&#160;var_or_term&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Var</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphTerm</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_term
+&#160;&#160;<span class="keyword">and</span>&#160;path_one_in_prop_set&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">PathOneInIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInA</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInNotIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathOneInNotA</span>
+&#160;&#160;<span class="keyword">and</span>&#160;path_primary&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">PathIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathA</span>
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">PathNegPropSet</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_one_in_prop_set&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Path</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path
+&#160;&#160;<span class="keyword">and</span>&#160;path_elt&#160;=&#160;{
+&#160;&#160;&#160;&#160;pelt_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;pelt_primary&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path_primary;
+&#160;&#160;&#160;&#160;pelt_mod&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.path_mod&#160;option;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;path_elt_or_inverse&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Elt</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Inv</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt
+&#160;&#160;<span class="keyword">and</span>&#160;path_sequence&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.path_elt_or_inverse&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;path&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.path_sequence&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;verb&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">VerbPath</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.path
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbIri</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.iri
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">VerbA</span>
+&#160;&#160;<span class="keyword">and</span>&#160;triples_node&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">TNodeCollection</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TNodeBlank</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;graph_node&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">GraphNodeVT</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GraphNodeTriples</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node
+&#160;&#160;<span class="keyword">and</span>&#160;object_&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.graph_node
+&#160;&#160;<span class="keyword">and</span>&#160;prop_object_list&#160;=&#160;{
+&#160;&#160;&#160;&#160;propol_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;propol_verb&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.verb;
+&#160;&#160;&#160;&#160;propol_objects&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.object_&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;triples_block&#160;=&#160;{
+&#160;&#160;&#160;&#160;triples_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;triples&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;triples_same_subject&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">TriplesVar</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_term&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">TriplesNode</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_node&#160;*
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.prop_object_list&#160;list
+&#160;&#160;<span class="keyword">and</span>&#160;ggp_sub&#160;=&#160;{
+&#160;&#160;&#160;&#160;ggp_sub_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;ggp_sub_elts&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.graph_pattern_elt&#160;list;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">and</span>&#160;group_graph_pattern&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">SubSelect</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.sub_select
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">GGPSub</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ggp_sub
+&#160;&#160;<span class="keyword">and</span>&#160;sub_select&#160;=&#160;{
+&#160;&#160;&#160;&#160;subsel_loc&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.loc;
+&#160;&#160;&#160;&#160;subsel_select&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause;
+&#160;&#160;&#160;&#160;subsel_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;&#160;&#160;subsel_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;&#160;&#160;subsel_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;select_query&#160;=&#160;{
+&#160;&#160;&#160;&#160;select_select&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.select_clause;
+&#160;&#160;&#160;&#160;select_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;
+&#160;&#160;&#160;&#160;select_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;&#160;&#160;select_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;triples_template&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.triples_same_subject&#160;list
+&#160;&#160;<span class="keyword">type</span>&#160;construct_template&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.triples_template
+&#160;&#160;<span class="keyword">type</span>&#160;construct_where&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Constr_ggp</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Constr_template</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.triples_template
+&#160;&#160;<span class="keyword">type</span>&#160;construct_query&#160;=&#160;{
+&#160;&#160;&#160;&#160;constr_template&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.construct_template&#160;option;
+&#160;&#160;&#160;&#160;constr_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;
+&#160;&#160;&#160;&#160;constr_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.construct_where;
+&#160;&#160;&#160;&#160;constr_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;describe_query&#160;=&#160;{
+&#160;&#160;&#160;&#160;desc_sel&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.var_or_iri&#160;list;
+&#160;&#160;&#160;&#160;desc_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;
+&#160;&#160;&#160;&#160;desc_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern&#160;option;
+&#160;&#160;&#160;&#160;desc_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;ask_query&#160;=&#160;{
+&#160;&#160;&#160;&#160;ask_dataset&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.dataset_clause&#160;list;
+&#160;&#160;&#160;&#160;ask_where&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.group_graph_pattern;
+&#160;&#160;&#160;&#160;ask_modifier&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.solution_modifier;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">type</span>&#160;query_kind&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Select</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.select_query
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Construct</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.construct_query
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Describe</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.describe_query
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Ask</span>&#160;<span class="keyword">of</span>&#160;<span class="constructor">Rdf_sparql_types</span>.ask_query
+&#160;&#160;<span class="keyword">type</span>&#160;query&#160;=&#160;{
+&#160;&#160;&#160;&#160;q_prolog&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.query_prolog;
+&#160;&#160;&#160;&#160;q_kind&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.query_kind;
+&#160;&#160;&#160;&#160;q_values&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.values_clause;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">VarSet</span>&#160;:
+&#160;&#160;&#160;&#160;<span class="keyword">sig</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;elt&#160;=&#160;<span class="constructor">Rdf_sparql_types</span>.var
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">type</span>&#160;t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;empty&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;is_empty&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;mem&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;add&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;singleton&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;remove&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;union&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;inter&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;diff&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;compare&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;equal&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;subset&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;iter&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;unit)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;fold&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="keywordsign">'</span>a
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;for_all&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;exists&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;bool
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;filter&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;partition&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;(<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>&#160;bool)&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;cardinal&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;int
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;elements&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;min_elt&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;max_elt&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;choose&#160;:&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;split&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;*&#160;bool&#160;*&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;find&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;of_list&#160;:
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt&#160;list&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
 <span class="keyword">end</span></code></div></contents></ocamldoc>

@@ -1,8 +1,8 @@
 <ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_loc</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;loc&#160;=&#160;{&#160;loc_start&#160;:&#160;<span class="constructor">Lexing</span>.position;&#160;loc_end&#160;:&#160;<span class="constructor">Lexing</span>.position;&#160;}<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;dummy_loc&#160;:&#160;<span class="constructor">Rdf_loc</span>.loc<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;source_info_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_loc</span>.loc<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;source_info_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_loc</span>.loc<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_loc&#160;:&#160;<span class="constructor">Rdf_loc</span>.loc&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">type</span>&#160;loc&#160;=&#160;{&#160;loc_start&#160;:&#160;<span class="constructor">Lexing</span>.position;&#160;loc_end&#160;:&#160;<span class="constructor">Lexing</span>.position;&#160;}
+&#160;&#160;<span class="keyword">val</span>&#160;dummy_loc&#160;:&#160;<span class="constructor">Rdf_loc</span>.loc
+&#160;&#160;<span class="keyword">val</span>&#160;source_info_string&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_loc</span>.loc
+&#160;&#160;<span class="keyword">val</span>&#160;source_info_file&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Rdf_loc</span>.loc
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_loc&#160;:&#160;<span class="constructor">Rdf_loc</span>.loc&#160;<span class="keywordsign">-&gt;</span>&#160;string
 <span class="keyword">end</span></code></div></contents></ocamldoc>

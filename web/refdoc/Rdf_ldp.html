@@ -21,28 +21,52 @@ Elements of <code class="code">http://www.w3.org/ns/ldp#</code><br/>
 An LDPC that uses a predefined predicate to simply link to its contained resources.<br/>
 </div>
 
-<pre><span id="VALconstrainedBy"><span class="keyword">val</span> constrainedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Links a resource with constraints that the server requires requests like creation and update to conform to.<br/>
-</div>
-
 <pre><span id="VALc_Container"><span class="keyword">val</span> c_Container</span> : <code class="type">Iri.t</code></pre><div class="info ">
 A Linked Data Platform RDF Source (LDP-RS) that also conforms to additional patterns and conventions for managing membership. Readers should refer to the specification defining this ontology for the list of behaviors associated with it.<br/>
-</div>
-
-<pre><span id="VALcontains"><span class="keyword">val</span> contains</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Links a container with resources created through the container.<br/>
 </div>
 
 <pre><span id="VALc_DirectContainer"><span class="keyword">val</span> c_DirectContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
 An LDPC that is similar to a LDP-DC but it allows an indirection with the ability to list as member a resource, such as a URI representing a real-world object, that is different from the resource that is created.<br/>
 </div>
 
+<pre><span id="VALc_IndirectContainer"><span class="keyword">val</span> c_IndirectContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An LDPC that has the flexibility of choosing what form the membership triples take.<br/>
+</div>
+
+<pre><span id="VALc_NonRDFSource"><span class="keyword">val</span> c_NonRDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A Linked Data Platform Resource (LDPR) whose state is NOT represented as RDF.<br/>
+</div>
+
+<pre><span id="VALc_Page"><span class="keyword">val</span> c_Page</span> : <code class="type">Iri.t</code></pre><div class="info ">
+URI signifying that the resource is an in-sequence page resource, as defined by LDP Paging.  Typically used on Link rel='type' response headers.<br/>
+</div>
+
+<pre><span id="VALc_PageSortCriterion"><span class="keyword">val</span> c_PageSortCriterion</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Element in the list of sorting criteria used by the server to assign container members to pages.<br/>
+</div>
+
+<pre><span id="VALc_RDFSource"><span class="keyword">val</span> c_RDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A Linked Data Platform Resource (LDPR) whose state is represented as RDF.<br/>
+</div>
+
+<pre><span id="VALc_Resource"><span class="keyword">val</span> c_Resource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A HTTP-addressable resource whose lifecycle is managed by a LDP server.<br/>
+</div>
+
+<pre><span id="VALconstrainedBy"><span class="keyword">val</span> constrainedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Links a resource with constraints that the server requires requests like creation and update to conform to.<br/>
+</div>
+
+<pre><span id="VALcontains"><span class="keyword">val</span> contains</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Links a container with resources created through the container.<br/>
+</div>
+
 <pre><span id="VALhasMemberRelation"><span class="keyword">val</span> hasMemberRelation</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Indicates which predicate is used in membership triples, and that the membership triple pattern is &lt; membership-constant-URI , object-of-hasMemberRelation, member-URI &gt;.<br/>
 </div>
 
-<pre><span id="VALc_IndirectContainer"><span class="keyword">val</span> c_IndirectContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
-An LDPC that has the flexibility of choosing what form the membership triples take.<br/>
+<pre><span id="VALinbox"><span class="keyword">val</span> inbox</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Links a resource to a container where notifications for the resource can be created and discovered.<br/>
 </div>
 
 <pre><span id="VALinsertedContentRelation"><span class="keyword">val</span> insertedContentRelation</span> : <code class="type">Iri.t</code></pre><div class="info ">
@@ -61,14 +85,6 @@ LDP servers should use this predicate as the membership predicate if there is no
 Indicates the membership-constant-URI in a membership triple.  Depending upon the membership triple pattern a container uses, as indicated by the presence of ldp:hasMemberRelation or ldp:isMemberOfRelation, the membership-constant-URI might occupy either the subject or object position in membership triples.<br/>
 </div>
 
-<pre><span id="VALc_NonRDFSource"><span class="keyword">val</span> c_NonRDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A Linked Data Platform Resource (LDPR) whose state is NOT represented as RDF.<br/>
-</div>
-
-<pre><span id="VALc_Page"><span class="keyword">val</span> c_Page</span> : <code class="type">Iri.t</code></pre><div class="info ">
-URI signifying that the resource is an in-sequence page resource, as defined by LDP Paging.  Typically used on Link rel='type' response headers.<br/>
-</div>
-
 <pre><span id="VALpageSequence"><span class="keyword">val</span> pageSequence</span> : <code class="type">Iri.t</code></pre><div class="info ">
 Link to a page sequence resource, as defined by LDP Paging.  Typically used to communicate the sorting criteria used to allocate LDPC members to pages.<br/>
 </div>
@@ -81,10 +97,6 @@ The collation used to order the members across pages in a page sequence when com
 Link to the list of sorting criteria used by the server in a representation.  Typically used on Link response headers as an extension link relation URI in the rel= parameter.<br/>
 </div>
 
-<pre><span id="VALc_PageSortCriterion"><span class="keyword">val</span> c_PageSortCriterion</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Element in the list of sorting criteria used by the server to assign container members to pages.<br/>
-</div>
-
 <pre><span id="VALpageSortOrder"><span class="keyword">val</span> pageSortOrder</span> : <code class="type">Iri.t</code></pre><div class="info ">
 The ascending/descending/etc order used to order the members across pages in a page sequence.<br/>
 </div>
@@ -93,12 +105,5 @@ The ascending/descending/etc order used to order the members across pages in a p
 Predicate used to specify the order of the members across a page sequence's in-sequence page resources; it asserts nothing about the order of members in the representation of a single page.<br/>
 </div>
 
-<pre><span id="VALc_RDFSource"><span class="keyword">val</span> c_RDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A Linked Data Platform Resource (LDPR) whose state is represented as RDF.<br/>
-</div>
-
-<pre><span id="VALc_Resource"><span class="keyword">val</span> c_Resource</span> : <code class="type">Iri.t</code></pre><div class="info ">
-A HTTP-addressable resource whose lifecycle is managed by a LDP server.<br/>
-</div>
-
-<pre><span class="keyword">module</span> <a href="Rdf_ldp.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_ldp.Open.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>
+<pre><span class="keyword">module</span> <a href="Rdf_ldp.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_ldp.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_ldp.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_ldp.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

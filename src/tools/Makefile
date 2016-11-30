@@ -25,7 +25,7 @@
 
 include ../../master.Makefile
 
-TOOLS=foaf rdf_to_ttl rdf_to_svgs gen_ns_mod rdfs_to_dot
+TOOLS=foaf rdf_to_ttl rdf_to_svgs gen_ns_mod rdfs_to_dot ttl_to_rdf
 all: $(TOOLS)
 
 foaf: foaf.ml
@@ -35,6 +35,9 @@ gen_ns_mod: $(LIB_RDF) gen_ns_mod.ml
 	$(OCAMLFIND) ocamlopt -package rdf -annot -linkpkg -linkall -o $@ $^
 
 rdf_to_ttl: $(LIB_RDF) rdf_to_ttl.ml
+	$(OCAMLFIND) ocamlopt -package rdf -linkpkg -linkall -o $@ $^
+
+ttl_to_rdf: $(LIB_RDF) ttl_to_rdf.ml
 	$(OCAMLFIND) ocamlopt -package rdf -linkpkg -linkall -o $@ $^
 
 rdf_to_svgs: rdf_to_svgs.ml
