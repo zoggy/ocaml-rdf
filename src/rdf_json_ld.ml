@@ -141,7 +141,7 @@ module Json =
     let from_string ?encoding s = json_of_src ?encoding (`String s)
     let to_string ?(minify=false) json =
       let b = Buffer.create 256 in
-      json_to_dst ~minify (`Buffer b);
+      json_to_dst ~minify (`Buffer b) json;
       Buffer.contents b
   end
 
