@@ -84,10 +84,10 @@ to associate the name "Alice" and the mailbox address IRI
 <span class="ocaml-toplevel"><span class="toplevel-out">- : unit = ()</span></span></pre></div>
 <p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph, in Turtle format:</p>
 <div class="anchor-block"><a class="paragraph-url" href="#prefixrdfhttpwwww3org199"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="prefixrdfhttpwwww3org199"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-542411480 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
-_:genid1-542411480 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
-_:genid0-948107556 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
-_:genid0-948107556 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
+_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
+_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
+_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
+_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
 </span></pre></div>
 
 </div>
@@ -127,8 +127,8 @@ to display the result:
    (</span><span class="hl kwa">fun</span><span class="hl std"> (</span><span class="">sub</span><span class="hl std">,</span><span class="">pred</span><span class="hl std">,</span><span class="">obj</span><span class="hl std">) -&gt;
      </span><span class="">print_endline</span><span class="hl std"> (</span><span class="hl kwc">Rdf_ttl</span><span class="hl std">.</span><span class="">string_of_triple</span><span class="hl std"> </span><span class="hl kw4">~sub</span><span class="hl std"> </span><span class="hl kw4">~pred</span><span class="hl std"> </span><span class="hl kw4">~obj</span><span class="hl std">))
    </span><span class="">triples</span><span class="hl std">;;</span></span>
-<span class="ocaml-toplevel"><span class="stdout">_:genid0-948107556 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
-_:genid1-542411480 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
+<span class="ocaml-toplevel"><span class="stdout">_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
+_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
 </span><span class="toplevel-out">- : unit = ()</span></span></pre></div>
 <p id="Thesearesimplewaystoquer"><a class="paragraph-url" href="#Thesearesimplewaystoquer"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>These are simple ways to query the graph.
 <a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html">Sparql queries can be used</a> to execute
@@ -191,10 +191,10 @@ and <code>transaction_rollback</code> of the the
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-781161583 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-781161583 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-781161583 ex:fullName "Dave Beckett" .
+_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-532426673 ex:fullName "Dave Beckett" .
 </span></pre>
 
 <p id="Nowletsstartatransaction"><a class="paragraph-url" href="#Nowletsstartatransaction"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Now let's start a transaction, and modify the graph:</p>
@@ -212,10 +212,10 @@ _:genid0-781161583 ex:fullName "Dave Beckett" .
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-781161583 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-781161583 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-781161583 ex:fullName "Jean Dupont" .
+_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-532426673 ex:fullName "Jean Dupont" .
 </span></pre>
 
 <p id="Ifwerollbackwegettheprev"><a class="paragraph-url" href="#Ifwerollbackwegettheprev"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>If we rollback, we get the previous graph:</p>
@@ -223,10 +223,10 @@ _:genid0-781161583 ex:fullName "Jean Dupont" .
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-781161583 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-781161583 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-781161583 ex:fullName "Dave Beckett" .
+_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-532426673 ex:fullName "Dave Beckett" .
 </span></pre>
 
 </div>
