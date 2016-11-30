@@ -89,7 +89,6 @@ module Open :
     val rdf_id : Iri.t
     val rdf_li : Iri.t
     val rdf_nodeID : Iri.t
-    val rdf_id : Iri.t
     val rdf_parseType : Iri.t
     val rdf_RDF : Iri.t
     val rdf_resource : Iri.t
