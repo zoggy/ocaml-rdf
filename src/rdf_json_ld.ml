@@ -28,10 +28,13 @@ module SMap = Map.Make(String)
 module J = Yojson.Safe
 
 type type_coercion = Id | Vocab
+type container_type = Language | List | Set | Index
 
 type context_entry =
   { id : Iri.t ;
     typ : type_coercion option ;
+    container : container_type option ;
+    language: string option;
   }
 
 type context = {
@@ -45,12 +48,116 @@ type context_cache = {
       mutable map : context Iri.Map.t ;
     }
 
-module Ast =
-  struct
-    type loc = int * int (* 1-based line * 0-based column *)
-    type range = loc * loc
+type loc = int * int (* 1-based line * 0-based column *)
+type range = loc * loc
 
-    type 'a locd = { loc : range option ; data : 'a }
+type 'a ranged = { loc : range option ; data : 'a }
+let ranged ?loc data = { loc ; data }
+
+module Json =
+  struct
+    type key = string ranged
+    type json_t = [
+      | `Obj of (key * json) list
+      | `List of json list
+      | `String of string
+      | `Bool of bool
+      | `Float of float
+      | `Null
+      ]
+    and json = {
+      loc : range option;
+      t : json_t ;
+      }
+    let json ?loc t = { loc ; t }
+
+    exception Escape of ((int * int) * (int * int)) * Jsonm.error
+
+    let dec d = match Jsonm.decode d with
+      | `Lexeme l -> l
+      | `Error e -> raise (Escape (Jsonm.decoded_range d, e))
+      | `End | `Await -> assert false
+
+    let loc_start d = fst (Jsonm.decoded_range d)
+    let loc_end d = snd (Jsonm.decoded_range d)
+    let range d = Jsonm.decoded_range d
+
+    let rec value v k d =
+      match v with
+      | `Os -> obj (loc_start d) [] k d
+      | `As -> arr (loc_start d) [] k d
+      | `Null | `Bool _ | `String _ | `Float _ as v ->
+          let v = json ~loc: (range d) v in
+          k v d
+      | _ -> assert false
+    and arr loc_start vs k d =
+      match dec d with
+      | `Ae ->
+         let loc = (loc_start, loc_end d) in
+         let v = json ~loc (`List (List.rev vs)) in
+         k v d
+      | v -> value v (fun v -> arr loc_start (v :: vs) k) d
+    and obj loc_start ms k d =
+      match dec d with
+      | `Oe ->
+         let loc = (loc_start, loc_end d) in
+         let v = json ~loc (`Obj (List.rev ms)) in
+         k v d
+      | `Name n ->
+         let key = ranged n in
+         value (dec d) (fun v -> obj loc_start ((key, v) :: ms) k) d
+      | _ -> assert false
+
+    let json_of_src ?encoding
+      (src : [`Channel of in_channel | `String of string])
+      =
+      let d = Jsonm.decoder ?encoding src in
+      try Ok (value (dec d) (fun v _ -> v) d) with
+      | Escape (r, e) -> Error (r, e)
+
+    let enc e l = ignore (Jsonm.encode e (`Lexeme l))
+    let rec value v k e = match v with
+      | `List vs -> arr vs k e
+      | `Obj ms -> obj ms k e
+      | `Null | `Bool _ | `Float _ | `String _ as v -> enc e v; k e
+    and arr vs k e = enc e `As; arr_vs vs k e
+    and arr_vs vs k e = match vs with
+      | v :: vs' -> value v.t (arr_vs vs' k) e
+      | [] -> enc e `Ae; k e
+    and obj ms k e = enc e `Os; obj_ms ms k e
+    and obj_ms ms k e = match ms with
+      | (key, v) :: ms -> enc e (`Name key.data); value v.t (obj_ms ms k) e
+      | [] -> enc e `Oe; k e
+
+    let json_to_dst ~minify
+      (dst : [`Channel of out_channel | `Buffer of Buffer.t ])
+        (json : json)
+        =
+      let e = Jsonm.encoder ~minify dst in
+      let finish e = ignore (Jsonm.encode e `End) in
+      match json.t with `List _ | `Obj _ as json -> value json finish e
+      | _ -> invalid_arg "invalid json text"
+
+    let from_string ?encoding s = json_of_src ?encoding (`String s)
+    let to_string ?(minify=false) json =
+      let b = Buffer.create 256 in
+      json_to_dst ~minify (`Buffer b);
+      Buffer.contents b
+  end
+
+module type IO =
+  sig
+    type 'a t
+    val return : 'a -> 'a t
+    val bind : 'a t -> ('a -> 'b t) -> 'b t
+    val get : Iri.t -> (J.json, string) result t
+  end
+
+module Make(IO:IO) =
+  struct
+
+  end
+
 
     type term_type = [
       | `String of string
@@ -62,6 +169,18 @@ module Ast =
       { term_loc : range option;
         term_type : term_type ;
       }
+
+    type id_type = [
+      | `Compact of string ranged * string ranged
+      | `Iri of Iri.t ranged
+      | `Blank of string ranged
+      ]
+
+    type ctx_term = [
+      | `String
+      | `Compact of string ranged * string ranged
+      | `Iri of Iri.t ranged
+     ]
 
     type ctx_def =
       { ctx_loc : range option;
@@ -79,12 +198,6 @@ module Ast =
         ctxr_type : ctx_ref_type ;
       }
 
-    type id_type = [
-      | `Compact of string locd * string locd
-      | `Iri of Iri.t locd
-      | `Blank of string locd
-      ]
-
     type id =
       { id_loc : range ;
         id_type : id_type ;
@@ -92,9 +205,9 @@ module Ast =
 
     type node_type = [
       | `Term of term
-      | `Compact of string locd * string locd
-      | `Iri of Iri.t locd
-      | `Blank of string locd
+      | `Compact of string ranged * string ranged
+      | `Iri of Iri.t ranged
+      | `Blank of string ranged
       ]
 
     type kv_type = [
@@ -111,76 +224,50 @@ module Ast =
         node_loc : range option;
         node_ctx : ctx_ref option ;
         node_id : id option ;
-        node_graph : node list locd option;
+        node_graph : node list ranged option;
         node_type : node_type option ;
         node_reverse : reverse_def list option ;
-        node_index : string locd option ;
+        node_index : string ranged option ;
         node_map : (term * key_value) list ;
       }
-    and ext_kv_type = [
+    and kv_type2 = [
       | kv_type
       | `Node of node
       | `Value of value
-      | `List of unit (* TODO *)
-      | `Set of unit (* TODO *)
-      | `Array of ext_kv_type list
-      | `Language_map of unit (* TODO *)
-      | `Index_map of unit (* TODO *)
+      | `Array of kv_type2 list
       ]
+    and kv_type3 = [
+      | kv_type
+      | `Node of node
+      | `Value of value
+      | `Array of kv_type3 list
+      | `List of list_object
+      | `Set of set_object
+      | `Language_map of language_map
+      | `Index_map of index_map
+      ]
+    and language_map = node (* as we can't know at parsing time whether
+      node is a regular one or a language map *)
+    and index_map = node (* as we can't know at parsing time whether
+      node is a regular one or an index map *)
 
     and key_value =
       { kv_loc : range option ;
-        kv_type : ext_kv_type locd ;
+        kv_type : kv_type3 ranged ;
       }
 
     and value =
       {
         val_loc : range option ;
-        val_value : kv_type locd ;
+        val_value : kv_type ranged ;
         val_type : node_type option ;
-        val_lang : string locd option ;
-        val_index : string locd option ;
+        val_lang : string ranged option ;
+        val_index : string ranged option ;
       }
-
-
-    exception Escape of ((int * int) * (int * int)) * Jsonm.error
-
-    let json_of_src ?encoding
-      (src : [`Channel of in_channel | `String of string])
-        =
-      let dec d = match Jsonm.decode d with
-        | `Lexeme l -> l
-        | `Error e -> raise (Escape (Jsonm.decoded_range d, e))
-        | `End | `Await -> assert false
-      in
-      let rec value v k d = match v with
-        | `Os -> obj [] k d  | `As -> arr [] k d
-        | `Null | `Bool _ | `String _ | `Float _ as v -> k v d
-        | _ -> assert false
-      and arr vs k d = match dec d with
-        | `Ae -> k (`List (List.rev vs)) d
-        | v -> value v (fun v -> arr (v :: vs) k) d
-      and obj ms k d = match dec d with
-        | `Oe -> k (`Assoc (List.rev ms)) d
-        | `Name n -> value (dec d) (fun v -> obj ((n, v) :: ms) k) d
-        | _ -> assert false
-      in
-      let d = Jsonm.decoder ?encoding src in
-      try `JSON (value (dec d) (fun v _ -> v) d) with
-      | Escape (r, e) -> `Error (r, e)
-
-    let from_string ?encoding s = json_of_src ?encoding (`String s)
-  end
-
-module type IO =
-  sig
-    type 'a t
-    val return : 'a -> 'a t
-    val bind : 'a t -> ('a -> 'b t) -> 'b t
-    val get : Iri.t -> (J.json, string) result t
-  end
-
-module Make(IO:IO) =
-  struct
-
-  end
+    and list_object =
+      { list_loc : range option ;
+        list_ctx : ctx_ref option ;
+        list_index : string ranged option ;
+        list_value : kv_type2 ranged list ;
+      }
+    and set_object = list_object

@@ -28,7 +28,7 @@
 
 exception Parse_error of exn * Lexing.position
 
-let nl_code = Char.code '\n'
+let nl_char = Uchar.of_char '\n'
 
 let update_pos pos str =
   let open Lexing in
@@ -36,7 +36,7 @@ let update_pos pos str =
   | `Malformed msg -> 
       let exn = Failure msg in
       raise (Parse_error (exn, pos))
-  | `Uchar c when c = nl_code ->
+  | `Uchar c when Uchar.equal c nl_char ->
       let bol = pos.pos_cnum in
       { pos with
         pos_lnum = pos.pos_lnum + 1;

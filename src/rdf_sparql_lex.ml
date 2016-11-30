@@ -412,7 +412,7 @@ let rec main pos lexbuf =
 | pname_ln ->
   let str = L.lexeme lexbuf in
   let p =
-    try utf8_find_char str (Char.code ':')
+    try utf8_find_char str (Uchar.of_char ':')
     with Not_found -> assert false
   in
   let ns = L.sub_lexeme lexbuf 0 p in

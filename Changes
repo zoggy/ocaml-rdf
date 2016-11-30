@@ -1,4 +1,5 @@
 Next release:
+- use uutf 1.0.0
 - new Rdf_utils module
 - add Rdf_vcard module with Vcard ontology
 - add Rdf_acl module with Web Access Control ontology

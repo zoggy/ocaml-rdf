@@ -278,7 +278,7 @@ let utf8_escape =
   let f b i = function
     `Malformed str -> Buffer.add_string b str; b
   | `Uchar cp ->
-       match cp with
+       match Uchar.to_int cp with
          0x08 (* '\b' *) -> Buffer.add_string b "\\b"; b
        | 0x09 (* '\t' *) -> Buffer.add_string b "\\t"; b
        | 0x0A (* '\n' *) -> Buffer.add_string b "\\n"; b

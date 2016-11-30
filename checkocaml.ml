@@ -26,7 +26,7 @@
 
 (* $Id$ *)
 
-(*c==m=[OCaml_conf]=0.9=t==*)
+(*c==m=[OCaml_conf]=0.12=t==*)
 
 
   open Sys
@@ -432,11 +432,40 @@ let dummy_version = [0]
 
 (** [version_of_string s] returns a version number from the given string [s].
    [s] must b in the form [X[.Y[.Z[...]]]]. If the string is not correct,
-   then the dummy version is returned. *)
-let version_of_string s =
-  let l = Str.split (Str.regexp_string ".") s in
-  try List.map int_of_string l
-  with Failure _ -> dummy_version
+   then the dummy version is returned. When the version number is followed
+   by other characters (like '+'), then only the characters before are used
+   to create the version number.*)
+let version_of_string =
+  let is_bad_char = function
+    '.' | '0'..'9' -> false
+  | _ -> true
+  in
+  let keep_good_chars s =
+    let len = String.length s in
+    let b = Buffer.create len in
+    let rec iter i =
+      if i >= len then
+        ()
+      else
+        if i = 0 && String.get s i = 'v'
+        then
+          iter (i+1)
+        else
+          if is_bad_char (String.get s i) then
+            ()
+          else
+            (Buffer.add_char b (String.get s i) ;
+             iter (i+1)
+            )
+    in
+    iter 0;
+    Buffer.contents b
+  in
+  fun s ->
+    let s = keep_good_chars s in
+    let l = Str.split (Str.regexp_string ".") s in
+    try List.map int_of_string l
+    with Failure _ -> dummy_version
 
 (** [string_of_version v] returns a string to display the given version.
    For example, [string_of_version [1;2;3] = "1.2.3"]. *)
@@ -459,7 +488,7 @@ type ocaml_conf =
       ocamlmklib : string ;
       ocamlmktop : string ;
       ocamlprof : string ;
-      camlp4 : string;
+      camlp4 : string ;
       ocamlfind : string ;
       version_string : string ;
       version : version ;
@@ -604,7 +633,7 @@ let get_opt_conf conf =
    default is [false].
    @raise Program_not found if a required program cannot be found.
 *)
-let ocaml_conf ?(withopt=false) ?(ocamlfind=false) () =
+let ocaml_conf ?(withopt=false) ?(camlp4=false) ?(ocamlfind=false) () =
   let ocamlc = ocaml_prog "ocamlc" in
   let version_string = exec_and_get_first_line  ocamlc [| "-version" |] in
   let version = version_of_ocaml_version_string version_string in
@@ -623,7 +652,7 @@ let ocaml_conf ?(withopt=false) ?(ocamlfind=false) () =
     ocamlmklib = ocaml_prog "ocamlmklib" ;
     ocamlmktop = ocaml_prog "ocamlmktop" ;
     ocamlprof = ocaml_prog "ocamlprof" ;
-    camlp4 = ocaml_prog "camlp4" ;
+    camlp4 = ocaml_prog ~err: camlp4 "camlp4" ;
     ocamlfind = ocaml_prog ~err: ocamlfind "ocamlfind" ;
   } in
   check_conf_versions conf;
@@ -647,7 +676,8 @@ let print_conf c =
   !print (sp "library builder:            %s\n" c.ocamlmklib);
   !print (sp "toplevel builder:           %s\n" c.ocamlmktop);
   !print (sp "profiler:                   %s\n" c.ocamlprof);
-  !print (sp "camlp4:                     %s\n" c.camlp4);
+  (match c.camlp4 with "" -> () | s ->
+    !print (sp "camlp4:                     %s\n" s));
   (match c.ocamlfind with "" -> () | s ->
     !print (sp "ocamlfind:                  %s\n" s))
 
@@ -880,7 +910,7 @@ let add_conf_variables c =
    List.iter (fun (var,v) -> add_subst var v) l
 
 
-(*/c==m=[OCaml_conf]=0.9=t==*)
+(*/c==m=[OCaml_conf]=0.12=t==*)
 
 let ocaml_required = [4;2;0]
 let conf = ocaml_conf ();;
@@ -900,12 +930,17 @@ let _ = add_subst "MENHIR" menhir;;
 
 let _ = check_ocamlfind_package conf "calendar";;
 let _ = check_ocamlfind_package conf "sedlex";;
-let _ = check_ocamlfind_package conf ~min_version: [0;2] "iri";;
+let _ = check_ocamlfind_package conf ~min_version: [0;4] "iri";;
 let _ = check_ocamlfind_package conf "uri";;
 let _ = check_ocamlfind_package conf "pcre";;
 let _ = check_ocamlfind_package conf "cryptokit";;
 let _ = check_ocamlfind_package conf "yojson";;
 let _ = check_ocamlfind_package conf "jsonm";;
+let _ = check_ocamlfind_package conf "calendar";;
+let _ = check_ocamlfind_package conf ~min_version: [1;0;0] "uutf";;
+let _ = check_ocamlfind_package conf "uuidm";;
+let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
+
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "mysql" with
@@ -919,8 +954,6 @@ let _ =
       add_subst "MT_FLAGS" "-thread"
   | _ -> ();;
 
-let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
-let _ = check_ocamlfind_package conf "uuidm";;
 
 let _ =
   match check_ocamlfind_package conf ~fail: false "cohttp.lwt"
