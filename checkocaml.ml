@@ -939,7 +939,7 @@ let _ = check_ocamlfind_package conf "jsonm";;
 let _ = check_ocamlfind_package conf "calendar";;
 let _ = check_ocamlfind_package conf ~min_version: [1;0;0] "uutf";;
 let _ = check_ocamlfind_package conf "uuidm";;
-let _ = check_ocamlfind_package conf ~min_version: [1;1;0] "xmlm";;
+let _ = check_ocamlfind_package conf ~min_version: [1;2;0] "xmlm";;
 
 
 let _ =
