@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_prov.Open</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="Rdf_prov.html" title="Rdf_prov">Up</a>
+&#160;</div>
+<h1>Module <a href="type_Rdf_prov.Open.html">Rdf_prov.Open</a></h1>
+
+<pre><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_prov.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre><span id="VALprov_c_Accept"><span class="keyword">val</span> prov_c_Accept</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Activity"><span class="keyword">val</span> prov_c_Activity</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_ActivityInfluence"><span class="keyword">val</span> prov_c_ActivityInfluence</span> : <code class="type">Iri.t</code></pre><div class="info ">
+It is not recommended that the type ActivityInfluence be asserted without also asserting one of its more specific subclasses.<br/>
+</div>
+
+<pre><span id="VALprov_c_Agent"><span class="keyword">val</span> prov_c_Agent</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_AgentInfluence"><span class="keyword">val</span> prov_c_AgentInfluence</span> : <code class="type">Iri.t</code></pre><div class="info ">
+It is not recommended that the type AgentInfluence be asserted without also asserting one of its more specific subclasses.<br/>
+</div>
+
+<pre><span id="VALprov_c_Association"><span class="keyword">val</span> prov_c_Association</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Association provides additional descriptions about the binary prov:wasAssociatedWith relation from an prov:Activity to some prov:Agent that had some responsiblity for it. For example, :baking prov:wasAssociatedWith :baker; prov:qualifiedAssociation <code class="code"> a prov:Association; prov:agent :baker; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Attribution"><span class="keyword">val</span> prov_c_Attribution</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Attribution provides additional descriptions about the binary prov:wasAttributedTo relation from an prov:Entity to some prov:Agent that had some responsible for it. For example, :cake prov:wasAttributedTo :baker; prov:qualifiedAttribution <code class="code"> a prov:Attribution; prov:entity :baker; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Bundle"><span class="keyword">val</span> prov_c_Bundle</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Note that there are kinds of bundles (e.g. handwritten letters, audio recordings, etc.) that are not expressed in PROV-O, but can be still be described by PROV-O.<br/>
+</div>
+
+<pre><span id="VALprov_c_Collection"><span class="keyword">val</span> prov_c_Collection</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Communication"><span class="keyword">val</span> prov_c_Communication</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Communication provides additional descriptions about the binary prov:wasInformedBy relation from an informed prov:Activity to the prov:Activity that informed it. For example, :you_jumping_off_bridge prov:wasInformedBy :everyone_else_jumping_off_bridge; prov:qualifiedCommunication <code class="code"> a prov:Communication; prov:activity :everyone_else_jumping_off_bridge; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Contribute"><span class="keyword">val</span> prov_c_Contribute</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Contributor"><span class="keyword">val</span> prov_c_Contributor</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Copyright"><span class="keyword">val</span> prov_c_Copyright</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Create"><span class="keyword">val</span> prov_c_Create</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Creator"><span class="keyword">val</span> prov_c_Creator</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Delegation"><span class="keyword">val</span> prov_c_Delegation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Delegation provides additional descriptions about the binary prov:actedOnBehalfOf relation from a performing prov:Agent to some prov:Agent for whom it was performed. For example, :mixing prov:wasAssociatedWith :toddler . :toddler prov:actedOnBehalfOf :mother; prov:qualifiedDelegation <code class="code"> a prov:Delegation; prov:entity :mother; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Derivation"><span class="keyword">val</span> prov_c_Derivation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The more specific forms of prov:Derivation (i.e., prov:Revision, prov:Quotation, prov:PrimarySource) should be asserted if they apply.<br/>
+</div>
+
+<pre><span id="VALprov_c_Dictionary"><span class="keyword">val</span> prov_c_Dictionary</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This concept allows for the provenance of the dictionary, but also of its constituents to be expressed. Such a notion of dictionary corresponds to a wide variety of concrete data structures, such as a maps or associative arrays.<br/>
+</div>
+
+<pre><span id="VALprov_c_DirectQueryService"><span class="keyword">val</span> prov_c_DirectQueryService</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Type for a generic provenance query service. Mainly for use in RDF provenance query service descriptions, to facilitate discovery in linked data environments.<br/>
+</div>
+
+<pre><span id="VALprov_c_EmptyCollection"><span class="keyword">val</span> prov_c_EmptyCollection</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_EmptyDictionary"><span class="keyword">val</span> prov_c_EmptyDictionary</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_End"><span class="keyword">val</span> prov_c_End</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:End provides additional descriptions about the binary prov:wasEndedBy relation from some ended prov:Activity to an prov:Entity that ended it. For example, :ball_game prov:wasEndedBy :buzzer; prov:qualifiedEnd <code class="code"> a prov:End; prov:entity :buzzer; :foo :bar; prov:atTime '2012-03-09T08:05:08-05:00'^^xsd:dateTime </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Entity"><span class="keyword">val</span> prov_c_Entity</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_EntityInfluence"><span class="keyword">val</span> prov_c_EntityInfluence</span> : <code class="type">Iri.t</code></pre><div class="info ">
+It is not recommended that the type EntityInfluence be asserted without also asserting one of its more specific subclasses.<br/>
+</div>
+
+<pre><span id="VALprov_c_Generation"><span class="keyword">val</span> prov_c_Generation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Generation provides additional descriptions about the binary prov:wasGeneratedBy relation from a generated prov:Entity to the prov:Activity that generated it. For example, :cake prov:wasGeneratedBy :baking; prov:qualifiedGeneration <code class="code"> a prov:Generation; prov:activity :baking; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Influence"><span class="keyword">val</span> prov_c_Influence</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Because prov:Influence is a broad relation, its most specific subclasses (e.g. prov:Communication, prov:Delegation, prov:End, prov:Revision, etc.) should be used when applicable.<br/>
+</div>
+
+<pre><span id="VALprov_c_Insertion"><span class="keyword">val</span> prov_c_Insertion</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_InstantaneousEvent"><span class="keyword">val</span> prov_c_InstantaneousEvent</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instantaneous event, or event for short, happens in the world and marks a change in the world, in its activities and in its entities. The term 'event' is commonly used in process algebra with a similar meaning. Events represent communications or interactions; they are assumed to be atomic and instantaneous.<br/>
+</div>
+
+<pre><span id="VALprov_c_Invalidation"><span class="keyword">val</span> prov_c_Invalidation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Invalidation provides additional descriptions about the binary prov:wasInvalidatedBy relation from an invalidated prov:Entity to the prov:Activity that invalidated it. For example, :uncracked_egg prov:wasInvalidatedBy :baking; prov:qualifiedInvalidation <code class="code"> a prov:Invalidation; prov:activity :baking; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_KeyEntityPair"><span class="keyword">val</span> prov_c_KeyEntityPair</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Location"><span class="keyword">val</span> prov_c_Location</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Modify"><span class="keyword">val</span> prov_c_Modify</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Organization"><span class="keyword">val</span> prov_c_Organization</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Person"><span class="keyword">val</span> prov_c_Person</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Plan"><span class="keyword">val</span> prov_c_Plan</span> : <code class="type">Iri.t</code></pre><div class="info ">
+There exist no prescriptive requirement on the nature of plans, their representation, the actions or steps they consist of, or their intended goals. Since plans may evolve over time, it may become necessary to track their provenance, so plans themselves are entities. Representing the plan explicitly in the provenance can be useful for various tasks: for example, to validate the execution as represented in the provenance record, to manage expectation failures, or to provide explanations.<br/>
+</div>
+
+<pre><span id="VALprov_c_PrimarySource"><span class="keyword">val</span> prov_c_PrimarySource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:PrimarySource provides additional descriptions about the binary prov:hadPrimarySource relation from some secondary prov:Entity to an earlier, primary prov:Entity. For example, :blog prov:hadPrimarySource :newsArticle; prov:qualifiedPrimarySource <code class="code"> a prov:PrimarySource; prov:entity :newsArticle; :foo :bar </code> .<br/>
+</div>
+
+<pre><span id="VALprov_c_Publish"><span class="keyword">val</span> prov_c_Publish</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Publisher"><span class="keyword">val</span> prov_c_Publisher</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Quotation"><span class="keyword">val</span> prov_c_Quotation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Quotation provides additional descriptions about the binary prov:wasQuotedFrom relation from some taken prov:Entity from an earlier, larger prov:Entity. For example, :here_is_looking_at_you_kid prov:wasQuotedFrom :casablanca_script; prov:qualifiedQuotation <code class="code"> a prov:Quotation; prov:entity :casablanca_script; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_Removal"><span class="keyword">val</span> prov_c_Removal</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Replace"><span class="keyword">val</span> prov_c_Replace</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Revision"><span class="keyword">val</span> prov_c_Revision</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Revision provides additional descriptions about the binary prov:wasRevisionOf relation from some newer prov:Entity to an earlier prov:Entity. For example, :draft_2 prov:wasRevisionOf :draft_1; prov:qualifiedRevision <code class="code"> a prov:Revision; prov:entity :draft_1; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_c_RightsAssignment"><span class="keyword">val</span> prov_c_RightsAssignment</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_RightsHolder"><span class="keyword">val</span> prov_c_RightsHolder</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Role"><span class="keyword">val</span> prov_c_Role</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_ServiceDescription"><span class="keyword">val</span> prov_c_ServiceDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Type for a generic provenance query service. Mainly for use in RDF provenance query service descriptions, to facilitate discovery in linked data environments.<br/>
+</div>
+
+<pre><span id="VALprov_c_SoftwareAgent"><span class="keyword">val</span> prov_c_SoftwareAgent</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Start"><span class="keyword">val</span> prov_c_Start</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Start provides additional descriptions about the binary prov:wasStartedBy relation from some started prov:Activity to an prov:Entity that started it. For example, :foot_race prov:wasStartedBy :bang; prov:qualifiedStart <code class="code"> a prov:Start; prov:entity :bang; :foo :bar; prov:atTime '2012-03-09T08:05:08-05:00'^^xsd:dateTime </code> .<br/>
+</div>
+
+<pre><span id="VALprov_c_Submit"><span class="keyword">val</span> prov_c_Submit</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_c_Usage"><span class="keyword">val</span> prov_c_Usage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instance of prov:Usage provides additional descriptions about the binary prov:used relation from some prov:Activity to an prov:Entity that it used. For example, :keynote prov:used :podium; prov:qualifiedUsage <code class="code"> a prov:Usage; prov:entity :podium; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_actedOnBehalfOf"><span class="keyword">val</span> prov_actedOnBehalfOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An object property to express the accountability of an agent towards another agent. The subordinate agent acted on behalf of the responsible agent in an actual activity.<br/>
+</div>
+
+<pre><span id="VALprov_activity"><span class="keyword">val</span> prov_activity</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_agent"><span class="keyword">val</span> prov_agent</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_alternateOf"><span class="keyword">val</span> prov_alternateOf</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_aq"><span class="keyword">val</span> prov_aq</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_asInBundle"><span class="keyword">val</span> prov_asInBundle</span> : <code class="type">Iri.t</code></pre><div class="info ">
+prov:asInBundle is used to specify which bundle the general entity of a prov:mentionOf property is described.
+<div class="vertical-space"> </div>
+
+When :x prov:mentionOf :y and :y is described in Bundle :b, the triple :x prov:asInBundle :b is also asserted to cite the Bundle in which :y was described.<br/>
+</div>
+
+<pre><span id="VALprov_atLocation"><span class="keyword">val</span> prov_atLocation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The Location of any resource.<br/>
+</div>
+
+<pre><span id="VALprov_atTime"><span class="keyword">val</span> prov_atTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time at which an InstantaneousEvent occurred, in the form of xsd:dateTime.<br/>
+</div>
+
+<pre><span id="VALprov_category"><span class="keyword">val</span> prov_category</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Classify prov-o terms into three categories, including 'starting-point', 'qualifed', and 'extended'. This classification is used by the prov-o html document to gently introduce prov-o terms to its users.<br/>
+</div>
+
+<pre><span id="VALprov_component"><span class="keyword">val</span> prov_component</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Classify prov-o terms into six components according to prov-dm, including 'agents-responsibility', 'alternate', 'annotations', 'collections', 'derivations', and 'entities-activities'. This classification is used so that readers of prov-o specification can find its correspondence with the prov-dm specification.<br/>
+</div>
+
+<pre><span id="VALprov_constraints"><span class="keyword">val</span> prov_constraints</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A reference to the principal section of the PROV-CONSTRAINTS document that describes this concept.<br/>
+</div>
+
+<pre><span id="VALprov_definition"><span class="keyword">val</span> prov_definition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A definition quoted from PROV-DM or PROV-CONSTRAINTS that describes the concept expressed with this OWL term.<br/>
+</div>
+
+<pre><span id="VALprov_derivedByInsertionFrom"><span class="keyword">val</span> prov_derivedByInsertionFrom</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_derivedByRemovalFrom"><span class="keyword">val</span> prov_derivedByRemovalFrom</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_describesService"><span class="keyword">val</span> prov_describesService</span> : <code class="type">Iri.t</code></pre><div class="info ">
+relates a generic provenance query service resource (type prov:ServiceDescription) to a specific query service description (e.g. a prov:DirectQueryService or a sd:Service).<br/>
+</div>
+
+<pre><span id="VALprov_dictionary"><span class="keyword">val</span> prov_dictionary</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_dm"><span class="keyword">val</span> prov_dm</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A reference to the principal section of the PROV-DM document that describes this concept.<br/>
+</div>
+
+<pre><span id="VALprov_editorialNote"><span class="keyword">val</span> prov_editorialNote</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A note by the OWL development team about how this term expresses the PROV-DM concept, or how it should be used in context of semantic web or linked data.<br/>
+</div>
+
+<pre><span id="VALprov_editorsDefinition"><span class="keyword">val</span> prov_editorsDefinition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+When the prov-o term does not have a definition drawn from prov-dm, and the prov-o editor provides one.<br/>
+</div>
+
+<pre><span id="VALprov_endedAtTime"><span class="keyword">val</span> prov_endedAtTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time at which an activity ended. See also prov:startedAtTime.<br/>
+</div>
+
+<pre><span id="VALprov_entity"><span class="keyword">val</span> prov_entity</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_generated"><span class="keyword">val</span> prov_generated</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_generatedAtTime"><span class="keyword">val</span> prov_generatedAtTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time at which an entity was completely created and is available for use.<br/>
+</div>
+
+<pre><span id="VALprov_hadActivity"><span class="keyword">val</span> prov_hadActivity</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The _optional_ Activity of an Influence, which used, generated, invalidated, or was the responsibility of some Entity. This property is _not_ used by ActivityInfluence (use prov:activity instead).<br/>
+</div>
+
+<pre><span id="VALprov_hadDictionaryMember"><span class="keyword">val</span> prov_hadDictionaryMember</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_hadGeneration"><span class="keyword">val</span> prov_hadGeneration</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The _optional_ Generation involved in an Entity's Derivation.<br/>
+</div>
+
+<pre><span id="VALprov_hadMember"><span class="keyword">val</span> prov_hadMember</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_hadPlan"><span class="keyword">val</span> prov_hadPlan</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The _optional_ Plan adopted by an Agent in Association with some Activity. Plan specifications are out of the scope of this specification.<br/>
+</div>
+
+<pre><span id="VALprov_hadPrimarySource"><span class="keyword">val</span> prov_hadPrimarySource</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_hadRole"><span class="keyword">val</span> prov_hadRole</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The _optional_ Role that an Entity assumed in the context of an Activity. For example, :baking prov:used :spoon; prov:qualified <code class="code"> a prov:Usage; prov:entity :spoon; prov:hadRole roles:mixing_implement </code>.<br/>
+</div>
+
+<pre><span id="VALprov_hadUsage"><span class="keyword">val</span> prov_hadUsage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The _optional_ Usage involved in an Entity's Derivation.<br/>
+</div>
+
+<pre><span id="VALprov_has_anchor"><span class="keyword">val</span> prov_has_anchor</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Indicates anchor URI for a potentially dynamic resource instance.<br/>
+</div>
+
+<pre><span id="VALprov_has_provenance"><span class="keyword">val</span> prov_has_provenance</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Indicates a provenance-URI for a resource; the resource identified by this property presents a provenance record about its subject or anchor resource.<br/>
+</div>
+
+<pre><span id="VALprov_has_query_service"><span class="keyword">val</span> prov_has_query_service</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Indicates a provenance query service that can access provenance related to its subject or anchor resource.<br/>
+</div>
+
+<pre><span id="VALprov_influenced"><span class="keyword">val</span> prov_influenced</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_influencer"><span class="keyword">val</span> prov_influencer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Subproperties of prov:influencer are used to cite the object of an unqualified PROV-O triple whose predicate is a subproperty of prov:wasInfluencedBy (e.g. prov:used, prov:wasGeneratedBy). prov:influencer is used much like rdf:object is used.<br/>
+</div>
+
+<pre><span id="VALprov_insertedKeyEntityPair"><span class="keyword">val</span> prov_insertedKeyEntityPair</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_invalidated"><span class="keyword">val</span> prov_invalidated</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_invalidatedAtTime"><span class="keyword">val</span> prov_invalidatedAtTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time at which an entity was invalidated (i.e., no longer usable).<br/>
+</div>
+
+<pre><span id="VALprov_inverse"><span class="keyword">val</span> prov_inverse</span> : <code class="type">Iri.t</code></pre><div class="info ">
+PROV-O does not define all property inverses. The directionalities defined in PROV-O should be given preference over those not defined. However, if users wish to name the inverse of a PROV-O property, the local name given by prov:inverse should be used.<br/>
+</div>
+
+<pre><span id="VALprov_mentionOf"><span class="keyword">val</span> prov_mentionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+prov:mentionOf is used to specialize an entity as described in another bundle. It is to be used in conjuction with prov:asInBundle.
+<div class="vertical-space"> </div>
+
+prov:asInBundle is used to cite the Bundle in which the generalization was mentioned.<br/>
+</div>
+
+<pre><span id="VALprov_n"><span class="keyword">val</span> prov_n</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A reference to the principal section of the PROV-M document that describes this concept.<br/>
+</div>
+
+<pre><span id="VALprov_order"><span class="keyword">val</span> prov_order</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The position that this OWL term should be listed within documentation. The scope of the documentation (e.g., among all terms, among terms within a prov:category, among properties applying to a particular class, etc.) is unspecified.<br/>
+</div>
+
+<pre><span id="VALprov_pairEntity"><span class="keyword">val</span> prov_pairEntity</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_pairKey"><span class="keyword">val</span> prov_pairKey</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_pingback"><span class="keyword">val</span> prov_pingback</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Relates a resource to a provenance pingback service that may receive additional provenance links about the resource.<br/>
+</div>
+
+<pre><span id="VALprov_provenanceUriTemplate"><span class="keyword">val</span> prov_provenanceUriTemplate</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Relates a provenance service to a URI template string for constructing provenance-URIs.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedAssociation"><span class="keyword">val</span> prov_qualifiedAssociation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:wasAssociatedWith Agent :ag, then it can qualify the Association using prov:qualifiedAssociation <code class="code"> a prov:Association;  prov:agent :ag; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedAttribution"><span class="keyword">val</span> prov_qualifiedAttribution</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:wasAttributedTo Agent :ag, then it can qualify how it was influenced using prov:qualifiedAttribution <code class="code"> a prov:Attribution;  prov:agent :ag; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedCommunication"><span class="keyword">val</span> prov_qualifiedCommunication</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:wasInformedBy Activity :a, then it can qualify how it was influenced using prov:qualifiedCommunication <code class="code"> a prov:Communication;  prov:activity :a; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedDelegation"><span class="keyword">val</span> prov_qualifiedDelegation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Agent prov:actedOnBehalfOf Agent :ag, then it can qualify how with prov:qualifiedResponsibility <code class="code"> a prov:Responsibility;  prov:agent :ag; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedDerivation"><span class="keyword">val</span> prov_qualifiedDerivation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:wasDerivedFrom Entity :e, then it can qualify how it was derived using prov:qualifiedDerivation <code class="code"> a prov:Derivation;  prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedEnd"><span class="keyword">val</span> prov_qualifiedEnd</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:wasEndedBy Entity :e1, then it can qualify how it was ended using prov:qualifiedEnd <code class="code"> a prov:End;  prov:entity :e1; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedForm"><span class="keyword">val</span> prov_qualifiedForm</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This annotation property links a subproperty of prov:wasInfluencedBy with the subclass of prov:Influence and the qualifying property that are used to qualify it. 
+<div class="vertical-space"> </div>
+
+Example annotation:
+<div class="vertical-space"> </div>
+
+    prov:wasGeneratedBy prov:qualifiedForm prov:qualifiedGeneration, prov:Generation .
+<div class="vertical-space"> </div>
+
+Then this unqualified assertion:
+<div class="vertical-space"> </div>
+
+    :entity1 prov:wasGeneratedBy :activity1 .
+<div class="vertical-space"> </div>
+
+can be qualified by adding:
+<div class="vertical-space"> </div>
+
+   :entity1 prov:qualifiedGeneration :entity1Gen .
+   :entity1Gen 
+       a prov:Generation, prov:Influence;
+       prov:activity :activity1;
+       :customValue 1337 .
+<div class="vertical-space"> </div>
+
+Note how the value of the unqualified influence (prov:wasGeneratedBy :activity1) is mirrored as the value of the prov:activity (or prov:entity, or prov:agent) property on the influence class.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedGeneration"><span class="keyword">val</span> prov_qualifiedGeneration</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:generated Entity :e, then it can qualify how it performed the Generation using prov:qualifiedGeneration <code class="code"> a prov:Generation;  prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedInfluence"><span class="keyword">val</span> prov_qualifiedInfluence</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Because prov:qualifiedInfluence is a broad relation, the more specific relations (qualifiedCommunication, qualifiedDelegation, qualifiedEnd, etc.) should be used when applicable.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedInsertion"><span class="keyword">val</span> prov_qualifiedInsertion</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_qualifiedInvalidation"><span class="keyword">val</span> prov_qualifiedInvalidation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:wasInvalidatedBy Activity :a, then it can qualify how it was invalidated using prov:qualifiedInvalidation <code class="code"> a prov:Invalidation;  prov:activity :a; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedPrimarySource"><span class="keyword">val</span> prov_qualifiedPrimarySource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:hadPrimarySource Entity :e, then it can qualify how using prov:qualifiedPrimarySource <code class="code"> a prov:PrimarySource; prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedQuotation"><span class="keyword">val</span> prov_qualifiedQuotation</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:wasQuotedFrom Entity :e, then it can qualify how using prov:qualifiedQuotation <code class="code"> a prov:Quotation;  prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedRemoval"><span class="keyword">val</span> prov_qualifiedRemoval</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_qualifiedRevision"><span class="keyword">val</span> prov_qualifiedRevision</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Entity prov:wasRevisionOf Entity :e, then it can qualify how it was revised using prov:qualifiedRevision <code class="code"> a prov:Revision;  prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedStart"><span class="keyword">val</span> prov_qualifiedStart</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:wasStartedBy Entity :e1, then it can qualify how it was started using prov:qualifiedStart <code class="code"> a prov:Start;  prov:entity :e1; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_qualifiedUsage"><span class="keyword">val</span> prov_qualifiedUsage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If this Activity prov:used Entity :e, then it can qualify how it used it using prov:qualifiedUsage <code class="code"> a prov:Usage; prov:entity :e; :foo :bar </code>.<br/>
+</div>
+
+<pre><span id="VALprov_removedKey"><span class="keyword">val</span> prov_removedKey</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_sharesDefinitionWith"><span class="keyword">val</span> prov_sharesDefinitionWith</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_specializationOf"><span class="keyword">val</span> prov_specializationOf</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_startedAtTime"><span class="keyword">val</span> prov_startedAtTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time at which an activity started. See also prov:endedAtTime.<br/>
+</div>
+
+<pre><span id="VALprov_todo"><span class="keyword">val</span> prov_todo</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_unqualifiedForm"><span class="keyword">val</span> prov_unqualifiedForm</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Classes and properties used to qualify relationships are annotated with prov:unqualifiedForm to indicate the property used to assert an unqualified provenance relation.<br/>
+</div>
+
+<pre><span id="VALprov_used"><span class="keyword">val</span> prov_used</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A prov:Entity that was used by this prov:Activity. For example, :baking prov:used :spoon, :egg, :oven .<br/>
+</div>
+
+<pre><span id="VALprov_value"><span class="keyword">val</span> prov_value</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_wasAssociatedWith"><span class="keyword">val</span> prov_wasAssociatedWith</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An prov:Agent that had some (unspecified) responsibility for the occurrence of this prov:Activity.<br/>
+</div>
+
+<pre><span id="VALprov_wasAttributedTo"><span class="keyword">val</span> prov_wasAttributedTo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Attribution is the ascribing of an entity to an agent.<br/>
+</div>
+
+<pre><span id="VALprov_wasDerivedFrom"><span class="keyword">val</span> prov_wasDerivedFrom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The more specific subproperties of prov:wasDerivedFrom (i.e., prov:wasQuotedFrom, prov:wasRevisionOf, prov:hadPrimarySource) should be used when applicable.<br/>
+</div>
+
+<pre><span id="VALprov_wasEndedBy"><span class="keyword">val</span> prov_wasEndedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+End is when an activity is deemed to have ended. An end may refer to an entity, known as trigger, that terminated the activity.<br/>
+</div>
+
+<pre><span id="VALprov_wasGeneratedBy"><span class="keyword">val</span> prov_wasGeneratedBy</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_wasInfluencedBy"><span class="keyword">val</span> prov_wasInfluencedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Because prov:wasInfluencedBy is a broad relation, its more specific subproperties (e.g. prov:wasInformedBy, prov:actedOnBehalfOf, prov:wasEndedBy, etc.) should be used when applicable.<br/>
+</div>
+
+<pre><span id="VALprov_wasInformedBy"><span class="keyword">val</span> prov_wasInformedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An activity a2 is dependent on or informed by another activity a1, by way of some unspecified entity that is generated by a1 and used by a2.<br/>
+</div>
+
+<pre><span id="VALprov_wasInvalidatedBy"><span class="keyword">val</span> prov_wasInvalidatedBy</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALprov_wasQuotedFrom"><span class="keyword">val</span> prov_wasQuotedFrom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An entity is derived from an original entity by copying, or 'quoting', some or all of it.<br/>
+</div>
+
+<pre><span id="VALprov_wasRevisionOf"><span class="keyword">val</span> prov_wasRevisionOf</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A revision is a derivation that revises an entity into a revised version.<br/>
+</div>
+
+<pre><span id="VALprov_wasStartedBy"><span class="keyword">val</span> prov_wasStartedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Start is when an activity is deemed to have started. A start may refer to an entity, known as trigger, that initiated the activity.<br/>
+</div>
+</div></contents></ocamldoc>

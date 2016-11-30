@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_solid.Open</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="Rdf_solid.html" title="Rdf_solid">Up</a>
+&#160;</div>
+<h1>Module <a href="type_Rdf_solid.Open.html">Rdf_solid.Open</a></h1>
+
+<pre><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_solid.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre><span id="VALsolid_c_Account"><span class="keyword">val</span> solid_c_Account</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A Solid account.<br/>
+</div>
+
+<pre><span id="VALsolid_c_Inbox"><span class="keyword">val</span> solid_c_Inbox</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A resource containing notifications.<br/>
+</div>
+
+<pre><span id="VALsolid_c_Notification"><span class="keyword">val</span> solid_c_Notification</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A notification resource.<br/>
+</div>
+
+<pre><span id="VALsolid_c_Timeline"><span class="keyword">val</span> solid_c_Timeline</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A resource containing time ordered items and sub-containers.  Sub-containers may be desirable in file based systems to split the timeline into logical components e.g. /yyyy-mm-dd/ as used in ISO 8061.<br/>
+</div>
+
+<pre><span id="VALsolid_c_TypeIndex"><span class="keyword">val</span> solid_c_TypeIndex</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A index of type registries for resources. Applications can register the RDF type they use and list them in the index resource.<br/>
+</div>
+
+<pre><span id="VALsolid_account"><span class="keyword">val</span> solid_account</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A solid account belonging to an Agent.<br/>
+</div>
+
+<pre><span id="VALsolid_inbox"><span class="keyword">val</span> solid_inbox</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Inbox resource for notifications.<br/>
+</div>
+
+<pre><span id="VALsolid_notification"><span class="keyword">val</span> solid_notification</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Notification resource for an inbox.<br/>
+</div>
+
+<pre><span id="VALsolid_read"><span class="keyword">val</span> solid_read</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Indicates if a message has been read or not. This property should have a boolean datatype.<br/>
+</div>
+
+<pre><span id="VALsolid_timeline"><span class="keyword">val</span> solid_timeline</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Timeline for a given resource.<br/>
+</div>
+
+<pre><span id="VALsolid_typeIndex"><span class="keyword">val</span> solid_typeIndex</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Points to a TypeIndex resource.<br/>
+</div>
+</div></contents></ocamldoc>

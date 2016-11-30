@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_time.Open</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="Rdf_time.html" title="Rdf_time">Up</a>
+&#160;</div>
+<h1>Module <a href="type_Rdf_time.Open.html">Rdf_time.Open</a></h1>
+
+<pre><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_time.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+
+<pre><span id="VALtime_c_DateTimeDescription"><span class="keyword">val</span> time_c_DateTimeDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of date and time structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.<br/>
+</div>
+
+<pre><span id="VALtime_c_DateTimeInterval"><span class="keyword">val</span> time_c_DateTimeInterval</span> : <code class="type">Iri.t</code></pre><div class="info ">
+DateTimeInterval is a subclass of ProperInterval, defined using the multi-element DateTimeDescription.<br/>
+</div>
+
+<pre><span id="VALtime_c_DayOfWeek"><span class="keyword">val</span> time_c_DayOfWeek</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The day of week<br/>
+</div>
+
+<pre><span id="VALtime_c_Duration"><span class="keyword">val</span> time_c_Duration</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Duration of a temporal extent expressed as a number scaled by a temporal unit<br/>
+</div>
+
+<pre><span id="VALtime_c_DurationDescription"><span class="keyword">val</span> time_c_DurationDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of temporal extent structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of each of the numeric properties is restricted to xsd:decimal<br/>
+</div>
+
+<pre><span id="VALtime_c_GeneralDateTimeDescription"><span class="keyword">val</span> time_c_GeneralDateTimeDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of date and time structured with separate values for the various elements of a calendar-clock system<br/>
+</div>
+
+<pre><span id="VALtime_c_GeneralDurationDescription"><span class="keyword">val</span> time_c_GeneralDurationDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Description of temporal extent structured with separate values for the various elements of a calendar-clock system.<br/>
+</div>
+
+<pre><span id="VALtime_c_Instant"><span class="keyword">val</span> time_c_Instant</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal entity with zero extent or duration<br/>
+</div>
+
+<pre><span id="VALtime_c_Interval"><span class="keyword">val</span> time_c_Interval</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal entity with an extent or duration<br/>
+</div>
+
+<pre><span id="VALtime_dt_Number"><span class="keyword">val</span> time_dt_Number</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Note: integer is a specialization of decimal<br/>
+</div>
+
+<pre><span id="VALtime_c_ProperInterval"><span class="keyword">val</span> time_c_ProperInterval</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different<br/>
+</div>
+
+<pre><span id="VALtime_c_TRS"><span class="keyword">val</span> time_c_TRS</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
+<div class="vertical-space"> </div>
+
+This is a stub class, representing the set of all temporal reference systems.<br/>
+</div>
+
+<pre><span id="VALtime_c_TemporalEntity"><span class="keyword">val</span> time_c_TemporalEntity</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal interval or instant.<br/>
+</div>
+
+<pre><span id="VALtime_c_TemporalUnit"><span class="keyword">val</span> time_c_TemporalUnit</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal unit of measure, which provides a scale factor for a time quantity.<br/>
+</div>
+
+<pre><span id="VALtime_c_TimePosition"><span class="keyword">val</span> time_c_TimePosition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A temporal position described using either a (nominal) value from an ordinal reference system, or a (numeric) value in a temporal coordinate system.<br/>
+</div>
+
+<pre><span id="VALtime_c_Year"><span class="keyword">val</span> time_c_Year</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Duration year, not a calendar year!<br/>
+</div>
+
+<pre><span id="VALtime_after"><span class="keyword">val</span> time_after</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Gives directionality to time. If a temporal entity T1 is after another temporal entity T2, then the beginning of T1 is after the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_before"><span class="keyword">val</span> time_before</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Gives directionality to time. If a temporal entity T1 is before another temporal entity T2, then the end of T1 is before the beginning of T2. Thus, before can be considered to be basic to instants and derived for intervals.<br/>
+</div>
+
+<pre><span id="VALtime_day"><span class="keyword">val</span> time_day</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Day position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.<br/>
+</div>
+
+<pre><span id="VALtime_dayOfWeek"><span class="keyword">val</span> time_dayOfWeek</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The day of week, whose value is a member of the class time:DayOfWeek<br/>
+</div>
+
+<pre><span id="VALtime_dayOfYear"><span class="keyword">val</span> time_dayOfYear</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The number of the day within the year<br/>
+</div>
+
+<pre><span id="VALtime_days"><span class="keyword">val</span> time_days</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in days<br/>
+</div>
+
+<pre><span id="VALtime_dt_generalDay"><span class="keyword">val</span> time_dt_generalDay</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Day of month - generalization of xsd:gDay, formulated as a text string with a pattern constraint to reproduce the same lexical form as gDay, except that values up to 99 are permitted, in order to support calendars with more than 31 days in a month. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<pre><span id="VALtime_dt_generalMonth"><span class="keyword">val</span> time_dt_generalMonth</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Month of year - generalization of xsd:gMonth, formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<pre><span id="VALtime_dt_generalYear"><span class="keyword">val</span> time_dt_generalYear</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<pre><span id="VALtime_hasBeginning"><span class="keyword">val</span> time_hasBeginning</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Beginning of a temporal entity.<br/>
+</div>
+
+<pre><span id="VALtime_hasDateTimeDescription"><span class="keyword">val</span> time_hasDateTimeDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Value of DateTimeInterval expressed as a structured value.<br/>
+</div>
+
+<pre><span id="VALtime_hasDuration"><span class="keyword">val</span> time_hasDuration</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Duration of a temporal entity, expressed as a scaled value or nominal value<br/>
+</div>
+
+<pre><span id="VALtime_hasDurationDescription"><span class="keyword">val</span> time_hasDurationDescription</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Duration of a temporal entity, expressed using a structured description<br/>
+</div>
+
+<pre><span id="VALtime_hasEnd"><span class="keyword">val</span> time_hasEnd</span> : <code class="type">Iri.t</code></pre><div class="info ">
+End of a temporal entity.<br/>
+</div>
+
+<pre><span id="VALtime_hasMember"><span class="keyword">val</span> time_hasMember</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Supports the inclusion of temporal entities in other resources, such as temporal reference systems.<br/>
+</div>
+
+<pre><span id="VALtime_hasTRS"><span class="keyword">val</span> time_hasTRS</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The temporal reference system used by a temporal position or extent description.<br/>
+</div>
+
+<pre><span id="VALtime_hour"><span class="keyword">val</span> time_hour</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Hour position in a calendar-clock system.<br/>
+</div>
+
+<pre><span id="VALtime_hours"><span class="keyword">val</span> time_hours</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in hours<br/>
+</div>
+
+<pre><span id="VALtime_inDateTime"><span class="keyword">val</span> time_inDateTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Position of an instant, expressed using a structured description<br/>
+</div>
+
+<pre><span id="VALtime_inTimePosition"><span class="keyword">val</span> time_inTimePosition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Position of a time instant expressed as a TimePosition<br/>
+</div>
+
+<pre><span id="VALtime_inXSDDateTime"><span class="keyword">val</span> time_inXSDDateTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Position of an instant, expressed using xsd:DateTime<br/>
+</div>
+
+<pre><span id="VALtime_inside"><span class="keyword">val</span> time_inside</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An instant that falls inside the interval. It is not intended to include beginnings and ends of intervals.<br/>
+</div>
+
+<pre><span id="VALtime_intervalAfter"><span class="keyword">val</span> time_intervalAfter</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalAfter another proper interval T2, then the beginning of T1 is after the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalBefore"><span class="keyword">val</span> time_intervalBefore</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalBefore another proper interval T2, then the end of T1 is before the beginning of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalContains"><span class="keyword">val</span> time_intervalContains</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalContains another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalDuring"><span class="keyword">val</span> time_intervalDuring</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalDuring another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalEquals"><span class="keyword">val</span> time_intervalEquals</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalEquals another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalFinishedBy"><span class="keyword">val</span> time_intervalFinishedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalFinishedBy another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalFinishes"><span class="keyword">val</span> time_intervalFinishes</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalFinishes another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalMeets"><span class="keyword">val</span> time_intervalMeets</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalMeets another proper interval T2, then the end of T1 is the beginning of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalMetBy"><span class="keyword">val</span> time_intervalMetBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalMetBy another proper interval T2, then the beginning of T1 is the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalOverlappedBy"><span class="keyword">val</span> time_intervalOverlappedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalOverlappedBy another proper interval T2, then the beginning of T1 is after the beginning of T2, the beginning of T1 is before the end of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalOverlaps"><span class="keyword">val</span> time_intervalOverlaps</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalOverlaps another proper interval T2, then the beginning of T1 is before the beginning of T2, the end of T1 is after the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalStartedBy"><span class="keyword">val</span> time_intervalStartedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalStarted another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_intervalStarts"><span class="keyword">val</span> time_intervalStarts</span> : <code class="type">Iri.t</code></pre><div class="info ">
+If a proper interval T1 is intervalStarts another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<pre><span id="VALtime_minute"><span class="keyword">val</span> time_minute</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Minute position in a calendar-clock system.<br/>
+</div>
+
+<pre><span id="VALtime_minutes"><span class="keyword">val</span> time_minutes</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in minutes<br/>
+</div>
+
+<pre><span id="VALtime_month"><span class="keyword">val</span> time_month</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Month position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar.<br/>
+</div>
+
+<pre><span id="VALtime_months"><span class="keyword">val</span> time_months</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in months<br/>
+</div>
+
+<pre><span id="VALtime_nominalPosition"><span class="keyword">val</span> time_nominalPosition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The (nominal) value indicating temporal position in an ordinal reference system<br/>
+</div>
+
+<pre><span id="VALtime_numericDuration"><span class="keyword">val</span> time_numericDuration</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Value of a temporal extent expressed as a number scaled by a temporal unit<br/>
+</div>
+
+<pre><span id="VALtime_numericPosition"><span class="keyword">val</span> time_numericPosition</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The (numeric) value indicating position within a temporal coordinate system<br/>
+</div>
+
+<pre><span id="VALtime_second"><span class="keyword">val</span> time_second</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Second position in a calendar-clock system.<br/>
+</div>
+
+<pre><span id="VALtime_seconds"><span class="keyword">val</span> time_seconds</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in seconds<br/>
+</div>
+
+<pre><span id="VALtime_timeZone"><span class="keyword">val</span> time_timeZone</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The time zone for clock elements in the temporal position<br/>
+</div>
+
+<pre><span id="VALtime_unitType"><span class="keyword">val</span> time_unitType</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The temporal unit which provides the precision of a date-time value or scale of a temporal extent<br/>
+</div>
+
+<pre><span id="VALtime_week"><span class="keyword">val</span> time_week</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The number of the week within the year<br/>
+</div>
+
+<pre><span id="VALtime_weeks"><span class="keyword">val</span> time_weeks</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in weeks<br/>
+</div>
+
+<pre><span id="VALtime_xsdDateTime"><span class="keyword">val</span> time_xsdDateTime</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Value of DateTimeInterval expressed as a compact value.<br/>
+</div>
+
+<pre><span id="VALtime_year"><span class="keyword">val</span> time_year</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Year position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar.<br/>
+</div>
+
+<pre><span id="VALtime_years"><span class="keyword">val</span> time_years</span> : <code class="type">Iri.t</code></pre><div class="info ">
+length of a temporal extent expressed in years<br/>
+</div>
+</div></contents></ocamldoc>

@@ -25,7 +25,8 @@
 # check for one particular file of the sources
 AC_INIT(master.Makefile.in)
 
-VERSION=0.10.0
+# DO NOT FORGET TO UPDATE opam FILE
+VERSION=0.11.0
 PACKAGE=rdf
 
 # The root directory where we will compile

@@ -16,6 +16,25 @@ Then read the <page href="doc-install"/> section.
 
 <section id="releases" title="Releases">
 <ul>
+<li><strong><a href="ocaml-rdf-0.11.0.tar.gz">0.11.0</a></strong>
+[2016-11-30]:
+  <ul id="changes0.11.0">
+<li>use uutf 1.0.0,</li>
+<li>new <ml>Rdf_utils</ml> module,</li>
+<li>add <ml>Rdf_vcard</ml> module with Vcard ontology,</li>
+<li>add <ml>Rdf_acl</ml> module with Web Access Control ontology,</li>
+<li>add <ml>Rdf_sioc</ml> module with SIOC ontology,</li>
+<li>add <ml>Rdf_solid</ml> module with SOLID terms ontology,</li>
+<li>upgrade to ocaml 4.03.0,</li>
+<li>handle OWL in schema when generating modules from ontology
+  (in tool <icode>src/tool/gen_ns_mod</icode>),</li>
+<li>add time ontology (<ml>Rdf_time</ml>),</li>
+<li>add missing properties and classes in <ml>Rdf_{dc,doap,foaf,earl,owl}</ml>,</li>
+<li>add <ml>from</ml> class in <ml>Rdf_{...}</ml> ontology modules,</li>
+<li>various fixes.</li>
+</ul>
+</li>
+
 <li><strong><a href="ocaml-rdf-0.10.0.tar.gz">0.10.0</a></strong>
 [2016-03-22]:
   <ul id="changes0.10.0">

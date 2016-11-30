@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_vcard</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_utils.html" title="Rdf_utils">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_xml.html" title="Rdf_xml">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_vcard.html">Rdf_vcard</a></h1>
+
+<pre><span class="keyword">module</span> Rdf_vcard: <code class="code">sig</code> <a href="Rdf_vcard.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Elements of <code class="code">http://www.w3.org/2006/vcard/ns#</code><br/>
+</div>
+<hr width="100%"/>
+
+<pre><span id="VALvcard"><span class="keyword">val</span> vcard</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<code class="code">http://www.w3.org/2006/vcard/ns#</code><br/>
+</div>
+
+<pre><span id="VALvcard_"><span class="keyword">val</span> vcard_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALc_Acquaintance"><span class="keyword">val</span> c_Acquaintance</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Address"><span class="keyword">val</span> c_Address</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the components of the delivery address for the  object<br/>
+</div>
+
+<pre><span id="VALc_Agent"><span class="keyword">val</span> c_Agent</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_BBS"><span class="keyword">val</span> c_BBS</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Car"><span class="keyword">val</span> c_Car</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Cell"><span class="keyword">val</span> c_Cell</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Also called mobile telephone<br/>
+</div>
+
+<pre><span id="VALc_Child"><span class="keyword">val</span> c_Child</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Colleague"><span class="keyword">val</span> c_Colleague</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Contact"><span class="keyword">val</span> c_Contact</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Coresident"><span class="keyword">val</span> c_Coresident</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Coworker"><span class="keyword">val</span> c_Coworker</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Crush"><span class="keyword">val</span> c_Crush</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Date"><span class="keyword">val</span> c_Date</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Dom"><span class="keyword">val</span> c_Dom</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Email"><span class="keyword">val</span> c_Email</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the electronic mail address for communication with the object the vCard represents. Use the hasEmail object property.<br/>
+</div>
+
+<pre><span id="VALc_Emergency"><span class="keyword">val</span> c_Emergency</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Fax"><span class="keyword">val</span> c_Fax</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Female"><span class="keyword">val</span> c_Female</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Friend"><span class="keyword">val</span> c_Friend</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Gender"><span class="keyword">val</span> c_Gender</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used for gender codes. The URI of the gender code must be used as the value for Gender.<br/>
+</div>
+
+<pre><span id="VALc_Group"><span class="keyword">val</span> c_Group</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Object representing a group of persons or entities.  A group object will usually contain hasMember properties to specify the members of the group.<br/>
+</div>
+
+<pre><span id="VALc_Home"><span class="keyword">val</span> c_Home</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This implies that the property is related to an individual's personal life<br/>
+</div>
+
+<pre><span id="VALc_ISDN"><span class="keyword">val</span> c_ISDN</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Individual"><span class="keyword">val</span> c_Individual</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An object representing a single person or entity<br/>
+</div>
+
+<pre><span id="VALc_Internet"><span class="keyword">val</span> c_Internet</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Intl"><span class="keyword">val</span> c_Intl</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Kin"><span class="keyword">val</span> c_Kin</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Kind"><span class="keyword">val</span> c_Kind</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The parent class for all objects<br/>
+</div>
+
+<pre><span id="VALc_Label"><span class="keyword">val</span> c_Label</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Location"><span class="keyword">val</span> c_Location</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An object representing a named geographical place<br/>
+</div>
+
+<pre><span id="VALc_Male"><span class="keyword">val</span> c_Male</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Me"><span class="keyword">val</span> c_Me</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Met"><span class="keyword">val</span> c_Met</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Modem"><span class="keyword">val</span> c_Modem</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Msg"><span class="keyword">val</span> c_Msg</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Muse"><span class="keyword">val</span> c_Muse</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Name"><span class="keyword">val</span> c_Name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the components of the name of the object<br/>
+</div>
+
+<pre><span id="VALc_Neighbor"><span class="keyword">val</span> c_Neighbor</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_None"><span class="keyword">val</span> c_None</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Organization"><span class="keyword">val</span> c_Organization</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An object representing an organization.  An organization is a single entity, and might represent a business or government, a department or division within a business or government, a club, an association, or the like.<br/>
+</div>
+
+<pre><span id="VALc_Other"><span class="keyword">val</span> c_Other</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_PCS"><span class="keyword">val</span> c_PCS</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Pager"><span class="keyword">val</span> c_Pager</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Parcel"><span class="keyword">val</span> c_Parcel</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Parent"><span class="keyword">val</span> c_Parent</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Postal"><span class="keyword">val</span> c_Postal</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_Pref"><span class="keyword">val</span> c_Pref</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALc_RelatedType"><span class="keyword">val</span> c_RelatedType</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used for relation type codes. The URI of the relation type code must be used as the value for the Relation Type.<br/>
+</div>
+
+<pre><span id="VALc_Sibling"><span class="keyword">val</span> c_Sibling</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Spouse"><span class="keyword">val</span> c_Spouse</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Sweetheart"><span class="keyword">val</span> c_Sweetheart</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Tel"><span class="keyword">val</span> c_Tel</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated. Use the hasTelephone object property.<br/>
+</div>
+
+<pre><span id="VALc_TelephoneType"><span class="keyword">val</span> c_TelephoneType</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used for telephone type codes. The URI of the telephone type code must be used as the value for the Telephone Type.<br/>
+</div>
+
+<pre><span id="VALc_Text"><span class="keyword">val</span> c_Text</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Also called sms telephone<br/>
+</div>
+
+<pre><span id="VALc_TextPhone"><span class="keyword">val</span> c_TextPhone</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Type"><span class="keyword">val</span> c_Type</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used for type codes. The URI of the type code must be used as the value for Type.<br/>
+</div>
+
+<pre><span id="VALc_Unknown"><span class="keyword">val</span> c_Unknown</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_VCard"><span class="keyword">val</span> c_VCard</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The vCard class is  equivalent to the new Kind class, which is the parent for the four explicit types of vCards (Individual, Organization, Location, Group)<br/>
+</div>
+
+<pre><span id="VALc_Video"><span class="keyword">val</span> c_Video</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Voice"><span class="keyword">val</span> c_Voice</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALc_Work"><span class="keyword">val</span> c_Work</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This implies that the property is related to an individual's work place<br/>
+</div>
+
+<pre><span id="VALc_X400"><span class="keyword">val</span> c_X400</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This class is deprecated<br/>
+</div>
+
+<pre><span id="VALadditional_name"><span class="keyword">val</span> additional_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The additional name associated with the object<br/>
+</div>
+
+<pre><span id="VALadr"><span class="keyword">val</span> adr</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALagent"><span class="keyword">val</span> agent</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been deprecated<br/>
+</div>
+
+<pre><span id="VALanniversary"><span class="keyword">val</span> anniversary</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The date of marriage, or equivalent, of the object<br/>
+</div>
+
+<pre><span id="VALbday"><span class="keyword">val</span> bday</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the birth date of the object<br/>
+</div>
+
+<pre><span id="VALcategory"><span class="keyword">val</span> category</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The category information about the object, also known as tags<br/>
+</div>
+
+<pre><span id="VALclass_"><span class="keyword">val</span> class_</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated<br/>
+</div>
+
+<pre><span id="VALcountry_name"><span class="keyword">val</span> country_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The country name associated with the address of the object<br/>
+</div>
+
+<pre><span id="VALemail"><span class="keyword">val</span> email</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALextended_address"><span class="keyword">val</span> extended_address</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated<br/>
+</div>
+
+<pre><span id="VALfamily_name"><span class="keyword">val</span> family_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The family name associated with the object<br/>
+</div>
+
+<pre><span id="VALfn"><span class="keyword">val</span> fn</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The formatted text corresponding to the name of the object<br/>
+</div>
+
+<pre><span id="VALgeo"><span class="keyword">val</span> geo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALgiven_name"><span class="keyword">val</span> given_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The given name associated with the object<br/>
+</div>
+
+<pre><span id="VALhasAdditionalName"><span class="keyword">val</span> hasAdditionalName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the additional name data property<br/>
+</div>
+
+<pre><span id="VALhasAddress"><span class="keyword">val</span> hasAddress</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the components of the delivery address for the object<br/>
+</div>
+
+<pre><span id="VALhasCalendarBusy"><span class="keyword">val</span> hasCalendarBusy</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the busy time associated with the object. (Was called FBURL in RFC6350)<br/>
+</div>
+
+<pre><span id="VALhasCalendarLink"><span class="keyword">val</span> hasCalendarLink</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the calendar associated with the object. (Was called CALURI in RFC6350)<br/>
+</div>
+
+<pre><span id="VALhasCalendarRequest"><span class="keyword">val</span> hasCalendarRequest</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the calendar user address to which a scheduling request be sent for the object. (Was called CALADRURI in RFC6350)<br/>
+</div>
+
+<pre><span id="VALhasCategory"><span class="keyword">val</span> hasCategory</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the category data property<br/>
+</div>
+
+<pre><span id="VALhasCountryName"><span class="keyword">val</span> hasCountryName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the country name data property<br/>
+</div>
+
+<pre><span id="VALhasEmail"><span class="keyword">val</span> hasEmail</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the electronic mail address for communication with the object<br/>
+</div>
+
+<pre><span id="VALhasFN"><span class="keyword">val</span> hasFN</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the formatted name data property<br/>
+</div>
+
+<pre><span id="VALhasFamilyName"><span class="keyword">val</span> hasFamilyName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the family name data property<br/>
+</div>
+
+<pre><span id="VALhasGender"><span class="keyword">val</span> hasGender</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify  the sex or gender identity of the object. URIs are recommended to enable interoperable sex and gender codes to be used.<br/>
+</div>
+
+<pre><span id="VALhasGeo"><span class="keyword">val</span> hasGeo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify information related to the global positioning of the object. May also be used as a property parameter.<br/>
+</div>
+
+<pre><span id="VALhasGivenName"><span class="keyword">val</span> hasGivenName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the given name data property<br/>
+</div>
+
+<pre><span id="VALhasHonorificPrefix"><span class="keyword">val</span> hasHonorificPrefix</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the honorific prefix data property<br/>
+</div>
+
+<pre><span id="VALhasHonorificSuffix"><span class="keyword">val</span> hasHonorificSuffix</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the honorific suffix data property<br/>
+</div>
+
+<pre><span id="VALhasInstantMessage"><span class="keyword">val</span> hasInstantMessage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the instant messaging and presence protocol communications with the object. (Was called IMPP in RFC6350)<br/>
+</div>
+
+<pre><span id="VALhasKey"><span class="keyword">val</span> hasKey</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a public key or authentication certificate associated with the object<br/>
+</div>
+
+<pre><span id="VALhasLanguage"><span class="keyword">val</span> hasLanguage</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the language data property<br/>
+</div>
+
+<pre><span id="VALhasLocality"><span class="keyword">val</span> hasLocality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the locality data property<br/>
+</div>
+
+<pre><span id="VALhasLogo"><span class="keyword">val</span> hasLogo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a graphic image of a logo associated with the object<br/>
+</div>
+
+<pre><span id="VALhasMember"><span class="keyword">val</span> hasMember</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To include a member in the group this object represents. (This property can only be used by Group individuals)<br/>
+</div>
+
+<pre><span id="VALhasName"><span class="keyword">val</span> hasName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the components of the name of the object<br/>
+</div>
+
+<pre><span id="VALhasNickname"><span class="keyword">val</span> hasNickname</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the nickname data property<br/>
+</div>
+
+<pre><span id="VALhasNote"><span class="keyword">val</span> hasNote</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the note data property<br/>
+</div>
+
+<pre><span id="VALhasOrganizationName"><span class="keyword">val</span> hasOrganizationName</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the organization name data property<br/>
+</div>
+
+<pre><span id="VALhasOrganizationUnit"><span class="keyword">val</span> hasOrganizationUnit</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the organization unit name data property<br/>
+</div>
+
+<pre><span id="VALhasPhoto"><span class="keyword">val</span> hasPhoto</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify an image or photograph information that annotates some aspect of the object<br/>
+</div>
+
+<pre><span id="VALhasPostalCode"><span class="keyword">val</span> hasPostalCode</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the postal code data property<br/>
+</div>
+
+<pre><span id="VALhasRegion"><span class="keyword">val</span> hasRegion</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the region data property<br/>
+</div>
+
+<pre><span id="VALhasRelated"><span class="keyword">val</span> hasRelated</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a relationship between another entity and the entity represented by this object<br/>
+</div>
+
+<pre><span id="VALhasRole"><span class="keyword">val</span> hasRole</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the role data property<br/>
+</div>
+
+<pre><span id="VALhasSound"><span class="keyword">val</span> hasSound</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a digital sound content information that annotates some aspect of the object<br/>
+</div>
+
+<pre><span id="VALhasSource"><span class="keyword">val</span> hasSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To identify the source of directory information of the object<br/>
+</div>
+
+<pre><span id="VALhasStreetAddress"><span class="keyword">val</span> hasStreetAddress</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the street address data property<br/>
+</div>
+
+<pre><span id="VALhasTelephone"><span class="keyword">val</span> hasTelephone</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the telephone number for telephony communication with the object<br/>
+</div>
+
+<pre><span id="VALhasTitle"><span class="keyword">val</span> hasTitle</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to support property parameters for the title data property<br/>
+</div>
+
+<pre><span id="VALhasUID"><span class="keyword">val</span> hasUID</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a value that represents a globally unique identifier corresponding to the object<br/>
+</div>
+
+<pre><span id="VALhasURL"><span class="keyword">val</span> hasURL</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify a uniform resource locator associated with the object<br/>
+</div>
+
+<pre><span id="VALhasValue"><span class="keyword">val</span> hasValue</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to indicate the resource value of an object property that requires property parameters<br/>
+</div>
+
+<pre><span id="VALhonorific_prefix"><span class="keyword">val</span> honorific_prefix</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The honorific prefix of the name associated with the object<br/>
+</div>
+
+<pre><span id="VALhonorific_suffix"><span class="keyword">val</span> honorific_suffix</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The honorific suffix of the name associated with the object<br/>
+</div>
+
+<pre><span id="VALkey"><span class="keyword">val</span> key</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALlabel"><span class="keyword">val</span> label</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated<br/>
+</div>
+
+<pre><span id="VALlanguage"><span class="keyword">val</span> language</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the language that may be used for contacting the object. May also be used as a property parameter.<br/>
+</div>
+
+<pre><span id="VALlatitude"><span class="keyword">val</span> latitude</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated. See hasGeo<br/>
+</div>
+
+<pre><span id="VALlocality"><span class="keyword">val</span> locality</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The locality (e.g. city or town) associated with the address of the object<br/>
+</div>
+
+<pre><span id="VALlogo"><span class="keyword">val</span> logo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALlongitude"><span class="keyword">val</span> longitude</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated. See hasGeo<br/>
+</div>
+
+<pre><span id="VALmailer"><span class="keyword">val</span> mailer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated<br/>
+</div>
+
+<pre><span id="VALn"><span class="keyword">val</span> n</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALnickname"><span class="keyword">val</span> nickname</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The nick name associated with the object<br/>
+</div>
+
+<pre><span id="VALnote"><span class="keyword">val</span> note</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A note associated with the object<br/>
+</div>
+
+<pre><span id="VALorg"><span class="keyword">val</span> org</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped. Use the organization-name data property.<br/>
+</div>
+
+<pre><span id="VALorganization_name"><span class="keyword">val</span> organization_name</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the organizational name associated with the object<br/>
+</div>
+
+<pre><span id="VALorganization_unit"><span class="keyword">val</span> organization_unit</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the organizational unit name associated with the object<br/>
+</div>
+
+<pre><span id="VALphoto"><span class="keyword">val</span> photo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALpost_office_box"><span class="keyword">val</span> post_office_box</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This data property has been deprecated<br/>
+</div>
+
+<pre><span id="VALpostal_code"><span class="keyword">val</span> postal_code</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The postal code associated with the address of the object<br/>
+</div>
+
+<pre><span id="VALprodid"><span class="keyword">val</span> prodid</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the identifier for the product that created the object<br/>
+</div>
+
+<pre><span id="VALregion"><span class="keyword">val</span> region</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The region (e.g. state or province) associated with the address of the object<br/>
+</div>
+
+<pre><span id="VALrev"><span class="keyword">val</span> rev</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify revision information about the object<br/>
+</div>
+
+<pre><span id="VALrole"><span class="keyword">val</span> role</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the function or part played in a particular situation by the object<br/>
+</div>
+
+<pre><span id="VALsort_string"><span class="keyword">val</span> sort_string</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the string to be used for national-language-specific sorting. Used as a property parameter only.<br/>
+</div>
+
+<pre><span id="VALsound"><span class="keyword">val</span> sound</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALstreet_address"><span class="keyword">val</span> street_address</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The street address associated with the address of the object<br/>
+</div>
+
+<pre><span id="VALtel"><span class="keyword">val</span> tel</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALtitle"><span class="keyword">val</span> title</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To specify the position or job of the object<br/>
+</div>
+
+<pre><span id="VALtz"><span class="keyword">val</span> tz</span> : <code class="type">Iri.t</code></pre><div class="info ">
+To indicate time zone information that is specific to the object. May also be used as a property parameter.<br/>
+</div>
+
+<pre><span id="VALurl"><span class="keyword">val</span> url</span> : <code class="type">Iri.t</code></pre><div class="info ">
+This object property has been mapped<br/>
+</div>
+
+<pre><span id="VALvalue"><span class="keyword">val</span> value</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Used to indicate the literal value of a data property that requires property parameters<br/>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Rdf_vcard.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_vcard.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_vcard.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_vcard.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

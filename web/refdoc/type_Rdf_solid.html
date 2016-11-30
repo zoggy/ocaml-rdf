@@ -1,0 +1,41 @@
+<ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_solid</title><contents><div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">val</span>&#160;solid&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;solid_&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Account&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Notification&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_Timeline&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;c_TypeIndex&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;account&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;notification&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;read&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;timeline&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">val</span>&#160;typeIndex&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;<span class="keyword">module</span>&#160;<span class="constructor">Open</span>&#160;:
+&#160;&#160;&#160;&#160;<span class="keyword">sig</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_c_Account&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_c_Inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_c_Notification&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_c_Timeline&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_c_TypeIndex&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_account&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_inbox&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_notification&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_read&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_timeline&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">val</span>&#160;solid_typeIndex&#160;:&#160;<span class="constructor">Iri</span>.t
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
+&#160;&#160;<span class="keyword">class</span>&#160;from&#160;:
+&#160;&#160;&#160;&#160;?sub:<span class="constructor">Iri</span>.t&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;<span class="keyword">object</span>
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;account&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;inbox&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;notification&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;read&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;timeline&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="keyword">method</span>&#160;typeIndex&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;&#160;&#160;<span class="keyword">end</span>
+<span class="keyword">end</span></code></div></contents></ocamldoc>

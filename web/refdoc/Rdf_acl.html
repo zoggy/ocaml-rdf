@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<ocamldoc with-contents="true">
+<title>OCaml-RDF reference documentation : Rdf_acl</title><contents><div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_4s_lwt.html" title="Rdf_4s_lwt">Previous</a>
+&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;<a class="post" href="Rdf_bgp.html" title="Rdf_bgp">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_acl.html">Rdf_acl</a></h1>
+
+<pre><span class="keyword">module</span> Rdf_acl: <code class="code">sig</code> <a href="Rdf_acl.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Elements of <code class="code">http://www.w3.org/ns/auth/acl#</code><br/>
+</div>
+<hr width="100%"/>
+
+<pre><span id="VALacl"><span class="keyword">val</span> acl</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<code class="code">http://www.w3.org/ns/auth/acl#</code><br/>
+</div>
+
+<pre><span id="VALacl_"><span class="keyword">val</span> acl_</span> : <code class="type">string -&gt; Iri.t</code></pre>
+<pre><span id="VALc_Access"><span class="keyword">val</span> c_Access</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Any kind of access to a resource. Don't use this, use R W and RW<br/>
+</div>
+
+<pre><span id="VALc_Append"><span class="keyword">val</span> c_Append</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Append accesses are specific write access which only add information, and do not remove information. For text files, for example, append access allows bytes to be added onto the end of the file. For RDF graphs, Append access allows adds triples to the graph but does not remove any. Append access is useful for dropbox functionality. Dropbox can be used for link notification, which the information added is a notification that a some link has been made elsewhere relevant to the given resource.<br/>
+</div>
+
+<pre><span id="VALc_Authorization"><span class="keyword">val</span> c_Authorization</span> : <code class="type">Iri.t</code></pre><div class="info ">
+An element of access control, allowing agent to agents access of some kind to resources or classes of resources<br/>
+</div>
+
+<pre><span id="VALc_Control"><span class="keyword">val</span> c_Control</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Allows read/write access to the ACL for the resource(s)<br/>
+</div>
+
+<pre><span id="VALc_Read"><span class="keyword">val</span> c_Read</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The class of read operations<br/>
+</div>
+
+<pre><span id="VALc_Write"><span class="keyword">val</span> c_Write</span> : <code class="type">Iri.t</code></pre>
+<pre><span id="VALaccessControl"><span class="keyword">val</span> accessControl</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The Access Control file for this information resource. This may of course be a virtual resorce implemented by the access control system. Note also HTTP's header Link: foo.meta ;rel=meta can be used for this.<br/>
+</div>
+
+<pre><span id="VALaccessTo"><span class="keyword">val</span> accessTo</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The information resource to which access is being granted.<br/>
+</div>
+
+<pre><span id="VALaccessToClass"><span class="keyword">val</span> accessToClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A class of information resources to which access is being granted.<br/>
+</div>
+
+<pre><span id="VALagent"><span class="keyword">val</span> agent</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A person or social entity to being given the right<br/>
+</div>
+
+<pre><span id="VALagentClass"><span class="keyword">val</span> agentClass</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A class of persons or social entities to being given the right<br/>
+</div>
+
+<pre><span id="VALagentGroup"><span class="keyword">val</span> agentGroup</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A group of persons or social entities to being given the right<br/>
+</div>
+
+<pre><span id="VALdefaultForNew"><span class="keyword">val</span> defaultForNew</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A directory for which this authorization is used for new files in the directory.<br/>
+</div>
+
+<pre><span id="VALdelegates"><span class="keyword">val</span> delegates</span> : <code class="type">Iri.t</code></pre><div class="info ">
+Delegates a person or another agent to act on behalf of the agent. For example, Alice delegates Bob to act on behalf of Alice for ACL purposes.<br/>
+</div>
+
+<pre><span id="VALmode"><span class="keyword">val</span> mode</span> : <code class="type">Iri.t</code></pre><div class="info ">
+A mode of access such as read or write.<br/>
+</div>
+
+<pre><span id="VALowner"><span class="keyword">val</span> owner</span> : <code class="type">Iri.t</code></pre><div class="info ">
+The person or other agent which owns this. For example, the owner of a file in a filesystem. There is a sense of right to control. Typically defaults to the agent who craeted something but can be changed.<br/>
+</div>
+
+<pre><span class="keyword">module</span> <a href="Rdf_acl.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_acl.Open.html">..</a> <code class="code">end</code></pre>
+<pre><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_acl.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_acl.from-c.html">..</a> <code class="code">end</code></pre></div></contents></ocamldoc>

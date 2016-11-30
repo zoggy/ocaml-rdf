@@ -1,0 +1,53 @@
+<ocamldoc with-contents="true"><title>OCaml-RDF reference documentation : Rdf_time.from</title><contents><div class="ocamldoc-page">
+<code class="code">?sub:<span class="constructor">Iri</span>.t&#160;<span class="keywordsign">-&gt;</span>
+<span class="constructor">Rdf_graph</span>.graph&#160;<span class="keywordsign">-&gt;</span>
+<span class="keyword">object</span>
+&#160;&#160;<span class="keyword">method</span>&#160;after&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;before&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;day&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;dayOfWeek&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;dayOfYear&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;days&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasBeginning&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasDateTimeDescription&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasDuration&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasDurationDescription&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasEnd&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasMember&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hasTRS&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hour&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;hours&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;inDateTime&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;inTimePosition&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;inXSDDateTime&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;inside&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalAfter&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalBefore&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalContains&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalDuring&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalEquals&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalFinishedBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalFinishes&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalMeets&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalMetBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalOverlappedBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalOverlaps&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalStartedBy&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;intervalStarts&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;minute&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;minutes&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;month&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;months&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;nominalPosition&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;numericDuration&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;numericPosition&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;second&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;seconds&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;timeZone&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;unitType&#160;:&#160;<span class="constructor">Iri</span>.t&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;week&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;weeks&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;xsdDateTime&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;year&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+&#160;&#160;<span class="keyword">method</span>&#160;years&#160;:&#160;<span class="constructor">Rdf_term</span>.literal&#160;list
+<span class="keyword">end</span></code></div></contents></ocamldoc>

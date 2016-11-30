@@ -13,6 +13,7 @@ tags: [
   "sparql"
   "utf8"
 ]
+version: "0.11.0"
 build: [
   ["./configure" "--prefix" prefix]
   [make "all"]
