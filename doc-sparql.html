@@ -41,7 +41,7 @@
 OCaml-RDF implements <span class="ext-a"><a href="http://www.w3.org/TR/sparql11-query/">Sparql 1.1 Query</a></span>.
 <a href="https://zoggy.github.io/ocaml-rdf/doc-todo.html#limitations">Some features are missing</a> but it's already quite complete.
 The main module of the implementation is 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_/&gt;">Rdf_sparql</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html">Rdf_sparql</a>
 . We consider
 this module open in the examples below:
 </p>
@@ -72,7 +72,7 @@ which is composed of a default (unnamed) graph, and other (named) graphs each as
 to an IRI.
 </p>
 <p id="TheRdf_dsdatasettyperepr"><a class="paragraph-url" href="#TheRdf_dsdatasettyperepr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>The 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ds.html&lt;main_&gt;#TYPEdataset&lt;/main_&gt;">Rdf_ds.dataset</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ds.html#TYPEdataset">Rdf_ds.dataset</a>
  type represents a dataset and contains
 a default graph (which can be empty), a set of graph names (i.e. a set of IRIs), and
 a function to get a graph by its IRI.
@@ -87,10 +87,10 @@ creates a dataset with this graph as default graph, and no named graphs:
 <p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph:</p>
 <div class="anchor-block"><a class="paragraph-url" href="#prefixfoafhttpxmlnscomfo"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="prefixfoafhttpxmlnscomfo"><span class="ocaml-toplevel">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-20704270 foaf:name "Bob" .
-_:genid1-20704270 foaf:mbox &lt;mailto:bob@work.example&gt; .
-_:genid0-1013246361 foaf:name "Alice" .
-_:genid0-1013246361 foaf:homepage &lt;http://work.example.org/alice/&gt; .
+_:genid1-248018186 foaf:name "Bob" .
+_:genid1-248018186 foaf:mbox &lt;mailto:bob@work.example&gt; .
+_:genid0-157254005 foaf:name "Alice" .
+_:genid0-157254005 foaf:homepage &lt;http://work.example.org/alice/&gt; .
 </span></pre></div>
 
 </div>
@@ -100,7 +100,7 @@ _:genid0-1013246361 foaf:homepage &lt;http://work.example.org/alice/&gt; .
 The following code executes the query parsed above, on the dataset
 defined in previous section. Since this is a SELECT query, the
 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_&gt;#VALexecute&lt;/main_&gt;">Rdf_sparql.execute</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html#VALexecute">Rdf_sparql.execute</a>
   function returns a <code>Solutions</code>
 constructor with the sequence of solutions.
 </p>
@@ -115,10 +115,10 @@ of solutions:
 <span class="ocaml-toplevel"><span class="toplevel-out">val solutions : Rdf_sparql.solution list = [&lt;abstr&gt;; &lt;abstr&gt;]</span></span></pre></div>
 <p id="LetsdisplaytheresultAsol"><a class="paragraph-url" href="#LetsdisplaytheresultAsol"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Let's display the result. A solution, of type 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html&lt;main_&gt;#TYPEsolution&lt;/main_&gt;">Rdf_sparql.solution</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_sparql.html#TYPEsolution">Rdf_sparql.solution</a>
 ,
 is a map from variable name (string) to 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#TYPEterm&lt;/main_&gt;">Rdf_term.term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
 .
 Let's print the solutions we obtained.
 </p>

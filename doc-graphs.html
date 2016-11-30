@@ -42,7 +42,7 @@
 <p id="AnRDFgraphneedsabaseIRIw"><a class="paragraph-url" href="#AnRDFgraphneedsabaseIRIw"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 An RDF graph needs a base IRI, which can be used to name the graph.
 Then we use the 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 
 function to create an empty graph:
 </p>
@@ -84,17 +84,17 @@ to associate the name "Alice" and the mailbox address IRI
 <span class="ocaml-toplevel"><span class="toplevel-out">- : unit = ()</span></span></pre></div>
 <p id="Hereisthecontentofourgra"><a class="paragraph-url" href="#Hereisthecontentofourgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is the content of our graph, in Turtle format:</p>
 <div class="anchor-block"><a class="paragraph-url" href="#prefixrdfhttpwwww3org199"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="prefixrdfhttpwwww3org199"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
-_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
-_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
-_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
+_:genid1-803845649 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
+_:genid1-803845649 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:bob@mbox.net&gt; .
+_:genid0-506173472 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
+_:genid0-506173472 &lt;http://xmlns.com/foaf/0.1/mbox&gt; &lt;mailto:alice@mbox.net&gt; .
 </span></pre></div>
 
 </div>
 <div class="section"><div aria-level="1" class="section-title" id="querying" role="heading">Querying the graph</div>
 <p id="LetsusesomeoftheRdf_grap"><a class="paragraph-url" href="#LetsusesomeoftheRdf_grap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Let's use some of the 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#TYPEgraph&lt;/main_&gt;">Rdf_graph.graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>
  structure fields to
 retrieve information from the graph.
 </p>
@@ -110,7 +110,7 @@ triples having a specified subject and object:
 <p id="Letsnowqueryalltriplesha"><a class="paragraph-url" href="#Letsnowqueryalltriplesha"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Let's now query all triples having the predicate <code>foaf_name</code>,
 and use the 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ttl.html&lt;main_&gt;#VALstring_of_triple&lt;/main_&gt;">Rdf_ttl.string_of_triple</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ttl.html#VALstring_of_triple">Rdf_ttl.string_of_triple</a>
  function
 to display the result:
 </p>
@@ -127,8 +127,8 @@ to display the result:
    (</span><span class="hl kwa">fun</span><span class="hl std"> (</span><span class="">sub</span><span class="hl std">,</span><span class="">pred</span><span class="hl std">,</span><span class="">obj</span><span class="hl std">) -&gt;
      </span><span class="">print_endline</span><span class="hl std"> (</span><span class="hl kwc">Rdf_ttl</span><span class="hl std">.</span><span class="">string_of_triple</span><span class="hl std"> </span><span class="hl kw4">~sub</span><span class="hl std"> </span><span class="hl kw4">~pred</span><span class="hl std"> </span><span class="hl kw4">~obj</span><span class="hl std">))
    </span><span class="">triples</span><span class="hl std">;;</span></span>
-<span class="ocaml-toplevel"><span class="stdout">_:genid0-723480623 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
-_:genid1-79738323 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
+<span class="ocaml-toplevel"><span class="stdout">_:genid0-506173472 &lt;http://xmlns.com/foaf/0.1/name&gt; "Alice" .
+_:genid1-803845649 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
 </span><span class="toplevel-out">- : unit = ()</span></span></pre></div>
 <p id="Thesearesimplewaystoquer"><a class="paragraph-url" href="#Thesearesimplewaystoquer"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>These are simple ways to query the graph.
 <a href="https://zoggy.github.io/ocaml-rdf/doc-sparql.html">Sparql queries can be used</a> to execute
@@ -143,9 +143,9 @@ The <span class="ext-a"><a href="http://www.w3.org/TR/rdf-syntax-grammar">RDF/XM
 are supported to import and export triples.
 The corresponding functions are provided in modules
 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_xml.html&lt;main_/&gt;">Rdf_xml</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_xml.html">Rdf_xml</a>
  and 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ttl.html&lt;main_/&gt;">Rdf_ttl</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_ttl.html">Rdf_ttl</a>
 .
 </p>
 <p id="Hereisanexampleofcodecre"><a class="paragraph-url" href="#Hereisanexampleofcodecre"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Here is an example of code creating a graph, importing from a
@@ -180,7 +180,7 @@ backends support one level of transaction.
 <code>transaction_start</code>, <code>transaction_commit</code>
 and <code>transaction_rollback</code> of the the
 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#TYPEgraph&lt;/main_&gt;">Rdf_graph.graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>
  structure.
 </p>
 <p id="Asanexampleletsloaddataf"><a class="paragraph-url" href="#Asanexampleletsloaddataf"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>As an example, let's load data from a file:</p>
@@ -191,10 +191,10 @@ and <code>transaction_rollback</code> of the the
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-188123042 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-532426673 ex:fullName "Dave Beckett" .
+_:genid0-188123042 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-188123042 ex:fullName "Dave Beckett" .
 </span></pre>
 
 <p id="Nowletsstartatransaction"><a class="paragraph-url" href="#Nowletsstartatransaction"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>Now let's start a transaction, and modify the graph:</p>
@@ -212,10 +212,10 @@ _:genid0-532426673 ex:fullName "Dave Beckett" .
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-188123042 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-532426673 ex:fullName "Jean Dupont" .
+_:genid0-188123042 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-188123042 ex:fullName "Jean Dupont" .
 </span></pre>
 
 <p id="Ifwerollbackwegettheprev"><a class="paragraph-url" href="#Ifwerollbackwegettheprev"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>If we rollback, we get the previous graph:</p>
@@ -223,10 +223,10 @@ _:genid0-532426673 ex:fullName "Jean Dupont" .
 <pre class="code-ocaml"><span class="ocaml-toplevel">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
 @prefix ex: &lt;http://example.org/stuff/1.0/&gt; .
-&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-532426673 .
+&lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; rdf:editor _:genid0-188123042 .
 &lt;http://www.w3.org/TR/rdf-syntax-grammar&gt; dc:title "RDF/XML Syntax Specification (Revised)" .
-_:genid0-532426673 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
-_:genid0-532426673 ex:fullName "Dave Beckett" .
+_:genid0-188123042 ex:homePage &lt;http://purl.org/net/dajobe/&gt; .
+_:genid0-188123042 ex:fullName "Dave Beckett" .
 </span></pre>
 
 </div>
@@ -235,7 +235,7 @@ _:genid0-532426673 ex:fullName "Dave Beckett" .
 <p id="RDFgraphscanbedumpedinGr"><a class="paragraph-url" href="#RDFgraphscanbedumpedinGr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 RDF graphs can be dumped in Graphviz (dot) format, with the
 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_dot.html&lt;main_/&gt;">Rdf_dot</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_dot.html">Rdf_dot</a>
  module. The following code
 generates the dot code, then creates a .svg file by running
 a dot command. The result is inserted below.
@@ -275,7 +275,7 @@ functions provided in each graph:
  ("http://example.org/stuff/1.0/", "ex");
  ("http://purl.org/dc/elements/1.1/", "dc")]</span></span></pre></div>
 <p id="SeeRdf_graphgraphforothe"><a class="paragraph-url" href="#SeeRdf_graphgraphforothe"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>See 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#TYPEgraph&lt;/main_&gt;">Rdf_graph.graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a>
  for other functions.</p>
 </div>
 

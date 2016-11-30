@@ -38,23 +38,23 @@
 
 <p id="RDFgraphtermsarerepresen"><a class="paragraph-url" href="#RDFgraphtermsarerepresen"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 RDF graph terms are represented by the 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#TYPEterm&lt;/main_&gt;">Rdf_term.term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#TYPEterm">Rdf_term.term</a>
  type.
 These are RDF terms: IRI, literal or blank node. In the graph, the predicate
 of a triple can only be a IRI.
 </p>
 <p class="alert alert-warning" id="Allstringsareconsideredt"><a class="paragraph-url" href="#Allstringsareconsideredt"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 All strings are considered to be UTF8-encoded. The 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_utf8.html&lt;main_/&gt;">Rdf_utf8</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_utf8.html">Rdf_utf8</a>
  module
 provides some functions to manipulate UTF8 strings.
 </p>
 <p id="TheRdf_termmoduledefines"><a class="paragraph-url" href="#TheRdf_termmoduledefines"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_/&gt;">Rdf_term</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html">Rdf_term</a>
  module defines functions to create and print RDF terms.
 For example, 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html&lt;main_&gt;#VALmk_literal_int&lt;/main_&gt;">Rdf_term.mk_literal_int</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_term.html#VALmk_literal_int">Rdf_term.mk_literal_int</a>
  creates a literal
 RDF term from an integer, setting the IRI of the datatype to <code>&lt;xsd:integer&gt;</code>:
 </p>
@@ -87,7 +87,7 @@ to handle IRIs:
 <span class="ocaml-toplevel"><span class="toplevel-out">- : string = "http://foo.bar.net/#id42"</span></span></pre></div>
 <p id="TheRdf_rdfmoduledefiness"><a class="paragraph-url" href="#TheRdf_rdfmoduledefiness"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdf.html&lt;main_/&gt;">Rdf_rdf</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdf.html">Rdf_rdf</a>
  module defines some commonly used IRIs:
 datatypes, classes, property names, ...:
 </p>

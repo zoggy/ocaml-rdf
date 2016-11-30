@@ -44,7 +44,7 @@ in memory: MySQL and Postgresql. This allows to create persistent
 graphs.
 The choice of the backend is made with the <code>options</code>
 optional parameter of 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 .
 </p>
 <div class="section"><div aria-level="1" class="section-title" id="mysql" role="heading">MySQL backend</div>
@@ -90,7 +90,7 @@ hashes. This model is copied from the Redland's Librdf library.
 All the common tables are created at connection time, and the
 table of each graph in created when the graph is created.
 When 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
  is called with
 an IRI corresponding to an existing graph in the database, then
 this graph is used, with all existing triples.
@@ -141,7 +141,7 @@ Using the MySQL backend requires to link with the <code>rdf.postgresql</code>
 ocamlfind package.
 To create or open a graph stored in a Postgresql database, use
 the <code>options</code> parameter of 
-<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html&lt;main_&gt;#VALopen_graph&lt;/main_&gt;">Rdf_graph.open_graph</a>
+<a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_graph.html#VALopen_graph">Rdf_graph.open_graph</a>
 :
 </p>
 <div class="anchor-block"><a class="paragraph-url" href="#letoptionsstoragepostgre"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="letoptionsstoragepostgre"><span><span class="hl kwa">let</span><span class="hl std"> </span><span class="">options</span><span class="hl std"> =
