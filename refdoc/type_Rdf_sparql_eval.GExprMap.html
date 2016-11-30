@@ -36,71 +36,71 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> key = <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprOrdered</span>.t<br/>
-  <span class="keyword">type</span> <span class="keywordsign">'</span>a t = <span class="keywordsign">'</span>a <span class="constructor">Map</span>.<span class="constructor">Make</span>(<span class="constructor">GExprOrdered</span>).t<br/>
-  <span class="keyword">val</span> empty : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> is_empty : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> mem :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> add :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> singleton :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> remove :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> merge :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c option) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> compare :<br/>
-    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> equal :<br/>
-    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> iter :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> fold :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b<br/>
-  <span class="keyword">val</span> for_all :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> exists :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> filter :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> partition :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t * <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> cardinal : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> bindings :<br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a) list<br/>
-  <span class="keyword">val</span> min_binding :<br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> max_binding :<br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> choose :<br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> split :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t * <span class="keywordsign">'</span>a option * <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> find :<br/>
-    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> map :<br/>
-    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
-  <span class="keyword">val</span> mapi :<br/>
-    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span><br/>
-    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> key = <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprOrdered</span>.t
+  <span class="keyword">type</span> <span class="keywordsign">'</span>a t = <span class="keywordsign">'</span>a <span class="constructor">Map</span>.<span class="constructor">Make</span>(<span class="constructor">GExprOrdered</span>).t
+  <span class="keyword">val</span> empty : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> is_empty : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> mem :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> add :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> singleton :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> remove :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> merge :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c option) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> compare :
+    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> equal :
+    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> iter :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> fold :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b
+  <span class="keyword">val</span> for_all :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> exists :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> filter :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> partition :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t * <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> cardinal : <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> bindings :
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a) list
+  <span class="keyword">val</span> min_binding :
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> max_binding :
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> choose :
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key * <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> split :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t * <span class="keywordsign">'</span>a option * <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> find :
+    <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> map :
+    (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
+  <span class="keyword">val</span> mapi :
+    (<span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span>
+    <span class="keywordsign">'</span>a <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="constructor">Rdf_sparql_eval</span>.<span class="constructor">GExprMap</span>.t
 <span class="keyword">end</span></code></div>
 
 

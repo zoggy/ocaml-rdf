@@ -42,7 +42,7 @@
 </div>
 <h1>Module <a href="type_Rdf_sparql_http.html">Rdf_sparql_http</a></h1>
 
-<pre id="moduleRdf_sparql_httpsig"><a class="paragraph-url" href="#moduleRdf_sparql_httpsig"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_sparql_http: <code class="code">sig</code> <a href="Rdf_sparql_http.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="anchor-block"><a class="paragraph-url" href="#moduleRdf_sparql_httpsig"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleRdf_sparql_httpsig"><span class="keyword">module</span> Rdf_sparql_http: <code class="code">sig</code> <a href="Rdf_sparql_http.html">..</a> <code class="code">end</code></pre></div><div class="info module top">
 HTTP bindings for Sparql protocol.
 <div class="vertical-space"> </div>
 
@@ -60,25 +60,25 @@ HTTP bindings for Sparql protocol.
 </div>
 <hr width="100%"/>
 
-<pre id="exceptionUnsupported_con"><a class="paragraph-url" href="#exceptionUnsupported_con"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONUnsupported_content_type"><span class="keyword">exception</span> Unsupported_content_type</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#exceptionUnsupported_con"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="exceptionUnsupported_con"><span id="EXCEPTIONUnsupported_content_type"><span class="keyword">exception</span> Unsupported_content_type</span> <span class="keyword">of</span> <code class="type">string</code></pre></div>
 <div class="info ">
 content-type<br/>
 </div>
 
-<pre id="exceptionInvalid_respons"><a class="paragraph-url" href="#exceptionInvalid_respons"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONInvalid_response"><span class="keyword">exception</span> Invalid_response</span> <span class="keyword">of</span> <code class="type">string * string</code></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#exceptionInvalid_respons"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="exceptionInvalid_respons"><span id="EXCEPTIONInvalid_response"><span class="keyword">exception</span> Invalid_response</span> <span class="keyword">of</span> <code class="type">string * string</code></pre></div>
 <div class="info ">
 error * body<br/>
 </div>
 
-<pre id="moduletypePsigend"><a class="paragraph-url" href="#moduletypePsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_sparql_http.P.html">P</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.P.html">..</a> <code class="code">end</code></pre><div class="info">
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypePsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypePsigend"><span class="keyword">module type</span> <a href="Rdf_sparql_http.P.html">P</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.P.html">..</a> <code class="code">end</code></pre></div><div class="info">
 The type of the module implementing HTTP requests.
 </div>
 
-<pre id="moduletypeSsigend"><a class="paragraph-url" href="#moduletypeSsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_sparql_http.S.html">S</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.S.html">..</a> <code class="code">end</code></pre><div class="info">
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypeSsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypeSsigend"><span class="keyword">module type</span> <a href="Rdf_sparql_http.S.html">S</a> = <code class="code">sig</code> <a href="Rdf_sparql_http.S.html">..</a> <code class="code">end</code></pre></div><div class="info">
 The signature of the resulting module when buildting the binding.
 </div>
 
-<pre id="moduleMakefunctorPPSwith"><a class="paragraph-url" href="#moduleMakefunctorPPSwith"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_sparql_http.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">P</code><code class="code"> : </code><code class="type"><a href="Rdf_sparql_http.P.html">P</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_sparql_http.S.html">S</a></code><code class="type">  with type result = <a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>.out_message P.t</code></div></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#moduleMakefunctorPPSwith"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleMakefunctorPPSwith"><span class="keyword">module</span> <a href="Rdf_sparql_http.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">P</code><code class="code"> : </code><code class="type"><a href="Rdf_sparql_http.P.html">P</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_sparql_http.S.html">S</a></code><code class="type">  with type result = <a href="Rdf_sparql_protocol.html">Rdf_sparql_protocol</a>.out_message P.t</code></div></pre></div></div>
 
 
 </div>

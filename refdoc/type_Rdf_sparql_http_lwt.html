@@ -36,25 +36,25 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> base_headers : ?accept:string <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Cohttp</span>.<span class="constructor">Header</span>.t<br/>
-  <span class="keyword">val</span> result_of_response :<br/>
-    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Cohttp</span>.<span class="constructor">Response</span>.t * <span class="constructor">Cohttp_lwt_body</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Lwt</span>.t<br/>
-  <span class="keyword">type</span> result = <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Lwt</span>.t<br/>
-  <span class="keyword">val</span> get :<br/>
-    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
-    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
-  <span class="keyword">val</span> post :<br/>
-    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
-    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?query_var:string <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> base_headers : ?accept:string <span class="keywordsign">-&gt;</span> unit <span class="keywordsign">-&gt;</span> <span class="constructor">Cohttp</span>.<span class="constructor">Header</span>.t
+  <span class="keyword">val</span> result_of_response :
+    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Cohttp</span>.<span class="constructor">Response</span>.t * <span class="constructor">Cohttp_lwt_body</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Lwt</span>.t
+  <span class="keyword">type</span> result = <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Lwt</span>.t
+  <span class="keyword">val</span> get :
+    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
+  <span class="keyword">val</span> post :
+    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span>
+    ?query_var:string <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
 <span class="keyword">end</span></code></div>
 
 

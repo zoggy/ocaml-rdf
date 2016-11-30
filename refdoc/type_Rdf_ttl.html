@@ -36,23 +36,23 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> error =<br/>
-      <span class="constructor">Parse_error</span> <span class="keyword">of</span> <span class="constructor">Rdf_loc</span>.loc * string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Unknown_namespace</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl</span>.error<br/>
-  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_ttl</span>.error <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> from_string : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> from_file : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> string_of_triple :<br/>
-    sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> to_ :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span><br/>
-    (string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> to_string :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> to_file :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> error =
+      <span class="constructor">Parse_error</span> <span class="keyword">of</span> <span class="constructor">Rdf_loc</span>.loc * string
+    <span class="keywordsign">|</span> <span class="constructor">Unknown_namespace</span> <span class="keyword">of</span> string
+  <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl</span>.error
+  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_ttl</span>.error <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> from_string : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> from_file : <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> ?base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> string_of_triple :
+    sub:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> pred:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> obj:<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> to_ :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span>
+    (string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> to_string :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> to_file :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> unit
 <span class="keyword">end</span></code></div>
 
 

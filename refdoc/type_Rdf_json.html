@@ -36,10 +36,10 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">exception</span> <span class="constructor">Unexpected_json</span> <span class="keyword">of</span> string * <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json<br/>
-  <span class="keyword">val</span> term_of_json : <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
-  <span class="keyword">val</span> sparql_result_of_json : <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql</span>.query_result<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">exception</span> <span class="constructor">Unexpected_json</span> <span class="keyword">of</span> string * <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json
+  <span class="keyword">val</span> term_of_json : <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term
+  <span class="keyword">val</span> sparql_result_of_json : <span class="constructor">Yojson</span>.<span class="constructor">Basic</span>.json <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql</span>.query_result
 <span class="keyword">end</span></code></div>
 
 

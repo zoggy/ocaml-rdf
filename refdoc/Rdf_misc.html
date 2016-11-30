@@ -42,16 +42,16 @@
 </div>
 <h1>Module <a href="type_Rdf_misc.html">Rdf_misc</a></h1>
 
-<pre id="moduleRdf_miscsigend"><a class="paragraph-url" href="#moduleRdf_miscsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_misc: <code class="code">sig</code> <a href="Rdf_misc.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="anchor-block"><a class="paragraph-url" href="#moduleRdf_miscsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleRdf_miscsigend"><span class="keyword">module</span> Rdf_misc: <code class="code">sig</code> <a href="Rdf_misc.html">..</a> <code class="code">end</code></pre></div><div class="info module top">
 Misc functions.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="valstring_of_optstringop"><a class="paragraph-url" href="#valstring_of_optstringop"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring_of_opt"><span class="keyword">val</span> string_of_opt</span> : <code class="type">string option -&gt; string</code></pre>
-<pre id="valopt_of_stringstringst"><a class="paragraph-url" href="#valopt_of_stringstringst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopt_of_string"><span class="keyword">val</span> opt_of_string</span> : <code class="type">string -&gt; string option</code></pre>
-<pre id="valmap_optabaoptionbopti"><a class="paragraph-url" href="#valmap_optabaoptionbopti"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmap_opt"><span class="keyword">val</span> map_opt</span> : <code class="type">('a -&gt; 'b) -&gt; 'a option -&gt; 'b option</code></pre>
-<pre id="valopt_compareaaintaopti"><a class="paragraph-url" href="#valopt_compareaaintaopti"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopt_compare"><span class="keyword">val</span> opt_compare</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt; 'a option -&gt; 'a option -&gt; int</code></pre>
-<pre id="valcreate_log_funprefixs"><a class="paragraph-url" href="#valcreate_log_funprefixs"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcreate_log_fun"><span class="keyword">val</span> create_log_fun</span> : <code class="type">?prefix:string -&gt;<br/>       ?print:(string -&gt; unit) -&gt;<br/>       string -&gt; ?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valstring_of_optstringop"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valstring_of_optstringop"><span id="VALstring_of_opt"><span class="keyword">val</span> string_of_opt</span> : <code class="type">string option -&gt; string</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valopt_of_stringstringst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valopt_of_stringstringst"><span id="VALopt_of_string"><span class="keyword">val</span> opt_of_string</span> : <code class="type">string -&gt; string option</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valmap_optabaoptionbopti"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmap_optabaoptionbopti"><span id="VALmap_opt"><span class="keyword">val</span> map_opt</span> : <code class="type">('a -&gt; 'b) -&gt; 'a option -&gt; 'b option</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valopt_compareaaintaopti"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valopt_compareaaintaopti"><span id="VALopt_compare"><span class="keyword">val</span> opt_compare</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt; 'a option -&gt; 'a option -&gt; int</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valcreate_log_funprefixs"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcreate_log_funprefixs"><span id="VALcreate_log_fun"><span class="keyword">val</span> create_log_fun</span> : <code class="type">?prefix:string -&gt;<br/>       ?print:(string -&gt; unit) -&gt;<br/>       string -&gt; ?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit</code></pre></div><div class="info ">
 Creating a log function.
   <code class="code">create_log_fun env_var</code> get the log level (an integer) from the given
   environment variable, and returns a function to print messages.
@@ -68,13 +68,13 @@ Creating a log function.
   indicate an alternative way to display the message; default is to call
   <code class="code">prerr_endline</code>.</div>
 
-<pre id="valcreate_log_fun_with_s"><a class="paragraph-url" href="#valcreate_log_fun_with_s"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcreate_log_fun_with_set"><span class="keyword">val</span> create_log_fun_with_set</span> : <code class="type">?prefix:string -&gt;<br/>       ?print:(string -&gt; unit) -&gt;<br/>       string -&gt;<br/>       (?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit) * (int -&gt; unit)</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valcreate_log_fun_with_s"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcreate_log_fun_with_s"><span id="VALcreate_log_fun_with_set"><span class="keyword">val</span> create_log_fun_with_set</span> : <code class="type">?prefix:string -&gt;<br/>       ?print:(string -&gt; unit) -&gt;<br/>       string -&gt;<br/>       (?loc:string -&gt; ?level:int -&gt; (unit -&gt; string) -&gt; unit) * (int -&gt; unit)</code></pre></div><div class="info ">
 Same as <code class="code">create_log_fun</code> but also return a function to change
        the log level.<br/>
 </div>
 
-<pre id="valcompare_listaaintalis"><a class="paragraph-url" href="#valcompare_listaaintalis"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALcompare_list"><span class="keyword">val</span> compare_list</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list -&gt; int</code></pre>
-<pre id="valstring_of_filestrings"><a class="paragraph-url" href="#valstring_of_filestrings"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALstring_of_file"><span class="keyword">val</span> string_of_file</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valcompare_listaaintalis"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcompare_listaaintalis"><span id="VALcompare_list"><span class="keyword">val</span> compare_list</span> : <code class="type">('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list -&gt; int</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valstring_of_filestrings"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valstring_of_filestrings"><span id="VALstring_of_file"><span class="keyword">val</span> string_of_file</span> : <code class="type">string -&gt; string</code></pre></div><div class="info ">
 <code class="code">string_of_file filename</code> returns the content of <code class="code">filename</code>
    in the form of one string.<br/>
 <b>Author(s):</b> Maxence Guesdon<br/>
@@ -82,7 +82,7 @@ Same as <code class="code">create_log_fun</code> but also return a function to c
 <b>Raises</b> <code>Sys_error</code> if the file could not be opened.<br/>
 </div>
 
-<pre id="valsplit_stringkeep_empt"><a class="paragraph-url" href="#valsplit_stringkeep_empt"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALsplit_string"><span class="keyword">val</span> split_string</span> : <code class="type">?keep_empty:bool -&gt; string -&gt; char list -&gt; string list</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valsplit_stringkeep_empt"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valsplit_stringkeep_empt"><span id="VALsplit_string"><span class="keyword">val</span> split_string</span> : <code class="type">?keep_empty:bool -&gt; string -&gt; char list -&gt; string list</code></pre></div><div class="info ">
 Separate the given string according to the given list of characters.<br/>
 <b>Author(s):</b> Maxence Guesdon<br/>
 <b>Version:</b> 1.2<br/>

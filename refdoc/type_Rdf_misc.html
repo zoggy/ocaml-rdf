@@ -36,23 +36,23 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> string_of_opt : string option <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> opt_of_string : string <span class="keywordsign">-&gt;</span> string option<br/>
-  <span class="keyword">val</span> map_opt : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option<br/>
-  <span class="keyword">val</span> opt_compare : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> create_log_fun :<br/>
-    ?prefix:string <span class="keywordsign">-&gt;</span><br/>
-    ?print:(string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span><br/>
-    string <span class="keywordsign">-&gt;</span> ?loc:string <span class="keywordsign">-&gt;</span> ?level:int <span class="keywordsign">-&gt;</span> (unit <span class="keywordsign">-&gt;</span> string) <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> create_log_fun_with_set :<br/>
-    ?prefix:string <span class="keywordsign">-&gt;</span><br/>
-    ?print:(string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span><br/>
-    string <span class="keywordsign">-&gt;</span><br/>
-    (?loc:string <span class="keywordsign">-&gt;</span> ?level:int <span class="keywordsign">-&gt;</span> (unit <span class="keywordsign">-&gt;</span> string) <span class="keywordsign">-&gt;</span> unit) * (int <span class="keywordsign">-&gt;</span> unit)<br/>
-  <span class="keyword">val</span> compare_list : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a list <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a list <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> string_of_file : string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> split_string : ?keep_empty:bool <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> char list <span class="keywordsign">-&gt;</span> string list<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> string_of_opt : string option <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> opt_of_string : string <span class="keywordsign">-&gt;</span> string option
+  <span class="keyword">val</span> map_opt : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option
+  <span class="keyword">val</span> opt_compare : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> create_log_fun :
+    ?prefix:string <span class="keywordsign">-&gt;</span>
+    ?print:(string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span>
+    string <span class="keywordsign">-&gt;</span> ?loc:string <span class="keywordsign">-&gt;</span> ?level:int <span class="keywordsign">-&gt;</span> (unit <span class="keywordsign">-&gt;</span> string) <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> create_log_fun_with_set :
+    ?prefix:string <span class="keywordsign">-&gt;</span>
+    ?print:(string <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span>
+    string <span class="keywordsign">-&gt;</span>
+    (?loc:string <span class="keywordsign">-&gt;</span> ?level:int <span class="keywordsign">-&gt;</span> (unit <span class="keywordsign">-&gt;</span> string) <span class="keywordsign">-&gt;</span> unit) * (int <span class="keywordsign">-&gt;</span> unit)
+  <span class="keyword">val</span> compare_list : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a list <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a list <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> string_of_file : string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> split_string : ?keep_empty:bool <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> char list <span class="keywordsign">-&gt;</span> string list
 <span class="keyword">end</span></code></div>
 
 

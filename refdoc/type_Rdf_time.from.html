@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_time.from</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code">?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+<span class="keyword">object</span>
+  <span class="keyword">method</span> after : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> before : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> day : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> dayOfWeek : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> dayOfYear : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> days : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> hasBeginning : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasDateTimeDescription : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasDuration : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasDurationDescription : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasEnd : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasMember : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasTRS : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hour : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> hours : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> inDateTime : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> inTimePosition : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> inXSDDateTime : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> inside : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalAfter : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalBefore : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalContains : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalDuring : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalEquals : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalFinishedBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalFinishes : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalMeets : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalMetBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalOverlappedBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalOverlaps : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalStartedBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> intervalStarts : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> minute : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> minutes : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> month : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> months : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> nominalPosition : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> numericDuration : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> numericPosition : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> second : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> seconds : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> timeZone : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> unitType : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> week : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> weeks : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> xsdDateTime : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> year : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> years : <span class="constructor">Rdf_term</span>.literal list
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

@@ -36,16 +36,16 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> g = g<br/>
-  <span class="keyword">type</span> term<br/>
-  <span class="keyword">val</span> term : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> term<br/>
-  <span class="keyword">val</span> compare : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> rdfterm : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
-  <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> term list<br/>
-  <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> term list<br/>
-  <span class="keyword">val</span> find :<br/>
-    ?sub:term <span class="keywordsign">-&gt;</span> ?pred:term <span class="keywordsign">-&gt;</span> ?obj:term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> (term * term * term) list<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> g = g
+  <span class="keyword">type</span> term
+  <span class="keyword">val</span> term : g <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> term
+  <span class="keyword">val</span> compare : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> rdfterm : g <span class="keywordsign">-&gt;</span> term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term
+  <span class="keyword">val</span> subjects : g <span class="keywordsign">-&gt;</span> term list
+  <span class="keyword">val</span> objects : g <span class="keywordsign">-&gt;</span> term list
+  <span class="keyword">val</span> find :
+    ?sub:term <span class="keywordsign">-&gt;</span> ?pred:term <span class="keywordsign">-&gt;</span> ?obj:term <span class="keywordsign">-&gt;</span> g <span class="keywordsign">-&gt;</span> (term * term * term) list
 <span class="keyword">end</span></code></div>
 
 

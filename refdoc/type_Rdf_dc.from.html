@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_dc.from</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code">?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+<span class="keyword">object</span>
+  <span class="keyword">method</span> abstract : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> accessRights : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> accrualMethod : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> accrualPeriodicity : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> accrualPolicy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> alternative : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> audience : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> available : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> bibliographicCitation : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> conformsTo : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> contributor : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> coverage : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> created : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> creator : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> date : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> dateAccepted : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> dateCopyrighted : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> dateSubmitted : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> description : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> educationLevel : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> extent : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> format : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasFormat : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasPart : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> hasVersion : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> identifier : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> instructionalMethod : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isFormatOf : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isPartOf : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isReferencedBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isReplacedBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isRequiredBy : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> isVersionOf : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> issued : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> language : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> license : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> mediator : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> medium : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> modified : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> provenance : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> publisher : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> references : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> relation : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> replaces : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> requires : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> rights : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> rightsHolder : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> source : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> spatial : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> subject : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> tableOfContents : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> temporal : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> title : <span class="constructor">Rdf_term</span>.literal list
+  <span class="keyword">method</span> type_ : <span class="constructor">Iri</span>.t list
+  <span class="keyword">method</span> valid : <span class="constructor">Rdf_term</span>.literal list
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

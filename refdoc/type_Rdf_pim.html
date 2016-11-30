@@ -36,32 +36,54 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> pim : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> pim_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_ControlledStorage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> masterWorkspace : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_PersonalStorage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> preferencesFile : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_PublicStorage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Storage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> storage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> uriPrefix : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Workspace : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> workspace : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">module</span> <span class="constructor">Open</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">val</span> pim_c_ControlledStorage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_masterWorkspace : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_c_PersonalStorage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_preferencesFile : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_c_PublicStorage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_c_Storage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_storage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_uriPrefix : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_c_Workspace : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> pim_workspace : <span class="constructor">Iri</span>.t<br/>
-    <span class="keyword">end</span><br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> pim : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> pim_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ConfigurationFile : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ControlledStorage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_MasterWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PersonalStorage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PreferencesWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PrivateWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PublicStorage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PublicWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_SharedWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Storage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Workspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> masterWorkspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> preferencesFile : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> storage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> uriPrefix : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> workspace : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> pim_c_ConfigurationFile : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_ControlledStorage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_MasterWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_PersonalStorage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_PreferencesWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_PrivateWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_PublicStorage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_PublicWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_SharedWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_Storage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_c_Workspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_masterWorkspace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_preferencesFile : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_storage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_uriPrefix : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> pim_workspace : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> masterWorkspace : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> preferencesFile : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> storage : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> uriPrefix : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> workspace : <span class="constructor">Iri</span>.t list
+    <span class="keyword">end</span>
 <span class="keyword">end</span></code></div>
 
 

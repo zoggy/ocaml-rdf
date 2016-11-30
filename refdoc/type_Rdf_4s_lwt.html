@@ -36,21 +36,21 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> get :<br/>
-    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
-    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
-  <span class="keyword">val</span> post_update :<br/>
-    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span><br/>
-    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
-  <span class="keyword">val</span> delete : <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
-  <span class="keyword">val</span> put : <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
-  <span class="keyword">val</span> post_append :<br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> get :
+    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
+  <span class="keyword">val</span> post_update :
+    ?graph:<span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    base:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.in_message <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
+  <span class="keyword">val</span> delete : <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
+  <span class="keyword">val</span> put : <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
+  <span class="keyword">val</span> post_append :
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_http_lwt</span>.result
 <span class="keyword">end</span></code></div>
 
 

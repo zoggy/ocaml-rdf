@@ -1,0 +1,410 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_prov</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> prov : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> prov_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Accept : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Activity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ActivityInfluence : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Agent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_AgentInfluence : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Association : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Attribution : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Bundle : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Collection : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Communication : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Contribute : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Contributor : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Copyright : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Create : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Creator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Delegation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Derivation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Dictionary : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_DirectQueryService : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_EmptyCollection : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_EmptyDictionary : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_End : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Entity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_EntityInfluence : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Generation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Influence : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Insertion : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_InstantaneousEvent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Invalidation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_KeyEntityPair : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Location : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Modify : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Organization : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Person : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Plan : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PrimarySource : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Publish : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Publisher : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Quotation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Removal : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Replace : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Revision : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_RightsAssignment : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_RightsHolder : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Role : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ServiceDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_SoftwareAgent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Start : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Submit : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Usage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> actedOnBehalfOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> activity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> agent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> alternateOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> aq : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> asInBundle : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> atLocation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> atTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> category : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> component : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> constraints : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> definition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> derivedByInsertionFrom : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> derivedByRemovalFrom : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> describesService : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dictionary : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dm : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> editorialNote : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> editorsDefinition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> endedAtTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> entity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> generated : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> generatedAtTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadActivity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadDictionaryMember : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadGeneration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadMember : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadPlan : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadPrimarySource : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadRole : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hadUsage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_anchor : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_provenance : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_query_service : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> influenced : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> influencer : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> insertedKeyEntityPair : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> invalidated : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> invalidatedAtTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inverse : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> mentionOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> n : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> order : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> pairEntity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> pairKey : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> pingback : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> provenanceUriTemplate : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedAssociation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedAttribution : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedCommunication : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedDelegation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedDerivation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedEnd : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedForm : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedGeneration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedInfluence : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedInsertion : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedInvalidation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedPrimarySource : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedQuotation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedRemoval : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedRevision : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedStart : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> qualifiedUsage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> removedKey : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> sharesDefinitionWith : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> specializationOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> startedAtTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> todo : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> unqualifiedForm : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> used : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> value : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasAssociatedWith : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasAttributedTo : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasDerivedFrom : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasEndedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasGeneratedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasInfluencedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasInformedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasInvalidatedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasQuotedFrom : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasRevisionOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> wasStartedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> prov_c_Accept : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Activity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_ActivityInfluence : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Agent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_AgentInfluence : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Association : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Attribution : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Bundle : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Collection : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Communication : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Contribute : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Contributor : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Copyright : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Create : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Creator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Delegation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Derivation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Dictionary : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_DirectQueryService : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_EmptyCollection : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_EmptyDictionary : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_End : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Entity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_EntityInfluence : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Generation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Influence : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Insertion : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_InstantaneousEvent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Invalidation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_KeyEntityPair : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Location : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Modify : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Organization : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Person : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Plan : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_PrimarySource : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Publish : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Publisher : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Quotation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Removal : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Replace : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Revision : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_RightsAssignment : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_RightsHolder : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Role : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_ServiceDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_SoftwareAgent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Start : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Submit : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_c_Usage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_actedOnBehalfOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_activity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_agent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_alternateOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_aq : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_asInBundle : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_atLocation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_atTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_category : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_component : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_constraints : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_definition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_derivedByInsertionFrom : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_derivedByRemovalFrom : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_describesService : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_dictionary : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_dm : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_editorialNote : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_editorsDefinition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_endedAtTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_entity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_generated : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_generatedAtTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadActivity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadDictionaryMember : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadGeneration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadMember : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadPlan : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadPrimarySource : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadRole : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_hadUsage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_has_anchor : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_has_provenance : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_has_query_service : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_influenced : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_influencer : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_insertedKeyEntityPair : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_invalidated : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_invalidatedAtTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_inverse : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_mentionOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_n : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_order : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_pairEntity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_pairKey : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_pingback : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_provenanceUriTemplate : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedAssociation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedAttribution : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedCommunication : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedDelegation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedDerivation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedEnd : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedForm : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedGeneration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedInfluence : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedInsertion : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedInvalidation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedPrimarySource : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedQuotation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedRemoval : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedRevision : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedStart : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_qualifiedUsage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_removedKey : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_sharesDefinitionWith : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_specializationOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_startedAtTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_todo : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_unqualifiedForm : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_used : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_value : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasAssociatedWith : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasAttributedTo : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasDerivedFrom : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasEndedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasGeneratedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasInfluencedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasInformedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasInvalidatedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasQuotedFrom : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasRevisionOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> prov_wasStartedBy : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> actedOnBehalfOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> activity : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> agent : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> alternateOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> aq : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> asInBundle : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> atLocation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> atTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> category : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> component : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> constraints : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> definition : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> derivedByInsertionFrom : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> derivedByRemovalFrom : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> describesService : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> dictionary : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> dm : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> editorialNote : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> editorsDefinition : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> endedAtTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> entity : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> generated : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> generatedAtTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> hadActivity : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadDictionaryMember : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadGeneration : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadMember : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadPlan : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadPrimarySource : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadRole : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hadUsage : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_anchor : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_provenance : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_query_service : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> influenced : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> influencer : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> insertedKeyEntityPair : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> invalidated : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> invalidatedAtTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> inverse : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> mentionOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> n : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> order : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> pairEntity : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> pairKey : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> pingback : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> provenanceUriTemplate : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> qualifiedAssociation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedAttribution : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedCommunication : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedDelegation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedDerivation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedEnd : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedForm : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedGeneration : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedInfluence : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedInsertion : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedInvalidation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedPrimarySource : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedQuotation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedRemoval : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedRevision : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedStart : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> qualifiedUsage : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> removedKey : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> sharesDefinitionWith : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> specializationOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> startedAtTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> todo : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> unqualifiedForm : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> used : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> value : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> wasAssociatedWith : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasAttributedTo : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasDerivedFrom : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasEndedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasGeneratedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasInfluencedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasInformedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasInvalidatedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasQuotedFrom : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasRevisionOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> wasStartedBy : <span class="constructor">Iri</span>.t list
+    <span class="keyword">end</span>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

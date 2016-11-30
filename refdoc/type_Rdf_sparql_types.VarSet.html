@@ -36,64 +36,64 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> elt = <span class="constructor">Rdf_sparql_types</span>.var<br/>
-  <span class="keyword">type</span> t<br/>
-  <span class="keyword">val</span> empty : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> is_empty : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> mem : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> add :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> singleton : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> remove :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> union :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> inter :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> diff :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> compare : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> equal : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> subset : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> iter :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> fold :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> for_all :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> exists :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> filter :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> partition :<br/>
-    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t * <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> cardinal : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> elements :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt list<br/>
-  <span class="keyword">val</span> min_elt : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-  <span class="keyword">val</span> max_elt : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-  <span class="keyword">val</span> choose : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-  <span class="keyword">val</span> split :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t * bool * <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
-  <span class="keyword">val</span> find :<br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt<br/>
-  <span class="keyword">val</span> of_list : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> elt = <span class="constructor">Rdf_sparql_types</span>.var
+  <span class="keyword">type</span> t
+  <span class="keyword">val</span> empty : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> is_empty : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> mem : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> add :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> singleton : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> remove :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> union :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> inter :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> diff :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> compare : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> equal : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> subset : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> iter :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> fold :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> for_all :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> exists :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> filter :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> partition :
+    (<span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t * <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> cardinal : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> elements :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt list
+  <span class="keyword">val</span> min_elt : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+  <span class="keyword">val</span> max_elt : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+  <span class="keyword">val</span> choose : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+  <span class="keyword">val</span> split :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t * bool * <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
+  <span class="keyword">val</span> find :
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt
+  <span class="keyword">val</span> of_list : <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.elt list <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_types</span>.<span class="constructor">VarSet</span>.t
 <span class="keyword">end</span></code></div>
 
 

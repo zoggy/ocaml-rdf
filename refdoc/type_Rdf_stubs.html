@@ -36,16 +36,16 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">exception</span> <span class="constructor">Not_implemented</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">val</span> not_impl : string <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> sha1 : (string <span class="keywordsign">-&gt;</span> string) <span class="constructor">Pervasives</span>.ref<br/>
-  <span class="keyword">val</span> sha256 : (string <span class="keywordsign">-&gt;</span> string) <span class="constructor">Pervasives</span>.ref<br/>
-  <span class="keyword">val</span> pcre_replace :<br/>
-    (flags:<span class="constructor">Pcre</span>.cflag list <span class="keywordsign">-&gt;</span> pat:string <span class="keywordsign">-&gt;</span> templ:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string)<br/>
-    <span class="constructor">Pervasives</span>.ref<br/>
-  <span class="keyword">val</span> pcre_pmatch :<br/>
-    (flags:<span class="constructor">Pcre</span>.cflag list <span class="keywordsign">-&gt;</span> pat:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool) <span class="constructor">Pervasives</span>.ref<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">exception</span> <span class="constructor">Not_implemented</span> <span class="keyword">of</span> string
+  <span class="keyword">val</span> not_impl : string <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> sha1 : (string <span class="keywordsign">-&gt;</span> string) <span class="constructor">Pervasives</span>.ref
+  <span class="keyword">val</span> sha256 : (string <span class="keywordsign">-&gt;</span> string) <span class="constructor">Pervasives</span>.ref
+  <span class="keyword">val</span> pcre_replace :
+    (flags:<span class="constructor">Pcre</span>.cflag list <span class="keywordsign">-&gt;</span> pat:string <span class="keywordsign">-&gt;</span> templ:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string)
+    <span class="constructor">Pervasives</span>.ref
+  <span class="keyword">val</span> pcre_pmatch :
+    (flags:<span class="constructor">Pcre</span>.cflag list <span class="keywordsign">-&gt;</span> pat:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool) <span class="constructor">Pervasives</span>.ref
 <span class="keyword">end</span></code></div>
 
 

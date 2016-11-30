@@ -36,18 +36,18 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> apply_namespaces : (string * string) list <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string * string<br/>
-  <span class="keyword">val</span> build_namespaces :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> (string * string) list<br/>
-  <span class="keyword">val</span> dot_of_graph :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span><br/>
-    ?href:(<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string option) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> dot_of_iri :<br/>
-    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span><br/>
-    ?href:(<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string option) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> apply_namespaces : (string * string) list <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string * string
+  <span class="keyword">val</span> build_namespaces :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> (string * string) list
+  <span class="keyword">val</span> dot_of_graph :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span>
+    ?href:(<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string option) <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> dot_of_iri :
+    ?namespaces:(<span class="constructor">Iri</span>.t * string) list <span class="keywordsign">-&gt;</span>
+    ?href:(<span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> string option) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> string
 <span class="keyword">end</span></code></div>
 
 

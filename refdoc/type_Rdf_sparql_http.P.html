@@ -36,20 +36,20 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> <span class="keywordsign">'</span>a t<br/>
-  <span class="keyword">val</span> get :<br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Rdf_sparql_http</span>.<span class="constructor">P</span>.t<br/>
-  <span class="keyword">val</span> post :<br/>
-    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span><br/>
-    ?accept:string <span class="keywordsign">-&gt;</span><br/>
-    content_type:string <span class="keywordsign">-&gt;</span><br/>
-    content:string <span class="keywordsign">-&gt;</span><br/>
-    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span><br/>
-    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Rdf_sparql_http</span>.<span class="constructor">P</span>.t<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> <span class="keywordsign">'</span>a t
+  <span class="keyword">val</span> get :
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Rdf_sparql_http</span>.<span class="constructor">P</span>.t
+  <span class="keyword">val</span> post :
+    <span class="constructor">Uri</span>.t <span class="keywordsign">-&gt;</span>
+    ?accept:string <span class="keywordsign">-&gt;</span>
+    content_type:string <span class="keywordsign">-&gt;</span>
+    content:string <span class="keywordsign">-&gt;</span>
+    (content_type:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_sparql_protocol</span>.out_message) <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_sparql_protocol</span>.out_message <span class="constructor">Rdf_sparql_http</span>.<span class="constructor">P</span>.t
 <span class="keyword">end</span></code></div>
 
 

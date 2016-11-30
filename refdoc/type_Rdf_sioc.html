@@ -1,0 +1,313 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sioc</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> sioc : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> sioc_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Community : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Container : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Forum : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Item : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Post : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Role : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Site : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Space : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Thread : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_User : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_UserAccount : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Usergroup : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> about : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> account_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> addressed_to : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> administrator_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> attachment : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> avatar : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> container_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> content : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> content_encoded : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> created_at : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> creator_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> description : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> email : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> email_sha1 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> embeds_knowledge : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> feed : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> first_name : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> follows : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> function_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> group_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_administrator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_container : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_creator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_discussion : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_function : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_group : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_host : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_member : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_moderator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_modifier : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_owner : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_parent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_part : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_reply : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_scope : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_space : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_subscriber : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> has_usergroup : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> host_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> id : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> ip_address : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> last_activity_date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> last_item_date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> last_name : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> last_reply_date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> latest_version : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> link : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> links_to : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> member_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> moderator_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> modified_at : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> modifier_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> name : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> next_by_date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> next_version : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> note : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> num_authors : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> num_items : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> num_replies : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> num_threads : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> num_views : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> owner_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> parent_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> part_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> previous_by_date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> previous_version : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> reference : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> related_to : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> reply_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> scope_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> space_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> subject : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> subscriber_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> title : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> topic : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> usergroup_of : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> sioc_c_Community : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Container : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Forum : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Item : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Post : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Role : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Site : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Space : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Thread : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_User : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_UserAccount : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_c_Usergroup : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_about : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_account_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_addressed_to : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_administrator_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_attachment : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_avatar : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_container_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_content : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_content_encoded : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_created_at : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_creator_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_description : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_email : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_email_sha1 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_embeds_knowledge : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_feed : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_first_name : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_follows : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_function_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_group_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_administrator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_container : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_creator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_discussion : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_function : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_group : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_host : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_member : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_moderator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_modifier : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_owner : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_parent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_part : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_reply : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_scope : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_space : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_subscriber : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_has_usergroup : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_host_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_id : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_ip_address : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_last_activity_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_last_item_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_last_name : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_last_reply_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_latest_version : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_link : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_links_to : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_member_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_moderator_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_modified_at : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_modifier_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_name : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_next_by_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_next_version : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_note : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_num_authors : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_num_items : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_num_replies : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_num_threads : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_num_views : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_owner_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_parent_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_part_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_previous_by_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_previous_version : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_reference : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_related_to : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_reply_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_scope_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_space_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_subject : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_subscriber_of : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_title : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_topic : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> sioc_usergroup_of : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> about : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> account_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> addressed_to : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> administrator_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> attachment : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> avatar : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> container_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> content : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> content_encoded : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> created_at : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> creator_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> description : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> email : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> email_sha1 : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> embeds_knowledge : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> feed : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> first_name : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> follows : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> function_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> group_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_administrator : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_container : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_creator : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_discussion : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_function : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_group : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_host : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_member : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_moderator : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_modifier : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_owner : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_parent : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_part : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_reply : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_scope : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_space : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_subscriber : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> has_usergroup : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> host_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> id : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> ip_address : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> last_activity_date : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> last_item_date : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> last_name : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> last_reply_date : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> latest_version : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> link : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> links_to : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> member_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> moderator_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> modified_at : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> modifier_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> name : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> next_by_date : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> next_version : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> note : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> num_authors : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> num_items : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> num_replies : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> num_threads : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> num_views : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> owner_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> parent_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> part_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> previous_by_date : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> previous_version : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> reference : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> related_to : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> reply_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> scope_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> space_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> subject : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> subscriber_of : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> title : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> topic : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> usergroup_of : <span class="constructor">Iri</span>.t list
+    <span class="keyword">end</span>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

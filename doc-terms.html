@@ -58,38 +58,45 @@ For example,
  creates a literal
 RDF term from an integer, setting the IRI of the datatype to <code>&lt;xsd:integer&gt;</code>:
 </p>
-<pre class="code-ocaml" id="letint_litRdf_termmk_lit"><a class="paragraph-url" href="#letint_litRdf_termmk_lit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">int_lit</span><span class="hl std"> = </span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">mk_literal_int</span><span class="hl std"> </span><span class="hl num">42</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val int_lit : Rdf_term.literal =
-  {Rdf_term.lit_value = "42"; lit_language = None; lit_type = Some &lt;abstr&gt;}
-</div></div><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">term42</span><span class="hl std"> = </span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="hl kwc">Literal</span><span class="hl std"> </span><span class="">int_lit</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val term42 : Rdf_term.term =
+<div class="anchor-block"><a class="paragraph-url" href="#letint_litRdf_termmk_lit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="letint_litRdf_termmk_lit"><span># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">int_lit</span><span class="hl std"> = </span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">mk_literal_int</span><span class="hl std"> </span><span class="hl num">42</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">val int_lit : Rdf_term.literal =
+  {Rdf_term.lit_value = "42"; lit_language = None; lit_type = Some &lt;abstr&gt;}</span></span>
+<span># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">term42</span><span class="hl std"> = </span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="hl kwc">Literal</span><span class="hl std"> </span><span class="">int_lit</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">val term42 : Rdf_term.term =
   Rdf_term.Literal
-   {Rdf_term.lit_value = "42"; lit_language = None; lit_type = Some &lt;abstr&gt;}
-</div></div></pre>
+   {Rdf_term.lit_value = "42"; lit_language = None; lit_type = Some &lt;abstr&gt;}</span></span></pre></div>
 <p id="Letsgetastringrepresenta"><a class="paragraph-url" href="#Letsgetastringrepresenta"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 Let's get a string representation of the term:
 </p>
-<pre class="code-ocaml" id="print_endlineRdf_termstr"><a class="paragraph-url" href="#print_endlineRdf_termstr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="">print_endline</span><span class="hl std"> (</span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">string_of_term</span><span class="hl std"> </span><span class="">term42</span><span class="hl std">) ;;</span></div><div class="ocaml-toplevel"><div class="stdout">"42"^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt;
-</div><div class="toplevel-out">- : unit = ()
-</div></div></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#print_endlineRdf_termstr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="print_endlineRdf_termstr"><span># <span class="">print_endline</span><span class="hl std"> (</span><span class="hl kwc">Rdf_term</span><span class="hl std">.</span><span class="">string_of_term</span><span class="hl std"> </span><span class="">term42</span><span class="hl std">) ;;</span></span>
+<span class="ocaml-toplevel"><span class="stdout">"42"^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt;
+</span><span class="toplevel-out">- : unit = ()</span></span></pre></div>
 <p id="TheOCamlirilibraryisused"><a class="paragraph-url" href="#TheOCamlirilibraryisused"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The <span class="ext-a"><a href="https://github.com/zoggy/ocaml-iri/">OCaml-iri library</a></span> is used
 to handle IRIs:
 </p>
-<pre class="code-ocaml" id="letiri_shttpfoobarnetval"><a class="paragraph-url" href="#letiri_shttpfoobarnetval"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri_s</span><span class="hl std"> = </span><span class="hl str">"http://foo.bar.net/"</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val iri_s : string = "http://foo.bar.net/"
-</div></div><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> = </span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="">iri_s</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val iri : Iri.t = &lt;abstr&gt;
-</div></div><div># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std"> = </span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">with_fragment</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> (</span><span class="hl kwc">Some</span><span class="hl std"> </span><span class="hl str">"id42"</span><span class="hl std">);;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">val iri2 : Iri.t = &lt;abstr&gt;
-</div></div><div># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">compare</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">- : int = -1
-</div></div><div># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std">;;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">- : string = "http://foo.bar.net/#id42"
-</div></div></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#letiri_shttpfoobarnetval"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="letiri_shttpfoobarnetval"><span># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri_s</span><span class="hl std"> = </span><span class="hl str">"http://foo.bar.net/"</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">val iri_s : string = "http://foo.bar.net/"</span></span>
+<span># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> = </span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">of_string</span><span class="hl std"> </span><span class="">iri_s</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">val iri : Iri.t = &lt;abstr&gt;</span></span>
+<span># <span class="hl kwa">let</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std"> = </span><span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">with_fragment</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> (</span><span class="hl kwc">Some</span><span class="hl std"> </span><span class="hl str">"id42"</span><span class="hl std">);;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">val iri2 : Iri.t = &lt;abstr&gt;</span></span>
+<span># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">compare</span><span class="hl std"> </span><span class="">iri</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">- : int = -1</span></span>
+<span># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> </span><span class="">iri2</span><span class="hl std">;;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">- : string = "http://foo.bar.net/#id42"</span></span></pre></div>
 <p id="TheRdf_rdfmoduledefiness"><a class="paragraph-url" href="#TheRdf_rdfmoduledefiness"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a>
 The 
 <a href="https://zoggy.github.io/ocaml-rdf/refdoc/Rdf_rdf.html&lt;main_/&gt;">Rdf_rdf</a>
  module defines some commonly used IRIs:
 datatypes, classes, property names, ...:
 </p>
-<pre class="code-ocaml" id="Irito_stringRdf_rdfxsd_i"><a class="paragraph-url" href="#Irito_stringRdf_rdfxsd_i"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><div># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">xsd_integer</span><span class="hl std">);;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">- : string = "http://www.w3.org/2001/XMLSchema#integer"
-</div></div><div># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">xsd_double</span><span class="hl std">);;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">- : string = "http://www.w3.org/2001/XMLSchema#double"
-</div></div><div># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">about</span><span class="hl std">);;</span></div><div class="ocaml-toplevel"><div class="toplevel-out">- : string = "http://www.w3.org/1999/02/22-rdf-syntax-ns#about"
-</div></div></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#Irito_stringRdf_rdfxsd_i"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="code-ocaml" id="Irito_stringRdf_rdfxsd_i"><span># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">xsd_integer</span><span class="hl std">);;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">- : string = "http://www.w3.org/2001/XMLSchema#integer"</span></span>
+<span># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">xsd_double</span><span class="hl std">);;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">- : string = "http://www.w3.org/2001/XMLSchema#double"</span></span>
+<span># <span class="hl kwc">Iri</span><span class="hl std">.</span><span class="">to_string</span><span class="hl std"> (</span><span class="hl kwc">Rdf_rdf</span><span class="hl std">.</span><span class="">about</span><span class="hl std">);;</span></span>
+<span class="ocaml-toplevel"><span class="toplevel-out">- : string = "http://www.w3.org/1999/02/22-rdf-syntax-ns#about"</span></span></pre></div>
 
 
 

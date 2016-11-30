@@ -36,12 +36,12 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> loc = { loc_start : <span class="constructor">Lexing</span>.position; loc_end : <span class="constructor">Lexing</span>.position; }<br/>
-  <span class="keyword">val</span> dummy_loc : <span class="constructor">Rdf_loc</span>.loc<br/>
-  <span class="keyword">val</span> source_info_string : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_loc</span>.loc<br/>
-  <span class="keyword">val</span> source_info_file : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_loc</span>.loc<br/>
-  <span class="keyword">val</span> string_of_loc : <span class="constructor">Rdf_loc</span>.loc <span class="keywordsign">-&gt;</span> string<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> loc = { loc_start : <span class="constructor">Lexing</span>.position; loc_end : <span class="constructor">Lexing</span>.position; }
+  <span class="keyword">val</span> dummy_loc : <span class="constructor">Rdf_loc</span>.loc
+  <span class="keyword">val</span> source_info_string : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_loc</span>.loc
+  <span class="keyword">val</span> source_info_file : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_loc</span>.loc
+  <span class="keyword">val</span> string_of_loc : <span class="constructor">Rdf_loc</span>.loc <span class="keywordsign">-&gt;</span> string
 <span class="keyword">end</span></code></div>
 
 

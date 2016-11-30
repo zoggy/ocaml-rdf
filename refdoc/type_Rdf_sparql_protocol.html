@@ -36,22 +36,22 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> in_dataset = { inds_default : <span class="constructor">Iri</span>.t option; inds_named : <span class="constructor">Iri</span>.t list; }<br/>
-  <span class="keyword">val</span> empty_dataset : <span class="constructor">Rdf_sparql_protocol</span>.in_dataset<br/>
-  <span class="keyword">type</span> in_message = {<br/>
-    in_query : string;<br/>
-    in_dataset : <span class="constructor">Rdf_sparql_protocol</span>.in_dataset;<br/>
-  }<br/>
-  <span class="keyword">type</span> error =<br/>
-      <span class="constructor">Malformed_query</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Query_request_refused</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Error_other</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">type</span> out_message =<br/>
-      <span class="constructor">Ok</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">Result</span> <span class="keyword">of</span> <span class="constructor">Rdf_sparql</span>.query_result<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_sparql_protocol</span>.error<br/>
-  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_sparql_protocol</span>.error <span class="keywordsign">-&gt;</span> string<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> in_dataset = { inds_default : <span class="constructor">Iri</span>.t option; inds_named : <span class="constructor">Iri</span>.t list; }
+  <span class="keyword">val</span> empty_dataset : <span class="constructor">Rdf_sparql_protocol</span>.in_dataset
+  <span class="keyword">type</span> in_message = {
+    in_query : string;
+    in_dataset : <span class="constructor">Rdf_sparql_protocol</span>.in_dataset;
+  }
+  <span class="keyword">type</span> error =
+      <span class="constructor">Malformed_query</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Query_request_refused</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Error_other</span> <span class="keyword">of</span> string
+  <span class="keyword">type</span> out_message =
+      <span class="constructor">Ok</span>
+    <span class="keywordsign">|</span> <span class="constructor">Result</span> <span class="keyword">of</span> <span class="constructor">Rdf_sparql</span>.query_result
+    <span class="keywordsign">|</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_sparql_protocol</span>.error
+  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_sparql_protocol</span>.error <span class="keywordsign">-&gt;</span> string
 <span class="keyword">end</span></code></div>
 
 

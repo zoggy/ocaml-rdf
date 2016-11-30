@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_solid</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> solid : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> solid_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Account : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Inbox : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Notification : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Timeline : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_TypeIndex : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> account : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inbox : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> notification : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> read : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> timeline : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> typeIndex : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> solid_c_Account : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_c_Inbox : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_c_Notification : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_c_Timeline : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_c_TypeIndex : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_account : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_inbox : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_notification : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_read : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_timeline : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> solid_typeIndex : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> account : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> inbox : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> notification : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> read : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> timeline : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> typeIndex : <span class="constructor">Iri</span>.t list
+    <span class="keyword">end</span>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

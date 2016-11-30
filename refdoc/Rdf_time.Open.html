@@ -1,0 +1,335 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_time.Open</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<div class="navbar"> <a class="up" href="Rdf_time.html" title="Rdf_time">Up</a>
+ </div>
+<h1>Module <a href="type_Rdf_time.Open.html">Rdf_time.Open</a></h1>
+
+<div class="anchor-block"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleOpensigend"><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_time.Open.html">..</a> <code class="code">end</code></pre></div><hr width="100%"/>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_DateTimeDescri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_DateTimeDescri"><span id="VALtime_c_DateTimeDescription"><span class="keyword">val</span> time_c_DateTimeDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Description of date and time structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of year, month, day properties restricted to corresponding XML Schema types xsd:gYear, xsd:gMonth and xsd:gDay, respectively.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_DateTimeInterv"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_DateTimeInterv"><span id="VALtime_c_DateTimeInterval"><span class="keyword">val</span> time_c_DateTimeInterval</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+DateTimeInterval is a subclass of ProperInterval, defined using the multi-element DateTimeDescription.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_DayOfWeekIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_DayOfWeekIrit"><span id="VALtime_c_DayOfWeek"><span class="keyword">val</span> time_c_DayOfWeek</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The day of week<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_DurationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_DurationIrit"><span id="VALtime_c_Duration"><span class="keyword">val</span> time_c_Duration</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Duration of a temporal extent expressed as a number scaled by a temporal unit<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_DurationDescri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_DurationDescri"><span id="VALtime_c_DurationDescription"><span class="keyword">val</span> time_c_DurationDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Description of temporal extent structured with separate values for the various elements of a calendar-clock system. The temporal reference system is fixed to Gregorian Calendar, and the range of each of the numeric properties is restricted to xsd:decimal<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_GeneralDateTim"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_GeneralDateTim"><span id="VALtime_c_GeneralDateTimeDescription"><span class="keyword">val</span> time_c_GeneralDateTimeDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Description of date and time structured with separate values for the various elements of a calendar-clock system<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_GeneralDuratio"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_GeneralDuratio"><span id="VALtime_c_GeneralDurationDescription"><span class="keyword">val</span> time_c_GeneralDurationDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Description of temporal extent structured with separate values for the various elements of a calendar-clock system.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_InstantIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_InstantIrit"><span id="VALtime_c_Instant"><span class="keyword">val</span> time_c_Instant</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal entity with zero extent or duration<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_IntervalIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_IntervalIrit"><span id="VALtime_c_Interval"><span class="keyword">val</span> time_c_Interval</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal entity with an extent or duration<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dt_NumberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dt_NumberIrit"><span id="VALtime_dt_Number"><span class="keyword">val</span> time_dt_Number</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Note: integer is a specialization of decimal<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_ProperInterval"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_ProperInterval"><span id="VALtime_c_ProperInterval"><span class="keyword">val</span> time_c_ProperInterval</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal entity with non-zero extent or duration, i.e. for which the value of the beginning and end are different<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_TRSIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_TRSIrit"><span id="VALtime_c_TRS"><span class="keyword">val</span> time_c_TRS</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal reference system, such as a temporal coordinate system (with an origin, direction, and scale), a calendar-clock combination, or a (possibly hierarchical) ordinal system. 
+<div class="vertical-space"> </div>
+
+This is a stub class, representing the set of all temporal reference systems.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_TemporalEntity"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_TemporalEntity"><span id="VALtime_c_TemporalEntity"><span class="keyword">val</span> time_c_TemporalEntity</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal interval or instant.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_TemporalUnitIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_TemporalUnitIr"><span id="VALtime_c_TemporalUnit"><span class="keyword">val</span> time_c_TemporalUnit</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal unit of measure, which provides a scale factor for a time quantity.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_TimePositionIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_TimePositionIr"><span id="VALtime_c_TimePosition"><span class="keyword">val</span> time_c_TimePosition</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A temporal position described using either a (nominal) value from an ordinal reference system, or a (numeric) value in a temporal coordinate system.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_c_YearIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_c_YearIrit"><span id="VALtime_c_Year"><span class="keyword">val</span> time_c_Year</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Duration year, not a calendar year!<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_afterIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_afterIrit"><span id="VALtime_after"><span class="keyword">val</span> time_after</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Gives directionality to time. If a temporal entity T1 is after another temporal entity T2, then the beginning of T1 is after the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_beforeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_beforeIrit"><span id="VALtime_before"><span class="keyword">val</span> time_before</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Gives directionality to time. If a temporal entity T1 is before another temporal entity T2, then the end of T1 is before the beginning of T2. Thus, before can be considered to be basic to instants and derived for intervals.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dayIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dayIrit"><span id="VALtime_day"><span class="keyword">val</span> time_day</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Day position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar day from any calendar.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dayOfWeekIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dayOfWeekIrit"><span id="VALtime_dayOfWeek"><span class="keyword">val</span> time_dayOfWeek</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The day of week, whose value is a member of the class time:DayOfWeek<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dayOfYearIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dayOfYearIrit"><span id="VALtime_dayOfYear"><span class="keyword">val</span> time_dayOfYear</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of the day within the year<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_daysIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_daysIrit"><span id="VALtime_days"><span class="keyword">val</span> time_days</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in days<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dt_generalDayIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dt_generalDayIri"><span id="VALtime_dt_generalDay"><span class="keyword">val</span> time_dt_generalDay</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Day of month - generalization of xsd:gDay, formulated as a text string with a pattern constraint to reproduce the same lexical form as gDay, except that values up to 99 are permitted, in order to support calendars with more than 31 days in a month. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dt_generalMonthI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dt_generalMonthI"><span id="VALtime_dt_generalMonth"><span class="keyword">val</span> time_dt_generalMonth</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Month of year - generalization of xsd:gMonth, formulated as a text string with a pattern constraint to reproduce the same lexical form as gMonth, except that values up to 20 are permitted, in order to support calendars with more than 12 months in the year. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_dt_generalYearIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_dt_generalYearIr"><span id="VALtime_dt_generalYear"><span class="keyword">val</span> time_dt_generalYear</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Year number - generalization of xsd:gYear, formulated as a text string with a pattern constraint to reproduce the same lexical form as gYear. Note that the value-space is not defined, so a generic OWL2 processor cannot compute ordering relationships of values of this type.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasBeginningIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasBeginningIrit"><span id="VALtime_hasBeginning"><span class="keyword">val</span> time_hasBeginning</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Beginning of a temporal entity.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasDateTimeDescr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasDateTimeDescr"><span id="VALtime_hasDateTimeDescription"><span class="keyword">val</span> time_hasDateTimeDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Value of DateTimeInterval expressed as a structured value.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasDurationIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasDurationIrit"><span id="VALtime_hasDuration"><span class="keyword">val</span> time_hasDuration</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Duration of a temporal entity, expressed as a scaled value or nominal value<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasDurationDescr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasDurationDescr"><span id="VALtime_hasDurationDescription"><span class="keyword">val</span> time_hasDurationDescription</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Duration of a temporal entity, expressed using a structured description<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasEndIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasEndIrit"><span id="VALtime_hasEnd"><span class="keyword">val</span> time_hasEnd</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+End of a temporal entity.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasMemberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasMemberIrit"><span id="VALtime_hasMember"><span class="keyword">val</span> time_hasMember</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Supports the inclusion of temporal entities in other resources, such as temporal reference systems.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hasTRSIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hasTRSIrit"><span id="VALtime_hasTRS"><span class="keyword">val</span> time_hasTRS</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The temporal reference system used by a temporal position or extent description.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hourIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hourIrit"><span id="VALtime_hour"><span class="keyword">val</span> time_hour</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Hour position in a calendar-clock system.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_hoursIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_hoursIrit"><span id="VALtime_hours"><span class="keyword">val</span> time_hours</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in hours<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_inDateTimeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_inDateTimeIrit"><span id="VALtime_inDateTime"><span class="keyword">val</span> time_inDateTime</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Position of an instant, expressed using a structured description<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_inTimePositionIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_inTimePositionIr"><span id="VALtime_inTimePosition"><span class="keyword">val</span> time_inTimePosition</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Position of a time instant expressed as a TimePosition<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_inXSDDateTimeIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_inXSDDateTimeIri"><span id="VALtime_inXSDDateTime"><span class="keyword">val</span> time_inXSDDateTime</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Position of an instant, expressed using xsd:DateTime<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_insideIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_insideIrit"><span id="VALtime_inside"><span class="keyword">val</span> time_inside</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An instant that falls inside the interval. It is not intended to include beginnings and ends of intervals.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalAfterIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalAfterIri"><span id="VALtime_intervalAfter"><span class="keyword">val</span> time_intervalAfter</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalAfter another proper interval T2, then the beginning of T1 is after the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalBeforeIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalBeforeIr"><span id="VALtime_intervalBefore"><span class="keyword">val</span> time_intervalBefore</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalBefore another proper interval T2, then the end of T1 is before the beginning of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalContains"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalContains"><span id="VALtime_intervalContains"><span class="keyword">val</span> time_intervalContains</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalContains another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalDuringIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalDuringIr"><span id="VALtime_intervalDuring"><span class="keyword">val</span> time_intervalDuring</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalDuring another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalEqualsIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalEqualsIr"><span id="VALtime_intervalEquals"><span class="keyword">val</span> time_intervalEquals</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalEquals another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalFinished"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalFinished"><span id="VALtime_intervalFinishedBy"><span class="keyword">val</span> time_intervalFinishedBy</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalFinishedBy another proper interval T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalFinishes"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalFinishes"><span id="VALtime_intervalFinishes"><span class="keyword">val</span> time_intervalFinishes</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalFinishes another proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalMeetsIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalMeetsIri"><span id="VALtime_intervalMeets"><span class="keyword">val</span> time_intervalMeets</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalMeets another proper interval T2, then the end of T1 is the beginning of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalMetByIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalMetByIri"><span id="VALtime_intervalMetBy"><span class="keyword">val</span> time_intervalMetBy</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalMetBy another proper interval T2, then the beginning of T1 is the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalOverlapp"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalOverlapp"><span id="VALtime_intervalOverlappedBy"><span class="keyword">val</span> time_intervalOverlappedBy</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalOverlappedBy another proper interval T2, then the beginning of T1 is after the beginning of T2, the beginning of T1 is before the end of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalOverlaps"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalOverlaps"><span id="VALtime_intervalOverlaps"><span class="keyword">val</span> time_intervalOverlaps</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalOverlaps another proper interval T2, then the beginning of T1 is before the beginning of T2, the end of T1 is after the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalStartedB"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalStartedB"><span id="VALtime_intervalStartedBy"><span class="keyword">val</span> time_intervalStartedBy</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalStarted another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is after the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_intervalStartsIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_intervalStartsIr"><span id="VALtime_intervalStarts"><span class="keyword">val</span> time_intervalStarts</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+If a proper interval T1 is intervalStarts another proper interval T2, then the beginning of T1 is the beginning of T2, and the end of T1 is before the end of T2.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_minuteIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_minuteIrit"><span id="VALtime_minute"><span class="keyword">val</span> time_minute</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Minute position in a calendar-clock system.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_minutesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_minutesIrit"><span id="VALtime_minutes"><span class="keyword">val</span> time_minutes</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in minutes<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_monthIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_monthIrit"><span id="VALtime_month"><span class="keyword">val</span> time_month</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Month position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar month from any calendar.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_monthsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_monthsIrit"><span id="VALtime_months"><span class="keyword">val</span> time_months</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in months<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_nominalPositionI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_nominalPositionI"><span id="VALtime_nominalPosition"><span class="keyword">val</span> time_nominalPosition</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The (nominal) value indicating temporal position in an ordinal reference system<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_numericDurationI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_numericDurationI"><span id="VALtime_numericDuration"><span class="keyword">val</span> time_numericDuration</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Value of a temporal extent expressed as a number scaled by a temporal unit<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_numericPositionI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_numericPositionI"><span id="VALtime_numericPosition"><span class="keyword">val</span> time_numericPosition</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The (numeric) value indicating position within a temporal coordinate system<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_secondIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_secondIrit"><span id="VALtime_second"><span class="keyword">val</span> time_second</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Second position in a calendar-clock system.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_secondsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_secondsIrit"><span id="VALtime_seconds"><span class="keyword">val</span> time_seconds</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in seconds<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_timeZoneIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_timeZoneIrit"><span id="VALtime_timeZone"><span class="keyword">val</span> time_timeZone</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The time zone for clock elements in the temporal position<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_unitTypeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_unitTypeIrit"><span id="VALtime_unitType"><span class="keyword">val</span> time_unitType</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The temporal unit which provides the precision of a date-time value or scale of a temporal extent<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_weekIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_weekIrit"><span id="VALtime_week"><span class="keyword">val</span> time_week</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of the week within the year<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_weeksIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_weeksIrit"><span id="VALtime_weeks"><span class="keyword">val</span> time_weeks</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in weeks<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_xsdDateTimeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_xsdDateTimeIrit"><span id="VALtime_xsdDateTime"><span class="keyword">val</span> time_xsdDateTime</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Value of DateTimeInterval expressed as a compact value.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_yearIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_yearIrit"><span id="VALtime_year"><span class="keyword">val</span> time_year</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Year position in a calendar-clock system.
+<div class="vertical-space"> </div>
+
+The range of this property is not specified, so can be replaced by any specific representation of a calendar year from any calendar.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtime_yearsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtime_yearsIrit"><span id="VALtime_years"><span class="keyword">val</span> time_years</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+length of a temporal extent expressed in years<br/>
+</div>
+</div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

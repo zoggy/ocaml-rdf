@@ -1,0 +1,243 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_time</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> time : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> time_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_DateTimeDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_DateTimeInterval : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_DayOfWeek : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Duration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_DurationDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_GeneralDateTimeDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_GeneralDurationDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Instant : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Interval : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_Number : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ProperInterval : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_TRS : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_TemporalEntity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_TemporalUnit : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_TimePosition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Year : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> after : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> before : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> day : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dayOfWeek : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dayOfYear : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> days : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_generalDay : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_generalMonth : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_generalYear : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasBeginning : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasDateTimeDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasDuration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasDurationDescription : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasEnd : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasMember : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasTRS : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hour : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hours : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inDateTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inTimePosition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inXSDDateTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> inside : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalAfter : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalBefore : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalContains : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalDuring : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalEquals : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalFinishedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalFinishes : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalMeets : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalMetBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalOverlappedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalOverlaps : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalStartedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> intervalStarts : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> minute : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> minutes : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> month : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> months : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> nominalPosition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> numericDuration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> numericPosition : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> second : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> seconds : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> timeZone : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> unitType : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> week : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> weeks : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> xsdDateTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> year : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> years : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> time_c_DateTimeDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_DateTimeInterval : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_DayOfWeek : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_Duration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_DurationDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_GeneralDateTimeDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_GeneralDurationDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_Instant : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_Interval : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dt_Number : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_ProperInterval : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_TRS : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_TemporalEntity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_TemporalUnit : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_TimePosition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_c_Year : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_after : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_before : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_day : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dayOfWeek : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dayOfYear : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_days : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dt_generalDay : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dt_generalMonth : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_dt_generalYear : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasBeginning : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasDateTimeDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasDuration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasDurationDescription : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasEnd : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasMember : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hasTRS : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hour : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_hours : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_inDateTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_inTimePosition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_inXSDDateTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_inside : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalAfter : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalBefore : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalContains : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalDuring : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalEquals : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalFinishedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalFinishes : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalMeets : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalMetBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalOverlappedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalOverlaps : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalStartedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_intervalStarts : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_minute : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_minutes : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_month : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_months : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_nominalPosition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_numericDuration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_numericPosition : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_second : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_seconds : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_timeZone : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_unitType : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_week : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_weeks : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_xsdDateTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_year : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> time_years : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> after : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> before : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> day : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> dayOfWeek : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> dayOfYear : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> days : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> hasBeginning : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasDateTimeDescription : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasDuration : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasDurationDescription : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasEnd : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasMember : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasTRS : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hour : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> hours : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> inDateTime : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> inTimePosition : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> inXSDDateTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> inside : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalAfter : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalBefore : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalContains : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalDuring : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalEquals : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalFinishedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalFinishes : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalMeets : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalMetBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalOverlappedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalOverlaps : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalStartedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> intervalStarts : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> minute : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> minutes : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> month : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> months : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> nominalPosition : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> numericDuration : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> numericPosition : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> second : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> seconds : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> timeZone : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> unitType : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> week : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> weeks : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> xsdDateTime : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> year : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> years : <span class="constructor">Rdf_term</span>.literal list
+    <span class="keyword">end</span>
+<span class="keyword">end</span></code></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

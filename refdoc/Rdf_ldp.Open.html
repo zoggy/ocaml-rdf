@@ -40,90 +40,94 @@
  </div>
 <h1>Module <a href="type_Rdf_ldp.Open.html">Rdf_ldp.Open</a></h1>
 
-<pre id="moduleOpensigend"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_ldp.Open.html">..</a> <code class="code">end</code></pre><hr width="100%"/>
+<div class="anchor-block"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleOpensigend"><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_ldp.Open.html">..</a> <code class="code">end</code></pre></div><hr width="100%"/>
 
-<pre id="valldp_c_BasicContainerI"><a class="paragraph-url" href="#valldp_c_BasicContainerI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_BasicContainer"><span class="keyword">val</span> ldp_c_BasicContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_BasicContainerI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_BasicContainerI"><span id="VALldp_c_BasicContainer"><span class="keyword">val</span> ldp_c_BasicContainer</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 An LDPC that uses a predefined predicate to simply link to its contained resources.<br/>
 </div>
 
-<pre id="valldp_constrainedByIrit"><a class="paragraph-url" href="#valldp_constrainedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_constrainedBy"><span class="keyword">val</span> ldp_constrainedBy</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Links a resource with constraints that the server requires requests like creation and update to conform to.<br/>
-</div>
-
-<pre id="valldp_c_ContainerIrit"><a class="paragraph-url" href="#valldp_c_ContainerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_Container"><span class="keyword">val</span> ldp_c_Container</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_ContainerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_ContainerIrit"><span id="VALldp_c_Container"><span class="keyword">val</span> ldp_c_Container</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 A Linked Data Platform RDF Source (LDP-RS) that also conforms to additional patterns and conventions for managing membership. Readers should refer to the specification defining this ontology for the list of behaviors associated with it.<br/>
 </div>
 
-<pre id="valldp_containsIrit"><a class="paragraph-url" href="#valldp_containsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_contains"><span class="keyword">val</span> ldp_contains</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Links a container with resources created through the container.<br/>
-</div>
-
-<pre id="valldp_c_DirectContainer"><a class="paragraph-url" href="#valldp_c_DirectContainer"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_DirectContainer"><span class="keyword">val</span> ldp_c_DirectContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_DirectContainer"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_DirectContainer"><span id="VALldp_c_DirectContainer"><span class="keyword">val</span> ldp_c_DirectContainer</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 An LDPC that is similar to a LDP-DC but it allows an indirection with the ability to list as member a resource, such as a URI representing a real-world object, that is different from the resource that is created.<br/>
 </div>
 
-<pre id="valldp_hasMemberRelation"><a class="paragraph-url" href="#valldp_hasMemberRelation"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_hasMemberRelation"><span class="keyword">val</span> ldp_hasMemberRelation</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Indicates which predicate is used in membership triples, and that the membership triple pattern is &lt; membership-constant-URI , object-of-hasMemberRelation, member-URI &gt;.<br/>
-</div>
-
-<pre id="valldp_c_IndirectContain"><a class="paragraph-url" href="#valldp_c_IndirectContain"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_IndirectContainer"><span class="keyword">val</span> ldp_c_IndirectContainer</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_IndirectContain"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_IndirectContain"><span id="VALldp_c_IndirectContainer"><span class="keyword">val</span> ldp_c_IndirectContainer</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 An LDPC that has the flexibility of choosing what form the membership triples take.<br/>
 </div>
 
-<pre id="valldp_insertedContentRe"><a class="paragraph-url" href="#valldp_insertedContentRe"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_insertedContentRelation"><span class="keyword">val</span> ldp_insertedContentRelation</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful.<br/>
-</div>
-
-<pre id="valldp_isMemberOfRelatio"><a class="paragraph-url" href="#valldp_isMemberOfRelatio"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_isMemberOfRelation"><span class="keyword">val</span> ldp_isMemberOfRelation</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Indicates which predicate is used in membership triples, and that the membership triple pattern is &lt; member-URI , object-of-isMemberOfRelation, membership-constant-URI &gt;.<br/>
-</div>
-
-<pre id="valldp_memberIrit"><a class="paragraph-url" href="#valldp_memberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_member"><span class="keyword">val</span> ldp_member</span> : <code class="type">Iri.t</code></pre><div class="info ">
-LDP servers should use this predicate as the membership predicate if there is no obvious predicate from an application vocabulary to use.<br/>
-</div>
-
-<pre id="valldp_membershipResourc"><a class="paragraph-url" href="#valldp_membershipResourc"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_membershipResource"><span class="keyword">val</span> ldp_membershipResource</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Indicates the membership-constant-URI in a membership triple.  Depending upon the membership triple pattern a container uses, as indicated by the presence of ldp:hasMemberRelation or ldp:isMemberOfRelation, the membership-constant-URI might occupy either the subject or object position in membership triples.<br/>
-</div>
-
-<pre id="valldp_c_NonRDFSourceIri"><a class="paragraph-url" href="#valldp_c_NonRDFSourceIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_NonRDFSource"><span class="keyword">val</span> ldp_c_NonRDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_NonRDFSourceIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_NonRDFSourceIri"><span id="VALldp_c_NonRDFSource"><span class="keyword">val</span> ldp_c_NonRDFSource</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 A Linked Data Platform Resource (LDPR) whose state is NOT represented as RDF.<br/>
 </div>
 
-<pre id="valldp_c_PageIrit"><a class="paragraph-url" href="#valldp_c_PageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_Page"><span class="keyword">val</span> ldp_c_Page</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_PageIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_PageIrit"><span id="VALldp_c_Page"><span class="keyword">val</span> ldp_c_Page</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 URI signifying that the resource is an in-sequence page resource, as defined by LDP Paging.  Typically used on Link rel='type' response headers.<br/>
 </div>
 
-<pre id="valldp_pageSequenceIrit"><a class="paragraph-url" href="#valldp_pageSequenceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_pageSequence"><span class="keyword">val</span> ldp_pageSequence</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Link to a page sequence resource, as defined by LDP Paging.  Typically used to communicate the sorting criteria used to allocate LDPC members to pages.<br/>
-</div>
-
-<pre id="valldp_pageSortCollation"><a class="paragraph-url" href="#valldp_pageSortCollation"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_pageSortCollation"><span class="keyword">val</span> ldp_pageSortCollation</span> : <code class="type">Iri.t</code></pre><div class="info ">
-The collation used to order the members across pages in a page sequence when comparing strings.<br/>
-</div>
-
-<pre id="valldp_pageSortCriteriaI"><a class="paragraph-url" href="#valldp_pageSortCriteriaI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_pageSortCriteria"><span class="keyword">val</span> ldp_pageSortCriteria</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Link to the list of sorting criteria used by the server in a representation.  Typically used on Link response headers as an extension link relation URI in the rel= parameter.<br/>
-</div>
-
-<pre id="valldp_c_PageSortCriteri"><a class="paragraph-url" href="#valldp_c_PageSortCriteri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_PageSortCriterion"><span class="keyword">val</span> ldp_c_PageSortCriterion</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_PageSortCriteri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_PageSortCriteri"><span id="VALldp_c_PageSortCriterion"><span class="keyword">val</span> ldp_c_PageSortCriterion</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 Element in the list of sorting criteria used by the server to assign container members to pages.<br/>
 </div>
 
-<pre id="valldp_pageSortOrderIrit"><a class="paragraph-url" href="#valldp_pageSortOrderIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_pageSortOrder"><span class="keyword">val</span> ldp_pageSortOrder</span> : <code class="type">Iri.t</code></pre><div class="info ">
-The ascending/descending/etc order used to order the members across pages in a page sequence.<br/>
-</div>
-
-<pre id="valldp_pageSortPredicate"><a class="paragraph-url" href="#valldp_pageSortPredicate"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_pageSortPredicate"><span class="keyword">val</span> ldp_pageSortPredicate</span> : <code class="type">Iri.t</code></pre><div class="info ">
-Predicate used to specify the order of the members across a page sequence's in-sequence page resources; it asserts nothing about the order of members in the representation of a single page.<br/>
-</div>
-
-<pre id="valldp_c_RDFSourceIrit"><a class="paragraph-url" href="#valldp_c_RDFSourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_RDFSource"><span class="keyword">val</span> ldp_c_RDFSource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_RDFSourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_RDFSourceIrit"><span id="VALldp_c_RDFSource"><span class="keyword">val</span> ldp_c_RDFSource</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 A Linked Data Platform Resource (LDPR) whose state is represented as RDF.<br/>
 </div>
 
-<pre id="valldp_c_ResourceIrit"><a class="paragraph-url" href="#valldp_c_ResourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALldp_c_Resource"><span class="keyword">val</span> ldp_c_Resource</span> : <code class="type">Iri.t</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_c_ResourceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_c_ResourceIrit"><span id="VALldp_c_Resource"><span class="keyword">val</span> ldp_c_Resource</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
 A HTTP-addressable resource whose lifecycle is managed by a LDP server.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_constrainedByIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_constrainedByIrit"><span id="VALldp_constrainedBy"><span class="keyword">val</span> ldp_constrainedBy</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links a resource with constraints that the server requires requests like creation and update to conform to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_containsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_containsIrit"><span id="VALldp_contains"><span class="keyword">val</span> ldp_contains</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links a container with resources created through the container.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_hasMemberRelation"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_hasMemberRelation"><span id="VALldp_hasMemberRelation"><span class="keyword">val</span> ldp_hasMemberRelation</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Indicates which predicate is used in membership triples, and that the membership triple pattern is &lt; membership-constant-URI , object-of-hasMemberRelation, member-URI &gt;.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_inboxIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_inboxIrit"><span id="VALldp_inbox"><span class="keyword">val</span> ldp_inbox</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links a resource to a container where notifications for the resource can be created and discovered.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_insertedContentRe"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_insertedContentRe"><span id="VALldp_insertedContentRelation"><span class="keyword">val</span> ldp_insertedContentRelation</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Indicates which triple in a creation request should be used as the member-URI value in the membership triple added when the creation request is successful.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_isMemberOfRelatio"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_isMemberOfRelatio"><span id="VALldp_isMemberOfRelation"><span class="keyword">val</span> ldp_isMemberOfRelation</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Indicates which predicate is used in membership triples, and that the membership triple pattern is &lt; member-URI , object-of-isMemberOfRelation, membership-constant-URI &gt;.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_memberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_memberIrit"><span id="VALldp_member"><span class="keyword">val</span> ldp_member</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+LDP servers should use this predicate as the membership predicate if there is no obvious predicate from an application vocabulary to use.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_membershipResourc"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_membershipResourc"><span id="VALldp_membershipResource"><span class="keyword">val</span> ldp_membershipResource</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Indicates the membership-constant-URI in a membership triple.  Depending upon the membership triple pattern a container uses, as indicated by the presence of ldp:hasMemberRelation or ldp:isMemberOfRelation, the membership-constant-URI might occupy either the subject or object position in membership triples.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_pageSequenceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_pageSequenceIrit"><span id="VALldp_pageSequence"><span class="keyword">val</span> ldp_pageSequence</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Link to a page sequence resource, as defined by LDP Paging.  Typically used to communicate the sorting criteria used to allocate LDPC members to pages.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_pageSortCollation"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_pageSortCollation"><span id="VALldp_pageSortCollation"><span class="keyword">val</span> ldp_pageSortCollation</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The collation used to order the members across pages in a page sequence when comparing strings.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_pageSortCriteriaI"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_pageSortCriteriaI"><span id="VALldp_pageSortCriteria"><span class="keyword">val</span> ldp_pageSortCriteria</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Link to the list of sorting criteria used by the server in a representation.  Typically used on Link response headers as an extension link relation URI in the rel= parameter.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_pageSortOrderIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_pageSortOrderIrit"><span id="VALldp_pageSortOrder"><span class="keyword">val</span> ldp_pageSortOrder</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The ascending/descending/etc order used to order the members across pages in a page sequence.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valldp_pageSortPredicate"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valldp_pageSortPredicate"><span id="VALldp_pageSortPredicate"><span class="keyword">val</span> ldp_pageSortPredicate</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Predicate used to specify the order of the members across a page sequence's in-sequence page resources; it asserts nothing about the order of members in the representation of a single page.<br/>
 </div>
 </div>
 

@@ -36,25 +36,26 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> utf8_nb_bytes_of_char : char <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> utf8_index_of_char : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> utf8_char_of_index : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> utf8_length : string <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> utf8_substr : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_is_prefix : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> utf8_is_suffix : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> utf8_substr_pos : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> int option<br/>
-  <span class="keyword">val</span> utf8_contains : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool<br/>
-  <span class="keyword">val</span> utf8_strbefore : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_strafter : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_char_of_code : int32 <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_get_bol : string <span class="keywordsign">-&gt;</span> (int * int) list<br/>
-  <span class="keyword">val</span> utf8_count_nl : string <span class="keywordsign">-&gt;</span> int<br/>
-  <span class="keyword">val</span> utf8_escape : string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_unescape : string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_lowercase : string <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> utf8_uppercase : string <span class="keywordsign">-&gt;</span> string<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> utf8_nb_bytes_of_char : char <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> utf8_index_of_char : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> utf8_char_of_index : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> utf8_length : string <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> utf8_substr : string <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> int <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_is_prefix : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> utf8_is_suffix : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> utf8_substr_pos : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> int option
+  <span class="keyword">val</span> utf8_contains : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> bool
+  <span class="keyword">val</span> utf8_strbefore : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_strafter : string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_char_of_code : int32 <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_get_bol : string <span class="keywordsign">-&gt;</span> (int * int) list
+  <span class="keyword">val</span> utf8_count_nl : string <span class="keywordsign">-&gt;</span> int
+  <span class="keyword">val</span> utf8_escape : string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_unescape : string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_lowercase : string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_uppercase : string <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> utf8_backslash_quotes : string <span class="keywordsign">-&gt;</span> string
 <span class="keyword">end</span></code></div>
 
 

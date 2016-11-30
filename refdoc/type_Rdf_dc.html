@@ -36,190 +36,250 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">val</span> dc : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dc_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> abstract : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> accessRights : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> accrualMethod : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> accrualPeriodicity : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> accrualPolicy : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Agent : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_AgentClass : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> alternative : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> audience : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> available : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> bibliographicCitation : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_BibliographicResource : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_Box : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> conformsTo : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> contributor : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> coverage : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> created : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> creator : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> date : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dateAccepted : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dateCopyrighted : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dateSubmitted : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> description : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> educationLevel : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> extent : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_FileFormat : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> format : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Frequency : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> hasFormat : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> hasPart : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> hasVersion : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> identifier : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> instructionalMethod : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isFormatOf : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_ISO3166 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_ISO639_2 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_ISO639_3 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isPartOf : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isReferencedBy : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isReplacedBy : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isRequiredBy : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> issued : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> isVersionOf : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Jurisdiction : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> language : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> license : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_LicenseDocument : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_LinguisticSystem : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Location : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_LocationPeriodOrJurisdiction : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> mediator : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_MediaType : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_MediaTypeOrExtent : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> medium : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_MethodOfAccrual : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_MethodOfInstruction : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> modified : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_Period : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_PeriodOfTime : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_PhysicalMedium : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_PhysicalResource : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_Point : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Policy : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> provenance : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_ProvenanceStatement : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> publisher : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> references : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> relation : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> replaces : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> requires : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_RFC1766 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_RFC3066 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_RFC4646 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_RFC5646 : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> rights : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> rightsHolder : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_RightsStatement : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_SizeOrDuration : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> source : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> spatial : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> c_Standard : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> subject : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> tableOfContents : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> temporal : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> title : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> type_ : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_URI : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> valid : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">val</span> dt_W3CDTF : <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">module</span> <span class="constructor">Open</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">val</span> dc_abstract : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_accessRights : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_accrualMethod : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_accrualPeriodicity : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_accrualPolicy : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Agent : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_AgentClass : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_alternative : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_audience : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_available : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_bibliographicCitation : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_BibliographicResource : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_Box : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_conformsTo : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_contributor : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_coverage : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_created : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_creator : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_date : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dateAccepted : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dateCopyrighted : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dateSubmitted : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_description : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_educationLevel : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_extent : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_FileFormat : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_format : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Frequency : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_hasFormat : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_hasPart : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_hasVersion : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_identifier : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_instructionalMethod : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isFormatOf : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_ISO3166 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_ISO639_2 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_ISO639_3 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isPartOf : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isReferencedBy : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isReplacedBy : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isRequiredBy : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_issued : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_isVersionOf : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Jurisdiction : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_language : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_license : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_LicenseDocument : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_LinguisticSystem : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Location : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_LocationPeriodOrJurisdiction : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_mediator : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_MediaType : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_MediaTypeOrExtent : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_medium : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_MethodOfAccrual : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_MethodOfInstruction : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_modified : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_Period : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_PeriodOfTime : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_PhysicalMedium : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_PhysicalResource : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_Point : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Policy : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_provenance : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_ProvenanceStatement : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_publisher : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_references : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_relation : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_replaces : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_requires : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_RFC1766 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_RFC3066 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_RFC4646 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_RFC5646 : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_rights : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_rightsHolder : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_RightsStatement : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_SizeOrDuration : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_source : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_spatial : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_c_Standard : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_subject : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_tableOfContents : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_temporal : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_title : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_type : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_URI : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_valid : <span class="constructor">Iri</span>.t<br/>
-      <span class="keyword">val</span> dc_dt_W3CDTF : <span class="constructor">Iri</span>.t<br/>
-    <span class="keyword">end</span><br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">val</span> dc : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dc_ : string <span class="keywordsign">-&gt;</span> <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Agent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_AgentClass : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_BibliographicResource : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_Box : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_FileFormat : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Frequency : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_ISO3166 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_ISO639_2 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_ISO639_3 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Jurisdiction : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_LicenseDocument : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_LinguisticSystem : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Location : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_LocationPeriodOrJurisdiction : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_MediaType : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_MediaTypeOrExtent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_MethodOfAccrual : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_MethodOfInstruction : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_Period : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PeriodOfTime : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PhysicalMedium : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_PhysicalResource : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_Point : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Policy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_ProvenanceStatement : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_RFC1766 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_RFC3066 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_RFC4646 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_RFC5646 : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_RightsStatement : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_SizeOrDuration : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> c_Standard : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_URI : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dt_W3CDTF : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> abstract : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> accessRights : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> accrualMethod : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> accrualPeriodicity : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> accrualPolicy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> alternative : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> audience : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> available : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> bibliographicCitation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> conformsTo : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> contributor : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> coverage : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> created : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> creator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> date : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dateAccepted : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dateCopyrighted : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> dateSubmitted : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> description : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> educationLevel : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> extent : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> format : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasFormat : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasPart : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> hasVersion : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> identifier : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> instructionalMethod : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isFormatOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isPartOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isReferencedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isReplacedBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isRequiredBy : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> isVersionOf : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> issued : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> language : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> license : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> mediator : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> medium : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> modified : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> provenance : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> publisher : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> references : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> relation : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> replaces : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> requires : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> rights : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> rightsHolder : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> source : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> spatial : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> subject : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> tableOfContents : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> temporal : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> title : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> type_ : <span class="constructor">Iri</span>.t
+  <span class="keyword">val</span> valid : <span class="constructor">Iri</span>.t
+  <span class="keyword">module</span> <span class="constructor">Open</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">val</span> dc_c_Agent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_AgentClass : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_BibliographicResource : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_Box : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_FileFormat : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_Frequency : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_ISO3166 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_ISO639_2 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_ISO639_3 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_Jurisdiction : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_LicenseDocument : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_LinguisticSystem : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_Location : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_LocationPeriodOrJurisdiction : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_MediaType : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_MediaTypeOrExtent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_MethodOfAccrual : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_MethodOfInstruction : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_Period : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_PeriodOfTime : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_PhysicalMedium : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_PhysicalResource : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_Point : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_Policy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_ProvenanceStatement : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_RFC1766 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_RFC3066 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_RFC4646 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_RFC5646 : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_RightsStatement : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_SizeOrDuration : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_c_Standard : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_URI : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dt_W3CDTF : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_abstract : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_accessRights : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_accrualMethod : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_accrualPeriodicity : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_accrualPolicy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_alternative : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_audience : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_available : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_bibliographicCitation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_conformsTo : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_contributor : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_coverage : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_created : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_creator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_date : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dateAccepted : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dateCopyrighted : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_dateSubmitted : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_description : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_educationLevel : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_extent : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_format : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_hasFormat : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_hasPart : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_hasVersion : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_identifier : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_instructionalMethod : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isFormatOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isPartOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isReferencedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isReplacedBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isRequiredBy : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_isVersionOf : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_issued : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_language : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_license : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_mediator : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_medium : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_modified : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_provenance : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_publisher : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_references : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_relation : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_replaces : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_requires : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_rights : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_rightsHolder : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_source : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_spatial : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_subject : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_tableOfContents : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_temporal : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_title : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_type : <span class="constructor">Iri</span>.t
+      <span class="keyword">val</span> dc_valid : <span class="constructor">Iri</span>.t
+    <span class="keyword">end</span>
+  <span class="keyword">class</span> from :
+    ?sub:<span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span>
+    <span class="constructor">Rdf_graph</span>.graph <span class="keywordsign">-&gt;</span>
+    <span class="keyword">object</span>
+      <span class="keyword">method</span> abstract : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> accessRights : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> accrualMethod : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> accrualPeriodicity : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> accrualPolicy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> alternative : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> audience : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> available : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> bibliographicCitation : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> conformsTo : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> contributor : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> coverage : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> created : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> creator : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> date : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> dateAccepted : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> dateCopyrighted : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> dateSubmitted : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> description : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> educationLevel : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> extent : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> format : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasFormat : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasPart : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> hasVersion : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> identifier : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> instructionalMethod : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isFormatOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isPartOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isReferencedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isReplacedBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isRequiredBy : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> isVersionOf : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> issued : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> language : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> license : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> mediator : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> medium : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> modified : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> provenance : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> publisher : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> references : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> relation : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> replaces : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> requires : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> rights : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> rightsHolder : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> source : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> spatial : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> subject : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> tableOfContents : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> temporal : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> title : <span class="constructor">Rdf_term</span>.literal list
+      <span class="keyword">method</span> type_ : <span class="constructor">Iri</span>.t list
+      <span class="keyword">method</span> valid : <span class="constructor">Rdf_term</span>.literal list
+    <span class="keyword">end</span>
 <span class="keyword">end</span></code></div>
 
 

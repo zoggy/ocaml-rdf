@@ -1,0 +1,413 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_sioc</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<div class="navbar"><a class="pre" href="Rdf_rdfs.html" title="Rdf_rdfs">Previous</a>
+ <a class="up" href="index.html" title="Index">Up</a>
+ <a class="post" href="Rdf_solid.html" title="Rdf_solid">Next</a>
+</div>
+<h1>Module <a href="type_Rdf_sioc.html">Rdf_sioc</a></h1>
+
+<div class="anchor-block"><a class="paragraph-url" href="#moduleRdf_siocsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleRdf_siocsigend"><span class="keyword">module</span> Rdf_sioc: <code class="code">sig</code> <a href="Rdf_sioc.html">..</a> <code class="code">end</code></pre></div><div class="info module top">
+Elements of <code class="code">http://rdfs.org/sioc/ns#</code><br/>
+</div>
+<hr width="100%"/>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valsiocIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valsiocIrit"><span id="VALsioc"><span class="keyword">val</span> sioc</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+<code class="code">http://rdfs.org/sioc/ns#</code><br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valsioc_stringIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valsioc_stringIrit"><span id="VALsioc_"><span class="keyword">val</span> sioc_</span> : <code class="type">string -&gt; Iri.t</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valc_CommunityIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_CommunityIrit"><span id="VALc_Community"><span class="keyword">val</span> c_Community</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Community is a high-level concept that defines an online community and what it consists of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_ContainerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_ContainerIrit"><span id="VALc_Container"><span class="keyword">val</span> c_Container</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An area in which content Items are contained.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_ForumIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_ForumIrit"><span id="VALc_Forum"><span class="keyword">val</span> c_Forum</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A discussion area on which Posts or entries are made.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_ItemIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_ItemIrit"><span id="VALc_Item"><span class="keyword">val</span> c_Item</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An Item is something which can be in a Container.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_PostIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_PostIrit"><span id="VALc_Post"><span class="keyword">val</span> c_Post</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An article or message that can be posted to a Forum.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_RoleIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_RoleIrit"><span id="VALc_Role"><span class="keyword">val</span> c_Role</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Role is a function of a UserAccount within a scope of a particular Forum, Site, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_SiteIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_SiteIrit"><span id="VALc_Site"><span class="keyword">val</span> c_Site</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Site can be the location of an online community or set of communities, with UserAccounts and Usergroups creating Items in a set of Containers. It can be thought of as a web-accessible data Space.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_SpaceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_SpaceIrit"><span id="VALc_Space"><span class="keyword">val</span> c_Space</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Space is a place where data resides, e.g. on a website, desktop, fileshare, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_ThreadIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_ThreadIrit"><span id="VALc_Thread"><span class="keyword">val</span> c_Thread</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A container for a series of threaded discussion Posts or Items.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_UserIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_UserIrit"><span id="VALc_User"><span class="keyword">val</span> c_User</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+UserAccount is now preferred. This is a deprecated class for a User in an online community site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_UserAccountIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_UserAccountIrit"><span id="VALc_UserAccount"><span class="keyword">val</span> c_UserAccount</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A user account in an online community site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valc_UsergroupIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valc_UsergroupIrit"><span id="VALc_Usergroup"><span class="keyword">val</span> c_Usergroup</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A set of UserAccounts whose owners have a common purpose or interest. Can be used for access control purposes.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valaboutIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valaboutIrit"><span id="VALabout"><span class="keyword">val</span> about</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Specifies that this Item is about a particular resource, e.g. a Post describing a book, hotel, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valaccount_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valaccount_ofIrit"><span id="VALaccount_of"><span class="keyword">val</span> account_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Refers to the foaf:Agent or foaf:Person who owns this sioc:UserAccount.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valaddressed_toIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valaddressed_toIrit"><span id="VALaddressed_to"><span class="keyword">val</span> addressed_to</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Refers to who (e.g. a UserAccount, e-mail address, etc.) a particular Item is addressed to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valadministrator_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valadministrator_ofIrit"><span id="VALadministrator_of"><span class="keyword">val</span> administrator_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Site that the UserAccount is an administrator of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valattachmentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valattachmentIrit"><span id="VALattachment"><span class="keyword">val</span> attachment</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The URI of a file attached to an Item.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valavatarIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valavatarIrit"><span id="VALavatar"><span class="keyword">val</span> avatar</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An image or depiction used to represent this UserAccount.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valcontainer_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcontainer_ofIrit"><span id="VALcontainer_of"><span class="keyword">val</span> container_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An Item that this Container contains.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valcontentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcontentIrit"><span id="VALcontent"><span class="keyword">val</span> content</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The content of the Item in plain text format.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valcontent_encodedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcontent_encodedIrit"><span id="VALcontent_encoded"><span class="keyword">val</span> content_encoded</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The encoded content of the Post, contained in CDATA areas.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valcreated_atIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcreated_atIrit"><span id="VALcreated_at"><span class="keyword">val</span> created_at</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+When this was created, in ISO 8601 format.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valcreator_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valcreator_ofIrit"><span id="VALcreator_of"><span class="keyword">val</span> creator_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A resource that the UserAccount is a creator of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valdescriptionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valdescriptionIrit"><span id="VALdescription"><span class="keyword">val</span> description</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The content of the Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valemailIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valemailIrit"><span id="VALemail"><span class="keyword">val</span> email</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An electronic mail address of the UserAccount.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valemail_sha1Irit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valemail_sha1Irit"><span id="VALemail_sha1"><span class="keyword">val</span> email_sha1</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An electronic mail address of the UserAccount, encoded using SHA1.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valembeds_knowledgeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valembeds_knowledgeIrit"><span id="VALembeds_knowledge"><span class="keyword">val</span> embeds_knowledge</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+This links Items to embedded statements, facts and structured content.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valfeedIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valfeedIrit"><span id="VALfeed"><span class="keyword">val</span> feed</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A feed (e.g. RSS, Atom, etc.) pertaining to this resource (e.g. for a Forum, Site, UserAccount, etc.).<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valfirst_nameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valfirst_nameIrit"><span id="VALfirst_name"><span class="keyword">val</span> first_name</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+First (real) name of this User. Synonyms include given name or christian name.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valfollowsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valfollowsIrit"><span id="VALfollows"><span class="keyword">val</span> follows</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Indicates that one UserAccount follows another UserAccount (e.g. for microblog posts or other content item updates).<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valfunction_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valfunction_ofIrit"><span id="VALfunction_of"><span class="keyword">val</span> function_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that has this Role.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valgroup_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valgroup_ofIrit"><span id="VALgroup_of"><span class="keyword">val</span> group_of</span> : <code class="type">Iri.t</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_administratorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_administratorIrit"><span id="VALhas_administrator"><span class="keyword">val</span> has_administrator</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that is an administrator of this Site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_containerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_containerIrit"><span id="VALhas_container"><span class="keyword">val</span> has_container</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The Container to which this Item belongs.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_creatorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_creatorIrit"><span id="VALhas_creator"><span class="keyword">val</span> has_creator</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+This is the UserAccount that made this resource.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_discussionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_discussionIrit"><span id="VALhas_discussion"><span class="keyword">val</span> has_discussion</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The discussion that is related to this Item.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_functionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_functionIrit"><span id="VALhas_function"><span class="keyword">val</span> has_function</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Role that this UserAccount has.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_groupIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_groupIrit"><span id="VALhas_group"><span class="keyword">val</span> has_group</span> : <code class="type">Iri.t</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_hostIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_hostIrit"><span id="VALhas_host"><span class="keyword">val</span> has_host</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The Site that hosts this Forum.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_memberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_memberIrit"><span id="VALhas_member"><span class="keyword">val</span> has_member</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that is a member of this Usergroup.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_moderatorIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_moderatorIrit"><span id="VALhas_moderator"><span class="keyword">val</span> has_moderator</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that is a moderator of this Forum.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_modifierIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_modifierIrit"><span id="VALhas_modifier"><span class="keyword">val</span> has_modifier</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that modified this Item.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_ownerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_ownerIrit"><span id="VALhas_owner"><span class="keyword">val</span> has_owner</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that this resource is owned by.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_parentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_parentIrit"><span id="VALhas_parent"><span class="keyword">val</span> has_parent</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Container or Forum that this Container or Forum is a child of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_partIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_partIrit"><span id="VALhas_part"><span class="keyword">val</span> has_part</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An resource that is a part of this subject.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_replyIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_replyIrit"><span id="VALhas_reply"><span class="keyword">val</span> has_reply</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Points to an Item or Post that is a reply or response to this Item or Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_scopeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_scopeIrit"><span id="VALhas_scope"><span class="keyword">val</span> has_scope</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A resource that this Role applies to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_spaceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_spaceIrit"><span id="VALhas_space"><span class="keyword">val</span> has_space</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A data Space which this resource is a part of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_subscriberIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_subscriberIrit"><span id="VALhas_subscriber"><span class="keyword">val</span> has_subscriber</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A UserAccount that is subscribed to this Container.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhas_usergroupIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhas_usergroupIrit"><span id="VALhas_usergroup"><span class="keyword">val</span> has_usergroup</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Points to a Usergroup that has certain access to this Space.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valhost_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valhost_ofIrit"><span id="VALhost_of"><span class="keyword">val</span> host_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Forum that is hosted on this Site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#validIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="validIrit"><span id="VALid"><span class="keyword">val</span> id</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An identifier of a SIOC concept instance. For example, a user ID. Must be unique for instances of each type of SIOC concept within the same site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valip_addressIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valip_addressIrit"><span id="VALip_address"><span class="keyword">val</span> ip_address</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The IP address used when creating this Item. This can be associated with a creator. Some wiki articles list the IP addresses for the creator or modifiers when the usernames are absent.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallast_activity_dateIri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallast_activity_dateIri"><span id="VALlast_activity_date"><span class="keyword">val</span> last_activity_date</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The date and time of the last activity associated with a SIOC concept instance, and expressed in ISO 8601 format. This could be due to a reply Post or Comment, a modification to an Item, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallast_item_dateIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallast_item_dateIrit"><span id="VALlast_item_date"><span class="keyword">val</span> last_item_date</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The date and time of the last Post (or Item) in a Forum (or a Container), in ISO 8601 format.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallast_nameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallast_nameIrit"><span id="VALlast_name"><span class="keyword">val</span> last_name</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Last (real) name of this user. Synonyms include surname or family name.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallast_reply_dateIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallast_reply_dateIrit"><span id="VALlast_reply_date"><span class="keyword">val</span> last_reply_date</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The date and time of the last reply Post or Comment, which could be associated with a starter Item or Post or with a Thread, and expressed in ISO 8601 format.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallatest_versionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallatest_versionIrit"><span id="VALlatest_version"><span class="keyword">val</span> latest_version</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links to the latest revision of this Item or Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallinkIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallinkIrit"><span id="VALlink"><span class="keyword">val</span> link</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A URI of a document which contains this SIOC object.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#vallinks_toIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="vallinks_toIrit"><span id="VALlinks_to"><span class="keyword">val</span> links_to</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links extracted from hyperlinks within a SIOC concept, e.g. Post or Site.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valmember_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmember_ofIrit"><span id="VALmember_of"><span class="keyword">val</span> member_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Usergroup that this UserAccount is a member of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valmoderator_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmoderator_ofIrit"><span id="VALmoderator_of"><span class="keyword">val</span> moderator_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Forum that a UserAccount is a moderator of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valmodified_atIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmodified_atIrit"><span id="VALmodified_at"><span class="keyword">val</span> modified_at</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+When this was modified, in ISO 8601 format.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valmodifier_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmodifier_ofIrit"><span id="VALmodifier_of"><span class="keyword">val</span> modifier_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An Item that this UserAccount has modified.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnameIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnameIrit"><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The name of a SIOC concept instance, e.g. a username for a UserAccount, group name for a Usergroup, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnext_by_dateIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnext_by_dateIrit"><span id="VALnext_by_date"><span class="keyword">val</span> next_by_date</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Next Item or Post in a given Container sorted by date.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnext_versionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnext_versionIrit"><span id="VALnext_version"><span class="keyword">val</span> next_version</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links to the next revision of this Item or Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnoteIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnoteIrit"><span id="VALnote"><span class="keyword">val</span> note</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A note associated with this resource, for example, if it has been edited by a UserAccount.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnum_authorsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnum_authorsIrit"><span id="VALnum_authors"><span class="keyword">val</span> num_authors</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of unique authors (UserAccounts and unregistered posters) who have contributed to this Item, Thread, Post, etc.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnum_itemsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnum_itemsIrit"><span id="VALnum_items"><span class="keyword">val</span> num_items</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of Posts (or Items) in a Forum (or a Container).<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnum_repliesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnum_repliesIrit"><span id="VALnum_replies"><span class="keyword">val</span> num_replies</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of replies that this Item, Thread, Post, etc. has. Useful for when the reply structure is absent.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnum_threadsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnum_threadsIrit"><span id="VALnum_threads"><span class="keyword">val</span> num_threads</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of Threads (AKA discussion topics) in a Forum.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valnum_viewsIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valnum_viewsIrit"><span id="VALnum_views"><span class="keyword">val</span> num_views</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The number of times this Item, Thread, UserAccount profile, etc. has been viewed.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valowner_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valowner_ofIrit"><span id="VALowner_of"><span class="keyword">val</span> owner_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A resource owned by a particular UserAccount, for example, a weblog or image gallery.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valparent_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valparent_ofIrit"><span id="VALparent_of"><span class="keyword">val</span> parent_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A child Container or Forum that this Container or Forum is a parent of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valpart_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valpart_ofIrit"><span id="VALpart_of"><span class="keyword">val</span> part_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A resource that the subject is a part of.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valprevious_by_dateIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valprevious_by_dateIrit"><span id="VALprevious_by_date"><span class="keyword">val</span> previous_by_date</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Previous Item or Post in a given Container sorted by date.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valprevious_versionIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valprevious_versionIrit"><span id="VALprevious_version"><span class="keyword">val</span> previous_version</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links to the previous revision of this Item or Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valreferenceIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valreferenceIrit"><span id="VALreference"><span class="keyword">val</span> reference</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links either created explicitly or extracted implicitly on the HTML level from the Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valrelated_toIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valrelated_toIrit"><span id="VALrelated_to"><span class="keyword">val</span> related_to</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Related Posts for this Post, perhaps determined implicitly from topics or references.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valreply_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valreply_ofIrit"><span id="VALreply_of"><span class="keyword">val</span> reply_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Links to an Item or Post which this Item or Post is a reply to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valscope_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valscope_ofIrit"><span id="VALscope_of"><span class="keyword">val</span> scope_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Role that has a scope of this resource.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valspace_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valspace_ofIrit"><span id="VALspace_of"><span class="keyword">val</span> space_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A resource which belongs to this data Space.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valsubjectIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valsubjectIrit"><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Keyword(s) describing subject of the Post.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valsubscriber_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valsubscriber_ofIrit"><span id="VALsubscriber_of"><span class="keyword">val</span> subscriber_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Container that a UserAccount is subscribed to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtitleIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtitleIrit"><span id="VALtitle"><span class="keyword">val</span> title</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+This is the title (subject line) of the Post. Note that for a Post within a threaded discussion that has no parents, it would detail the topic thread.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valtopicIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valtopicIrit"><span id="VALtopic"><span class="keyword">val</span> topic</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A topic of interest, linking to the appropriate URI, e.g. in the Open Directory Project or of a SKOS category.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valusergroup_ofIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valusergroup_ofIrit"><span id="VALusergroup_of"><span class="keyword">val</span> usergroup_of</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A Space that the Usergroup has access to.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleOpensigend"><span class="keyword">module</span> <a href="Rdf_sioc.Open.html">Open</a>: <code class="code">sig</code> <a href="Rdf_sioc.Open.html">..</a> <code class="code">end</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#classfromsubIritRdf_grap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="classfromsubIritRdf_grap"><span name="TYPEfrom"><span class="keyword">class</span> <a href="Rdf_sioc.from-c.html">from</a></span> : <code class="type">?sub:Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt; </code><code class="code">object</code> <a href="Rdf_sioc.from-c.html">..</a> <code class="code">end</code></pre></div></div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

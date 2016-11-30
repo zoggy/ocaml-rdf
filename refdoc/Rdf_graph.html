@@ -42,7 +42,7 @@
 </div>
 <h1>Module <a href="type_Rdf_graph.html">Rdf_graph</a></h1>
 
-<pre id="moduleRdf_graphsigend"><a class="paragraph-url" href="#moduleRdf_graphsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="anchor-block"><a class="paragraph-url" href="#moduleRdf_graphsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleRdf_graphsigend"><span class="keyword">module</span> Rdf_graph: <code class="code">sig</code> <a href="Rdf_graph.html">..</a> <code class="code">end</code></pre></div><div class="info module top">
 Graph abstraction.
 <div class="vertical-space"> </div>
 
@@ -51,7 +51,7 @@ Graph abstraction.
 <div class="vertical-space"> </div>
 
   Example of usage:
-   <pre class="codepre" id="letoptionsstoragemysqlda"><a class="paragraph-url" href="#letoptionsstoragemysqlda"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code class="code">let options =
+   <div class="anchor-block"><a class="paragraph-url" href="#letoptionsstoragemysqlda"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre class="codepre" id="letoptionsstoragemysqlda"><code class="code">let options =
   [
     "storage", "mysql" ;
     "database", "mydb";
@@ -64,16 +64,16 @@ graph.add_triple
   ~pred: (Iri.iri "http://relations.org/hasMailbox")
   ~obj: (Rdf_term.term_of_literal_string "john@john.net");
 ...
-</code></pre><br/>
+</code></pre></div><br/>
 </div>
 <hr width="100%"/>
 <br/>
 <div class="section-title" id="2_Options">Options</div><br/>
 
-<pre id="typeoptionsstringstringl"><a class="paragraph-url" href="#typeoptionsstringstringl"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEoptions"><span class="keyword">type</span> options</span> = <code class="type">(string * string) list</code> </pre>
+<div class="anchor-block"><a class="paragraph-url" href="#typeoptionsstringstringl"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="typeoptionsstringstringl"><span id="TYPEoptions"><span class="keyword">type</span> options</span> = <code class="type">(string * string) list</code> </pre></div>
 
 
-<pre id="valget_optiondefstringst"><a class="paragraph-url" href="#valget_optiondefstringst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valget_optiondefstringst"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valget_optiondefstringst"><span id="VALget_option"><span class="keyword">val</span> get_option</span> : <code class="type">?def:string -&gt; string -&gt; <a href="Rdf_graph.html#TYPEoptions">options</a> -&gt; string</code></pre></div><div class="info ">
 <code class="code">get_options name options</code> returns the value associated to the
   option with the given name, in option list.
   If the option name is not found in the list, the function raises
@@ -88,15 +88,15 @@ graph.add_triple
 
 This is useful only to create your own storage.<br/>
 
-<pre id="moduletypeStorage_BGPsig"><a class="paragraph-url" href="#moduletypeStorage_BGPsig"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage_BGP.html">Storage_BGP</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre><div class="info">
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypeStorage_BGPsig"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypeStorage_BGPsig"><span class="keyword">module type</span> <a href="Rdf_graph.Storage_BGP.html">Storage_BGP</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage_BGP.html">..</a> <code class="code">end</code></pre></div><div class="info">
 Interface to query Basic Graph Patterns (BGP) in a graph.
 </div>
 
-<pre id="moduletypeStoragesigend"><a class="paragraph-url" href="#moduletypeStoragesigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre><div class="info">
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypeStoragesigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypeStoragesigend"><span class="keyword">module type</span> <a href="Rdf_graph.Storage.html">Storage</a> = <code class="code">sig</code> <a href="Rdf_graph.Storage.html">..</a> <code class="code">end</code></pre></div><div class="info">
 A storage is a module with this interface.
 </div>
 
-<pre id="exceptionStorage_errorof"><a class="paragraph-url" href="#exceptionStorage_errorof"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre>
+<div class="anchor-block"><a class="paragraph-url" href="#exceptionStorage_errorof"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="exceptionStorage_errorof"><span id="EXCEPTIONStorage_error"><span class="keyword">exception</span> Storage_error</span> <span class="keyword">of</span> <code class="type">string * string * exn</code></pre></div>
 <div class="info ">
 This is the exception raised by the module we get when applying
   <a href="Rdf_graph.Make.html"><code class="code">Rdf_graph.Make</code></a> on a storage.
@@ -113,15 +113,15 @@ This is the exception raised by the module we get when applying
   the functions provided by the resulting module.<br/>
 </div>
 
-<pre id="moduletypeGraphsigend"><a class="paragraph-url" href="#moduletypeGraphsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre>
-<pre id="moduleMakefunctorSStorag"><a class="paragraph-url" href="#moduleMakefunctorSStorag"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre><br/>
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypeGraphsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypeGraphsigend"><span class="keyword">module type</span> <a href="Rdf_graph.Graph.html">Graph</a> = <code class="code">sig</code> <a href="Rdf_graph.Graph.html">..</a> <code class="code">end</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#moduleMakefunctorSStorag"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleMakefunctorSStorag"><span class="keyword">module</span> <a href="Rdf_graph.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">S</code><code class="code"> : </code><code class="type"><a href="Rdf_graph.Storage.html">Storage</a></code><code class="code">) -&gt; </code><code class="type"><a href="Rdf_graph.Graph.html">Graph</a></code><code class="type">  with type g = S.g</code></div></pre></div><br/>
 <div class="section-title" id="2_Registeringstorages">Registering storages</div><br/>
 
-<pre id="valadd_storagemoduleRdf_"><a class="paragraph-url" href="#valadd_storagemoduleRdf_"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valadd_storagemoduleRdf_"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valadd_storagemoduleRdf_"><span id="VALadd_storage"><span class="keyword">val</span> add_storage</span> : <code class="type">(module Rdf_graph.Storage) -&gt; unit</code></pre></div><div class="info ">
 Add a storage to the list of registered storages.<br/>
 </div>
 
-<pre id="typegraph"><a class="paragraph-url" href="#typegraph"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><code><span id="TYPEgraph"><span class="keyword">type</span> graph</span> = {</code></pre><table class="typetable">
+<div class="anchor-block"><a class="paragraph-url" href="#typegraph"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="typegraph"><code><span id="TYPEgraph"><span class="keyword">type</span> graph</span> = {</code></pre></div><table class="typetable">
 <tr>
 <td align="left" valign="top">
 <code>  </code></td>
@@ -303,7 +303,7 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
 <br/>
 <div class="section-title" id="2_Graphcreation">Graph creation</div><br/>
 
-<pre id="valopen_graphoptionsstri"><a class="paragraph-url" href="#valopen_graphoptionsstri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valopen_graphoptionsstri"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valopen_graphoptionsstri"><span id="VALopen_graph"><span class="keyword">val</span> open_graph</span> : <code class="type">?options:(string * string) list -&gt; Iri.t -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a></code></pre></div><div class="info ">
 <code class="code">open_graph ~options iri_name</code> creates a new graph. The storage used
   is specified by the "storage" option. For example, having <code class="code">("storage", "mysql")</code>
   in the options indicates to use the storage "mysql".
@@ -322,13 +322,15 @@ This is the structure returned by <a href="Rdf_graph.html#VALopen_graph"><code c
   associated to <code class="code">http://www.w3.org/1999/02/22-rdf-syntax-ns#</code>.<br/>
 </div>
 
-<pre id="valmergegraphgraphunit"><a class="paragraph-url" href="#valmergegraphgraphunit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valmergegraphgraphunit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valmergegraphgraphunit"><span id="VALmerge"><span class="keyword">val</span> merge</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; <a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; unit</code></pre></div><div class="info ">
 <code class="code">merge g1 g2</code> add triples from <code class="code">g2</code> to <code class="code">g1</code>.<br/>
 </div>
 
-<pre id="valonly_irisRdf_termterm"><a class="paragraph-url" href="#valonly_irisRdf_termterm"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALonly_iris"><span class="keyword">val</span> only_iris</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list -&gt; Iri.t list</code></pre>
-<pre id="valiri_subjects_ofgraphp"><a class="paragraph-url" href="#valiri_subjects_ofgraphp"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALiri_subjects_of"><span class="keyword">val</span> iri_subjects_of</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; Iri.t list</code></pre>
-<pre id="valiri_objects_ofgraphsu"><a class="paragraph-url" href="#valiri_objects_ofgraphsu"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALiri_objects_of"><span class="keyword">val</span> iri_objects_of</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; Iri.t list</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valonly_irisRdf_termterm"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valonly_irisRdf_termterm"><span id="VALonly_iris"><span class="keyword">val</span> only_iris</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list -&gt; Iri.t list</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valonly_literalsRdf_term"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valonly_literalsRdf_term"><span id="VALonly_literals"><span class="keyword">val</span> only_literals</span> : <code class="type"><a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> list -&gt; <a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a> list</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valiri_subjects_ofgraphp"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valiri_subjects_ofgraphp"><span id="VALiri_subjects_of"><span class="keyword">val</span> iri_subjects_of</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; pred:Iri.t -&gt; obj:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; Iri.t list</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valiri_objects_ofgraphsu"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valiri_objects_ofgraphsu"><span id="VALiri_objects_of"><span class="keyword">val</span> iri_objects_of</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; Iri.t list</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valliteral_objects_ofgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valliteral_objects_ofgra"><span id="VALliteral_objects_of"><span class="keyword">val</span> literal_objects_of</span> : <code class="type"><a href="Rdf_graph.html#TYPEgraph">graph</a> -&gt; sub:<a href="Rdf_term.html#TYPEterm">Rdf_term.term</a> -&gt; pred:Iri.t -&gt; <a href="Rdf_term.html#TYPEliteral">Rdf_term.literal</a> list</code></pre></div></div>
 
 
 </div>

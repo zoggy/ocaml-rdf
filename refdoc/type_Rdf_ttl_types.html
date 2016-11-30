@@ -36,41 +36,41 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">module</span> <span class="constructor">SMap</span> = <span class="constructor">Rdf_xml</span>.<span class="constructor">SMap</span><br/>
-  <span class="keyword">type</span> context = {<br/>
-    base : <span class="constructor">Iri</span>.t;<br/>
-    prefixes : <span class="constructor">Iri</span>.t <span class="constructor">SMap</span>.t;<br/>
-    gstate : <span class="constructor">Rdf_xml</span>.global_state;<br/>
-  }<br/>
-  <span class="keyword">type</span> iriref = string<br/>
-  <span class="keyword">type</span> directive =<br/>
-      <span class="constructor">Prefix</span> <span class="keyword">of</span> string * <span class="constructor">Rdf_ttl_types</span>.iriref<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Base</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iriref<br/>
-  <span class="keyword">type</span> qname = string option * string option<br/>
-  <span class="keyword">type</span> iri = <span class="constructor">Iriref</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iriref <span class="keywordsign">|</span> <span class="constructor">Qname</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.qname<br/>
-  <span class="keyword">type</span> language = string<br/>
-  <span class="keyword">type</span> literal =<br/>
-      <span class="constructor">String</span> <span class="keyword">of</span> string * <span class="constructor">Rdf_ttl_types</span>.language option *<br/>
-        <span class="constructor">Rdf_ttl_types</span>.iri option<br/>
-  <span class="keyword">type</span> object_ =<br/>
-      <span class="constructor">Obj_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Obj_blank</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.blank<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Obj_literal</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.literal<br/>
-  <span class="keyword">and</span> blank =<br/>
-      <span class="constructor">NodeId</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Empty</span><br/>
-    <span class="keywordsign">|</span> <span class="constructor">PredObjs</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.predobj list<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Collection</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.object_ list<br/>
-  <span class="keyword">and</span> pred = <span class="constructor">Pred_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri <span class="keywordsign">|</span> <span class="constructor">Pred_a</span><br/>
-  <span class="keyword">and</span> predobj = <span class="constructor">Rdf_ttl_types</span>.pred * <span class="constructor">Rdf_ttl_types</span>.object_ list<br/>
-  <span class="keyword">type</span> subject =<br/>
-      <span class="constructor">Sub_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Sub_blank</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.blank<br/>
-  <span class="keyword">type</span> statement =<br/>
-      <span class="constructor">Directive</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.directive<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Triples</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.subject * <span class="constructor">Rdf_ttl_types</span>.predobj list<br/>
-  <span class="keyword">type</span> turtle = <span class="constructor">Rdf_ttl_types</span>.statement list<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">module</span> <span class="constructor">SMap</span> = <span class="constructor">Rdf_xml</span>.<span class="constructor">SMap</span>
+  <span class="keyword">type</span> context = {
+    base : <span class="constructor">Iri</span>.t;
+    prefixes : <span class="constructor">Iri</span>.t <span class="constructor">SMap</span>.t;
+    gstate : <span class="constructor">Rdf_xml</span>.global_state;
+  }
+  <span class="keyword">type</span> iriref = string
+  <span class="keyword">type</span> directive =
+      <span class="constructor">Prefix</span> <span class="keyword">of</span> string * <span class="constructor">Rdf_ttl_types</span>.iriref
+    <span class="keywordsign">|</span> <span class="constructor">Base</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iriref
+  <span class="keyword">type</span> qname = string option * string option
+  <span class="keyword">type</span> iri = <span class="constructor">Iriref</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iriref <span class="keywordsign">|</span> <span class="constructor">Qname</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.qname
+  <span class="keyword">type</span> language = string
+  <span class="keyword">type</span> literal =
+      <span class="constructor">String</span> <span class="keyword">of</span> string * <span class="constructor">Rdf_ttl_types</span>.language option *
+        <span class="constructor">Rdf_ttl_types</span>.iri option
+  <span class="keyword">type</span> object_ =
+      <span class="constructor">Obj_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri
+    <span class="keywordsign">|</span> <span class="constructor">Obj_blank</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.blank
+    <span class="keywordsign">|</span> <span class="constructor">Obj_literal</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.literal
+  <span class="keyword">and</span> blank =
+      <span class="constructor">NodeId</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Empty</span>
+    <span class="keywordsign">|</span> <span class="constructor">PredObjs</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.predobj list
+    <span class="keywordsign">|</span> <span class="constructor">Collection</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.object_ list
+  <span class="keyword">and</span> pred = <span class="constructor">Pred_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri <span class="keywordsign">|</span> <span class="constructor">Pred_a</span>
+  <span class="keyword">and</span> predobj = <span class="constructor">Rdf_ttl_types</span>.pred * <span class="constructor">Rdf_ttl_types</span>.object_ list
+  <span class="keyword">type</span> subject =
+      <span class="constructor">Sub_iri</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.iri
+    <span class="keywordsign">|</span> <span class="constructor">Sub_blank</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.blank
+  <span class="keyword">type</span> statement =
+      <span class="constructor">Directive</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.directive
+    <span class="keywordsign">|</span> <span class="constructor">Triples</span> <span class="keyword">of</span> <span class="constructor">Rdf_ttl_types</span>.subject * <span class="constructor">Rdf_ttl_types</span>.predobj list
+  <span class="keyword">type</span> turtle = <span class="constructor">Rdf_ttl_types</span>.statement list
 <span class="keyword">end</span></code></div>
 
 

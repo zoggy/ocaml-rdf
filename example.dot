@@ -1,11 +1,11 @@
 digraph g {
 rankdir=LR;
 fontsize=10;
-Ne2a1e495eebb9355f65c35b221baf3e2 -> N42d3f616cc3432ef2b81b538f0d6e320 [label="rdf:editor"];
+Ne2a1e495eebb9355f65c35b221baf3e2 -> N4f488ae85ff7e2b5fb166759c8a10406 [label="rdf:editor"];
 Ne2a1e495eebb9355f65c35b221baf3e2 -> N081f23b7e7aaf8093d5fb128430cafef [label="dc:title"];
-N42d3f616cc3432ef2b81b538f0d6e320 -> N80b52def747e8748199c1a0cf66cb35c [label="ex:homePage"];
-N42d3f616cc3432ef2b81b538f0d6e320 -> N53f271b8d0cef8e809247713c99c736b [label="ex:fullName"];
-N42d3f616cc3432ef2b81b538f0d6e320 [ label="" ];
+N4f488ae85ff7e2b5fb166759c8a10406 -> N80b52def747e8748199c1a0cf66cb35c [label="ex:homePage"];
+N4f488ae85ff7e2b5fb166759c8a10406 -> N53f271b8d0cef8e809247713c99c736b [label="ex:fullName"];
+N4f488ae85ff7e2b5fb166759c8a10406 [ label="" ];
 N53f271b8d0cef8e809247713c99c736b [ label="Dave Beckett" ];
 N081f23b7e7aaf8093d5fb128430cafef [ label="RDF/XML Syntax Specification (Revised)" ];
 N80b52def747e8748199c1a0cf66cb35c [ label="http://purl.org/net/dajobe/" ];

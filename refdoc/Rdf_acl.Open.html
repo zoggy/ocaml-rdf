@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>OCaml-RDF : OCaml-RDF reference documentation : Rdf_acl.Open</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link href="https://zoggy.github.io/ocaml-rdf/style.css" rel="stylesheet" type="text/css"/>
+<rssfeed/>
+</head><body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
+  <div class="nav-collapse">
+  <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/">OCaml-RDF</a></li>
+    <li class="&lt;navbar-download/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/download.html">Download</a></li>
+    <li class="active"><a href="https://zoggy.github.io/ocaml-rdf/doc.html">Documentation</a></li>
+    <li class="&lt;navbar-blog/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/blog.html">Blog</a></li>
+    <li class="&lt;navbar-about/&gt;"><a href="https://zoggy.github.io/ocaml-rdf/about.html">?</a></li>
+  </ul>
+  </div>
+  <div class="nav pull-right">
+<!--
+  &lt;ul class="nav"&gt;
+   &lt;li&gt;&lt;div class="langswitches"&gt;&lt;langswitch languages="fr,en"/&gt;&lt;/div&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+-->
+  </div>
+</div>
+</div>
+</div>
+
+<div id="header">
+<!--&lt;if doc-type="post"&gt;&gt;&lt;div class="doc-navbar"&gt;&lt;if previous=""&gt;&lt;span/&gt;&lt;div class="navleft"&gt;&lt;previous/&gt;&lt;/div&gt;&lt;/if&gt;&lt;if next=""&gt;&lt;span/&gt;&lt;div class="navright"&gt;&lt;next/&gt;&lt;/div&gt;&lt;/if&gt;&lt;/div&gt;&lt;/if&gt;-->
+<main_/>
+</div>
+<span/>
+
+<div class="ocamldoc-page">
+<div class="navbar"> <a class="up" href="Rdf_acl.html" title="Rdf_acl">Up</a>
+ </div>
+<h1>Module <a href="type_Rdf_acl.Open.html">Rdf_acl.Open</a></h1>
+
+<div class="anchor-block"><a class="paragraph-url" href="#moduleOpensigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduleOpensigend"><span class="keyword">module</span> Open: <code class="code">sig</code> <a href="Rdf_acl.Open.html">..</a> <code class="code">end</code></pre></div><hr width="100%"/>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_AccessIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_AccessIrit"><span id="VALacl_c_Access"><span class="keyword">val</span> acl_c_Access</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Any kind of access to a resource. Don't use this, use R W and RW<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_AppendIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_AppendIrit"><span id="VALacl_c_Append"><span class="keyword">val</span> acl_c_Append</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Append accesses are specific write access which only add information, and do not remove information. For text files, for example, append access allows bytes to be added onto the end of the file. For RDF graphs, Append access allows adds triples to the graph but does not remove any. Append access is useful for dropbox functionality. Dropbox can be used for link notification, which the information added is a notification that a some link has been made elsewhere relevant to the given resource.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_AuthorizationIr"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_AuthorizationIr"><span id="VALacl_c_Authorization"><span class="keyword">val</span> acl_c_Authorization</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+An element of access control, allowing agent to agents access of some kind to resources or classes of resources<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_ControlIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_ControlIrit"><span id="VALacl_c_Control"><span class="keyword">val</span> acl_c_Control</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Allows read/write access to the ACL for the resource(s)<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_ReadIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_ReadIrit"><span id="VALacl_c_Read"><span class="keyword">val</span> acl_c_Read</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The class of read operations<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_c_WriteIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_c_WriteIrit"><span id="VALacl_c_Write"><span class="keyword">val</span> acl_c_Write</span> : <code class="type">Iri.t</code></pre></div>
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_accessControlIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_accessControlIrit"><span id="VALacl_accessControl"><span class="keyword">val</span> acl_accessControl</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The Access Control file for this information resource. This may of course be a virtual resorce implemented by the access control system. Note also HTTP's header Link: foo.meta ;rel=meta can be used for this.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_accessToIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_accessToIrit"><span id="VALacl_accessTo"><span class="keyword">val</span> acl_accessTo</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The information resource to which access is being granted.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_accessToClassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_accessToClassIrit"><span id="VALacl_accessToClass"><span class="keyword">val</span> acl_accessToClass</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A class of information resources to which access is being granted.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_agentIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_agentIrit"><span id="VALacl_agent"><span class="keyword">val</span> acl_agent</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A person or social entity to being given the right<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_agentClassIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_agentClassIrit"><span id="VALacl_agentClass"><span class="keyword">val</span> acl_agentClass</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A class of persons or social entities to being given the right<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_agentGroupIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_agentGroupIrit"><span id="VALacl_agentGroup"><span class="keyword">val</span> acl_agentGroup</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A group of persons or social entities to being given the right<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_defaultForNewIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_defaultForNewIrit"><span id="VALacl_defaultForNew"><span class="keyword">val</span> acl_defaultForNew</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A directory for which this authorization is used for new files in the directory.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_delegatesIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_delegatesIrit"><span id="VALacl_delegates"><span class="keyword">val</span> acl_delegates</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+Delegates a person or another agent to act on behalf of the agent. For example, Alice delegates Bob to act on behalf of Alice for ACL purposes.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_modeIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_modeIrit"><span id="VALacl_mode"><span class="keyword">val</span> acl_mode</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+A mode of access such as read or write.<br/>
+</div>
+
+<div class="anchor-block"><a class="paragraph-url" href="#valacl_ownerIrit"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valacl_ownerIrit"><span id="VALacl_owner"><span class="keyword">val</span> acl_owner</span> : <code class="type">Iri.t</code></pre></div><div class="info ">
+The person or other agent which owns this. For example, the owner of a file in a filesystem. There is a sense of right to control. Typically defaults to the agent who craeted something but can be changed.<br/>
+</div>
+</div>
+
+
+</div>
+
+<footer id="bottombar">
+</footer>
+<script src="https://zoggy.github.io/ocaml-rdf/jquery.js" type="text/javascript">_</script>
+<script src="https://zoggy.github.io/ocaml-rdf/bootstrap-collapse.js" type="text/javascript">_</script>
+
+</body>
+</html>

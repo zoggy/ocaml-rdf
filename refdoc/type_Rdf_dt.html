@@ -36,106 +36,107 @@
 <span/>
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> error =<br/>
-      <span class="constructor">Type_error</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.value * string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Invalid_literal</span> <span class="keyword">of</span> <span class="constructor">Rdf_term</span>.literal<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Exception</span> <span class="keyword">of</span> exn<br/>
-  <span class="keyword">and</span> value =<br/>
-      <span class="constructor">Err</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.error<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Blank</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Iri</span> <span class="keyword">of</span> <span class="constructor">Iri</span>.t<br/>
-    <span class="keywordsign">|</span> <span class="constructor">String</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Int</span> <span class="keyword">of</span> int<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Float</span> <span class="keyword">of</span> float<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Bool</span> <span class="keyword">of</span> bool<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Datetime</span> <span class="keyword">of</span> <span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Ltrl</span> <span class="keyword">of</span> string * string option<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Ltrdt</span> <span class="keyword">of</span> string * <span class="constructor">Iri</span>.t<br/>
-  <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.error<br/>
-  <span class="keyword">val</span> error : <span class="constructor">Rdf_dt</span>.error <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-  <span class="keyword">val</span> date_fmt : string<br/>
-  <span class="keyword">val</span> string_of_value : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">module</span> <span class="constructor">ValueOrdered</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">type</span> t = <span class="constructor">Rdf_dt</span>.value<br/>
-      <span class="keyword">val</span> compare : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> int<br/>
-    <span class="keyword">end</span><br/>
-  <span class="keyword">module</span> <span class="constructor">VMap</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">type</span> key = value<br/>
-      <span class="keyword">type</span> +<span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> empty : <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> is_empty : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> mem : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> add : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> singleton : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> remove : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> merge :<br/>
-        (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c option) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c t<br/>
-      <span class="keyword">val</span> compare : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">val</span> equal : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> iter : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">val</span> fold : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b<br/>
-      <span class="keyword">val</span> for_all : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> exists : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> filter : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> partition : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t * <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> cardinal : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">val</span> bindings : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> (key * <span class="keywordsign">'</span>a) list<br/>
-      <span class="keyword">val</span> min_binding : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a<br/>
-      <span class="keyword">val</span> max_binding : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a<br/>
-      <span class="keyword">val</span> choose : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a<br/>
-      <span class="keyword">val</span> split : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t * <span class="keywordsign">'</span>a option * <span class="keywordsign">'</span>a t<br/>
-      <span class="keyword">val</span> find : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-      <span class="keyword">val</span> map : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t<br/>
-      <span class="keyword">val</span> mapi : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t<br/>
-    <span class="keyword">end</span><br/>
-  <span class="keyword">module</span> <span class="constructor">VSet</span> :<br/>
-    <span class="keyword">sig</span><br/>
-      <span class="keyword">type</span> elt = value<br/>
-      <span class="keyword">type</span> t<br/>
-      <span class="keyword">val</span> empty : t<br/>
-      <span class="keyword">val</span> is_empty : t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> mem : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> add : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> singleton : elt <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> remove : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> union : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> inter : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> diff : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> compare : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">val</span> equal : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> subset : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> iter : (elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> unit<br/>
-      <span class="keyword">val</span> fold : (elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a<br/>
-      <span class="keyword">val</span> for_all : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> exists : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool<br/>
-      <span class="keyword">val</span> filter : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t<br/>
-      <span class="keyword">val</span> partition : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t * t<br/>
-      <span class="keyword">val</span> cardinal : t <span class="keywordsign">-&gt;</span> int<br/>
-      <span class="keyword">val</span> elements : t <span class="keywordsign">-&gt;</span> elt list<br/>
-      <span class="keyword">val</span> min_elt : t <span class="keywordsign">-&gt;</span> elt<br/>
-      <span class="keyword">val</span> max_elt : t <span class="keywordsign">-&gt;</span> elt<br/>
-      <span class="keyword">val</span> choose : t <span class="keywordsign">-&gt;</span> elt<br/>
-      <span class="keyword">val</span> split : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t * bool * t<br/>
-      <span class="keyword">val</span> find : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> elt<br/>
-      <span class="keyword">val</span> of_list : elt list <span class="keywordsign">-&gt;</span> t<br/>
-    <span class="keyword">end</span><br/>
-  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_dt</span>.error <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">val</span> iri : <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> datatype : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> string_literal : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> string * string option<br/>
-  <span class="keyword">val</span> string : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> int : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> float : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> bool : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> datetime : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> ltrl : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> numeric : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> of_literal : <span class="constructor">Rdf_term</span>.literal <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> of_term : <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value<br/>
-  <span class="keyword">val</span> to_term : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> error =
+      <span class="constructor">Type_error</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.value * string
+    <span class="keywordsign">|</span> <span class="constructor">Invalid_literal</span> <span class="keyword">of</span> <span class="constructor">Rdf_term</span>.literal
+    <span class="keywordsign">|</span> <span class="constructor">Exception</span> <span class="keyword">of</span> exn
+  <span class="keyword">and</span> value =
+      <span class="constructor">Err</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.error
+    <span class="keywordsign">|</span> <span class="constructor">Blank</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Iri</span> <span class="keyword">of</span> <span class="constructor">Iri</span>.t
+    <span class="keywordsign">|</span> <span class="constructor">String</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Int</span> <span class="keyword">of</span> int
+    <span class="keywordsign">|</span> <span class="constructor">Float</span> <span class="keyword">of</span> float
+    <span class="keywordsign">|</span> <span class="constructor">Bool</span> <span class="keyword">of</span> bool
+    <span class="keywordsign">|</span> <span class="constructor">Datetime</span> <span class="keyword">of</span> <span class="constructor">CalendarLib</span>.<span class="constructor">Fcalendar</span>.t
+    <span class="keywordsign">|</span> <span class="constructor">Ltrl</span> <span class="keyword">of</span> string * string option
+    <span class="keywordsign">|</span> <span class="constructor">Ltrdt</span> <span class="keyword">of</span> string * <span class="constructor">Iri</span>.t
+  <span class="keyword">exception</span> <span class="constructor">Error</span> <span class="keyword">of</span> <span class="constructor">Rdf_dt</span>.error
+  <span class="keyword">val</span> error : <span class="constructor">Rdf_dt</span>.error <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+  <span class="keyword">val</span> date_fmt : string
+  <span class="keyword">val</span> string_of_value : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">module</span> <span class="constructor">ValueOrdered</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">type</span> t = <span class="constructor">Rdf_dt</span>.value
+      <span class="keyword">val</span> compare : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> int
+    <span class="keyword">end</span>
+  <span class="keyword">module</span> <span class="constructor">VMap</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">type</span> key = value
+      <span class="keyword">type</span> +<span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> empty : <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> is_empty : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> mem : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> add : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> singleton : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> remove : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> merge :
+        (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b option <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c option) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>c t
+      <span class="keyword">val</span> union : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a option) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> compare : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> int) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> int
+      <span class="keyword">val</span> equal : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> iter : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> unit
+      <span class="keyword">val</span> fold : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b
+      <span class="keyword">val</span> for_all : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> exists : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> filter : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> partition : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t * <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> cardinal : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> int
+      <span class="keyword">val</span> bindings : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> (key * <span class="keywordsign">'</span>a) list
+      <span class="keyword">val</span> min_binding : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a
+      <span class="keyword">val</span> max_binding : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a
+      <span class="keyword">val</span> choose : <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> key * <span class="keywordsign">'</span>a
+      <span class="keyword">val</span> split : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t * <span class="keywordsign">'</span>a option * <span class="keywordsign">'</span>a t
+      <span class="keyword">val</span> find : key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+      <span class="keyword">val</span> map : (<span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t
+      <span class="keyword">val</span> mapi : (key <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b) <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>b t
+    <span class="keyword">end</span>
+  <span class="keyword">module</span> <span class="constructor">VSet</span> :
+    <span class="keyword">sig</span>
+      <span class="keyword">type</span> elt = value
+      <span class="keyword">type</span> t
+      <span class="keyword">val</span> empty : t
+      <span class="keyword">val</span> is_empty : t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> mem : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> add : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> singleton : elt <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> remove : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> union : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> inter : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> diff : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> compare : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> int
+      <span class="keyword">val</span> equal : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> subset : t <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> iter : (elt <span class="keywordsign">-&gt;</span> unit) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> unit
+      <span class="keyword">val</span> fold : (elt <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a <span class="keywordsign">-&gt;</span> <span class="keywordsign">'</span>a
+      <span class="keyword">val</span> for_all : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> exists : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> bool
+      <span class="keyword">val</span> filter : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t
+      <span class="keyword">val</span> partition : (elt <span class="keywordsign">-&gt;</span> bool) <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t * t
+      <span class="keyword">val</span> cardinal : t <span class="keywordsign">-&gt;</span> int
+      <span class="keyword">val</span> elements : t <span class="keywordsign">-&gt;</span> elt list
+      <span class="keyword">val</span> min_elt : t <span class="keywordsign">-&gt;</span> elt
+      <span class="keyword">val</span> max_elt : t <span class="keywordsign">-&gt;</span> elt
+      <span class="keyword">val</span> choose : t <span class="keywordsign">-&gt;</span> elt
+      <span class="keyword">val</span> split : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> t * bool * t
+      <span class="keyword">val</span> find : elt <span class="keywordsign">-&gt;</span> t <span class="keywordsign">-&gt;</span> elt
+      <span class="keyword">val</span> of_list : elt list <span class="keywordsign">-&gt;</span> t
+    <span class="keyword">end</span>
+  <span class="keyword">val</span> string_of_error : <span class="constructor">Rdf_dt</span>.error <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">val</span> iri : <span class="constructor">Iri</span>.t <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> datatype : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> string_literal : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> string * string option
+  <span class="keyword">val</span> string : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> int : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> float : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> bool : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> datetime : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> ltrl : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> numeric : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> of_literal : <span class="constructor">Rdf_term</span>.literal <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> of_term : <span class="constructor">Rdf_term</span>.term <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_dt</span>.value
+  <span class="keyword">val</span> to_term : <span class="constructor">Rdf_dt</span>.value <span class="keywordsign">-&gt;</span> <span class="constructor">Rdf_term</span>.term
 <span class="keyword">end</span></code></div>
 
 

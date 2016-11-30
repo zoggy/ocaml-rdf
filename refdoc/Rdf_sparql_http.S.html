@@ -41,15 +41,15 @@
  </div>
 <h1>Module type <a href="type_Rdf_sparql_http.S.html">Rdf_sparql_http.S</a></h1>
 
-<pre id="moduletypeSsigend"><a class="paragraph-url" href="#moduletypeSsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span class="keyword">module type</span> S = <code class="code">sig</code> <a href="Rdf_sparql_http.S.html">..</a> <code class="code">end</code></pre><div class="info modtype top">
+<div class="anchor-block"><a class="paragraph-url" href="#moduletypeSsigend"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="moduletypeSsigend"><span class="keyword">module type</span> S = <code class="code">sig</code> <a href="Rdf_sparql_http.S.html">..</a> <code class="code">end</code></pre></div><div class="info modtype top">
 The signature of the resulting module when buildting the binding.<br/>
 </div>
 <hr width="100%"/>
 
-<pre id="typeresult"><a class="paragraph-url" href="#typeresult"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="TYPEresult"><span class="keyword">type</span> result</span> </pre>
+<div class="anchor-block"><a class="paragraph-url" href="#typeresult"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="typeresult"><span id="TYPEresult"><span class="keyword">type</span> result</span> </pre></div>
 
 
-<pre id="valgetgraphRdf_graphgrap"><a class="paragraph-url" href="#valgetgraphRdf_graphgrap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valgetgraphRdf_graphgrap"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valgetgraphRdf_graphgrap"><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt; <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre></div><div class="info ">
 <code class="code">get uri msg</code> sends the Sparql query corresponding to the given
          <a href="Rdf_sparql_protocol.html#TYPEin_message"><code class="code">Rdf_sparql_protocol.in_message</code></a> with the GET method.
          <code class="code">uri</code> is the complete uri of the service to connect to,
@@ -63,7 +63,7 @@ The signature of the resulting module when buildting the binding.<br/>
          parameter can be used to require a response in, for example,
          the "application/rdf+xml" format.</div>
 
-<pre id="valpostgraphRdf_graphgra"><a class="paragraph-url" href="#valpostgraphRdf_graphgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt;<br/>       ?query_var:string -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre><div class="info ">
+<div class="anchor-block"><a class="paragraph-url" href="#valpostgraphRdf_graphgra"><img alt="" src="https://zoggy.github.io/ocaml-rdf/paragraph-url.png"/></a><pre id="valpostgraphRdf_graphgra"><span id="VALpost"><span class="keyword">val</span> post</span> : <code class="type">?graph:<a href="Rdf_graph.html#TYPEgraph">Rdf_graph.graph</a> -&gt;<br/>       base:Iri.t -&gt;<br/>       ?accept:string -&gt;<br/>       Uri.t -&gt;<br/>       ?query_var:string -&gt;<br/>       <a href="Rdf_sparql_protocol.html#TYPEin_message">Rdf_sparql_protocol.in_message</a> -&gt; <a href="Rdf_sparql_http.S.html#TYPEresult">result</a></code></pre></div><div class="info ">
 Same as <a href="Rdf_sparql_http.S.html#VALget"><code class="code">Rdf_sparql_http.S.get</code></a> but using the POST method. To be used when sending
       large queries.<br/>
 </div>
