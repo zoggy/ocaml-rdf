@@ -232,7 +232,7 @@ module Make (P : P) =
             match String.lowercase_ascii body with
             | "true" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool true)
             | "false" -> Rdf_sparql_protocol.Result (Rdf_sparql.Bool false)
-            | _-> Rdf_sparql_protocol.Ok
+            | s-> Rdf_sparql_protocol.Ok
           end
       | s -> raise (Unsupported_content_type s)
 
@@ -240,7 +240,7 @@ module Make (P : P) =
       "application/xml, text/xml, application/sparql-results+xml, application/rdf+xml,"^
       "application/x-turtle, text/turtle, "^
       "application/sparql-results+json, application/json, " ^
-      "text/plain"
+      "text/*"
 
     let make_query_string ?(query_var="query") msg =
       let enc_v = Uri.pct_encode ~component: `Query_value in
