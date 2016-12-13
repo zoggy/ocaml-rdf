@@ -1,4 +1,7 @@
 Next release:
+- sparql_http: modify accept: header so that dbpedia does not always replies text/plain
+
+Release 0.11.0:
 - use uutf 1.0.0
 - new Rdf_utils module
 - add Rdf_vcard module with Vcard ontology
