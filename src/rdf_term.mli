@@ -62,8 +62,10 @@ val term_of_iri_string : string -> term
 (** Creation of a literal. *)
 val mk_literal : ?typ:Iri.t -> ?lang:string -> string -> literal
 
+val now : unit -> CalendarLib.Fcalendar.t
+
 (** Create a datetime literal with type iri from the given datetime [d].
-  If no date is given, [Unix.time()] is used.*)
+  If no date is given, {!now}[()] is used.*)
 val mk_literal_datetime : ?d:CalendarLib.Fcalendar.t -> unit -> literal
 
 (** Create a literal term from the given datetime. (see {!mk_literal_datetime}). *)

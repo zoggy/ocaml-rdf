@@ -54,7 +54,8 @@ let term_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
-let mk_literal_datetime ?(d=CalendarLib.Fcalendar.now()) () =
+let now () = CalendarLib.Fcalendar.now()
+let mk_literal_datetime ?(d=now()) () =
   let v = CalendarLib.Printer.Fcalendar.sprint "%Y-%m-%dT%H:M:%S%:z" d in
   mk_literal ~typ: (Iri.of_string "http://www.w3.org/2001/XMLSchema#dateTime") v
 ;;

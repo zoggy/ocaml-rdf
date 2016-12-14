@@ -126,7 +126,7 @@ let context ~base ?(from=[]) ?(from_named=Iriset.empty) dataset =
       from_named
   in
   { base ; named = named ; dataset ; active ;
-    now = CalendarLib.Fcalendar.now () ;
+    now = Rdf_term.now () ;
   }
 ;;
 
