@@ -677,6 +677,7 @@ module Postgresql =
     let subjects = subjects
     let predicates = predicates
     let objects = objects
+    let folder _ = None
 
     let transaction_start = transaction_start
     let transaction_commit = transaction_commit

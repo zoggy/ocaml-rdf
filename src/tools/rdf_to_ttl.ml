@@ -28,9 +28,13 @@ let fatal s = prerr_endline s ; exit 1 ;;
 
 let base = ref (Iri.of_string "http://base.foo")
 let files = ref []
+let compact = ref false
 let options = [
   "-b", Arg.String (fun s -> base := Iri.of_string s),
   "iri use given iri as base iri" ;
+
+  "--compact", Arg.Set compact,
+  " generate compact turtle" ;
   ]
 let usage = Printf.sprintf
   "Usage: %s [options] file.rdf [file2.rdf [...]]\nwhere options are:" Sys.argv.(0);;
@@ -54,7 +58,7 @@ let main () =
         let options = [ "storage", "mem" ] in
         let g = Rdf_graph.open_graph ~options !base in
         List.iter (Rdf_xml.from_file g) files;
-        print_endline (Rdf_ttl.to_string g)
+        print_endline (Rdf_ttl.to_string ~compact:!compact g)
   with
     e ->
       let msg =

@@ -37,9 +37,9 @@ val from_file : Rdf_graph.graph -> ?base:Iri.t -> string -> unit
 val string_of_triple :
   sub:Rdf_term.term -> pred:Iri.t -> obj:Rdf_term.term -> string
 
-val to_ : ?namespaces: (Iri.t * string) list ->
+val to_ : ?compact: bool -> ?namespaces: (Iri.t * string) list ->
   (string -> unit) -> Rdf_graph.graph -> unit
-val to_string : ?namespaces: (Iri.t * string) list ->
+val to_string : ?compact: bool -> ?namespaces: (Iri.t * string) list ->
   Rdf_graph.graph -> string
-val to_file : ?namespaces: (Iri.t * string) list ->
+val to_file : ?compact: bool -> ?namespaces: (Iri.t * string) list ->
   Rdf_graph.graph -> string -> unit

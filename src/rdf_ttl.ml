@@ -252,63 +252,89 @@ let string_of_triple ~sub ~pred ~obj =
   (Rdf_term.string_of_term obj)^" ."
 ;;
 
-let string_of_triple_ns ns ~sub ~pred ~obj =
-  let string_of term =
-    match term with
-    | Rdf_term.Blank | Rdf_term.Blank_ _ -> Rdf_term.string_of_term term
-    | Rdf_term.Literal lit ->
-        (Rdf_term.quote_str lit.Rdf_term.lit_value) ^
-          (match lit.Rdf_term.lit_language with
-             None -> ""
+let string_of_term ns term =
+  match term with
+  | Rdf_term.Blank | Rdf_term.Blank_ _ -> Rdf_term.string_of_term term
+  | Rdf_term.Literal lit ->
+      (Rdf_term.quote_str lit.Rdf_term.lit_value) ^
+        (match lit.Rdf_term.lit_language with
+           None -> ""
            | Some l -> "@" ^ l
-          ) ^
+        ) ^
           (match lit.Rdf_term.lit_type with
-             None -> ""
-           | Some iri ->
-               let iri = Iri.to_string ~pctencode: false iri in
-               let s =
+           None -> ""
+         | Some iri ->
+             let iri = Iri.to_string ~pctencode: false iri in
+             let s =
                  match Rdf_dot.apply_namespaces ns iri with
-                   ("",iri) -> "<"^iri^">"
-                 | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
-               in
-               "^^" ^ s
-          )
-    | Rdf_term.Iri iri ->
-        let s = Iri.to_string ~pctencode: false iri in
-        match Rdf_dot.apply_namespaces ns s with
-          ("",iri) -> "<" ^ iri ^ ">"
-        | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
-  in
-  let sub = string_of sub in
-  let pred = string_of (Rdf_term.Iri pred) in
-  let obj = string_of obj in
+                 ("",iri) -> "<"^iri^">"
+               | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
+             in
+             "^^" ^ s
+        )
+  | Rdf_term.Iri iri ->
+      let s = Iri.to_string ~pctencode: false iri in
+      match Rdf_dot.apply_namespaces ns s with
+        ("",iri) -> "<" ^ iri ^ ">"
+      | (pref,s) -> pref ^ ":" ^ (escape_reserved_chars s)
+
+let string_of_triple_ns ns ~sub ~pred ~obj =
+  let sub = string_of_term ns sub in
+  let pred = string_of_term ns (Rdf_term.Iri pred) in
+  let obj = string_of_term ns obj in
   sub ^ " " ^ pred ^ " " ^ obj^ " ."
 ;;
 
 let f_triple ns print (sub, pred, obj) =
-  print (string_of_triple_ns ns ~sub ~pred ~obj)
+  print (string_of_triple_ns ns ~sub ~pred ~obj);
+  print "\n"
 ;;
 
 let string_of_namespace (pref,iri) = "@prefix "^pref^": <"^iri^"> .";;
 
-let to_ ?namespaces print g =
+let print_compact =
+  let iter_obj print ns g obj first =
+    if not first then print ", " ;
+    print (string_of_term ns obj);
+    false
+  in
+  let iter_pred print ns g pred objs first =
+    if not first then print " ;\n    " ;
+    print (string_of_term ns (Rdf_term.Iri pred)) ;
+    print " " ;
+    ignore(Rdf_term.TSet.fold (iter_obj print ns g) objs true) ;
+    false
+  in
+  let iter_sub print ns g sub preds =
+    print (string_of_term ns sub) ;
+    print " " ;
+    ignore(Iri.Map.fold (iter_pred print ns g) preds true) ;
+    print ".\n"
+  in
+  fun print ns g map ->
+    Rdf_term.TMap.iter (iter_sub print ns g) map
+
+let to_ ?(compact=false) ?namespaces print g =
   let ns = Rdf_dot.build_namespaces ?namespaces g in
   List.iter (fun ns -> print (string_of_namespace ns)) ns;
-  List.iter (f_triple ns print) (g.find ())
+  match g.folder () with
+    Some map when compact ->
+      print_compact print ns g map
+  | _ ->
+      List.iter (f_triple ns print) (g.find ())
 
-let to_string ?namespaces g =
+let to_string ?compact ?namespaces g =
   let b = Buffer.create 256 in
-  let print s = Buffer.add_string b (s^"\n") in
-  to_ ?namespaces print g;
+  let print s = Buffer.add_string b s in
+  to_ ?compact ?namespaces print g;
   Buffer.contents b
 ;;
 
-
-let to_file ?namespaces g file =
+let to_file ?compact ?namespaces g file =
   let oc = open_out_bin file in
   try
-    let print s = output_string oc (s^"\n") in
-    to_ ?namespaces print g;
+    let print s = output_string oc s in
+    to_ ?compact ?namespaces print g;
     close_out oc
   with e ->
       close_out oc;

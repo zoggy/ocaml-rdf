@@ -179,6 +179,10 @@ module type Storage =
     (** Return the list of nodes appearing in object position. *)
     val objects : g -> Rdf_term.term list
 
+    (** If available, return a structure to iterate depth first in
+      the graph. *)
+    val folder : g -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option
+
     (** {3 Transactions} *)
 
     (** Start a transaction. All storage may not support transactions.*)
@@ -249,6 +253,7 @@ module type Graph =
     val subjects : g -> Rdf_term.term list
     val predicates : g -> Iri.t list
     val objects : g -> Rdf_term.term list
+    val folder : g -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
@@ -296,6 +301,7 @@ type graph = {
   subjects : unit -> Rdf_term.term list;
   predicates : unit -> Iri.t list;
   objects : unit -> Rdf_term.term list;
+  folder : unit -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option ;
   transaction_start : unit -> unit;
   transaction_commit : unit -> unit;
   transaction_rollback : unit -> unit;

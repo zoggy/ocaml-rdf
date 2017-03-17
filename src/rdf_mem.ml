@@ -181,6 +181,7 @@ let exists ?sub ?pred ?obj g =
 let subjects g = Triples_s_p.x_list g.g_set_sub;;
 let predicates g = Triples_p_o.x_list g.g_set_pred;;
 let objects g = Triples_o_s.x_list g.g_set_obj;;
+let folder g = Some g.g_set_sub;;
 
 let transaction_start g =
   let old =
@@ -272,6 +273,8 @@ module Mem =
     let subjects = subjects
     let predicates = predicates
     let objects = objects
+
+    let folder = folder 
 
     let transaction_start = transaction_start
     let transaction_commit = transaction_commit

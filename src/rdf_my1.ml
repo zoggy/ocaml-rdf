@@ -375,6 +375,7 @@ module Mysql =
     let subjects = subjects
     let predicates = predicates
     let objects = objects
+    let folder _ = None
 
     let transaction_start = Rdf_my.transaction_start
     let transaction_commit = Rdf_my.transaction_commit

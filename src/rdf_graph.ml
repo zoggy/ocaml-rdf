@@ -84,6 +84,8 @@ module type Storage =
     val predicates : g -> Iri.t list
     val objects : g -> term list
 
+    val folder : g -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option
+
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
@@ -130,6 +132,8 @@ module Make (S : Storage) =
     let predicates = embed S.predicates
     let objects = embed S.objects
 
+    let folder = embed S.folder
+
     let transaction_start = embed S.transaction_start
     let transaction_commit = embed S.transaction_commit
     let transaction_rollback = embed S.transaction_rollback
@@ -169,6 +173,7 @@ module type Graph =
     val predicates : g -> Iri.t list
     val objects : g -> term list
 
+    val folder : g -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option
     val transaction_start : g -> unit
     val transaction_commit : g -> unit
     val transaction_rollback : g -> unit
@@ -207,6 +212,7 @@ type graph =
     subjects : unit -> term list ;
     predicates : unit -> Iri.t list ;
     objects : unit -> term list ;
+    folder : unit -> Rdf_term.TSet.t Iri.Map.t Rdf_term.TMap.t option ;
     transaction_start : unit -> unit ;
     transaction_commit : unit -> unit ;
     transaction_rollback : unit -> unit ;
@@ -258,6 +264,7 @@ let open_graph ?(options=[]) name =
     subjects = (fun () -> S.subjects g) ;
     predicates = (fun () -> S.predicates g) ;
     objects = (fun () -> S.objects g) ;
+    folder = (fun () -> S.folder g) ;
     transaction_start = (fun () -> S.transaction_start g) ;
     transaction_commit = (fun () -> S.transaction_commit g) ;
     transaction_rollback = (fun () -> S.transaction_rollback g) ;
