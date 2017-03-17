@@ -316,7 +316,7 @@ let print_compact =
 
 let to_ ?(compact=false) ?namespaces print g =
   let ns = Rdf_dot.build_namespaces ?namespaces g in
-  List.iter (fun ns -> print (string_of_namespace ns)) ns;
+  List.iter (fun ns -> print (string_of_namespace ns); print "\n") ns;
   match g.folder () with
     Some map when compact ->
       print_compact print ns g map
