@@ -481,7 +481,7 @@ and print_triples_node b = function
       p b ")"
   | TNodeBlank l ->
       p b "[ " ;
-      List.iter (print_prop_object_list b) l ;
+      print_list ~sep: "; " b print_prop_object_list l ;
       p b " ]";
 
 and print_graph_node b = function
