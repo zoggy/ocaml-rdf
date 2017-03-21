@@ -1,6 +1,6 @@
 Next release:
 - add g.Rdf_graph.folder
-- add ?compact paramter to Rdf_ttl.to_*
+- add ?compact parameter to Rdf_ttl.to_*
 - sparql_http: modify accept: header so that dbpedia does not always replies text/plain
 - handle xsd:hexBinary format
 
