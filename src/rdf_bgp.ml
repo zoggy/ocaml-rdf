@@ -200,6 +200,15 @@ module Make (P : P) =
           | A.Iri iri -> (None, Some (P.term (Rdf_term.Iri iri.iri_iri)))
           | _ -> assert false
         in
+        dbg ~level: 3
+          (fun () ->
+             let p = function
+             | None -> "NONE"
+             | Some t -> Rdf_term.string_of_term (P.rdfterm t)
+             in
+            Printf.sprintf "sub=%s\npred=%s\nobj=%s"
+             (p sub) (p pred) (p obj)
+          );
         let f acc (s,p,o) =
           dbg ~level: 3
             (fun () ->

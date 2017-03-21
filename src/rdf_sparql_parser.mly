@@ -38,11 +38,13 @@ let xsd_integer = Rdf_rdf.xsd_integer;;
 let xsd_double = Rdf_rdf.xsd_double;;
 let xsd_decimal = Rdf_rdf.xsd_decimal;;
 let xsd_boolean = Rdf_rdf.xsd_boolean;;
+let xsd_hexBinary = Rdf_rdf.xsd_hexBinary;;
 
 let mk_integer = mk_lit ~typ: xsd_integer;;
 let mk_decimal = mk_lit ~typ: xsd_decimal;;
 let mk_double = mk_lit ~typ: xsd_double;;
 let mk_boolean = mk_lit ~typ: xsd_boolean;;
+let mk_hexBinary = mk_lit ~typ: xsd_hexBinary;;
 
 %}
 

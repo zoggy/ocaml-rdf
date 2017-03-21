@@ -44,6 +44,7 @@ let xsd_decimal = xsd_"decimal";;
 let xsd_boolean = xsd_"boolean";;
 let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
+let xsd_hexBinary = xsd_"hexBinary";;
 
 module Open = struct
     let rdf_about = about
@@ -83,4 +84,5 @@ module Open = struct
     let xsd_boolean = xsd_boolean
     let xsd_string = xsd_string
     let xsd_datetime = xsd_datetime
+    let xsd_hexBinary = xsd_hexBinary
 end

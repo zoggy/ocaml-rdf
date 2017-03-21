@@ -39,6 +39,7 @@ and value =
   | Int of int
   | Float of float
   | Bool of bool
+  | HexBinary of string
   | Datetime of CalendarLib.Fcalendar.t
   | Ltrl of string * string option (* optional language *)
   | Ltrdt of string * Iri.t (* datatyped literal, with unsupported datatype *)
@@ -57,6 +58,7 @@ let string_of_value = function
 | Float f -> string_of_float f
 | Bool true -> "true"
 | Bool false -> "false"
+| HexBinary s -> Rdf_term.quote_str s
 | Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
 | Ltrl (s,None) -> Rdf_term.quote_str s
 | Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
@@ -100,6 +102,9 @@ module ValueOrdered =
       | Bool b1, Bool b2 -> Pervasives.compare b1 b2
       | Bool _, _ -> 1
       | _, Bool _ -> -1
+      | HexBinary h1, HexBinary h2 -> Pervasives.compare h1 h2
+      | HexBinary _, _ -> 1
+      | _, HexBinary _ -> -1
       | Datetime d1, Datetime d2 ->
           CalendarLib.Fcalendar.compare d1 d2
       | Datetime _, _ -> 1
@@ -156,6 +161,7 @@ let datatype = function
       | Int _ -> Rdf_rdf.xsd_integer
       | Float _ -> Rdf_rdf.xsd_double
       | Bool _ -> Rdf_rdf.xsd_boolean
+      | HexBinary _ -> Rdf_rdf.xsd_hexBinary
       | Datetime _ -> Rdf_rdf.xsd_datetime
       | Ltrl (_, None) -> Rdf_rdf.xsd_string
       | Ltrl (s, Some _) -> Rdf_rdf.dt_langString
@@ -169,7 +175,7 @@ let string_literal v =
   match v with
   String s -> (s, None)
 | Ltrl (s, lang) -> (s, lang)
-| Ltrdt _ | Int _ | Float _ | Bool _ | Blank _
+| Ltrdt _ | Int _ | Float _ | Bool _ | HexBinary _ | Blank _
 | Datetime _ | Iri _ | Err _ ->
       error (Type_error (v, "literal_string"))
 ;;
@@ -186,6 +192,7 @@ let string = function
       | Float f -> string_of_float f
       | Bool true -> "true"
       | Bool false -> "false"
+      | HexBinary s -> s
       | Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
       | Ltrl (s, _) -> s
       | Blank _ -> error (Type_error (v, "string"))
@@ -207,6 +214,7 @@ let int = function
         | Float f -> truncate f
         | Bool true -> 1
         | Bool false -> 0
+        | HexBinary s -> int_of_string ("0x"^s)
         | Datetime _
         | Iri _ | Blank _ -> failwith ""
       in
@@ -229,6 +237,7 @@ let float = function
         | Float f -> f
         | Bool true -> 1.0
         | Bool false -> 0.0
+        | HexBinary _
         | Datetime _
         | Iri _ | Blank _ -> failwith ""
       in
@@ -260,6 +269,7 @@ let bool = function
              |_ -> true
           )
         | Bool b -> b
+        | HexBinary _
         | Datetime _
         | Iri _ | Blank _ -> failwith ""
       in
@@ -278,7 +288,7 @@ let datetime = function
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> Rdf_term.datetime_of_string s
-        | Int _ | Float _ | Bool _  | Iri _  | Blank _ -> failwith ""
+        | Int _ | Float _ | Bool _  | HexBinary _ | Iri _  | Blank _ -> failwith ""
         | Datetime t -> t
       in
       Datetime t
@@ -301,6 +311,7 @@ let ltrl = function
         | Float f -> (string_of_float f, None)
         | Bool true -> ("true", None)
         | Bool false -> ("false", None)
+        | HexBinary s -> (s, None)
         | Datetime t -> (CalendarLib.Printer.Fcalendar.sprint date_fmt t, None)
         | Blank _ -> error (Type_error (v, "ltrl"))
       in
@@ -328,6 +339,7 @@ let numeric = function
       | Float f -> Float f
       | Bool true -> Int 1
       | Bool false -> Int 0
+      | HexBinary s -> (try Int (int_of_string ("0x"^s)) with _ -> failwith "")
       | Datetime _ | Iri _ | Blank _ -> failwith ""
     with
       _ -> error (Type_error (v, "numeric"))
@@ -349,6 +361,8 @@ let of_literal lit =
           try Float (float_of_string lit.lit_value)
           with _ -> failwith ""
         end
+    | Some t when Iri.equal t Rdf_rdf.xsd_hexBinary ->
+        HexBinary (String.lowercase_ascii lit.lit_value)
     | Some t when Iri.equal t Rdf_rdf.xsd_string ->
         String lit.lit_value
     | Some t when Iri.equal t Rdf_rdf.xsd_datetime ->
@@ -378,6 +392,7 @@ let to_term = function
 | Int n -> Rdf_term.term_of_int n
 | Float f -> Rdf_term.term_of_double f
 | Bool b -> Rdf_term.term_of_bool b
+| HexBinary s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_hexBinary s
 | Datetime d -> Rdf_term.term_of_datetime ~d ()
 | Ltrl (s,lang) -> Rdf_term.term_of_literal_string ?lang s
 | Ltrdt (s, typ) -> Rdf_term.term_of_literal_string ~typ s

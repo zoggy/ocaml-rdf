@@ -150,6 +150,8 @@ module GExprMap = Map.Make (GExprOrdered)
 let ebv = function
   | Err e -> Rdf_dt.error e
   | Bool b -> b
+  | HexBinary "" -> false
+  | HexBinary _ -> true
   | String "" -> false
   | String _ -> true
   | Ltrl ("",_) -> false
@@ -184,6 +186,9 @@ let rec compare ?(sameterm=false) v1 v2 =
   | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
   | Float f1, Float f2 -> Pervasives.compare f1 f2
   | Bool b1, Bool b2 -> Pervasives.compare b1 b2
+  | HexBinary b1, HexBinary b2 ->
+    (* remember that both values are in lowercase *)
+    Pervasives.compare b1 b2
   | Datetime t1, Datetime t2 ->
       CalendarLib.Fcalendar.compare t1 t2
   | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
@@ -324,7 +329,7 @@ let bi_isliteral name =
       (match eval_expr ctx mu e with
          Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Err _ -> Bool false
        | Rdf_dt.String _ | Rdf_dt.Int _ | Rdf_dt.Float _ | Rdf_dt.Bool _
-       | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
+       | Rdf_dt.HexBinary _ | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
            Bool true
       )
   | l -> error (Invalid_built_in_fun_argument (name, l))
@@ -350,7 +355,7 @@ let bi_isnumeric name =
       (match eval_expr ctx mu e with
        | Rdf_dt.Int _ | Rdf_dt.Float _ -> Bool true
        | Rdf_dt.Blank _ | Rdf_dt.Iri _ | Rdf_dt.Err _
-       | Rdf_dt.String _ | Rdf_dt.Bool _
+       | Rdf_dt.String _ | Rdf_dt.Bool _ | Rdf_dt.HexBinary _
        | Rdf_dt.Datetime _ | Rdf_dt.Ltrl _ | Rdf_dt.Ltrdt _ ->
            Bool false
       )

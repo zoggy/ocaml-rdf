@@ -18,5 +18,5 @@
 
 - 4th field in graphs: data
 
-
-
+- handle XMLSchema#int ? (having a Rdf_dt.Integer constructor + handle
+  comparisons with Rdf_dt.Int ?)

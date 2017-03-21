@@ -80,6 +80,7 @@ val xsd_decimal : Iri.t
 val xsd_boolean : Iri.t
 val xsd_string : Iri.t
 val xsd_datetime : Iri.t
+val xsd_hexBinary : Iri.t
 
 module Open :
   sig
@@ -152,4 +153,5 @@ module Open :
   val xsd_boolean : Iri.t
   val xsd_string : Iri.t
   val xsd_datetime : Iri.t
+  val xsd_hexBinary : Iri.t
   end
