@@ -158,7 +158,7 @@ let ebv = function
   | Ltrl _ -> true
   | Ltrdt ("", _) -> false
   | Ltrdt _ -> true
-  | Int n -> n <> 0
+  | Int (n,_) -> n <> 0
   | Float f ->
       begin
         match Pervasives.classify_float f with
@@ -181,7 +181,7 @@ let rec compare ?(sameterm=false) v1 v2 =
   | String s1, String s2
   | Ltrl (s1, None), String s2
   | String s1, Ltrl (s2, None) -> String.compare s1 s2
-  | Int n1, Int n2 -> Pervasives.compare n1 n2
+  | Int (n1,_), Int (n2,_) -> Pervasives.compare n1 n2
   | Int _, Float _ -> compare (Rdf_dt.float v1) v2
   | Float _, Int _ -> compare v1 (Rdf_dt.float v2)
   | Float f1, Float f2 -> Pervasives.compare f1 f2
@@ -474,7 +474,7 @@ let bi_strlen name =
     [e] ->
       (try
          let (s, _) = Rdf_dt.string_literal (eval_expr ctx mu e) in
-         Int (Rdf_utf8.utf8_length s)
+         Int (Rdf_utf8.utf8_length s, Rdf_rdf.xsd_int)
        with e -> Err (Rdf_dt.Exception e)
       )
   | l -> error (Invalid_built_in_fun_argument (name, l))
@@ -495,7 +495,7 @@ let bi_substr name =
       let pos =
         match Rdf_dt.int (eval_expr ctx mu pos) with
           Err e -> Rdf_dt.error e
-        | Int n -> n
+        | Int (n,_) -> n
         | _ -> assert false
       in
       let len =
@@ -504,7 +504,7 @@ let bi_substr name =
         | Some e ->
             match eval_expr ctx mu e with
               Err e -> Rdf_dt.error e
-            | Int n -> Some n
+            | Int (n,_) -> Some n
             | _ -> assert false
       in
       (* Convert positions to 0-based positions, and according
@@ -765,28 +765,28 @@ let bi_numeric f name =
 ;;
 
 let bi_num_abs = function
-  Int n -> Int (abs n)
+  Int (n, dt) -> Int (abs n, Rdf_rdf.xsd_nonNegativeInteger)
 | Float f -> Float (abs_float f)
 | _ -> assert false
 ;;
 
 
 let bi_num_round = function
-  Int n -> Int n
+  Int _ as x -> x
 | Float f ->  Float (Pervasives.float (int_of_float (floor (f +. 0.5))))
 | _ -> assert false
 ;;
 
 
 let bi_num_ceil = function
-  Int n -> Int n
+| Int _ as x -> x
 | Float f -> Float (ceil f)
 | _ -> assert false
 ;;
 
 
 let bi_num_floor = function
-  Int n -> Int n
+| Int _ as x -> x
 | Float f -> Float (floor f)
 | _ -> assert false
 ;;
@@ -837,13 +837,12 @@ let int_of_month t =
   | Nov -> 11
   | Dec -> 12
 
-let bi_date_year t = Int (C.year t) ;;
-let bi_date_month t = Int (int_of_month (C.month t))
-let bi_date_day t = Int (C.day_of_month t)
-let bi_date_hours t = Int (C.hour t) ;;
-let bi_date_minutes t = Int (C.minute t) ;;
-let bi_date_seconds t =
-  Float (C.second t)
+let bi_date_year t = Int (C.year t, Rdf_rdf.xsd_int) ;;
+let bi_date_month t = Int (int_of_month (C.month t), Rdf_rdf.xsd_int)
+let bi_date_day t = Int (C.day_of_month t, Rdf_rdf.xsd_int)
+let bi_date_hours t = Int (C.hour t, Rdf_rdf.xsd_int) ;;
+let bi_date_minutes t = Int (C.minute t, Rdf_rdf.xsd_int) ;;
+let bi_date_seconds t = Float (C.second t)
 ;;
 
 let bi_hash f name =
@@ -974,7 +973,7 @@ let rec eval_numeric2 f_int f_float (v1, v2) =
  try
    match (v1, v2) with
     | (Float f1, Float f2) -> Float (f_float f1 f2)
-    | (Int n1, Int n2) -> Int (f_int n1 n2)
+    | (Int (n1,_), Int (n2,_)) -> Int (f_int n1 n2, Rdf_rdf.xsd_int)
     | ((Float _) as v1, ((Int _) as v2)) ->
         eval_numeric2 f_int f_float (v1, Rdf_dt.float v2)
     | ((Int _) as v1, ((Float _) as v2)) ->
@@ -1040,7 +1039,7 @@ let rec eval_expr : context -> Rdf_sparql_ms.mu -> expression -> Rdf_dt.value =
         Bool (not b)
     | EUMinus e ->
         let v = eval_expr ctx mu e in
-        eval_bin EMinus (Int 0, v)
+        eval_bin EMinus (Int (0, Rdf_rdf.xsd_int), v)
     | EBic c -> eval_bic ctx mu c
     | EFuncall c -> eval_funcall ctx mu c
     | ELit lit
@@ -1297,7 +1296,7 @@ let agg_count ctx d ms eopt =
   in
   let (_, _, n) = Rdf_sparql_ms.omega_fold f ms (Rdf_sparql_ms.MuSet.empty, Rdf_dt.VSet.empty, 0) in
   dbg ~level: 2 (fun () -> "COUNT(...)="^(string_of_int n));
-  Int n
+  Int (n, Rdf_rdf.xsd_int)
 ;;
 
 let agg_sum ctx d ms e =
@@ -1313,7 +1312,7 @@ let agg_sum ctx d ms e =
         else
           (vset, eval_plus (v, v2))
   in
-  let (_, v) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, Int 0) in
+  let (_, v) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, Int (0, Rdf_rdf.xsd_int)) in
   v
 ;;
 
@@ -1365,10 +1364,11 @@ let agg_avg ctx d ms e =
         else
           (vset, eval_plus (v, v2), cpt+1)
   in
-  let (_, v,cpt) = Rdf_sparql_ms.omega_fold f ms (Rdf_dt.VSet.empty, Int 0, 0) in
+  let (_, v,cpt) = Rdf_sparql_ms.omega_fold f ms 
+    (Rdf_dt.VSet.empty, Int (0, Rdf_rdf.xsd_int), 0) in
   match cpt with
-    0 -> Int 0
-  | _ -> eval_div (v, Int cpt)
+    0 -> Int (0, Rdf_rdf.xsd_int)
+  | _ -> eval_div (v, Int (cpt, Rdf_rdf.xsd_int))
 ;;
 
 let agg_sample ctx d ms e = assert false

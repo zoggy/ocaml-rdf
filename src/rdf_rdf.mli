@@ -75,12 +75,27 @@ val nil : Iri.t
 (** {3 XML Schema datatypes} *)
 
 val xsd_integer : Iri.t
+val xsd_int: Iri.t
+val xsd_byte : Iri.t
+val xsd_long : Iri.t
+val xsd_negativeInteger : Iri.t
+val xsd_nonNegativeInteger : Iri.t
+val xsd_nonPositiveInteger : Iri.t
+val xsd_positiveInteger : Iri.t
+val xsd_short : Iri.t
+val xsd_unsignedLong : Iri.t
+val xsd_unsignedInt : Iri.t
+val xsd_unsignedShort : Iri.t
+val xsd_unsignedByte : Iri.t
+
 val xsd_double : Iri.t
 val xsd_decimal : Iri.t
 val xsd_boolean : Iri.t
 val xsd_string : Iri.t
 val xsd_datetime : Iri.t
 val xsd_hexBinary : Iri.t
+
+val integer_types : Iri.Set.t
 
 module Open :
   sig

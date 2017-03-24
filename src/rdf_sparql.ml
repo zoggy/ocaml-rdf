@@ -130,7 +130,7 @@ let get_iri sol base v =
 
 let get_int sol v =
   match Rdf_dt.int (Rdf_dt.of_term (get_term sol v)) with
-    Rdf_dt.Int n -> n
+    Rdf_dt.Int (n, _) -> n
   | Rdf_dt.Err e -> raise (Rdf_dt.Error e)
   | _ -> assert false
 ;;

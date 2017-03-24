@@ -36,7 +36,7 @@ and value =
   | Blank of string
   | Iri of Iri.t
   | String of string
-  | Int of int
+  | Int of int * Iri.t
   | Float of float
   | Bool of bool
   | HexBinary of string
@@ -54,7 +54,7 @@ let string_of_value = function
 | Blank id -> "_:"^id
 | Iri iri -> "<"^(Iri.to_string iri)^">"
 | String s -> Rdf_term.quote_str s
-| Int n -> string_of_int n
+| Int (n,_) -> string_of_int n
 | Float f -> string_of_float f
 | Bool true -> "true"
 | Bool false -> "false"
@@ -93,7 +93,7 @@ module ValueOrdered =
           end
       | Ltrl _, _ -> 1
       | _, Ltrl _ -> -1
-      | Int n1, Int n2 -> n1 - n2
+      | Int (n1,_), Int (n2,_) -> n1 - n2
       | Int _, _ -> 1
       | _, Int _ -> -1
       | Float f1, Float f2 -> Pervasives.compare f1 f2
@@ -188,7 +188,7 @@ let string = function
       | Err e -> assert false
       | Iri t -> Iri.to_string t
       | String s -> s
-      | Int n -> string_of_int n
+      | Int (n,_) -> string_of_int n
       | Float f -> string_of_float f
       | Bool true -> "true"
       | Bool false -> "false"
@@ -204,21 +204,22 @@ let int = function
 | Err e -> Err e
 | v ->
     try
-      let n =
+      let (n,dt) =
         match v with
         | Err e -> assert false
         | String s
         | Ltrdt (s, _)
-        | Ltrl (s, _) -> int_of_string s
-        | Int n -> n
-        | Float f -> truncate f
-        | Bool true -> 1
-        | Bool false -> 0
-        | HexBinary s -> int_of_string ("0x"^s)
+        | Ltrl (s, _) -> (int_of_string s, None)
+        | Int (x,dt) -> (x,Some dt)
+        | Float f -> (truncate f, None)
+        | Bool true -> (1,None)
+        | Bool false -> (0,None)
+        | HexBinary s -> (int_of_string ("0x"^s), None)
         | Datetime _
         | Iri _ | Blank _ -> failwith ""
       in
-      Int n
+      let dt = match dt with None -> Rdf_rdf.xsd_int | Some dt -> dt in
+      Int (n,dt)
     with
       _ -> error (Type_error (v, "int"))
 ;;
@@ -233,7 +234,7 @@ let float = function
         | String s
         | Ltrdt (s, _)
         | Ltrl (s, _) -> float_of_string s
-        | Int n -> float n
+        | Int (n, _) -> float n
         | Float f -> f
         | Bool true -> 1.0
         | Bool false -> 0.0
@@ -262,7 +263,7 @@ let bool = function
              | "0" | "false" -> false
              | _ -> failwith ""
             )
-        | Int n -> n <> 0
+        | Int (n, _) -> n <> 0
         | Float f ->
             (match classify_float f with
                FP_zero | FP_nan -> false
@@ -307,7 +308,7 @@ let ltrl = function
         | String s
         | Ltrdt (s, _) -> (s, None)
         | Ltrl (s, l) -> (s, l)
-        | Int n -> (string_of_int n, None)
+        | Int (n, _) -> (string_of_int n, None)
         | Float f -> (string_of_float f, None)
         | Bool true -> ("true", None)
         | Bool false -> ("false", None)
@@ -330,16 +331,16 @@ let numeric = function
       | Ltrdt (s, _)
       | Ltrl (s, _) ->
           begin
-            try Int (int_of_string s)
+            try Int (int_of_string s, Rdf_rdf.xsd_int)
             with _ ->
                 try Float (float_of_string s)
                 with _ -> failwith ""
           end
-      | Int n -> Int n
+      | Int _ as x -> x
       | Float f -> Float f
-      | Bool true -> Int 1
-      | Bool false -> Int 0
-      | HexBinary s -> (try Int (int_of_string ("0x"^s)) with _ -> failwith "")
+      | Bool true -> Int (1, Rdf_rdf.xsd_int)
+      | Bool false -> Int (0, Rdf_rdf.xsd_int)
+      | HexBinary s -> (try Int (int_of_string ("0x"^s), Rdf_rdf.xsd_int) with _ -> failwith "")
       | Datetime _ | Iri _ | Blank _ -> failwith ""
     with
       _ -> error (Type_error (v, "numeric"))
@@ -350,9 +351,9 @@ let of_literal lit =
     match lit.lit_type with
     | Some t when Iri.equal t Rdf_rdf.xsd_boolean ->
         bool (String lit.lit_value)
-    | Some t when Iri.equal t Rdf_rdf.xsd_integer ->
+    | Some t when Iri.Set.mem  t Rdf_rdf.integer_types ->
         begin
-          try Int (int_of_string lit.lit_value)
+          try Int (int_of_string lit.lit_value, t)
           with _ -> failwith ""
         end
     | Some t when Iri.equal t Rdf_rdf.xsd_double
@@ -389,7 +390,7 @@ let to_term = function
 | Iri t -> Rdf_term.Iri t
 | Blank label -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string label)
 | String s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_string s
-| Int n -> Rdf_term.term_of_int n
+| Int (n, dt) -> Rdf_term.term_of_int ~typ:dt n
 | Float f -> Rdf_term.term_of_double f
 | Bool b -> Rdf_term.term_of_bool b
 | HexBinary s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_hexBinary s

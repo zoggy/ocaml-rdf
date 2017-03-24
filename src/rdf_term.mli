@@ -80,8 +80,9 @@ val datetime_of_literal : literal -> CalendarLib.Fcalendar.t
 (** Create a boolean literal with type iri from the given boolean. *)
 val mk_literal_bool : bool -> literal
 
-(** Create an integer literal. *)
-val mk_literal_int : int -> literal
+(** Create an integer literal.
+     Default [typ] is [Rdf_rdf.xsd_integer]. *)
+val mk_literal_int : ?typ:Iri.t -> int -> literal
 
 (** Create a double literal. *)
 val mk_literal_double : float -> literal
@@ -92,8 +93,8 @@ val bool_of_literal : literal -> bool
 (** Shortcut for [Literal (mk_literal ?typ ?lang string)] *)
 val term_of_literal_string : ?typ:Iri.t -> ?lang:string -> string -> term
 
-(** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_integer int)] *)
-val term_of_int : int -> term
+(** Shortcut for [Literal (mk_literal ?typ int)]. *)
+val term_of_int : ?typ:Iri.t -> int -> term
 
 (** Shortcut for [Literal (mk_literal ~typ: Rdf_rdf.xsd_double float)] *)
 val term_of_double : float -> term

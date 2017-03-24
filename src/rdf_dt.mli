@@ -37,7 +37,7 @@ and value =
   | Blank of string (** A blank node with its label *)
   | Iri of Iri.t (** An IRI. *)
   | String of string (** A string literal. *)
-  | Int of int  (** An integer. *)
+  | Int of int * Iri.t  (** An integer and the original datatype IRI *)
   | Float of float  (** A decimal, float or double. *)
   | Bool of bool  (** A Boolean. *)
   | HexBinary of string (** Binary data in hexadecimal, in lowercase *)

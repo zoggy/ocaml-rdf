@@ -1,4 +1,7 @@
 Next release:
+- handle various integer datatypes in sparql
+- add Rdf_rdf.integer_datatypes (set of integer datatype IRIs)
+- add Rdf_rdf.xsd_[..] for additional integer datatypes
 - add g.Rdf_graph.folder
 - add ?compact parameter to Rdf_ttl.to_*
 - sparql_http: modify accept: header so that dbpedia does not always replies text/plain

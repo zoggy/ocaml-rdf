@@ -81,15 +81,15 @@ let mk_literal_bool b =
   mk_literal ~typ: Rdf_rdf.xsd_boolean v
 ;;
 
-let mk_literal_int n =
-  mk_literal ~typ: Rdf_rdf.xsd_integer (string_of_int n)
+let mk_literal_int ?(typ=Rdf_rdf.xsd_integer) n =
+  mk_literal ~typ (string_of_int n)
 ;;
 
 let mk_literal_double f =
   mk_literal ~typ: Rdf_rdf.xsd_double (string_of_float f)
 ;;
 
-let term_of_int n = Literal (mk_literal_int n)
+let term_of_int ?typ n = Literal (mk_literal_int ?typ n)
 let term_of_double f = Literal (mk_literal_double f)
 let term_of_bool b = Literal (mk_literal_bool b);;
 

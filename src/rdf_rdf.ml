@@ -38,13 +38,43 @@ let dt_XMLLiteral = rdf_ "XMLLiteral" ;;
 let n n = rdf_("_"^(string_of_int n));;
 let nil = rdf_"nil"
 
+let xsd_int = xsd_"int";;
 let xsd_integer = xsd_"integer";;
+let xsd_byte = xsd_"byte";;
+let xsd_long = xsd_"long";;
+let xsd_negativeInteger = xsd_"negativeInteger";;
+let xsd_nonNegativeInteger = xsd_"nonNegativeInteger";;
+let xsd_nonPositiveInteger = xsd_"nonPositiveInteger";;
+let xsd_positiveInteger = xsd_"positiveInteger";;
+let xsd_short = xsd_"short";;
+let xsd_unsignedLong = xsd_"unsignedLong";;
+let xsd_unsignedInt = xsd_"unsignedInt";;
+let xsd_unsignedShort = xsd_"unsignedShort";;
+let xsd_unsignedByte = xsd_"unsignedByte";;
 let xsd_double = xsd_"double";;
 let xsd_decimal = xsd_"decimal";;
 let xsd_boolean = xsd_"boolean";;
 let xsd_string = xsd_"string";;
 let xsd_datetime = xsd_"dateTime";;
 let xsd_hexBinary = xsd_"hexBinary";;
+
+
+
+let integer_types = Iri.Set.of_list [
+    xsd_integer ;
+    xsd_int;
+    xsd_byte ;
+    xsd_long ;
+    xsd_negativeInteger ;
+    xsd_nonNegativeInteger ;
+    xsd_nonPositiveInteger ;
+    xsd_positiveInteger ;
+    xsd_short ;
+    xsd_unsignedLong ;
+    xsd_unsignedInt ;
+    xsd_unsignedShort ;
+    xsd_unsignedByte ;
+]
 
 module Open = struct
     let rdf_about = about
