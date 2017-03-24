@@ -28,6 +28,13 @@ module Irimap = Iri.Map
 module Iriset = Iri.Set
 
 exception Could_not_retrieve_graph of Iri.t * string
+
+let () = Printexc.register_printer
+  (function
+   | Could_not_retrieve_graph (iri,s) ->
+       Some (Printf.sprintf "Could not retrieve graph %s: %s" (Iri.to_string iri) s)
+   | _ -> None)
+
 let could_not_retrieve_graph iri msg =
   raise (Could_not_retrieve_graph (iri, msg))
 ;;

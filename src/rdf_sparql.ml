@@ -62,6 +62,8 @@ let rec string_of_error = function
 | Not_describe -> "Query is not a DESCRIBE"
 ;;
 
+let () = Printexc.register_printer
+  (function Error e -> Some (string_of_error e) | _ -> None)
 
 let query_from_lexbuf ?fname lexbuf =
   let parse = Rdf_sedlex.menhir_with_ulex Rdf_sparql_parser.query Rdf_sparql_lex.main ?fname in

@@ -110,6 +110,11 @@ module Make (S : Storage) =
       with (S.Error e) as exn ->
         raise (Storage_error (S.name, S.string_of_error e, exn))
 
+    let () = Printexc.register_printer
+      (function
+       | S.Error e -> Some (S.string_of_error e)
+       | _ -> None)
+
     let open_graph ?options name = embed (S.open_graph ?options) name
     let graph_name = embed S.graph_name
     let graph_size = embed S.graph_size

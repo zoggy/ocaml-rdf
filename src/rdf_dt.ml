@@ -138,6 +138,12 @@ let rec string_of_error = function
     "Exception "^s
 ;;
 
+let () = Printexc.register_printer
+  (function
+   | Error e -> Some (string_of_error e)
+   | _ -> None)
+
+
 let iri base_iri = function
 | Err e -> Err e
 | Iri iri -> Iri iri
@@ -390,7 +396,7 @@ let to_term = function
 | Iri t -> Rdf_term.Iri t
 | Blank label -> Rdf_term.Blank_ (Rdf_term.blank_id_of_string label)
 | String s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_string s
-| Int (n, dt) -> Rdf_term.term_of_int ~typ:dt n
+| Int (n, typ) -> Rdf_term.term_of_int ~typ n
 | Float f -> Rdf_term.term_of_double f
 | Bool b -> Rdf_term.term_of_bool b
 | HexBinary s -> Rdf_term.term_of_literal_string ~typ: Rdf_rdf.xsd_hexBinary s
