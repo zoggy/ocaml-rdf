@@ -35,6 +35,9 @@ type error =
 | Not_ask
 | Not_construct
 | Not_describe
+| Not_get
+| Not_update
+| Not_implemented of string
 
 exception Error of error
 

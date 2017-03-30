@@ -669,8 +669,8 @@ let print_update_action b a =
   in
   p b "\n"
 
-let print_update_query b t = 
-  print_list ~sep:"\n" b print_update_action t
+let print_update_query b t =
+  print_list ~sep:";\n" b print_update_action t
 
 let print_query_kind b = function
   | Select q -> print_select_query b q

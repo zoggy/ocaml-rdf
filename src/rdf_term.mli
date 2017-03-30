@@ -56,6 +56,12 @@ val string_of_blank_id : blank_id -> string
 (** Make a blank term id from a string. *)
 val blank_id_of_string : string -> blank_id
 
+(** Make a blank node with given string id. *)
+val blank : string -> term
+
+(** Make a blank node with given id. *)
+val blank_ : blank_id -> term
+
 (** Shortcut for [Iri (Iri.of_string string)]. *)
 val term_of_iri_string : string -> term
 

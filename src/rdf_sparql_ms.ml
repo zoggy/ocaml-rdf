@@ -50,7 +50,7 @@ let mu_add v t mu = { mu with mu_bindings = SMap.add v t mu.mu_bindings }
 let mu_copy mu = { mu_bindings = mu.mu_bindings ; mu_bnodes = mu.mu_bnodes }
 let mu x t = mu_add x t mu_0
 
-let gen_blank_id =
+let gen_blank_id = FIXME make this use a graph to ensure not to generate exising ids
   let cpt = ref 0 in
   fun () -> incr cpt ; "__b"^(string_of_int !cpt)^"__"
 ;;

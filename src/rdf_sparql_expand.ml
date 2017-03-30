@@ -448,11 +448,56 @@ let expand_ask_query env t =
     ask_modifier = expand_solution_modifier env t.ask_modifier;
   }
 
+let expand_quads_not_triples env qnt =
+  { quadsnt_loc = qnt.quadsnt_loc ;
+    quadsnt_graph = expand_var_or_iri env qnt.quadsnt_graph ;
+    quadsnt_triples = map_opt (expand_triples_template env) qnt.quadsnt_triples ;
+  }
+
+let expand_quads1 env (qnt,topt) =
+  (expand_quads_not_triples env qnt,
+   map_opt (expand_triples_template env) topt)
+
+let expand_quads env q =
+  { quads_loc = q.quads_loc ;
+    quads_triples = map_opt (expand_triples_template env) q.quads_triples ;
+    quads_list = List.map (expand_quads1 env) q.quads_list ;
+  }
+
+let expand_quad_data = expand_quads
+let expand_quad_pattern = expand_quads
+
+let expand_update_modify env t =
+  { umod_loc = t.umod_loc ;
+    umod_iri = map_opt (expand_iri env) t.umod_iri ;
+    umod_delete = map_opt (expand_quad_pattern env) t.umod_delete ;
+    umod_insert = map_opt (expand_quad_pattern env) t.umod_insert ;
+    umod_using = List.map (fun (b,iri,loc) -> (b,expand_iri env iri,loc)) t.umod_using ;
+    umod_where = expand_group_graph_pattern env t.umod_where ;
+  }
+
+let expand_update_action env = function
+| Update_load
+| Update_clear
+| Update_drop
+| Update_add
+| Update_move
+| Update_copy
+| Update_create as x -> x
+| Update_insert_data qd -> Update_insert_data (expand_quad_data env qd)
+| Update_delete_data qd -> Update_delete_data (expand_quad_data env qd)
+| Update_delete_where qp -> Update_delete_where (expand_quad_pattern env qp)
+| Update_modify t -> Update_modify (expand_update_modify env t)
+
+let expand_update_query env t =
+  List.map (expand_update_action env) t
+
 let expand_query_kind env = function
   | Select q -> Select (expand_select_query env q)
   | Construct q -> Construct (expand_construct_query env q)
   | Describe q -> Describe (expand_describe_query env q)
   | Ask q -> Ask (expand_ask_query env q)
+  | Update q -> Update (expand_update_query env q)
 ;;
 
 let build_dataset =
@@ -467,21 +512,49 @@ let build_dataset =
       { ds with
         from_named = Iri.Set.add (expand_relative_iri env r.ir_iri) ds.from_named }
   in
-  let build env clauses = List.fold_left (iter env)
-    { from = [] ; from_named = Iri.Set.empty } clauses
-  in
+  let empty_ds = { from = [] ; from_named = Iri.Set.empty } in
+  let build env clauses = List.fold_left (iter env) empty_ds clauses in
   fun env -> function
     Select q -> build env q.select_dataset
   | Construct q -> build env q.constr_dataset
   | Describe q -> build env q.desc_dataset
   | Ask q -> build env q.ask_dataset
+  | Update _ -> assert false
 ;;
 
-let expand_query default_base_iri q =
+let expand_prolog default_base_iri prolog =
   let env = create_env default_base_iri in
-  let (env, q_prolog) = expand_query_prolog env q.q_prolog in
+  expand_query_prolog env prolog
+
+let expand_query default_base_iri q =
+  let (env, q_prolog) = expand_prolog default_base_iri q.q_prolog in
   let q_kind = expand_query_kind env q.q_kind in
   let q_values = expand_values_clause env q.q_values in
   let ds = build_dataset env q.q_kind in
   (env.base, ds, { q_prolog ; q_kind ; q_values })
-;;
+
+let expand_update_query default_base_iri q =
+  let (env, q_prolog) = expand_prolog default_base_iri q.q_prolog in
+  let q_kind =
+    match q.q_kind with
+    | Update l -> Update (List.map (expand_update_action env) l)
+    | _ -> assert false
+  in
+  (env.base, { q_prolog ; q_kind ; q_values = q.q_values })
+
+(* dataset for update actions
+  let update_iter env ds (named, iri, _loc) =
+    let iri =
+      match expand_iri env iri with
+        Iri iri -> iri.iri_iri
+      | _ -> assert false
+    in
+    if named then
+      { ds with from_named = Iri.Set.add iri }
+    else
+      { ds with from = iri :: ds.from }
+  in
+  let update_build env using =
+    List.fold_left (update_iter env) empty_ds using
+  in
+*)

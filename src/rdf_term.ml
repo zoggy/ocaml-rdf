@@ -46,6 +46,9 @@ type triple = term * Iri.t * term
 let string_of_blank_id id = id;;
 let blank_id_of_string str = str;;
 
+let blank str = Blank_ (blank_id_of_string str)
+let blank_ id = Blank_ id
+
 let term_of_iri_string s = Iri (Iri.of_string s);;
 let mk_literal ?typ ?lang v =
   { lit_value = v ; lit_language = lang ; lit_type = typ ; }

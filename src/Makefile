@@ -74,6 +74,7 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_algebra.cmo \
 	rdf_bgp.cmo \
 	rdf_graph.cmo \
+	rdf_update.cmo \
 	rdf_rdfs.cmo \
 	rdf_acl.cmo \
 	rdf_doap.cmo \

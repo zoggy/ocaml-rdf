@@ -39,6 +39,9 @@ type error =
 | Not_ask
 | Not_construct
 | Not_describe
+| Not_get
+| Not_update
+| Not_implemented of string
 
 exception Error of error
 let error e = raise (Error e)
@@ -60,6 +63,9 @@ let rec string_of_error = function
 | Not_ask -> "Query is not a ASK"
 | Not_construct -> "Query is not a CONSTRUCT"
 | Not_describe -> "Query is not a DESCRIBE"
+| Not_get -> "Query is not a (SELECT|ASK|CONSTRUCT|DESCRIBE)"
+| Not_update -> "Query is not an update query"
+| Not_implemented str -> Printf.sprintf "%s: Not implemented" str
 ;;
 
 let () = Printexc.register_printer
@@ -307,7 +313,7 @@ let construct_project_vars =
     List.map  map_to_selvar (Rdf_sparql_types.VarSet.elements vars)
 ;;
 
-let execute ?graph ~base dataset query =
+let execute_get ?graph ~base dataset query =
   let (base, ds, query) = Rdf_sparql_expand.expand_query base query in
   let q =
     match query.q_kind with
@@ -360,6 +366,7 @@ let execute ?graph ~base dataset query =
           query_modifier = d.desc_modifier ;
           query_values = None ;
         }
+    | Update _ -> assert false
   in
   let algebra = Rdf_sparql_algebra.translate_query_level q in
   dbg ~level: 2 (fun () -> Rdf_sparql_algebra.string_of_algebra algebra);
@@ -387,9 +394,40 @@ let execute ?graph ~base dataset query =
           Some g -> g
         | None -> Rdf_graph.open_graph base
       in
-      (* TODO: fill graph *)
+      (* FIXME: fill graph *)
       Graph g
+  | Update _ -> assert false
 ;;
+
+let execute_update ~graph = function
+| Update_load -> error (Not_implemented "LOAD")
+| Update_clear -> error (Not_implemented "LOAD")
+| Update_drop -> error (Not_implemented "LOAD")
+| Update_add -> error (Not_implemented "LOAD")
+| Update_move -> error (Not_implemented "LOAD")
+| Update_copy -> error (Not_implemented "COPY")
+| Update_create  -> error (Not_implemented "CREATE")
+| Update_insert_data qd -> Rdf_update.insert_data ~graph qd
+| Update_delete_data qd -> Rdf_update.delete_data ~graph qd
+| Update_delete_where qp -> Rdf_update.delete_where ~graph qp
+| Update_modify m -> Rdf_update.modify ~graph m
+
+let execute_update ~graph q =
+  match q.q_kind with
+    Update actions ->
+      begin
+       try Bool (List.for_all (execute_update ~graph) actions)
+       with
+          Rdf_dt.Error e -> error (Value_error e)
+        | Rdf_sparql_eval.Error e -> error (Eval_error e)
+        | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+      end
+  | _ -> error Not_update
+
+let execute ?graph ~base dataset query =
+  match query.q_kind with
+    Update _ -> error Not_get
+  | _ -> execute_get ?graph ~base dataset query
 
 let execute ?graph ~base dataset query =
   try execute ?graph ~base dataset query

@@ -223,6 +223,8 @@ module type Storage =
 *)
 exception Storage_error of string * string * exn
 
+module Bid_map : Map.S with type key = Rdf_term.blank_id
+
 module type Graph =
   sig
     type g
