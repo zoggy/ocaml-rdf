@@ -27,7 +27,7 @@ include ../master.Makefile
 OF_FLAGS=-package $(PACKAGES),$(LWT_PACKAGES)
 INCLUDES=
 
-COMPFLAGS=$(INCLUDES) -safe-string -g $(MT_FLAGS) #-annot
+COMPFLAGS=$(INCLUDES) -safe-string -g -warn-error +8 $(MT_FLAGS) #-annot
    # beware that outputting annotation takes a long time for the sparql parser
 LINKFLAGS=$(INCLUDES)
 

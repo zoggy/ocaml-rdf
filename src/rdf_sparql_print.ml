@@ -599,11 +599,85 @@ let print_ask_query b t =
   print_solution_modifier b t.ask_modifier
 ;;
 
+let print_quad_not_triples b qnt =
+  p b "GRAPH ";
+  print_var_or_iri b qnt.quadsnt_graph ;
+  p b " {";
+  (match qnt.quadsnt_triples with
+     None -> ()
+   | Some t ->
+       p b " " ;
+       print_triples_template b t ;
+       p b " "
+  );
+  p b "}"
+
+let print_quads_item b (qnt, topt) =
+  print_quad_not_triples b qnt ;
+  match topt with
+    None -> ()
+  | Some t -> p b " . " ; print_triples_template b t
+
+let print_quads b q =
+  (match q.quads_triples with
+     None -> ()
+   | Some t ->
+       print_triples_template b t ;
+       p b " "
+  );
+  print_list ~sep: " " b print_quads_item q.quads_list
+
+let print_quad_data b qd =
+  p b "{ ";
+  print_quads b qd ;
+  p b " }"
+
+let print_quad_pattern = print_quad_data
+
+let print_using_clause b (named, iri, _loc) =
+  if named then p b "NAMED " ;
+  print_iri b iri
+
+let print_update_modify b t =
+  (match t.umod_iri with
+     None -> ()
+   | Some i -> p b "WITH " ; print_iri b i; p b " ");
+   (match t.umod_delete with
+     None -> ()
+   | Some qp -> p b "DELETE "; print_quad_pattern b qp; p b " ");
+   (match t.umod_insert with
+     None -> ()
+   | Some qp -> p b "INSERT "; print_quad_pattern b qp; p b " ");
+   print_list ~sep: " " b print_using_clause t.umod_using ;
+   p b " WHERE ";
+   print_group_graph_pattern b t.umod_where
+
+let print_update_action b a =
+  let () =
+    match a with
+    | Update_load -> p b "LOAD"
+    | Update_clear -> p b "CLEAR"
+    | Update_drop -> p b "DROP"
+    | Update_add -> p b "ADD"
+    | Update_move -> p b "MOVE"
+    | Update_copy -> p b "COPY"
+    | Update_create  -> p b "CREATE"
+    | Update_insert_data qd -> p b "INSERT DATA "; print_quad_data b qd
+    | Update_delete_data qd -> p b "DELETE DATA "; print_quad_data b qd
+    | Update_delete_where qp -> p b "DELETE WHERE "; print_quad_pattern b qp
+    | Update_modify m -> print_update_modify b m
+  in
+  p b "\n"
+
+let print_update_query b t = 
+  print_list ~sep:"\n" b print_update_action t
+
 let print_query_kind b = function
   | Select q -> print_select_query b q
   | Construct q -> print_construct_query b q
   | Describe q -> print_describe_query b q
   | Ask q -> print_ask_query b q
+  | Update q -> print_update_query b q
 ;;
 
 

@@ -61,8 +61,9 @@ let mk_hexBinary = mk_lit ~typ: xsd_hexBinary;;
 %token AS
 %token BASE PREFIX
 %token SELECT CONSTRUCT DESCRIBE ASK
+%token LOAD CLEAR DROP ADD MOVE COPY CREATE INSERT DELETE DATA
 %token DISTINCT REDUCED
-%token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE
+%token VALUES FROM NAMED GROUP BY HAVING ORDER ASC DESC LIMIT OFFSET WHERE WITH USING
 %token NIL COMMA DOT PIPE HAT HATHAT QM SEMICOLON
 %token LPAR RPAR
 %token LBRACE RBRACE
@@ -109,11 +110,25 @@ let mk_hexBinary = mk_lit ~typ: xsd_hexBinary;;
 %%
 
 %public query:
-  p=prologue k=query_kind v=values_clause EOF
+| q=get_query EOF { q }
+| q=update_query EOF { q }
+
+get_query:
+  p=prologue k=get_query_kind v=values_clause
   {
     { q_prolog = p ;
       q_kind = k ;
       q_values = v ;
+    }
+  }
+;
+
+update_query:
+  p=prologue k=separated_list(SEMICOLON,update_action)
+  {
+    { q_prolog = p ;
+      q_kind = Update k ;
+      q_values = None
     }
   }
 ;
@@ -125,7 +140,7 @@ prologue_item:
 | PREFIX name=Pname_ns ir=Iriref_ { PrefixDecl (name, ir) }
 ;
 
-query_kind:
+get_query_kind:
 | s=select_clause ds=list(dataset_clause) w=where_clause m=solution_modifier
   {
     Select {
@@ -1183,3 +1198,76 @@ aggregate:
 | GROUP_CONCAT LPAR d=option(DISTINCT) e=expression SEMICOLON SEPARATOR EQUAL sep=string RPAR
   { Bic_GROUP_CONCAT (d<>None, e, Some sep) }
 ;
+
+update_action:
+| INSERT DATA q=quad_data { Update_insert_data q }
+| DELETE DATA q=quad_data { Update_delete_data q }
+| DELETE WHERE q=quad_pattern { Update_delete_where q }
+| withiri=option(with_iri) c=modify_clauses using=list(using_clause)
+  WHERE ggp=group_graph_pattern
+   {
+     let (umod_delete, umod_insert) = c in
+     let u = {
+      umod_loc = mk_loc $startpos(withiri) $endpos(ggp) ;
+      umod_iri = withiri ;
+      umod_delete ; umod_insert ;
+      umod_using = using ;
+      umod_where = ggp ;
+     }
+     in
+     Update_modify u }
+| LOAD | CLEAR | DROP | ADD | MOVE | COPY | CREATE {
+  let e = Failure "Update action not implemented yet" in
+  raise (Rdf_sedlex.Parse_error (e, $startpos($1)))
+  };
+
+with_iri:
+| WITH i=iri { i }
+;
+
+modify_clauses:
+| d=delete_clause i=option(insert_clause) { (Some d), i }
+| i=insert_clause { (None, Some i) }
+;
+
+delete_clause:
+| DELETE q=quad_pattern { q }
+;
+
+insert_clause:
+| INSERT q=quad_pattern { q }
+;
+
+using_clause:
+| USING i=iri { (false, i, mk_loc $startpos($1) $endpos(i)) }
+| USING NAMED i=iri { (true, i, mk_loc $startpos($1) $endpos(i)) }
+;
+
+quad_pattern: quads { $1 };
+quad_data: quads { $1 };
+
+quads:
+| t=option(triples_template) l=list(quads1)
+  {
+   { quads_loc = mk_loc $startpos(t) $endpos(l) ;
+     quads_triples = t ;
+     quads_list = l ;
+   }
+ }
+;
+
+quads1:
+| q=quads_not_triples option(DOT) t=option(triples_template)
+  { q, t }
+;
+
+quads_not_triples:
+| GRAPH v=var_or_iri LBRACE t=option(triples_template) RBRACE
+  {
+    { quadsnt_loc = mk_loc $startpos($1) $endpos($5);
+      quadsnt_graph = v ;
+      quadsnt_triples = t ;
+    }
+  }
+;
+

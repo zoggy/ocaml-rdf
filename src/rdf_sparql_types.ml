@@ -502,11 +502,47 @@ type ask_query = {
     ask_modifier : solution_modifier ;
   }
 
+type quads_not_triples = {
+      quadsnt_loc : loc ;
+      quadsnt_graph : var_or_iri ;
+      quadsnt_triples : triples_template option ;
+    }
+type quads = {
+      quads_loc: loc ;
+      quads_triples : triples_template option ;
+      quads_list : (quads_not_triples * triples_template option) list ;
+    }
+type quad_pattern = quads
+type quad_data = quads
+
+type update_modify =
+    { umod_loc : loc ;
+      umod_iri : iri option ;
+      umod_delete : quad_pattern option ;
+      umod_insert : quad_pattern option ;
+      umod_using: (bool * iri * loc) list ; (* ('NAMED'? iri) list *)
+      umod_where : group_graph_pattern ;
+    }
+
+type update_action =
+    | Update_load
+    | Update_clear
+    | Update_drop
+    | Update_add
+    | Update_move
+    | Update_copy
+    | Update_create
+    | Update_insert_data of quad_data
+    | Update_delete_data of quad_data
+    | Update_delete_where of quad_pattern
+    | Update_modify of update_modify
+
 type query_kind =
   | Select of select_query
   | Construct of construct_query
   | Describe of describe_query
   | Ask of ask_query
+  | Update of update_action list
 ;;
 
 

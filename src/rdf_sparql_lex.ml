@@ -285,6 +285,7 @@ let rec main pos lexbuf =
   | boolean -> (lexpos pos lexbuf), Boolean (L.lexeme lexbuf)
 
   | ('a'|'A'), ('b'|'B'), ('s'|'S')  -> (lexpos pos lexbuf), ABS
+  | ('a'|'A'), ('d'|'D'), ('d'|'D')  -> (lexpos pos lexbuf), ADD
   | ('a'|'A'), ('s'|'S')  -> (lexpos pos lexbuf), AS
   | ('a'|'A'), ('s'|'S'), ('c'|'C')  -> (lexpos pos lexbuf), ASC
   | ('a'|'A'), ('s'|'S'), ('k'|'K')  -> (lexpos pos lexbuf), ASK
@@ -302,16 +303,22 @@ let rec main pos lexbuf =
 | ('b'|'B'), ('o'|'O'), ('u'|'U'), ('n'|'N'), ('d'|'D')  -> (lexpos pos lexbuf), BOUND
 | ('b'|'B'), ('y'|'Y')  -> (lexpos pos lexbuf), BY
 | ('c'|'C'), ('e'|'E'), ('i'|'I'), ('l'|'L')  -> (lexpos pos lexbuf), CEIL
+| ('c'|'C'), ('l'|'L'), ('e'|'E'), ('a'|'A'), ('r'|'R')  -> (lexpos pos lexbuf), CLEAR
 | ('c'|'C'), ('o'|'O'), ('a'|'A'), ('l'|'L'), ('e'|'E'), ('s'|'S'), ('c'|'C'), ('e'|'E')  -> (lexpos pos lexbuf), COALESCE
 | ('c'|'C'), ('o'|'O'), ('n'|'N'), ('c'|'C'), ('a'|'A'), ('t'|'T')  -> (lexpos pos lexbuf), CONCAT
 | ('c'|'C'), ('o'|'O'), ('n'|'N'), ('s'|'S'), ('t'|'T'), ('r'|'R'), ('u'|'U'), ('c'|'C'), ('t'|'T')  -> (lexpos pos lexbuf), CONSTRUCT
 | ('c'|'C'), ('o'|'O'), ('n'|'N'), ('t'|'T'), ('a'|'A'), ('i'|'I'), ('n'|'N'), ('s'|'S')  -> (lexpos pos lexbuf), CONTAINS
+| ('c'|'C'), ('o'|'O'), ('p'|'P'), ('y'|'Y')  -> (lexpos pos lexbuf), COPY
 | ('c'|'C'), ('o'|'O'), ('u'|'U'), ('n'|'N'), ('t'|'T')  -> (lexpos pos lexbuf), COUNT
+| ('c'|'C'), ('r'|'R'), ('e'|'E'), ('a'|'A'), ('t'|'T'), ('e'|'E')  -> (lexpos pos lexbuf), CREATE
+| ('d'|'D'), ('a'|'A'), ('t'|'T'), ('a'|'A')  -> (lexpos pos lexbuf), DATA
 | ('d'|'D'), ('a'|'A'), ('t'|'T'), ('a'|'A'), ('t'|'T'), ('y'|'Y'), ('p'|'P'), ('e'|'E')  -> (lexpos pos lexbuf), DATATYPE
 | ('d'|'D'), ('a'|'A'), ('y'|'Y')  -> (lexpos pos lexbuf), DAY
+| ('d'|'D'), ('e'|'E'), ('l'|'L'), ('e'|'E'), ('t'|'T'), ('e'|'E')  -> (lexpos pos lexbuf), DELETE
 | ('d'|'D'), ('e'|'E'), ('s'|'S'), ('c'|'C')  -> (lexpos pos lexbuf), DESC
 | ('d'|'D'), ('e'|'E'), ('s'|'S'), ('c'|'C'), ('r'|'R'), ('i'|'I'), ('b'|'B'), ('e'|'E')  -> (lexpos pos lexbuf), DESCRIBE
 | ('d'|'D'), ('i'|'I'), ('s'|'S'), ('t'|'T'), ('i'|'I'), ('n'|'N'), ('c'|'C'), ('t'|'T')  -> (lexpos pos lexbuf), DISTINCT
+| ('d'|'D'), ('r'|'R'), ('o'|'O'), ('p'|'P')  -> (lexpos pos lexbuf), DROP
 | ('e'|'E'), ('n'|'N'), ('c'|'C'), ('o'|'O'), ('d'|'D'), ('e'|'E'), ('_'|'_'), ('f'|'F'), ('o'|'O'), ('r'|'R'), ('_'|'_'), ('u'|'U'), ('r'|'R'), ('i'|'I')  -> (lexpos pos lexbuf), ENCODE_FOR_URI
 | ('e'|'E'), ('x'|'X'), ('i'|'I'), ('s'|'S'), ('t'|'T'), ('s'|'S')  -> (lexpos pos lexbuf), EXISTS
 | ('f'|'F'), ('i'|'I'), ('l'|'L'), ('t'|'T'), ('e'|'E'), ('r'|'R')  -> (lexpos pos lexbuf), FILTER
@@ -324,6 +331,7 @@ let rec main pos lexbuf =
 | ('h'|'H'), ('o'|'O'), ('u'|'U'), ('r'|'R'), ('s'|'S')  -> (lexpos pos lexbuf), HOURS
 | ('i'|'I'), ('f'|'F')  -> (lexpos pos lexbuf), IF
 | ('i'|'I'), ('n'|'N') -> (lexpos pos lexbuf), IN
+| ('i'|'I'), ('n'|'N'), ('s'|'S'), ('e'|'E'), ('r'|'R'), ('t'|'T')  -> (lexpos pos lexbuf), INSERT
 | ('i'|'I'), ('r'|'R'), ('i'|'I')  -> (lexpos pos lexbuf), IRI
 | ('i'|'I'), ('s'|'S'), ('b'|'B'), ('l'|'L'), ('a'|'A'), ('n'|'N'), ('k'|'K')  -> (lexpos pos lexbuf), ISBLANK
 | ('i'|'I'), ('s'|'S'), ('i'|'I'), ('r'|'R'), ('i'|'I')  -> (lexpos pos lexbuf), ISIRI
@@ -334,12 +342,14 @@ let rec main pos lexbuf =
 | ('l'|'L'), ('a'|'A'), ('n'|'N'), ('g'|'G'), ('m'|'M'), ('a'|'A'), ('t'|'T'), ('c'|'C'), ('h'|'H'), ('e'|'E'), ('s'|'S')  -> (lexpos pos lexbuf), LANGMATCHES
 | ('l'|'L'), ('c'|'C'), ('a'|'A'), ('s'|'S'), ('e'|'E')  -> (lexpos pos lexbuf), LCASE
 | ('l'|'L'), ('i'|'I'), ('m'|'M'), ('i'|'I'), ('t'|'T')  -> (lexpos pos lexbuf), LIMIT
+| ('l'|'L'), ('o'|'O'), ('a'|'A'), ('d'|'D')  -> (lexpos pos lexbuf), LOAD
 | ('m'|'M'), ('a'|'A'), ('x'|'X')  -> (lexpos pos lexbuf), MAX
 | ('m'|'M'), ('d'|'D'), ('5'|'5')  -> (lexpos pos lexbuf), MD5
 | ('m'|'M'), ('i'|'I'), ('n'|'N')  -> (lexpos pos lexbuf), MIN
 | ('m'|'M'), ('i'|'I'), ('n'|'N'), ('u'|'U'), ('s'|'S')  -> (lexpos pos lexbuf), MINUS
 | ('m'|'M'), ('i'|'I'), ('n'|'N'), ('u'|'U'), ('t'|'T'), ('e'|'E'), ('s'|'S')  -> (lexpos pos lexbuf), MINUTES
 | ('m'|'M'), ('o'|'O'), ('n'|'N'), ('t'|'T'), ('h'|'H')  -> (lexpos pos lexbuf), MONTH
+| ('m'|'M'), ('o'|'O'), ('v'|'V'), ('e'|'E')  -> (lexpos pos lexbuf), MOVE
 | ('n'|'N'), ('a'|'A'), ('m'|'M'), ('e'|'E'), ('d'|'D')  -> (lexpos pos lexbuf), NAMED
 | ('n'|'N'), ('o'|'O'), ('t'|'T') -> (lexpos pos lexbuf), NOT
 | ('n'|'N'), ('o'|'O'), ('w'|'W')  -> (lexpos pos lexbuf), NOW
@@ -380,11 +390,12 @@ let rec main pos lexbuf =
 | ('u'|'U'), ('n'|'N'), ('d'|'D'), ('e'|'E'), ('f'|'F')  -> (lexpos pos lexbuf), UNDEF
 | ('u'|'U'), ('n'|'N'), ('i'|'I'), ('o'|'O'), ('n'|'N')  -> (lexpos pos lexbuf), UNION
 | ('u'|'U'), ('r'|'R'), ('i'|'I')  -> (lexpos pos lexbuf), URI
+| ('u'|'U'), ('s'|'S'), ('i'|'I'), ('n'|'N'), ('g'|'G')  -> (lexpos pos lexbuf), USING
 | ('u'|'U'), ('u'|'U'), ('i'|'I'), ('d'|'D')  -> (lexpos pos lexbuf), UUID
 | ('v'|'V'), ('a'|'A'), ('l'|'L'), ('u'|'U'), ('e'|'E'), ('s'|'S')  -> (lexpos pos lexbuf), VALUES
 | ('w'|'W'), ('h'|'H'), ('e'|'E'), ('r'|'R'), ('e'|'E')  -> (lexpos pos lexbuf), WHERE
+| ('w'|'W'), ('i'|'I'), ('t'|'T'), ('h'|'H')  -> (lexpos pos lexbuf), WITH
 | ('y'|'Y'), ('e'|'E'), ('a'|'A'), ('r'|'R')  -> (lexpos pos lexbuf), YEAR
-
 | var1 ->
   let s = L.lexeme lexbuf in
   let len = String.length s in

@@ -22,13 +22,20 @@
 (*                                                                               *)
 (*********************************************************************************)
 
-let s = Sys.argv.(1);;
+let print s =
+  let len = String.length s in
+  let b = Buffer.create 256 in
+  for i = 0 to len - 1 do
+    Printf.bprintf b "('%c'|'%c')%s "
+      (Char.lowercase_ascii s.[i]) (Char.uppercase_ascii s.[i])
+      (if i < len - 1 then "," else "")
+  done;
+  Printf.printf "| %s -> (lexpos pos lexbuf), %s\n"
+    (Buffer.contents b) (String.uppercase_ascii s);;
 
-let len = String.length s ;;
-let b = Buffer.create 256 ;;
-for i = 0 to len - 1 do
-  Printf.bprintf b "('%c'|'%c')%s "
-    (Char.lowercase_ascii s.[i]) (Char.uppercase_ascii s.[i])
-    (if i < len - 1 then "," else "")
-done;;
-Printf.printf "| %s -> %s\n" (Buffer.contents b) (String.uppercase_ascii s);;
+let () =
+  for i = 1 to Array.length Sys.argv - 1 do
+    print Sys.argv.(i)
+  done
+
+
