@@ -1,0 +1,13 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ns: <http://example.org/ns#> .
+
+<http://example/book1> dc:title "Principles of Compiler Design" .
+<http://example/book1> dc:date "1977-01-01T00:00:00-02:00"^^xsd:dateTime .
+
+<http://example/book2> ns:price 42 .
+<http://example/book2> dc:title "David Copperfield" .
+<http://example/book2> dc:creator "Edmund Wells" .
+<http://example/book2> dc:date "1948-01-01T00:00:00-02:00"^^xsd:dateTime .
+
+<http://example/book3> dc:title "SPARQL 1.1 Tutorial" .

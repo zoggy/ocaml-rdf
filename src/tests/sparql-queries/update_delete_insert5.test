@@ -1,0 +1,9 @@
+(* Title of the test *)
+title = "Update DELETE INSERT"
+(* Description of the test *)
+descr = "From https://www.w3.org/TR/sparql11-update/#deleteInsert"
+(* File containing the query *)
+query = "update_delete_insert5.spq"
+(* File containing the default graph *)
+default_graph = "update_delete_insert5.ttl"
+

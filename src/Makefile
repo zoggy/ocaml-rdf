@@ -74,7 +74,6 @@ LIB_RDF_CMOFILES= \
 	rdf_sparql_algebra.cmo \
 	rdf_bgp.cmo \
 	rdf_graph.cmo \
-	rdf_update.cmo \
 	rdf_rdfs.cmo \
 	rdf_acl.cmo \
 	rdf_doap.cmo \
@@ -99,6 +98,7 @@ LIB_RDF_CMOFILES= \
 	rdf_ttl.cmo \
 	rdf_sparql_expand.cmo \
 	rdf_sparql_eval.cmo \
+	rdf_update.cmo \
 	rdf_sparql.cmo \
 	rdf_json.cmo \
 	rdf_json_ld.cmo \
@@ -323,7 +323,7 @@ rdf_ttl_parser.ml rdf_ttl_parser.mli: rdf_ttl_parser.mly
 	$(MENHIR) --explain --base rdf_ttl_parser $^
 
 rdf_sparql_parser.ml rdf_sparql_parser.mli: rdf_sparql_parser.mly
-	$(MENHIR) --explain --infer --base rdf_sparql_parser $^  #--trace
+	$(MENHIR) --explain --infer --base rdf_sparql_parser $^  #--strict #--trace
 
 rdf_sparql_test.cmx: rdf_sparql_test.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c -package config-file $<

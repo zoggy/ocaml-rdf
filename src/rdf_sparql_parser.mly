@@ -1203,31 +1203,63 @@ update_action:
 | INSERT DATA q=quad_data { Update_insert_data q }
 | DELETE DATA q=quad_data { Update_delete_data q }
 | DELETE WHERE q=quad_pattern { Update_delete_where q }
-| withiri=option(with_iri) c=modify_clauses using=list(using_clause)
+| WITH i=iri d=delete_clause ins=option(insert_clause) using=list(using_clause)
   WHERE ggp=group_graph_pattern
    {
-     let (umod_delete, umod_insert) = c in
      let u = {
-      umod_loc = mk_loc $startpos(withiri) $endpos(ggp) ;
-      umod_iri = withiri ;
-      umod_delete ; umod_insert ;
+      umod_loc = mk_loc $startpos($1) $endpos(ggp) ;
+      umod_iri = Some i ;
+      umod_delete = Some d ; umod_insert = ins ;
       umod_using = using ;
       umod_where = ggp ;
      }
      in
-     Update_modify u }
+     Update_modify u
+   }
+| WITH i=iri ins=insert_clause using=list(using_clause)
+  WHERE ggp=group_graph_pattern
+   {
+     let u = {
+      umod_loc = mk_loc $startpos($1) $endpos(ggp) ;
+      umod_iri = Some i ;
+      umod_delete = None ; umod_insert = Some ins ;
+      umod_using = using ;
+      umod_where = ggp ;
+     }
+     in
+     Update_modify u
+   }
+| d=delete_clause ins=option(insert_clause) using=list(using_clause)
+  WHERE ggp=group_graph_pattern
+   {
+     let u = {
+      umod_loc = mk_loc $startpos(d) $endpos(ggp) ;
+      umod_iri = None ;
+      umod_delete = Some d ; umod_insert = ins ;
+      umod_using = using ;
+      umod_where = ggp ;
+     }
+     in
+     Update_modify u
+   }
+| ins=insert_clause using=list(using_clause)
+  WHERE ggp=group_graph_pattern
+   {
+     let u = {
+      umod_loc = mk_loc $startpos(ins) $endpos(ggp) ;
+      umod_iri = None ;
+      umod_delete = None ; umod_insert = Some ins ;
+      umod_using = using ;
+      umod_where = ggp ;
+     }
+     in
+     Update_modify u
+   }
+
 | LOAD | CLEAR | DROP | ADD | MOVE | COPY | CREATE {
   let e = Failure "Update action not implemented yet" in
   raise (Rdf_sedlex.Parse_error (e, $startpos($1)))
-  };
-
-with_iri:
-| WITH i=iri { i }
-;
-
-modify_clauses:
-| d=delete_clause i=option(insert_clause) { (Some d), i }
-| i=insert_clause { (None, Some i) }
+  }
 ;
 
 delete_clause:

@@ -1,0 +1,8 @@
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+
+<http://example/president25> foaf:givenName "Bill" .
+<http://example/president25> foaf:familyName "McKinley" .
+<http://example/president27> foaf:givenName "Bill" .
+<http://example/president27> foaf:familyName "Taft" .
+<http://example/president42> foaf:givenName "Bill" .
+<http://example/president42> foaf:familyName "Clinton" .
