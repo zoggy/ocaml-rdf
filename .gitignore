@@ -1,6 +1,7 @@
 .chamo*
 src/META
 config.log
+configure.lineno
 config.status
 config_check.log
 autom4te.cache

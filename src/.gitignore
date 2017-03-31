@@ -20,4 +20,5 @@ rdf_sparql_lex.ml
 ppx_rdf
 ppx_rdf.byte
 kw_to_re
-
+*.byte
+*.js
