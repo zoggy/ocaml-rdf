@@ -87,7 +87,9 @@ let var_or_term_apply_sol ~map_blanks g sol bnode_map = function
     | GraphTermNode _ -> assert false
 ;;
 
-let apply_solution_to_graph ~map_blanks apply graph template =
+let apply_solution_to_graph
+  ?(on_exc=fun e -> dbg ~level: 2 (fun _ -> Printexc.to_string e))
+  ~map_blanks apply graph template =
   let triples =
     List.fold_left
       Rdf_sparql_algebra.translate_triples_same_subject_path [] template
@@ -127,7 +129,7 @@ let apply_solution_to_graph ~map_blanks apply graph template =
       ((sub, pred, obj) :: triples, bnode_map)
     with
       e ->
-        dbg ~level: 2 (fun _ -> Printexc.to_string e);
+        on_exc e ;
         (triples, bnode_map)
   in
   let f sol =
@@ -144,8 +146,8 @@ let apply_solution_to_graph ~map_blanks apply graph template =
   f
 ;;
 
-let add_solution_to_graph =
-  apply_solution_to_graph ~map_blanks: true
+let add_solution_to_graph ?on_exc =
+  apply_solution_to_graph ?on_exc ~map_blanks: true
     (fun g (sub,pred,obj) -> g.add_triple ~sub ~pred ~obj)
 
 let del_solution_from_graph =
@@ -163,7 +165,7 @@ let on_quad_data f g ?(mu=Rdf_sparql_ms.mu_0) qd =
   | Some template -> f g template mu
 
 let insert_data ~graph qd =
-  on_quad_data add_solution_to_graph graph qd;
+  on_quad_data (add_solution_to_graph ~on_exc:raise) graph qd;
   true
 
 let delete_data ~graph qd =
