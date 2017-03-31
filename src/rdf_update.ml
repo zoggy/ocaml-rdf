@@ -46,41 +46,129 @@ let get_bnode g bm id =
       let bm = Bm.add id id2 bm in
       (id2, bm)
 
-let term_of_graph_term g mu bm = function
-  GraphTermIri (Iri { iri_iri = i }) -> (Rdf_term.Iri i, bm)
-| GraphTermIri _ -> assert false
-| GraphTermLit lit
-| GraphTermNumeric lit
-| GraphTermBoolean lit -> (Rdf_term.Literal lit.rdf_lit, bm)
-| GraphTermBlank { bnode_label = None } -> assert false
-| GraphTermBlank { bnode_label = Some id } ->
-    begin
-      let (id, bm) = get_bnode g bm id in
-      (Rdf_term.blank_ id, bm)
-    end
-| GraphTermNil -> (Rdf_term.Iri Rdf_rdf.nil, bm)
-| GraphTermNode t -> (t, bm)
+let var_or_term_apply_sol ~map_blanks g sol bnode_map = function
+  Rdf_sparql_types.Var v ->
+    (
+     try
+       let node = Rdf_sparql_ms.mu_find_var v sol in
+       match node with
+         Rdf_term.Blank_ label ->
+           if map_blanks then
+             begin
+               let label = Rdf_term.string_of_blank_id label in
+               let (label, bnode_map) = get_bnode g bnode_map label in
+               (Rdf_term.blank_ label, bnode_map)
+             end
+           else
+             (node, bnode_map)
+       | Rdf_term.Blank -> assert false
+       | node -> (node, bnode_map)
+     with Not_found ->
+       failwith ("Unbound variable "^v.var_name)
+    )
+| Rdf_sparql_types.GraphTerm t ->
+    match t with
+    | GraphTermIri (PrefixedName _) -> assert false
+    | GraphTermIri (Iriref _) -> assert false
+    | GraphTermIri (Iri i) -> (Rdf_term.Iri (i.iri_iri), bnode_map)
+    | GraphTermLit lit
+    | GraphTermNumeric lit
+    | GraphTermBoolean lit -> (Rdf_term.Literal lit.rdf_lit, bnode_map)
+    | GraphTermBlank { bnode_label = None }
+    | GraphTermNil ->
+       let label = g.new_blank_id () in
+       (Rdf_term.blank_ label, bnode_map)
+    | GraphTermBlank { bnode_label = Some label } ->
+        if map_blanks then
+          let (label, bnode_map) = get_bnode g bnode_map label in
+          (Rdf_term.blank_ label, bnode_map)
+        else
+          (Rdf_term.blank label, bnode_map)
+    | GraphTermNode _ -> assert false
+;;
 
-let term_of_vt g mu bm = function
-  Var v -> (mu_find_var v mu, bm)
-| GraphTerm gt -> term_of_graph_term g m bm
+let apply_solution_to_graph ~map_blanks apply graph template =
+  let triples =
+    List.fold_left
+      Rdf_sparql_algebra.translate_triples_same_subject_path [] template
+  in
+  dbg ~level: 2
+    (fun () -> "construct "^(string_of_int (List.length triples))^" triple(s) per solution");
+  let build_triple sol (triples, bnode_map) (sub, path, obj) =
+    try
+      let pred =
+        match path with
+          Rdf_sparql_algebra.Var v -> Rdf_sparql_types.Var v
+        | Rdf_sparql_algebra.Iri iri ->
+            Rdf_sparql_types.GraphTerm
+              (Rdf_sparql_types.GraphTermIri (Rdf_sparql_types.Iri iri))
+        | _ -> failwith "Invalid predicate spec in template"
+      in
+      let (sub, bnode_map) =
+        let (node, bnode_map) = 
+          var_or_term_apply_sol ~map_blanks graph sol bnode_map sub
+        in
+        match node with
+          Rdf_term.Literal _ -> failwith "Invalid subject (literal)"
+        | _ -> (node, bnode_map)
+      in
+      let (pred, bnode_map) =
+        let (node, bnode_map) = 
+          var_or_term_apply_sol ~map_blanks graph sol bnode_map pred
+        in
+        match node with
+        | Rdf_term.Iri iri -> (iri, bnode_map)
+        | Rdf_term.Literal _ -> failwith "Invalid predicate (literal)"
+        | Rdf_term.Blank | Rdf_term.Blank_ _ -> failwith "Invalid predicate (blank)"
+      in
+      let (obj, bnode_map) =
+        var_or_term_apply_sol ~map_blanks graph sol bnode_map obj
+      in
+      ((sub, pred, obj) :: triples, bnode_map)
+    with
+      e ->
+        dbg ~level: 2 (fun _ -> Printexc.to_string e);
+        (triples, bnode_map)
+  in
+  let f sol =
+    (*Rdf_sparql_ms.SMap.iter
+      (fun name term -> print_string (name^"->"^(Rdf_term.string_of_node term)^" ; "))
+      sol.Rdf_sparql_ms.mu_bindings;
+    print_newline();
+    *)
+    let (triples,_) =
+      List.fold_left (build_triple sol) ([], Bm.empty) triples
+    in
+    List.iter (apply graph) triples
+  in
+  f
+;;
 
-let insert_triples_same_subject env g = function
-  TriplesVar (vt,propol_l) ->
-    insert
-let insert_triples_template g mu bm l =
-  List.iter (insert_triples_same_subject env g) l
+let add_solution_to_graph =
+  apply_solution_to_graph ~map_blanks: true
+    (fun g (sub,pred,obj) -> g.add_triple ~sub ~pred ~obj)
 
-let insert_quad_data g ?mu qd =
-  let bm = Bm.empty in
+let del_solution_from_graph =
+  apply_solution_to_graph ~map_blanks: false
+    (fun g (sub,pred,obj) -> g.rem_triple ~sub ~pred ~obj)
+
+let on_quad_data f g ?(mu=Rdf_sparql_ms.mu_0) qd =
   (match qd.quads_list with
-    _::_ -> dbg ~level:1
+   | _::_ -> dbg ~level:1
        (fun () -> "Insertion of GRAPH ... { triples } not implemented yet")
+   | [] -> ()
   );
-  insert_triples g mu bm qd.quads_triples
+  match qd.quads_triples with
+    None -> ()
+  | Some template -> f g template mu
 
+let insert_data ~graph qd = 
+  on_quad_data add_solution_to_graph graph qd;
+  true
 
-let insert_data ~graph qd = false
-let delete_data ~graph qd = false
+let delete_data ~graph qd =
+  on_quad_data del_solution_from_graph graph qd;
+  true
+
 let delete_where ~graph qd = false
 let modify ~graph qd = false
