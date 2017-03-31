@@ -29,8 +29,8 @@ open Rdf_graph;;
 open Rdf_sparql_ms;;
 
 let dbg = Rdf_misc.create_log_fun
-  ~prefix: "Rdf_sparql_update"
-    "RDF_SPARQL_UPDATE_DEBUG_LEVEL"
+  ~prefix: "Rdf_update"
+    "RDF_UPDATE_DEBUG_LEVEL"
 ;;
 
 module Bm = Rdf_graph.Bid_map
@@ -105,7 +105,7 @@ let apply_solution_to_graph ~map_blanks apply graph template =
         | _ -> failwith "Invalid predicate spec in template"
       in
       let (sub, bnode_map) =
-        let (node, bnode_map) = 
+        let (node, bnode_map) =
           var_or_term_apply_sol ~map_blanks graph sol bnode_map sub
         in
         match node with
@@ -113,7 +113,7 @@ let apply_solution_to_graph ~map_blanks apply graph template =
         | _ -> (node, bnode_map)
       in
       let (pred, bnode_map) =
-        let (node, bnode_map) = 
+        let (node, bnode_map) =
           var_or_term_apply_sol ~map_blanks graph sol bnode_map pred
         in
         match node with
@@ -162,7 +162,7 @@ let on_quad_data f g ?(mu=Rdf_sparql_ms.mu_0) qd =
     None -> ()
   | Some template -> f g template mu
 
-let insert_data ~graph qd = 
+let insert_data ~graph qd =
   on_quad_data add_solution_to_graph graph qd;
   true
 
