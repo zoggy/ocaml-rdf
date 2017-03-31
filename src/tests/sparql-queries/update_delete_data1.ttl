@@ -1,0 +1,6 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ns: <http://example.org/ns#> .
+
+<http://example/book2> ns:price 42 .
+<http://example/book2> dc:title "David Copperfield" .
+<http://example/book2> dc:creator "Edmund Wells" .
