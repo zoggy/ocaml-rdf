@@ -28,13 +28,26 @@ open Rdf_sparql_test;;
 
 let run_test spec =
   try
-    let dataset = mk_dataset spec in
     let query = Rdf_sparql.query_from_file spec.query in
     let base = match spec.base with
       None -> Iri.of_string "http://foo.bar"
     | Some iri -> iri
     in
-    let res = Rdf_sparql.execute base dataset query in
+    let open Rdf_sparql_types in
+    let res =
+      match query.q_kind with
+        Update _ ->
+          let graph = mk_graph spec in
+          begin
+            match Rdf_sparql.execute_update ~graph query with
+              Rdf_sparql.Bool true -> Rdf_sparql.Graph graph
+            | Rdf_sparql.Bool false -> raise (Failure "update failed")
+            | _ -> assert false
+          end
+      | _ ->
+          let dataset = mk_dataset spec in
+          Rdf_sparql.execute base dataset query
+    in
     { spec ; result = Ok res }
   with
     e ->
@@ -58,9 +71,15 @@ let main () =
     [] -> prerr_endline (Arg.usage_string options usage_string); exit 1
   | files ->
     let specs = List.map load_file files in
-    let tests = List.map run_test specs in
-    List.iter (fun t -> print_result t.result) tests ;
-    ()
+      let tests = List.map run_test specs in
+      List.iter (fun t -> print_result t.result) tests ;
+      if List.exists
+        (fun t -> match t.result with Error _ -> true | _ -> false)
+          tests
+      then
+        exit 1
+      else
+        exit 0
 ;;
 
 (*c==v=[Misc.safe_main]=1.0====*)

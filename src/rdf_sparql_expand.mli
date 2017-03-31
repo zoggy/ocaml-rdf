@@ -179,3 +179,5 @@ val expand_query_kind :
 val build_dataset : env -> Rdf_sparql_types.query_kind -> dataset
 val expand_query :
   Iri.t -> Rdf_sparql_types.query -> Iri.t * dataset * Rdf_sparql_types.query
+val expand_update_query :
+  Iri.t -> Rdf_sparql_types.query -> Iri.t * Rdf_sparql_types.query

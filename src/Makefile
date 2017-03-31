@@ -113,8 +113,8 @@ LIB_NAT_CMOFILES= \
 	rdf_cryptokit.cmo \
 	rdf_pcre.cmo
 
-LIB_NATIVE_CMIFILES= $(LIB_NATIVE_CMOFILES:.cmo=.cmi)
-LIB_NATIVE_CMXFILES= $(LIB_NATIVE_CMOFILES:.cmo=.cmx)
+LIB_NAT_CMIFILES= $(LIB_NAT_CMOFILES:.cmo=.cmi)
+LIB_NAT_CMXFILES= $(LIB_NAT_CMOFILES:.cmo=.cmx)
 
 LIB_MYSQL_CMOFILES=rdf_my.cmo rdf_my1.cmo rdf_my2.cmo
 LIB_MYSQL_CMIFILES=$(LIB_MYSQL_CMOFILES:.cmo=.cmi)

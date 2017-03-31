@@ -99,6 +99,24 @@ let load_ttl g base file =
       exit 1
 ;;
 
+let mk_graph spec =
+  let base =
+    match spec.base with
+      None -> Iri.of_string "http://localhost/"
+    | Some iri -> iri
+  in
+  let default =
+    let g = Rdf_graph.open_graph ~options: spec.options base in
+    match spec.default_graph with
+       None -> g
+     | Some file ->
+        let size = g.Rdf_graph.size () in
+        if size <= 0 then
+          ignore(load_ttl g base file);
+        g
+  in
+  default
+
 let mk_dataset spec =
   let base =
     match spec.base with

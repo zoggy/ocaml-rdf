@@ -1243,8 +1243,8 @@ using_clause:
 | USING NAMED i=iri { (true, i, mk_loc $startpos($1) $endpos(i)) }
 ;
 
-quad_pattern: quads { $1 };
-quad_data: quads { $1 };
+quad_pattern: LBRACE quads RBRACE { $2 } ;
+quad_data: LBRACE quads RBRACE { $2 } ;
 
 quads:
 | t=option(triples_template) l=list(quads1)

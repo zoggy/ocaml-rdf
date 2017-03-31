@@ -130,6 +130,8 @@ type query_result =
 val execute : ?graph: Rdf_graph.graph ->
   base:Iri.t -> Rdf_ds.dataset -> query -> query_result
 
+val execute_update : graph: Rdf_graph.graph -> query -> query_result
+
 (** {3 Convenient functions for querying} *)
 
 (** Execute the given SELECT query.

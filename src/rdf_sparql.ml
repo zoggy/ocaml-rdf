@@ -311,27 +311,35 @@ let execute_update ~graph = function
 
 let execute_update ~graph q =
   match q.q_kind with
-    Update actions ->
+    Update _ ->
+      let (_base, q) = Rdf_sparql_expand.expand_update_query
+         (graph.Rdf_graph.name ())
+         q
+      in
       begin
-       try Bool (List.for_all (execute_update ~graph) actions)
-       with
-          Rdf_dt.Error e -> error (Value_error e)
-        | Rdf_sparql_eval.Error e -> error (Eval_error e)
-        | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+        match q.q_kind with
+          Update actions ->
+            (
+             try
+               Bool (List.for_all (execute_update ~graph) actions)
+             with
+               Rdf_dt.Error e -> error (Value_error e)
+             | Rdf_sparql_eval.Error e -> error (Eval_error e)
+             | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+            )
+        | _ -> assert false
       end
   | _ -> error Not_update
 
 let execute ?graph ~base dataset query =
   match query.q_kind with
     Update _ -> error Not_get
-  | _ -> execute_get ?graph ~base dataset query
-
-let execute ?graph ~base dataset query =
-  try execute ?graph ~base dataset query
-  with
-    Rdf_dt.Error e -> error (Value_error e)
-  | Rdf_sparql_eval.Error e -> error (Eval_error e)
-  | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
+  | _ ->
+      try execute_get ?graph ~base dataset query
+      with
+        Rdf_dt.Error e -> error (Value_error e)
+      | Rdf_sparql_eval.Error e -> error (Eval_error e)
+      | Rdf_sparql_algebra.Error e -> error (Algebra_error e)
 ;;
 
 let select ~base dataset query =
