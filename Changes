@@ -1,4 +1,7 @@
 Next release:
+- begin support for Sparql-update (DELETE DATA, INSERT DATA,
+  DELETE WHERE, DELETE/INSERT but without USING and GRAPH support
+  by now)
 - handle various integer datatypes in sparql
 - add Rdf_rdf.integer_datatypes (set of integer datatype IRIs)
 - add Rdf_rdf.xsd_[..] for additional integer datatypes
