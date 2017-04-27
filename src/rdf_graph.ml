@@ -340,3 +340,26 @@ let iri_subjects_of g ~pred ~obj =
 
 let literal_objects_of g ~sub ~pred =
   only_literals (g.objects_of ~sub ~pred)
+
+let subgraph_from ?options g root =
+  let root_iri =
+    match root with
+      Rdf_term.Iri iri -> iri
+    | Rdf_term.Blank | Rdf_term.Blank_ _
+    | Rdf_term.Literal _ -> Iri.of_string ""
+  in
+  let g2 = open_graph ?options root_iri in
+  let module S = Rdf_term.TSet in
+  let rec iter seen sub =
+    if S.mem sub seen then
+      seen
+    else
+      let seen = S.add sub seen in
+      let triples = g.find ~sub () in
+      List.fold_left iter_triple seen triples
+  and iter_triple seen ((sub,pred,obj) as t) =
+    g2.add_triple_t t;
+    iter seen obj
+  in
+  iter S.empty root ;
+  g2

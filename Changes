@@ -1,4 +1,5 @@
 Next release:
+- add Rdf_graph.subgraph_from
 - add _opt methods to "from" class in Rdf_* vocab modules
 - begin support for Sparql-update (DELETE DATA, INSERT DATA,
   DELETE WHERE, DELETE/INSERT but without USING and GRAPH support

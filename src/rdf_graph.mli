@@ -344,3 +344,4 @@ val iri_subjects_of : graph -> pred: Iri.t -> obj:Rdf_term.term -> Iri.t list
 val iri_objects_of : graph -> sub:Rdf_term.term -> pred: Iri.t -> Iri.t list
 val literal_objects_of : graph -> sub:Rdf_term.term -> pred: Iri.t -> Rdf_term.literal list
 
+val subgraph_from : ?options:(string * string) list -> graph -> Rdf_term.term -> graph
