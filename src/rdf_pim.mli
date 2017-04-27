@@ -130,14 +130,24 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method masterWorkspace : Iri.t list
-    method masterWorkspace_opt : Iri.t option
-    method preferencesFile : Iri.t list
-    method preferencesFile_opt : Iri.t option
-    method storage : Iri.t list
-    method storage_opt : Iri.t option
-    method uriPrefix : Iri.t list
-    method uriPrefix_opt : Iri.t option
-    method workspace : Iri.t list
-    method workspace_opt : Iri.t option
+    method masterWorkspace : Rdf_term.term list
+    method masterWorkspace_opt : Rdf_term.term option
+    method masterWorkspace_iris : Iri.t list
+    method masterWorkspace_opt_iri : Iri.t option
+    method preferencesFile : Rdf_term.term list
+    method preferencesFile_opt : Rdf_term.term option
+    method preferencesFile_iris : Iri.t list
+    method preferencesFile_opt_iri : Iri.t option
+    method storage : Rdf_term.term list
+    method storage_opt : Rdf_term.term option
+    method storage_iris : Iri.t list
+    method storage_opt_iri : Iri.t option
+    method uriPrefix : Rdf_term.term list
+    method uriPrefix_opt : Rdf_term.term option
+    method uriPrefix_iris : Iri.t list
+    method uriPrefix_opt_iri : Iri.t option
+    method workspace : Rdf_term.term list
+    method workspace_opt : Rdf_term.term option
+    method workspace_iris : Iri.t list
+    method workspace_opt_iri : Iri.t option
   end

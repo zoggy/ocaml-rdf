@@ -460,26 +460,38 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method account : Iri.t list
-    method account_opt : Iri.t option
+    method account : Rdf_term.term list
+    method account_opt : Rdf_term.term option
+    method account_iris : Iri.t list
+    method account_opt_iri : Iri.t option
     method accountName : Rdf_term.literal list
     method accountName_opt : Rdf_term.literal option
-    method accountServiceHomepage : Iri.t list
-    method accountServiceHomepage_opt : Iri.t option
+    method accountServiceHomepage : Rdf_term.term list
+    method accountServiceHomepage_opt : Rdf_term.term option
+    method accountServiceHomepage_iris : Iri.t list
+    method accountServiceHomepage_opt_iri : Iri.t option
     method age : Rdf_term.literal list
     method age_opt : Rdf_term.literal option
     method aimChatID : Rdf_term.literal list
     method aimChatID_opt : Rdf_term.literal option
-    method based_near : Iri.t list
-    method based_near_opt : Iri.t option
+    method based_near : Rdf_term.term list
+    method based_near_opt : Rdf_term.term option
+    method based_near_iris : Iri.t list
+    method based_near_opt_iri : Iri.t option
     method birthday : Rdf_term.literal list
     method birthday_opt : Rdf_term.literal option
-    method currentProject : Iri.t list
-    method currentProject_opt : Iri.t option
-    method depiction : Iri.t list
-    method depiction_opt : Iri.t option
-    method depicts : Iri.t list
-    method depicts_opt : Iri.t option
+    method currentProject : Rdf_term.term list
+    method currentProject_opt : Rdf_term.term option
+    method currentProject_iris : Iri.t list
+    method currentProject_opt_iri : Iri.t option
+    method depiction : Rdf_term.term list
+    method depiction_opt : Rdf_term.term option
+    method depiction_iris : Iri.t list
+    method depiction_opt_iri : Iri.t option
+    method depicts : Rdf_term.term list
+    method depicts_opt : Rdf_term.term option
+    method depicts_iris : Iri.t list
+    method depicts_opt_iri : Iri.t option
     method dnaChecksum : Rdf_term.literal list
     method dnaChecksum_opt : Rdf_term.literal option
     method familyName : Rdf_term.literal list
@@ -488,100 +500,168 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method family_name_opt : Rdf_term.literal option
     method firstName : Rdf_term.literal list
     method firstName_opt : Rdf_term.literal option
-    method focus : Iri.t list
-    method focus_opt : Iri.t option
-    method fundedBy : Iri.t list
-    method fundedBy_opt : Iri.t option
+    method focus : Rdf_term.term list
+    method focus_opt : Rdf_term.term option
+    method focus_iris : Iri.t list
+    method focus_opt_iri : Iri.t option
+    method fundedBy : Rdf_term.term list
+    method fundedBy_opt : Rdf_term.term option
+    method fundedBy_iris : Iri.t list
+    method fundedBy_opt_iri : Iri.t option
     method geekcode : Rdf_term.literal list
     method geekcode_opt : Rdf_term.literal option
     method gender : Rdf_term.literal list
     method gender_opt : Rdf_term.literal option
-    method givenName : Iri.t list
-    method givenName_opt : Iri.t option
-    method givenname : Iri.t list
-    method givenname_opt : Iri.t option
-    method holdsAccount : Iri.t list
-    method holdsAccount_opt : Iri.t option
-    method homepage : Iri.t list
-    method homepage_opt : Iri.t option
+    method givenName : Rdf_term.term list
+    method givenName_opt : Rdf_term.term option
+    method givenName_iris : Iri.t list
+    method givenName_opt_iri : Iri.t option
+    method givenname : Rdf_term.term list
+    method givenname_opt : Rdf_term.term option
+    method givenname_iris : Iri.t list
+    method givenname_opt_iri : Iri.t option
+    method holdsAccount : Rdf_term.term list
+    method holdsAccount_opt : Rdf_term.term option
+    method holdsAccount_iris : Iri.t list
+    method holdsAccount_opt_iri : Iri.t option
+    method homepage : Rdf_term.term list
+    method homepage_opt : Rdf_term.term option
+    method homepage_iris : Iri.t list
+    method homepage_opt_iri : Iri.t option
     method icqChatID : Rdf_term.literal list
     method icqChatID_opt : Rdf_term.literal option
-    method img : Iri.t list
-    method img_opt : Iri.t option
-    method interest : Iri.t list
-    method interest_opt : Iri.t option
-    method isPrimaryTopicOf : Iri.t list
-    method isPrimaryTopicOf_opt : Iri.t option
+    method img : Rdf_term.term list
+    method img_opt : Rdf_term.term option
+    method img_iris : Iri.t list
+    method img_opt_iri : Iri.t option
+    method interest : Rdf_term.term list
+    method interest_opt : Rdf_term.term option
+    method interest_iris : Iri.t list
+    method interest_opt_iri : Iri.t option
+    method isPrimaryTopicOf : Rdf_term.term list
+    method isPrimaryTopicOf_opt : Rdf_term.term option
+    method isPrimaryTopicOf_iris : Iri.t list
+    method isPrimaryTopicOf_opt_iri : Iri.t option
     method jabberID : Rdf_term.literal list
     method jabberID_opt : Rdf_term.literal option
-    method knows : Iri.t list
-    method knows_opt : Iri.t option
+    method knows : Rdf_term.term list
+    method knows_opt : Rdf_term.term option
+    method knows_iris : Iri.t list
+    method knows_opt_iri : Iri.t option
     method lastName : Rdf_term.literal list
     method lastName_opt : Rdf_term.literal option
-    method logo : Iri.t list
-    method logo_opt : Iri.t option
-    method made : Iri.t list
-    method made_opt : Iri.t option
-    method maker : Iri.t list
-    method maker_opt : Iri.t option
-    method mbox : Iri.t list
-    method mbox_opt : Iri.t option
+    method logo : Rdf_term.term list
+    method logo_opt : Rdf_term.term option
+    method logo_iris : Iri.t list
+    method logo_opt_iri : Iri.t option
+    method made : Rdf_term.term list
+    method made_opt : Rdf_term.term option
+    method made_iris : Iri.t list
+    method made_opt_iri : Iri.t option
+    method maker : Rdf_term.term list
+    method maker_opt : Rdf_term.term option
+    method maker_iris : Iri.t list
+    method maker_opt_iri : Iri.t option
+    method mbox : Rdf_term.term list
+    method mbox_opt : Rdf_term.term option
+    method mbox_iris : Iri.t list
+    method mbox_opt_iri : Iri.t option
     method mbox_sha1sum : Rdf_term.literal list
     method mbox_sha1sum_opt : Rdf_term.literal option
-    method member : Iri.t list
-    method member_opt : Iri.t option
-    method membershipClass : Iri.t list
-    method membershipClass_opt : Iri.t option
+    method member : Rdf_term.term list
+    method member_opt : Rdf_term.term option
+    method member_iris : Iri.t list
+    method member_opt_iri : Iri.t option
+    method membershipClass : Rdf_term.term list
+    method membershipClass_opt : Rdf_term.term option
+    method membershipClass_iris : Iri.t list
+    method membershipClass_opt_iri : Iri.t option
     method msnChatID : Rdf_term.literal list
     method msnChatID_opt : Rdf_term.literal option
     method myersBriggs : Rdf_term.literal list
     method myersBriggs_opt : Rdf_term.literal option
     method name : Rdf_term.literal list
     method name_opt : Rdf_term.literal option
-    method nick : Iri.t list
-    method nick_opt : Iri.t option
-    method openid : Iri.t list
-    method openid_opt : Iri.t option
-    method page : Iri.t list
-    method page_opt : Iri.t option
-    method pastProject : Iri.t list
-    method pastProject_opt : Iri.t option
-    method phone : Iri.t list
-    method phone_opt : Iri.t option
+    method nick : Rdf_term.term list
+    method nick_opt : Rdf_term.term option
+    method nick_iris : Iri.t list
+    method nick_opt_iri : Iri.t option
+    method openid : Rdf_term.term list
+    method openid_opt : Rdf_term.term option
+    method openid_iris : Iri.t list
+    method openid_opt_iri : Iri.t option
+    method page : Rdf_term.term list
+    method page_opt : Rdf_term.term option
+    method page_iris : Iri.t list
+    method page_opt_iri : Iri.t option
+    method pastProject : Rdf_term.term list
+    method pastProject_opt : Rdf_term.term option
+    method pastProject_iris : Iri.t list
+    method pastProject_opt_iri : Iri.t option
+    method phone : Rdf_term.term list
+    method phone_opt : Rdf_term.term option
+    method phone_iris : Iri.t list
+    method phone_opt_iri : Iri.t option
     method plan : Rdf_term.literal list
     method plan_opt : Rdf_term.literal option
-    method primaryTopic : Iri.t list
-    method primaryTopic_opt : Iri.t option
-    method publications : Iri.t list
-    method publications_opt : Iri.t option
-    method schoolHomepage : Iri.t list
-    method schoolHomepage_opt : Iri.t option
-    method sha1 : Iri.t list
-    method sha1_opt : Iri.t option
+    method primaryTopic : Rdf_term.term list
+    method primaryTopic_opt : Rdf_term.term option
+    method primaryTopic_iris : Iri.t list
+    method primaryTopic_opt_iri : Iri.t option
+    method publications : Rdf_term.term list
+    method publications_opt : Rdf_term.term option
+    method publications_iris : Iri.t list
+    method publications_opt_iri : Iri.t option
+    method schoolHomepage : Rdf_term.term list
+    method schoolHomepage_opt : Rdf_term.term option
+    method schoolHomepage_iris : Iri.t list
+    method schoolHomepage_opt_iri : Iri.t option
+    method sha1 : Rdf_term.term list
+    method sha1_opt : Rdf_term.term option
+    method sha1_iris : Iri.t list
+    method sha1_opt_iri : Iri.t option
     method skypeID : Rdf_term.literal list
     method skypeID_opt : Rdf_term.literal option
     method status : Rdf_term.literal list
     method status_opt : Rdf_term.literal option
     method surname : Rdf_term.literal list
     method surname_opt : Rdf_term.literal option
-    method theme : Iri.t list
-    method theme_opt : Iri.t option
-    method thumbnail : Iri.t list
-    method thumbnail_opt : Iri.t option
-    method tipjar : Iri.t list
-    method tipjar_opt : Iri.t option
-    method title : Iri.t list
-    method title_opt : Iri.t option
-    method topic : Iri.t list
-    method topic_opt : Iri.t option
-    method topic_interest : Iri.t list
-    method topic_interest_opt : Iri.t option
-    method weblog : Iri.t list
-    method weblog_opt : Iri.t option
-    method workInfoHomepage : Iri.t list
-    method workInfoHomepage_opt : Iri.t option
-    method workplaceHomepage : Iri.t list
-    method workplaceHomepage_opt : Iri.t option
+    method theme : Rdf_term.term list
+    method theme_opt : Rdf_term.term option
+    method theme_iris : Iri.t list
+    method theme_opt_iri : Iri.t option
+    method thumbnail : Rdf_term.term list
+    method thumbnail_opt : Rdf_term.term option
+    method thumbnail_iris : Iri.t list
+    method thumbnail_opt_iri : Iri.t option
+    method tipjar : Rdf_term.term list
+    method tipjar_opt : Rdf_term.term option
+    method tipjar_iris : Iri.t list
+    method tipjar_opt_iri : Iri.t option
+    method title : Rdf_term.term list
+    method title_opt : Rdf_term.term option
+    method title_iris : Iri.t list
+    method title_opt_iri : Iri.t option
+    method topic : Rdf_term.term list
+    method topic_opt : Rdf_term.term option
+    method topic_iris : Iri.t list
+    method topic_opt_iri : Iri.t option
+    method topic_interest : Rdf_term.term list
+    method topic_interest_opt : Rdf_term.term option
+    method topic_interest_iris : Iri.t list
+    method topic_interest_opt_iri : Iri.t option
+    method weblog : Rdf_term.term list
+    method weblog_opt : Rdf_term.term option
+    method weblog_iris : Iri.t list
+    method weblog_opt_iri : Iri.t option
+    method workInfoHomepage : Rdf_term.term list
+    method workInfoHomepage_opt : Rdf_term.term option
+    method workInfoHomepage_iris : Iri.t list
+    method workInfoHomepage_opt_iri : Iri.t option
+    method workplaceHomepage : Rdf_term.term list
+    method workplaceHomepage_opt : Rdf_term.term option
+    method workplaceHomepage_iris : Iri.t list
+    method workplaceHomepage_opt_iri : Iri.t option
     method yahooChatID : Rdf_term.literal list
     method yahooChatID_opt : Rdf_term.literal option
   end

@@ -183,13 +183,21 @@ let gen_impl ?(comments=true) oc prefix base props =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        let f = if is_literal typ range
-          then  "Rdf_graph.literal_objects_of"
-          else "Rdf_graph.iri_objects_of"
+        let lit = is_literal typ range in
+        let f =
+          if lit
+          then  "Rdf_graph.literal_objects_of g"
+          else "g.Rdf_graph.objects_of"
         in
-        p "  method %s = %s g ~sub ~pred: %s\n" id f id ;
+        p "  method %s = %s ~sub ~pred: %s\n" id f id ;
         p "  method %s_opt = match self#%s with [] -> None | x::_ -> Some x\n"
-            id id;
+          id id;
+        if not lit then
+          (
+           p "  method %s_iris = Rdf_graph.only_iris (self#%s)\n" id id;
+           p "  method %s_opt_iri = match self#%s_iris with [] -> None | x::_ -> Some x\n"
+             id id;
+          )
      | _ -> ()
   in
   List.iter f props ;
@@ -224,9 +232,14 @@ let gen_intf oc prefix base props =
      match typ_prefix typ with
        "" ->
         let id = caml_id ~protect: true prop typ in
-        let t = if is_literal typ range then "Rdf_term.literal" else "Iri.t" in
+        let lit = is_literal typ range in
+        let t = if lit then "Rdf_term.literal" else "Rdf_term.term" in
         p "    method %s : %s list\n" id t;
-        p "    method %s_opt : %s option\n" id t
+        p "    method %s_opt : %s option\n" id t;
+        if not lit then
+          (p "    method %s_iris : Iri.t list\n" id ;
+           p "    method %s_opt_iri : Iri.t option\n" id ;
+          )
      | _ -> ()
   in
   List.iter f props ;

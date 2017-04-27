@@ -428,70 +428,122 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method after : Iri.t list
-    method after_opt : Iri.t option
-    method before : Iri.t list
-    method before_opt : Iri.t option
+    method after : Rdf_term.term list
+    method after_opt : Rdf_term.term option
+    method after_iris : Iri.t list
+    method after_opt_iri : Iri.t option
+    method before : Rdf_term.term list
+    method before_opt : Rdf_term.term option
+    method before_iris : Iri.t list
+    method before_opt_iri : Iri.t option
     method day : Rdf_term.literal list
     method day_opt : Rdf_term.literal option
-    method dayOfWeek : Iri.t list
-    method dayOfWeek_opt : Iri.t option
+    method dayOfWeek : Rdf_term.term list
+    method dayOfWeek_opt : Rdf_term.term option
+    method dayOfWeek_iris : Iri.t list
+    method dayOfWeek_opt_iri : Iri.t option
     method dayOfYear : Rdf_term.literal list
     method dayOfYear_opt : Rdf_term.literal option
     method days : Rdf_term.literal list
     method days_opt : Rdf_term.literal option
-    method hasBeginning : Iri.t list
-    method hasBeginning_opt : Iri.t option
-    method hasDateTimeDescription : Iri.t list
-    method hasDateTimeDescription_opt : Iri.t option
-    method hasDuration : Iri.t list
-    method hasDuration_opt : Iri.t option
-    method hasDurationDescription : Iri.t list
-    method hasDurationDescription_opt : Iri.t option
-    method hasEnd : Iri.t list
-    method hasEnd_opt : Iri.t option
-    method hasMember : Iri.t list
-    method hasMember_opt : Iri.t option
-    method hasTRS : Iri.t list
-    method hasTRS_opt : Iri.t option
+    method hasBeginning : Rdf_term.term list
+    method hasBeginning_opt : Rdf_term.term option
+    method hasBeginning_iris : Iri.t list
+    method hasBeginning_opt_iri : Iri.t option
+    method hasDateTimeDescription : Rdf_term.term list
+    method hasDateTimeDescription_opt : Rdf_term.term option
+    method hasDateTimeDescription_iris : Iri.t list
+    method hasDateTimeDescription_opt_iri : Iri.t option
+    method hasDuration : Rdf_term.term list
+    method hasDuration_opt : Rdf_term.term option
+    method hasDuration_iris : Iri.t list
+    method hasDuration_opt_iri : Iri.t option
+    method hasDurationDescription : Rdf_term.term list
+    method hasDurationDescription_opt : Rdf_term.term option
+    method hasDurationDescription_iris : Iri.t list
+    method hasDurationDescription_opt_iri : Iri.t option
+    method hasEnd : Rdf_term.term list
+    method hasEnd_opt : Rdf_term.term option
+    method hasEnd_iris : Iri.t list
+    method hasEnd_opt_iri : Iri.t option
+    method hasMember : Rdf_term.term list
+    method hasMember_opt : Rdf_term.term option
+    method hasMember_iris : Iri.t list
+    method hasMember_opt_iri : Iri.t option
+    method hasTRS : Rdf_term.term list
+    method hasTRS_opt : Rdf_term.term option
+    method hasTRS_iris : Iri.t list
+    method hasTRS_opt_iri : Iri.t option
     method hour : Rdf_term.literal list
     method hour_opt : Rdf_term.literal option
     method hours : Rdf_term.literal list
     method hours_opt : Rdf_term.literal option
-    method inDateTime : Iri.t list
-    method inDateTime_opt : Iri.t option
-    method inTimePosition : Iri.t list
-    method inTimePosition_opt : Iri.t option
+    method inDateTime : Rdf_term.term list
+    method inDateTime_opt : Rdf_term.term option
+    method inDateTime_iris : Iri.t list
+    method inDateTime_opt_iri : Iri.t option
+    method inTimePosition : Rdf_term.term list
+    method inTimePosition_opt : Rdf_term.term option
+    method inTimePosition_iris : Iri.t list
+    method inTimePosition_opt_iri : Iri.t option
     method inXSDDateTime : Rdf_term.literal list
     method inXSDDateTime_opt : Rdf_term.literal option
-    method inside : Iri.t list
-    method inside_opt : Iri.t option
-    method intervalAfter : Iri.t list
-    method intervalAfter_opt : Iri.t option
-    method intervalBefore : Iri.t list
-    method intervalBefore_opt : Iri.t option
-    method intervalContains : Iri.t list
-    method intervalContains_opt : Iri.t option
-    method intervalDuring : Iri.t list
-    method intervalDuring_opt : Iri.t option
-    method intervalEquals : Iri.t list
-    method intervalEquals_opt : Iri.t option
-    method intervalFinishedBy : Iri.t list
-    method intervalFinishedBy_opt : Iri.t option
-    method intervalFinishes : Iri.t list
-    method intervalFinishes_opt : Iri.t option
-    method intervalMeets : Iri.t list
-    method intervalMeets_opt : Iri.t option
-    method intervalMetBy : Iri.t list
-    method intervalMetBy_opt : Iri.t option
-    method intervalOverlappedBy : Iri.t list
-    method intervalOverlappedBy_opt : Iri.t option
-    method intervalOverlaps : Iri.t list
-    method intervalOverlaps_opt : Iri.t option
-    method intervalStartedBy : Iri.t list
-    method intervalStartedBy_opt : Iri.t option
-    method intervalStarts : Iri.t list
-    method intervalStarts_opt : Iri.t option
+    method inside : Rdf_term.term list
+    method inside_opt : Rdf_term.term option
+    method inside_iris : Iri.t list
+    method inside_opt_iri : Iri.t option
+    method intervalAfter : Rdf_term.term list
+    method intervalAfter_opt : Rdf_term.term option
+    method intervalAfter_iris : Iri.t list
+    method intervalAfter_opt_iri : Iri.t option
+    method intervalBefore : Rdf_term.term list
+    method intervalBefore_opt : Rdf_term.term option
+    method intervalBefore_iris : Iri.t list
+    method intervalBefore_opt_iri : Iri.t option
+    method intervalContains : Rdf_term.term list
+    method intervalContains_opt : Rdf_term.term option
+    method intervalContains_iris : Iri.t list
+    method intervalContains_opt_iri : Iri.t option
+    method intervalDuring : Rdf_term.term list
+    method intervalDuring_opt : Rdf_term.term option
+    method intervalDuring_iris : Iri.t list
+    method intervalDuring_opt_iri : Iri.t option
+    method intervalEquals : Rdf_term.term list
+    method intervalEquals_opt : Rdf_term.term option
+    method intervalEquals_iris : Iri.t list
+    method intervalEquals_opt_iri : Iri.t option
+    method intervalFinishedBy : Rdf_term.term list
+    method intervalFinishedBy_opt : Rdf_term.term option
+    method intervalFinishedBy_iris : Iri.t list
+    method intervalFinishedBy_opt_iri : Iri.t option
+    method intervalFinishes : Rdf_term.term list
+    method intervalFinishes_opt : Rdf_term.term option
+    method intervalFinishes_iris : Iri.t list
+    method intervalFinishes_opt_iri : Iri.t option
+    method intervalMeets : Rdf_term.term list
+    method intervalMeets_opt : Rdf_term.term option
+    method intervalMeets_iris : Iri.t list
+    method intervalMeets_opt_iri : Iri.t option
+    method intervalMetBy : Rdf_term.term list
+    method intervalMetBy_opt : Rdf_term.term option
+    method intervalMetBy_iris : Iri.t list
+    method intervalMetBy_opt_iri : Iri.t option
+    method intervalOverlappedBy : Rdf_term.term list
+    method intervalOverlappedBy_opt : Rdf_term.term option
+    method intervalOverlappedBy_iris : Iri.t list
+    method intervalOverlappedBy_opt_iri : Iri.t option
+    method intervalOverlaps : Rdf_term.term list
+    method intervalOverlaps_opt : Rdf_term.term option
+    method intervalOverlaps_iris : Iri.t list
+    method intervalOverlaps_opt_iri : Iri.t option
+    method intervalStartedBy : Rdf_term.term list
+    method intervalStartedBy_opt : Rdf_term.term option
+    method intervalStartedBy_iris : Iri.t list
+    method intervalStartedBy_opt_iri : Iri.t option
+    method intervalStarts : Rdf_term.term list
+    method intervalStarts_opt : Rdf_term.term option
+    method intervalStarts_iris : Iri.t list
+    method intervalStarts_opt_iri : Iri.t option
     method minute : Rdf_term.literal list
     method minute_opt : Rdf_term.literal option
     method minutes : Rdf_term.literal list
@@ -510,10 +562,14 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method second_opt : Rdf_term.literal option
     method seconds : Rdf_term.literal list
     method seconds_opt : Rdf_term.literal option
-    method timeZone : Iri.t list
-    method timeZone_opt : Iri.t option
-    method unitType : Iri.t list
-    method unitType_opt : Iri.t option
+    method timeZone : Rdf_term.term list
+    method timeZone_opt : Rdf_term.term option
+    method timeZone_iris : Iri.t list
+    method timeZone_opt_iri : Iri.t option
+    method unitType : Rdf_term.term list
+    method unitType_opt : Rdf_term.term option
+    method unitType_iris : Iri.t list
+    method unitType_opt_iri : Iri.t option
     method week : Rdf_term.literal list
     method week_opt : Rdf_term.literal option
     method weeks : Rdf_term.literal list

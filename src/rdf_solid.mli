@@ -76,16 +76,28 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method account : Iri.t list
-    method account_opt : Iri.t option
-    method inbox : Iri.t list
-    method inbox_opt : Iri.t option
-    method notification : Iri.t list
-    method notification_opt : Iri.t option
-    method read : Iri.t list
-    method read_opt : Iri.t option
-    method timeline : Iri.t list
-    method timeline_opt : Iri.t option
-    method typeIndex : Iri.t list
-    method typeIndex_opt : Iri.t option
+    method account : Rdf_term.term list
+    method account_opt : Rdf_term.term option
+    method account_iris : Iri.t list
+    method account_opt_iri : Iri.t option
+    method inbox : Rdf_term.term list
+    method inbox_opt : Rdf_term.term option
+    method inbox_iris : Iri.t list
+    method inbox_opt_iri : Iri.t option
+    method notification : Rdf_term.term list
+    method notification_opt : Rdf_term.term option
+    method notification_iris : Iri.t list
+    method notification_opt_iri : Iri.t option
+    method read : Rdf_term.term list
+    method read_opt : Rdf_term.term option
+    method read_iris : Iri.t list
+    method read_opt_iri : Iri.t option
+    method timeline : Rdf_term.term list
+    method timeline_opt : Rdf_term.term option
+    method timeline_iris : Iri.t list
+    method timeline_opt_iri : Iri.t option
+    method typeIndex : Rdf_term.term list
+    method typeIndex_opt : Rdf_term.term option
+    method typeIndex_iris : Iri.t list
+    method typeIndex_opt_iri : Iri.t option
   end

@@ -154,22 +154,38 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method assertedBy : Iri.t list
-    method assertedBy_opt : Iri.t option
+    method assertedBy : Rdf_term.term list
+    method assertedBy_opt : Rdf_term.term option
+    method assertedBy_iris : Iri.t list
+    method assertedBy_opt_iri : Iri.t option
     method info : Rdf_term.literal list
     method info_opt : Rdf_term.literal option
-    method mainAssertor : Iri.t list
-    method mainAssertor_opt : Iri.t option
-    method mode : Iri.t list
-    method mode_opt : Iri.t option
-    method outcome : Iri.t list
-    method outcome_opt : Iri.t option
-    method pointer : Iri.t list
-    method pointer_opt : Iri.t option
-    method result : Iri.t list
-    method result_opt : Iri.t option
-    method subject : Iri.t list
-    method subject_opt : Iri.t option
-    method test : Iri.t list
-    method test_opt : Iri.t option
+    method mainAssertor : Rdf_term.term list
+    method mainAssertor_opt : Rdf_term.term option
+    method mainAssertor_iris : Iri.t list
+    method mainAssertor_opt_iri : Iri.t option
+    method mode : Rdf_term.term list
+    method mode_opt : Rdf_term.term option
+    method mode_iris : Iri.t list
+    method mode_opt_iri : Iri.t option
+    method outcome : Rdf_term.term list
+    method outcome_opt : Rdf_term.term option
+    method outcome_iris : Iri.t list
+    method outcome_opt_iri : Iri.t option
+    method pointer : Rdf_term.term list
+    method pointer_opt : Rdf_term.term option
+    method pointer_iris : Iri.t list
+    method pointer_opt_iri : Iri.t option
+    method result : Rdf_term.term list
+    method result_opt : Rdf_term.term option
+    method result_iris : Iri.t list
+    method result_opt_iri : Iri.t option
+    method subject : Rdf_term.term list
+    method subject_opt : Rdf_term.term option
+    method subject_iris : Iri.t list
+    method subject_opt_iri : Iri.t option
+    method test : Rdf_term.term list
+    method test_opt : Rdf_term.term option
+    method test_iris : Iri.t list
+    method test_opt_iri : Iri.t option
   end

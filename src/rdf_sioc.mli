@@ -534,84 +534,150 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method about : Iri.t list
-    method about_opt : Iri.t option
-    method account_of : Iri.t list
-    method account_of_opt : Iri.t option
-    method addressed_to : Iri.t list
-    method addressed_to_opt : Iri.t option
-    method administrator_of : Iri.t list
-    method administrator_of_opt : Iri.t option
-    method attachment : Iri.t list
-    method attachment_opt : Iri.t option
-    method avatar : Iri.t list
-    method avatar_opt : Iri.t option
-    method container_of : Iri.t list
-    method container_of_opt : Iri.t option
+    method about : Rdf_term.term list
+    method about_opt : Rdf_term.term option
+    method about_iris : Iri.t list
+    method about_opt_iri : Iri.t option
+    method account_of : Rdf_term.term list
+    method account_of_opt : Rdf_term.term option
+    method account_of_iris : Iri.t list
+    method account_of_opt_iri : Iri.t option
+    method addressed_to : Rdf_term.term list
+    method addressed_to_opt : Rdf_term.term option
+    method addressed_to_iris : Iri.t list
+    method addressed_to_opt_iri : Iri.t option
+    method administrator_of : Rdf_term.term list
+    method administrator_of_opt : Rdf_term.term option
+    method administrator_of_iris : Iri.t list
+    method administrator_of_opt_iri : Iri.t option
+    method attachment : Rdf_term.term list
+    method attachment_opt : Rdf_term.term option
+    method attachment_iris : Iri.t list
+    method attachment_opt_iri : Iri.t option
+    method avatar : Rdf_term.term list
+    method avatar_opt : Rdf_term.term option
+    method avatar_iris : Iri.t list
+    method avatar_opt_iri : Iri.t option
+    method container_of : Rdf_term.term list
+    method container_of_opt : Rdf_term.term option
+    method container_of_iris : Iri.t list
+    method container_of_opt_iri : Iri.t option
     method content : Rdf_term.literal list
     method content_opt : Rdf_term.literal option
     method content_encoded : Rdf_term.literal list
     method content_encoded_opt : Rdf_term.literal option
     method created_at : Rdf_term.literal list
     method created_at_opt : Rdf_term.literal option
-    method creator_of : Iri.t list
-    method creator_of_opt : Iri.t option
+    method creator_of : Rdf_term.term list
+    method creator_of_opt : Rdf_term.term option
+    method creator_of_iris : Iri.t list
+    method creator_of_opt_iri : Iri.t option
     method description : Rdf_term.literal list
     method description_opt : Rdf_term.literal option
-    method email : Iri.t list
-    method email_opt : Iri.t option
+    method email : Rdf_term.term list
+    method email_opt : Rdf_term.term option
+    method email_iris : Iri.t list
+    method email_opt_iri : Iri.t option
     method email_sha1 : Rdf_term.literal list
     method email_sha1_opt : Rdf_term.literal option
-    method embeds_knowledge : Iri.t list
-    method embeds_knowledge_opt : Iri.t option
-    method feed : Iri.t list
-    method feed_opt : Iri.t option
+    method embeds_knowledge : Rdf_term.term list
+    method embeds_knowledge_opt : Rdf_term.term option
+    method embeds_knowledge_iris : Iri.t list
+    method embeds_knowledge_opt_iri : Iri.t option
+    method feed : Rdf_term.term list
+    method feed_opt : Rdf_term.term option
+    method feed_iris : Iri.t list
+    method feed_opt_iri : Iri.t option
     method first_name : Rdf_term.literal list
     method first_name_opt : Rdf_term.literal option
-    method follows : Iri.t list
-    method follows_opt : Iri.t option
-    method function_of : Iri.t list
-    method function_of_opt : Iri.t option
-    method group_of : Iri.t list
-    method group_of_opt : Iri.t option
-    method has_administrator : Iri.t list
-    method has_administrator_opt : Iri.t option
-    method has_container : Iri.t list
-    method has_container_opt : Iri.t option
-    method has_creator : Iri.t list
-    method has_creator_opt : Iri.t option
-    method has_discussion : Iri.t list
-    method has_discussion_opt : Iri.t option
-    method has_function : Iri.t list
-    method has_function_opt : Iri.t option
-    method has_group : Iri.t list
-    method has_group_opt : Iri.t option
-    method has_host : Iri.t list
-    method has_host_opt : Iri.t option
-    method has_member : Iri.t list
-    method has_member_opt : Iri.t option
-    method has_moderator : Iri.t list
-    method has_moderator_opt : Iri.t option
-    method has_modifier : Iri.t list
-    method has_modifier_opt : Iri.t option
-    method has_owner : Iri.t list
-    method has_owner_opt : Iri.t option
-    method has_parent : Iri.t list
-    method has_parent_opt : Iri.t option
-    method has_part : Iri.t list
-    method has_part_opt : Iri.t option
-    method has_reply : Iri.t list
-    method has_reply_opt : Iri.t option
-    method has_scope : Iri.t list
-    method has_scope_opt : Iri.t option
-    method has_space : Iri.t list
-    method has_space_opt : Iri.t option
-    method has_subscriber : Iri.t list
-    method has_subscriber_opt : Iri.t option
-    method has_usergroup : Iri.t list
-    method has_usergroup_opt : Iri.t option
-    method host_of : Iri.t list
-    method host_of_opt : Iri.t option
+    method follows : Rdf_term.term list
+    method follows_opt : Rdf_term.term option
+    method follows_iris : Iri.t list
+    method follows_opt_iri : Iri.t option
+    method function_of : Rdf_term.term list
+    method function_of_opt : Rdf_term.term option
+    method function_of_iris : Iri.t list
+    method function_of_opt_iri : Iri.t option
+    method group_of : Rdf_term.term list
+    method group_of_opt : Rdf_term.term option
+    method group_of_iris : Iri.t list
+    method group_of_opt_iri : Iri.t option
+    method has_administrator : Rdf_term.term list
+    method has_administrator_opt : Rdf_term.term option
+    method has_administrator_iris : Iri.t list
+    method has_administrator_opt_iri : Iri.t option
+    method has_container : Rdf_term.term list
+    method has_container_opt : Rdf_term.term option
+    method has_container_iris : Iri.t list
+    method has_container_opt_iri : Iri.t option
+    method has_creator : Rdf_term.term list
+    method has_creator_opt : Rdf_term.term option
+    method has_creator_iris : Iri.t list
+    method has_creator_opt_iri : Iri.t option
+    method has_discussion : Rdf_term.term list
+    method has_discussion_opt : Rdf_term.term option
+    method has_discussion_iris : Iri.t list
+    method has_discussion_opt_iri : Iri.t option
+    method has_function : Rdf_term.term list
+    method has_function_opt : Rdf_term.term option
+    method has_function_iris : Iri.t list
+    method has_function_opt_iri : Iri.t option
+    method has_group : Rdf_term.term list
+    method has_group_opt : Rdf_term.term option
+    method has_group_iris : Iri.t list
+    method has_group_opt_iri : Iri.t option
+    method has_host : Rdf_term.term list
+    method has_host_opt : Rdf_term.term option
+    method has_host_iris : Iri.t list
+    method has_host_opt_iri : Iri.t option
+    method has_member : Rdf_term.term list
+    method has_member_opt : Rdf_term.term option
+    method has_member_iris : Iri.t list
+    method has_member_opt_iri : Iri.t option
+    method has_moderator : Rdf_term.term list
+    method has_moderator_opt : Rdf_term.term option
+    method has_moderator_iris : Iri.t list
+    method has_moderator_opt_iri : Iri.t option
+    method has_modifier : Rdf_term.term list
+    method has_modifier_opt : Rdf_term.term option
+    method has_modifier_iris : Iri.t list
+    method has_modifier_opt_iri : Iri.t option
+    method has_owner : Rdf_term.term list
+    method has_owner_opt : Rdf_term.term option
+    method has_owner_iris : Iri.t list
+    method has_owner_opt_iri : Iri.t option
+    method has_parent : Rdf_term.term list
+    method has_parent_opt : Rdf_term.term option
+    method has_parent_iris : Iri.t list
+    method has_parent_opt_iri : Iri.t option
+    method has_part : Rdf_term.term list
+    method has_part_opt : Rdf_term.term option
+    method has_part_iris : Iri.t list
+    method has_part_opt_iri : Iri.t option
+    method has_reply : Rdf_term.term list
+    method has_reply_opt : Rdf_term.term option
+    method has_reply_iris : Iri.t list
+    method has_reply_opt_iri : Iri.t option
+    method has_scope : Rdf_term.term list
+    method has_scope_opt : Rdf_term.term option
+    method has_scope_iris : Iri.t list
+    method has_scope_opt_iri : Iri.t option
+    method has_space : Rdf_term.term list
+    method has_space_opt : Rdf_term.term option
+    method has_space_iris : Iri.t list
+    method has_space_opt_iri : Iri.t option
+    method has_subscriber : Rdf_term.term list
+    method has_subscriber_opt : Rdf_term.term option
+    method has_subscriber_iris : Iri.t list
+    method has_subscriber_opt_iri : Iri.t option
+    method has_usergroup : Rdf_term.term list
+    method has_usergroup_opt : Rdf_term.term option
+    method has_usergroup_iris : Iri.t list
+    method has_usergroup_opt_iri : Iri.t option
+    method host_of : Rdf_term.term list
+    method host_of_opt : Rdf_term.term option
+    method host_of_iris : Iri.t list
+    method host_of_opt_iri : Iri.t option
     method id : Rdf_term.literal list
     method id_opt : Rdf_term.literal option
     method ip_address : Rdf_term.literal list
@@ -624,26 +690,42 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method last_name_opt : Rdf_term.literal option
     method last_reply_date : Rdf_term.literal list
     method last_reply_date_opt : Rdf_term.literal option
-    method latest_version : Iri.t list
-    method latest_version_opt : Iri.t option
-    method link : Iri.t list
-    method link_opt : Iri.t option
-    method links_to : Iri.t list
-    method links_to_opt : Iri.t option
-    method member_of : Iri.t list
-    method member_of_opt : Iri.t option
-    method moderator_of : Iri.t list
-    method moderator_of_opt : Iri.t option
+    method latest_version : Rdf_term.term list
+    method latest_version_opt : Rdf_term.term option
+    method latest_version_iris : Iri.t list
+    method latest_version_opt_iri : Iri.t option
+    method link : Rdf_term.term list
+    method link_opt : Rdf_term.term option
+    method link_iris : Iri.t list
+    method link_opt_iri : Iri.t option
+    method links_to : Rdf_term.term list
+    method links_to_opt : Rdf_term.term option
+    method links_to_iris : Iri.t list
+    method links_to_opt_iri : Iri.t option
+    method member_of : Rdf_term.term list
+    method member_of_opt : Rdf_term.term option
+    method member_of_iris : Iri.t list
+    method member_of_opt_iri : Iri.t option
+    method moderator_of : Rdf_term.term list
+    method moderator_of_opt : Rdf_term.term option
+    method moderator_of_iris : Iri.t list
+    method moderator_of_opt_iri : Iri.t option
     method modified_at : Rdf_term.literal list
     method modified_at_opt : Rdf_term.literal option
-    method modifier_of : Iri.t list
-    method modifier_of_opt : Iri.t option
+    method modifier_of : Rdf_term.term list
+    method modifier_of_opt : Rdf_term.term option
+    method modifier_of_iris : Iri.t list
+    method modifier_of_opt_iri : Iri.t option
     method name : Rdf_term.literal list
     method name_opt : Rdf_term.literal option
-    method next_by_date : Iri.t list
-    method next_by_date_opt : Iri.t option
-    method next_version : Iri.t list
-    method next_version_opt : Iri.t option
+    method next_by_date : Rdf_term.term list
+    method next_by_date_opt : Rdf_term.term option
+    method next_by_date_iris : Iri.t list
+    method next_by_date_opt_iri : Iri.t option
+    method next_version : Rdf_term.term list
+    method next_version_opt : Rdf_term.term option
+    method next_version_iris : Iri.t list
+    method next_version_opt_iri : Iri.t option
     method note : Rdf_term.literal list
     method note_opt : Rdf_term.literal option
     method num_authors : Rdf_term.literal list
@@ -656,34 +738,60 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method num_threads_opt : Rdf_term.literal option
     method num_views : Rdf_term.literal list
     method num_views_opt : Rdf_term.literal option
-    method owner_of : Iri.t list
-    method owner_of_opt : Iri.t option
-    method parent_of : Iri.t list
-    method parent_of_opt : Iri.t option
-    method part_of : Iri.t list
-    method part_of_opt : Iri.t option
-    method previous_by_date : Iri.t list
-    method previous_by_date_opt : Iri.t option
-    method previous_version : Iri.t list
-    method previous_version_opt : Iri.t option
-    method reference : Iri.t list
-    method reference_opt : Iri.t option
-    method related_to : Iri.t list
-    method related_to_opt : Iri.t option
-    method reply_of : Iri.t list
-    method reply_of_opt : Iri.t option
-    method scope_of : Iri.t list
-    method scope_of_opt : Iri.t option
-    method space_of : Iri.t list
-    method space_of_opt : Iri.t option
+    method owner_of : Rdf_term.term list
+    method owner_of_opt : Rdf_term.term option
+    method owner_of_iris : Iri.t list
+    method owner_of_opt_iri : Iri.t option
+    method parent_of : Rdf_term.term list
+    method parent_of_opt : Rdf_term.term option
+    method parent_of_iris : Iri.t list
+    method parent_of_opt_iri : Iri.t option
+    method part_of : Rdf_term.term list
+    method part_of_opt : Rdf_term.term option
+    method part_of_iris : Iri.t list
+    method part_of_opt_iri : Iri.t option
+    method previous_by_date : Rdf_term.term list
+    method previous_by_date_opt : Rdf_term.term option
+    method previous_by_date_iris : Iri.t list
+    method previous_by_date_opt_iri : Iri.t option
+    method previous_version : Rdf_term.term list
+    method previous_version_opt : Rdf_term.term option
+    method previous_version_iris : Iri.t list
+    method previous_version_opt_iri : Iri.t option
+    method reference : Rdf_term.term list
+    method reference_opt : Rdf_term.term option
+    method reference_iris : Iri.t list
+    method reference_opt_iri : Iri.t option
+    method related_to : Rdf_term.term list
+    method related_to_opt : Rdf_term.term option
+    method related_to_iris : Iri.t list
+    method related_to_opt_iri : Iri.t option
+    method reply_of : Rdf_term.term list
+    method reply_of_opt : Rdf_term.term option
+    method reply_of_iris : Iri.t list
+    method reply_of_opt_iri : Iri.t option
+    method scope_of : Rdf_term.term list
+    method scope_of_opt : Rdf_term.term option
+    method scope_of_iris : Iri.t list
+    method scope_of_opt_iri : Iri.t option
+    method space_of : Rdf_term.term list
+    method space_of_opt : Rdf_term.term option
+    method space_of_iris : Iri.t list
+    method space_of_opt_iri : Iri.t option
     method subject : Rdf_term.literal list
     method subject_opt : Rdf_term.literal option
-    method subscriber_of : Iri.t list
-    method subscriber_of_opt : Iri.t option
+    method subscriber_of : Rdf_term.term list
+    method subscriber_of_opt : Rdf_term.term option
+    method subscriber_of_iris : Iri.t list
+    method subscriber_of_opt_iri : Iri.t option
     method title : Rdf_term.literal list
     method title_opt : Rdf_term.literal option
-    method topic : Iri.t list
-    method topic_opt : Iri.t option
-    method usergroup_of : Iri.t list
-    method usergroup_of_opt : Iri.t option
+    method topic : Rdf_term.term list
+    method topic_opt : Rdf_term.term option
+    method topic_iris : Iri.t list
+    method topic_opt_iri : Iri.t option
+    method usergroup_of : Rdf_term.term list
+    method usergroup_of_opt : Rdf_term.term option
+    method usergroup_of_iris : Iri.t list
+    method usergroup_of_opt_iri : Iri.t option
   end

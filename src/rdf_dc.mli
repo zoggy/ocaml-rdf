@@ -544,34 +544,54 @@ end
 
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
-    method abstract : Iri.t list
-    method abstract_opt : Iri.t option
-    method accessRights : Iri.t list
-    method accessRights_opt : Iri.t option
-    method accrualMethod : Iri.t list
-    method accrualMethod_opt : Iri.t option
-    method accrualPeriodicity : Iri.t list
-    method accrualPeriodicity_opt : Iri.t option
-    method accrualPolicy : Iri.t list
-    method accrualPolicy_opt : Iri.t option
+    method abstract : Rdf_term.term list
+    method abstract_opt : Rdf_term.term option
+    method abstract_iris : Iri.t list
+    method abstract_opt_iri : Iri.t option
+    method accessRights : Rdf_term.term list
+    method accessRights_opt : Rdf_term.term option
+    method accessRights_iris : Iri.t list
+    method accessRights_opt_iri : Iri.t option
+    method accrualMethod : Rdf_term.term list
+    method accrualMethod_opt : Rdf_term.term option
+    method accrualMethod_iris : Iri.t list
+    method accrualMethod_opt_iri : Iri.t option
+    method accrualPeriodicity : Rdf_term.term list
+    method accrualPeriodicity_opt : Rdf_term.term option
+    method accrualPeriodicity_iris : Iri.t list
+    method accrualPeriodicity_opt_iri : Iri.t option
+    method accrualPolicy : Rdf_term.term list
+    method accrualPolicy_opt : Rdf_term.term option
+    method accrualPolicy_iris : Iri.t list
+    method accrualPolicy_opt_iri : Iri.t option
     method alternative : Rdf_term.literal list
     method alternative_opt : Rdf_term.literal option
-    method audience : Iri.t list
-    method audience_opt : Iri.t option
+    method audience : Rdf_term.term list
+    method audience_opt : Rdf_term.term option
+    method audience_iris : Iri.t list
+    method audience_opt_iri : Iri.t option
     method available : Rdf_term.literal list
     method available_opt : Rdf_term.literal option
     method bibliographicCitation : Rdf_term.literal list
     method bibliographicCitation_opt : Rdf_term.literal option
-    method conformsTo : Iri.t list
-    method conformsTo_opt : Iri.t option
-    method contributor : Iri.t list
-    method contributor_opt : Iri.t option
-    method coverage : Iri.t list
-    method coverage_opt : Iri.t option
+    method conformsTo : Rdf_term.term list
+    method conformsTo_opt : Rdf_term.term option
+    method conformsTo_iris : Iri.t list
+    method conformsTo_opt_iri : Iri.t option
+    method contributor : Rdf_term.term list
+    method contributor_opt : Rdf_term.term option
+    method contributor_iris : Iri.t list
+    method contributor_opt_iri : Iri.t option
+    method coverage : Rdf_term.term list
+    method coverage_opt : Rdf_term.term option
+    method coverage_iris : Iri.t list
+    method coverage_opt_iri : Iri.t option
     method created : Rdf_term.literal list
     method created_opt : Rdf_term.literal option
-    method creator : Iri.t list
-    method creator_opt : Iri.t option
+    method creator : Rdf_term.term list
+    method creator_opt : Rdf_term.term option
+    method creator_iris : Iri.t list
+    method creator_opt_iri : Iri.t option
     method date : Rdf_term.literal list
     method date_opt : Rdf_term.literal option
     method dateAccepted : Rdf_term.literal list
@@ -580,78 +600,142 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method dateCopyrighted_opt : Rdf_term.literal option
     method dateSubmitted : Rdf_term.literal list
     method dateSubmitted_opt : Rdf_term.literal option
-    method description : Iri.t list
-    method description_opt : Iri.t option
-    method educationLevel : Iri.t list
-    method educationLevel_opt : Iri.t option
-    method extent : Iri.t list
-    method extent_opt : Iri.t option
-    method format : Iri.t list
-    method format_opt : Iri.t option
-    method hasFormat : Iri.t list
-    method hasFormat_opt : Iri.t option
-    method hasPart : Iri.t list
-    method hasPart_opt : Iri.t option
-    method hasVersion : Iri.t list
-    method hasVersion_opt : Iri.t option
+    method description : Rdf_term.term list
+    method description_opt : Rdf_term.term option
+    method description_iris : Iri.t list
+    method description_opt_iri : Iri.t option
+    method educationLevel : Rdf_term.term list
+    method educationLevel_opt : Rdf_term.term option
+    method educationLevel_iris : Iri.t list
+    method educationLevel_opt_iri : Iri.t option
+    method extent : Rdf_term.term list
+    method extent_opt : Rdf_term.term option
+    method extent_iris : Iri.t list
+    method extent_opt_iri : Iri.t option
+    method format : Rdf_term.term list
+    method format_opt : Rdf_term.term option
+    method format_iris : Iri.t list
+    method format_opt_iri : Iri.t option
+    method hasFormat : Rdf_term.term list
+    method hasFormat_opt : Rdf_term.term option
+    method hasFormat_iris : Iri.t list
+    method hasFormat_opt_iri : Iri.t option
+    method hasPart : Rdf_term.term list
+    method hasPart_opt : Rdf_term.term option
+    method hasPart_iris : Iri.t list
+    method hasPart_opt_iri : Iri.t option
+    method hasVersion : Rdf_term.term list
+    method hasVersion_opt : Rdf_term.term option
+    method hasVersion_iris : Iri.t list
+    method hasVersion_opt_iri : Iri.t option
     method identifier : Rdf_term.literal list
     method identifier_opt : Rdf_term.literal option
-    method instructionalMethod : Iri.t list
-    method instructionalMethod_opt : Iri.t option
-    method isFormatOf : Iri.t list
-    method isFormatOf_opt : Iri.t option
-    method isPartOf : Iri.t list
-    method isPartOf_opt : Iri.t option
-    method isReferencedBy : Iri.t list
-    method isReferencedBy_opt : Iri.t option
-    method isReplacedBy : Iri.t list
-    method isReplacedBy_opt : Iri.t option
-    method isRequiredBy : Iri.t list
-    method isRequiredBy_opt : Iri.t option
-    method isVersionOf : Iri.t list
-    method isVersionOf_opt : Iri.t option
+    method instructionalMethod : Rdf_term.term list
+    method instructionalMethod_opt : Rdf_term.term option
+    method instructionalMethod_iris : Iri.t list
+    method instructionalMethod_opt_iri : Iri.t option
+    method isFormatOf : Rdf_term.term list
+    method isFormatOf_opt : Rdf_term.term option
+    method isFormatOf_iris : Iri.t list
+    method isFormatOf_opt_iri : Iri.t option
+    method isPartOf : Rdf_term.term list
+    method isPartOf_opt : Rdf_term.term option
+    method isPartOf_iris : Iri.t list
+    method isPartOf_opt_iri : Iri.t option
+    method isReferencedBy : Rdf_term.term list
+    method isReferencedBy_opt : Rdf_term.term option
+    method isReferencedBy_iris : Iri.t list
+    method isReferencedBy_opt_iri : Iri.t option
+    method isReplacedBy : Rdf_term.term list
+    method isReplacedBy_opt : Rdf_term.term option
+    method isReplacedBy_iris : Iri.t list
+    method isReplacedBy_opt_iri : Iri.t option
+    method isRequiredBy : Rdf_term.term list
+    method isRequiredBy_opt : Rdf_term.term option
+    method isRequiredBy_iris : Iri.t list
+    method isRequiredBy_opt_iri : Iri.t option
+    method isVersionOf : Rdf_term.term list
+    method isVersionOf_opt : Rdf_term.term option
+    method isVersionOf_iris : Iri.t list
+    method isVersionOf_opt_iri : Iri.t option
     method issued : Rdf_term.literal list
     method issued_opt : Rdf_term.literal option
-    method language : Iri.t list
-    method language_opt : Iri.t option
-    method license : Iri.t list
-    method license_opt : Iri.t option
-    method mediator : Iri.t list
-    method mediator_opt : Iri.t option
-    method medium : Iri.t list
-    method medium_opt : Iri.t option
+    method language : Rdf_term.term list
+    method language_opt : Rdf_term.term option
+    method language_iris : Iri.t list
+    method language_opt_iri : Iri.t option
+    method license : Rdf_term.term list
+    method license_opt : Rdf_term.term option
+    method license_iris : Iri.t list
+    method license_opt_iri : Iri.t option
+    method mediator : Rdf_term.term list
+    method mediator_opt : Rdf_term.term option
+    method mediator_iris : Iri.t list
+    method mediator_opt_iri : Iri.t option
+    method medium : Rdf_term.term list
+    method medium_opt : Rdf_term.term option
+    method medium_iris : Iri.t list
+    method medium_opt_iri : Iri.t option
     method modified : Rdf_term.literal list
     method modified_opt : Rdf_term.literal option
-    method provenance : Iri.t list
-    method provenance_opt : Iri.t option
-    method publisher : Iri.t list
-    method publisher_opt : Iri.t option
-    method references : Iri.t list
-    method references_opt : Iri.t option
-    method relation : Iri.t list
-    method relation_opt : Iri.t option
-    method replaces : Iri.t list
-    method replaces_opt : Iri.t option
-    method requires : Iri.t list
-    method requires_opt : Iri.t option
-    method rights : Iri.t list
-    method rights_opt : Iri.t option
-    method rightsHolder : Iri.t list
-    method rightsHolder_opt : Iri.t option
-    method source : Iri.t list
-    method source_opt : Iri.t option
-    method spatial : Iri.t list
-    method spatial_opt : Iri.t option
-    method subject : Iri.t list
-    method subject_opt : Iri.t option
-    method tableOfContents : Iri.t list
-    method tableOfContents_opt : Iri.t option
-    method temporal : Iri.t list
-    method temporal_opt : Iri.t option
+    method provenance : Rdf_term.term list
+    method provenance_opt : Rdf_term.term option
+    method provenance_iris : Iri.t list
+    method provenance_opt_iri : Iri.t option
+    method publisher : Rdf_term.term list
+    method publisher_opt : Rdf_term.term option
+    method publisher_iris : Iri.t list
+    method publisher_opt_iri : Iri.t option
+    method references : Rdf_term.term list
+    method references_opt : Rdf_term.term option
+    method references_iris : Iri.t list
+    method references_opt_iri : Iri.t option
+    method relation : Rdf_term.term list
+    method relation_opt : Rdf_term.term option
+    method relation_iris : Iri.t list
+    method relation_opt_iri : Iri.t option
+    method replaces : Rdf_term.term list
+    method replaces_opt : Rdf_term.term option
+    method replaces_iris : Iri.t list
+    method replaces_opt_iri : Iri.t option
+    method requires : Rdf_term.term list
+    method requires_opt : Rdf_term.term option
+    method requires_iris : Iri.t list
+    method requires_opt_iri : Iri.t option
+    method rights : Rdf_term.term list
+    method rights_opt : Rdf_term.term option
+    method rights_iris : Iri.t list
+    method rights_opt_iri : Iri.t option
+    method rightsHolder : Rdf_term.term list
+    method rightsHolder_opt : Rdf_term.term option
+    method rightsHolder_iris : Iri.t list
+    method rightsHolder_opt_iri : Iri.t option
+    method source : Rdf_term.term list
+    method source_opt : Rdf_term.term option
+    method source_iris : Iri.t list
+    method source_opt_iri : Iri.t option
+    method spatial : Rdf_term.term list
+    method spatial_opt : Rdf_term.term option
+    method spatial_iris : Iri.t list
+    method spatial_opt_iri : Iri.t option
+    method subject : Rdf_term.term list
+    method subject_opt : Rdf_term.term option
+    method subject_iris : Iri.t list
+    method subject_opt_iri : Iri.t option
+    method tableOfContents : Rdf_term.term list
+    method tableOfContents_opt : Rdf_term.term option
+    method tableOfContents_iris : Iri.t list
+    method tableOfContents_opt_iri : Iri.t option
+    method temporal : Rdf_term.term list
+    method temporal_opt : Rdf_term.term option
+    method temporal_iris : Iri.t list
+    method temporal_opt_iri : Iri.t option
     method title : Rdf_term.literal list
     method title_opt : Rdf_term.literal option
-    method type_ : Iri.t list
-    method type__opt : Iri.t option
+    method type_ : Rdf_term.term list
+    method type__opt : Rdf_term.term option
+    method type__iris : Iri.t list
+    method type__opt_iri : Iri.t option
     method valid : Rdf_term.literal list
     method valid_opt : Rdf_term.literal option
   end

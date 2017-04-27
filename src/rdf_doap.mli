@@ -308,74 +308,126 @@ class from : ?sub: Iri.t -> Rdf_graph.graph ->
     method anon_root_opt : Rdf_term.literal option
     method audience : Rdf_term.literal list
     method audience_opt : Rdf_term.literal option
-    method blog : Iri.t list
-    method blog_opt : Iri.t option
-    method browse : Iri.t list
-    method browse_opt : Iri.t option
-    method bug_database : Iri.t list
-    method bug_database_opt : Iri.t option
-    method category : Iri.t list
-    method category_opt : Iri.t option
+    method blog : Rdf_term.term list
+    method blog_opt : Rdf_term.term option
+    method blog_iris : Iri.t list
+    method blog_opt_iri : Iri.t option
+    method browse : Rdf_term.term list
+    method browse_opt : Rdf_term.term option
+    method browse_iris : Iri.t list
+    method browse_opt_iri : Iri.t option
+    method bug_database : Rdf_term.term list
+    method bug_database_opt : Rdf_term.term option
+    method bug_database_iris : Iri.t list
+    method bug_database_opt_iri : Iri.t option
+    method category : Rdf_term.term list
+    method category_opt : Rdf_term.term option
+    method category_iris : Iri.t list
+    method category_opt_iri : Iri.t option
     method created : Rdf_term.literal list
     method created_opt : Rdf_term.literal option
     method description : Rdf_term.literal list
     method description_opt : Rdf_term.literal option
-    method developer : Iri.t list
-    method developer_opt : Iri.t option
-    method documenter : Iri.t list
-    method documenter_opt : Iri.t option
-    method download_mirror : Iri.t list
-    method download_mirror_opt : Iri.t option
-    method download_page : Iri.t list
-    method download_page_opt : Iri.t option
-    method file_release : Iri.t list
-    method file_release_opt : Iri.t option
-    method helper : Iri.t list
-    method helper_opt : Iri.t option
-    method homepage : Iri.t list
-    method homepage_opt : Iri.t option
-    method implements : Iri.t list
-    method implements_opt : Iri.t option
+    method developer : Rdf_term.term list
+    method developer_opt : Rdf_term.term option
+    method developer_iris : Iri.t list
+    method developer_opt_iri : Iri.t option
+    method documenter : Rdf_term.term list
+    method documenter_opt : Rdf_term.term option
+    method documenter_iris : Iri.t list
+    method documenter_opt_iri : Iri.t option
+    method download_mirror : Rdf_term.term list
+    method download_mirror_opt : Rdf_term.term option
+    method download_mirror_iris : Iri.t list
+    method download_mirror_opt_iri : Iri.t option
+    method download_page : Rdf_term.term list
+    method download_page_opt : Rdf_term.term option
+    method download_page_iris : Iri.t list
+    method download_page_opt_iri : Iri.t option
+    method file_release : Rdf_term.term list
+    method file_release_opt : Rdf_term.term option
+    method file_release_iris : Iri.t list
+    method file_release_opt_iri : Iri.t option
+    method helper : Rdf_term.term list
+    method helper_opt : Rdf_term.term option
+    method helper_iris : Iri.t list
+    method helper_opt_iri : Iri.t option
+    method homepage : Rdf_term.term list
+    method homepage_opt : Rdf_term.term option
+    method homepage_iris : Iri.t list
+    method homepage_opt_iri : Iri.t option
+    method implements : Rdf_term.term list
+    method implements_opt : Rdf_term.term option
+    method implements_iris : Iri.t list
+    method implements_opt_iri : Iri.t option
     method language : Rdf_term.literal list
     method language_opt : Rdf_term.literal option
-    method license : Iri.t list
-    method license_opt : Iri.t option
-    method location : Iri.t list
-    method location_opt : Iri.t option
-    method mailing_list : Iri.t list
-    method mailing_list_opt : Iri.t option
-    method maintainer : Iri.t list
-    method maintainer_opt : Iri.t option
-    method module_ : Iri.t list
-    method module__opt : Iri.t option
+    method license : Rdf_term.term list
+    method license_opt : Rdf_term.term option
+    method license_iris : Iri.t list
+    method license_opt_iri : Iri.t option
+    method location : Rdf_term.term list
+    method location_opt : Rdf_term.term option
+    method location_iris : Iri.t list
+    method location_opt_iri : Iri.t option
+    method mailing_list : Rdf_term.term list
+    method mailing_list_opt : Rdf_term.term option
+    method mailing_list_iris : Iri.t list
+    method mailing_list_opt_iri : Iri.t option
+    method maintainer : Rdf_term.term list
+    method maintainer_opt : Rdf_term.term option
+    method maintainer_iris : Iri.t list
+    method maintainer_opt_iri : Iri.t option
+    method module_ : Rdf_term.term list
+    method module__opt : Rdf_term.term option
+    method module__iris : Iri.t list
+    method module__opt_iri : Iri.t option
     method name : Rdf_term.literal list
     method name_opt : Rdf_term.literal option
-    method old_homepage : Iri.t list
-    method old_homepage_opt : Iri.t option
+    method old_homepage : Rdf_term.term list
+    method old_homepage_opt : Rdf_term.term option
+    method old_homepage_iris : Iri.t list
+    method old_homepage_opt_iri : Iri.t option
     method os : Rdf_term.literal list
     method os_opt : Rdf_term.literal option
     method platform : Rdf_term.literal list
     method platform_opt : Rdf_term.literal option
     method programming_language : Rdf_term.literal list
     method programming_language_opt : Rdf_term.literal option
-    method release : Iri.t list
-    method release_opt : Iri.t option
-    method repository : Iri.t list
-    method repository_opt : Iri.t option
+    method release : Rdf_term.term list
+    method release_opt : Rdf_term.term option
+    method release_iris : Iri.t list
+    method release_opt_iri : Iri.t option
+    method repository : Rdf_term.term list
+    method repository_opt : Rdf_term.term option
+    method repository_iris : Iri.t list
+    method repository_opt_iri : Iri.t option
     method revision : Rdf_term.literal list
     method revision_opt : Rdf_term.literal option
-    method screenshots : Iri.t list
-    method screenshots_opt : Iri.t option
-    method service_endpoint : Iri.t list
-    method service_endpoint_opt : Iri.t option
+    method screenshots : Rdf_term.term list
+    method screenshots_opt : Rdf_term.term option
+    method screenshots_iris : Iri.t list
+    method screenshots_opt_iri : Iri.t option
+    method service_endpoint : Rdf_term.term list
+    method service_endpoint_opt : Rdf_term.term option
+    method service_endpoint_iris : Iri.t list
+    method service_endpoint_opt_iri : Iri.t option
     method shortdesc : Rdf_term.literal list
     method shortdesc_opt : Rdf_term.literal option
-    method tester : Iri.t list
-    method tester_opt : Iri.t option
-    method translator : Iri.t list
-    method translator_opt : Iri.t option
-    method vendor : Iri.t list
-    method vendor_opt : Iri.t option
-    method wiki : Iri.t list
-    method wiki_opt : Iri.t option
+    method tester : Rdf_term.term list
+    method tester_opt : Rdf_term.term option
+    method tester_iris : Iri.t list
+    method tester_opt_iri : Iri.t option
+    method translator : Rdf_term.term list
+    method translator_opt : Rdf_term.term option
+    method translator_iris : Iri.t list
+    method translator_opt_iri : Iri.t option
+    method vendor : Rdf_term.term list
+    method vendor_opt : Rdf_term.term option
+    method vendor_iris : Iri.t list
+    method vendor_opt_iri : Iri.t option
+    method wiki : Rdf_term.term list
+    method wiki_opt : Rdf_term.term option
+    method wiki_iris : Iri.t list
+    method wiki_opt_iri : Iri.t option
   end
