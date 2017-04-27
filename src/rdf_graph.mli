@@ -335,8 +335,16 @@ type graph = {
 *)
 val open_graph : ?options:(string * string) list -> Iri.t -> graph
 
-(** [merge g1 g2] add triples from [g2] to [g1].*)
-val merge : graph -> graph -> unit
+(** [merge g1 g2] add triples from [g2] to [g1].
+     @param map can be used to explicitely map terms from
+     [g2]. When merging blank nodes, if [map] returns a
+     term, then it is kept as is. Else the blank node
+     is replaced by a fresh one. Default map function
+     always returns None.
+*)
+val merge :
+  ?map:(Rdf_term.term -> Rdf_term.term option) ->
+    graph -> graph -> unit
 
 val only_iris : Rdf_term.term list -> Iri.t list
 val only_literals : Rdf_term.term list -> Rdf_term.literal list

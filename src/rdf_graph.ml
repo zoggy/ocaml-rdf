@@ -295,26 +295,29 @@ module Bid_map = Map.Make
    end
   );;
 
-let merge g1 g2 =
-  let map bid_map x =
-    match x with
-      Rdf_term.Iri _
-    | Rdf_term.Literal _
-    | Blank -> (bid_map, x)
-    | Blank_ id ->
-        let (id2, bid_map) =
-          try (Bid_map.find id bid_map, bid_map)
-          with Not_found ->
-              let id2 = g1.new_blank_id () in
-              let bid_map = Bid_map.add id id2 bid_map in
-              (id2, bid_map)
-        in
-        (bid_map, Blank_ id2)
+let merge ?(map=fun _ -> None) g1 g2 =
+  let fmap bid_map x =
+    match map x with
+      Some x -> (bid_map, x)
+    | None ->
+        match x with
+          Rdf_term.Iri _
+        | Rdf_term.Literal _
+        | Blank -> (bid_map, x)
+        | Blank_ id ->
+            let (id2, bid_map) =
+              try (Bid_map.find id bid_map, bid_map)
+              with Not_found ->
+                  let id2 = g1.new_blank_id () in
+                  let bid_map = Bid_map.add id id2 bid_map in
+                  (id2, bid_map)
+            in
+            (bid_map, Blank_ id2)
   in
   let f bid_map (sub,pred,obj) =
-    let (bid_map, sub) = map bid_map sub in
-    let (bid_map, _) = map bid_map (Rdf_term.Iri pred) in
-    let (bid_map, obj) = map bid_map obj in
+    let (bid_map, sub) = fmap bid_map sub in
+    let (bid_map, _) = fmap bid_map (Rdf_term.Iri pred) in
+    let (bid_map, obj) = fmap bid_map obj in
     g1.add_triple ~sub ~pred ~obj;
     bid_map
   in
@@ -361,5 +364,5 @@ let subgraph_from ?options g root =
     g2.add_triple_t t;
     iter seen obj
   in
-  iter S.empty root ;
+  ignore(iter S.empty root) ;
   g2
