@@ -532,7 +532,7 @@ module Open : sig
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method about : Rdf_term.term list
     method about_opt : Rdf_term.term option

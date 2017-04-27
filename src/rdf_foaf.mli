@@ -458,7 +458,7 @@ module Open : sig
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method account : Rdf_term.term list
     method account_opt : Rdf_term.term option

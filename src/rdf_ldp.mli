@@ -140,7 +140,7 @@ module Open : sig
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method constrainedBy : Rdf_term.term list
     method constrainedBy_opt : Rdf_term.term option

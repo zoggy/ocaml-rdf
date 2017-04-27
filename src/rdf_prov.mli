@@ -744,7 +744,7 @@ Note how the value of the unqualified influence (prov:wasGeneratedBy :activity1)
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method actedOnBehalfOf : Rdf_term.term list
     method actedOnBehalfOf_opt : Rdf_term.term option

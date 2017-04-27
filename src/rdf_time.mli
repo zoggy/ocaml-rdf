@@ -426,7 +426,7 @@ The range of this property is not specified, so can be replaced by any specific 
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method after : Rdf_term.term list
     method after_opt : Rdf_term.term option

@@ -176,8 +176,7 @@ let gen_impl ?(comments=true) oc prefix base props =
   p "%s" "end\n\n";
 
   p "class from ?sub g =\n";
-  p "  let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in\n" ;
-  p "  let sub = Rdf_term.Iri sub in\n" ;
+  p "  let sub = match sub with None -> Rdf_term.Iri (g.Rdf_graph.name()) | Some t -> t in\n" ;
   p  "  object(self)\n";
   let f (prop, _, typ, range) =
      match typ_prefix typ with
@@ -227,7 +226,7 @@ let gen_intf oc prefix base props =
   List.iter f props;
   p "%s" "end\n\n";
 
-  p "class from : ?sub: Iri.t -> Rdf_graph.graph ->\n  object\n";
+  p "class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->\n  object\n";
   let f (prop, _, typ, range) =
      match typ_prefix typ with
        "" ->

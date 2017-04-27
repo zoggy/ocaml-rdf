@@ -826,7 +826,7 @@ module Open : sig
 
 end
 
-class from : ?sub: Iri.t -> Rdf_graph.graph ->
+class from : ?sub: Rdf_term.term -> Rdf_graph.graph ->
   object
     method additional_name : Rdf_term.literal list
     method additional_name_opt : Rdf_term.literal option

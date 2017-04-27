@@ -158,8 +158,7 @@ module Open = struct
 end
 
 class from ?sub g =
-  let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
-  let sub = Rdf_term.Iri sub in
+  let sub = match sub with None -> Rdf_term.Iri (g.Rdf_graph.name()) | Some t -> t in
   object(self)
   method allValuesFrom = g.Rdf_graph.objects_of ~sub ~pred: allValuesFrom
   method allValuesFrom_opt = match self#allValuesFrom with [] -> None | x::_ -> Some x
