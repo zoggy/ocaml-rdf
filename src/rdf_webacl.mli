@@ -43,3 +43,5 @@ val has_control : rights -> bool
 val all_rights : rights
 
 val add_rights_of_modes : rights -> Iri.t list -> rights
+
+val rights_to_string : rights -> string

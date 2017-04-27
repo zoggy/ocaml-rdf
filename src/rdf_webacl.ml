@@ -29,6 +29,7 @@
 open Rdf_acl.Open
 
 type rights = int
+
 let no_right = 0
 
 let add_read = (lor) 1
@@ -58,3 +59,13 @@ let add_rights_of_modes =
            else if Iri.equal mode acl_c_Control then
                add_control acc
              else acc)
+
+let rights_to_string r =
+  let b = Buffer.create 4 in
+  let p c = Buffer.add_char b c in
+  if has_read r then p 'r' ;
+  if has_write r then p 'w' ;
+  if has_append r then p 'a' ;
+  if has_control r then p 'c' ;
+  Buffer.contents b
+
