@@ -69,3 +69,11 @@ let rights_to_string r =
   if has_control r then p 'c' ;
   Buffer.contents b
 
+let modes_of_rights r =
+  let acc = [] in
+  let acc = if has_read r then acl_c_Read :: acc else acc in
+  let acc = if has_write r then acl_c_Write :: acc else acc in
+  let acc = if has_append r then acl_c_Append :: acc else acc in
+  let acc = if has_control r then acl_c_Control :: acc else acc in
+  acc
+
