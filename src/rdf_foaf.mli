@@ -461,65 +461,127 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method account : Iri.t list
+    method account_opt : Iri.t option
     method accountName : Rdf_term.literal list
+    method accountName_opt : Rdf_term.literal option
     method accountServiceHomepage : Iri.t list
+    method accountServiceHomepage_opt : Iri.t option
     method age : Rdf_term.literal list
+    method age_opt : Rdf_term.literal option
     method aimChatID : Rdf_term.literal list
+    method aimChatID_opt : Rdf_term.literal option
     method based_near : Iri.t list
+    method based_near_opt : Iri.t option
     method birthday : Rdf_term.literal list
+    method birthday_opt : Rdf_term.literal option
     method currentProject : Iri.t list
+    method currentProject_opt : Iri.t option
     method depiction : Iri.t list
+    method depiction_opt : Iri.t option
     method depicts : Iri.t list
+    method depicts_opt : Iri.t option
     method dnaChecksum : Rdf_term.literal list
+    method dnaChecksum_opt : Rdf_term.literal option
     method familyName : Rdf_term.literal list
+    method familyName_opt : Rdf_term.literal option
     method family_name : Rdf_term.literal list
+    method family_name_opt : Rdf_term.literal option
     method firstName : Rdf_term.literal list
+    method firstName_opt : Rdf_term.literal option
     method focus : Iri.t list
+    method focus_opt : Iri.t option
     method fundedBy : Iri.t list
+    method fundedBy_opt : Iri.t option
     method geekcode : Rdf_term.literal list
+    method geekcode_opt : Rdf_term.literal option
     method gender : Rdf_term.literal list
+    method gender_opt : Rdf_term.literal option
     method givenName : Iri.t list
+    method givenName_opt : Iri.t option
     method givenname : Iri.t list
+    method givenname_opt : Iri.t option
     method holdsAccount : Iri.t list
+    method holdsAccount_opt : Iri.t option
     method homepage : Iri.t list
+    method homepage_opt : Iri.t option
     method icqChatID : Rdf_term.literal list
+    method icqChatID_opt : Rdf_term.literal option
     method img : Iri.t list
+    method img_opt : Iri.t option
     method interest : Iri.t list
+    method interest_opt : Iri.t option
     method isPrimaryTopicOf : Iri.t list
+    method isPrimaryTopicOf_opt : Iri.t option
     method jabberID : Rdf_term.literal list
+    method jabberID_opt : Rdf_term.literal option
     method knows : Iri.t list
+    method knows_opt : Iri.t option
     method lastName : Rdf_term.literal list
+    method lastName_opt : Rdf_term.literal option
     method logo : Iri.t list
+    method logo_opt : Iri.t option
     method made : Iri.t list
+    method made_opt : Iri.t option
     method maker : Iri.t list
+    method maker_opt : Iri.t option
     method mbox : Iri.t list
+    method mbox_opt : Iri.t option
     method mbox_sha1sum : Rdf_term.literal list
+    method mbox_sha1sum_opt : Rdf_term.literal option
     method member : Iri.t list
+    method member_opt : Iri.t option
     method membershipClass : Iri.t list
+    method membershipClass_opt : Iri.t option
     method msnChatID : Rdf_term.literal list
+    method msnChatID_opt : Rdf_term.literal option
     method myersBriggs : Rdf_term.literal list
+    method myersBriggs_opt : Rdf_term.literal option
     method name : Rdf_term.literal list
+    method name_opt : Rdf_term.literal option
     method nick : Iri.t list
+    method nick_opt : Iri.t option
     method openid : Iri.t list
+    method openid_opt : Iri.t option
     method page : Iri.t list
+    method page_opt : Iri.t option
     method pastProject : Iri.t list
+    method pastProject_opt : Iri.t option
     method phone : Iri.t list
+    method phone_opt : Iri.t option
     method plan : Rdf_term.literal list
+    method plan_opt : Rdf_term.literal option
     method primaryTopic : Iri.t list
+    method primaryTopic_opt : Iri.t option
     method publications : Iri.t list
+    method publications_opt : Iri.t option
     method schoolHomepage : Iri.t list
+    method schoolHomepage_opt : Iri.t option
     method sha1 : Iri.t list
+    method sha1_opt : Iri.t option
     method skypeID : Rdf_term.literal list
+    method skypeID_opt : Rdf_term.literal option
     method status : Rdf_term.literal list
+    method status_opt : Rdf_term.literal option
     method surname : Rdf_term.literal list
+    method surname_opt : Rdf_term.literal option
     method theme : Iri.t list
+    method theme_opt : Iri.t option
     method thumbnail : Iri.t list
+    method thumbnail_opt : Iri.t option
     method tipjar : Iri.t list
+    method tipjar_opt : Iri.t option
     method title : Iri.t list
+    method title_opt : Iri.t option
     method topic : Iri.t list
+    method topic_opt : Iri.t option
     method topic_interest : Iri.t list
+    method topic_interest_opt : Iri.t option
     method weblog : Iri.t list
+    method weblog_opt : Iri.t option
     method workInfoHomepage : Iri.t list
+    method workInfoHomepage_opt : Iri.t option
     method workplaceHomepage : Iri.t list
+    method workplaceHomepage_opt : Iri.t option
     method yahooChatID : Rdf_term.literal list
+    method yahooChatID_opt : Rdf_term.literal option
   end

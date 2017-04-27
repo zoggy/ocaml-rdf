@@ -461,52 +461,101 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method allValuesFrom : Iri.t list
+    method allValuesFrom_opt : Iri.t option
     method annotatedProperty : Iri.t list
+    method annotatedProperty_opt : Iri.t option
     method annotatedSource : Iri.t list
+    method annotatedSource_opt : Iri.t option
     method annotatedTarget : Iri.t list
+    method annotatedTarget_opt : Iri.t option
     method assertionProperty : Iri.t list
+    method assertionProperty_opt : Iri.t option
     method backwardCompatibleWith : Iri.t list
+    method backwardCompatibleWith_opt : Iri.t option
     method bottomDataProperty : Rdf_term.literal list
+    method bottomDataProperty_opt : Rdf_term.literal option
     method bottomObjectProperty : Iri.t list
+    method bottomObjectProperty_opt : Iri.t option
     method cardinality : Iri.t list
+    method cardinality_opt : Iri.t option
     method complementOf : Iri.t list
+    method complementOf_opt : Iri.t option
     method datatypeComplementOf : Rdf_term.literal list
+    method datatypeComplementOf_opt : Rdf_term.literal option
     method deprecated : Iri.t list
+    method deprecated_opt : Iri.t option
     method differentFrom : Iri.t list
+    method differentFrom_opt : Iri.t option
     method disjointUnionOf : Iri.t list
+    method disjointUnionOf_opt : Iri.t option
     method disjointWith : Iri.t list
+    method disjointWith_opt : Iri.t option
     method distinctMembers : Iri.t list
+    method distinctMembers_opt : Iri.t option
     method equivalentClass : Iri.t list
+    method equivalentClass_opt : Iri.t option
     method equivalentProperty : Iri.t list
+    method equivalentProperty_opt : Iri.t option
     method hasKey : Iri.t list
+    method hasKey_opt : Iri.t option
     method hasSelf : Iri.t list
+    method hasSelf_opt : Iri.t option
     method hasValue : Iri.t list
+    method hasValue_opt : Iri.t option
     method incompatibleWith : Iri.t list
+    method incompatibleWith_opt : Iri.t option
     method intersectionOf : Iri.t list
+    method intersectionOf_opt : Iri.t option
     method inverseOf : Iri.t list
+    method inverseOf_opt : Iri.t option
     method maxCardinality : Iri.t list
+    method maxCardinality_opt : Iri.t option
     method maxQualifiedCardinality : Iri.t list
+    method maxQualifiedCardinality_opt : Iri.t option
     method members : Iri.t list
+    method members_opt : Iri.t option
     method minCardinality : Iri.t list
+    method minCardinality_opt : Iri.t option
     method minQualifiedCardinality : Iri.t list
+    method minQualifiedCardinality_opt : Iri.t option
     method onClass : Iri.t list
+    method onClass_opt : Iri.t option
     method onDataRange : Rdf_term.literal list
+    method onDataRange_opt : Rdf_term.literal option
     method onDatatype : Rdf_term.literal list
+    method onDatatype_opt : Rdf_term.literal option
     method onProperties : Iri.t list
+    method onProperties_opt : Iri.t option
     method onProperty : Iri.t list
+    method onProperty_opt : Iri.t option
     method oneOf : Iri.t list
+    method oneOf_opt : Iri.t option
     method priorVersion : Iri.t list
+    method priorVersion_opt : Iri.t option
     method propertyChainAxiom : Iri.t list
+    method propertyChainAxiom_opt : Iri.t option
     method propertyDisjointWith : Iri.t list
+    method propertyDisjointWith_opt : Iri.t option
     method qualifiedCardinality : Iri.t list
+    method qualifiedCardinality_opt : Iri.t option
     method sameAs : Iri.t list
+    method sameAs_opt : Iri.t option
     method someValuesFrom : Iri.t list
+    method someValuesFrom_opt : Iri.t option
     method sourceIndividual : Iri.t list
+    method sourceIndividual_opt : Iri.t option
     method targetIndividual : Iri.t list
+    method targetIndividual_opt : Iri.t option
     method targetValue : Rdf_term.literal list
+    method targetValue_opt : Rdf_term.literal option
     method topDataProperty : Rdf_term.literal list
+    method topDataProperty_opt : Rdf_term.literal option
     method topObjectProperty : Iri.t list
+    method topObjectProperty_opt : Iri.t option
     method unionOf : Iri.t list
+    method unionOf_opt : Iri.t option
     method versionInfo : Iri.t list
+    method versionInfo_opt : Iri.t option
     method withRestrictions : Iri.t list
+    method withRestrictions_opt : Iri.t option
   end

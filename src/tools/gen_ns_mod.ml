@@ -178,7 +178,7 @@ let gen_impl ?(comments=true) oc prefix base props =
   p "class from ?sub g =\n";
   p "  let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in\n" ;
   p "  let sub = Rdf_term.Iri sub in\n" ;
-  p  "  object\n";
+  p  "  object(self)\n";
   let f (prop, _, typ, range) =
      match typ_prefix typ with
        "" ->
@@ -188,6 +188,8 @@ let gen_impl ?(comments=true) oc prefix base props =
           else "Rdf_graph.iri_objects_of"
         in
         p "  method %s = %s g ~sub ~pred: %s\n" id f id ;
+        p "  method %s_opt = match self#%s with [] -> None | x::_ -> Some x\n"
+            id id;
      | _ -> ()
   in
   List.iter f props ;
@@ -223,7 +225,8 @@ let gen_intf oc prefix base props =
        "" ->
         let id = caml_id ~protect: true prop typ in
         let t = if is_literal typ range then "Rdf_term.literal" else "Iri.t" in
-        p "    method %s : %s list\n" id t
+        p "    method %s : %s list\n" id t;
+        p "    method %s_opt : %s option\n" id t
      | _ -> ()
   in
   List.iter f props ;

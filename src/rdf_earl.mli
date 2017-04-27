@@ -155,12 +155,21 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method assertedBy : Iri.t list
+    method assertedBy_opt : Iri.t option
     method info : Rdf_term.literal list
+    method info_opt : Rdf_term.literal option
     method mainAssertor : Iri.t list
+    method mainAssertor_opt : Iri.t option
     method mode : Iri.t list
+    method mode_opt : Iri.t option
     method outcome : Iri.t list
+    method outcome_opt : Iri.t option
     method pointer : Iri.t list
+    method pointer_opt : Iri.t option
     method result : Iri.t list
+    method result_opt : Iri.t option
     method subject : Iri.t list
+    method subject_opt : Iri.t option
     method test : Iri.t list
+    method test_opt : Iri.t option
   end

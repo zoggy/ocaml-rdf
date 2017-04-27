@@ -77,9 +77,15 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method account : Iri.t list
+    method account_opt : Iri.t option
     method inbox : Iri.t list
+    method inbox_opt : Iri.t option
     method notification : Iri.t list
+    method notification_opt : Iri.t option
     method read : Iri.t list
+    method read_opt : Iri.t option
     method timeline : Iri.t list
+    method timeline_opt : Iri.t option
     method typeIndex : Iri.t list
+    method typeIndex_opt : Iri.t option
   end

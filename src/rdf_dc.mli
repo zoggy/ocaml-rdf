@@ -545,58 +545,113 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method abstract : Iri.t list
+    method abstract_opt : Iri.t option
     method accessRights : Iri.t list
+    method accessRights_opt : Iri.t option
     method accrualMethod : Iri.t list
+    method accrualMethod_opt : Iri.t option
     method accrualPeriodicity : Iri.t list
+    method accrualPeriodicity_opt : Iri.t option
     method accrualPolicy : Iri.t list
+    method accrualPolicy_opt : Iri.t option
     method alternative : Rdf_term.literal list
+    method alternative_opt : Rdf_term.literal option
     method audience : Iri.t list
+    method audience_opt : Iri.t option
     method available : Rdf_term.literal list
+    method available_opt : Rdf_term.literal option
     method bibliographicCitation : Rdf_term.literal list
+    method bibliographicCitation_opt : Rdf_term.literal option
     method conformsTo : Iri.t list
+    method conformsTo_opt : Iri.t option
     method contributor : Iri.t list
+    method contributor_opt : Iri.t option
     method coverage : Iri.t list
+    method coverage_opt : Iri.t option
     method created : Rdf_term.literal list
+    method created_opt : Rdf_term.literal option
     method creator : Iri.t list
+    method creator_opt : Iri.t option
     method date : Rdf_term.literal list
+    method date_opt : Rdf_term.literal option
     method dateAccepted : Rdf_term.literal list
+    method dateAccepted_opt : Rdf_term.literal option
     method dateCopyrighted : Rdf_term.literal list
+    method dateCopyrighted_opt : Rdf_term.literal option
     method dateSubmitted : Rdf_term.literal list
+    method dateSubmitted_opt : Rdf_term.literal option
     method description : Iri.t list
+    method description_opt : Iri.t option
     method educationLevel : Iri.t list
+    method educationLevel_opt : Iri.t option
     method extent : Iri.t list
+    method extent_opt : Iri.t option
     method format : Iri.t list
+    method format_opt : Iri.t option
     method hasFormat : Iri.t list
+    method hasFormat_opt : Iri.t option
     method hasPart : Iri.t list
+    method hasPart_opt : Iri.t option
     method hasVersion : Iri.t list
+    method hasVersion_opt : Iri.t option
     method identifier : Rdf_term.literal list
+    method identifier_opt : Rdf_term.literal option
     method instructionalMethod : Iri.t list
+    method instructionalMethod_opt : Iri.t option
     method isFormatOf : Iri.t list
+    method isFormatOf_opt : Iri.t option
     method isPartOf : Iri.t list
+    method isPartOf_opt : Iri.t option
     method isReferencedBy : Iri.t list
+    method isReferencedBy_opt : Iri.t option
     method isReplacedBy : Iri.t list
+    method isReplacedBy_opt : Iri.t option
     method isRequiredBy : Iri.t list
+    method isRequiredBy_opt : Iri.t option
     method isVersionOf : Iri.t list
+    method isVersionOf_opt : Iri.t option
     method issued : Rdf_term.literal list
+    method issued_opt : Rdf_term.literal option
     method language : Iri.t list
+    method language_opt : Iri.t option
     method license : Iri.t list
+    method license_opt : Iri.t option
     method mediator : Iri.t list
+    method mediator_opt : Iri.t option
     method medium : Iri.t list
+    method medium_opt : Iri.t option
     method modified : Rdf_term.literal list
+    method modified_opt : Rdf_term.literal option
     method provenance : Iri.t list
+    method provenance_opt : Iri.t option
     method publisher : Iri.t list
+    method publisher_opt : Iri.t option
     method references : Iri.t list
+    method references_opt : Iri.t option
     method relation : Iri.t list
+    method relation_opt : Iri.t option
     method replaces : Iri.t list
+    method replaces_opt : Iri.t option
     method requires : Iri.t list
+    method requires_opt : Iri.t option
     method rights : Iri.t list
+    method rights_opt : Iri.t option
     method rightsHolder : Iri.t list
+    method rightsHolder_opt : Iri.t option
     method source : Iri.t list
+    method source_opt : Iri.t option
     method spatial : Iri.t list
+    method spatial_opt : Iri.t option
     method subject : Iri.t list
+    method subject_opt : Iri.t option
     method tableOfContents : Iri.t list
+    method tableOfContents_opt : Iri.t option
     method temporal : Iri.t list
+    method temporal_opt : Iri.t option
     method title : Rdf_term.literal list
+    method title_opt : Rdf_term.literal option
     method type_ : Iri.t list
+    method type__opt : Iri.t option
     method valid : Rdf_term.literal list
+    method valid_opt : Rdf_term.literal option
   end

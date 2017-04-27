@@ -143,16 +143,29 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method constrainedBy : Iri.t list
+    method constrainedBy_opt : Iri.t option
     method contains : Iri.t list
+    method contains_opt : Iri.t option
     method hasMemberRelation : Iri.t list
+    method hasMemberRelation_opt : Iri.t option
     method inbox : Iri.t list
+    method inbox_opt : Iri.t option
     method insertedContentRelation : Iri.t list
+    method insertedContentRelation_opt : Iri.t option
     method isMemberOfRelation : Iri.t list
+    method isMemberOfRelation_opt : Iri.t option
     method member : Iri.t list
+    method member_opt : Iri.t option
     method membershipResource : Iri.t list
+    method membershipResource_opt : Iri.t option
     method pageSequence : Iri.t list
+    method pageSequence_opt : Iri.t option
     method pageSortCollation : Iri.t list
+    method pageSortCollation_opt : Iri.t option
     method pageSortCriteria : Iri.t list
+    method pageSortCriteria_opt : Iri.t option
     method pageSortOrder : Iri.t list
+    method pageSortOrder_opt : Iri.t option
     method pageSortPredicate : Iri.t list
+    method pageSortPredicate_opt : Iri.t option
   end

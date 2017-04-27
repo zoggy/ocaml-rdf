@@ -54,18 +54,31 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  object
+  object(self)
   method constrainedBy = Rdf_graph.iri_objects_of g ~sub ~pred: constrainedBy
+  method constrainedBy_opt = match self#constrainedBy with [] -> None | x::_ -> Some x
   method contains = Rdf_graph.iri_objects_of g ~sub ~pred: contains
+  method contains_opt = match self#contains with [] -> None | x::_ -> Some x
   method hasMemberRelation = Rdf_graph.iri_objects_of g ~sub ~pred: hasMemberRelation
+  method hasMemberRelation_opt = match self#hasMemberRelation with [] -> None | x::_ -> Some x
   method inbox = Rdf_graph.iri_objects_of g ~sub ~pred: inbox
+  method inbox_opt = match self#inbox with [] -> None | x::_ -> Some x
   method insertedContentRelation = Rdf_graph.iri_objects_of g ~sub ~pred: insertedContentRelation
+  method insertedContentRelation_opt = match self#insertedContentRelation with [] -> None | x::_ -> Some x
   method isMemberOfRelation = Rdf_graph.iri_objects_of g ~sub ~pred: isMemberOfRelation
+  method isMemberOfRelation_opt = match self#isMemberOfRelation with [] -> None | x::_ -> Some x
   method member = Rdf_graph.iri_objects_of g ~sub ~pred: member
+  method member_opt = match self#member with [] -> None | x::_ -> Some x
   method membershipResource = Rdf_graph.iri_objects_of g ~sub ~pred: membershipResource
+  method membershipResource_opt = match self#membershipResource with [] -> None | x::_ -> Some x
   method pageSequence = Rdf_graph.iri_objects_of g ~sub ~pred: pageSequence
+  method pageSequence_opt = match self#pageSequence with [] -> None | x::_ -> Some x
   method pageSortCollation = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortCollation
+  method pageSortCollation_opt = match self#pageSortCollation with [] -> None | x::_ -> Some x
   method pageSortCriteria = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortCriteria
+  method pageSortCriteria_opt = match self#pageSortCriteria with [] -> None | x::_ -> Some x
   method pageSortOrder = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortOrder
+  method pageSortOrder_opt = match self#pageSortOrder with [] -> None | x::_ -> Some x
   method pageSortPredicate = Rdf_graph.iri_objects_of g ~sub ~pred: pageSortPredicate
+  method pageSortPredicate_opt = match self#pageSortPredicate with [] -> None | x::_ -> Some x
   end

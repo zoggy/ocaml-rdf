@@ -747,86 +747,169 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method actedOnBehalfOf : Iri.t list
+    method actedOnBehalfOf_opt : Iri.t option
     method activity : Iri.t list
+    method activity_opt : Iri.t option
     method agent : Iri.t list
+    method agent_opt : Iri.t option
     method alternateOf : Iri.t list
+    method alternateOf_opt : Iri.t option
     method aq : Iri.t list
+    method aq_opt : Iri.t option
     method asInBundle : Iri.t list
+    method asInBundle_opt : Iri.t option
     method atLocation : Iri.t list
+    method atLocation_opt : Iri.t option
     method atTime : Rdf_term.literal list
+    method atTime_opt : Rdf_term.literal option
     method category : Iri.t list
+    method category_opt : Iri.t option
     method component : Iri.t list
+    method component_opt : Iri.t option
     method constraints : Iri.t list
+    method constraints_opt : Iri.t option
     method definition : Iri.t list
+    method definition_opt : Iri.t option
     method derivedByInsertionFrom : Iri.t list
+    method derivedByInsertionFrom_opt : Iri.t option
     method derivedByRemovalFrom : Iri.t list
+    method derivedByRemovalFrom_opt : Iri.t option
     method describesService : Iri.t list
+    method describesService_opt : Iri.t option
     method dictionary : Iri.t list
+    method dictionary_opt : Iri.t option
     method dm : Iri.t list
+    method dm_opt : Iri.t option
     method editorialNote : Iri.t list
+    method editorialNote_opt : Iri.t option
     method editorsDefinition : Iri.t list
+    method editorsDefinition_opt : Iri.t option
     method endedAtTime : Rdf_term.literal list
+    method endedAtTime_opt : Rdf_term.literal option
     method entity : Iri.t list
+    method entity_opt : Iri.t option
     method generated : Iri.t list
+    method generated_opt : Iri.t option
     method generatedAtTime : Rdf_term.literal list
+    method generatedAtTime_opt : Rdf_term.literal option
     method hadActivity : Iri.t list
+    method hadActivity_opt : Iri.t option
     method hadDictionaryMember : Iri.t list
+    method hadDictionaryMember_opt : Iri.t option
     method hadGeneration : Iri.t list
+    method hadGeneration_opt : Iri.t option
     method hadMember : Iri.t list
+    method hadMember_opt : Iri.t option
     method hadPlan : Iri.t list
+    method hadPlan_opt : Iri.t option
     method hadPrimarySource : Iri.t list
+    method hadPrimarySource_opt : Iri.t option
     method hadRole : Iri.t list
+    method hadRole_opt : Iri.t option
     method hadUsage : Iri.t list
+    method hadUsage_opt : Iri.t option
     method has_anchor : Iri.t list
+    method has_anchor_opt : Iri.t option
     method has_provenance : Iri.t list
+    method has_provenance_opt : Iri.t option
     method has_query_service : Iri.t list
+    method has_query_service_opt : Iri.t option
     method influenced : Iri.t list
+    method influenced_opt : Iri.t option
     method influencer : Iri.t list
+    method influencer_opt : Iri.t option
     method insertedKeyEntityPair : Iri.t list
+    method insertedKeyEntityPair_opt : Iri.t option
     method invalidated : Iri.t list
+    method invalidated_opt : Iri.t option
     method invalidatedAtTime : Rdf_term.literal list
+    method invalidatedAtTime_opt : Rdf_term.literal option
     method inverse : Iri.t list
+    method inverse_opt : Iri.t option
     method mentionOf : Iri.t list
+    method mentionOf_opt : Iri.t option
     method n : Iri.t list
+    method n_opt : Iri.t option
     method order : Iri.t list
+    method order_opt : Iri.t option
     method pairEntity : Iri.t list
+    method pairEntity_opt : Iri.t option
     method pairKey : Rdf_term.literal list
+    method pairKey_opt : Rdf_term.literal option
     method pingback : Iri.t list
+    method pingback_opt : Iri.t option
     method provenanceUriTemplate : Rdf_term.literal list
+    method provenanceUriTemplate_opt : Rdf_term.literal option
     method qualifiedAssociation : Iri.t list
+    method qualifiedAssociation_opt : Iri.t option
     method qualifiedAttribution : Iri.t list
+    method qualifiedAttribution_opt : Iri.t option
     method qualifiedCommunication : Iri.t list
+    method qualifiedCommunication_opt : Iri.t option
     method qualifiedDelegation : Iri.t list
+    method qualifiedDelegation_opt : Iri.t option
     method qualifiedDerivation : Iri.t list
+    method qualifiedDerivation_opt : Iri.t option
     method qualifiedEnd : Iri.t list
+    method qualifiedEnd_opt : Iri.t option
     method qualifiedForm : Iri.t list
+    method qualifiedForm_opt : Iri.t option
     method qualifiedGeneration : Iri.t list
+    method qualifiedGeneration_opt : Iri.t option
     method qualifiedInfluence : Iri.t list
+    method qualifiedInfluence_opt : Iri.t option
     method qualifiedInsertion : Iri.t list
+    method qualifiedInsertion_opt : Iri.t option
     method qualifiedInvalidation : Iri.t list
+    method qualifiedInvalidation_opt : Iri.t option
     method qualifiedPrimarySource : Iri.t list
+    method qualifiedPrimarySource_opt : Iri.t option
     method qualifiedQuotation : Iri.t list
+    method qualifiedQuotation_opt : Iri.t option
     method qualifiedRemoval : Iri.t list
+    method qualifiedRemoval_opt : Iri.t option
     method qualifiedRevision : Iri.t list
+    method qualifiedRevision_opt : Iri.t option
     method qualifiedStart : Iri.t list
+    method qualifiedStart_opt : Iri.t option
     method qualifiedUsage : Iri.t list
+    method qualifiedUsage_opt : Iri.t option
     method removedKey : Rdf_term.literal list
+    method removedKey_opt : Rdf_term.literal option
     method sharesDefinitionWith : Iri.t list
+    method sharesDefinitionWith_opt : Iri.t option
     method specializationOf : Iri.t list
+    method specializationOf_opt : Iri.t option
     method startedAtTime : Rdf_term.literal list
+    method startedAtTime_opt : Rdf_term.literal option
     method todo : Iri.t list
+    method todo_opt : Iri.t option
     method unqualifiedForm : Iri.t list
+    method unqualifiedForm_opt : Iri.t option
     method used : Iri.t list
+    method used_opt : Iri.t option
     method value : Rdf_term.literal list
+    method value_opt : Rdf_term.literal option
     method wasAssociatedWith : Iri.t list
+    method wasAssociatedWith_opt : Iri.t option
     method wasAttributedTo : Iri.t list
+    method wasAttributedTo_opt : Iri.t option
     method wasDerivedFrom : Iri.t list
+    method wasDerivedFrom_opt : Iri.t option
     method wasEndedBy : Iri.t list
+    method wasEndedBy_opt : Iri.t option
     method wasGeneratedBy : Iri.t list
+    method wasGeneratedBy_opt : Iri.t option
     method wasInfluencedBy : Iri.t list
+    method wasInfluencedBy_opt : Iri.t option
     method wasInformedBy : Iri.t list
+    method wasInformedBy_opt : Iri.t option
     method wasInvalidatedBy : Iri.t list
+    method wasInvalidatedBy_opt : Iri.t option
     method wasQuotedFrom : Iri.t list
+    method wasQuotedFrom_opt : Iri.t option
     method wasRevisionOf : Iri.t list
+    method wasRevisionOf_opt : Iri.t option
     method wasStartedBy : Iri.t list
+    method wasStartedBy_opt : Iri.t option
   end

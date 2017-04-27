@@ -105,13 +105,23 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method accessControl : Iri.t list
+    method accessControl_opt : Iri.t option
     method accessTo : Iri.t list
+    method accessTo_opt : Iri.t option
     method accessToClass : Iri.t list
+    method accessToClass_opt : Iri.t option
     method agent : Iri.t list
+    method agent_opt : Iri.t option
     method agentClass : Iri.t list
+    method agentClass_opt : Iri.t option
     method agentGroup : Iri.t list
+    method agentGroup_opt : Iri.t option
     method defaultForNew : Iri.t list
+    method defaultForNew_opt : Iri.t option
     method delegates : Iri.t list
+    method delegates_opt : Iri.t option
     method mode : Iri.t list
+    method mode_opt : Iri.t option
     method owner : Iri.t list
+    method owner_opt : Iri.t option
   end

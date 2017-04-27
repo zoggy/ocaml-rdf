@@ -429,51 +429,99 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method after : Iri.t list
+    method after_opt : Iri.t option
     method before : Iri.t list
+    method before_opt : Iri.t option
     method day : Rdf_term.literal list
+    method day_opt : Rdf_term.literal option
     method dayOfWeek : Iri.t list
+    method dayOfWeek_opt : Iri.t option
     method dayOfYear : Rdf_term.literal list
+    method dayOfYear_opt : Rdf_term.literal option
     method days : Rdf_term.literal list
+    method days_opt : Rdf_term.literal option
     method hasBeginning : Iri.t list
+    method hasBeginning_opt : Iri.t option
     method hasDateTimeDescription : Iri.t list
+    method hasDateTimeDescription_opt : Iri.t option
     method hasDuration : Iri.t list
+    method hasDuration_opt : Iri.t option
     method hasDurationDescription : Iri.t list
+    method hasDurationDescription_opt : Iri.t option
     method hasEnd : Iri.t list
+    method hasEnd_opt : Iri.t option
     method hasMember : Iri.t list
+    method hasMember_opt : Iri.t option
     method hasTRS : Iri.t list
+    method hasTRS_opt : Iri.t option
     method hour : Rdf_term.literal list
+    method hour_opt : Rdf_term.literal option
     method hours : Rdf_term.literal list
+    method hours_opt : Rdf_term.literal option
     method inDateTime : Iri.t list
+    method inDateTime_opt : Iri.t option
     method inTimePosition : Iri.t list
+    method inTimePosition_opt : Iri.t option
     method inXSDDateTime : Rdf_term.literal list
+    method inXSDDateTime_opt : Rdf_term.literal option
     method inside : Iri.t list
+    method inside_opt : Iri.t option
     method intervalAfter : Iri.t list
+    method intervalAfter_opt : Iri.t option
     method intervalBefore : Iri.t list
+    method intervalBefore_opt : Iri.t option
     method intervalContains : Iri.t list
+    method intervalContains_opt : Iri.t option
     method intervalDuring : Iri.t list
+    method intervalDuring_opt : Iri.t option
     method intervalEquals : Iri.t list
+    method intervalEquals_opt : Iri.t option
     method intervalFinishedBy : Iri.t list
+    method intervalFinishedBy_opt : Iri.t option
     method intervalFinishes : Iri.t list
+    method intervalFinishes_opt : Iri.t option
     method intervalMeets : Iri.t list
+    method intervalMeets_opt : Iri.t option
     method intervalMetBy : Iri.t list
+    method intervalMetBy_opt : Iri.t option
     method intervalOverlappedBy : Iri.t list
+    method intervalOverlappedBy_opt : Iri.t option
     method intervalOverlaps : Iri.t list
+    method intervalOverlaps_opt : Iri.t option
     method intervalStartedBy : Iri.t list
+    method intervalStartedBy_opt : Iri.t option
     method intervalStarts : Iri.t list
+    method intervalStarts_opt : Iri.t option
     method minute : Rdf_term.literal list
+    method minute_opt : Rdf_term.literal option
     method minutes : Rdf_term.literal list
+    method minutes_opt : Rdf_term.literal option
     method month : Rdf_term.literal list
+    method month_opt : Rdf_term.literal option
     method months : Rdf_term.literal list
+    method months_opt : Rdf_term.literal option
     method nominalPosition : Rdf_term.literal list
+    method nominalPosition_opt : Rdf_term.literal option
     method numericDuration : Rdf_term.literal list
+    method numericDuration_opt : Rdf_term.literal option
     method numericPosition : Rdf_term.literal list
+    method numericPosition_opt : Rdf_term.literal option
     method second : Rdf_term.literal list
+    method second_opt : Rdf_term.literal option
     method seconds : Rdf_term.literal list
+    method seconds_opt : Rdf_term.literal option
     method timeZone : Iri.t list
+    method timeZone_opt : Iri.t option
     method unitType : Iri.t list
+    method unitType_opt : Iri.t option
     method week : Rdf_term.literal list
+    method week_opt : Rdf_term.literal option
     method weeks : Rdf_term.literal list
+    method weeks_opt : Rdf_term.literal option
     method xsdDateTime : Rdf_term.literal list
+    method xsdDateTime_opt : Rdf_term.literal option
     method year : Rdf_term.literal list
+    method year_opt : Rdf_term.literal option
     method years : Rdf_term.literal list
+    method years_opt : Rdf_term.literal option
   end

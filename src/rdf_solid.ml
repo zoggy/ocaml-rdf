@@ -32,11 +32,17 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  object
+  object(self)
   method account = Rdf_graph.iri_objects_of g ~sub ~pred: account
+  method account_opt = match self#account with [] -> None | x::_ -> Some x
   method inbox = Rdf_graph.iri_objects_of g ~sub ~pred: inbox
+  method inbox_opt = match self#inbox with [] -> None | x::_ -> Some x
   method notification = Rdf_graph.iri_objects_of g ~sub ~pred: notification
+  method notification_opt = match self#notification with [] -> None | x::_ -> Some x
   method read = Rdf_graph.iri_objects_of g ~sub ~pred: read
+  method read_opt = match self#read with [] -> None | x::_ -> Some x
   method timeline = Rdf_graph.iri_objects_of g ~sub ~pred: timeline
+  method timeline_opt = match self#timeline with [] -> None | x::_ -> Some x
   method typeIndex = Rdf_graph.iri_objects_of g ~sub ~pred: typeIndex
+  method typeIndex_opt = match self#typeIndex with [] -> None | x::_ -> Some x
   end

@@ -131,8 +131,13 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method masterWorkspace : Iri.t list
+    method masterWorkspace_opt : Iri.t option
     method preferencesFile : Iri.t list
+    method preferencesFile_opt : Iri.t option
     method storage : Iri.t list
+    method storage_opt : Iri.t option
     method uriPrefix : Iri.t list
+    method uriPrefix_opt : Iri.t option
     method workspace : Iri.t list
+    method workspace_opt : Iri.t option
   end

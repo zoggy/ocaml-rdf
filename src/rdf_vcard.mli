@@ -829,87 +829,171 @@ end
 class from : ?sub: Iri.t -> Rdf_graph.graph ->
   object
     method additional_name : Rdf_term.literal list
+    method additional_name_opt : Rdf_term.literal option
     method adr : Iri.t list
+    method adr_opt : Iri.t option
     method agent : Iri.t list
+    method agent_opt : Iri.t option
     method anniversary : Rdf_term.literal list
+    method anniversary_opt : Rdf_term.literal option
     method bday : Rdf_term.literal list
+    method bday_opt : Rdf_term.literal option
     method category : Rdf_term.literal list
+    method category_opt : Rdf_term.literal option
     method class_ : Rdf_term.literal list
+    method class__opt : Rdf_term.literal option
     method country_name : Rdf_term.literal list
+    method country_name_opt : Rdf_term.literal option
     method email : Iri.t list
+    method email_opt : Iri.t option
     method extended_address : Rdf_term.literal list
+    method extended_address_opt : Rdf_term.literal option
     method family_name : Rdf_term.literal list
+    method family_name_opt : Rdf_term.literal option
     method fn : Rdf_term.literal list
+    method fn_opt : Rdf_term.literal option
     method geo : Iri.t list
+    method geo_opt : Iri.t option
     method given_name : Rdf_term.literal list
+    method given_name_opt : Rdf_term.literal option
     method hasAdditionalName : Iri.t list
+    method hasAdditionalName_opt : Iri.t option
     method hasAddress : Iri.t list
+    method hasAddress_opt : Iri.t option
     method hasCalendarBusy : Iri.t list
+    method hasCalendarBusy_opt : Iri.t option
     method hasCalendarLink : Iri.t list
+    method hasCalendarLink_opt : Iri.t option
     method hasCalendarRequest : Iri.t list
+    method hasCalendarRequest_opt : Iri.t option
     method hasCategory : Iri.t list
+    method hasCategory_opt : Iri.t option
     method hasCountryName : Iri.t list
+    method hasCountryName_opt : Iri.t option
     method hasEmail : Iri.t list
+    method hasEmail_opt : Iri.t option
     method hasFN : Iri.t list
+    method hasFN_opt : Iri.t option
     method hasFamilyName : Iri.t list
+    method hasFamilyName_opt : Iri.t option
     method hasGender : Iri.t list
+    method hasGender_opt : Iri.t option
     method hasGeo : Iri.t list
+    method hasGeo_opt : Iri.t option
     method hasGivenName : Iri.t list
+    method hasGivenName_opt : Iri.t option
     method hasHonorificPrefix : Iri.t list
+    method hasHonorificPrefix_opt : Iri.t option
     method hasHonorificSuffix : Iri.t list
+    method hasHonorificSuffix_opt : Iri.t option
     method hasInstantMessage : Iri.t list
+    method hasInstantMessage_opt : Iri.t option
     method hasKey : Iri.t list
+    method hasKey_opt : Iri.t option
     method hasLanguage : Iri.t list
+    method hasLanguage_opt : Iri.t option
     method hasLocality : Iri.t list
+    method hasLocality_opt : Iri.t option
     method hasLogo : Iri.t list
+    method hasLogo_opt : Iri.t option
     method hasMember : Iri.t list
+    method hasMember_opt : Iri.t option
     method hasName : Iri.t list
+    method hasName_opt : Iri.t option
     method hasNickname : Iri.t list
+    method hasNickname_opt : Iri.t option
     method hasNote : Iri.t list
+    method hasNote_opt : Iri.t option
     method hasOrganizationName : Iri.t list
+    method hasOrganizationName_opt : Iri.t option
     method hasOrganizationUnit : Iri.t list
+    method hasOrganizationUnit_opt : Iri.t option
     method hasPhoto : Iri.t list
+    method hasPhoto_opt : Iri.t option
     method hasPostalCode : Iri.t list
+    method hasPostalCode_opt : Iri.t option
     method hasRegion : Iri.t list
+    method hasRegion_opt : Iri.t option
     method hasRelated : Iri.t list
+    method hasRelated_opt : Iri.t option
     method hasRole : Iri.t list
+    method hasRole_opt : Iri.t option
     method hasSound : Iri.t list
+    method hasSound_opt : Iri.t option
     method hasSource : Iri.t list
+    method hasSource_opt : Iri.t option
     method hasStreetAddress : Iri.t list
+    method hasStreetAddress_opt : Iri.t option
     method hasTelephone : Iri.t list
+    method hasTelephone_opt : Iri.t option
     method hasTitle : Iri.t list
+    method hasTitle_opt : Iri.t option
     method hasUID : Iri.t list
+    method hasUID_opt : Iri.t option
     method hasURL : Iri.t list
+    method hasURL_opt : Iri.t option
     method hasValue : Iri.t list
+    method hasValue_opt : Iri.t option
     method honorific_prefix : Rdf_term.literal list
+    method honorific_prefix_opt : Rdf_term.literal option
     method honorific_suffix : Rdf_term.literal list
+    method honorific_suffix_opt : Rdf_term.literal option
     method key : Iri.t list
+    method key_opt : Iri.t option
     method label : Rdf_term.literal list
+    method label_opt : Rdf_term.literal option
     method language : Rdf_term.literal list
+    method language_opt : Rdf_term.literal option
     method latitude : Rdf_term.literal list
+    method latitude_opt : Rdf_term.literal option
     method locality : Rdf_term.literal list
+    method locality_opt : Rdf_term.literal option
     method logo : Iri.t list
+    method logo_opt : Iri.t option
     method longitude : Rdf_term.literal list
+    method longitude_opt : Rdf_term.literal option
     method mailer : Rdf_term.literal list
+    method mailer_opt : Rdf_term.literal option
     method n : Iri.t list
+    method n_opt : Iri.t option
     method nickname : Rdf_term.literal list
+    method nickname_opt : Rdf_term.literal option
     method note : Rdf_term.literal list
+    method note_opt : Rdf_term.literal option
     method org : Iri.t list
+    method org_opt : Iri.t option
     method organization_name : Rdf_term.literal list
+    method organization_name_opt : Rdf_term.literal option
     method organization_unit : Rdf_term.literal list
+    method organization_unit_opt : Rdf_term.literal option
     method photo : Iri.t list
+    method photo_opt : Iri.t option
     method post_office_box : Rdf_term.literal list
+    method post_office_box_opt : Rdf_term.literal option
     method postal_code : Rdf_term.literal list
+    method postal_code_opt : Rdf_term.literal option
     method prodid : Rdf_term.literal list
+    method prodid_opt : Rdf_term.literal option
     method region : Rdf_term.literal list
+    method region_opt : Rdf_term.literal option
     method rev : Rdf_term.literal list
+    method rev_opt : Rdf_term.literal option
     method role : Rdf_term.literal list
+    method role_opt : Rdf_term.literal option
     method sort_string : Rdf_term.literal list
+    method sort_string_opt : Rdf_term.literal option
     method sound : Iri.t list
+    method sound_opt : Iri.t option
     method street_address : Rdf_term.literal list
+    method street_address_opt : Rdf_term.literal option
     method tel : Iri.t list
+    method tel_opt : Iri.t option
     method title : Rdf_term.literal list
+    method title_opt : Rdf_term.literal option
     method tz : Rdf_term.literal list
+    method tz_opt : Rdf_term.literal option
     method url : Iri.t list
+    method url_opt : Iri.t option
     method value : Rdf_term.literal list
+    method value_opt : Rdf_term.literal option
   end

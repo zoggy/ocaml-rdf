@@ -42,10 +42,15 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  object
+  object(self)
   method masterWorkspace = Rdf_graph.iri_objects_of g ~sub ~pred: masterWorkspace
+  method masterWorkspace_opt = match self#masterWorkspace with [] -> None | x::_ -> Some x
   method preferencesFile = Rdf_graph.iri_objects_of g ~sub ~pred: preferencesFile
+  method preferencesFile_opt = match self#preferencesFile with [] -> None | x::_ -> Some x
   method storage = Rdf_graph.iri_objects_of g ~sub ~pred: storage
+  method storage_opt = match self#storage with [] -> None | x::_ -> Some x
   method uriPrefix = Rdf_graph.iri_objects_of g ~sub ~pred: uriPrefix
+  method uriPrefix_opt = match self#uriPrefix with [] -> None | x::_ -> Some x
   method workspace = Rdf_graph.iri_objects_of g ~sub ~pred: workspace
+  method workspace_opt = match self#workspace with [] -> None | x::_ -> Some x
   end

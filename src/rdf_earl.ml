@@ -58,14 +58,23 @@ end
 class from ?sub g =
   let sub = match sub with None -> g.Rdf_graph.name() | Some iri -> iri in
   let sub = Rdf_term.Iri sub in
-  object
+  object(self)
   method assertedBy = Rdf_graph.iri_objects_of g ~sub ~pred: assertedBy
+  method assertedBy_opt = match self#assertedBy with [] -> None | x::_ -> Some x
   method info = Rdf_graph.literal_objects_of g ~sub ~pred: info
+  method info_opt = match self#info with [] -> None | x::_ -> Some x
   method mainAssertor = Rdf_graph.iri_objects_of g ~sub ~pred: mainAssertor
+  method mainAssertor_opt = match self#mainAssertor with [] -> None | x::_ -> Some x
   method mode = Rdf_graph.iri_objects_of g ~sub ~pred: mode
+  method mode_opt = match self#mode with [] -> None | x::_ -> Some x
   method outcome = Rdf_graph.iri_objects_of g ~sub ~pred: outcome
+  method outcome_opt = match self#outcome with [] -> None | x::_ -> Some x
   method pointer = Rdf_graph.iri_objects_of g ~sub ~pred: pointer
+  method pointer_opt = match self#pointer with [] -> None | x::_ -> Some x
   method result = Rdf_graph.iri_objects_of g ~sub ~pred: result
+  method result_opt = match self#result with [] -> None | x::_ -> Some x
   method subject = Rdf_graph.iri_objects_of g ~sub ~pred: subject
+  method subject_opt = match self#subject with [] -> None | x::_ -> Some x
   method test = Rdf_graph.iri_objects_of g ~sub ~pred: test
+  method test_opt = match self#test with [] -> None | x::_ -> Some x
   end
