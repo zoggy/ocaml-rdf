@@ -63,10 +63,12 @@ let add_rights_of_modes =
 let rights_to_string r =
   let b = Buffer.create 4 in
   let p c = Buffer.add_char b c in
+  p '[';
   if has_read r then p 'r' ;
   if has_write r then p 'w' ;
   if has_append r then p 'a' ;
   if has_control r then p 'c' ;
+  p ']';
   Buffer.contents b
 
 let modes_of_rights r =
