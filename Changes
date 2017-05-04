@@ -1,4 +1,6 @@
 Next release:
+- replace Str with Re in Rdf_sparql_http
+- replace Calendar with Ptime
 - add Rdf_webacl module
 - add Rdf_graph.subgraph_from
 - add _opt methods to "from" class in Rdf_* vocab modules

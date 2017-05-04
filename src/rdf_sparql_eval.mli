@@ -51,7 +51,7 @@ type context = {
   named : Iriset.t;
   dataset : Rdf_ds.dataset;
   active : Rdf_graph.graph;
-  now : CalendarLib.Fcalendar.t;
+  now : Rdf_term.datetime ;
 }
 val context :
   base:Iri.t ->
@@ -234,18 +234,17 @@ val bi_now :
   string ->
   'a -> context -> 'b -> Rdf_sparql_types.expression list -> Rdf_dt.value
 val bi_on_date :
-  (CalendarLib.Fcalendar.t -> Rdf_dt.value) ->
+  (Rdf_term.datetime -> Rdf_dt.value) ->
   string ->
   ('a -> 'b -> Rdf_sparql_types.expression -> Rdf_dt.value) ->
   'a -> 'b -> Rdf_sparql_types.expression list -> Rdf_dt.value
-module C = CalendarLib.Fcalendar
-val int_of_month : C.month -> int
-val bi_date_year : C.t -> Rdf_dt.value
-val bi_date_month : C.t -> Rdf_dt.value
-val bi_date_day : C.t -> Rdf_dt.value
-val bi_date_hours : C.t -> Rdf_dt.value
-val bi_date_minutes : C.t -> Rdf_dt.value
-val bi_date_seconds : C.t -> Rdf_dt.value
+
+val bi_date_year : Rdf_term.datetime -> Rdf_dt.value
+val bi_date_month : Rdf_term.datetime -> Rdf_dt.value
+val bi_date_day : Rdf_term.datetime -> Rdf_dt.value
+val bi_date_hours : Rdf_term.datetime -> Rdf_dt.value
+val bi_date_minutes : Rdf_term.datetime -> Rdf_dt.value
+val bi_date_seconds : Rdf_term.datetime -> Rdf_dt.value
 val bi_hash :
   (string -> Rdf_dt.value) ->
   string ->

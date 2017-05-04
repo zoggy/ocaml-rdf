@@ -41,7 +41,7 @@ and value =
   | Float of float  (** A decimal, float or double. *)
   | Bool of bool  (** A Boolean. *)
   | HexBinary of string (** Binary data in hexadecimal, in lowercase *)
-  | Datetime of CalendarLib.Fcalendar.t (** A datetime. *)
+  | Datetime of Rdf_term.datetime (** A datetime. *)
   | Ltrl of string * string option  (** A literal string with an optional language tag. *)
   | Ltrdt of string * Iri.t  (** A literal value with a specified datatype. *)
 
@@ -49,9 +49,6 @@ exception Error of error
 
 (** Raise a {!Error} exception with the given error. *)
 val error : error -> 'a
-
-(** Default date format. *)
-val date_fmt : string
 
 (** Return a string to show the given value. *)
 val string_of_value : value -> string

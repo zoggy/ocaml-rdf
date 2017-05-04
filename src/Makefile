@@ -165,10 +165,10 @@ $(LIB_JS): $(LIB_RDF_CMIFILES) $(LIB_RDF_CMOFILES)
 	$(OCAMLFIND) ocamlc -a -linkall -o $@ $(LIB_RDF_CMOFILES)
 
 $(PPX): $(LIB_RDF) ppx_rdf.ml
-	$(OCAMLFIND) ocamlopt -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlopt -linkpkg -o $@ -package compiler-libs.common,str $(OF_FLAGS) $(COMPFLAGS) $^
 
 $(PPX_BYTE): $(LIB_RDF_BYTE) ppx_rdf.ml
-	$(OCAMLFIND) ocamlc -linkpkg -o $@ -package compiler-libs.common $(OF_FLAGS) $(COMPFLAGS) $^
+	$(OCAMLFIND) ocamlc -linkpkg -o $@ -package compiler-libs.common,str $(OF_FLAGS) $(COMPFLAGS) $^
 
 # MYSQL
 

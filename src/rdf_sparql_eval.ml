@@ -98,7 +98,7 @@ type context =
       named : Iriset.t ;
       dataset : Rdf_ds.dataset ;
       active : Rdf_graph.graph ;
-      now : CalendarLib.Fcalendar.t ;
+      now : Rdf_term.datetime ;
        (** because all calls to NOW() must return the same value,
         we get it at the beginning of the evaluation and use it when required *)
     }
@@ -190,7 +190,7 @@ let rec compare ?(sameterm=false) v1 v2 =
     (* remember that both values are in lowercase *)
     Pervasives.compare b1 b2
   | Datetime t1, Datetime t2 ->
-      CalendarLib.Fcalendar.compare t1 t2
+      Ptime.compare t1.Rdf_term.stamp t2.Rdf_term.stamp
   | Ltrl (l1, lang1), Ltrl (l2, lang2) ->
       begin
         match Rdf_misc.opt_compare String.compare lang1 lang2 with
@@ -819,30 +819,24 @@ let bi_on_date f name =
   f
 ;;
 
-module C = CalendarLib.Fcalendar
-
-let int_of_month t =
- let open C in
-  match t with
-  | Jan -> 1
-  | Feb -> 2
-  | Mar -> 3
-  | Apr -> 4
-  | May -> 5
-  | Jun -> 6
-  | Jul -> 7
-  | Aug -> 8
-  | Sep -> 9
-  | Oct -> 10
-  | Nov -> 11
-  | Dec -> 12
-
-let bi_date_year t = Int (C.year t, Rdf_rdf.xsd_int) ;;
-let bi_date_month t = Int (int_of_month (C.month t), Rdf_rdf.xsd_int)
-let bi_date_day t = Int (C.day_of_month t, Rdf_rdf.xsd_int)
-let bi_date_hours t = Int (C.hour t, Rdf_rdf.xsd_int) ;;
-let bi_date_minutes t = Int (C.minute t, Rdf_rdf.xsd_int) ;;
-let bi_date_seconds t = Float (C.second t)
+let bi_date_year t =
+  let ((y,_,_),_) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Int (y, Rdf_rdf.xsd_int) ;;
+let bi_date_month t =
+  let ((_,m,_),_) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Int (m, Rdf_rdf.xsd_int)
+let bi_date_day t =
+  let ((_,_,d),_) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Int (d, Rdf_rdf.xsd_int)
+let bi_date_hours t =
+  let (_,((h,_,_),_)) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Int (h, Rdf_rdf.xsd_int) ;;
+let bi_date_minutes t =
+  let (_,((_,m,_),_)) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Int (m, Rdf_rdf.xsd_int) ;;
+let bi_date_seconds t =
+  let (_,((_,_,s),_)) = Ptime.to_date_time ?tz_offset_s:t.N.tz t.N.stamp in
+  Float (float_of_int s)
 ;;
 
 let bi_hash f name =
@@ -1364,7 +1358,7 @@ let agg_avg ctx d ms e =
         else
           (vset, eval_plus (v, v2), cpt+1)
   in
-  let (_, v,cpt) = Rdf_sparql_ms.omega_fold f ms 
+  let (_, v,cpt) = Rdf_sparql_ms.omega_fold f ms
     (Rdf_dt.VSet.empty, Int (0, Rdf_rdf.xsd_int), 0) in
   match cpt with
     0 -> Int (0, Rdf_rdf.xsd_int)

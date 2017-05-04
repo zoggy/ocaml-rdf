@@ -244,8 +244,8 @@ module Make (P : P) =
 
     let make_query_string ?(query_var="query") msg =
       let enc_v = Uri.pct_encode ~component: `Query_value in
-      let regexp = Str.regexp "[\n]+" in
-      let spql_query = Str.global_replace regexp " "
+      let regexp = Re.(compile (rep1 (char '\n'))) in
+      let spql_query = Re.replace_string regexp ~by:" "
         (query_var^"="^(enc_v msg.in_query))
       in
       let ds = msg.in_dataset in

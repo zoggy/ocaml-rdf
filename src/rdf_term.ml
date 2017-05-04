@@ -39,9 +39,38 @@ type term =
   | Blank
   | Blank_ of blank_id
 
+exception Invalid_date of string
 
+let () = Printexc.register_printer
+  (function
+   | Invalid_date str -> Some (Printf.sprintf "Invalid date %s" str)
+   | _ -> None
+  )
 
 type triple = term * Iri.t * term
+
+type datetime =
+  { stamp : Ptime.t ;
+    tz: Ptime.tz_offset_s option ;
+  }
+
+let datetime_of_string str =
+  match Ptime.of_rfc3339 str with
+     Ok (stamp, tz, _) -> { stamp ; tz }
+   | Error (`RFC3339 ((p1,p2), e)) ->
+      let b = Buffer.create 256 in
+      let fmt = Format.formatter_of_buffer b in
+      Format.fprintf fmt "%s\n" str ;
+      if p2 > p1 then
+        Format.fprintf fmt "Characters %d-%d: " p1 p2
+      else
+        Format.fprintf fmt "Character %d: " p1;
+      Ptime.pp_rfc3339_error fmt e;
+      Format.pp_print_flush fmt () ;
+      let err = Buffer.contents b in
+      raise (Invalid_date err)
+
+let string_of_datetime t = Ptime.to_rfc3339 ?tz_offset_s: t.tz t.stamp
 
 let string_of_blank_id id = id;;
 let blank_id_of_string str = str;;
@@ -57,25 +86,18 @@ let term_of_literal_string ?typ ?lang v =
   Literal (mk_literal ?typ ?lang v)
 ;;
 
-let now () = CalendarLib.Fcalendar.now()
+let now () = 
+  match Ptime.of_float_s (Unix.gettimeofday()) with
+    None -> assert false
+  | Some stamp -> { stamp ; tz = None }
 let mk_literal_datetime ?(d=now()) () =
-  let v = CalendarLib.Printer.Fcalendar.sprint "%Y-%m-%dT%H:%M:%S%:z" d in
+  let v = string_of_datetime d in
   mk_literal ~typ: (Iri.of_string "http://www.w3.org/2001/XMLSchema#dateTime") v
 ;;
 
 let term_of_datetime ?d () =
   Literal (mk_literal_datetime ?d ())
 ;;
-
-let fmt = "%Y-%m-%dT%H:%M:%S"
-let fmt_tz = fmt^"%:z"
-let fmt_utc = fmt^"Z"
-
-let datetime_of_string str =
-  try CalendarLib.Printer.Fcalendar.from_fstring fmt_tz str
-  with _ ->
-      try CalendarLib.Printer.Fcalendar.from_fstring fmt_utc str
-      with _ -> CalendarLib.Printer.Fcalendar.from_fstring fmt str
 
 let datetime_of_literal lit = datetime_of_string lit.lit_value
 

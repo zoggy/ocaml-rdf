@@ -50,6 +50,17 @@ module TMap : Map.S with type key = term
 (** A RDF triple is triple (term, iri, term). *)
 type triple = term * Iri.t * term
 
+type datetime =  {
+      stamp : Ptime.t ;
+      tz: Ptime.tz_offset_s option ;
+    }
+
+(** Return RFC 3339 representation of datetime. *)
+val string_of_datetime : datetime -> string
+
+(** Read datetime from RFC 3339 representation. *)
+val datetime_of_string : string -> datetime
+
 (** Get a string from a blank term id. *)
 val string_of_blank_id : blank_id -> string
 
@@ -68,20 +79,17 @@ val term_of_iri_string : string -> term
 (** Creation of a literal. *)
 val mk_literal : ?typ:Iri.t -> ?lang:string -> string -> literal
 
-val now : unit -> CalendarLib.Fcalendar.t
+val now : unit -> datetime
 
 (** Create a datetime literal with type iri from the given datetime [d].
   If no date is given, {!now}[()] is used.*)
-val mk_literal_datetime : ?d:CalendarLib.Fcalendar.t -> unit -> literal
+val mk_literal_datetime : ?d:datetime -> unit -> literal
 
 (** Create a literal term from the given datetime. (see {!mk_literal_datetime}). *)
-val term_of_datetime : ?d:CalendarLib.Fcalendar.t -> unit -> term
-
-(** Parse a string to get a datetime. *)
-val datetime_of_string : string -> CalendarLib.Fcalendar.t
+val term_of_datetime : ?d:datetime -> unit -> term
 
 (** Parse a literal to get a datetime. *)
-val datetime_of_literal : literal -> CalendarLib.Fcalendar.t
+val datetime_of_literal : literal -> datetime
 
 (** Create a boolean literal with type iri from the given boolean. *)
 val mk_literal_bool : bool -> literal

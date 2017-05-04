@@ -40,14 +40,12 @@ and value =
   | Float of float
   | Bool of bool
   | HexBinary of string
-  | Datetime of CalendarLib.Fcalendar.t
+  | Datetime of Rdf_term.datetime
   | Ltrl of string * string option (* optional language *)
   | Ltrdt of string * Iri.t (* datatyped literal, with unsupported datatype *)
 
 exception Error of error
 let error e = raise (Error e)
-
-let date_fmt = "%d %b %Y %T %z"
 
 let string_of_value = function
   Err _ -> "<err>"
@@ -59,7 +57,7 @@ let string_of_value = function
 | Bool true -> "true"
 | Bool false -> "false"
 | HexBinary s -> Rdf_term.quote_str s
-| Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
+| Datetime t -> Rdf_term.string_of_datetime t
 | Ltrl (s,None) -> Rdf_term.quote_str s
 | Ltrl (s, Some lang) -> (Rdf_term.quote_str s)^"@"^lang
 | Ltrdt (s, iri) -> (Rdf_term.quote_str s)^"^^"^(Iri.to_string iri)
@@ -106,7 +104,7 @@ module ValueOrdered =
       | HexBinary _, _ -> 1
       | _, HexBinary _ -> -1
       | Datetime d1, Datetime d2 ->
-          CalendarLib.Fcalendar.compare d1 d2
+          Ptime.compare d1.stamp d2.stamp
       | Datetime _, _ -> 1
       | _, Datetime _ -> -1
       | Ltrdt (s1, iri1), Ltrdt (s2, iri2) ->
@@ -199,7 +197,7 @@ let string = function
       | Bool true -> "true"
       | Bool false -> "false"
       | HexBinary s -> s
-      | Datetime t -> CalendarLib.Printer.Fcalendar.sprint date_fmt t
+      | Datetime t -> Rdf_term.string_of_datetime t
       | Ltrl (s, _) -> s
       | Blank _ -> error (Type_error (v, "string"))
       | Ltrdt (s, _) -> s
@@ -319,7 +317,7 @@ let ltrl = function
         | Bool true -> ("true", None)
         | Bool false -> ("false", None)
         | HexBinary s -> (s, None)
-        | Datetime t -> (CalendarLib.Printer.Fcalendar.sprint date_fmt t, None)
+        | Datetime t -> (Rdf_term.string_of_datetime t, None)
         | Blank _ -> error (Type_error (v, "ltrl"))
       in
       Ltrl (s, lang)
