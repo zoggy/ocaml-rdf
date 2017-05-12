@@ -1696,7 +1696,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # DO NOT FORGET TO UPDATE opam FILE
-VERSION=0.11.0
+VERSION=0.12.0
 PACKAGE=rdf
 
 # The root directory where we will compile
