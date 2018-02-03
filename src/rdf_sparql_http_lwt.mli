@@ -38,7 +38,7 @@ val base_headers : ?accept: string -> unit -> Cohttp.Header.t
 *)
 val result_of_response:
   (content_type: string -> string -> Rdf_sparql_protocol.out_message) ->
-    Cohttp.Response.t * Cohttp_lwt_body.t ->
+    Cohttp.Response.t * Cohttp_lwt.Body.t ->
     Rdf_sparql_protocol.out_message Lwt.t
 
 (** The following items are created with the {!Rdf_sparql_http.Make} functor.

@@ -37,10 +37,10 @@ let get_headers ?content_type ?content_length () =
        (Rdf_sparql_http_lwt.base_headers ()))
 
 let body_of_string body_string =
-  let body_stream = Cohttp_lwt_body.create_stream
+  let body_stream = Cohttp_lwt.Body.create_stream
     (fun s -> Lwt.return (Cohttp.Transfer.Final_chunk s)) body_string
   in
-  Cohttp_lwt_body.of_stream body_stream
+  Cohttp_lwt.Body.of_stream body_stream
 
 let result_of_null_response = Rdf_sparql_http_lwt.result_of_response
   (fun ~content_type _ -> Rdf_sparql_protocol.Ok)

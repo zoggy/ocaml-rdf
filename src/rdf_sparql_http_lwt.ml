@@ -33,7 +33,7 @@ let result_of_response f (header, body) =
       None -> ""
     | Some s -> s
   in
-  let%lwt body_string = Cohttp_lwt_body.to_string body in
+  let%lwt body_string = Cohttp_lwt.Body.to_string body in
   match status with
   | 400 ->  Lwt.return (Error (Malformed_query body_string))
   | 500 ->  Lwt.return (Error (Query_request_refused body_string))
@@ -72,10 +72,10 @@ module P =
         "Content-Length" (string_of_int (String.length content))
       in
       let body =
-        let stream = Cohttp_lwt_body.create_stream
+        let stream = Cohttp_lwt.Body.create_stream
           (fun s -> Lwt.return (Cohttp.Transfer.Final_chunk s)) content
         in
-        Cohttp_lwt_body.of_stream stream
+        Cohttp_lwt.Body.of_stream stream
       in
       let%lwt res = Cohttp_lwt_unix.Client.post ~body ~chunked: false ~headers uri in
       result_of_response f res

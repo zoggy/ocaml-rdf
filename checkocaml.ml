@@ -956,7 +956,8 @@ let _ =
 
 
 let _ =
-  match check_ocamlfind_package conf ~fail: false "cohttp.lwt"
+  match check_ocamlfind_package conf
+    ~min_version:[1;0;2] ~fail: false "cohttp-lwt-unix"
   with
     true -> add_subst "LIB_LWT" "rdf_lwt.cmxa"
   | _ -> ();;
