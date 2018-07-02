@@ -2,4 +2,4 @@ Development has moved to https://framagit.org/zoggy/ocaml-rdf
 
 OCaml-RDF is an OCaml library to manipulate RDF Graphs. Il also
 implements Sparql.
-More information on http://zoggy.github.io/ocaml-rdf
+More information on https://www.good-eris.net/ocaml-rdf
