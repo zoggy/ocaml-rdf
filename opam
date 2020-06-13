@@ -1,9 +1,11 @@
-opam-version: "1"
+opam-version: "2.0"
+version: "0.12.0"
 maintainer: "zoggy@bat8.org"
 authors: ["Maxence Guesdon"]
 homepage: "http://zoggy.github.io/ocaml-rdf/"
-license: "GNU Lesser General Public License version 3"
+license: "LGPL-3.0-only"
 doc: ["http://zoggy.github.io/ocaml-rdf/doc.html"]
+bug-reports: "https://github.com/zoggy/ocaml-rdf/issues"
 tags: [
   "rdf"
   "semantic web"
@@ -13,14 +15,13 @@ tags: [
   "sparql"
   "utf8"
 ]
-version: "0.12.0"
 build: [
   ["./configure" "--prefix" prefix]
   [make "all"]
-  [make "install"]
 ]
-remove: [["ocamlfind" "remove" "rdf"]]
+install: [make "install"]
 depends: [
+  "ocaml" {>= "4.03.0"}
   "ocamlfind"
   "xmlm" {>= "1.2.0"}
   "sedlex" {>= "2.0"}
@@ -37,10 +38,19 @@ depends: [
   "ocaml-migrate-parsetree" {>= "1.5.0"}
 ]
 depopts: ["mysql" "postgresql" "cohttp-lwt-unix" "lwt" "lwt_ppx"]
-ocaml-version: [>= "4.03.0"]
 conflicts: [
   "cohttp-lwt-unix" {< "1.0.2"}
   "lwt" {< "3.2.1"}
   "lwt_ppx" {< "1.0.1"}
   "mysql" {< "1.1.1"}
 ]
+synopsis: "Native OCaml implementation of RDF Graphs and Sparql 1.1 Query"
+description: """
+Implemented features
+
+- Three storages available: in memory, in a MySQL or in a Postgresql database,
+- Ability to define your own storages,
+- Transactions,
+- Importing from and exporting to RDF/XML and Turtle formats,
+- Executing Sparql 1.1 queries,
+- HTTP binding of the Sparql protocol, using Lwt."""
