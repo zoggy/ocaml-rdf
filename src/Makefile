@@ -292,7 +292,7 @@ clean:: dummy
 
 .depend depend:
 	$(RM) .depend
-	$(OCAMLFIND) ocamldep -package lwt.syntax,sedlex,lwt.ppx *.ml *.mli > .depend
+	$(OCAMLFIND) ocamldep -package lwt.syntax,sedlex,sedlex.ppx,lwt.ppx *.ml *.mli > .depend
 
 dummy:
 

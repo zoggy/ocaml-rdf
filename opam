@@ -23,7 +23,7 @@ remove: [["ocamlfind" "remove" "rdf"]]
 depends: [
   "ocamlfind"
   "xmlm" {>= "1.2.0"}
-  "sedlex" {>= "1.99.2"}
+  "sedlex" {>= "2.0"}
   "menhir" {>= "20151112"}
   "uuidm" {>= "0.9.6"}
   "uutf" {>= "1.0.0"}
