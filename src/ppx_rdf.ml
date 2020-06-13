@@ -26,6 +26,10 @@
 
 
 module Re = Str
+
+open Migrate_parsetree.OCaml_410.Ast
+let ocaml_version = Migrate_parsetree.Versions.ocaml_410
+
 open Ast_mapper
 open Ast_helper
 open Asttypes
@@ -132,7 +136,7 @@ let gen_code ~loc ~attrs fmt args =
     ((Nolabel, f) :: args)
 ;;
 
-let getenv_mapper argv =
+let getenv_mapper _config _cookies =
   { default_mapper with
     expr = fun mapper expr ->
       match expr with
@@ -181,4 +185,6 @@ let getenv_mapper argv =
       | x -> default_mapper.expr mapper x;
   }
 
-let () = run_main getenv_mapper
+let () =
+  Migrate_parsetree.Driver.register ~name:"ppx_rdf" ocaml_version getenv_mapper;
+  Migrate_parsetree.Driver.run_as_ppx_rewriter ()
