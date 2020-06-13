@@ -34,6 +34,7 @@ depends: [
   "uri" {>= "1.9.1" }
   "calendar" {>= "2.03.2"}
   "jsonm" {>= "1.0.0"}
+  "ocaml-migrate-parsetree" {>= "1.5.0"}
 ]
 depopts: ["mysql" "postgresql" "cohttp-lwt-unix" "lwt" "lwt_ppx"]
 ocaml-version: [>= "4.03.0"]
